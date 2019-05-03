@@ -1,0 +1,225 @@
+<div class="row mt-3">
+    <div class="container d-flex col-xs-8">
+        <h3>Cadastro de Cliente</h3>&nbsp;
+    </div>
+  </div>
+  
+  <form [formGroup]="cadastroForm" class="container mr-8 mt-2">
+  <tabset >
+      <tab heading="Geral">
+        <div class="row mt-4">
+          <div class="form-group col-md-2">
+            <label>Cod. Siga:</label>
+            <input type="text" class="form-control" formControlName="codSiga" />
+          </div>
+    
+          <div class="form-group col-md-2">
+            <label>N° da Loja:</label>
+            <input type="text" class="form-control" formControlName="nLoja" />
+          </div>
+    
+          <div class="form-group col-md-4">
+            <label>Razão Social:(*)</label>
+            <input class="form-control" type="text" formControlName="razaoSocial" [ngClass]="{ 'is-invalid': cadastroForm.get('razaoSocial').errors && 
+                                            cadastroForm.get('razaoSocial').touched}" />
+    
+            <div *ngIf="cadastroForm.get('razaoSocial').hasError('required') &&cadastroForm.get('razaoSocial').touched"
+              class="invalid-feedback">
+              Razão Social é obrigatório.
+            </div>
+          </div>
+    
+          <div class="form-group col-md-4">
+            <label>Nome Fantasia:(*)</label>
+            <input class="form-control" type="text" formControlName="nomeFantasia" [ngClass]="{ 'is-invalid': cadastroForm.get('nomeFantasia').errors && 
+                                                          cadastroForm.get('nomeFantasia').touched}" />
+    
+            <div *ngIf="cadastroForm.get('nomeFantasia').hasError('required') &&cadastroForm.get('nomeFantasia').touched"
+              class="invalid-feedback">
+              Nome Fantasia é obrigatório.
+            </div>
+          </div>
+    
+        </div>
+    
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label>Proprietário:</label>
+            <input class="form-control" type="text" formControlName="proprietario" />
+          </div>
+    
+          <div class="form-group col-md-3">
+            <label>Gerente:</label>
+            <input class="form-control" type="text" formControlName="gerente" />
+          </div>
+    
+          <div class="form-group col-md-3">
+            <label>Inscrição Estadual:</label>
+            <input class="form-control" type="text" maxlength="16" [ngModel]="valueIePipe | iePipePipe"
+              (ngModelChange)="valueIePipe=$event" formControlName="iE" />
+          </div>
+    
+          <div class="form-group col-md-3">
+            <label>Cnpj/Cpf:(*)</label>
+            <input class="form-control" type="text" maxlength="18" formControlName="cnpjCpf" [ngClass]="{ 'is-invalid': cadastroForm.get('cnpjCpf').errors && 
+                     cadastroForm.get('cnpjCpf').touched}" [ngModel]="valueCnpjCpfPipe | cnpjCpfPipePipe"
+              (ngModelChange)="valueCnpjCpfPipe=$event" />
+    
+            <div *ngIf="cadastroForm.get('cnpjCpf').hasError('required') &&cadastroForm.get('cnpjCpf').touched"
+              class="invalid-feedback">
+              Obrigatório o preenchimento.
+            </div>
+          </div>
+        </div>
+    
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label>Estado:(*)</label>
+                <ng-select #selectEstados [items]="estados" bindLabel="nome" required (clear)="limparEstado()" bindValue="id"
+                  (change)="getCidades(estadoIdSelecionado)" [(ngModel)]="estadoIdSelecionado" formControlName="estadoId">
+                </ng-select>
+                <div *ngIf="cadastroForm.get('estadoId').hasError('required') && cadastroForm.get('estadoId').touched"
+                  class="invalid-feedback d-block ng-invalid ng-touched">
+                  Estado é Obrigatório.
+                </div>
+              </div>
+        
+              <div class="form-group col-md-3">
+                <label>Cidade:(*)</label>
+                <ng-select [items]="cidades" bindLabel="nome" (clear)="limparCidade()" bindValue="id"
+                  [(ngModel)]="cidadeIdSelecionado" formControlName="cidadeId">
+                </ng-select>
+                <div *ngIf="cadastroForm.get('cidadeId').hasError('required') && cadastroForm.get('cidadeId').touched"
+                  class="invalid-feedback d-block ng-invalid ng-touched">
+                  Cidade é Obrigatória.
+                </div>
+              </div>
+    
+          <div class="form-group col-md-2">
+            <label>Cep:(*)</label>
+            <input class="form-control" type="text" maxlength="9" formControlName="cep" [ngClass]="{ 'is-invalid': cadastroForm.get('cep').errors && 
+                cadastroForm.get('cep').touched}" [ngModel]="valueCepPipe | cepPipePipe"
+              (ngModelChange)="valueCepPipe=$event" />
+    
+            <div *ngIf="cadastroForm.get('cep').hasError('required') &&cadastroForm.get('cep').touched"
+              class="invalid-feedback">
+              Cep é Obrigatório.
+            </div>
+          </div>
+    
+          <div class="form-group col-md-4">
+            <label>Endereço:(*)</label>
+            <input class="form-control" type="text" formControlName="endereco" [ngClass]="{ 'is-invalid': cadastroForm.get('endereco').errors && 
+                                                                        cadastroForm.get('endereco').touched}" />
+    
+            <div *ngIf="cadastroForm.get('endereco').hasError('required') &&cadastroForm.get('endereco').touched"
+              class="invalid-feedback">
+              Endereço é Obrigatório.
+            </div>
+          </div>
+    
+        </div>
+    
+        <div class="row">
+
+            <div class="form-group col-md-3">
+                <label>Bairro:(*)</label>
+                <input class="form-control" type="text" formControlName="bairro"
+                  [ngClass]="{ 'is-invalid': cadastroForm.get('bairro').errors && cadastroForm.get('bairro').touched}" />
+        
+                <div *ngIf="cadastroForm.get('bairro').hasError('required') &&cadastroForm.get('bairro').touched"
+                  class="invalid-feedback">
+                  Bairro é Obrigatório.
+                </div>
+              </div>
+
+          <div class="form-group col-md-4">
+            <label>Email:(*)</label>
+            <input class="form-control" type="text" formControlName="email" [ngClass]="{ 'is-invalid': cadastroForm.get('email').errors && 
+                                                                    cadastroForm.get('email').touched}" />
+            <div *ngIf="cadastroForm.get('email').hasError('required') &&cadastroForm.get('email').touched"
+              class="invalid-feedback">
+              E-mail é obrigatório.
+            </div>
+            <div *ngIf="cadastroForm.get('email').hasError('email') &&cadastroForm.get('email').touched"
+              class="invalid-feedback">
+              E-mail inválido.
+            </div>
+          </div>
+    
+          <div class="form-group col-md-2">
+            <label>Telefone:(*)</label>
+            <input class="form-control" type="text" maxlength="14" formControlName="telefone" [ngClass]="{ 'is-invalid': cadastroForm.get('telefone').errors && 
+                     cadastroForm.get('telefone').touched}" [ngModel]="valueTelefonePipe | celularPipePipe"
+              (ngModelChange)="valueTelefonePipe=$event" />
+    
+            <div *ngIf="cadastroForm.get('telefone').hasError('required') &&cadastroForm.get('telefone').touched"
+              class="invalid-feedback">
+              Telefone é obrigatório.
+            </div>
+          </div>
+    
+          <div class="form-group col-md-2">
+            <label>Celular:</label>
+            <input telefoneMask class="form-control" maxlength="14" [ngModel]="valueCelularPipe | celularPipePipe"
+              (ngModelChange)="valueCelularPipe=$event" type="tel" formControlName="celular" />
+          </div>
+        </div>
+    
+      </tab>
+    
+      <tab heading="Sistema">
+        <div class="row mt-4">
+          <div class="form-group col-md-4">
+            <label>Sistema:(*)</label>
+            <ng-select [items]="sistemas" bindLabel="nome" required (clear)="limparSistema()" bindValue="id"
+              (change)="getGeracoes(sistemaIdSelecionado)" [(ngModel)]="sistemaIdSelecionado" formControlName="sistemaId">
+            </ng-select>
+            <div *ngIf="cadastroForm.get('sistemaId').hasError('required') && cadastroForm.get('sistemaId').touched"
+              class="invalid-feedback d-block ng-invalid ng-touched">
+              Sistema é Obrigatório.
+            </div>
+          </div>
+        
+          <div class="form-group col-md-4">
+            <label>Gerações:(*)</label>
+            <ng-select [items]="geracoes" bindLabel="nome" required (clear)="limparGeracao()" bindValue="id"
+              (change)="getVersoesGeracao(geracaoIdSelecionado)" [(ngModel)]="geracaoIdSelecionado" formControlName="geracaoId">
+            </ng-select>
+            <div *ngIf="cadastroForm.get('geracaoId').hasError('required') && cadastroForm.get('geracaoId').touched"
+              class="invalid-feedback d-block ng-invalid ng-touched">
+              Geração é Obrigatório.
+            </div>
+          </div>
+        </div>
+  
+          <div class="row">
+          <div class="form-group col-md-8">
+            <label>Versões:(*)</label>
+            <ng-select [items]="versoes"
+                   bindLabel="nome"
+                   bindValue="id"
+                   required
+                   [multiple]="true"
+                   (change)="adicionarClienteVersoes(versoesIdSelecionado)"
+                   [(ngModel)]="versoesIdSelecionado"
+                   formControlName="clienteVersoes">
+            </ng-select>
+                 
+            <div *ngIf="cadastroForm.get('clienteVersoes').hasError('required') && cadastroForm.get('clienteVersoes').touched"
+              class="invalid-feedback d-block ng-invalid ng-touched">
+              Versão(ões) é Obrigatório.
+            </div>
+          </div>
+        </div>
+        
+      </tab>
+      <div *ngIf="!cadastroForm.valid" style="font-size:18px;" class="invalid-feedback d-block">
+          Preencha todos os campos com (*).
+      </div>
+  </tabset>
+  </form>
+  <div class="form-group  offset-md-10 mt-3">
+    <button class="btn btn-primary btn-block" [disabled]="!cadastroForm.valid"
+      (click)="salvarAlteracao()">Salvar</button>
+  </div>

@@ -1,0 +1,81 @@
+<div class="container d-flex mt-5">
+  <div class="form-inline mr-auto">
+    <div class="container form-group mb-2">
+      <h3>Filtro :</h3>
+      &nbsp;
+      <input
+        type="text"
+        class="form-control ml-2"
+        placeholder="Pesquisar..."
+        [(ngModel)]="filtroLista"
+      />
+    </div>
+  </div>
+  <div>
+   <a [routerLink]="['/colaboradores','novo']" tooltop="Novo Colaborador" class="btn btn-success">
+      <i class="fa fa-plus-circle"></i>&nbsp; Novo Colaborador
+    </a>
+  </div>
+</div>
+
+<table class="container table table-striped mt-4">
+  <thead class="thead-light">
+    <tr>
+      <th>Id</th>
+      <th>Usuário</th>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="colaboradores && colaboradores.length">
+    <tr *ngFor="let colaborador of colaboradoresFiltrados">
+      <td>{{ colaborador.id }}</td>
+      <td>{{ colaborador.userName }}</td>
+      <td>{{ colaborador.nomeCompleto }}</td>
+      <td>{{ colaborador.email }}</td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirColaborador(colaborador, confirm)">
+            <i class="fa fa-eraser"></i>
+          </button>
+                <a [routerLink]="['/colaboradores','editar', colaborador.id]" tooltip="Editar/Perfil" class="btn btn-sm btn-primary">
+          <i class="fa fa-edit"></i>
+        </a>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!colaboradores">
+    <tr colspan="7" class="text-center"></tr>
+    <h4>
+      Nenhum colaborador encontrado!
+    </h4>
+  </tfoot>
+</table>
+
+<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">
+              Deletando Evento
+            </h4>
+            <button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>{{bodyDeletarColaborador}}</p>
+        </div>    
+        <div class="modal-footer btn-group d-flex">      
+            <button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+              CENCELAR
+            </button>
+            <button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+                DELETAR
+            </button>
+        </div>
+      </div>
+  </div>
+</div>
