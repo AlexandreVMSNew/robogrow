@@ -9,6 +9,10 @@ import { EditarColaboradorComponent } from './colaborador/editarColaborador/edit
 import { ClienteComponent } from './cliente/cliente.component';
 import { NovoClienteComponent } from './cliente/novoCliente/novoCliente.component';
 import { EditarClienteComponent } from './cliente/editarCliente/editarCliente.component';
+import { AtendimentoComponent } from './atendimento/atendimento.component';
+import { RetornoComponent } from './atendimento/retorno/retorno.component';
+import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoRetorno.component';
+import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
 
 const routes: Routes = [
   { path: 'colaboradores', component: ColaboradorComponent, canActivate: [AuthGuard]},
@@ -18,6 +22,12 @@ const routes: Routes = [
   { path: 'clientes', component: ClienteComponent, canActivate: [AuthGuard]},
   { path: 'clientes/novo', component: NovoClienteComponent, canActivate: [AuthGuard]},
   { path: 'clientes/editar/:id', component: EditarClienteComponent, canActivate: [AuthGuard]},
+  { path: 'atendimentos', component: AtendimentoComponent, canActivate: [AuthGuard]},
+  { path: 'atendimentos/novo', component: AtendimentoComponent, canActivate: [AuthGuard]},
+  { path: 'atendimentos/editar/:id', component: AtendimentoComponent, canActivate: [AuthGuard]},
+  { path: 'atendimentos/retornos', component: RetornoComponent, canActivate: [AuthGuard]},
+  { path: 'atendimentos/retornos/novo', component: NovoRetornoComponent, canActivate: [AuthGuard]},
+  { path: 'atendimentos/retornos/editar/:id', component: EditarRetornoComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full'}

@@ -27,4 +27,10 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
   

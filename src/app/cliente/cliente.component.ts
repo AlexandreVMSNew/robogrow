@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from '../_models/Cliente';
+import { Cliente } from '../_models/Cadastros/Clientes/Cliente';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ClienteService } from '../_services/cliente.service';
+import { ClienteService } from '../_services/Cadastros/Clientes/cliente.service';
 import { BsModalService, BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Estado } from '../_models/Estado';
-import { Cidade } from '../_models/Cidade';
-import { EstadoService } from '../_services/estado.service';
-import { CidadeService } from '../_services/cidade.service';
 
 @Component({
   selector: 'app-cliente',
@@ -22,7 +18,13 @@ export class ClienteComponent implements OnInit {
   modoSalvar = '';
   cadastroForm: FormGroup;
   bodyDeletarCliente = '';
-
+  paginaAtual = 1;
+  totalRegistros: number;
+  status = ['ATIVO', 'INATIVO', 'PROSPECT', 'TODOS'];
+  filtrarPor = ['COD.SIGA', 'RAZÃO SOCIAL', 'NOME FANTASIA', 'CNPJ/CPF', 'CIDADE', 'STATUS'];
+  filtroSelecionado = 'NOME FANTASIA';
+  statusFiltroSelecionado = 'ATIVO';
+  filtroRetorno: any;
   // tslint:disable-next-line:variable-name
   _filtroLista: string;
 
@@ -35,15 +37,6 @@ export class ClienteComponent implements OnInit {
     ) {
       this.localeService.use('pt-br');
     }
-
-  get filtroLista() {
-    return this._filtroLista;
-  }
-
-  set filtroLista(value: string) {
-    this._filtroLista = value;
-    this.clientesFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
-  }
 
   excluirCliente(cliente: Cliente, template: any) {
     this.cliente = cliente;
@@ -66,18 +59,55 @@ export class ClienteComponent implements OnInit {
     this.getClientes();
   }
 
+  get filtroLista() {
+    return this._filtroLista;
+  }
+
+  set filtroLista(value: string) {
+    this._filtroLista = value;
+    this.clientesFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
+  }
+
+  setFiltroSelecionado(valor: any) {
+    this.filtroSelecionado = valor;
+  }
+
+  setStatusFiltroSelecionado(valor: any) {
+    this.statusFiltroSelecionado = valor;
+    this.clientesFiltrados = this.filtrarClientes(this.filtroLista);
+  }
+
   filtrarClientes(filtrarPor: string): Cliente[] {
-    filtrarPor = filtrarPor.toLocaleLowerCase();
-    return this.clientes.filter(
-      cliente => cliente.nomeFantasia.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-    );
+    if (this.statusFiltroSelecionado !== 'TODOS') {
+      this.filtroRetorno = this.clientes.filter(_CLIENTE => _CLIENTE.status === this.statusFiltroSelecionado);
+    } else {
+      this.filtroRetorno = this.clientes;
+    }
+
+    if (filtrarPor) {
+      if (this.filtroSelecionado === 'COD.SIGA') {
+        this.filtroRetorno = this.filtroRetorno
+                            .filter(cliente => cliente.codSiga.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+      } else if (this.filtroSelecionado === 'RAZÃO SOCIAL') {
+        this.filtroRetorno = this.filtroRetorno
+                            .filter(cliente => cliente.razaoSocial.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+      } else if (this.filtroSelecionado === 'NOME FANTASIA') {
+        this.filtroRetorno = this.filtroRetorno
+                            .filter(cliente => cliente.nomeFantasia.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+      } else if (this.filtroSelecionado === 'CNPJ/CPF') {
+        this.filtroRetorno = this.filtroRetorno
+                            .filter(cliente => cliente.cnpjCpf.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+      }
+    }
+    this.totalRegistros = this.filtroRetorno.length;
+    return this.filtroRetorno;
   }
 
   getClientes() {
       this.clienteService.getAllCliente().subscribe(
         (_CLIENTES: Cliente[]) => {
         this.clientes = _CLIENTES;
-        this.clientesFiltrados = this.clientes;
+        this.clientesFiltrados = this.filtrarClientes(this.filtroLista);
       }, error => {
         console.log(error.error);
         this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);

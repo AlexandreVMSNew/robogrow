@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {cepPattern} from './commons/constants';
+import { removeNonDigitValues } from './commons/utils';
 
 const vanillaMasker = require('vanilla-masker');
 
@@ -12,7 +13,6 @@ export class CepPipe implements PipeTransform {
     if (!value) {
       return '';
     }
-
     return vanillaMasker.toPattern(value, cepPattern);
   }
 

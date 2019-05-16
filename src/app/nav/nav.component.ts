@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../_services/auth.service';
+import { AuthService } from '../_services/Cadastros/Login/auth.service';
 import { Router } from '@angular/router';
+import { InfoColaborador } from '../_models/Info/infoColaborador';
 
 @Component({
   selector: 'app-nav',
@@ -24,10 +25,10 @@ export class NavComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     this.toastr.show('Log Out.');
-    this.router.navigate(['/colaborador/login']);
+    this.router.navigate(['/colaboradores/login']);
   }
 
   colaboradorNome() {
-    return sessionStorage.getItem('colaboradorNome');
+    return InfoColaborador.usuario;
   }
 }

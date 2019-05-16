@@ -1,24 +1,29 @@
-<div class="container d-flex mt-5">
-  <div class="form-inline mr-auto">
-    <div class="container form-group mb-2">
-      <h3>Filtro :</h3>
-      &nbsp;
-      <input
-        type="text"
-        class="form-control ml-2"
-        placeholder="Pesquisar..."
-        [(ngModel)]="filtroLista"
-      />
-    </div>
-  </div>
-  <div>
-    <a [routerLink]="['/clientes','novo']" tooltop="Novo Cliente" class="btn btn-success">
-      <i class="fa fa-plus-circle"></i>&nbsp; Novo Cliente
-    </a>
-  </div>
-</div>
+<form style="margin-top:30px">
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label>Filtrar por:</label>
+        <ng-select [clearable]="false" [items]="filtrarPor" name="filtrarPor" [(ngModel)]="filtroSelecionado" (change)="setFiltroSelecionado($event)">
+        </ng-select>
+      </div>
 
-<table class="container table table-striped mt-4">
+      <div class="form-group col-md-4">
+          <label>Filtro:</label>
+          <input type="text"class="form-control"placeholder="Pesquisar..." name="filtro" [(ngModel)]="filtroLista"/>
+      </div>
+      <div class="form-group col-md-2">
+          <label>Status:</label>
+          <ng-select [clearable]="false" [items]="status" name="statusFiltro" [(ngModel)]="statusFiltroSelecionado"(change)="setStatusFiltroSelecionado($event)">
+          </ng-select>
+        </div>
+    </div>
+    <div class="d-flex">
+        <a [routerLink]="['/clientes','novo']" tooltop="Novo Cliente"  class="btn btn-success ml-auto">
+          <i class="fa fa-plus-circle"></i>&nbsp; Novo Cliente
+        </a>
+    </div>
+<form>
+
+<table class="container-fluid table table-striped table-bordered mt-4">
   <thead class="thead-light">
     <tr>
       <th>Id</th>
@@ -26,18 +31,16 @@
       <th>Nome Fantasia</th>
       <th>Telefone</th>
       <th>Celular</th>
-      <th>E-mail</th>
       <th>Ações</th>
     </tr>
   </thead>
   <tbody *ngIf="clientes && clientes.length">
-    <tr *ngFor="let cliente of clientesFiltrados">
+    <tr *ngFor="let cliente of clientesFiltrados | paginate: { itemsPerPage: 5, currentPage: paginaAtual, totalItems: totalRegistros };">
       <td>{{ cliente.id }}</td>
       <td>{{ cliente.razaoSocial }}</td>
       <td>{{ cliente.nomeFantasia }}</td>
       <td>{{ cliente.telefone }}</td>
       <td>{{ cliente.celular }}</td>
-      <td>{{ cliente.email }}</td>
       <td>
         <div class="btn-group">
           <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirCliente(cliente, confirm)">
@@ -57,6 +60,10 @@
     </h4>
   </tfoot>
 </table>
+Total de Registros: {{totalRegistros}}
+<div class="text-center">
+<pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+</div>
 
 <div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-sm">

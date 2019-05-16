@@ -2,8 +2,12 @@
   "name": "virtual-web-app",
   "version": "0.0.0",
   "scripts": {
-    "start": "node server.js",
-    "postinstall": "ng build --aot --prod"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -29,12 +33,14 @@
     "core-js": "^2.5.4",
     "express": "^4.16.4",
     "jquery": "^3.4.0",
+    "moment": "^2.24.0",
     "nebular-icons": "^1.1.0",
     "ng-bootstrap": "^1.6.3",
     "ng2-select": "^2.0.0",
     "ngx-bootstrap": "^4.1.1",
     "ngx-currency": "^1.5.2",
     "ngx-mask": "^7.9.3",
+    "ngx-pagination": "^3.2.1",
     "ngx-toastr": "^10.0.2",
     "popper.js": "^1.15.0",
     "rxjs": "^6.5.1",
@@ -63,9 +69,5 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "^3.1.6"
-  },
-  "engines": {
-    "node": "10.15.3",
-    "npm": "6.9.0"
   }
 }

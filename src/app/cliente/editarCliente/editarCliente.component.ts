@@ -1,19 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ClienteService } from 'src/app/_services/cliente.service';
+import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Cliente } from 'src/app/_models/Cliente';
-import { Estado } from 'src/app/_models/Estado';
-import { Cidade } from 'src/app/_models/Cidade';
-import { Sistema } from 'src/app/_models/sistema';
-import { Geracao } from 'src/app/_models/geracao';
-import { Versao } from 'src/app/_models/Versao';
-import { EstadoService } from 'src/app/_services/estado.service';
-import { CidadeService } from 'src/app/_services/cidade.service';
-import { SistemaClienteService } from 'src/app/_services/sistemaCliente.service';
-import { ClienteVersoes } from 'src/app/_models/ClienteVersoes';
+import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
+import { Estado } from 'src/app/_models/Cadastros/Uteis/Estado';
+import { Cidade } from 'src/app/_models/Cadastros/Uteis/Cidade';
+import { Sistema } from 'src/app/_models/Cadastros/Sistemas/Sistema';
+import { Geracao } from 'src/app/_models/Cadastros/Sistemas/geracao';
+import { Versao } from 'src/app/_models/Cadastros/Sistemas/Versao';
+import { EstadoService } from 'src/app/_services/Cadastros/Uteis/estado.service';
+import { CidadeService } from 'src/app/_services/Cadastros/Uteis/cidade.service';
+import { SistemaClienteService } from 'src/app/_services/Cadastros/Clientes/sistemaCliente.service';
+import { ClienteVersoes } from 'src/app/_models/Cadastros/Clientes/ClienteVersoes';
+import { ClienteGrupos } from 'src/app/_models/Cadastros/Clientes/ClienteGrupos';
+import { GrupoClienteService } from 'src/app/_services/Cadastros/Clientes/grupoCliente.service';
 
 @Component({
   selector: 'app-editar-cliente',
@@ -24,10 +26,18 @@ export class EditarClienteComponent implements OnInit {
 
   titulo = 'Cadastrar';
   cadastroForm: FormGroup;
+  cadastroGrupoForm: FormGroup;
   cliente: Cliente;
 
-  @ViewChild('selectEstados') selectEstados: any;
-  @ViewChild('selectCidades') selectCidades: any;
+  categorias = ['A', 'B', 'C', 'D'];
+  categoriaSelecionado: string;
+
+  status = ['ATIVO', 'INATIVO', 'PROSPECT'];
+  statusSelecionado: string;
+
+  grupo: ClienteGrupos;
+  grupos: ClienteGrupos[];
+  grupoIdSelecionado: any;
 
   estados: Estado[];
   estadoIdSelecionado: any;
@@ -43,6 +53,7 @@ export class EditarClienteComponent implements OnInit {
   versoes: Versao[];
   versoesIdSelecionado: any;
   versoesCliente: ClienteVersoes[];
+
   idCliente: number;
   valueCnpjCpfPipe = '';
   valueCepPipe = '';
@@ -57,6 +68,7 @@ export class EditarClienteComponent implements OnInit {
               private toastr: ToastrService,
               private estadoService: EstadoService,
               private cidadeService: CidadeService,
+              private clienteGruposService: GrupoClienteService,
               private sistemaClienteService: SistemaClienteService) {
       this.localeService.use('pt-br');
   }
@@ -65,7 +77,9 @@ export class EditarClienteComponent implements OnInit {
     this.idCliente = +this.router.snapshot.paramMap.get('id');
     this.getEstados();
     this.getSistemas();
+    this.getGrupos();
     this.validation();
+    this.validationGrupo();
     this.carregarCliente();
   }
 
@@ -90,7 +104,6 @@ export class EditarClienteComponent implements OnInit {
             this.versoesCliente.push(versoes);
             this.versoesIdSelecionado.push(versoes.versaoId);
           });
-
         }, error => {
           this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
           console.log(error);
@@ -104,8 +117,9 @@ export class EditarClienteComponent implements OnInit {
         nLoja: [''],
         razaoSocial: ['', Validators.required],
         nomeFantasia: ['', Validators.required],
+        grupoId: [0],
+        categoria: [''],
         proprietario: [''],
-        gerente: [''],
         telefone: ['', Validators.required],
         celular: [''],
         cnpjCpf: ['', Validators.required],
@@ -116,21 +130,13 @@ export class EditarClienteComponent implements OnInit {
         endereco: ['', Validators.required],
         bairro: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        grupo: [''],
         sistemaId: ['', Validators.required],
         geracaoId: ['', Validators.required],
         clienteVersoes: [this.fb.group({
-          cliente: [''],
-          versao: ['']
+          clienteId: [''],
+          versaoId: ['']
         }), Validators.required],
         status: ['']
-    });
-  }
-
-  criaClienteVersoes(clienteVersaoId: any): FormGroup {
-    return this.fb.group({
-      clienteId: [this.idCliente],
-      versaoId: [clienteVersaoId]
     });
   }
 
@@ -138,6 +144,23 @@ export class EditarClienteComponent implements OnInit {
     this.versoesCliente = [];
     versoesSelecionadas.forEach(versoes => {
       this.versoesCliente.push(Object.assign({ clienteId: this.idCliente, versaoId: versoes}));
+    });
+  }
+
+  validationGrupo() {
+    this.cadastroGrupoForm = this.fb.group({
+        id: [''],
+        nome: ['', Validators.required]
+    });
+  }
+
+  getGrupos() {
+    this.clienteGruposService.getAllGrupos().subscribe(
+      (_GRUPOS: ClienteGrupos[]) => {
+      this.grupos = _GRUPOS;
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar grupos: ${error.error}`);
     });
   }
 
@@ -243,6 +266,26 @@ export class EditarClienteComponent implements OnInit {
       estadoId: '',
       cidadeId: ''
     });
+  }
+
+  abrirModalNovoGrupo(template: any) {
+    this.cadastroGrupoForm.reset();
+    template.show();
+  }
+
+  cadastrarGrupo(template: any) {
+    if (this.cadastroGrupoForm.valid) {
+      this.grupo = Object.assign(this.cadastroGrupoForm.value, {id: 0});
+      this.clienteGruposService.novoGrupo(this.grupo).subscribe(
+        () => {
+          this.getGrupos();
+          this.toastr.success('Grupo Cadastrado com Sucesso!');
+          template.hide();
+        }, error => {
+          console.log(error.error);
+        }
+      );
+    }
   }
 
   salvarAlteracao() {

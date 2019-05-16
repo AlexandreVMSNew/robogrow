@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Colaborador } from '../_models/Colaborador';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cliente } from '../_models/Cliente';
-import { Estado } from '../_models/Estado';
+import { Estado } from '../../../_models/Cadastros/Uteis/Estado';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 @Injectable({
   providedIn: 'root'
 })
 export class EstadoService {
-  baseURL = 'http://localhost:5000/api/estados';
+  baseURL = InfoAPI.URL + '/api/estados';
 constructor(private http: HttpClient) { }
 
 getAllEstados(): Observable<Estado[]> {
