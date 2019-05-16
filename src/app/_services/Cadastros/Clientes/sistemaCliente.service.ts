@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Sistema } from '../_models/sistema';
+import { Sistema } from '../../../_models/Cadastros/Sistemas/Sistema';
 import { HttpClient } from '@angular/common/http';
-import { Geracao } from '../_models/geracao';
-import { Versao } from '../_models/Versao';
-import { ClienteVersoes } from '../_models/ClienteVersoes';
+import { Geracao } from '../../../_models/Cadastros/Sistemas/geracao';
+import { Versao } from '../../../_models/Cadastros/Sistemas/Versao';
+import { ClienteVersoes } from '../../../_models/Cadastros/Clientes/ClienteVersoes';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SistemaClienteService {
-  baseURL = 'http://localhost:5000/api/sistemaclientes';
+  baseURL = InfoAPI.URL + '/api/sistemacliente';
   constructor(private http: HttpClient) { }
 
   getAllSistema(): Observable<Sistema[]> {

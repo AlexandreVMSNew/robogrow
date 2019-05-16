@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Colaborador } from '../_models/Colaborador';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Colaborador } from '../../../_models/Cadastros/Colaboradores/Colaborador';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ColaboradorOcorrencia } from '../_models/ColaboradorOcorrencia';
+import { Nivel } from 'src/app/_models/Cadastros/Colaboradores/Nivel';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColaboradorService {
-  baseURL = 'http://localhost:5000/api/colaboradores';
+  baseURL = InfoAPI.URL + '/api/colaboradores';
 constructor(private http: HttpClient) { }
 
 getAllColaborador(): Observable<Colaborador[]> {
@@ -21,6 +22,15 @@ getColaboradorByName(name: string): Observable<Colaborador[]> {
 getColaboradorById(id: number): Observable<Colaborador> {
   return this.http.get<Colaborador>(`${this.baseURL}/${id}`);
 }
+
+getAllNiveis(): Observable<Nivel[]> {
+  return this.http.get<Nivel[]>(`${this.baseURL}/niveis`);
+}
+
+getIdUltimoColaborador(): Observable<Colaborador> {
+  return this.http.get<Colaborador>(`${this.baseURL}/idultimocolaborador`);
+}
+
 
 novoColaborador(colaborador: Colaborador) {
   return this.http.post(`${this.baseURL}/novo`, colaborador);

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cidade } from '../_models/Cidade';
+import { Cidade } from '../../../_models/Cadastros/Uteis/Cidade';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CidadeService {
-  baseURL = 'http://localhost:5000/api/cidades';
+  baseURL = InfoAPI.URL + '/api/cidades';
 constructor(private http: HttpClient) { }
 
 getAllCidades(): Observable<Cidade[]> {

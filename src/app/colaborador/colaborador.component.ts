@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Colaborador } from '../_models/Colaborador';
+import { Colaborador } from '../_models/Cadastros/Colaboradores/Colaborador';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ColaboradorService } from '../_services/colaborador.service';
+import { ColaboradorService } from '../_services/Cadastros/Colaboradores/colaborador.service';
 import { BsModalService, BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 

@@ -1,4 +1,4 @@
-import { Versao } from './Versao';
+
 import { Cliente } from './Cliente';
 
 export class ClienteVersoes {

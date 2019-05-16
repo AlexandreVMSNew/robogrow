@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Colaborador } from '../_models/Colaborador';
+import { Colaborador } from '../../../_models/Cadastros/Colaboradores/Colaborador';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cliente } from '../_models/Cliente';
+import { Cliente } from '../../../_models/Cadastros/Clientes/Cliente';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-  baseURL = 'http://localhost:5000/api/clientes';
+  baseURL = InfoAPI.URL + '/api/clientes';
 constructor(private http: HttpClient) { }
 
 getAllCliente(): Observable<Cliente[]> {
@@ -20,6 +21,10 @@ getClienteByName(name: string): Observable<Cliente[]> {
 }
 getClienteById(id: number): Observable<Cliente> {
   return this.http.get<Cliente>(`${this.baseURL}/${id}`);
+}
+
+getIdUltimoCliente(): Observable<Cliente> {
+  return this.http.get<Cliente>(`${this.baseURL}/idultimocliente`);
 }
 
 novoCliente(cliente: Cliente) {

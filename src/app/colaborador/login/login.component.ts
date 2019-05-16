@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/_services/auth.service';
+import { AuthService } from 'src/app/_services/Cadastros/Login/auth.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 @Component({
@@ -35,7 +35,9 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/dashboard']);
           },
           error => {
-            this.toastr.error(`Usuário ou senha incorreto(s).`);
+            this.toastr.error(`Usuário ou senha incorreto(s).`, '', {
+              positionClass: 'toast-bottom-right',
+            });
           }
         );
   }

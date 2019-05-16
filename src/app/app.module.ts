@@ -9,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -20,6 +21,8 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { NovoClienteComponent } from './cliente/novoCliente/novoCliente.component';
 import { EditarClienteComponent } from './cliente/editarCliente/editarCliente.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AtendimentoComponent } from './atendimento/atendimento.component';
+import { RetornoComponent } from './atendimento/retorno/retorno.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
@@ -34,10 +37,11 @@ import { registerLocaleData } from '@angular/common';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { ClienteService } from './_services/cliente.service';
-import { ColaboradorService } from './_services/colaborador.service';
+import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
+import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoRetorno.component';
+import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
 
-registerLocaleData(localePt);
+registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
@@ -52,6 +56,10 @@ defineLocale('pt-br', ptBrLocale);
       ClienteComponent,
       NovoClienteComponent,
       EditarClienteComponent,
+      AtendimentoComponent,
+      RetornoComponent,
+      NovoRetornoComponent,
+      EditarRetornoComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,
@@ -66,6 +74,7 @@ defineLocale('pt-br', ptBrLocale);
       TabsModule.forRoot(),
       ModalModule.forRoot(),
       NgxMaskModule.forRoot(),
+      NgxPaginationModule,
       NgxCurrencyModule,
       NgSelectModule,
       ToastrModule.forRoot({

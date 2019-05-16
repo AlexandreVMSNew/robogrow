@@ -1,8 +1,4 @@
-import { Sistema } from './sistema';
-import { Geracao } from './geracao';
 import { ClienteVersoes } from './ClienteVersoes';
-import { Estado } from './Estado';
-import { Cidade } from './Cidade';
 
 export class Cliente {
 
@@ -11,8 +7,9 @@ export class Cliente {
         nLoja: string;
         razaoSocial: string;
         nomeFantasia: string;
+        grupoId: number;
+        categoria: string;
         proprietario: string;
-        gerente: string;
         telefone: string;
         celular: string;
         email: string;
@@ -23,9 +20,9 @@ export class Cliente {
         cEP: string;
         endereco: string;
         bairro: string;
-        grupo: string;
+        status: string;
+        dataImplancatacao: string;
         sistemaId: number;
         geracaoId: number;
         clienteVersoes: ClienteVersoes[];
-        status: string;
 }
