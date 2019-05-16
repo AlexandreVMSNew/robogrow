@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +43,7 @@
     "ngx-mask": "^7.9.3",
     "ngx-pagination": "^3.2.1",
     "ngx-toastr": "^10.0.2",
+    "path": "^0.12.7",
     "popper.js": "^1.15.0",
     "rxjs": "^6.5.1",
     "tslib": "^1.9.0",
@@ -71,7 +73,7 @@
     "typescript": "^3.1.6"
   },
   "engines": {
-    "node": "10.15.3",
-    "npm": "6.9.0"
+    "node": "~10.15.3",
+    "npm": "~6.9.0"
   }
 }
