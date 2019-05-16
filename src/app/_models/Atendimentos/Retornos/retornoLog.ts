@@ -1,4 +1,4 @@
-import { Colaborador } from '../../Cadastros/Colaboradores/Colaborador';
+import { Colaborador } from 'src/app/_models/Cadastros/Colaboradores/Colaborador';
 
 export class RetornoLog {
     id: number;

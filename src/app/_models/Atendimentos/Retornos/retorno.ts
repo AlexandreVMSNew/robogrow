@@ -1,4 +1,4 @@
-import { Cliente } from '../../Cadastros/Clientes/Cliente';
+import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 
 export class Retorno {
 

@@ -1,5 +1,4 @@
-import { Cliente } from '../Clientes/Cliente';
-import { ClienteVersoes } from '../Clientes/ClienteVersoes';
+import { ClienteVersoes } from 'src/app/_models/Cadastros/Clientes/ClienteVersoes';
 
 export class Versao {
     id: number;
