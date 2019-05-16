@@ -3,6 +3,9 @@
 # compiled output
 bin
 obj
+/src
+/node_modules
+/e2e
 /tmp
 /out-tsc
 # Only exists if Bazel was run
