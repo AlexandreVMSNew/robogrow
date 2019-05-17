@@ -20,6 +20,7 @@
     "@schematics/angular": "~7.2.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "tar": "^4.4.8",
     "@types/node": "^8.10.46",
     "@angular/animations": "~7.2.14",
     "@angular/cdk": "^7.3.7",
