@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Colaborador } from 'src/app/_models/Cadastros/Colaboradores/Colaborador';
+import { Colaborador } from './../../../_models/Cadastros/Colaboradores/Colaborador';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Nivel } from 'src/app/_models/Cadastros/Colaboradores/Nivel';
-import { InfoAPI } from 'src/app/_models/Info/infoAPI';
+import { Nivel } from './../../../_models/Cadastros/Colaboradores/Nivel';
+import { InfoAPI } from './../../../_models/Info/infoAPI';
 
 @Injectable({
   providedIn: 'root'

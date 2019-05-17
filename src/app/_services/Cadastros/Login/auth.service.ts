@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
-import { InfoColaborador } from 'src/app/_models/Info/infoColaborador';
-import { InfoAPI } from 'src/app/_models/Info/infoAPI';
+import { InfoColaborador } from './../../../_models/Info/infoColaborador';
+import { InfoAPI } from './../../../_models/Info/infoAPI';
 
 @Injectable({
   providedIn: 'root'

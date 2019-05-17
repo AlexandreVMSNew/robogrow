@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
-import { InfoAPI } from 'src/app/_models/Info/infoAPI';
+import { Cliente } from './../../../_models/Cadastros/Clientes/Cliente';
+import { InfoAPI } from './../../../_models/Info/infoAPI';
 
 @Injectable({
   providedIn: 'root'

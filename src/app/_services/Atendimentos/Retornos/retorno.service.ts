@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Retorno } from 'src/app/_models/Atendimentos/Retornos/retorno';
-import { RetornoLog } from 'src/app/_models/Atendimentos/Retornos/retornoLog';
-import { InfoAPI } from 'src/app/_models/Info/infoAPI';
+import { Retorno } from './../../../_models/Atendimentos/Retornos/retorno';
+import { RetornoLog } from './../../../_models/Atendimentos/Retornos/retornoLog';
+import { InfoAPI } from './../../../_models/Info/infoAPI';
 
 @Injectable({
   providedIn: 'root'
