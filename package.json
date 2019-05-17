@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "preinstall": "npm install -g @angular/cli http-server @angular/compiler-cli typescript",
-    "postinstall": "ng build --target=production"
+    "postinstall": "ng build --prod"
   },
   "private": true,
   "dependencies": {
