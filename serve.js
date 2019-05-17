@@ -1,14 +1,13 @@
+// Serve static files....
 const express = require('express');
-const path = require('path');
 const app = express();
 
-// Serve static files....
-app.use(express.static(__dirname + '/dist/VirtualWeb-App'));
+// Run the app by serving the static files
+// in the dist directory
 
-// Send all requests to index.html
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/dist/VirtualWeb-App/index.html'));
-});
+app.use(express.static(__dirname + '/app'));
 
-// default Heroku PORT
-app.listen(process.env.PORT || 5000);
+// Start the app by listening on the default
+// Heroku port
+
+app.listen(process.env.PORT || 8080);
