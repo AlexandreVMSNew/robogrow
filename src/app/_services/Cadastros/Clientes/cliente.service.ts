@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Colaborador } from '../../../_models/Cadastros/Colaboradores/Colaborador';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cliente } from '../../../_models/Cadastros/Clientes/Cliente';
+import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Injectable({

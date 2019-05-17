@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
