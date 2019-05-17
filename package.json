@@ -27,6 +27,7 @@
     "@auth0/angular-jwt": "^2.1.0",
     "@fnando/cnpj": "^0.1.1",
     "@fnando/cpf": "^0.1.1",
+    "@types/node": "^8.10.46",
     "@fortawesome/fontawesome-free": "^5.8.1",
     "@nbfontana/ngx-br": "^1.0.0-rc.3",
     "@nebular/bootstrap": "^3.5.0",
@@ -50,7 +51,8 @@
     "rxjs": "^6.5.1",
     "tslib": "^1.9.0",
     "vanilla-masker": "^1.2.0",
-    "zone.js": "^0.8.29"
+    "zone.js": "^0.8.29",
+    "typescript": "3.1.6"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
