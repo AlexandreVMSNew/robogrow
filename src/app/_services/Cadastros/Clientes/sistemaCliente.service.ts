@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Sistema } from '../../../_models/Cadastros/Sistemas/Sistema';
+import { Sistema } from 'src/app/_models/Cadastros/Sistemas/Sistema';
 import { HttpClient } from '@angular/common/http';
-import { Geracao } from '../../../_models/Cadastros/Sistemas/geracao';
-import { Versao } from '../../../_models/Cadastros/Sistemas/Versao';
-import { ClienteVersoes } from '../../../_models/Cadastros/Clientes/ClienteVersoes';
+import { Geracao } from 'src/app/_models/Cadastros/Sistemas/geracao';
+import { Versao } from 'src/app/_models/Cadastros/Sistemas/Versao';
+import { ClienteVersoes } from 'src/app/_models/Cadastros/Clientes/ClienteVersoes';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Injectable({

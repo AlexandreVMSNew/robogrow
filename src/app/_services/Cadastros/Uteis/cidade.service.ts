@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cidade } from '../../../_models/Cadastros/Uteis/Cidade';
+import { Cidade } from 'src/app/_models/Cadastros/Uteis/Cidade';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Injectable({
