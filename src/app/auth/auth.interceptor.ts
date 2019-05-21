@@ -28,7 +28,6 @@ export class AuthInterceptor implements HttpInterceptor {
                 )
             );
           } else {
-            console.log('asd');
             this.router.navigate(['/colaboradores/login']);
             return next.handle(req.clone());
           }

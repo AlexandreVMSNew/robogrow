@@ -161,21 +161,6 @@ export class RetornoComponent implements OnInit {
       this.filtroRetorno = this.retornos;
     }
 
-    if (filtrarPor) {
-      if (this.filtroSelecionado === 'COD.SIGA') {
-        this.filtroRetorno = this.filtroRetorno
-                            .filter(cliente => cliente.codSiga.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
-      } else if (this.filtroSelecionado === 'RAZÃO SOCIAL') {
-        this.filtroRetorno = this.filtroRetorno
-                            .filter(cliente => cliente.razaoSocial.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
-      } else if (this.filtroSelecionado === 'NOME FANTASIA') {
-        this.filtroRetorno = this.filtroRetorno
-                            .filter(cliente => cliente.nomeFantasia.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
-      } else if (this.filtroSelecionado === 'CNPJ/CPF') {
-        this.filtroRetorno = this.filtroRetorno
-                            .filter(cliente => cliente.cnpjCpf.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
-      }
-    }
     this.totalRegistros = this.filtroRetorno.length;
     return this.filtroRetorno;
   }

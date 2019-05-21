@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./editarRetorno.component.css']
 })
 export class EditarRetornoComponent implements OnInit {
-  
+
   cadastroForm: FormGroup;
   retorno: Retorno;
 

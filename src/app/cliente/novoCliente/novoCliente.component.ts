@@ -11,7 +11,7 @@ import { Cidade } from 'src/app/_models/Cadastros/Uteis/Cidade';
 import { GrupoClienteService } from 'src/app/_services/Cadastros/Clientes/grupoCliente.service';
 import { ClienteGrupos } from 'src/app/_models/Cadastros/Clientes/ClienteGrupos';
 import { Sistema } from 'src/app/_models/Cadastros/Sistemas/Sistema';
-import { Geracao } from 'src/app/_models/Cadastros/Sistemas/geracao';
+import { Geracao } from 'src/app/_models/Cadastros/Sistemas/Geracao';
 import { Versao } from 'src/app/_models/Cadastros/Sistemas/Versao';
 import { ClienteVersoes } from 'src/app/_models/Cadastros/Clientes/ClienteVersoes';
 import { SistemaClienteService } from 'src/app/_services/Cadastros/Clientes/sistemaCliente.service';

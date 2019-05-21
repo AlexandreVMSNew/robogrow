@@ -8,7 +8,7 @@ import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { Estado } from 'src/app/_models/Cadastros/Uteis/Estado';
 import { Cidade } from 'src/app/_models/Cadastros/Uteis/Cidade';
 import { Sistema } from 'src/app/_models/Cadastros/Sistemas/Sistema';
-import { Geracao } from 'src/app/_models/Cadastros/Sistemas/geracao';
+import { Geracao } from 'src/app/_models/Cadastros/Sistemas/Geracao';
 import { Versao } from 'src/app/_models/Cadastros/Sistemas/Versao';
 import { EstadoService } from 'src/app/_services/Cadastros/Uteis/estado.service';
 import { CidadeService } from 'src/app/_services/Cadastros/Uteis/cidade.service';

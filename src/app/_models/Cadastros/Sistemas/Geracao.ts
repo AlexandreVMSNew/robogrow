@@ -1,4 +1,4 @@
-import { Sistema } from 'src/app/_models/Cadastros/Sistemas/sistema';
+import { Sistema } from './Sistema';
 
 export class Geracao {
     id: number;
