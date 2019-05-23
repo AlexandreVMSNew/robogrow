@@ -9,8 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar-retorno',
-  templateUrl: './editarRetorno.component.html',
-  styleUrls: ['./editarRetorno.component.css']
+  templateUrl: './editarRetorno.component.html'
 })
 export class EditarRetornoComponent implements OnInit {
 

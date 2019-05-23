@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
-import { ColaboradorComponent } from './colaborador/colaborador.component';
-import { LoginComponent } from './colaborador/login/login.component';
-import { NovoColaboradorComponent } from './colaborador/novoColaborador/novoColaborador.component';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { LoginComponent } from './usuario/login/login.component';
+import { NovoUsuarioComponent } from './usuario/novoUsuario/novoUsuario.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EditarColaboradorComponent } from './colaborador/editarColaborador/editarColaborador.component';
+import { EditarUsuarioComponent } from './usuario/editarUsuario/editarUsuario.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { NovoClienteComponent } from './cliente/novoCliente/novoCliente.component';
 import { EditarClienteComponent } from './cliente/editarCliente/editarCliente.component';
@@ -15,10 +15,10 @@ import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoReto
 import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
 
 const routes: Routes = [
-  { path: 'colaboradores', component: ColaboradorComponent, canActivate: [AuthGuard]},
-  { path: 'colaboradores/login', component: LoginComponent},
-  { path: 'colaboradores/novo', component: NovoColaboradorComponent},
-  { path: 'colaboradores/editar/:id', component: EditarColaboradorComponent, canActivate: [AuthGuard]},
+  { path: 'usuarios', component: UsuarioComponent},
+  { path: 'usuarios/login', component: LoginComponent},
+  { path: 'usuarios/novo', component: NovoUsuarioComponent},
+  { path: 'usuarios/editar/:id', component: EditarUsuarioComponent},
   { path: 'clientes', component: ClienteComponent, canActivate: [AuthGuard]},
   { path: 'clientes/novo', component: NovoClienteComponent, canActivate: [AuthGuard]},
   { path: 'clientes/editar/:id', component: EditarClienteComponent, canActivate: [AuthGuard]},

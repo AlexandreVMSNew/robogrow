@@ -33,7 +33,7 @@
       </ng-select>
     </div>
   </div>
-  <div *ngIf="InfoColaborador.niveis.indexOf('RECEPCÃO') > -1" class="d-flex">
+  <div *ngIf="InfoUsuario.niveis.indexOf('RECEPCÃO') > -1" class="d-flex">
     <a [routerLink]="['novo']" class="btn btn-success ml-auto">
       <i class="fa fa-plus-circle"></i>&nbsp; Novo Retorno
     </a>
@@ -49,6 +49,7 @@
           <th>Prioridade</th>
           <th>Status</th>
           <th>Data/Hora</th>
+          <th>Atendente</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -76,32 +77,27 @@
               class="btn btn-info btn-sm">EM ANDAMENTO</button>
           </td>
           <td style="white-space: nowrap;">{{ retorno.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-          <td style="text-align: center;">
+          <td style="white-space: nowrap;">{{ retorno.usuarioId !== 0 ? retorno.usuario.userName : 'TODOS'}}</td>
+          <td style="text-align: center;white-space: nowrap;">
+            <div class="btn-group">
+              <div *ngIf="retorno.status == 'AGUARDANDO'">
+                <button class="btn btn-sm btn-success" (click)="alterarStatus(retorno)" tooltip="Ligar">
+                  <i class="fa fa-phone"></i>
+                </button>
+              </div>
 
-            <div *ngIf="retorno.status == 'AGUARDANDO'" class="btn-group">
-              <button class="btn btn-sm btn-success" (click)="alterarStatus(retorno)" tooltip="Ligar">
-                <i class="fa fa-phone"></i>
-              </button>
-              <button class="btn btn-sm btn-info" (click)="retornoLog(retorno.id,templateLog)" tooltip="Log(s)">
-                <i class="fa fa-info"></i>
-              </button>
-            </div>
+              <div *ngIf="retorno.status == 'EM ANDAMENTO'">
+                <button class="btn btn-sm btn-warning" (click)="alterarStatus(retorno)" tooltip="Não Atendeu">
+                  <i class="fa fa-ban"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="finalizarRetorno(retorno)" tooltip="Finalizar">
+                  <i class="fa fa-check"></i>
+                </button>
+              </div>
 
-            <div *ngIf="retorno.status == 'EM ANDAMENTO'" class="btn-group">
-              <button class="btn btn-sm btn-warning" (click)="alterarStatus(retorno)" tooltip="Não Atendeu">
-                <i class="fa fa-ban"></i>
+              <button class="btn btn-sm btn-info" (click)="retornoLog(retorno.id,retorno.observacao,templateLog)" tooltip="Log(s)">
+                <i class="fa fa-file-alt"></i>
               </button>
-              <button class="btn btn-sm btn-info" (click)="retornoLog(retorno.id,templateLog)" tooltip="Log(s)">
-                <i class="fa fa-info"></i>
-              </button>
-              <button class="btn btn-sm btn-danger" (click)="finalizarRetorno(retorno)" tooltip="Finalizar">
-                <i class="fa fa-check"></i>
-              </button>
-            </div>
-            <div *ngIf="retorno.status == 'FINALIZADO'" class="btn-group">
-                <button class="btn btn-sm btn-info" (click)="retornoLog(retorno.id,templateLog)" tooltip="Log(s)">
-                    <i class="fa fa-info"></i>
-                  </button>
             </div>
           </td>
         </tr>
@@ -115,7 +111,7 @@
     </table>
     Total de Registros: {{totalRegistros}}
     <div class="text-center">
-      <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo">
+      <pagination-controls (pageChange)="paginaAtual = $event" name="retornoPagination" previousLabel="Anterior" nextLabel="Próximo">
       </pagination-controls>
     </div>
 
@@ -137,14 +133,14 @@
             <table class="container-fluid table table-striped table-bordered mt-4">
               <thead class="thead-light">
                 <tr>
-                  <th>Colaborador</th>
+                  <th>Usuario</th>
                   <th>Data/Hora</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody *ngIf="logRetorno && logRetorno.length">
                 <tr *ngFor="let log of logRetorno;">
-                  <td style="white-space: nowrap;">{{ log.colaborador.userName }}</td>
+                  <td style="white-space: nowrap;">{{ log.usuario.userName }}</td>
                   <td style="white-space: nowrap;">{{ log.dataHora  | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                   <td style="text-align: center;">
                       <button *ngIf="log.status == 'AGUARDANDO'" type="button" disabled
@@ -158,13 +154,20 @@
                     </td>
                 </tr>
               </tbody>
-              <tfoot *ngIf="!retornos">
+    
+              <tfoot *ngIf="!logRetorno">
                 <tr colspan="7" class="text-center"></tr>
                 <h4>
-                  Nenhum retorno encontrado!
+                  Nenhum Log encontrado!
                 </h4>
               </tfoot>
             </table>
+            <div class="row ">
+              <div class="col-md-12">
+                <label>Observação</label>
+                <textarea class="form-control" rows="2" >{{logObservacao}}</textarea>
+              </div>
+            </div>
           </div>
           <div class="modal-footer d-flex">
             <button class="btn btn-secondary" (click)="templateLog.hide()">

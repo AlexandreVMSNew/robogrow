@@ -1,4 +1,5 @@
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
+import { Usuario } from '../../Cadastros/Usuarios/Usuario';
 
 export class Retorno {
 
@@ -8,6 +9,8 @@ export class Retorno {
     contatoNome: string;
     telefone: string;
     prioridade: string;
+    usuarioId: number;
+    usuario: Usuario;
     observacao: string;
     status: string;
     dataHora: string;

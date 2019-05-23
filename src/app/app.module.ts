@@ -13,10 +13,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import { ColaboradorComponent } from './colaborador/colaborador.component';
-import { LoginComponent } from './colaborador/login/login.component';
-import { EditarColaboradorComponent } from './colaborador/editarColaborador/editarColaborador.component';
-import { NovoColaboradorComponent } from './colaborador/novoColaborador/novoColaborador.component';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { LoginComponent } from './usuario/login/login.component';
+import { EditarUsuarioComponent } from './usuario/editarUsuario/editarUsuario.component';
+import { NovoUsuarioComponent } from './usuario/novoUsuario/novoUsuario.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { NovoClienteComponent } from './cliente/novoCliente/novoCliente.component';
 import { EditarClienteComponent } from './cliente/editarCliente/editarCliente.component';
@@ -48,10 +48,10 @@ defineLocale('pt-br', ptBrLocale);
    declarations: [
       AppComponent,
       NavComponent,
-      ColaboradorComponent,
+      UsuarioComponent,
       LoginComponent,
-      NovoColaboradorComponent,
-      EditarColaboradorComponent,
+      NovoUsuarioComponent,
+      EditarUsuarioComponent,
       DashboardComponent,
       ClienteComponent,
       NovoClienteComponent,

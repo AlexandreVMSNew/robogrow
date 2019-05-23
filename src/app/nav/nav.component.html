@@ -1,41 +1,93 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <a class="navbar-brand" routerLink="dashboard">VirtualWeb Sistema</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  
-  <div *ngIf="loggedIn()" class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="colaboradores">Colaboradores<span class="sr-only">(current)</span></a>
-      </li>
+  <div *ngIf="loggedIn()">
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="usuarios">Usuarios<span class="sr-only">(current)</span></a>
+        </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="clientes">Clientes<span class="sr-only">(current)</span></a>
-      </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="clientes">Clientes<span class="sr-only">(current)</span></a>
+        </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="atendimentos/retornos">Retornos<span class="sr-only">(current)</span></a>
-      </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="atendimentos/retornos">Retornos<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto" style="position: absolute;right:0;">
+        <li class="nav-item dropdown" dropdown>
+          <div *ngIf="getQtdNotificacoes() > 0">
+            <a dropdownToggle class="btn btn-sm btn-danger text-light mt-2"  id="navbarDropdownMenuLink2" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bell"></i></a>
+          </div>
+          <div *ngIf="getQtdNotificacoes() == 0">
+            <a dropdownToggle class="nav-link text-light"  id="navbarDropdownMenuLink2" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bell"></i></a>
+          </div>
+        <div *dropdownMenu class="dropdown-menu" style="position: absolute; width: 260px;" aria-labelledby="navbarDropdownMenuLink2">
+        <li class="head text-light bg-dark">
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-12">
+              <span>Notificações ({{getQtdNotificacoes()}})</span>
+            </div>
+          </div>
+        </li>
+
+        <div *ngFor="let notificacao of notificacoes">
+          <div *ngIf="notificacao.visto == 0">
+            <li style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);"
+              class="notification-box-bordered">
+              <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <strong class="text-info" (click)="setarVistoNotificacao(notificacao)" style="cursor:pointer;">
+                    Você tem um novo {{notificacao.tipo}}.</strong><br>
+                  <small class="text-info">[{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div *ngIf="notificacao.visto == 1">
+            <li style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;"
+              class="notification-box-bordered bg-gray">
+              <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <strong class="text-info">Você tem um novo {{notificacao.tipo}}.</strong><br>
+                  <small class="text-info">[{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                </div>
+              </div>
+            </li>
+          </div>
+        </div>
+
+    </div>
+    </li>
+
+    <li class="nav-item dropdown" style="float: right; margin-right:120px" dropdown>
+      <a dropdownToggle class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false" style="cursor: pointer;text-transform: capitalize;">
+        {{usuarioNome()}}
+      </a>
+      <div *dropdownMenu class="dropdown-menu" style="position: absolute; width: 235px;"
+        aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item">
+          Perfil
+        </a>
+        <div role="separator" class="divider"></div>
+        <a class="dropdown-item" (click)="logout()" style="cursor: pointer">
+          Sair
+        </a>
+      </div>
+    </li>
     </ul>
   </div>
-
-<ul *ngIf="loggedIn()" class="navbar-nav" style="float: left; width: 10%;">
-  <li class="nav-item dropdown"  dropdown> 
-    <a dropdownToggle class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;text-transform: capitalize;">
-    {{colaboradorNome()}}
-  </a>
-  <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-    <a class="dropdown-item">
-      Perfil
-    </a>
-    <div role="separator" class="divider"></div>
-    <a class="dropdown-item" (click)="logout()" style="cursor: pointer">
-      Sair
-    </a>
   </div>
-  </li>
-</ul>
 </nav>

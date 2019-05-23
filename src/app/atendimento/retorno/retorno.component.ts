@@ -8,12 +8,11 @@ import { RetornoService } from 'src/app/_services/Atendimentos/Retornos/retorno.
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { RetornoLog } from 'src/app/_models/Atendimentos/Retornos/retornoLog';
 import * as moment from 'moment';
-import { InfoColaborador } from 'src/app/_models/Info/infoColaborador';
+import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 
 @Component({
   selector: 'app-retorno',
-  templateUrl: './retorno.component.html',
-  styleUrls: ['./retorno.component.css']
+  templateUrl: './retorno.component.html'
 })
 export class RetornoComponent implements OnInit {
 
@@ -21,6 +20,7 @@ export class RetornoComponent implements OnInit {
   retornos: Retorno[];
   retorno: Retorno;
   logRetorno: RetornoLog[];
+  logObservacao: string;
 
   cadastroForm: FormGroup;
 
@@ -46,7 +46,7 @@ export class RetornoComponent implements OnInit {
   // tslint:disable-next-line:variable-name
   _filtroLista: string;
 
-  InfoColaborador = InfoColaborador;
+  InfoUsuario = InfoUsuario;
   constructor(
     private clienteServices: ClienteService,
     private retornoServices: RetornoService,
@@ -82,7 +82,7 @@ export class RetornoComponent implements OnInit {
 
     this.retorno = Object.assign(retorno, { status: newStatus});
     const retornoLog = Object.assign({ id: 0, retornoId: retorno.id,
-       colaboradorId: InfoColaborador.id, dataHora: dataAtual, status: newStatus});
+       usuarioId: InfoUsuario.id, dataHora: dataAtual, status: newStatus});
 
     this.retornoServices.editarRetorno(this.retorno).subscribe(
       () => {
@@ -105,7 +105,7 @@ export class RetornoComponent implements OnInit {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
 
     const retornoLog = Object.assign({ id: 0, retornoId: retorno.id,
-       colaboradorId: InfoColaborador.id, dataHora: dataAtual, status: newStatus});
+       usuarioId: InfoUsuario.id, dataHora: dataAtual, status: newStatus});
     this.retornoServices.editarRetorno(this.retorno).subscribe(
       () => {
         this.retornoServices.novoLog(retornoLog).subscribe(
@@ -121,13 +121,13 @@ export class RetornoComponent implements OnInit {
       });
   }
 
-  retornoLog(retornoId: number, template: any) {
+  retornoLog(retornoId: number, logObservacao: string, template: any) {
     this.retornoServices.getAllLogsByRetornoId(retornoId).subscribe(
       (_LOGS: RetornoLog[]) => {
       this.logRetorno = _LOGS;
+      this.logObservacao = logObservacao;
     }, error => {
-      console.log(error.error);
-      this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
+      this.toastr.error(`Erro ao tentar carregar retornoLog: ${error.error}`);
     });
     template.show();
   }

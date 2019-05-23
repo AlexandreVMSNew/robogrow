@@ -7,6 +7,10 @@ import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.ser
 import { Retorno } from 'src/app/_models/Atendimentos/Retornos/retorno';
 import { RetornoService } from 'src/app/_services/Atendimentos/Retornos/retorno.service';
 import * as moment from 'moment';
+import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
+import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
+import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.service';
+import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 
 @Component({
   selector: 'app-novo-retorno',
@@ -17,6 +21,7 @@ export class NovoRetornoComponent implements OnInit {
 
   cadastroForm: FormGroup;
   retorno: Retorno;
+  notificacao: Notificacao;
 
   prioridades = ['NORMAL', 'URGENTE'];
   prioridadeSelecionado = 'NORMAL';
@@ -25,19 +30,25 @@ export class NovoRetornoComponent implements OnInit {
   clientes: Cliente[];
   clienteIdSelecionado: any;
 
+  usuarios: Usuario[];
+  usuarioIdSelecionado: any;
+
   valueTelefonePipe = '';
 
   dataHoraAtual = new Date();
 
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
-              private clienteServices: ClienteService,
-              private retornoServices: RetornoService,
+              private clienteService: ClienteService,
+              private usuarioService: UsuarioService,
+              private retornoService: RetornoService,
+              private notificacaoService: NotificacaoService,
               private router: Router,
               private changeDetectionRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getClientes();
+    this.getUsuarios();
     this.validation();
   }
 
@@ -53,14 +64,27 @@ export class NovoRetornoComponent implements OnInit {
         contatoNome: ['', Validators.required],
         telefone: ['', Validators.required],
         prioridade: ['', Validators.required],
+        usuarioId: ['', Validators.required],
         dataHora: [''],
         status: [''],
         observacao: ['']
     });
   }
 
+  getUsuarios() {
+    this.usuarioService.getAllUsuario().subscribe(
+      (_USUARIOS: Usuario[]) => {
+      this.usuarios = _USUARIOS;
+      this.usuarios.push(Object.assign({ id: 0, userName: 'TODOS'}));
+      this.usuarioIdSelecionado = 0;
+      }, error => {
+        console.log(error.error);
+        this.toastr.error(`Erro ao tentar carregar usuarios: ${error.error}`);
+    });
+  }
+
   getClientes() {
-    this.clienteServices.getAllCliente().subscribe(
+    this.clienteService.getAllCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES.filter(cliente => cliente.status === 'ATIVO');
     }, error => {
@@ -73,10 +97,20 @@ export class NovoRetornoComponent implements OnInit {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     if (this.cadastroForm.valid) {
       this.retorno = Object.assign(this.cadastroForm.value, {id: 0, status: 'AGUARDANDO', dataHora: dataAtual});
-      this.retornoServices.novoRetorno(this.retorno).subscribe(
+      console.log(this.retorno.usuarioId);
+      this.retornoService.novoRetorno(this.retorno).subscribe(
         () => {
+          if (this.retorno.usuarioId !== 0) {
+            this.notificacao = Object.assign({usuarioId: this.retorno.usuarioId, dataHora: dataAtual, tipo: 'Retorno', visto: 0});
+            this.notificacaoService.novaNotificacao(this.notificacao).subscribe(
+              () => {
+                this.toastr.success('Cadastrado com sucesso!');
+                this.router.navigate([`/atendimentos/retornos`]);
+              });
+          } else {
           this.toastr.success('Cadastrado com sucesso!');
           this.router.navigate([`/atendimentos/retornos`]);
+          }
         }, error => {
           console.log(error.error);
         }

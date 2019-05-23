@@ -1,10 +1,10 @@
-import { Colaborador } from 'src/app/_models/Cadastros/Colaboradores/Colaborador';
+import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
 
 export class RetornoLog {
     id: number;
     retornoId: number;
-    colaboradorId: number;
-    colaborador: Colaborador;
+    usuarioId: number;
+    usuario: Usuario;
     dataHora: string;
     status: string;
 }

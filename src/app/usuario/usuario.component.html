@@ -12,8 +12,8 @@
     </div>
   </div>
   <div>
-   <a [routerLink]="['/colaboradores','novo']" tooltop="Novo Colaborador" class="btn btn-success">
-      <i class="fa fa-plus-circle"></i>&nbsp; Novo Colaborador
+   <a [routerLink]="['/usuarios','novo']" tooltop="Novo Usuario" class="btn btn-success">
+      <i class="fa fa-plus-circle"></i>&nbsp; Novo Usuario
     </a>
   </div>
 </div>
@@ -28,28 +28,28 @@
       <th>Ações</th>
     </tr>
   </thead>
-  <tbody *ngIf="colaboradores && colaboradores.length">
-    <tr *ngFor="let colaborador of colaboradoresFiltrados">
-      <td>{{ colaborador.id }}</td>
-      <td>{{ colaborador.userName }}</td>
-      <td>{{ colaborador.nomeCompleto }}</td>
-      <td>{{ colaborador.email }}</td>
+  <tbody *ngIf="usuarios && usuarios.length">
+    <tr *ngFor="let usuario of usuariosFiltrados">
+      <td>{{ usuario.id }}</td>
+      <td>{{ usuario.userName }}</td>
+      <td>{{ usuario.nomeCompleto }}</td>
+      <td>{{ usuario.email }}</td>
       <td>
         <div class="btn-group">
-          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirColaborador(colaborador, confirm)">
+          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirUsuario(usuario, confirm)">
             <i class="fa fa-eraser"></i>
           </button>
-                <a [routerLink]="['/colaboradores','editar', colaborador.id]" tooltip="Editar/Perfil" class="btn btn-sm btn-primary">
+                <a [routerLink]="['/usuarios','editar', usuario.id]" tooltip="Editar/Perfil" class="btn btn-sm btn-primary">
           <i class="fa fa-edit"></i>
         </a>
         </div>
       </td>
     </tr>
   </tbody>
-  <tfoot *ngIf="!colaboradores">
+  <tfoot *ngIf="!usuarios">
     <tr colspan="7" class="text-center"></tr>
     <h4>
-      Nenhum colaborador encontrado!
+      Nenhum usuario encontrado!
     </h4>
   </tfoot>
 </table>
@@ -66,7 +66,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <p>{{bodyDeletarColaborador}}</p>
+            <p>{{bodyDeletarUsuario}}</p>
         </div>    
         <div class="modal-footer btn-group d-flex">      
             <button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">

@@ -1,34 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { ColaboradorService } from 'src/app/_services/Cadastros/Colaboradores/colaborador.service';
+import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
 import { ActivatedRoute } from '@angular/router';
 import { BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { Colaborador } from 'src/app/_models/Cadastros/Colaboradores/Colaborador';
-import { ColaboradorOcorrencia } from 'src/app/_models/Cadastros/Colaboradores/ColaboradorOcorrencia';
-import { Nivel } from 'src/app/_models/Cadastros/Colaboradores/Nivel';
-import { ColaboradorNivel } from 'src/app/_models/Cadastros/Colaboradores/ColaboradorNivel';
+import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
+import { UsuarioOcorrencia } from 'src/app/_models/Cadastros/Usuarios/UsuarioOcorrencia';
+import { Nivel } from 'src/app/_models/Cadastros/Usuarios/Nivel';
+import { UsuarioNivel } from 'src/app/_models/Cadastros/Usuarios/UsuarioNivel';
 
 @Component({
-  selector: 'app-editar-colaborador',
-  templateUrl: './editarColaborador.component.html',
-  styleUrls: ['./editarColaborador.component.css']
+  selector: 'app-editar-usuario',
+  templateUrl: './editarUsuario.component.html'
 })
-export class EditarColaboradorComponent implements OnInit {
+export class EditarUsuarioComponent implements OnInit {
 
   cadastroForm: FormGroup;
-  idColaborador: number;
+  idUsuario: number;
   cadastroOcorrenciaForm: FormGroup;
-  colaborador: Colaborador = new Colaborador();
-  colaboradorOcorrencias: ColaboradorOcorrencia[] = [];
+  usuario: Usuario = new Usuario();
+  usuarioOcorrencias: UsuarioOcorrencia[] = [];
   dataAtual = '';
   modoSalvarOcorrencia = '';
 
   niveis: Nivel[];
   niveisIdSelecionado: any;
-  niveisColaborador: ColaboradorNivel[];
+  niveisUsuario: UsuarioNivel[];
 
-  constructor(private colaboradorService: ColaboradorService,
+  constructor(private usuarioService: UsuarioService,
               private router: ActivatedRoute,
               private fb: FormBuilder,
               private localeService: BsLocaleService,
@@ -37,31 +36,31 @@ export class EditarColaboradorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.idColaborador = +this.router.snapshot.paramMap.get('id');
+    this.idUsuario = +this.router.snapshot.paramMap.get('id');
     this.getNiveis();
     this.validation();
-    this.carregarColaborador();
+    this.carregarUsuario();
   }
 
-  carregarColaborador() {
+  carregarUsuario() {
 
-  this.colaboradorOcorrencias.length = 0;
-  this.colaboradorService.getColaboradorById(this.idColaborador)
+  this.usuarioOcorrencias.length = 0;
+  this.usuarioService.getUsuarioById(this.idUsuario)
     .subscribe(
-    (colaborador: Colaborador) => {
-        this.colaborador = Object.assign({}, colaborador);
+    (usuario: Usuario) => {
+        this.usuario = Object.assign({}, usuario);
 
-        this.cadastroForm.patchValue(this.colaborador);
+        this.cadastroForm.patchValue(this.usuario);
 
-        this.colaborador.colaboradorOcorrencias.forEach(ocorrencia => {
-          this.colaboradorOcorrencias.push(ocorrencia);
+        this.usuario.usuarioOcorrencias.forEach(ocorrencia => {
+          this.usuarioOcorrencias.push(ocorrencia);
         });
 
         this.niveisIdSelecionado = [];
-        this.niveisColaborador = [];
+        this.niveisUsuario = [];
 
-        this.colaborador.colaboradorNivel.forEach(niveis => {
-          this.niveisColaborador.push(niveis);
+        this.usuario.usuarioNivel.forEach(niveis => {
+          this.niveisUsuario.push(niveis);
           this.niveisIdSelecionado.push(niveis.roleId);
         });
     });
@@ -78,8 +77,8 @@ export class EditarColaboradorComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(4)]],
       confirmPassword: ['', Validators.required]
       }, { validator : this.compararSenhas}),
-      colaboradorOcorrencias: this.fb.array([]),
-      colaboradorNivel: [this.fb.group({
+      usuarioOcorrencias: this.fb.array([]),
+      usuarioNivel: [this.fb.group({
         userId: [''],
         roleId: ['']
       }), Validators.required]
@@ -104,16 +103,16 @@ export class EditarColaboradorComponent implements OnInit {
     }
   }
 
-  adicionarColaboradorNivel(niveisSelecionados: any) {
-    this.niveisColaborador = [];
+  adicionarUsuarioNivel(niveisSelecionados: any) {
+    this.niveisUsuario = [];
     niveisSelecionados.forEach(niveis => {
-      this.niveisColaborador.push(Object.assign({ userId: this.idColaborador, roleId: niveis}));
+      this.niveisUsuario.push(Object.assign({ userId: this.idUsuario, roleId: niveis}));
     });
   }
 
   getNiveis() {
     this.niveis = [];
-    this.colaboradorService.getAllNiveis().subscribe(
+    this.usuarioService.getAllNiveis().subscribe(
       (_NIVEIS: Nivel[]) => {
       this.niveis = _NIVEIS;
     }, error => {
@@ -142,31 +141,31 @@ export class EditarColaboradorComponent implements OnInit {
   }
 
   adicionarOcorrencia(template: any) {
-    this.colaboradorOcorrencias.push(Object.assign(this.cadastroOcorrenciaForm.value, {id: 0}));
+    this.usuarioOcorrencias.push(Object.assign(this.cadastroOcorrenciaForm.value, {id: 0}));
     template.hide();
   }
 
   removerOcorrencia(ocorrencia: any) {
-    this.colaboradorOcorrencias.splice(this.colaboradorOcorrencias.indexOf(ocorrencia), 1);
+    this.usuarioOcorrencias.splice(this.usuarioOcorrencias.indexOf(ocorrencia), 1);
   }
 
   salvarAlteracao() {
-    this.colaborador = Object.assign({id: this.colaborador.id}, this.cadastroForm.value);
-    this.colaborador.colaboradorOcorrencias = [];
-    this.colaboradorOcorrencias.forEach(ocorrencia => {
-      this.colaborador.colaboradorOcorrencias.push(ocorrencia);
+    this.usuario = Object.assign({id: this.usuario.id}, this.cadastroForm.value);
+    this.usuario.usuarioOcorrencias = [];
+    this.usuarioOcorrencias.forEach(ocorrencia => {
+      this.usuario.usuarioOcorrencias.push(ocorrencia);
     });
 
-    this.colaborador.colaboradorNivel = [];
-    this.niveisColaborador.forEach(niveis => {
-      this.colaborador.colaboradorNivel.push(niveis);
+    this.usuario.usuarioNivel = [];
+    this.niveisUsuario.forEach(niveis => {
+      this.usuario.usuarioNivel.push(niveis);
     });
 
 
-    this.colaboradorService.editarColaborador(this.colaborador).subscribe(
+    this.usuarioService.editarUsuario(this.usuario).subscribe(
       () => {
         this.toastr.success('Editado com sucesso!');
-        this.carregarColaborador();
+        this.carregarUsuario();
       }, error => {
         this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
         console.log(error);
