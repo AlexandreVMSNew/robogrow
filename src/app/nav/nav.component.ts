@@ -24,7 +24,9 @@ export class NavComponent implements OnInit {
   ngOnInit() {
       this.updateSubscription = interval(15000).subscribe(
         (val) => {
+          if (this.loggedIn()) {
           this.getNotificacoes();
+          }
       }
   );
   }
