@@ -16,12 +16,15 @@ getAllNotificacoesByUsuarioId(usuarioId: number): Observable<Notificacao[]> {
   return this.http.get<Notificacao[]>(`${this.baseURL}/usuario/${usuarioId}`);
 }
 
+getCountNotificacoesByUsuarioId(usuarioId: number): Observable<number> {
+  return this.http.get<number>(`${this.baseURL}/usuario/count/${usuarioId}`);
+}
+
 novaNotificacao(notificacao: Notificacao) {
   return this.http.post(`${this.baseURL}/novo`, notificacao);
 }
 
 editarVistoNotificacao(notificacao: any) {
-  console.log(notificacao);
   return this.http.put(`${this.baseURL}/editar/visto`, notificacao);
 }
 

@@ -53,7 +53,7 @@
               <div class="form-group col-md-3">
                 <label>Data de Nascimento:(*)</label>
                 <input type="text" class="form-control" formControlName="dataNascimento"
-                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker />
+                  [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(bsValue)]="cadastroForm.get('dataNascimento').value" value="{{ cadastroForm.get('dataNascimento').value | date:'dd/MM/yyyy' }}" bsDatepicker />
               </div>
     
               <div class="form-group col-md-6">
@@ -181,7 +181,7 @@
             <div class="form-row">
               <div class="form-group col-md-4">
                 <label>Data</label>
-                <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
                   [ngClass]="{'is-invalid':cadastroOcorrenciaForm.get('data').errors && cadastroOcorrenciaForm.get('data').touched}"
                   formControlName="data" placeholder="" />
                 <div

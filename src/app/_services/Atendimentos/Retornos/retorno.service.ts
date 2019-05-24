@@ -25,6 +25,14 @@ getAllLogsByRetornoId(retornoId: number): Observable<RetornoLog[]> {
   return this.http.get<RetornoLog[]>(`${this.baseURL}/logs/${retornoId}`);
 }
 
+getCountRetornos(): Observable<number> {
+  return this.http.get<number>(`${this.baseURL}/count`);
+}
+
+getCountLogsAguardandoByRetornoId(retornoId: number): Observable<number> {
+  return this.http.get<number>(`${this.baseURL}/logs/count/${retornoId}`);
+}
+
 novoRetorno(retorno: Retorno) {
   return this.http.post(`${this.baseURL}/novo`, retorno);
 }

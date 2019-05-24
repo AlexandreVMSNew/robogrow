@@ -77,7 +77,7 @@
               class="btn btn-info btn-sm">EM ANDAMENTO</button>
           </td>
           <td style="white-space: nowrap;">{{ retorno.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-          <td style="white-space: nowrap;">{{ retorno.usuarioId !== 0 ? retorno.usuario.userName : 'TODOS'}}</td>
+          <td style="white-space: nowrap;">{{ retorno.usuarioId ? retorno.usuario.userName : 'TODOS'}}</td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">
               <div *ngIf="retorno.status == 'AGUARDANDO'">
@@ -95,8 +95,14 @@
                 </button>
               </div>
 
-              <button class="btn btn-sm btn-info" (click)="retornoLog(retorno.id,retorno.observacao,templateLog)" tooltip="Log(s)">
-                <i class="fa fa-file-alt"></i>
+              <button class="btn btn-sm btn-info"style="white-space: nowrap;" (click)="retornoLog(retorno.id,retorno.observacao,templateLog)" tooltip="Log(s)">
+                <div *ngIf="retorno.observacao == ''">
+                  <i class="fa fa-file-alt "></i>
+                </div>
+                <div *ngIf="retorno.observacao !== ''">
+                  <i class="fa fa-file-alt "></i> &nbsp; 
+                  <i class="fa fa fa-info"></i> 
+                </div>
               </button>
             </div>
           </td>

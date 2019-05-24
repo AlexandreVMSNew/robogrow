@@ -97,7 +97,7 @@ export class NovoRetornoComponent implements OnInit {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     if (this.cadastroForm.valid) {
       this.retorno = Object.assign(this.cadastroForm.value, {id: 0, status: 'AGUARDANDO', dataHora: dataAtual});
-      console.log(this.retorno.usuarioId);
+
       this.retornoService.novoRetorno(this.retorno).subscribe(
         () => {
           if (this.retorno.usuarioId !== 0) {

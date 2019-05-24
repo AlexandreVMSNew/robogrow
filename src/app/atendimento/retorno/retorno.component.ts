@@ -9,6 +9,7 @@ import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { RetornoLog } from 'src/app/_models/Atendimentos/Retornos/retornoLog';
 import * as moment from 'moment';
 import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-retorno',
@@ -46,6 +47,9 @@ export class RetornoComponent implements OnInit {
   // tslint:disable-next-line:variable-name
   _filtroLista: string;
 
+  countRetornos: number;
+  private updateSubscription: Subscription;
+
   InfoUsuario = InfoUsuario;
   constructor(
     private clienteServices: ClienteService,
@@ -58,6 +62,19 @@ export class RetornoComponent implements OnInit {
   ngOnInit() {
     this.getClientes();
     this.getRetornos();
+    this.updateSubscription = interval(30000).subscribe(
+      async (val) => {
+          this.retornoServices.getCountRetornos().subscribe(
+            (_COUNT: number) => {
+              if (this.countRetornos !== _COUNT && _COUNT > 0) {
+                this.countRetornos = _COUNT;
+                this.getRetornos();
+                const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
+                  body: 'Novo retorno!'
+                });
+              }
+          });
+      });
   }
 
   getClientes() {
@@ -121,6 +138,17 @@ export class RetornoComponent implements OnInit {
       });
   }
 
+  getCountLogsAguardando(retornoId: number) {
+    this.retornoServices.getCountLogsAguardandoByRetornoId(retornoId).subscribe(
+      (_COUNT: number) => {
+        if (_COUNT > 0) {
+          return `(${_COUNT})`;
+        } else {
+          return '';
+        }
+    });
+  }
+
   retornoLog(retornoId: number, logObservacao: string, template: any) {
     this.retornoServices.getAllLogsByRetornoId(retornoId).subscribe(
       (_LOGS: RetornoLog[]) => {
@@ -169,6 +197,7 @@ export class RetornoComponent implements OnInit {
       this.retornoServices.getAllRetornos().subscribe(
         (_RETORNOS: Retorno[]) => {
         this.retornos = _RETORNOS;
+        this.countRetornos = _RETORNOS.length;
         this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
       }, error => {
         console.log(error.error);

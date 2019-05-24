@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
 import { ActivatedRoute } from '@angular/router';
 import { BsLocaleService } from 'ngx-bootstrap';
@@ -27,11 +27,13 @@ export class EditarUsuarioComponent implements OnInit {
   niveisIdSelecionado: any;
   niveisUsuario: UsuarioNivel[];
 
+  dateFormat = '';
   constructor(private usuarioService: UsuarioService,
               private router: ActivatedRoute,
               private fb: FormBuilder,
               private localeService: BsLocaleService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private changeDetectionRef: ChangeDetectorRef) {
     this.localeService.use('pt-br');
   }
 
@@ -41,6 +43,12 @@ export class EditarUsuarioComponent implements OnInit {
     this.validation();
     this.carregarUsuario();
   }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngAfterViewChecked() {
+    this.changeDetectionRef.detectChanges();
+  }
+
 
   carregarUsuario() {
 
@@ -150,7 +158,8 @@ export class EditarUsuarioComponent implements OnInit {
   }
 
   salvarAlteracao() {
-    this.usuario = Object.assign({id: this.usuario.id}, this.cadastroForm.value);
+    this.usuario = Object.assign({id: this.usuario.id }, this.cadastroForm.value);
+    console.log(this.usuario);
     this.usuario.usuarioOcorrencias = [];
     this.usuarioOcorrencias.forEach(ocorrencia => {
       this.usuario.usuarioOcorrencias.push(ocorrencia);

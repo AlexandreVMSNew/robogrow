@@ -15,20 +15,40 @@ import { Subscription, interval } from 'rxjs';
 export class NavComponent implements OnInit {
 
   notificacoes: Notificacao[];
+  qtdNotificacoes: number;
+
   private updateSubscription: Subscription;
+
   constructor(private toastr: ToastrService,
               public authService: AuthService,
               private notificacaoService: NotificacaoService,
               private router: Router) { }
 
   ngOnInit() {
-      this.updateSubscription = interval(15000).subscribe(
-        (val) => {
-          if (this.loggedIn()) {
-          this.getNotificacoes();
-          }
-      }
-  );
+    if (!('Notification' in window)) {
+      alert('This browser does not support system notifications');
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission();
+    }
+
+    this.updateSubscription = interval(30000).subscribe(
+      async (val) => {
+        if (this.loggedIn()) {
+          this.notificacaoService.getCountNotificacoesByUsuarioId(InfoUsuario.id).subscribe(
+            (_COUNT: number) => {
+              if (this.qtdNotificacoes !== _COUNT && _COUNT > 0) {
+
+                this.qtdNotificacoes = _COUNT;
+                this.getNotificacoes();
+
+                const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
+                  body: 'Você tem nova(s) Notificação(ões)!'
+                });
+
+              }
+          });
+        }
+      });
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -38,7 +58,9 @@ export class NavComponent implements OnInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    this.getNotificacoes();
+    if (this.loggedIn()) {
+     this.getNotificacoes();
+    }
   }
 
   loggedIn() {
@@ -70,6 +92,7 @@ export class NavComponent implements OnInit {
   setarVistoNotificacao(notificacao: any) {
     this.notificacaoService.editarVistoNotificacao(notificacao).subscribe(
       () => {
+        this.getNotificacoes();
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar setar notificacoes: ${error}`);
@@ -80,6 +103,7 @@ export class NavComponent implements OnInit {
     this.notificacaoService.getAllNotificacoesByUsuarioId(this.usuarioId()).subscribe(
       (_NOTIFICACOES: Notificacao[]) => {
       this.notificacoes = _NOTIFICACOES;
+      this.qtdNotificacoes = _NOTIFICACOES.length;
     }, error => {
       this.toastr.error(`Erro ao tentar carregar notificacoes: ${error}`);
     });
