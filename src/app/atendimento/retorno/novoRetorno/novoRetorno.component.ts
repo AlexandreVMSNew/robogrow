@@ -11,6 +11,8 @@ import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
 import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
 import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.service';
 import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
+import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
+import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 
 @Component({
   selector: 'app-novo-retorno',
@@ -21,6 +23,8 @@ export class NovoRetornoComponent implements OnInit {
 
   cadastroForm: FormGroup;
   retorno: Retorno;
+  retornoObservacao: RetornoObservacao;
+  _observacao = '';
   notificacao: Notificacao;
 
   prioridades = ['NORMAL', 'URGENTE'];
@@ -55,6 +59,14 @@ export class NovoRetornoComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewChecked() {
     this.changeDetectionRef.detectChanges();
+  }
+
+  get observacaoTexto(): string {
+    return this._observacao;
+  }
+
+  set observacaoTexto(value: string) {
+    this._observacao = value;
   }
 
   validation() {
@@ -100,6 +112,16 @@ export class NovoRetornoComponent implements OnInit {
 
       this.retornoService.novoRetorno(this.retorno).subscribe(
         () => {
+
+          if (this._observacao !== '') {
+              this.retornoService.getIdUltimoRetorno().subscribe(
+              (ultimoId: number) => {
+              this.retornoObservacao = Object.assign({id: 0, retornoId: ultimoId,
+              usuarioId: InfoUsuario.id, dataHora: dataAtual, observacao: this._observacao});
+              this.retornoService.novaObservacao(this.retornoObservacao).subscribe();
+            });
+          }
+
           if (this.retorno.usuarioId !== 0) {
             this.notificacao = Object.assign({usuarioId: this.retorno.usuarioId, dataHora: dataAtual, tipo: 'Retorno', visto: 0});
             this.notificacaoService.novaNotificacao(this.notificacao).subscribe(

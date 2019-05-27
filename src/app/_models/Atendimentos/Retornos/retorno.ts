@@ -11,7 +11,6 @@ export class Retorno {
     prioridade: string;
     usuarioId: number;
     usuario: Usuario;
-    observacao: string;
     status: string;
     dataHora: string;
 }

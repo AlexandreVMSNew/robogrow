@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Retorno } from './../../../_models/Atendimentos/Retornos/retorno';
 import { RetornoLog } from './../../../_models/Atendimentos/Retornos/retornoLog';
 import { InfoAPI } from './../../../_models/Info/infoAPI';
+import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,16 @@ getAllLogsByRetornoId(retornoId: number): Observable<RetornoLog[]> {
   return this.http.get<RetornoLog[]>(`${this.baseURL}/logs/${retornoId}`);
 }
 
+getAllObservacoesByRetornoId(retornoId: number): Observable<RetornoObservacao[]> {
+  return this.http.get<RetornoObservacao[]>(`${this.baseURL}/observacoes/${retornoId}`);
+}
+
 getCountRetornos(): Observable<number> {
   return this.http.get<number>(`${this.baseURL}/count`);
+}
+
+getIdUltimoRetorno(): Observable<number> {
+  return this.http.get<number>(`${this.baseURL}/ultimoid`);
 }
 
 getCountLogsAguardandoByRetornoId(retornoId: number): Observable<number> {
@@ -39,6 +48,10 @@ novoRetorno(retorno: Retorno) {
 
 novoLog(retornoLog: RetornoLog) {
   return this.http.post(`${this.baseURL}/logs`, retornoLog);
+}
+
+novaObservacao(retornoObservacao: RetornoObservacao) {
+  return this.http.post(`${this.baseURL}/novaObservacao`, retornoObservacao);
 }
 
 editarRetorno(retorno: Retorno) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Retorno } from 'src/app/_models/Atendimentos/Retornos/retorno';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
 import { BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +10,7 @@ import { RetornoLog } from 'src/app/_models/Atendimentos/Retornos/retornoLog';
 import * as moment from 'moment';
 import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 import { Subscription, interval } from 'rxjs';
+import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
 
 @Component({
   selector: 'app-retorno',
@@ -17,11 +18,17 @@ import { Subscription, interval } from 'rxjs';
 })
 export class RetornoComponent implements OnInit {
 
+  cadastroObservacaoForm: FormGroup;
+  observacao: RetornoObservacao;
+  observacaoId: number;
+
   retornosFiltrados: Retorno[];
   retornos: Retorno[];
   retorno: Retorno;
   logRetorno: RetornoLog[];
-  logObservacao: string;
+  retornoObservacoes: RetornoObservacao[];
+  retornoTelefone: string;
+  retornoSolicitante: string;
 
   cadastroForm: FormGroup;
 
@@ -51,17 +58,18 @@ export class RetornoComponent implements OnInit {
   private updateSubscription: Subscription;
 
   InfoUsuario = InfoUsuario;
-  constructor(
-    private clienteServices: ClienteService,
-    private retornoServices: RetornoService,
-    private localeService: BsLocaleService,
-    private toastr: ToastrService) {
+  constructor(public fb: FormBuilder,
+              private clienteServices: ClienteService,
+              private retornoServices: RetornoService,
+              private localeService: BsLocaleService,
+              private toastr: ToastrService) {
       this.localeService.use('pt-br');
     }
 
   ngOnInit() {
     this.getClientes();
     this.getRetornos();
+    this.validationObservacao();
     this.updateSubscription = interval(30000).subscribe(
       async (val) => {
           this.retornoServices.getCountRetornos().subscribe(
@@ -76,6 +84,14 @@ export class RetornoComponent implements OnInit {
           });
       });
   }
+
+  validationObservacao() {
+    this.cadastroObservacaoForm = this.fb.group({
+        id: [''],
+        observacao: ['', Validators.required]
+    });
+  }
+
 
   getClientes() {
     this.clienteServices.getAllCliente().subscribe(
@@ -149,15 +165,29 @@ export class RetornoComponent implements OnInit {
     });
   }
 
-  retornoLog(retornoId: number, logObservacao: string, template: any) {
+  retornoLog(retornoId: number, template: any) {
     this.retornoServices.getAllLogsByRetornoId(retornoId).subscribe(
       (_LOGS: RetornoLog[]) => {
       this.logRetorno = _LOGS;
-      this.logObservacao = logObservacao;
     }, error => {
       this.toastr.error(`Erro ao tentar carregar retornoLog: ${error.error}`);
     });
     template.show();
+  }
+
+  getRetornoInformacoes(retornoId: number, telefone: string, solicitante: string, template: any) {
+    this.observacaoId = retornoId;
+    this.retornoTelefone = telefone;
+    this.retornoSolicitante = solicitante;
+    this.retornoServices.getAllObservacoesByRetornoId(retornoId).subscribe(
+      (_OBSERVACOES: RetornoObservacao[]) => {
+      this.retornoObservacoes = _OBSERVACOES;
+    }, error => {
+      this.toastr.error(`Erro ao tentar carregar observacoes: ${error.error}`);
+    });
+    if (template !== null) {
+      template.show();
+    }
   }
 
   get filtroLista() {
@@ -203,5 +233,23 @@ export class RetornoComponent implements OnInit {
         console.log(error.error);
         this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
       });
+  }
+
+  novaObservacao(template: any) {
+    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    if (this.cadastroObservacaoForm.valid) {
+      this.observacao = Object.assign(this.cadastroObservacaoForm.value, {id: 0, retornoId: this.observacaoId,
+      usuarioId: InfoUsuario.id, dataHora: dataAtual});
+
+      this.retornoServices.novaObservacao(this.observacao).subscribe(
+        () => {
+          this.getRetornoInformacoes(this.observacaoId, this.retornoTelefone, this.retornoSolicitante, null);
+          this.toastr.success('Observação cadastrada com sucesso!');
+          template.hide();
+        }, error => {
+          console.log(error.error);
+        }
+      );
+    }
   }
 }
