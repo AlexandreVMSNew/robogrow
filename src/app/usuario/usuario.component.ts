@@ -21,6 +21,10 @@ export class UsuarioComponent implements OnInit {
 
   // tslint:disable-next-line:variable-name
   _filtroLista: string;
+  filtroUsuarios: any;
+
+  paginaAtual = 1;
+  totalRegistros: number;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -38,7 +42,7 @@ export class UsuarioComponent implements OnInit {
 
   set filtroLista(value: string) {
     this._filtroLista = value;
-    this.usuariosFiltrados = this.filtroLista ? this.filtrarUsuarios(this.filtroLista) : this.usuarios;
+    this.usuariosFiltrados = this.filtrarUsuarios(this.filtroLista);
   }
 
   excluirUsuario(usuario: Usuario, template: any) {
@@ -62,10 +66,17 @@ export class UsuarioComponent implements OnInit {
   }
 
   filtrarUsuarios(filtrarPor: string): Usuario[] {
-    filtrarPor = filtrarPor.toLocaleLowerCase();
-    return this.usuarios.filter(
-      usuario => usuario.userName.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-    );
+    this.filtroUsuarios = this.usuarios;
+
+    if (filtrarPor) {
+      filtrarPor = filtrarPor.toLocaleLowerCase();
+      this.filtroUsuarios = this.usuarios.filter(
+        usuario => usuario.userName.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+      );
+    }
+
+    this.totalRegistros = this.filtroUsuarios.length;
+    return this.filtroUsuarios;
   }
 
   getUsuarios() {
@@ -73,7 +84,7 @@ export class UsuarioComponent implements OnInit {
         // tslint:disable-next-line:variable-name
         (_usuarios: Usuario[]) => {
         this.usuarios = _usuarios;
-        this.usuariosFiltrados = this.usuarios;
+        this.usuariosFiltrados = this.filtrarUsuarios(this.filtroLista);
       }, error => {
         this.toastr.error(`Erro ao tentar carregar usuarios: ${error}`);
       });

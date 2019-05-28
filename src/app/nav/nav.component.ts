@@ -16,7 +16,6 @@ export class NavComponent implements OnInit {
 
   notificacoes: Notificacao[];
   qtdNotificacoes: number;
-
   private updateSubscription: Subscription;
 
   constructor(private toastr: ToastrService,
@@ -27,7 +26,7 @@ export class NavComponent implements OnInit {
   ngOnInit() {
     if (!('Notification' in window)) {
       alert('This browser does not support system notifications');
-    } else if (Notification.permission !== 'denied') {
+    } else if (Notification.permission !== 'granted') {
       Notification.requestPermission();
     }
 

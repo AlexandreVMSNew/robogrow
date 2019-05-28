@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 import { Subscription, interval } from 'rxjs';
 import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-retorno',
@@ -58,6 +59,9 @@ export class RetornoComponent implements OnInit {
   private updateSubscription: Subscription;
 
   InfoUsuario = InfoUsuario;
+
+  horaUltimaAtt: any;
+
   constructor(public fb: FormBuilder,
               private clienteServices: ClienteService,
               private retornoServices: RetornoService,
@@ -68,21 +72,34 @@ export class RetornoComponent implements OnInit {
 
   ngOnInit() {
     this.getClientes();
+    this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
     this.getRetornos();
     this.validationObservacao();
-    this.updateSubscription = interval(30000).subscribe(
+    this.updateSubscription = interval(10000).subscribe(
       async (val) => {
-          this.retornoServices.getCountRetornos().subscribe(
-            (_COUNT: number) => {
-              if (this.countRetornos !== _COUNT && _COUNT > 0) {
-                this.countRetornos = _COUNT;
-                this.getRetornos();
-                const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
-                  body: 'Novo retorno!'
-                });
-              }
-          });
+        this.atualizarPagina(false);
       });
+  }
+
+  atualizarPagina(forcarAtt: boolean) {
+    this.retornoServices.getCountRetornos().subscribe(
+      (_COUNT: number) => {
+        this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
+        if (forcarAtt === true) {
+          this.getRetornos();
+          if ((this.countRetornos !== _COUNT && _COUNT > 0)) {
+            const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
+              body: 'Novo retorno!'
+            });
+          }
+        } else if (this.countRetornos !== _COUNT && _COUNT > 0) {
+          this.getRetornos();
+          const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
+            body: 'Novo retorno!'
+          });
+        }
+        this.countRetornos = _COUNT;
+    });
   }
 
   validationObservacao() {
@@ -231,7 +248,7 @@ export class RetornoComponent implements OnInit {
         this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
       }, error => {
         console.log(error.error);
-        this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
+        this.toastr.error(`Erro ao tentar carregar retornos: ${error.error}`);
       });
   }
 
