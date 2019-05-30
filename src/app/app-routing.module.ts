@@ -13,7 +13,7 @@ import { AtendimentoComponent } from './atendimento/atendimento.component';
 import { RetornoComponent } from './atendimento/retorno/retorno.component';
 import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoRetorno.component';
 import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
-import { EditarSenhaUsuarioComponent } from './usuario/EditarSenhaUsuario/editarSenhaUsuario.component';
+import { EditarSenhaUsuarioComponent } from './usuario/editarSenhaUsuario/editarSenhaUsuario.component';
 
 const routes: Routes = [
   { path: 'usuarios', component: UsuarioComponent, canActivate: [AuthGuard]},

@@ -17,7 +17,7 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import { LoginComponent } from './usuario/login/login.component';
 import { EditarUsuarioComponent } from './usuario/editarUsuario/editarUsuario.component';
 import { NovoUsuarioComponent } from './usuario/novoUsuario/novoUsuario.component';
-import { EditarSenhaUsuarioComponent } from './usuario/EditarSenhaUsuario/editarSenhaUsuario.component';
+import { EditarSenhaUsuarioComponent } from './usuario/editarSenhaUsuario/editarSenhaUsuario.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { NovoClienteComponent } from './cliente/novoCliente/novoCliente.component';
 import { EditarClienteComponent } from './cliente/editarCliente/editarCliente.component';
