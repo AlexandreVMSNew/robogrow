@@ -8,6 +8,7 @@ import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
 import { UsuarioOcorrencia } from 'src/app/_models/Cadastros/Usuarios/UsuarioOcorrencia';
 import { Nivel } from 'src/app/_models/Cadastros/Usuarios/Nivel';
 import { UsuarioNivel } from 'src/app/_models/Cadastros/Usuarios/UsuarioNivel';
+import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -49,6 +50,16 @@ export class EditarUsuarioComponent implements OnInit {
     this.changeDetectionRef.detectChanges();
   }
 
+  verificarNivel(niveis: any[]) {
+    let retornoPermissao = false;
+    niveis.forEach(nivel => {
+      if (InfoUsuario.niveis.indexOf(nivel) !== -1) {
+        retornoPermissao = true;
+      }
+    });
+    console.log(retornoPermissao);
+    return retornoPermissao;
+  }
 
   carregarUsuario() {
 
@@ -81,10 +92,6 @@ export class EditarUsuarioComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       userName: ['', Validators.required],
       dataNascimento: ['', Validators.required],
-      passwords: this.fb.group({
-      password: ['', [Validators.required, Validators.minLength(4)]],
-      confirmPassword: ['', Validators.required]
-      }, { validator : this.compararSenhas}),
       usuarioOcorrencias: this.fb.array([]),
       usuarioNivel: [this.fb.group({
         userId: [''],
@@ -98,17 +105,6 @@ export class EditarUsuarioComponent implements OnInit {
       descricao: ['', Validators.required],
       observacao: ['', Validators.required]
     });
-  }
-
-  compararSenhas(fb: FormGroup) {
-    const confirmSenhaCtrl = fb.get('confirmPassword');
-    if (confirmSenhaCtrl.errors == null || 'mismatch' in confirmSenhaCtrl.errors) {
-      if (fb.get('password').value !== confirmSenhaCtrl.value) {
-        confirmSenhaCtrl.setErrors({mismatch: true});
-      } else {
-        confirmSenhaCtrl.setErrors(null);
-      }
-    }
   }
 
   adicionarUsuarioNivel(niveisSelecionados: any) {

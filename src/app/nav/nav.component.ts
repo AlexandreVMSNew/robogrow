@@ -17,11 +17,15 @@ export class NavComponent implements OnInit {
   notificacoes: Notificacao[];
   qtdNotificacoes: number;
   private updateSubscription: Subscription;
+  statusLogIn = false;
+  infoUsuario = InfoUsuario;
 
   constructor(private toastr: ToastrService,
               public authService: AuthService,
               private notificacaoService: NotificacaoService,
-              private router: Router) { }
+              private router: Router) {
+
+              }
 
   ngOnInit() {
     if (!('Notification' in window)) {
@@ -30,24 +34,21 @@ export class NavComponent implements OnInit {
       Notification.requestPermission();
     }
 
-    this.updateSubscription = interval(30000).subscribe(
+    this.updateSubscription = interval(20000).subscribe(
       async (val) => {
-        if (this.loggedIn()) {
-          this.notificacaoService.getCountNotificacoesByUsuarioId(InfoUsuario.id).subscribe(
-            (_COUNT: number) => {
-              if (this.qtdNotificacoes !== _COUNT && _COUNT > 0) {
+        this.notificacaoService.getCountNotificacoesByUsuarioId(this.infoUsuario.id).subscribe(
+          (_COUNT: number) => {
+            if (this.qtdNotificacoes !== _COUNT && _COUNT > 0) {
 
-                this.qtdNotificacoes = _COUNT;
-                this.getNotificacoes();
+              this.qtdNotificacoes = _COUNT;
+              this.getNotificacoes();
 
-                const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
-                  body: 'Você tem nova(s) Notificação(ões)!'
-                });
-
-              }
-          });
-        }
-      });
+              const  notification = new Notification(`Olá, ${this.infoUsuario.usuario} !`, {
+                body: 'Você tem nova(s) Notificação(ões)!'
+              });
+            }
+        });
+    });
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -55,14 +56,7 @@ export class NavComponent implements OnInit {
     this.updateSubscription.unsubscribe();
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngAfterViewInit() {
-    if (this.loggedIn()) {
-     this.getNotificacoes();
-    }
-  }
-
-  loggedIn() {
+  verificarLogIn() {
     return this.authService.loggerIn();
   }
 

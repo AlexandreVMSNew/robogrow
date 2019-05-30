@@ -13,12 +13,14 @@ import { AtendimentoComponent } from './atendimento/atendimento.component';
 import { RetornoComponent } from './atendimento/retorno/retorno.component';
 import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoRetorno.component';
 import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
+import { EditarSenhaUsuarioComponent } from './usuario/EditarSenhaUsuario/editarSenhaUsuario.component';
 
 const routes: Routes = [
-  { path: 'usuarios', component: UsuarioComponent},
+  { path: 'usuarios', component: UsuarioComponent, canActivate: [AuthGuard]},
   { path: 'usuarios/login', component: LoginComponent},
   { path: 'usuarios/novo', component: NovoUsuarioComponent},
-  { path: 'usuarios/editar/:id', component: EditarUsuarioComponent},
+  { path: 'usuarios/editar/:id', component: EditarUsuarioComponent, canActivate: [AuthGuard]},
+  { path: 'usuarios/editar/senha/:id', component: EditarSenhaUsuarioComponent, canActivate: [AuthGuard]},
   { path: 'clientes', component: ClienteComponent, canActivate: [AuthGuard]},
   { path: 'clientes/novo', component: NovoClienteComponent, canActivate: [AuthGuard]},
   { path: 'clientes/editar/:id', component: EditarClienteComponent, canActivate: [AuthGuard]},

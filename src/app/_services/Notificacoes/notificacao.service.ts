@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 import { Observable } from 'rxjs';
 import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
+import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 export class NotificacaoService {
 
   baseURL = InfoAPI.URL + '/api/notificacoes';
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {}
 
 getAllNotificacoesByUsuarioId(usuarioId: number): Observable<Notificacao[]> {
   return this.http.get<Notificacao[]>(`${this.baseURL}/usuario/${usuarioId}`);

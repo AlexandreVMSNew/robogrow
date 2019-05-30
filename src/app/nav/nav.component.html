@@ -5,7 +5,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div *ngIf="loggedIn()">
+  <div *ngIf="verificarLogIn()">
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active">
@@ -78,8 +78,11 @@
       </a>
       <div *dropdownMenu class="dropdown-menu" style="position: absolute; width: 235px;"
         aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item">
+        <a  [routerLink]="['/usuarios','editar', usuarioId()]" class="dropdown-item">
           Perfil
+        </a>
+        <a [routerLink]="['/usuarios','editar','senha', usuarioId()]" class="dropdown-item" class="dropdown-item">
+          Alterar Senha
         </a>
         <div role="separator" class="divider"></div>
         <a class="dropdown-item" (click)="logout()" style="cursor: pointer">

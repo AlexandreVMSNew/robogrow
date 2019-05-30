@@ -1,0 +1,71 @@
+<div class="row mt-3">
+  <div class="container col-xs-8">
+    <div class="container form-group">
+      <h3>Alterar Senha</h3>&nbsp;
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 mt-1">
+  <form [formGroup]="cadastroForm" class="container mr-8 mt-3">
+    
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label>Senha Atual:</label>
+          <input class="form-control" type="password" formControlName="senhaAtual" [ngClass]="{ 'is-invalid': cadastroForm.get('senhaAtual').errors &&
+                                                             cadastroForm.get('senhaAtual').touched}"
+            placeholder="Digite sua Senha atual" />
+          <div *ngIf="cadastroForm.get('senhaAtual').hasError('minlength') &&
+                                  cadastroForm.get('senhaAtual').touched" class="invalid-feedback">
+            Deve conter no mínimo 4 caracters.
+          </div>
+          <div *ngIf="cadastroForm.get('senhaAtual').hasError('required') &&
+                                            cadastroForm.get('senhaAtual').touched" class="invalid-feedback">
+            Senha Atual é obrigatório.
+          </div>
+        </div>
+    </div>
+
+    <div formGroupName="passwords">
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label>Senha:</label>
+          <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.password').errors &&
+                                                             cadastroForm.get('passwords.password').touched}"
+            placeholder="Digite uma Senha" />
+          <div *ngIf="cadastroForm.get('passwords.password').hasError('minlength') &&
+                                  cadastroForm.get('passwords.password').touched" class="invalid-feedback">
+            Deve conter no mínimo 4 caracters.
+          </div>
+          <div *ngIf="cadastroForm.get('passwords.password').hasError('required') &&
+                                            cadastroForm.get('passwords.password').touched" class="invalid-feedback">
+            Senha é obrigatório.
+          </div>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Confirmar Senha:</label>
+          <input class="form-control" type="password" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.confirmPassword').errors 
+                                               && cadastroForm.get('passwords.confirmPassword').touched 
+                                               ||cadastroForm.get('passwords.confirmPassword').hasError('mismatch') 
+                                               && cadastroForm.get('passwords.confirmPassword').touched }"
+            placeholder="Confirme a Senha" />
+          <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('required') &&
+                                            cadastroForm.get('passwords.confirmPassword').touched"
+            class="invalid-feedback">
+            Confirme a senha.
+          </div>
+          <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('mismatch') 
+                                            && cadastroForm.get('passwords.confirmPassword').touched"
+            class="invalid-feedback">
+            Senhas diferentes!
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group  offset-md-10 mt-3">
+      <button class="btn btn-primary btn-block" [disabled]="!cadastroForm.valid"
+        (click)="salvarAlteracao()">Salvar</button>
+    </div>
+  </form>
+</div>

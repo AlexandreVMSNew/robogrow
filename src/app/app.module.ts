@@ -17,12 +17,15 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import { LoginComponent } from './usuario/login/login.component';
 import { EditarUsuarioComponent } from './usuario/editarUsuario/editarUsuario.component';
 import { NovoUsuarioComponent } from './usuario/novoUsuario/novoUsuario.component';
+import { EditarSenhaUsuarioComponent } from './usuario/EditarSenhaUsuario/editarSenhaUsuario.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { NovoClienteComponent } from './cliente/novoCliente/novoCliente.component';
 import { EditarClienteComponent } from './cliente/editarCliente/editarCliente.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AtendimentoComponent } from './atendimento/atendimento.component';
 import { RetornoComponent } from './atendimento/retorno/retorno.component';
+import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoRetorno.component';
+import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
@@ -38,8 +41,6 @@ import { registerLocaleData } from '@angular/common';
 import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
-import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoRetorno.component';
-import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
 
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
@@ -52,6 +53,7 @@ defineLocale('pt-br', ptBrLocale);
       LoginComponent,
       NovoUsuarioComponent,
       EditarUsuarioComponent,
+      EditarSenhaUsuarioComponent,
       DashboardComponent,
       ClienteComponent,
       NovoClienteComponent,
