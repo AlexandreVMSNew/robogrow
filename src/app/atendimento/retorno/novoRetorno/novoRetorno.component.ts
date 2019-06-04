@@ -13,6 +13,7 @@ import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.s
 import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
 import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
+import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 
 @Component({
   selector: 'app-novo-retorno',
@@ -48,7 +49,8 @@ export class NovoRetornoComponent implements OnInit {
               private retornoService: RetornoService,
               private notificacaoService: NotificacaoService,
               private router: Router,
-              private changeDetectionRef: ChangeDetectorRef) { }
+              private changeDetectionRef: ChangeDetectorRef,
+              private socketService: SocketService) { }
 
   ngOnInit() {
     this.getClientes();
@@ -113,26 +115,40 @@ export class NovoRetornoComponent implements OnInit {
       this.retornoService.novoRetorno(this.retorno).subscribe(
         () => {
 
-          if (this._observacao !== '') {
-              this.retornoService.getIdUltimoRetorno().subscribe(
-              (ultimoId: number) => {
+          this.retornoService.getIdUltimoRetorno().subscribe((ultimoId: number) => {
+            if (this._observacao !== '') {
               this.retornoObservacao = Object.assign({id: 0, retornoId: ultimoId,
               usuarioId: InfoUsuario.id, dataHora: dataAtual, observacao: this._observacao});
               this.retornoService.novaObservacao(this.retornoObservacao).subscribe();
-            });
-          }
+            }
+
+            const retornoLog = Object.assign({ id: 0, retornoId: ultimoId,
+              usuarioId: InfoUsuario.id, dataHora: dataAtual, status: 'AGUARDANDO'});
+
+            this.retornoService.novoLog(retornoLog).subscribe(
+              () => {
+                this.toastr.success(`Retorno Finalizado!`);
+                this.socketService.sendSocket('StatusRetornoAlterado', 'true');
+              }, error => {
+                this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
+                console.log(error.error);
+              });
+          });
 
           if (this.retorno.usuarioId !== 0) {
             this.notificacao = Object.assign({usuarioId: this.retorno.usuarioId, dataHora: dataAtual, tipo: 'Retorno', visto: 0});
             this.notificacaoService.novaNotificacao(this.notificacao).subscribe(
               () => {
+                this.socketService.sendSocket('NotificacaoUsuarioRetorno', this.retorno.usuarioId);
                 this.toastr.success('Cadastrado com sucesso!');
                 this.router.navigate([`/atendimentos/retornos`]);
               });
           } else {
-          this.toastr.success('Cadastrado com sucesso!');
-          this.router.navigate([`/atendimentos/retornos`]);
+            this.toastr.success('Cadastrado com sucesso!');
+            this.router.navigate([`/atendimentos/retornos`]);
           }
+
+          this.socketService.sendSocket('NovoRetorno', 'true');
         }, error => {
           console.log(error.error);
         }

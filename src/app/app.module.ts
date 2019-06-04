@@ -10,6 +10,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -41,7 +42,11 @@ import { registerLocaleData } from '@angular/common';
 import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
+import { SocketService } from './_services/WebSocket/Socket.service';
+import { environment } from '../environments/environment';
 
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
 
@@ -70,6 +75,7 @@ defineLocale('pt-br', ptBrLocale);
    imports: [
       BrowserAnimationsModule,
       BrowserModule,
+      SocketIoModule.forRoot(config),
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       TooltipModule.forRoot(),
@@ -103,7 +109,8 @@ defineLocale('pt-br', ptBrLocale);
          provide: HTTP_INTERCEPTORS,
          useClass: AuthInterceptor,
          multi: true
-      }
+      },
+      SocketService
    ],
    bootstrap: [
       AppComponent

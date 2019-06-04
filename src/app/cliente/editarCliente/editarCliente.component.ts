@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -69,7 +69,8 @@ export class EditarClienteComponent implements OnInit {
               private estadoService: EstadoService,
               private cidadeService: CidadeService,
               private clienteGruposService: GrupoClienteService,
-              private sistemaClienteService: SistemaClienteService) {
+              private sistemaClienteService: SistemaClienteService,
+              private changeDetectionRef: ChangeDetectorRef) {
       this.localeService.use('pt-br');
   }
 
@@ -81,6 +82,11 @@ export class EditarClienteComponent implements OnInit {
     this.validation();
     this.validationGrupo();
     this.carregarCliente();
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngAfterViewChecked() {
+    this.changeDetectionRef.detectChanges();
   }
 
   carregarCliente() {

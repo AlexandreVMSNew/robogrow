@@ -6,6 +6,7 @@ import { InfoUsuario } from '../_models/Info/infoUsuario';
 import { NotificacaoService } from '../_services/Notificacoes/notificacao.service';
 import { Notificacao } from '../_models/Notificacoes/notificacao';
 import { Subscription, interval } from 'rxjs';
+import { SocketService } from '../_services/WebSocket/Socket.service';
 
 @Component({
   selector: 'app-nav',
@@ -18,12 +19,14 @@ export class NavComponent implements OnInit {
   qtdNotificacoes: number;
   private updateSubscription: Subscription;
   statusLogIn = false;
-  infoUsuario = InfoUsuario;
+  idUsuario: number;
+  paginaNotificacaoAtual = 1;
 
   constructor(private toastr: ToastrService,
               public authService: AuthService,
               private notificacaoService: NotificacaoService,
-              private router: Router) {
+              private router: Router,
+              private socketService: SocketService) {
 
               }
 
@@ -33,21 +36,25 @@ export class NavComponent implements OnInit {
     } else if (Notification.permission !== 'granted') {
       Notification.requestPermission();
     }
+    this.getSocket('NotificacaoUsuarioRetorno');
+  }
 
-    this.updateSubscription = interval(20000).subscribe(
-      async (val) => {
-        this.notificacaoService.getCountNotificacoesByUsuarioId(this.infoUsuario.id).subscribe(
-          (_COUNT: number) => {
-            if (this.qtdNotificacoes !== _COUNT && _COUNT > 0) {
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngAfterViewInit() {
+    this.idUsuario = InfoUsuario.id;
+    this.getNotificacoes();
+  }
 
-              this.qtdNotificacoes = _COUNT;
-              this.getNotificacoes();
-
-              const  notification = new Notification(`Olá, ${this.infoUsuario.usuario} !`, {
-                body: 'Você tem nova(s) Notificação(ões)!'
-              });
-            }
-        });
+  getSocket(evento: string) {
+    this.socketService.getSocket(evento).subscribe((data: any) => {
+      if (evento === 'NotificacaoUsuarioRetorno') {
+        if (Number(data) === Number(this.idUsuario)) {
+          const  notification = new Notification(`Retorno Específico!`, {
+            body: 'Foi adicionado um Novo Retorno específico para você!'
+          });
+          this.getNotificacoes();
+        }
+      }
     });
   }
 
@@ -93,7 +100,7 @@ export class NavComponent implements OnInit {
   }
 
   getNotificacoes() {
-    this.notificacaoService.getAllNotificacoesByUsuarioId(this.usuarioId()).subscribe(
+    this.notificacaoService.getAllNotificacoesByUsuarioId(this.idUsuario).subscribe(
       (_NOTIFICACOES: Notificacao[]) => {
       this.notificacoes = _NOTIFICACOES;
       this.qtdNotificacoes = _NOTIFICACOES.length;

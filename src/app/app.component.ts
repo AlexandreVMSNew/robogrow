@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Ideia } from './_models/Cadastros/Ideias/ideia';
 import { InfoUsuario } from './_models/Info/infoUsuario';
 import * as moment from 'moment';
+import { SocketService } from './_services/WebSocket/Socket.service';
 
 @Component({
   selector: 'app-root',
@@ -21,12 +22,26 @@ export class AppComponent implements OnInit {
   constructor(private ideiaService: IdeiaService,
               private fb: FormBuilder,
               private localeService: BsLocaleService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private socketService: SocketService) {
     this.localeService.use('pt-br');
   }
 
   ngOnInit() {
     this.validation();
+    this.getSocket('NovaObservacao');
+  }
+
+  getSocket(evento: string) {
+    this.socketService.getSocket(evento).subscribe((data: any) => {
+      if (data) {
+        if (evento === 'NovaObservacao') {
+          const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
+            body: `O usuário ${data.usuario} adicionou\numa nova observação no Retorno ${data.retornoId}.`
+          });
+        }
+      }
+    });
   }
 
   validation() {

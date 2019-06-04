@@ -18,6 +18,10 @@ getAllRetornos(): Observable<Retorno[]> {
   return this.http.get<Retorno[]>(this.baseURL);
 }
 
+getRetornosNaoFinalizados(): Observable<Retorno[]> {
+  return this.http.get<Retorno[]>(`${this.baseURL}/NaoFinalizados`);
+}
+
 getRetornoByClienteId(clienteId: number): Observable<Retorno[]> {
   return this.http.get<Retorno[]>(`${this.baseURL}/cliente/${clienteId}`);
 }
@@ -36,6 +40,10 @@ getCountRetornos(): Observable<number> {
 
 getIdUltimoRetorno(): Observable<number> {
   return this.http.get<number>(`${this.baseURL}/ultimoid`);
+}
+
+getIdUsuarioUltimoLogByRetornoId(retornoId: number): Observable<number> {
+  return this.http.get<number>(`${this.baseURL}/idUsuarioUltimoLog/${retornoId}`);
 }
 
 getCountLogsAguardandoByRetornoId(retornoId: number): Observable<number> {

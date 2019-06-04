@@ -12,6 +12,7 @@ import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 import { Subscription, interval } from 'rxjs';
 import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
 import { Time } from '@angular/common';
+import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 
 @Component({
   selector: 'app-retorno',
@@ -25,6 +26,7 @@ export class RetornoComponent implements OnInit {
 
   retornosFiltrados: Retorno[];
   retornos: Retorno[];
+  retornosNaoFinalizados: Retorno[];
   retorno: Retorno;
   logRetorno: RetornoLog[];
   retornoObservacoes: RetornoObservacao[];
@@ -48,9 +50,9 @@ export class RetornoComponent implements OnInit {
 
   prioridades = ['NORMAL', 'URGENTE'];
 
-  status = ['AGUARDANDO', 'EM ANDAMENTO', 'FINALIZADO', 'TODOS'];
+  status = ['AGUARDANDO', 'EM ANDAMENTO', 'FINALIZADO', 'NÃO FINALIZADOS', 'TODOS'];
 
-  statusFiltroSelecionado = 'TODOS';
+  statusFiltroSelecionado = 'NÃO FINALIZADOS';
   filtroRetorno: any;
   // tslint:disable-next-line:variable-name
   _filtroLista: string;
@@ -66,39 +68,31 @@ export class RetornoComponent implements OnInit {
               private clienteServices: ClienteService,
               private retornoServices: RetornoService,
               private localeService: BsLocaleService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private socketService: SocketService) {
       this.localeService.use('pt-br');
     }
 
   ngOnInit() {
     this.getClientes();
     this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
-    this.getRetornos();
+    this.getRetornosNaoFinalizados();
     this.validationObservacao();
-    this.updateSubscription = interval(10000).subscribe(
-      async (val) => {
-        this.atualizarPagina(false);
-      });
+    this.getSocket('NovoRetorno');
+    this.getSocket('StatusRetornoAlterado');
   }
 
-  atualizarPagina(forcarAtt: boolean) {
-    this.retornoServices.getCountRetornos().subscribe(
-      (_COUNT: number) => {
-        this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
-        if (forcarAtt === true) {
-          this.getRetornos();
-          if ((this.countRetornos !== _COUNT && _COUNT > 0)) {
-            const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
-              body: 'Novo retorno!'
-            });
-          }
-        } else if (this.countRetornos !== _COUNT && _COUNT > 0) {
-          this.getRetornos();
+  getSocket(evento: string) {
+    this.socketService.getSocket(evento).subscribe((data: any) => {
+      if (data === 'true') {
+        this.getRetornosNaoFinalizados();
+
+        if (evento === 'NovoRetorno') {
           const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
             body: 'Novo retorno!'
           });
         }
-        this.countRetornos = _COUNT;
+      }
     });
   }
 
@@ -139,6 +133,7 @@ export class RetornoComponent implements OnInit {
         this.retornoServices.novoLog(retornoLog).subscribe(
           () => {
             this.toastr.success(`Status alterado para: ${newStatus}!`);
+            this.socketService.sendSocket('StatusRetornoAlterado', 'true');
           }, error => {
             this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
             console.log(error.error);
@@ -161,6 +156,7 @@ export class RetornoComponent implements OnInit {
         this.retornoServices.novoLog(retornoLog).subscribe(
           () => {
             this.toastr.success(`Retorno Finalizado!`);
+            this.socketService.sendSocket('StatusRetornoAlterado', 'true');
           }, error => {
             this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
             console.log(error.error);
@@ -226,11 +222,16 @@ export class RetornoComponent implements OnInit {
 
   setStatusFiltroSelecionado(valor: any) {
     this.statusFiltroSelecionado = valor;
+    if (valor !== 'NÃO FINALIZADOS') {
+      this.getAllRetornos();
+    } else {
+      this.getRetornosNaoFinalizados();
+    }
     this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
   }
 
   filtrarRetornos(filtrarPor: string): Retorno[] {
-    if (this.statusFiltroSelecionado !== 'TODOS') {
+    if (this.statusFiltroSelecionado !== 'TODOS' && this.statusFiltroSelecionado !== 'NÃO FINALIZADOS') {
       this.filtroRetorno = this.retornos.filter(_RETORNO => _RETORNO.status === this.statusFiltroSelecionado);
     } else {
       this.filtroRetorno = this.retornos;
@@ -240,9 +241,10 @@ export class RetornoComponent implements OnInit {
     return this.filtroRetorno;
   }
 
-  getRetornos() {
+  getAllRetornos() {
       this.retornoServices.getAllRetornos().subscribe(
         (_RETORNOS: Retorno[]) => {
+        this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
         this.retornos = _RETORNOS;
         this.countRetornos = _RETORNOS.length;
         this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
@@ -251,6 +253,19 @@ export class RetornoComponent implements OnInit {
         this.toastr.error(`Erro ao tentar carregar retornos: ${error.error}`);
       });
   }
+
+  getRetornosNaoFinalizados() {
+    this.retornoServices.getRetornosNaoFinalizados().subscribe(
+      (_RETORNOS: Retorno[]) => {
+      this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
+      this.retornos = _RETORNOS;
+      this.countRetornos = _RETORNOS.length;
+      this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar retornos: ${error.error}`);
+    });
+}
 
   novaObservacao(template: any) {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
@@ -262,6 +277,8 @@ export class RetornoComponent implements OnInit {
         () => {
           this.getRetornoInformacoes(this.observacaoId, this.retornoTelefone, this.retornoSolicitante, null);
           this.toastr.success('Observação cadastrada com sucesso!');
+          const InfoObs = Object.assign({retornoId: this.observacaoId, usuario: InfoUsuario.usuario});
+          this.socketService.sendSocket('NovaObservacao', InfoObs);
           template.hide();
         }, error => {
           console.log(error.error);
