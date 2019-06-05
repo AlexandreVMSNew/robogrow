@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000;
 const server = express()
   .use(express.static(__dirname + '/dist/VirtualWeb-App'))
   .get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/dist/VirtualWeb-App/ws.html'));
+    res.sendFile(path.join(__dirname + '/dist/VirtualWeb-App/index.html'));
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
