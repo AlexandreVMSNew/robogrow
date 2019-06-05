@@ -38,7 +38,9 @@ app.get('/*', function(req, res) {
 const PORT1 = process.env.PORT || 3000;
 
 // Start the app by listening on the default Heroku port
-app.listen(PORT1, () => console.log(`Listening on ${ PORT1 }`));
+app.listen(PORT1, () => console.log(`Listening on ${ PORT1 }`), error => {
+    console.log(error.error)
+ });
 
 const io = new SocketServer({ app });
 
