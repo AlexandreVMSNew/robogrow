@@ -10,10 +10,11 @@ export interface Dados {
 @Injectable()
 export class SocketService {
 
-    private url = location.origin.replace(/^http/, 'ws'); // 'http://localhost:3000';
+    private url = 'https://' + location.hostname + ':3000';
     private socket;
 
     constructor() {
+        console.log(this.url);
         this.socket = io(this.url);
     }
 
