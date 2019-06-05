@@ -25,7 +25,7 @@ server.listen(port);
 
 
 const express = require('express');
-const SocketServer = require('wss').Server;
+const SocketServer = require('https').Server;
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
@@ -35,9 +35,9 @@ const server = express()
   .use((req, res) => res.sendFile(INDEX) )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const wss = new SocketServer({ server });
+const io = new SocketServer({ server });
 
-wss.on('connection', (socket) => {
+io.on('connection', (socket) => {
     console.log('user connect');
   socket.on('NovoRetorno', (dados) => { io.emit('NovoRetorno', dados); });
 
@@ -47,9 +47,3 @@ wss.on('connection', (socket) => {
 
   socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
 });
-
-setInterval(() => {
-  wss.clients.forEach((client) => {
-    client.send(new Date().toTimeString());
-  });
-}, 1000);
