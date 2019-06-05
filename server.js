@@ -4,6 +4,39 @@ const path = require('path');
 
 const app = express();
 
+const express = require('express');
+const SocketServer = require('ws').Server;
+const path = require('path');
+
+const PORT = process.env.PORT || 3000;
+const INDEX = path.join(__dirname, 'index.html');
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+const wss = new SocketServer({ server });
+
+wss.on('connection', (socket) => {
+
+  socket.on('NovoRetorno', (dados) => { io.emit('NovoRetorno', dados); });
+
+  socket.on('NovaObservacao', (dados) => { io.emit('NovaObservacao', dados); });
+
+  socket.on('NotificacaoUsuarioRetorno', (dados) => { io.emit('NotificacaoUsuarioRetorno', dados); });
+
+  socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
+});
+
+setInterval(() => {
+  wss.clients.forEach((client) => {
+    client.send(new Date().toTimeString());
+  });
+}, 1000);
+
+
+
+/*
 let http = require('ws').Server;
 let server = http.Server(app);
 
@@ -18,16 +51,6 @@ app.get('/*', function(req, res) {
 app.listen(process.env.PORT || 8080);
 
 
-let socketIO = require('socket.io');
-
-const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
-
-const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
-.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-const io = new SocketServer({ server });
 
 io.on('connection', (socket) => {
 
@@ -43,3 +66,4 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
 
 });
+*/
