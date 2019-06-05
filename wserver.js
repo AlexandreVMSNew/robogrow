@@ -25,7 +25,7 @@ server.listen(port);
 
 
 const express = require('express');
-const SocketServer = require('ws').Server;
+const SocketServer = require('wss').Server;
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
@@ -38,6 +38,7 @@ const server = express()
 const wss = new SocketServer({ server });
 
 wss.on('connection', (socket) => {
+    console.log('user connect');
   socket.on('NovoRetorno', (dados) => { io.emit('NovoRetorno', dados); });
 
   socket.on('NovaObservacao', (dados) => { io.emit('NovaObservacao', dados); });
