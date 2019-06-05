@@ -42,7 +42,9 @@ export class NavComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
     this.idUsuario = InfoUsuario.id;
-    this.getNotificacoes();
+    if (this.idUsuario) {
+      this.getNotificacoes();
+    }
   }
 
   getSocket(evento: string) {
