@@ -22,20 +22,24 @@ io.on('connection', (socket) => {
 
 server.listen(port);
 */
-
-
+//Install express server
 const express = require('express');
-const SocketServer = require('https').Server;
 const path = require('path');
+const app = express();
 
-const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname + '/dist/VirtualWeb-App/index.html');
+// Serve only the static files form the dist directory
+app.use(express.static(__dirname + '/dist/VirtualWeb-App'));
 
-const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/dist/VirtualWeb-App/index.html'));
+});
 
-const io = new SocketServer({ server });
+const PORT1 = process.env.PORT || 3000;
+
+// Start the app by listening on the default Heroku port
+app.listen(PORT1, () => console.log(`Listening on ${ PORT1 }`));
+
+const io = new SocketServer({ app });
 
 io.on('connection', (socket) => {
     console.log('user connect');
