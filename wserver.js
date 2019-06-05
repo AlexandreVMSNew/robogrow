@@ -1,13 +1,16 @@
 
 const express = require('express');
-const app = express();
-let http = require('https');
-let server = http.Server(app);
+const socketIO = require('socket.io');
+const path = require('path');
+const PORT = process.env.PORT || 3000;
 
-let socketIO = require('socket.io');
+const INDEX = path.join(__dirname, 'index.html');
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
 let io = socketIO(server);
-
-const port = process.env.PORT || 3000;
 
 io.on('connection', (socket) => {
     console.log('user connect');
@@ -19,5 +22,3 @@ io.on('connection', (socket) => {
 
     socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
 });
-
-server.listen(port);
