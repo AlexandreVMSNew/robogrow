@@ -4,10 +4,11 @@ const socketIO = require('socket.io');
 const path = require('path');
 const PORT = process.env.PORT || 3000;
 
-const INDEX = path.join(__dirname + '/dist/VirtualWeb-App/ws.html');
-
 const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
+  .use(express.static(__dirname + '/dist/VirtualWeb-App'))
+  .get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/dist/VirtualWeb-App/ws.html'));
+  })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 let io = socketIO(server);
