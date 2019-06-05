@@ -26,6 +26,7 @@ server.listen(port);
 const express = require('express');
 const path = require('path');
 const app = express();
+const SocketServer = require('https').Server;
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/VirtualWeb-App'));
