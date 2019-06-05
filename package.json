@@ -33,7 +33,7 @@
     "bootstrap": "^4.3.1",
     "brmasker4": "^1.0.3",
     "core-js": "^2.5.4",
-    "express": "^4.17.1",
+    "express": "^4.16.4",
     "jquery": "^3.4.0",
     "moment": "^2.24.0",
     "ng-bootstrap": "^1.6.3",
@@ -78,3 +78,4 @@
     "typescript": "3.1.6"
   }
 }
+
