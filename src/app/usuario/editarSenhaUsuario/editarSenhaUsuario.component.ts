@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 import { UsuarioSenha } from 'src/app/_models/Cadastros/Usuarios/UsuarioSenha';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 
 @Component({
   selector: 'app-editar-senha-usuario',
@@ -20,7 +20,8 @@ export class EditarSenhaUsuarioComponent implements OnInit {
               private router: Router,
               private fb: FormBuilder,
               private localeService: BsLocaleService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private permissaoService: PermissaoService) {
     this.localeService.use('pt-br');
   }
 
@@ -53,10 +54,10 @@ export class EditarSenhaUsuarioComponent implements OnInit {
     this.senhas = Object.assign({ novaSenha: this.cadastroForm.get('passwords.password').value,
      senhaAtual: this.cadastroForm.get('senhaAtual').value });
 
-    this.usuarioService.editarSenhaUsuario(InfoUsuario.id, this.senhas).subscribe(
+    this.usuarioService.editarSenhaUsuario(this.permissaoService.getUsuarioId(), this.senhas).subscribe(
       () => {
         this.toastr.success('Senha alterada com sucesso!');
-        this.router.navigate([`/usuarios/editar/${InfoUsuario.id}`]);
+        this.router.navigate([`/usuarios/editar/${this.permissaoService.getUsuarioId()}`]);
       }, error => {
         this.toastr.error(`Erro ao tentar Editar Senha: ${error.error}`);
         console.log(error);

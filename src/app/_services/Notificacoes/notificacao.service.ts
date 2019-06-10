@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 import { Observable } from 'rxjs';
 import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
-import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 
 @Injectable({
   providedIn: 'root'

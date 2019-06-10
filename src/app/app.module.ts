@@ -11,6 +11,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { NgDatepickerModule } from 'ng2-datepicker';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -43,8 +44,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
-import { environment } from '../environments/environment';
-
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
@@ -82,6 +81,7 @@ defineLocale('pt-br', ptBrLocale);
       TabsModule.forRoot(),
       ModalModule.forRoot(),
       NgxMaskModule.forRoot(),
+      NgDatepickerModule,
       NgxPaginationModule,
       NgxCurrencyModule,
       NgSelectModule,

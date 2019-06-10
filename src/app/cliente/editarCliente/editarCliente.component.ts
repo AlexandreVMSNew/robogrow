@@ -16,6 +16,7 @@ import { SistemaClienteService } from 'src/app/_services/Cadastros/Clientes/sist
 import { ClienteVersoes } from 'src/app/_models/Cadastros/Clientes/ClienteVersoes';
 import { ClienteGrupos } from 'src/app/_models/Cadastros/Clientes/ClienteGrupos';
 import { GrupoClienteService } from 'src/app/_services/Cadastros/Clientes/grupoCliente.service';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 
 @Component({
   selector: 'app-editar-cliente',
@@ -70,7 +71,8 @@ export class EditarClienteComponent implements OnInit {
               private cidadeService: CidadeService,
               private clienteGruposService: GrupoClienteService,
               private sistemaClienteService: SistemaClienteService,
-              private changeDetectionRef: ChangeDetectorRef) {
+              private changeDetectionRef: ChangeDetectorRef,
+              public permissaoService: PermissaoService) {
       this.localeService.use('pt-br');
   }
 

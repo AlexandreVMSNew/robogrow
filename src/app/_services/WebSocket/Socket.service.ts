@@ -10,7 +10,7 @@ export interface Dados {
 @Injectable()
 export class SocketService {
 
-    private url = 'https://' + location.hostname ;
+    private url = 'http://' + location.hostname + ':3000';
     private socket;
 
     constructor() {

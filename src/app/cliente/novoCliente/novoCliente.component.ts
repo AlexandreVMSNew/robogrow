@@ -15,6 +15,7 @@ import { Geracao } from 'src/app/_models/Cadastros/Sistemas/Geracao';
 import { Versao } from 'src/app/_models/Cadastros/Sistemas/Versao';
 import { ClienteVersoes } from 'src/app/_models/Cadastros/Clientes/ClienteVersoes';
 import { SistemaClienteService } from 'src/app/_services/Cadastros/Clientes/sistemaCliente.service';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 
 @Component({
   selector: 'app-novo-cliente',
@@ -69,7 +70,8 @@ export class NovoClienteComponent implements OnInit {
               private clienteGruposService: GrupoClienteService,
               private sistemaClienteService: SistemaClienteService,
               public router: Router,
-              private changeDetectionRef: ChangeDetectorRef) {
+              private changeDetectionRef: ChangeDetectorRef,
+              public permissaoService: PermissaoService) {
                }
 
   ngOnInit() {

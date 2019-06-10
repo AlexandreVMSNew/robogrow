@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Ideia } from './_models/Cadastros/Ideias/ideia';
-import { InfoUsuario } from './_models/Info/infoUsuario';
 import * as moment from 'moment';
 import { SocketService } from './_services/WebSocket/Socket.service';
+import { PermissaoService } from './_services/Permissoes/permissao.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +23,8 @@ export class AppComponent implements OnInit {
               private fb: FormBuilder,
               private localeService: BsLocaleService,
               private toastr: ToastrService,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private permissaoService: PermissaoService) {
     this.localeService.use('pt-br');
   }
 
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit {
     this.socketService.getSocket(evento).subscribe((data: any) => {
       if (data) {
         if (evento === 'NovaObservacao') {
-          const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
+          const  notification = new Notification(`Olá, ${this.permissaoService.getUsuario()} !`, {
             body: `O usuário ${data.usuario} adicionou\numa nova observação no Retorno ${data.retornoId}.`
           });
         }
@@ -56,7 +57,7 @@ export class AppComponent implements OnInit {
 
   cadastrarIdeia(template: any) {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    this.ideia = Object.assign(this.cadastroIdeiaForm.value, {id: 0, usuarioId: InfoUsuario.id,
+    this.ideia = Object.assign(this.cadastroIdeiaForm.value, {id: 0, usuarioId: this.permissaoService.getUsuarioId(),
        dataCadastro: dataAtual, status: 'EM ANALISE'});
     this.ideiaService.novaIdeia(this.ideia).subscribe(
       () => {

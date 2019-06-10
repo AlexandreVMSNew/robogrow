@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../_services/Cadastros/Login/auth.service';
 import { Router } from '@angular/router';
-import { InfoUsuario } from '../_models/Info/infoUsuario';
 import { NotificacaoService } from '../_services/Notificacoes/notificacao.service';
 import { Notificacao } from '../_models/Notificacoes/notificacao';
 import { Subscription, interval } from 'rxjs';
 import { SocketService } from '../_services/WebSocket/Socket.service';
+import { PermissaoService } from '../_services/Permissoes/permissao.service';
 
 @Component({
   selector: 'app-nav',
@@ -26,7 +26,8 @@ export class NavComponent implements OnInit {
               public authService: AuthService,
               private notificacaoService: NotificacaoService,
               private router: Router,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private permissaoService: PermissaoService) {
 
               }
 
@@ -41,8 +42,8 @@ export class NavComponent implements OnInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    this.idUsuario = InfoUsuario.id;
-    if (this.idUsuario) {
+    this.idUsuario = this.permissaoService.getUsuarioId();
+    if (this.idUsuario && this.verificarLogIn()) {
       this.getNotificacoes();
     }
   }
@@ -76,11 +77,11 @@ export class NavComponent implements OnInit {
   }
 
   usuarioNome() {
-    return InfoUsuario.usuario;
+    return this.permissaoService.getUsuario();
   }
 
   usuarioId() {
-    return InfoUsuario.id;
+    return this.permissaoService.getUsuarioId();
   }
 
   getQtdNotificacoes() {

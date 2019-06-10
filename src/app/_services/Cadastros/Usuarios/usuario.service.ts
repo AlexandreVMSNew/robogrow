@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Nivel } from '../../../_models/Cadastros/Usuarios/Nivel';
 import { InfoAPI } from '../../../_models/Info/infoAPI';
 import { UsuarioSenha } from 'src/app/_models/Cadastros/Usuarios/UsuarioSenha';
-import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 
 @Injectable({
   providedIn: 'root'

@@ -18,7 +18,7 @@ import { EditarSenhaUsuarioComponent } from './usuario/editarSenhaUsuario/editar
 const routes: Routes = [
   { path: 'usuarios', component: UsuarioComponent, canActivate: [AuthGuard]},
   { path: 'usuarios/login', component: LoginComponent},
-  { path: 'usuarios/novo', component: NovoUsuarioComponent},
+  { path: 'usuarios/novo', component: NovoUsuarioComponent, canActivate: [AuthGuard], canDeactivate: [AuthGuard]},
   { path: 'usuarios/editar/:id', component: EditarUsuarioComponent, canActivate: [AuthGuard]},
   { path: 'usuarios/editar/senha/:id', component: EditarSenhaUsuarioComponent, canActivate: [AuthGuard]},
   { path: 'clientes', component: ClienteComponent, canActivate: [AuthGuard]},

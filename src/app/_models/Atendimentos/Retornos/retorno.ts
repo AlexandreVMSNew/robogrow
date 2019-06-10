@@ -12,5 +12,5 @@ export class Retorno {
     usuarioId: number;
     usuario: Usuario;
     status: string;
-    dataHora: string;
+    dataHora: Date;
 }

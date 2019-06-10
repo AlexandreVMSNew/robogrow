@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../_services/Cadastros/Usuarios/usuario.service';
 import { BsModalService, BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { PermissaoService } from '../_services/Permissoes/permissao.service';
 
 @Component({
   selector: 'app-usuario',
@@ -17,7 +18,7 @@ export class UsuarioComponent implements OnInit {
   usuario: Usuario;
   modoSalvar = '';
   cadastroForm: FormGroup;
-  bodyDeletarUsuario = '';
+  bodyExcluirUsuario = '';
 
   // tslint:disable-next-line:variable-name
   _filtroLista: string;
@@ -31,7 +32,8 @@ export class UsuarioComponent implements OnInit {
     private modalService: BsModalService,
     private fb: FormBuilder,
     private localeService: BsLocaleService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public permissaoService: PermissaoService
     ) {
       this.localeService.use('pt-br');
     }
@@ -46,8 +48,9 @@ export class UsuarioComponent implements OnInit {
   }
 
   excluirUsuario(usuario: Usuario, template: any) {
+    template.show();
     this.usuario = usuario;
-    this.bodyDeletarUsuario = `Tem certeza que deseja excluir o Usuario: ${usuario.userName}, Código: ${usuario.id}`;
+    this.bodyExcluirUsuario = `Tem certeza que deseja excluir o Usuario: ${usuario.userName}, Código: ${usuario.id}?`;
   }
 
   confirmeDelete(template: any) {

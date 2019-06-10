@@ -38,6 +38,7 @@
     "jquery": "^3.4.0",
     "moment": "^2.24.0",
     "ng-bootstrap": "^1.6.3",
+    "ng2-datepicker": "^3.1.1",
     "ng2-select": "^2.0.0",
     "ngx-bootstrap": "^4.1.1",
     "ngx-currency": "^1.5.2",

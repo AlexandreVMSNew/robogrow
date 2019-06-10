@@ -1,15 +1,18 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
 import { ActivatedRoute } from '@angular/router';
-import { BsLocaleService } from 'ngx-bootstrap';
+import { BsLocaleService, BsDatepickerConfig } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
 import { UsuarioOcorrencia } from 'src/app/_models/Cadastros/Usuarios/UsuarioOcorrencia';
 import { Nivel } from 'src/app/_models/Cadastros/Usuarios/Nivel';
 import { UsuarioNivel } from 'src/app/_models/Cadastros/Usuarios/UsuarioNivel';
-import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
-
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
+import * as moment from 'moment';
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as ptLocale from 'date-fns/locale/pt';
+import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editarUsuario.component.html'
@@ -27,14 +30,17 @@ export class EditarUsuarioComponent implements OnInit {
   niveis: Nivel[];
   niveisIdSelecionado: any;
   niveisUsuario: UsuarioNivel[];
-
+  public dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
   dateFormat = '';
+
   constructor(private usuarioService: UsuarioService,
               private router: ActivatedRoute,
               private fb: FormBuilder,
               private localeService: BsLocaleService,
               private toastr: ToastrService,
-              private changeDetectionRef: ChangeDetectorRef) {
+              private changeDetectionRef: ChangeDetectorRef,
+              public permissaoService: PermissaoService,
+              private dataService: DataService) {
     this.localeService.use('pt-br');
   }
 
@@ -50,17 +56,6 @@ export class EditarUsuarioComponent implements OnInit {
     this.changeDetectionRef.detectChanges();
   }
 
-  verificarNivel(niveis: any[]) {
-    let retornoPermissao = false;
-    niveis.forEach(nivel => {
-      if (InfoUsuario.niveis.indexOf(nivel) !== -1) {
-        retornoPermissao = true;
-      }
-    });
-    console.log(retornoPermissao);
-    return retornoPermissao;
-  }
-
   carregarUsuario() {
 
   this.usuarioOcorrencias.length = 0;
@@ -68,10 +63,12 @@ export class EditarUsuarioComponent implements OnInit {
     .subscribe(
     (usuario: Usuario) => {
         this.usuario = Object.assign({}, usuario);
-
+        const data = this.usuario.dataNascimento;
+        this.usuario = Object.assign(this.usuario, { dataNascimento: this.dataService.getDataPTBR(data) });
         this.cadastroForm.patchValue(this.usuario);
 
         this.usuario.usuarioOcorrencias.forEach(ocorrencia => {
+          ocorrencia = Object.assign(ocorrencia, { data: this.dataService.getDataPTBR(ocorrencia.data) });
           this.usuarioOcorrencias.push(ocorrencia);
         });
 
@@ -154,10 +151,14 @@ export class EditarUsuarioComponent implements OnInit {
   }
 
   salvarAlteracao() {
-    this.usuario = Object.assign({id: this.usuario.id }, this.cadastroForm.value);
-    console.log(this.usuario);
+    const data = this.cadastroForm.get('dataNascimento').value.toLocaleString();
+
+    this.usuario = Object.assign(this.cadastroForm.value, {id: this.usuario.id,
+      dataNascimento: this.dataService.getDataSQL(data)});
     this.usuario.usuarioOcorrencias = [];
     this.usuarioOcorrencias.forEach(ocorrencia => {
+      const dataOcorrencia = ocorrencia.data.toLocaleString();
+      ocorrencia = Object.assign(ocorrencia, { data: this.dataService.getDataSQL(dataOcorrencia)});
       this.usuario.usuarioOcorrencias.push(ocorrencia);
     });
 

@@ -8,11 +8,13 @@ import { RetornoService } from 'src/app/_services/Atendimentos/Retornos/retorno.
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { RetornoLog } from 'src/app/_models/Atendimentos/Retornos/retornoLog';
 import * as moment from 'moment';
-import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 import { Subscription, interval } from 'rxjs';
 import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
 import { Time } from '@angular/common';
 import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
+import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
+import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 
 @Component({
   selector: 'app-retorno',
@@ -60,7 +62,7 @@ export class RetornoComponent implements OnInit {
   countRetornos: number;
   private updateSubscription: Subscription;
 
-  InfoUsuario = InfoUsuario;
+  dataPeriodo: DataPeriodo;
 
   horaUltimaAtt: any;
 
@@ -69,7 +71,9 @@ export class RetornoComponent implements OnInit {
               private retornoServices: RetornoService,
               private localeService: BsLocaleService,
               private toastr: ToastrService,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              public permissaoService: PermissaoService,
+              private dataService: DataService) {
       this.localeService.use('pt-br');
     }
 
@@ -88,7 +92,7 @@ export class RetornoComponent implements OnInit {
         this.getRetornosNaoFinalizados();
 
         if (evento === 'NovoRetorno') {
-          const  notification = new Notification(`Olá, ${InfoUsuario.usuario} !`, {
+          const  notification = new Notification(`Olá, ${this.permissaoService.getUsuario()} !`, {
             body: 'Novo retorno!'
           });
         }
@@ -126,7 +130,7 @@ export class RetornoComponent implements OnInit {
 
     this.retorno = Object.assign(retorno, { status: newStatus});
     const retornoLog = Object.assign({ id: 0, retornoId: retorno.id,
-       usuarioId: InfoUsuario.id, dataHora: dataAtual, status: newStatus});
+       usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: newStatus});
 
     this.retornoServices.editarRetorno(this.retorno).subscribe(
       () => {
@@ -150,7 +154,7 @@ export class RetornoComponent implements OnInit {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
 
     const retornoLog = Object.assign({ id: 0, retornoId: retorno.id,
-       usuarioId: InfoUsuario.id, dataHora: dataAtual, status: newStatus});
+       usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: newStatus});
     this.retornoServices.editarRetorno(this.retorno).subscribe(
       () => {
         this.retornoServices.novoLog(retornoLog).subscribe(
@@ -216,8 +220,14 @@ export class RetornoComponent implements OnInit {
     this.filtroSelecionado = valor;
   }
 
-  setDataFiltro(valor: any) {
-    this.dataFiltro = valor;
+  setDataFiltro(valor: Date[]) {
+    this.dataPeriodo = Object.assign(
+      {
+        dataInicial: this.dataService.getDataSQL(valor[0].toLocaleString()) + 'T00:00:00',
+        dataFinal: this.dataService.getDataSQL(valor[1].toLocaleString()) + 'T23:59:00'
+      }
+    );
+    this.getRetornosByPeriodo(this.dataPeriodo);
   }
 
   setStatusFiltroSelecionado(valor: any) {
@@ -230,11 +240,29 @@ export class RetornoComponent implements OnInit {
     this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
   }
 
-  filtrarRetornos(filtrarPor: string): Retorno[] {
+  compararNumeros(a, b) {
+    return a - b;
+  }
+
+  filtrarRetornos(filtrarPor: any): Retorno[] {
     if (this.statusFiltroSelecionado !== 'TODOS' && this.statusFiltroSelecionado !== 'NÃO FINALIZADOS') {
       this.filtroRetorno = this.retornos.filter(_RETORNO => _RETORNO.status === this.statusFiltroSelecionado);
     } else {
       this.filtroRetorno = this.retornos;
+    }
+
+    if (this.statusFiltroSelecionado === 'FINALIZADOS') {
+      this.filtroRetorno = this.filtroRetorno.sort(this.compararNumeros);
+    }
+
+    if (this.filtroSelecionado === 'CLIENTE') {
+      console.log(filtrarPor);
+      this.filtroRetorno = this.retornos.filter(_RETORNO => _RETORNO.clienteId === filtrarPor);
+    }
+
+    if (this.filtroSelecionado === 'PRIORIDADE') {
+      console.log(filtrarPor);
+      this.filtroRetorno = this.retornos.filter(_RETORNO => _RETORNO.prioridade === filtrarPor);
     }
 
     this.totalRegistros = this.filtroRetorno.length;
@@ -254,6 +282,19 @@ export class RetornoComponent implements OnInit {
       });
   }
 
+  getRetornosByPeriodo(datas: DataPeriodo) {
+    this.retornoServices.getRetornosByPeriodo(datas).subscribe(
+      (_RETORNOS: any) => {
+      this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
+      this.retornos = _RETORNOS;
+      this.countRetornos = _RETORNOS.length;
+      this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar retornos: ${error.error}`);
+    });
+}
+
   getRetornosNaoFinalizados() {
     this.retornoServices.getRetornosNaoFinalizados().subscribe(
       (_RETORNOS: Retorno[]) => {
@@ -271,13 +312,13 @@ export class RetornoComponent implements OnInit {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     if (this.cadastroObservacaoForm.valid) {
       this.observacao = Object.assign(this.cadastroObservacaoForm.value, {id: 0, retornoId: this.observacaoId,
-      usuarioId: InfoUsuario.id, dataHora: dataAtual});
+      usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual});
 
       this.retornoServices.novaObservacao(this.observacao).subscribe(
         () => {
           this.getRetornoInformacoes(this.observacaoId, this.retornoTelefone, this.retornoSolicitante, null);
           this.toastr.success('Observação cadastrada com sucesso!');
-          const InfoObs = Object.assign({retornoId: this.observacaoId, usuario: InfoUsuario.usuario});
+          const InfoObs = Object.assign({retornoId: this.observacaoId, usuario: this.permissaoService.getUsuario()});
           this.socketService.sendSocket('NovaObservacao', InfoObs);
           template.hide();
         }, error => {

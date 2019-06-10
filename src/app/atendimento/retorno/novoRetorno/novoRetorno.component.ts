@@ -12,8 +12,8 @@ import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.ser
 import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.service';
 import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
-import { InfoUsuario } from 'src/app/_models/Info/infoUsuario';
 import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 
 @Component({
   selector: 'app-novo-retorno',
@@ -50,7 +50,8 @@ export class NovoRetornoComponent implements OnInit {
               private notificacaoService: NotificacaoService,
               private router: Router,
               private changeDetectionRef: ChangeDetectorRef,
-              private socketService: SocketService) { }
+              private socketService: SocketService,
+              public permissaoService: PermissaoService) { }
 
   ngOnInit() {
     this.getClientes();
@@ -118,12 +119,12 @@ export class NovoRetornoComponent implements OnInit {
           this.retornoService.getIdUltimoRetorno().subscribe((ultimoId: number) => {
             if (this._observacao !== '') {
               this.retornoObservacao = Object.assign({id: 0, retornoId: ultimoId,
-              usuarioId: InfoUsuario.id, dataHora: dataAtual, observacao: this._observacao});
+              usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, observacao: this._observacao});
               this.retornoService.novaObservacao(this.retornoObservacao).subscribe();
             }
 
             const retornoLog = Object.assign({ id: 0, retornoId: ultimoId,
-              usuarioId: InfoUsuario.id, dataHora: dataAtual, status: 'AGUARDANDO'});
+              usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: 'AGUARDANDO'});
 
             this.retornoService.novoLog(retornoLog).subscribe(
               () => {

@@ -5,6 +5,7 @@ import { Retorno } from './../../../_models/Atendimentos/Retornos/retorno';
 import { RetornoLog } from './../../../_models/Atendimentos/Retornos/retornoLog';
 import { InfoAPI } from './../../../_models/Info/infoAPI';
 import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
+import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ getAllRetornos(): Observable<Retorno[]> {
 
 getRetornosNaoFinalizados(): Observable<Retorno[]> {
   return this.http.get<Retorno[]>(`${this.baseURL}/NaoFinalizados`);
+}
+
+getRetornosByPeriodo(datas: DataPeriodo): Observable<Retorno[]> {
+  return this.http.post<Retorno[]>(`${this.baseURL}/Periodo`, datas);
 }
 
 getRetornoByClienteId(clienteId: number): Observable<Retorno[]> {

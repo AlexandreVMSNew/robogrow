@@ -9,6 +9,7 @@ import { Cidade } from '../_models/Cadastros/Uteis/Cidade';
 import { CidadeService } from '../_services/Cadastros/Uteis/cidade.service';
 import { EstadoService } from '../_services/Cadastros/Uteis/estado.service';
 import { ɵNullViewportScroller } from '@angular/common';
+import { PermissaoService } from '../_services/Permissoes/permissao.service';
 
 @Component({
   selector: 'app-cliente',
@@ -23,7 +24,7 @@ export class ClienteComponent implements OnInit {
 
   modoSalvar = '';
   cadastroForm: FormGroup;
-  bodyDeletarCliente = '';
+  bodyExcluirCliente = '';
 
   paginaAtual = 1;
   totalRegistros: number;
@@ -51,14 +52,15 @@ export class ClienteComponent implements OnInit {
     private cidadeService: CidadeService,
     private estadoService: EstadoService,
     private localeService: BsLocaleService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public permissaoService: PermissaoService
     ) {
       this.localeService.use('pt-br');
     }
 
   excluirCliente(cliente: Cliente, template: any) {
     this.cliente = cliente;
-    this.bodyDeletarCliente = `Tem certeza que deseja excluir o Usuario: ${cliente.nomeFantasia}, Código: ${cliente.id}`;
+    this.bodyExcluirCliente = `Tem certeza que deseja excluir o Cliente: ${cliente.nomeFantasia}, Código: ${cliente.id}?`;
     template.show();
   }
 
