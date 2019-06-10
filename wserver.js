@@ -11,7 +11,7 @@ const server = express()
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 let io = socketIO(server);
-
+ 
 io.on('connection', (socket) => {
     console.log('user connect');
     socket.on('NovoRetorno', (dados) => { io.emit('NovoRetorno', dados); });
