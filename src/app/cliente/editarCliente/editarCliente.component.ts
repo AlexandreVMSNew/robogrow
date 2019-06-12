@@ -131,7 +131,7 @@ export class EditarClienteComponent implements OnInit {
         telefone: ['', Validators.required],
         celular: [''],
         cnpjCpf: ['', Validators.required],
-        iE: [''],
+        ie: [''],
         estadoId: ['', Validators.required],
         cidadeId: ['', Validators.required],
         cep: ['', Validators.required],

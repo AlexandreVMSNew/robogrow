@@ -1,8 +1,302 @@
-<div style="background-color: #F1F4F9; width:100%;height:100%;position: absolute;"><app-nav></app-nav>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<div style="margin: auto;width:80%;">
-    <router-outlet></router-outlet>
-</div>
+<!--<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="dashboard">VirtualWeb Sistema</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div *ngIf="verificarLogIn()">
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="usuarios">Usuarios<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="clientes">Clientes<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="atendimentos/retornos">Retornos<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto" style="position: absolute;right:0;">
+        <li class="nav-item dropdown" dropdown>
+          <div *ngIf="getQtdNotificacoes() > 0">
+            <a dropdownToggle class="btn btn-sm btn-danger text-light mt-2"  id="navbarDropdownMenuLink2" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bell"></i></a>
+          </div>
+          <div *ngIf="getQtdNotificacoes() == 0">
+            <a dropdownToggle class="nav-link text-light"  id="navbarDropdownMenuLink2" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bell"></i></a>
+          </div>
+        <div *dropdownMenu class="dropdown-menu" style="position: absolute; width: 255px;" aria-labelledby="navbarDropdownMenuLink2">
+        <li class="head text-light bg-dark">
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-12">
+              <span>Notificações ({{getQtdNotificacoes()}})</span>
+            </div>
+          </div>
+        </li>
+
+        <div *ngFor="let notificacao of notificacoes">
+          <div *ngIf="notificacao.visto == 0">
+            <li style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);"
+              class="notification-box-bordered">
+              <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <strong class="text-info" (click)="setarVistoNotificacao(notificacao)" style="cursor:pointer;">
+                    Você tem um novo {{notificacao.tipo}}.</strong><br>
+                  <small class="text-info">[{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div *ngIf="notificacao.visto == 1">
+            <li style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;"
+              class="notification-box-bordered bg-gray">
+              <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <strong class="text-info">Você tem um novo {{notificacao.tipo}}.</strong><br>
+                  <small class="text-info">[{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                </div>
+              </div>
+            </li>
+          </div>
+        </div>
+    </div>
+    </li>
+
+    <li class="nav-item dropdown" style="float: right; margin-right:120px" dropdown>
+      <a dropdownToggle class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false" style="cursor: pointer;text-transform: capitalize;">
+        {{usuarioNome()}}
+      </a>
+      <div *dropdownMenu class="dropdown-menu" style="position: absolute; width: 235px;"aria-labelledby="navbarDropdownMenuLink">
+        <a  [routerLink]="['/usuarios','editar', usuarioId()]" class="dropdown-item">
+          Perfil
+        </a>
+        <a [routerLink]="['/usuarios','editar','senha', usuarioId()]" class="dropdown-item" class="dropdown-item">
+          Alterar Senha
+        </a>
+        <div role="separator" class="divider"></div>
+        <a class="dropdown-item" (click)="logout()" style="cursor: pointer">
+          Sair
+        </a>
+      </div>
+    </li>
+    </ul>
+  </div>
+  </div>
+</nav>-->
+<html>
+
+<body class='hold-transition skin-blue sidebar-mini {{sidebar}}'>
+  <div class="wrapper">
+
+    <header class="main-header ">
+
+      <!-- Logo -->
+      <a routerlink="dashboard" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b></b>VMS</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Virtual</b>Web</span>
+      </a>
+
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top">
+
+        <a class="sidebar-toggle" (click)="alterarSidebar()" role="button">
+          <span class="sr-only"></span>
+        </a>
+        <!-- Navbar Right Menu <div *dropdownMenu class="dropdown-menu" style="position: absolute; width: 255px;" aria-labelledby="navbarDropdownMenuLink2">-->
+        <div class="navbar-custom-menu">
+          <ul *ngIf="verificarLogIn()" class="nav navbar-nav">
+
+            <li class="dropdown messages-menu" dropdown>
+              <a dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bell-o"></i>
+                <span *ngIf="getQtdNotificacoes() > 0" class="label label-warning">{{getQtdNotificacoes()}}</span>
+              </a>
+              <div *dropdownMenu class="dropdown-menu">
+            <li class="header">Você tem {{getQtdNotificacoes()}} Notificações</li>
+            <li>
+
+              <ul class="menu">
+                <!-- <div *ngFor="let notificacao of notificacoes">
+          <div *ngIf="notificacao.visto == 0">
+            <li style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);"
+              class="notification-box-bordered">
+              <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <strong class="text-info" (click)="setarVistoNotificacao(notificacao)" style="cursor:pointer;">
+                    Você tem um novo {{notificacao.tipo}}.</strong><br>
+                  <small class="text-info">[{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div *ngIf="notificacao.visto == 1">
+            <li style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;"
+              class="notification-box-bordered bg-gray">
+              <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <strong class="text-info">Você tem um novo {{notificacao.tipo}}.</strong><br>
+                  <small class="text-info">[{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                </div>
+              </div>
+            </li>
+          </div> -->
+                <div *ngFor="let notificacao of notificacoes">
+                  <div *ngIf="notificacao.visto == 0">
+                    <li (click)="setarVistoNotificacao(notificacao)" style="cursor:pointer;">
+                      <a>
+                        <h4>Retorno.<small class="pull-right">
+                            <i class="fa fa-clock-o "></i>
+                            [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                        </h4>
+                        <p>Você tem um novo {{notificacao.tipo}}.</p>
+                      </a>
+                    </li>
+                  </div>
+                  <div *ngIf="notificacao.visto == 1">
+                    <li class="bg-gray"
+                      style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;">
+                      <a>
+                        <h4>
+                          Retorno.
+                          <small class="pull-right"><i class="fa fa-clock-o "></i>
+                            [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                        </h4>
+                        <p>Você tem um novo {{notificacao.tipo}}.</p>
+                      </a>
+                    </li>
+                  </div>
+                </div>
+
+              </ul>
+            </li>
+            <li class="footer"><a></a></li>
+        </div>
+        </li>
+
+        <!-- Tasks: style can be found in dropdown.less -->
+
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu" dropdown>
+          <a dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
+            <img src="./../assets/img/user-default.png" class="user-image" alt="User Image">
+            <span class="hidden-xs">{{usuarioNome()}} </span>
+          </a>
+          <div *dropdownMenu class="dropdown-menu">
+            <!-- User image -->
+        <li class="user-header">
+          <img src="./../assets/img/user-default.png" class="img-circle" alt="User Image">
+
+          <p>
+            {{usuarioNome()}} - Diretor
+            <small>Colaborador desde, 2018.</small>
+          </p>
+        </li>
+        <li class="user-footer">
+          <div class="footer">
+            <a [routerLink]="['/usuarios','editar', usuarioId()]" class="btn btn-default btn-flat">Perfil</a>
+            <a [routerLink]="['/usuarios','editar','senha', usuarioId()]" class="btn btn-default btn-flat">Alterar
+              Senha</a>
+            <a (click)="logout()" class="btn btn-default btn-flat">Sair</a>
+          </div>
+        </li>
+  </div>
+  </li>
+  <!-- Control Sidebar Toggle Button -->
+  <li>
+    <a data-toggle="control-sidebar"><i></i></a>
+  </li>
+  </ul>
+  </div>
+
+  </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside *ngIf="verificarLogIn()" class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="./../assets/img/user-default.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{{usuarioNome()}}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less 
+        <li class="dropdown messages-menu" dropdown>
+              <a dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-warning">10</span>
+              </a>
+              <body *dropdownMenu class="dropdown-menu">
+        
+        -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <li>
+          <a routerLink="dashboard">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green">new</small>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="usuarios">
+            <i class="fa fa-user"></i> <span>Usuários</span>
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="clientes">
+            <i class="fa fa-users"></i> <span>Clientes</span>
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="atendimentos/retornos">
+            <i class="fa fa-phone"></i> <span>Retornos</span>
+          </a>
+        </li>
+
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Versão</b> BETA
+    </div>
+    <strong>Copyright &copy; 2019 <a>VMS Ltda</a>.</strong>
+  </footer>
+  </div>
+</body>
+
+</html>
+<!--
 <button type="button" style="position:fixed;bottom:10%;left:2%;" 
 tooltip="Novas ideias!" (click)="templateIdeia.show()" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-lightbulb"></i>
 </button>
@@ -52,4 +346,4 @@ tooltip="Novas ideias!" (click)="templateIdeia.show()" class="btn btn-warning bt
     </div>
   </div>
 </div>
-</div>
+-->

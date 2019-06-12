@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Retorno } from 'src/app/_models/Atendimentos/Retornos/retorno';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
-import { BsLocaleService } from 'ngx-bootstrap';
+import { BsLocaleService, ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { RetornoService } from 'src/app/_services/Atendimentos/Retornos/retorno.service';
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
@@ -65,7 +65,6 @@ export class RetornoComponent implements OnInit {
   dataPeriodo: DataPeriodo;
 
   horaUltimaAtt: any;
-
   constructor(public fb: FormBuilder,
               private clienteServices: ClienteService,
               private retornoServices: RetornoService,
@@ -106,7 +105,6 @@ export class RetornoComponent implements OnInit {
         observacao: ['', Validators.required]
     });
   }
-
 
   getClientes() {
     this.clienteServices.getAllCliente().subscribe(
@@ -256,12 +254,10 @@ export class RetornoComponent implements OnInit {
     }
 
     if (this.filtroSelecionado === 'CLIENTE') {
-      console.log(filtrarPor);
       this.filtroRetorno = this.retornos.filter(_RETORNO => _RETORNO.clienteId === filtrarPor);
     }
 
     if (this.filtroSelecionado === 'PRIORIDADE') {
-      console.log(filtrarPor);
       this.filtroRetorno = this.retornos.filter(_RETORNO => _RETORNO.prioridade === filtrarPor);
     }
 
@@ -308,7 +304,7 @@ export class RetornoComponent implements OnInit {
     });
 }
 
-  novaObservacao(template: any) {
+  novaObservacao() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     if (this.cadastroObservacaoForm.valid) {
       this.observacao = Object.assign(this.cadastroObservacaoForm.value, {id: 0, retornoId: this.observacaoId,
@@ -320,7 +316,6 @@ export class RetornoComponent implements OnInit {
           this.toastr.success('Observação cadastrada com sucesso!');
           const InfoObs = Object.assign({retornoId: this.observacaoId, usuario: this.permissaoService.getUsuario()});
           this.socketService.sendSocket('NovaObservacao', InfoObs);
-          template.hide();
         }, error => {
           console.log(error.error);
         }

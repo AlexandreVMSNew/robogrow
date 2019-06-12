@@ -1,111 +1,113 @@
-<div style="border:1px solid LightGrey;" class="my-3 p-3 bg-white rounded box-shadow">
 <h2>Usuário</h2>
 <hr width="100%">
-  <form [formGroup]="cadastroForm" class="mt-3">
-    <tabset>
-      <tab heading="Geral">
-        <div class="form-row mt-4">
-          <div class="form-group col-md-4">
-            <label>Nome Completo:</label>
-            <input type="text" class="form-control" style="text-transform: uppercase"
-              oninput="this.value = this.value.toUpperCase()" formControlName="nomeCompleto" [ngClass]="{'is-invalid': cadastroForm.get('nomeCompleto').errors &&
+<div class="box box-solid">
+  <div class="box-header with-border">
+    <form [formGroup]="cadastroForm" style="margin-top: 10px;">
+      <tabset>
+        <tab heading="Geral">
+          <div class="row mt-4">
+            <div class="form-group col-md-4">
+              <label>Nome Completo:</label>
+              <input type="text" class="form-control" style="text-transform: uppercase"
+                oninput="this.value = this.value.toUpperCase()" formControlName="nomeCompleto" [ngClass]="{'is-invalid': cadastroForm.get('nomeCompleto').errors &&
                                               cadastroForm.get('nomeCompleto').touched }" />
-            <div *ngIf="cadastroForm.get('nomeCompleto').hasError('required') &&
+              <div *ngIf="cadastroForm.get('nomeCompleto').hasError('required') &&
                                 cadastroForm.get('nomeCompleto').touched" class="invalid-feedback">
-              Nome Completo é obrigatório.
+                Nome Completo é obrigatório.
+              </div>
             </div>
-          </div>
 
-          <div class="form-group col-md-4">
-            <label>Email:</label>
-            <input class="form-control" type="text" formControlName="email" [ngClass]="{ 'is-invalid': cadastroForm.get('email').errors && 
+            <div class="form-group col-md-4">
+              <label>Email:</label>
+              <input class="form-control" type="text" formControlName="email" [ngClass]="{ 'is-invalid': cadastroForm.get('email').errors && 
                                                 cadastroForm.get('email').touched}" />
-            <div *ngIf="cadastroForm.get('email').hasError('required') &&cadastroForm.get('email').touched"
-              class="invalid-feedback">
-              E-mail é obrigatório.
+              <div *ngIf="cadastroForm.get('email').hasError('required') &&cadastroForm.get('email').touched"
+                class="invalid-feedback">
+                E-mail é obrigatório.
+              </div>
+              <div *ngIf="cadastroForm.get('email').hasError('email') &&cadastroForm.get('email').touched"
+                class="invalid-feedback">
+                E-mail inválido.
+              </div>
             </div>
-            <div *ngIf="cadastroForm.get('email').hasError('email') &&cadastroForm.get('email').touched"
-              class="invalid-feedback">
-              E-mail inválido.
-            </div>
-          </div>
 
-          <div class="form-group col-md-4">
-            <label>Usuario:</label>
-            <input class="form-control" type="text" formControlName="userName" [ngClass]="{'is-invalid': cadastroForm.get('userName').errors &&
+            <div class="form-group col-md-4">
+              <label>Usuario:</label>
+              <input class="form-control" type="text" formControlName="userName" [ngClass]="{'is-invalid': cadastroForm.get('userName').errors &&
                                                 cadastroForm.get('userName').touched}"
-              style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
+                style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
 
-            <div *ngIf="cadastroForm.get('userName').hasError('required') &&
+              <div *ngIf="cadastroForm.get('userName').hasError('required') &&
                                 cadastroForm.get('userName').touched" class="invalid-feedback">
-              Usuário é obrigatório.
+                Usuário é obrigatório.
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col-md-3">
-            <label>Data de Nascimento:(*)</label>
-            <input type="text" class="form-control" formControlName="dataNascimento"
-              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker />
-          </div>
-
-          <div class="form-group col-md-6">
-            <label>Nível:(*)</label>
-            <ng-select [items]="niveis" bindLabel="name" bindValue="id" required [multiple]="true"
-              (change)="adicionarUsuarioNivel(niveisIdSelecionado)" [(ngModel)]="niveisIdSelecionado"
-              formControlName="usuarioNivel">
-            </ng-select>
-
-            <div
-              *ngIf="cadastroForm.get('usuarioNivel').hasError('required') && cadastroForm.get('usuarioNivel').touched"
-              class="invalid-feedback d-block ng-invalid ng-touched">
-              Campo Obrigatório.
-            </div>
-          </div>
-        </div>
-
-        <div formGroupName="passwords">
-          <div class="form-row">
+          <div class="row">
             <div class="form-group col-md-3">
-              <label>Senha:</label>
-              <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.password').errors &&
+              <label>Data de Nascimento:(*)</label>
+              <input type="text" class="form-control" formControlName="dataNascimento"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker />
+            </div>
+
+            <div class="form-group col-md-6">
+              <label>Nível:(*)</label>
+              <ng-select [items]="niveis" bindLabel="name" bindValue="id" required [multiple]="true"
+                (change)="adicionarUsuarioNivel(niveisIdSelecionado)" [(ngModel)]="niveisIdSelecionado"
+                formControlName="usuarioNivel">
+              </ng-select>
+
+              <div
+                *ngIf="cadastroForm.get('usuarioNivel').hasError('required') && cadastroForm.get('usuarioNivel').touched"
+                class="invalid-feedback d-block ng-invalid ng-touched">
+                Campo Obrigatório.
+              </div>
+            </div>
+          </div>
+
+          <div formGroupName="passwords">
+            <div class="row">
+              <div class="form-group col-md-3">
+                <label>Senha:</label>
+                <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.password').errors &&
                                                              cadastroForm.get('passwords.password').touched}" />
-              <div *ngIf="cadastroForm.get('passwords.password').hasError('minlength') &&
+                <div *ngIf="cadastroForm.get('passwords.password').hasError('minlength') &&
                                   cadastroForm.get('passwords.password').touched" class="invalid-feedback">
-                Deve conter no mínimo 4 caracters
-              </div>
-              <div *ngIf="cadastroForm.get('passwords.password').hasError('required') &&
+                  Deve conter no mínimo 4 caracters
+                </div>
+                <div *ngIf="cadastroForm.get('passwords.password').hasError('required') &&
                                             cadastroForm.get('passwords.password').touched" class="invalid-feedback">
-                Senha é obrigatório.
+                  Senha é obrigatório.
+                </div>
               </div>
-            </div>
 
-            <div class="form-group col-md-3">
-              <label>Confirmar Senha:</label>
-              <input class="form-control" type="password" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.confirmPassword').errors 
+              <div class="form-group col-md-3">
+                <label>Confirmar Senha:</label>
+                <input class="form-control" type="password" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.confirmPassword').errors 
                                                && cadastroForm.get('passwords.confirmPassword').touched 
                                                ||cadastroForm.get('passwords.confirmPassword').hasError('mismatch') 
                                                && cadastroForm.get('passwords.confirmPassword').touched }" />
-              <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('required') &&
+                <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('required') &&
                                             cadastroForm.get('passwords.confirmPassword').touched"
-                class="invalid-feedback">
-                Confirme a senha.
-              </div>
-              <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('mismatch') 
+                  class="invalid-feedback">
+                  Confirme a senha.
+                </div>
+                <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('mismatch') 
                                             && cadastroForm.get('passwords.confirmPassword').touched"
-                class="invalid-feedback">
-                Senhas diferentes!
+                  class="invalid-feedback">
+                  Senhas diferentes!
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </tab>
+        </tab>
 
-    </tabset>
-    <div class="form-group  offset-md-10 mt-3">
-      <button class="btn btn-primary btn-block" [disabled]="!cadastroForm.valid"
-        (click)="cadastrarUsuario()">Cadastrar</button>
-    </div>
-  </form>
+      </tabset>
+    </form>
+  </div>
 </div>
+<button style="position:relative;" [disabled]="!cadastroForm.valid" (click)="cadastrarUsuario()"
+  tooltip="Novo Usuário" class="btn btn-lg btn-primary">
+  &nbsp;Cadastrar
+</button>

@@ -1,8 +1,8 @@
-<div style="border:1px solid LightGrey;" class="my-3 p-3 bg-white rounded box-shadow">
-  <h2>Retornos</h2>
-  <hr width="100%">
-  <form>
-    <div class="form-row ">
+<h2>Retornos</h2>
+<hr width="100%">
+<div class="box box-solid">
+  <div class="box-header with-border">
+    <div class="row">
       <div class="form-group col-md-3">
         <label>Filtrar por:</label>
         <ng-select [clearable]="false" [items]="filtrarPor" name="filtrarPor" [(ngModel)]="filtroSelecionado"
@@ -12,15 +12,15 @@
 
       <div *ngIf="filtroSelecionado == 'CLIENTE'" class="form-group col-md-4">
         <label>Selecione o Cliente:</label>
-        <ng-select name="filtroNome" [items]="clientes" bindLabel="nomeFantasia" bindValue="id" [(ngModel)]="filtroLista">
+        <ng-select name="filtroNome" [items]="clientes" bindLabel="nomeFantasia" bindValue="id"
+          [(ngModel)]="filtroLista">
         </ng-select>
       </div>
 
       <div *ngIf="filtroSelecionado == 'DATA'" class="form-group col-md-3">
         <label>Selecione a Data:</label>
-          <input type="text" class="form-control" name="dataFiltro"
-                (bsValueChange)="setDataFiltro($event)"
-                bsDaterangepicker />
+        <input type="text" class="form-control" name="dataFiltro" (bsValueChange)="setDataFiltro($event)"
+          bsDaterangepicker />
       </div>
 
       <div *ngIf="filtroSelecionado == 'PRIORIDADE'" class="form-group col-md-2">
@@ -35,17 +35,15 @@
           (change)="setStatusFiltroSelecionado($event)">
         </ng-select>
       </div>
+
+      <div style="margin-right: 15px;" class="pull-right">
+        <a [routerLink]="['novo']" class="btn btn-success">
+          <i class="fa fa-plus-circle"></i>&nbsp; Novo Retorno
+        </a>
+      </div>
     </div>
-    <div class="d-flex">
-      <label>Atualizado às: {{horaUltimaAtt}}</label>
-      <button class="btn btn-primary ml-auto" (click)="setStatusFiltroSelecionado(statusFiltroSelecionado)"
-        tooltip="Atualizar Informações">
-        <i class="fa fa-sync-alt"></i>&nbsp; Atualizar
-      </button>
-      <a [routerLink]="['novo']" class="btn btn-success ml-auto">
-        <i class="fa fa-plus-circle"></i>&nbsp; Novo Retorno
-      </a>
-    </div>
+    <label>Atualizado às: {{horaUltimaAtt}}</label>
+
 
     <table class="table table-striped table-bordered mt-4">
       <thead class="thead-light">
@@ -80,35 +78,39 @@
             <button style="white-space: nowrap;" *ngIf="retorno.status == 'EM ANDAMENTO'" type="button" disabled
               class="btn btn-info btn-sm">EM ANDAMENTO</button>
           </td>
-          <td style="white-space: nowrap;">{{ retorno.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+          <td style="white-space: nowrap;">{{ retorno.dataHora |date:'dd/MM/yyyy HH:mm:ss'}}</td>
           <td style="white-space: nowrap;">{{ retorno.usuarioId ? retorno.usuario.userName : 'TODOS'}}</td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">
-              <div *ngIf="retorno.status == 'AGUARDANDO'">
-                <button class="btn btn-sm btn-success" (click)="alterarStatus(retorno)" tooltip="Ligar">
-                  <i class="fa fa-phone"></i>
-                </button>
-              </div>
 
-              <div *ngIf="retorno.status == 'EM ANDAMENTO'">
-                <button class="btn btn-sm btn-warning" (click)="alterarStatus(retorno)" tooltip="Não Atendeu">
-                  <i class="fa fa-ban"></i>
-                </button>
-                <button class="btn btn-sm btn-danger" (click)="finalizarRetorno(retorno)" tooltip="Finalizar">
-                  <i class="fa fa-check"></i>
-                </button>
-              </div>
+              <button *ngIf="retorno.status == 'AGUARDANDO'" type="button" class="btn btn-success"
+                (click)="alterarStatus(retorno)" tooltip="Ligar">
+                <i class="fa fa-phone"></i>
+              </button>
 
-              <button class="btn btn-sm btn-info" style="white-space: nowrap;"
-                (click)="retornoLog(retorno.id,templateLog)" tooltip="Log(s)">
+              <button *ngIf="retorno.status == 'EM ANDAMENTO'" type="button" class="btn btn-warning"
+                (click)="alterarStatus(retorno)" tooltip="Não Atendeu">
+                <i class="fa fa-ban"></i>
+              </button>
+              <button *ngIf="retorno.status == 'EM ANDAMENTO'" type="button" class="btn btn-danger"
+                (click)="finalizarRetorno(retorno)" tooltip="Finalizar">
+                <i class="fa fa-check"></i>
+              </button>
+
+              <button type="button" class="btn btn-info" (click)="retornoLog(retorno.id,templateLog)" tooltip="Log(s)">
                 <i class="fa fa-file-alt "></i>
               </button>
 
-              <button class="btn btn-sm btn-dark" style="white-space: nowrap;"
+              <button type="button" class="btn btn-dark"
                 (click)="getRetornoInformacoes(retorno.id, retorno.telefone, retorno.contatoNome,templateInformacoes)"
                 tooltip="Informações">
                 <i class="fa fa-info"></i>
               </button>
+            </div>
+            <div class="btn-group">
+
+
+
             </div>
           </td>
         </tr>
@@ -156,13 +158,13 @@
                   <td style="white-space: nowrap;">{{ log.dataHora  | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                   <td style="text-align: center;">
                     <button *ngIf="log.status == 'AGUARDANDO'" type="button" disabled
-                      class="btn btn-warning btn-sm">AGUARDANDO</button>
+                      class="btn btn-warning">AGUARDANDO</button>
 
                     <button *ngIf="log.status == 'FINALIZADO'" type="button" disabled
-                      class="btn btn-danger btn-sm">FINALIZADO</button>
+                      class="btn btn-danger">FINALIZADO</button>
 
                     <button style="white-space: nowrap;" *ngIf="log.status == 'EM ANDAMENTO'" type="button" disabled
-                      class="btn btn-info btn-sm">EM ANDAMENTO</button>
+                      class="btn btn-info">EM ANDAMENTO</button>
                   </td>
                 </tr>
               </tbody>
@@ -183,119 +185,90 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <div bsModal #templateInformacoes="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-      aria-labelledby="dialog-sizes-name1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 id="dialog-sizes-name1" class="modal-title pull-left">
-              Observações do Retorno
-            </h4>
-            <button type="button" class="close pull-right" (click)="templateInformacoes.hide()" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
-          <div class="modal-body">
-
-            <div class="form-row">
-              <div class="form-group col-md-3">
-                <label>Telefone:</label>
-                <input class="form-control" type="text" maxlength="14" name="retornoTel"
-                  [ngModel]="retornoTelefone | celularPipePipe" (ngModelChange)="retornoTelefone=$event" />
-              </div>
-              <div class="form-group col-md-3">
-                <label>Solicitante:</label>
-                <input class="form-control" type="text" name="retornoSol" [(ngModel)]="retornoSolicitante" />
-              </div>
-              <div class="form-group ml-auto" style="margin-top:32px">
-                <button class="btn btn-success ml-auto" (click)="templateNovaObservacao.show()"
-                  tooltip="Adicionar Observação">
-                  <i class="fa fa-plus-circle"></i>&nbsp; Nova Observação
-                </button>
-              </div>
-            </div>
-            <table class="container-fluid table table-striped table-bordered mt-4">
-              <thead class="thead-light">
-                <tr>
-                  <th>Usuário</th>
-                  <th>Data/Hora</th>
-                  <th>Observação</th>
-                </tr>
-              </thead>
-              <tbody *ngIf="retornoObservacoes && retornoObservacoes.length">
-                <tr *ngFor="let observacao of retornoObservacoes;">
-                  <td style="white-space: nowrap;">{{ observacao.usuario.userName }}</td>
-                  <td style="white-space: nowrap;">{{ observacao.dataHora  | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                  <td style="text-align: center;">
-                    <div class="col-md-12">
-                      <textarea class="form-control" rows="1">{{observacao.observacao}}</textarea>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-
-              <tfoot *ngIf="!retornoObservacoes">
-                <tr colspan="7" class="text-center"></tr>
-                <h4>
-                  Nenhuma observação encontrada!
-                </h4>
-              </tfoot>
-            </table>
-          </div>
-          <div class="modal-footer d-flex">
-            <button class="btn btn-secondary" (click)="templateInformacoes.hide()">
-              Fechar
-            </button>
-          </div>
+  <div bsModal #templateInformacoes="bs-modal" class="modal fade">
+    <div class="modal-dialog  modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+            Observações do Retorno
+          </h4>
+          <button type="button" class="close pull-right" (click)="templateInformacoes.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
 
-      </div>
-      <div bsModal #templateNovaObservacao="bs-modal"
-        style="position:absolute;left:50%;top:50%;margin-top:-200px;margin-left:-140px;" class="modal-sm fade"
-        tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 id="dialog-sizes-name1" class="modal-title pull-left">
-                Nova Observação
-              </h4>
-              <button type="button" class="close pull-right" (click)="templateNovaObservacao.hide()" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+        <div class="modal-body">
 
-            <form class="container" [formGroup]="cadastroObservacaoForm">
-              <input type="hidden" class="form-control" formControlName="id" value="0" placeholder="" />
-              <div class="modal-body">
-                <div class="form-row">
-                  <div class="form-group col-md-12">
-                    <label>Observação:(*)</label>
-                    <input type="text" style="text-transform: uppercase" formControlName="observacao"
-                      oninput="this.value = this.value.toUpperCase()" oninput="this.value = this.value.toUpperCase()"
-                      class="form-control" name="nome"
-                      [ngClass]="{'is-invalid':cadastroObservacaoForm.get('observacao').errors &&cadastroObservacaoForm.get('observacao').touched}" />
-                    <div
-                      *ngIf="cadastroObservacaoForm.get('observacao').hasError('required') && cadastroObservacaoForm.get('observacao').touched"
-                      class="invalid-feedback">
-                      Campo obrigatório.
-                    </div>
-                  </div>
+          <div class="row">
+            <div class="form-group col-md-3">
+              <label>Telefone:</label>
+              <input class="form-control" type="text" maxlength="14" name="retornoTel"
+                [ngModel]="retornoTelefone | celularPipePipe" (ngModelChange)="retornoTelefone=$event" />
+            </div>
+            <div class="form-group col-md-3">
+              <label>Solicitante:</label>
+              <input class="form-control" type="text" name="retornoSol" [(ngModel)]="retornoSolicitante" />
+            </div>
+            <div class="form-group col-md-6">
+              <form [formGroup]="cadastroObservacaoForm">
+                <input type="hidden" class="form-control" formControlName="id" value="0" placeholder="" />
+                <label>Observação:(*)</label>
+                <div class="input-group">
+                  <input type="text" style="text-transform: uppercase" formControlName="observacao"
+                    oninput="this.value = this.value.toUpperCase()" oninput="this.value = this.value.toUpperCase()"
+                    class="form-control" name="nome"
+                    [ngClass]="{'is-invalid':cadastroObservacaoForm.get('observacao').errors &&cadastroObservacaoForm.get('observacao').touched}" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-success" [disabled]="!cadastroObservacaoForm.valid"
+                      (click)="novaObservacao()" tooltip="Nova Observação">
+                      <i class="fa fa-plus-circle"> </i></button>
+                  </span>
                 </div>
-              </div>
-            </form>
-            <div class="modal-footer d-flex">
-              <button class="btn btn-secondary" (click)="templateNovaObservacao.hide()">
-                Fechar
-              </button>
-
-              <button class="btn btn-primary" [disabled]="!cadastroObservacaoForm.valid"
-                (click)="novaObservacao(templateNovaObservacao)">
-                Cadastrar
-              </button>
+                <div
+                  *ngIf="cadastroObservacaoForm.get('observacao').hasError('required') && cadastroObservacaoForm.get('observacao').touched"
+                  class="invalid-feedback">
+                  Campo obrigatório.
+                </div>
+              </form>
             </div>
           </div>
-        </div>
+
+        <table class="container-fluid table table-striped table-bordered mt-4">
+          <thead class="thead-light">
+            <tr>
+              <th>Usuário</th>
+              <th>Data/Hora</th>
+              <th>Observação</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="retornoObservacoes && retornoObservacoes.length">
+            <tr *ngFor="let observacao of retornoObservacoes;">
+              <td style="white-space: nowrap;">{{ observacao.usuario.userName }}</td>
+              <td style="white-space: nowrap;">{{ observacao.dataHora  | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+              <td style="text-align: center;">
+                <div class="col-md-12">
+                  <textarea class="form-control" rows="1">{{observacao.observacao}}</textarea>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot *ngIf="!retornoObservacoes">
+            <tr colspan="7" class="text-center"></tr>
+            <h4>
+              Nenhuma observação encontrada!
+            </h4>
+          </tfoot>
+        </table>
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="templateInformacoes.hide()">
+          Fechar
+        </button>
       </div>
     </div>
+
+  </div>
+</div>

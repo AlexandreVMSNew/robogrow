@@ -14,7 +14,6 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { NgDatepickerModule } from 'ng2-datepicker';
 
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { LoginComponent } from './usuario/login/login.component';
 import { EditarUsuarioComponent } from './usuario/editarUsuario/editarUsuario.component';
@@ -45,14 +44,13 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}  };
+const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
    declarations: [
       AppComponent,
-      NavComponent,
       UsuarioComponent,
       LoginComponent,
       NovoUsuarioComponent,

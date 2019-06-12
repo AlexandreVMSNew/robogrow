@@ -1,9 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+/*@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';*/
 @import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
+@import "../bower_components/bootstrap/dist/css/bootstrap.min.css";
+@import "../bower_components/select2/dist/css/select2.min.css";
+@import "../bower_components/font-awesome/css/font-awesome.min.css";
+@import "../bower_components/Ionicons/css/ionicons.min.css";
+@import "../bower_components/jvectormap/jquery-jvectormap.css";
+@import "../dist/css/AdminLTE.min.css";
+@import "../dist/css/skins/_all-skins.min.css";
+@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic";
 #toast-container > div {
     opacity:1;
 }

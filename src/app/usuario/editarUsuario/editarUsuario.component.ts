@@ -158,7 +158,7 @@ export class EditarUsuarioComponent implements OnInit {
     this.usuario.usuarioOcorrencias = [];
     this.usuarioOcorrencias.forEach(ocorrencia => {
       const dataOcorrencia = ocorrencia.data.toLocaleString();
-      ocorrencia = Object.assign(ocorrencia, { data: this.dataService.getDataSQL(dataOcorrencia)});
+      ocorrencia = Object.assign(ocorrencia, { usuarioId: this.usuario.id, data: this.dataService.getDataSQL(dataOcorrencia)});
       this.usuario.usuarioOcorrencias.push(ocorrencia);
     });
 
@@ -166,7 +166,6 @@ export class EditarUsuarioComponent implements OnInit {
     this.niveisUsuario.forEach(niveis => {
       this.usuario.usuarioNivel.push(niveis);
     });
-
 
     this.usuarioService.editarUsuario(this.usuario).subscribe(
       () => {
