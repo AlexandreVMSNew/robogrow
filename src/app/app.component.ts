@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   statusLogIn = false;
   idUsuario: number;
   paginaNotificacaoAtual = 1;
-
+  logou = false;
   sidebar = 'sidebar-open';
 
   constructor(private ideiaService: IdeiaService,
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
               private authService: AuthService,
               private router: Router,
               public dataService: DataService) {
-  this.localeService.use('pt-br');
+    this.localeService.use('pt-br');
   }
 
   ngOnInit() {
@@ -74,9 +74,14 @@ export class AppComponent implements OnInit {
 
   verificarLogIn() {
     if (this.authService.loggerIn()) {
+      if (this.logou === false) {
+        this.logou = true;
+        this.sidebar = 'sidebar-open';
+      }
       return true;
     } else {
       this.sidebar = 'sidebar-collapse';
+      this.logou = false;
       return false;
     }
   }
