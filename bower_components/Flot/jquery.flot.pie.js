@@ -817,4 +817,4 @@ More detail and specific examples can be found in the included HTML file.
 		version: "1.1"
 	});
 
-})(jQuery);
+});

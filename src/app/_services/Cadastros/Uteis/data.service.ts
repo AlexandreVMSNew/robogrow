@@ -9,19 +9,27 @@ export class DataService {
 constructor() { }
 
   getDataPTBR(data: any) {
-    this.novaData = data.split('T')[0].split('-');
-    const dia = this.novaData[2];
-    const mes = this.novaData[1];
-    const ano = this.novaData[0];
-    return dia + '/' + mes + '/' + ano;
+    if (data && data !== null && data.toString().length > 0) {
+      this.novaData = data.split('T')[0].split('-');
+      const dia = this.novaData[2];
+      const mes = this.novaData[1];
+      const ano = this.novaData[0];
+      return dia + '/' + mes + '/' + ano;
+    } else {
+      return '';
+    }
   }
 
   getDataSQL(data: any) {
-    this.novaData = data.split(' ')[0].split('/');
-    const dia = this.novaData[0];
-    const mes = this.novaData[1];
-    const ano = this.novaData[2];
-    return ano + '-' + mes + '-' + dia;
+    if (data && data !== null && data.toString().length > 0) {
+      this.novaData = data.split(' ')[0].split('/');
+      const dia = this.novaData[0];
+      const mes = this.novaData[1];
+      const ano = this.novaData[2];
+      return ano + '-' + mes + '-' + dia;
+    } else {
+      return null;
+    }
   }
 
   calculaDiferencaDataHora(dataInicial: any) {

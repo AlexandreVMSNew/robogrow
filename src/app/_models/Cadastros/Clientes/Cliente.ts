@@ -21,8 +21,10 @@ export class Cliente {
         endereco: string;
         bairro: string;
         status: string;
-        dataImplancatacao: string;
         sistemaId: number;
         geracaoId: number;
+        dataImpCadProd: Date;
+        dataImpFrenteLoja: Date;
+        dataImpFinanceiro: Date;
         clienteVersoes: ClienteVersoes[];
 }

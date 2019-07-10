@@ -78,7 +78,7 @@
             <button style="white-space: nowrap;" *ngIf="retorno.status == 'EM ANDAMENTO'" type="button" disabled
               class="btn btn-info btn-sm">EM ANDAMENTO</button>
           </td>
-          <td style="white-space: nowrap;">{{ retorno.dataHora |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+          <td style="white-space: nowrap;">{{ retorno.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}</td>
           <td style="white-space: nowrap;">{{ retorno.usuarioId ? retorno.usuario.userName : 'TODOS'}}</td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">

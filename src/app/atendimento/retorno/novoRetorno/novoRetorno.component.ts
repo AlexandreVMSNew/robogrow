@@ -17,8 +17,8 @@ import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service
 
 @Component({
   selector: 'app-novo-retorno',
-  templateUrl: './novoRetorno.component.html',
-  styleUrls: ['./novoRetorno.component.css']
+  templateUrl: './novoRetorno.component.html'
+
 })
 export class NovoRetornoComponent implements OnInit {
 
@@ -56,7 +56,7 @@ export class NovoRetornoComponent implements OnInit {
   ngOnInit() {
     this.getClientes();
     this.getUsuarios();
-    this.validation();
+    this.validarForm();
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -72,7 +72,7 @@ export class NovoRetornoComponent implements OnInit {
     this._observacao = value;
   }
 
-  validation() {
+  validarForm() {
     this.cadastroForm = this.fb.group({
         id:  [''],
         clienteId: ['', Validators.required],

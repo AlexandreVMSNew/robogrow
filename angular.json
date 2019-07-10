@@ -27,7 +27,9 @@
               "node_modules/ngx-toastr/toastr.css"
               
             ],
-            "scripts": [],
+            "scripts": [
+              "bower_components/Flot/jquery.flot.pie.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

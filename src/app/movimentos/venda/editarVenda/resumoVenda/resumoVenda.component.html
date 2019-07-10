@@ -1,0 +1,117 @@
+<div class="col-md-5">
+  {{somar()}}
+  <div class="box box-info">
+    <table class="table  table-bordered" style="table-layout:fixed;">
+      <thead class="thead-light">
+        <tr>
+          <th>Descrição</th>
+          <th>Previsto</th>
+          <th>Realizado</th>
+          <th>Diferença</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-size:20px;max-width:60px;">Entradas</td>
+          <td style="vertical-align: middle;">{{valorTotalEntradasPrevisto | currency:'BRL':true}}</td>
+          <td style="vertical-align: middle;">{{valorTotalEntradasRealizado | currency:'BRL':true}}</td>
+          <td style="vertical-align: middle;">
+            {{calcularDiferenca(valorTotalEntradasRealizado, valorTotalEntradasPrevisto) | currency:'BRL':true}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <hr style="width: 100%;">
+
+  <div class="box box-danger">
+    <table class="table  table-bordered " style="table-layout:fixed;">
+      <thead class="thead-light">
+        <tr>
+          <th>Descrição</th>
+          <th>Previsto</th>
+          <th>Realizado</th>
+          <th>Diferença</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-size:20px;">Comissões</td>
+          <td style="vertical-align: middle;">{{valorTotalSaidasComissaoPrevisto | currency:'BRL':true}}</td>
+          <td style="vertical-align: middle;">{{valorTotalSaidasComissaoRealizado | currency:'BRL':true}}</td>
+          <td style="vertical-align: middle;">
+            {{calcularDiferenca(valorTotalSaidasComissaoRealizado, valorTotalSaidasComissaoPrevisto) | currency:'BRL':true}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr style="width: 100%;">
+    <div class="box box-danger">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Descrição</th>
+            <th>Previsto</th>
+            <th>Realizado</th>
+            <th>Diferença</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="vertical-align: middle;">
+            <td style="font-size:20px;">Gastos</td>
+            <td style="vertical-align: middle;">{{valorTotalSaidasGastoPrevisto | currency:'BRL':true}}</td>
+            <td style="vertical-align: middle;">{{valorTotalSaidasGastoRealizado | currency:'BRL':true}}</td>
+            <td style="vertical-align: middle;">
+              {{calcularDiferenca(valorTotalSaidasGastoRealizado, valorTotalSaidasGastoPrevisto) | currency:'BRL':true}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="col-md-7">
+
+  <div class="md-2">
+    <div class="box box-info">
+      <table class="table  table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th style=" font-size:40px;text-align: center;">
+              <span *ngIf="calcularResultado(valorTotalSaidasGastoRealizado, valorTotalSaidasGastoPrevisto) >= 0"
+                class="label label-success">LUCRO
+              </span>
+              <span *ngIf="calcularResultado(valorTotalSaidasGastoRealizado, valorTotalSaidasGastoPrevisto) <= 0"
+                class="label label-danger">PREJUÍZO
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="vertical-align: middle;">
+            <td style="text-align: center;font-size:30px;">
+              {{calcularResultado(valorTotalSaidasGastoRealizado, valorTotalSaidasGastoPrevisto) | currency:'BRL':true}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<div class="col-md-3">
+  <div class="chart" style="width: 400px;height: 200px;">
+    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+      [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
+    </canvas>
+  </div>
+</div>
+<div class="col-md-4">
+  <div class="chart" style="width: 350px;margin-left:55px;margin-top: 20px;height: 200px;">
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+      [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+    </canvas>
+  </div>
+</div>

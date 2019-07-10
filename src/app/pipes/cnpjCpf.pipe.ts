@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {cnpjPattern, cpfPattern} from './commons/constants';
-import { removeNonDigitValues } from './commons/utils';
+import { removeNonDigitValues, validarCPF } from './commons/utils';
 
 const vanillaMasker = require('vanilla-masker');
 const CPF_LENGTH = 14;
@@ -8,13 +8,14 @@ const CPF_LENGTH = 14;
   name: 'cnpjCpfPipePipe'
 })
 
+
 export class CnpjCpfPipe implements PipeTransform {
 
   transform(value: any) {
     if (!value) {
       return '';
     }
-    
+
     if (value.length > CPF_LENGTH) {
       return vanillaMasker.toPattern(value, cnpjPattern);
     }

@@ -12,21 +12,33 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { NgDatepickerModule } from 'ng2-datepicker';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
-import { UsuarioComponent } from './usuario/usuario.component';
-import { LoginComponent } from './usuario/login/login.component';
-import { EditarUsuarioComponent } from './usuario/editarUsuario/editarUsuario.component';
-import { NovoUsuarioComponent } from './usuario/novoUsuario/novoUsuario.component';
-import { EditarSenhaUsuarioComponent } from './usuario/editarSenhaUsuario/editarSenhaUsuario.component';
-import { ClienteComponent } from './cliente/cliente.component';
-import { NovoClienteComponent } from './cliente/novoCliente/novoCliente.component';
-import { EditarClienteComponent } from './cliente/editarCliente/editarCliente.component';
+import { UsuarioComponent } from './cadastros/usuario/usuario.component';
+import { LoginComponent } from './cadastros/usuario/login/login.component';
+import { EditarUsuarioComponent } from './cadastros/usuario/editarUsuario/editarUsuario.component';
+import { NovoUsuarioComponent } from './cadastros/usuario/novoUsuario/novoUsuario.component';
+import { EditarSenhaUsuarioComponent } from './cadastros/usuario/editarSenhaUsuario/editarSenhaUsuario.component';
+import { ClienteComponent } from './cadastros/cliente/cliente.component';
+import { NovoClienteComponent } from './cadastros/cliente/novoCliente/novoCliente.component';
+import { EditarClienteComponent } from './cadastros/cliente/editarCliente/editarCliente.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AtendimentoComponent } from './atendimento/atendimento.component';
 import { RetornoComponent } from './atendimento/retorno/retorno.component';
 import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoRetorno.component';
 import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
+import { VendaComponent } from './movimentos/venda/venda.component';
+import { NovoVendaComponent } from './movimentos/venda/novoVenda/novoVenda.component';
+import { EditarVendaComponent } from './movimentos/venda/editarVenda/editarVenda.component';
+import { ResumoVendaComponent } from './movimentos/venda/editarVenda/resumoVenda/resumoVenda.component';
+import { ProdutoComponent } from './cadastros/produto/produto.component';
+import { NovoProdutoComponent } from './cadastros/produto/novoProduto/novoProduto.component';
+import { EditarProdutoComponent } from './cadastros/produto/editarProduto/editarProduto.component';
+
+import { PessoaComponent } from './cadastros/pessoa/pessoa.component';
+import { NovoPessoaComponent } from './cadastros/pessoa/novoPessoa/novoPessoa.component';
+import { EditarPessoaComponent } from './cadastros/pessoa/editarPessoa/editarPessoa.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
@@ -43,6 +55,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
+import { PermissaoComponent } from './permissao/permissao.component';
 
 const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
@@ -64,6 +77,17 @@ defineLocale('pt-br', ptBrLocale);
       RetornoComponent,
       NovoRetornoComponent,
       EditarRetornoComponent,
+      PermissaoComponent,
+      VendaComponent,
+      NovoVendaComponent,
+      EditarVendaComponent,
+      ResumoVendaComponent,
+      ProdutoComponent,
+      NovoProdutoComponent,
+      EditarProdutoComponent,
+      PessoaComponent,
+      NovoPessoaComponent,
+      EditarPessoaComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,
@@ -80,14 +104,11 @@ defineLocale('pt-br', ptBrLocale);
       ModalModule.forRoot(),
       NgxMaskModule.forRoot(),
       NgDatepickerModule,
+      ChartsModule,
       NgxPaginationModule,
       NgxCurrencyModule,
       NgSelectModule,
-      ToastrModule.forRoot({
-         timeOut: 3000,
-         preventDuplicates: true,
-         progressBar: true
-      }),
+      ToastrModule.forRoot(),
       AppRoutingModule,
       HttpClientModule,
       FormsModule,

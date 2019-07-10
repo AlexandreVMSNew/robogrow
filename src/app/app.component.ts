@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { IdeiaService } from './_services/Cadastros/Ideias/ideia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap';
@@ -12,13 +12,20 @@ import { NotificacaoService } from './_services/Notificacoes/notificacao.service
 import { AuthService } from './_services/Cadastros/Login/auth.service';
 import { Router } from '@angular/router';
 import { DataService } from './_services/Cadastros/Uteis/data.service';
+import { Permissao } from './_models/Permissoes/permissao';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+
+  visualizarPermissao = false;
+  listarVenda = false;
+  listarProduto = false;
+  listarPessoa = false;
+  listarCliente = false;
 
   title = 'VirtualWeb';
   ideia: Ideia;
@@ -30,6 +37,52 @@ export class AppComponent implements OnInit {
   paginaNotificacaoAtual = 1;
   logou = false;
   sidebar = 'sidebar-open';
+
+  Nav: any =
+  [
+    [
+      {
+        nome: 'DashBoard',
+        active: ''
+      }
+    ],
+    [
+      {
+        nome: 'Cadastros',
+        active: '',
+        menuOpen: 'menu-open',
+        subNav:
+        [
+          [
+            {
+              nome: 'Usuários',
+              active: ''
+            }
+          ],
+          [
+            {
+              nome: 'Clientes',
+              active: ''
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        nome: 'Atendimentos',
+        active: '',
+        menuOpen: '',
+        subNav:
+        [
+          {
+            nome: 'Retornos',
+            active: ''
+          }
+        ]
+      }
+    ]
+  ];
 
   constructor(private ideiaService: IdeiaService,
               private fb: FormBuilder,
@@ -54,21 +107,35 @@ export class AppComponent implements OnInit {
     this.validation();
     this.getSocket('NotificacaoUsuarioRetorno');
     this.getSocket('NovaObservacao');
-  }
-
-  alterarSidebar() {
-    if (this.sidebar === 'sidebar-open') {
-      this.sidebar = 'sidebar-collapse';
-    } else {
-      this.sidebar = 'sidebar-open';
-    }
-  }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngAfterViewInit() {
     this.idUsuario = this.permissaoService.getUsuarioId();
     if (this.idUsuario && this.verificarLogIn()) {
       this.getNotificacoes();
+    }
+  }
+
+  ngAfterViewInit() {
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
+      this.visualizarPermissao = this.permissaoService.verificarPermissao(_PERMISSAO);
+    });
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+      this.listarPessoa = this.permissaoService.verificarPermissao(_PERMISSAO);
+    });
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+      this.listarCliente = this.permissaoService.verificarPermissao(_PERMISSAO);
+    });
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+      this.listarProduto = this.permissaoService.verificarPermissao(_PERMISSAO);
+    });
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+      this.listarVenda = this.permissaoService.verificarPermissao(_PERMISSAO);
+    });
+  }
+
+  alterarSidebar() {
+    if (this.sidebar === '') {
+      this.sidebar = 'sidebar-open';
+    } else {
+      this.sidebar = '';
     }
   }
 
@@ -77,6 +144,7 @@ export class AppComponent implements OnInit {
       if (this.logou === false) {
         this.logou = true;
         this.sidebar = 'sidebar-open';
+        this.ngAfterViewInit();
       }
       return true;
     } else {

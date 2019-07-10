@@ -34,8 +34,8 @@ editarCliente(cliente: Cliente) {
   return this.http.put(`${this.baseURL}/editar/${cliente.id}`, cliente);
 }
 
-deletarCliente(id: number) {
-  return this.http.delete(`${this.baseURL}/${id}`);
+excluirCliente(id: number) {
+  return this.http.delete(`${this.baseURL}/excluir/${id}`);
 }
 
 }

@@ -147,14 +147,38 @@
         </li>
 
         <li>
-          <a routerLink="clientes">
+          <a *ngIf="this.listarCliente == true"routerLink="clientes">
             <i class="fa fa-users"></i> <span>Clientes</span>
+          </a>
+        </li>
+
+        <li *ngIf="this.listarPessoa == true">
+          <a routerLink="pessoas">
+            <i class="fa fa-users"></i> <span>Pessoas</span>
+          </a>
+        </li>
+
+        <li *ngIf="this.listarProduto == true">
+          <a routerLink="produtos">
+            <i class="fa fa-dropbox"></i> <span>Produtos</span>
           </a>
         </li>
 
         <li>
           <a routerLink="atendimentos/retornos">
             <i class="fa fa-phone"></i> <span>Retornos</span>
+          </a>
+        </li>
+
+        <li *ngIf="this.listarVenda == true">
+          <a routerLink="movimentos/vendas">
+            <i class="fa fa-dollar"></i> <span>Venda</span>
+          </a>
+        </li>
+
+        <li *ngIf="this.visualizarPermissao == true">
+          <a routerLink="permissoes">
+            <i class="fa fa-lock"></i> <span>Permissões</span>
           </a>
         </li>
 
