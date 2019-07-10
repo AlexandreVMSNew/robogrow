@@ -49,7 +49,7 @@
     "less": "^3.9.0",
     "moment": "^2.24.0",
     "ng-bootstrap": "^1.6.3",
-    "ng2-charts": "^2.3.0",
+    "ng2-charts": "^2.2.5",
     "ng2-datepicker": "^3.1.1",
     "ng2-select": "^2.0.0",
     "ngx-bootstrap": "^4.1.1",
