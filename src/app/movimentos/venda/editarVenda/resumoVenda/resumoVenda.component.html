@@ -83,7 +83,7 @@
               <span *ngIf="calcularResultado(valorTotalSaidasGastoRealizado, valorTotalSaidasGastoPrevisto) >= 0"
                 class="label label-success">LUCRO
               </span>
-              <span *ngIf="calcularResultado(valorTotalSaidasGastoRealizado, valorTotalSaidasGastoPrevisto) <= 0"
+              <span *ngIf="0 > calcularResultado(valorTotalSaidasGastoRealizado, valorTotalSaidasGastoPrevisto)"
                 class="label label-danger">PREJUÍZO
               </span>
             </th>
