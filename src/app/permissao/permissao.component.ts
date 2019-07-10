@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UsuarioService } from '../_services/Cadastros/Usuarios/usuario.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder } from '@angular/forms';
@@ -12,7 +12,7 @@ import { PermissaoNivel } from '../_models/Permissoes/permissaoNivel';
   selector: 'app-permissao',
   templateUrl: './permissao.component.html'
 })
-export class PermissaoComponent implements OnInit {
+export class PermissaoComponent implements OnInit, AfterViewInit {
 
   formularios: any =
   [
@@ -37,6 +37,7 @@ export class PermissaoComponent implements OnInit {
   ];
 
   niveis: Nivel[];
+  editar = false;
 
   formularioSelecionado: any;
   permissoesFormulario: Permissao[];
@@ -48,6 +49,12 @@ export class PermissaoComponent implements OnInit {
 
   ngOnInit() {
     this.getNiveis();
+  }
+
+  ngAfterViewInit() {
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    });
   }
 
   getPermissoesFormularios() {

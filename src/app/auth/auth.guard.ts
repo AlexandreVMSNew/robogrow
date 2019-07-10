@@ -81,7 +81,7 @@ export class AuthGuard implements CanActivate {
 
       } else if (next.component === PermissaoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;

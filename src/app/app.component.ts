@@ -21,7 +21,7 @@ import { Permissao } from './_models/Permissoes/permissao';
 })
 export class AppComponent implements OnInit, AfterViewInit {
 
-  visualizarPermissao = false;
+  listarPermissao = false;
   listarVenda = false;
   listarProduto = false;
   listarPessoa = false;
@@ -114,8 +114,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
-      this.visualizarPermissao = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+      this.listarPermissao = this.permissaoService.verificarPermissao(_PERMISSAO);
     });
     this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
       this.listarPessoa = this.permissaoService.verificarPermissao(_PERMISSAO);
