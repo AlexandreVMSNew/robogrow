@@ -118,6 +118,14 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
     this.changeDetectionRef.detectChanges();
   }
 
+  verificarMaiorZero(valor: number) {
+    if (valor >= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   somarValores(valores: any): number {
     let valorTotal = 0;
     if (valores) {
