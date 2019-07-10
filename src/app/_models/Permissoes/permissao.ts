@@ -1,5 +1,5 @@
 import { Nivel } from '../Cadastros/Usuarios/Nivel';
-import { PermissaoNivel } from './PermissaoNivel';
+import { PermissaoNivel } from './permissaoNivel';
 
 export class Permissao {
     id: number;

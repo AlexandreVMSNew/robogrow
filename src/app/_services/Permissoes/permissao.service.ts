@@ -4,7 +4,7 @@ import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 import { HttpClient } from '@angular/common/http';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
 import { Observable } from 'rxjs';
-import { PermissaoNivel } from 'src/app/_models/Permissoes/PermissaoNivel';
+import { PermissaoNivel } from 'src/app/_models/Permissoes/permissaoNivel';
 
 @Injectable({
   providedIn: 'root'

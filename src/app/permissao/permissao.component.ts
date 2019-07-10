@@ -5,8 +5,8 @@ import { FormBuilder } from '@angular/forms';
 import { Nivel } from '../_models/Cadastros/Usuarios/Nivel';
 import { PermissaoService } from '../_services/Permissoes/permissao.service';
 import { Permissao } from '../_models/Permissoes/permissao';
-import { NiveisPermissao } from '../_models/Permissoes/NiveisPermissao';
-import { PermissaoNivel } from '../_models/Permissoes/PermissaoNivel';
+import { NiveisPermissao } from '../_models/Permissoes/niveisPermissao';
+import { PermissaoNivel } from '../_models/Permissoes/permissaoNivel';
 
 @Component({
   selector: 'app-permissao',
