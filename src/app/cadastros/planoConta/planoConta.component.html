@@ -99,7 +99,7 @@
             <div class="form-group col-md-2">
               <label style="white-space: nowrap;">Tipo:</label>
               <ng-select style="text-transform: uppercase" [items]="['RECEITA', 'DESPESA', 'MOVIMENTO']" [clearable]="false"
-                [(ngModel)]="cadastroForm.get('tipo').value" formControlName="tipo" 
+                [ngModel]="cadastroForm.get('tipo').value" formControlName="tipo" 
                 [ngClass]="{ 'is-invalid': cadastroForm.get('tipo').errors && cadastroForm.get('tipo').touched}">
               <div *ngIf="cadastroForm.get('tipo').hasError('required') &&cadastroForm.get('tipo').touched"
                 class="invalid-feedback">
@@ -111,7 +111,7 @@
             <div class="form-group col-md-2">
               <label style="white-space: nowrap;">Categoria:</label>
               <ng-select style="text-transform: uppercase" [items]="['ANALÍTICA', 'SINTÉTICA']" [clearable]="false"
-                [(ngModel)]="cadastroForm.get('categoria').value" formControlName="categoria"
+                [ngModel]="cadastroForm.get('categoria').value" formControlName="categoria"
                 [ngClass]="{ 'is-invalid': cadastroForm.get('categoria').errors && 
                 cadastroForm.get('categoria').touched}">
               <div *ngIf="cadastroForm.get('categoria').hasError('required') &&cadastroForm.get('categoria').touched"
