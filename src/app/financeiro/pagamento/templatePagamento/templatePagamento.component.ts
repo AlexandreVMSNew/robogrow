@@ -6,7 +6,7 @@ import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPa
 import { PagamentoParcelas } from 'src/app/_models/Financeiro/Pagamentos/PagamentoParcelas';
 import { Pagamentos } from 'src/app/_models/Financeiro/Pagamentos/Pagamentos';
 import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
-import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/centroDespesa';
+import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,7 +15,6 @@ import { PagamentoService } from 'src/app/_services/Financeiro/Pagamentos/pagame
 import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/centroDespesa.service';
 import { PlanoContaService } from 'src/app/_services/Cadastros/PlanosConta/planoConta.service';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
-import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';

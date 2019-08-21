@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 import { HttpClient } from '@angular/common/http';
-import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/centroDespesa';
+import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { Observable } from 'rxjs';
 
 @Injectable({

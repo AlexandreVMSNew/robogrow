@@ -2,11 +2,9 @@ import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { CentroReceita } from 'src/app/_models/Cadastros/CentroReceita/CentroReceita';
-import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/centroDespesa';
 import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { Recebimentos } from 'src/app/_models/Financeiro/Recebimentos/Recebimentos';
-import { RecebimentoParcelas } from 'src/app/_models/Financeiro/Recebimentos/RecebimentoParcelas';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
 import { FormaPagamento } from 'src/app/_models/Cadastros/FormaPagamento/FormaPagamento';
 import { ToastrService } from 'ngx-toastr';
@@ -19,7 +17,6 @@ import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.ser
 import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
 import { FormaPagamentoService } from 'src/app/_services/Cadastros/FormaPagamento/formaPagamento.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
-import { RecebimentoComponent } from '../recebimento.component';
 
 @Component({
   selector: 'app-detalhar-recebimento',

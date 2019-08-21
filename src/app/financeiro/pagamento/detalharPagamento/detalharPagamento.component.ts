@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
-import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/centroDespesa';
+import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { Pagamentos } from 'src/app/_models/Financeiro/Pagamentos/Pagamentos';

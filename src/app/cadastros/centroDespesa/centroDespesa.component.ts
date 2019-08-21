@@ -3,7 +3,7 @@ import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/centroDes
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/centroDespesa.service';
+import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/CentroDespesa.service';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
 

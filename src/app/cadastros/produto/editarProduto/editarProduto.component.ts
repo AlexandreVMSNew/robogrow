@@ -11,7 +11,7 @@ import { CentroReceita } from 'src/app/_models/Cadastros/CentroReceita/CentroRec
 import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
 import { CentroReceitaService } from 'src/app/_services/Cadastros/CentroReceita/centroReceita.service';
 import { PlanoContaService } from 'src/app/_services/Cadastros/PlanosConta/planoConta.service';
-import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/centroDespesa.service';
+import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/CentroDespesa.service';
 
 @Component({
   selector: 'app-editar-produto',
