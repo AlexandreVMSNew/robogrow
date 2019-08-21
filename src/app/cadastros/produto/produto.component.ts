@@ -103,7 +103,6 @@ export class ProdutoComponent implements OnInit, AfterViewInit {
         // tslint:disable-next-line:variable-name
         (_produtos: Produto[]) => {
         this.produtos = _produtos;
-        this.produtosFiltrados = this.filtrarProdutos(this.filtroLista);
       }, error => {
         this.toastr.error(`Erro ao tentar carregar produtos: ${error}`);
       });

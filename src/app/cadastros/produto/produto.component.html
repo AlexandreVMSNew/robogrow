@@ -25,7 +25,7 @@
         </tr>
       </thead>
       <tbody *ngIf="produtos && produtos.length">
-        <tr *ngFor="let produto of produtosFiltrados | paginate: { itemsPerPage: 5,
+        <tr *ngFor="let produto of produtos | paginate: { itemsPerPage: 5,
          currentPage: paginaAtual, totalItems: totalRegistros };">
           <td>{{ produto.id }}</td>
           <td style="white-space: nowrap;">{{ produto.descricao }}</td>

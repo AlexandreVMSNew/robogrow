@@ -35,19 +35,31 @@ export class PermissaoService {
   getUsuarioId() {
     this.token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(this.token);
-    return this.decodedToken.nameid;
+    if (this.decodedToken) {
+      return this.decodedToken.nameid;
+    } else {
+      return '';
+    }
   }
 
   getUsuario() {
     this.token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(this.token);
-    return this.decodedToken.unique_name;
+    if (this.decodedToken) {
+      return this.decodedToken.unique_name;
+    } else {
+      return '';
+    }
   }
 
   getUsuarioNiveis() {
     this.token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(this.token);
-    return this.decodedToken.role;
+    if (this.decodedToken) {
+      return this.decodedToken.role;
+    } else {
+      return [];
+    }
   }
 
   verificarPermissao(_PERMISSAO: any): any {
