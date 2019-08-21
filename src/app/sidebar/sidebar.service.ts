@@ -6,6 +6,7 @@ import { PermissaoService } from '../_services/Permissoes/permissao.service';
 })
 export class SidebarService {
   toggled = false;
+  idUsuario = '';
   menus = [
     {
       title: 'Geral',
@@ -150,10 +151,15 @@ export class SidebarService {
       icon: 'fa fa-user-o',
       active: false,
       type: 'simple',
-      link: 'usuarios/editar/' + this.permissaoService.getUsuarioId()
+      link: 'usuarios/editar/' + this.idUsuario
     }
   ];
-  constructor(private permissaoService: PermissaoService) { }
+
+  constructor(private permissaoService: PermissaoService) {
+    if (this.permissaoService.getUsuarioId() !== null) {
+      this.idUsuario = this.permissaoService.getUsuarioId();
+    }
+  }
 
   toggle() {
     this.toggled = ! this.toggled;
