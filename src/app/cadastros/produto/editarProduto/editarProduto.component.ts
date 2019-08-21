@@ -6,12 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
-import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/centroDespesa';
+import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { CentroReceita } from 'src/app/_models/Cadastros/CentroReceita/CentroReceita';
 import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
 import { CentroReceitaService } from 'src/app/_services/Cadastros/CentroReceita/centroReceita.service';
 import { PlanoContaService } from 'src/app/_services/Cadastros/PlanosConta/planoConta.service';
-import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/CentroDespesa.service';
+import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/centroDespesa.service';
 
 @Component({
   selector: 'app-editar-produto',
