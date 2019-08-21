@@ -12,11 +12,11 @@
       </thead>
       <tbody>
         <tr>
-          <td style="font-size:20px;max-width:60px;">Entradas</td>
-          <td style="vertical-align: middle;">{{valorTotalEntradasPrevisto | currency:'BRL':true}}</td>
-          <td style="vertical-align: middle;">{{valorTotalEntradasRealizado | currency:'BRL':true}}</td>
+          <td style="font-size:20px;max-width:60px;">Receitas</td>
+          <td style="vertical-align: middle;">{{valorTotalReceitasPrevisto | currency:'BRL':true}}</td>
+          <td style="vertical-align: middle;">{{valorTotalReceitasRealizado | currency:'BRL':true}}</td>
           <td style="vertical-align: middle;">
-            {{calcularDiferenca(valorTotalEntradasRealizado, valorTotalEntradasPrevisto) | currency:'BRL':true}}
+            {{calcularDiferenca(valorTotalReceitasRealizado, valorTotalReceitasPrevisto) | currency:'BRL':true}}
           </td>
         </tr>
       </tbody>
@@ -38,10 +38,10 @@
       <tbody>
         <tr>
           <td style="font-size:20px;">Comissões</td>
-          <td style="vertical-align: middle;">{{valorTotalSaidasComissaoPrevisto | currency:'BRL':true}}</td>
-          <td style="vertical-align: middle;">{{valorTotalSaidasComissaoRealizado | currency:'BRL':true}}</td>
+          <td style="vertical-align: middle;">{{valorTotalDespesasComissaoPrevisto | currency:'BRL':true}}</td>
+          <td style="vertical-align: middle;">{{valorTotalDespesasComissaoRealizado | currency:'BRL':true}}</td>
           <td style="vertical-align: middle;">
-            {{calcularDiferenca(valorTotalSaidasComissaoRealizado, valorTotalSaidasComissaoPrevisto) | currency:'BRL':true}}
+            {{calcularDiferenca(valorTotalDespesasComissaoRealizado, valorTotalDespesasComissaoPrevisto) | currency:'BRL':true}}
           </td>
         </tr>
       </tbody>
@@ -61,10 +61,10 @@
         <tbody>
           <tr style="vertical-align: middle;">
             <td style="font-size:20px;">Gastos</td>
-            <td style="vertical-align: middle;">{{valorTotalSaidasGastoPrevisto | currency:'BRL':true}}</td>
-            <td style="vertical-align: middle;">{{valorTotalSaidasGastoRealizado | currency:'BRL':true}}</td>
+            <td style="vertical-align: middle;">{{valorTotalDespesasGastoPrevisto | currency:'BRL':true}}</td>
+            <td style="vertical-align: middle;">{{valorTotalDespesasGastoRealizado | currency:'BRL':true}}</td>
             <td style="vertical-align: middle;">
-              {{calcularDiferenca(valorTotalSaidasGastoRealizado, valorTotalSaidasGastoPrevisto) | currency:'BRL':true}}
+              {{calcularDiferenca(valorTotalDespesasGastoRealizado, valorTotalDespesasGastoPrevisto) | currency:'BRL':true}}
             </td>
           </tr>
         </tbody>

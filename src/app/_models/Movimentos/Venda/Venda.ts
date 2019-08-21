@@ -2,9 +2,6 @@ import { VendaObservacao } from './VendaObservacao';
 import { VendaValorPrevisto } from './VendaValorPrevisto';
 import { VendaValorRealizado } from './VendaValorRealizado';
 import { Cliente } from '../../Cadastros/Clientes/Cliente';
-import { ContasPagarParcelas } from '../../Financeiro/ContasPagar/ContasPagarParcelas';
-import { ContasReceberParcelas } from '../../Financeiro/ContasReceber/ContasReceberParcelas';
-import { Produto } from '../../Cadastros/Produtos/produto';
 import { VendaProduto } from './VendaProduto';
 
 export class Venda {
@@ -18,8 +15,6 @@ export class Venda {
     dataHoraUltAlt: Date;
     observacoes: VendaObservacao[];
     vendaProdutos: VendaProduto[];
-    contasPagarParcelas: ContasPagarParcelas[];
-    contasReceberParcelas: ContasReceberParcelas[];
     vendaValorPrevisto: VendaValorPrevisto[];
     vendaValorRealizado: VendaValorRealizado[];
 }

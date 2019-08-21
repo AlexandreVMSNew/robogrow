@@ -1,0 +1,59 @@
+<h2>Lançamentos</h2>
+<hr width="100%">
+<div class="box box-solid">
+  <div class="box-header with-border" >
+    <div class="row">
+      <div *ngIf="this.novo == true" style="margin-right: 15px;" class="pull-right">
+        <a  (click)="abrirTemplateLancamento(0)" class="btn btn-success">
+          <i class="fa fa-plus-circle"></i>&nbsp; Novo Lançamento
+        </a>
+      </div>
+    </div>
+    <table style="margin-top: 15px;" class="table table-striped table-bordered mt-4">
+        <thead class="thead-light">
+          <tr>
+            <th>Id</th>
+            <th style="white-space: nowrap;">Descrição</th>
+            <th style="text-align: center;">Data Lançamento</th>
+            <th style="text-align: center;">Conta Débitada</th>
+            <th style="text-align: center;">Conta Créditada</th>
+            <th style="text-align: center;">Valor</th>
+            <th style="text-align: center;">Ações</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="lancamentos && lancamentos.length">
+          <tr *ngFor="let lancamento of lancamentos | paginate: { itemsPerPage: 5,currentPage: paginaAtual, totalItems: totalRegistros };">
+            <td>{{ lancamento.id }}</td>
+            <td style="white-space: nowrap;">{{ lancamento.descricao }}</td>
+            <td style="text-align: center;">{{ lancamento.dataLancamento | date:'dd/MM/yyyy'}}</td>
+            <td style="text-align: center;">{{ lancamento.planoDebito.descricao}}</td>
+            <td style="text-align: center;">{{ lancamento.planoCredito.descricao}}</td>
+            <td style="text-align: center;">{{ lancamento.valor | currency:' ':false }}</td>
+            <td style="text-align: center;white-space: nowrap;">
+              <div *ngIf="this.editar == true || this.visualizar" class="btn-group">
+                <a  (click)="abrirTemplateLancamento(lancamento.Id)" tooltip="Editar/Detalhes" class="btn btn-sm btn-primary">
+                  <i class="fa fa-edit"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="!lancamentos">
+          <tr colspan="7" class="text-center"></tr>
+          <h4>
+            Nenhum Lançamento encontrado!
+          </h4>
+        </tfoot>
+      </table>
+      Total de Registros: {{totalRegistros}}
+      <div class="text-center">
+        <pagination-controls (pageChange)="paginaAtual = $event" name="retornoPagination" previousLabel="Anterior"
+          nextLabel="Próximo">
+        </pagination-controls>
+      </div>
+  </div>
+
+</div>
+
+<app-lancamento-templante [idLancamento]="this.idLancamento" *ngIf="getLancamentoTemplate() == true"></app-lancamento-templante>
+

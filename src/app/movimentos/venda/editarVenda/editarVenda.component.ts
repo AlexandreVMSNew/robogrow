@@ -8,13 +8,28 @@ import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 import { VendaValorPrevisto } from 'src/app/_models/Movimentos/Venda/VendaValorPrevisto';
 import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValorRealizado';
-import { VendaValorRealizadoValores } from 'src/app/_models/Movimentos/Venda/VendaValorRealizadoValores';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
+import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
+import { PlanoContaService } from 'src/app/_services/Cadastros/PlanosConta/planoConta.service';
+import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
+import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
+import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/recebimento.service';
+import { Recebimentos } from 'src/app/_models/Financeiro/Recebimentos/Recebimentos';
+import { RecebimentoParcelas } from 'src/app/_models/Financeiro/Recebimentos/RecebimentoParcelas';
+import { FormaPagamentoService } from 'src/app/_services/Cadastros/FormaPagamento/formaPagamento.service';
+import { FormaPagamento } from 'src/app/_models/Cadastros/FormaPagamento/FormaPagamento';
+import { CentroReceita } from 'src/app/_models/Cadastros/CentroReceita/CentroReceita';
+import { CentroReceitaService } from 'src/app/_services/Cadastros/CentroReceita/centroReceita.service';
+import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/centroDespesa';
+import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/centroDespesa.service';
+import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
+import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
+import { PagamentoService } from 'src/app/_services/Financeiro/Pagamentos/pagamento.service';
 
 @Component({
   selector: 'app-editar-venda',
@@ -30,13 +45,25 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   cadastroForm: FormGroup;
   cadastroValorPrevistoForm: FormGroup;
-  cadastroValorRealizadoForm: FormGroup;
+  cadastroRecebimento: FormGroup;
   cadastroNovoValor: FormGroup;
 
   pessoas: Pessoa[];
   pessoaIdSelecionado: any;
 
+  clientes: Cliente[];
+
+  centrosDespesa: CentroDespesa[];
+  centroDespesaIdSelecionado: any;
+
+  planoContasReceita: PlanoContas[];
+  planoContasDespesa: PlanoContas[];
+  planoContasIdSelecionado: any;
+
   idVenda: number;
+  vendaClienteId: any;
+  produtoItem: ProdutoItem;
+
   venda: Venda;
 
   vendaItensEntrada: ProdutoItem[];
@@ -48,42 +75,35 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   valorPrevistoDisabled = true;
   idProdutoItemValorPrevisto: number;
 
-  valorRealizado: VendaValorRealizado;
-  idValorRealizado: number;
-  idProdutoItemValorRealizado: number;
-  valorRealizadoValor: VendaValorRealizadoValores;
-  valorRealizadoValores: VendaValorRealizadoValores[] = [];
-  valorRealizadoValoresNovo = [];
-
-  novoLancamento = true;
-  valorRealizadoNovoPipe: any;
-  pessoaIdNovo: any;
-  descricaoNovo: any;
-  dataPagamentoNovo: any;
-
-  descricaoItem: string;
-  subTipoItem: string;
-  tipoItem: string;
-
   status = ['EM ABERTO', 'FINALIZADO'];
 
-  bsConfig: Partial<BsDatepickerConfig>;
+  planosPagamento: PlanoPagamento[];
+  planoPagamentoIdSelecionado: any;
+
+  idDetalharRecebimento: number;
+  idProdutoItem: number;
+
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
               private router: ActivatedRoute,
               private vendaService: VendaService,
+              private recebimentoService: RecebimentoService,
               private pessoaService: PessoaService,
               public permissaoService: PermissaoService,
               public dataService: DataService,
-              private changeDetectionRef: ChangeDetectorRef) { }
+              private pagamentoService: PagamentoService,
+              private changeDetectionRef: ChangeDetectorRef) {
+                this.vendaService.atualizaVenda.subscribe(x => {
+                  this.carregarVenda();
+                });
+              }
 
   ngOnInit() {
-    this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
     this.idVenda = +this.router.snapshot.paramMap.get('id');
     this.validarForm();
     this.validarValorPrevistoForm();
     this.validarNovoValorForm();
-    this.getPessoas();
     this.carregarVenda();
   }
 
@@ -122,22 +142,24 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'ENTRADA');
           this.vendaItensEntrada.forEach(item => {
             item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
-            item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id)[0];
+            item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
           });
 
           this.vendaItensSaidaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
             item => item.tipoItem === 'SAIDA' && item.subTipoItem === 'COMISSÃO');
           this.vendaItensSaidaComissao.forEach(item => {
             item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
-            item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id)[0];
+            item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
           });
 
           this.vendaItensSaidaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
             item => item.tipoItem === 'SAIDA' && item.subTipoItem === 'GASTO');
           this.vendaItensSaidaGasto.forEach(item => {
             item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
-            item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id)[0];
+            item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
           });
+
+          this.vendaClienteId = this.venda.clientesId;
 
         }, error => {
           this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
@@ -206,6 +228,37 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
   }
 
+  getTemplateRecebimento() {
+    return this.recebimentoService.getTemplateRecebimentoStatus();
+  }
+
+  getDetalharRecebimento() {
+    return this.recebimentoService.getDetalharRecebimentoStatus();
+  }
+
+  abrirTemplateRecebimento(produtoItem: ProdutoItem) {
+    this.produtoItem = produtoItem;
+    if (produtoItem.vendaValorRealizado) {
+      if (produtoItem.vendaValorRealizado[0].recebimentos) {
+        this.idDetalharRecebimento = produtoItem.vendaValorRealizado[0].recebimentos.id;
+        this.recebimentoService.setDetalharRecebimentoStatus(true);
+      } else {
+        this.recebimentoService.setTemplateRecebimentoStatus(true);
+      }
+    } else {
+      this.recebimentoService.setTemplateRecebimentoStatus(true);
+    }
+  }
+
+  getPagamentosVenda() {
+    return this.vendaService.getPagamentosVendaStatus();
+  }
+
+  abrirPagamentosVenda(produtoItem: ProdutoItem) {
+    this.produtoItem = produtoItem;
+    this.vendaService.setPagamentosVendaStatus(true);
+  }
+
   validarValorPrevistoForm() {
     this.cadastroValorPrevistoForm = this.fb.group({
         id: [''],
@@ -239,7 +292,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   abrirFormValorPrevisto(idProdutoItem: number, descricaoItem: string, template: any) {
     this.idProdutoItemValorPrevisto = idProdutoItem;
-    this.descricaoItem = descricaoItem;
     this.vendaService.getVendaValorPrevistoByProdIdVendId(idProdutoItem, this.idVenda).subscribe(
       (_VALORPREVISTO: VendaValorPrevisto) => {
         if (_VALORPREVISTO) {
@@ -280,95 +332,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         pessoasId:  ['', Validators.required],
         dataPagamento: [''],
         descricao:  ['', Validators.required]
-    });
-  }
-
-  novoValorRealizado() {
-    this.novoLancamento = false;
-    this.valorRealizadoValoresNovo.push(Object.assign({id: 0, vendaValorRealizadoId: this.idValorRealizado}));
-    this.valorRealizadoNovoPipe = null;
-    this.descricaoNovo = null;
-    this.pessoaIdNovo = null;
-  }
-
-  fecharTemplateValorRealizado(template: any) {
-    this.valorRealizadoValor = null;
-    this.valorRealizadoValoresNovo = [];
-    template.hide();
-  }
-
-  cadastrarValorRealizado() {
-    const dataPag = this.cadastroNovoValor.get('dataPagamento').value.toLocaleString();
-
-    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    this.valorRealizadoValor = Object.assign({id: 0, pessoasId: this.pessoaIdNovo, vendaValorRealizadoId: this.idValorRealizado,
-    descricao: this.descricaoNovo, dataPagamento: this.dataService.getDataSQL(dataPag),
-     dataHoraUltAlt: dataAtual, valor: this.valorRealizadoNovoPipe});
-
-    this.vendaService.novoVendaValorRealizadoValores(this.valorRealizadoValor).subscribe(() => {
-      this.valorRealizadoValoresNovo = [];
-      this.novoLancamento = true;
-      this.carregarVenda();
-      this.carregarValores(this.idValorRealizado);
-      this.toastr.success('Lançado com Sucesso!');
-    });
-  }
-
-  abrirFormValorRealizado(idProdutoItem: number, tipoItem: string, subTipoItem: string, descricaoItem: string, template: any) {
-    this.descricaoItem = descricaoItem;
-    this.novoLancamento = true;
-    this.valorRealizadoValor = null;
-    this.valorRealizadoValoresNovo = [];
-    this.valorRealizadoValores = [];
-    this.subTipoItem = subTipoItem;
-    this.tipoItem = tipoItem;
-    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    this.idProdutoItemValorRealizado = idProdutoItem;
-    this.vendaService.getVendaValoresRealizadosByProdIdVendId(idProdutoItem, this.idVenda).subscribe(
-      (_VALORREALIZADO: VendaValorRealizado) => {
-        if (_VALORREALIZADO) {
-          this.idValorRealizado = _VALORREALIZADO.id;
-          this.valorRealizado = Object.assign({}, _VALORREALIZADO);
-          this.valorRealizadoValores = _VALORREALIZADO.vendaValorRealizadoValores;
-
-        } else {
-          this.valorRealizado = Object.assign({id: 0, vendaId: this.idVenda, produtosItensId: idProdutoItem, dataHoraUltAlt: dataAtual});
-          this.vendaService.novoVendaValorRealizado(this.valorRealizado).subscribe(() => {
-            this.vendaService.getIdUltimoValorRealizado().subscribe((_ID: VendaValorRealizado) => {
-              this.idValorRealizado = _ID.id;
-            });
-          });
-        }
-
-      }, error => {
-        console.log(error.error);
-      }
-    );
-    template.show();
-  }
-
-  carregarValores(idValorRealizado: number) {
-    this.vendaService.getValorRealizadoValores(idValorRealizado).subscribe(
-    (_VALORES: VendaValorRealizadoValores[]) => {
-      this.valorRealizadoValores = _VALORES;
-    });
-    this.vendaItensSaidaComissao.forEach(item => {
-      this.vendaService.getVendaValoresRealizadosByProdIdVendId(item.id, this.idVenda)
-      .subscribe((_VALORES: VendaValorRealizado) => {
-        if (_VALORES) {
-          item.vendaValorRealizado = _VALORES;
-        }
-      });
-    });
-  }
-
-  getPessoas() {
-    this.pessoaService.getAllPessoa().subscribe(
-      (_PESSOAS: Pessoa[]) => {
-      this.pessoas = _PESSOAS;
-    }, error => {
-      console.log(error.error);
-      this.toastr.error(`Erro ao tentar carregar pessoas: ${error.error}`);
     });
   }
 

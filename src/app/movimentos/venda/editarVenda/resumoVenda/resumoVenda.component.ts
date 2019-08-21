@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
-import { VendaValorRealizadoValores } from 'src/app/_models/Movimentos/Venda/VendaValorRealizadoValores';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
@@ -24,32 +23,31 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
   idVenda: number;
   venda: Venda;
 
-  vendaItensEntrada: ProdutoItem[];
-  vendaItensSaidaComissao: ProdutoItem[];
-  vendaItensSaidaGasto: ProdutoItem[];
+  vendaItensReceita: ProdutoItem[];
+  vendaItensDespesaComissao: ProdutoItem[];
+  vendaItensDespesaGasto: ProdutoItem[];
 
 
   idValorRealizado: number;
-  realizadoEntradaValores: VendaValorRealizadoValores[] = [];
-  realizadoSaidaComissaoValores: VendaValorRealizadoValores[] = [];
-  realizadoSaidaGastoValores: VendaValorRealizadoValores[] = [];
 
   idValorPrevisto: number;
-  previstoEntradaValores: VendaValorPrevisto[] = [];
-  previstoSaidaComissaoValores: VendaValorPrevisto[] = [];
-  previstoSaidaGastoValores: VendaValorPrevisto[] = [];
+  previstoReceitaValores: VendaValorPrevisto[] = [ ];
+  previstoDespesaComissaoValores: VendaValorPrevisto[] = [];
+  previstoDespesaGastoValores: VendaValorPrevisto[] = [];
 
+  realizadoDespesaComissaoValores = [];
+  realizadoDespesaGastoValores = [];
   subTipoItem: string;
   tipoItem: string;
 
-  valorTotalEntradasPrevisto = 0;
-  valorTotalEntradasRealizado = 0;
+  valorTotalReceitasPrevisto = 0;
+  valorTotalReceitasRealizado = 0;
 
-  valorTotalSaidasComissaoPrevisto = 0;
-  valorTotalSaidasComissaoRealizado = 0;
+  valorTotalDespesasComissaoPrevisto = 0;
+  valorTotalDespesasComissaoRealizado = 0;
 
-  valorTotalSaidasGastoPrevisto = 0;
-  valorTotalSaidasGastoRealizado = 0;
+  valorTotalDespesasGastoPrevisto = 0;
+  valorTotalDespesasGastoRealizado = 0;
 
   verificarSoma = false;
   public pieChartOptions: ChartOptions = {
@@ -66,7 +64,7 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
       },
     }
   };
-  public pieChartLabels: Label[] = ['ENTRADAS', 'COMISSÕES', 'GASTOS'];
+  public pieChartLabels: Label[] = ['RECEITAS', 'COMISSÕES', 'GASTOS'];
   public pieChartData: number[] = [0, 0, 0];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
@@ -98,8 +96,8 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
   public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
-    { data: [0], label: 'Entradas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)'},
-    { data: [0], label: 'Saídas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)'}
+    { data: [0], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)'},
+    { data: [0], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)'}
   ];
 
   constructor(private toastr: ToastrService,
@@ -131,7 +129,11 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
     if (valores) {
         if (valores.length > 0) {
       valores.forEach(item => {
-          valorTotal = valorTotal + item.valor;
+          if (item.valor) {
+            valorTotal = valorTotal + item.valor;
+          } else {
+            valorTotal = valorTotal + item;
+          }
         });
       }
     }
@@ -143,21 +145,21 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
   }
 
   calcularResultado(): number {
-    const valorTotalSaida = this.valorTotalSaidasComissaoRealizado + this.valorTotalSaidasGastoRealizado;
-    return this.valorTotalEntradasRealizado - valorTotalSaida;
+    const valorTotalDespesa = this.valorTotalDespesasComissaoRealizado + this.valorTotalDespesasGastoRealizado;
+    return this.valorTotalReceitasRealizado - valorTotalDespesa;
   }
 
   somar(): any {
     if (this.verificarSoma === false) {
-      this.valorTotalEntradasRealizado = this.somarValores(this.realizadoEntradaValores);
-      this.valorTotalEntradasPrevisto = this.somarValores(this.previstoEntradaValores);
-      this.valorTotalSaidasComissaoPrevisto = this.somarValores(this.previstoSaidaComissaoValores);
-      this.valorTotalSaidasComissaoRealizado = this.somarValores(this.realizadoSaidaComissaoValores);
-      this.valorTotalSaidasGastoRealizado = this.somarValores(this.realizadoSaidaGastoValores);
-      this.valorTotalSaidasGastoPrevisto = this.somarValores(this.previstoSaidaGastoValores);
-      this.pieChartData = [this.valorTotalEntradasRealizado, this.valorTotalSaidasComissaoRealizado, this.valorTotalSaidasGastoRealizado];
-      this.barChartData[0].data = [this.valorTotalEntradasRealizado];
-      this.barChartData[1].data = [this.valorTotalSaidasComissaoRealizado + this.valorTotalSaidasGastoRealizado];
+      this.valorTotalReceitasPrevisto = this.somarValores(this.previstoReceitaValores);
+      this.valorTotalDespesasComissaoPrevisto = this.somarValores(this.previstoDespesaComissaoValores);
+      this.valorTotalDespesasComissaoRealizado = this.somarValores(this.realizadoDespesaComissaoValores);
+      this.valorTotalDespesasGastoRealizado = this.somarValores(this.realizadoDespesaGastoValores);
+      this.valorTotalDespesasGastoPrevisto = this.somarValores(this.previstoDespesaGastoValores);
+      this.pieChartData = [this.valorTotalReceitasRealizado, this.valorTotalDespesasComissaoRealizado,
+        this.valorTotalDespesasGastoRealizado];
+      this.barChartData[0].data = [this.valorTotalReceitasRealizado];
+      this.barChartData[1].data = [this.valorTotalDespesasComissaoRealizado + this.valorTotalDespesasGastoRealizado];
       this.verificarSoma = true;
     }
     return '';
@@ -167,68 +169,57 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
     this.vendaService.getVendaById(this.idVenda).subscribe((_VENDA: Venda) => {
       this.venda = Object.assign({}, _VENDA);
 
-      this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'ENTRADA');
-      this.vendaItensEntrada.map(itemEntrada => {
+      this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'ENTRADA');
+      this.vendaItensReceita.map(itemReceita => {
 
-        this.vendaService.getVendaValoresRealizadosByProdIdVendId(itemEntrada.id, this.idVenda)
-          .subscribe((_VALORREALIZADO: VendaValorRealizado) => {
-           if (_VALORREALIZADO) {
-             this.realizadoEntradaValores = _VALORREALIZADO.vendaValorRealizadoValores;
-             this.verificarSoma = false;
-          }
-        });
+        this.valorTotalReceitasRealizado = itemReceita.vendaValorRealizado[0].recebimentos.valorTotal;
 
-        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemEntrada.id, this.idVenda)
+        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemReceita.id, this.idVenda)
           .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
           if (_VALORPREVISTO) {
-            this.previstoEntradaValores.push(_VALORPREVISTO);
+            this.previstoReceitaValores.push(_VALORPREVISTO);
             this.verificarSoma = false;
           }
         });
       });
 
-      this.vendaItensSaidaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
+      this.vendaItensDespesaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
         item => item.tipoItem === 'SAIDA' && item.subTipoItem === 'COMISSÃO');
-      this.vendaItensSaidaComissao.map(itemComissao => {
+      this.vendaItensDespesaComissao.map(itemComissao => {
+
+        if (itemComissao.vendaValorRealizado) {
+          itemComissao.vendaValorRealizado.forEach(valorRealizado => {
+            this.realizadoDespesaComissaoValores.push(valorRealizado.pagamentos.valorTotal);
+            this.verificarSoma = false;
+          });
+          console.log(this.realizadoDespesaComissaoValores);
+        }
 
         this.vendaService.getVendaValorPrevistoByProdIdVendId(itemComissao.id, this.idVenda)
           .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
            if (_VALORPREVISTO) {
-             this.previstoSaidaComissaoValores.push(_VALORPREVISTO);
+             this.previstoDespesaComissaoValores.push(_VALORPREVISTO);
              this.verificarSoma = false;
-            }
-        });
-
-        this.vendaService.getVendaValoresRealizadosByProdIdVendId(itemComissao.id, this.idVenda)
-          .subscribe((_VALORREALIZADO: VendaValorRealizado) => {
-            if (_VALORREALIZADO) {
-              _VALORREALIZADO.vendaValorRealizadoValores.map(_VALOR => {
-                this.realizadoSaidaComissaoValores.push(_VALOR);
-                this.verificarSoma = false;
-              });
             }
         });
 
       });
 
-      this.vendaItensSaidaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
+      this.vendaItensDespesaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
         item => item.tipoItem === 'SAIDA' && item.subTipoItem === 'GASTO');
-      this.vendaItensSaidaGasto.map(itemGasto => {
+      this.vendaItensDespesaGasto.map(itemGasto => {
 
-        this.vendaService.getVendaValoresRealizadosByProdIdVendId(itemGasto.id, this.idVenda)
-          .subscribe((_VALORREALIZADO: VendaValorRealizado) => {
-            if (_VALORREALIZADO) {
-              _VALORREALIZADO.vendaValorRealizadoValores.map(_VALOR => {
-                this.realizadoSaidaGastoValores.push(_VALOR);
-                this.verificarSoma = false;
-              });
-            }
-        });
+        if (itemGasto.vendaValorRealizado) {
+          itemGasto.vendaValorRealizado.forEach(valorRealizado => {
+            this.realizadoDespesaGastoValores.push(valorRealizado.pagamentos.valorTotal);
+            this.verificarSoma = false;
+          });
+        }
 
         this.vendaService.getVendaValorPrevistoByProdIdVendId(itemGasto.id, this.idVenda)
           .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
            if (_VALORPREVISTO) {
-             this.previstoSaidaGastoValores.push(_VALORPREVISTO);
+             this.previstoDespesaGastoValores.push(_VALORPREVISTO);
              this.verificarSoma = false;
           }
         });

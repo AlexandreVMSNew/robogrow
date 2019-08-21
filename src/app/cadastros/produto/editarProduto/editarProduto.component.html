@@ -20,58 +20,57 @@
           </div>
         </form>
       </tab>
- 
+
       <tab heading="Produto Itens" style="margin-top: 20px;">
-          <div style="margin-right: 15px;margin-bottom: 10px;"class="pull-right">
-              <a (click)="novoItem(templateItem)"
-                tooltip="Novo Item" class="btn btn-success"> 
-                <i class="fa fa-plus-circle"></i>&nbsp; Novo Item
-              </a>
-            </div>
-  
-          <table class="table table-striped table-bordered mt-3">
-            <thead class="thead-light">
-              <tr>
-                <th>Id</th>
-                <th>Descrição</th>
-                <th>Tipo</th>
-                <th style="text-align: center;">Ações</th>
-              </tr>
-            </thead>
-            <tbody *ngIf="produtoItens && produtoItens.length">
-              <tr *ngFor="let Item of produtoItens">
-                <td>{{ Item.id }}</td>
-                <td style="white-space: nowrap;" >{{ Item.descricao }}</td>
-                <td style="white-space: nowrap;text-align: center;">
-                    <span style="margin-top:0px;" *ngIf="Item.tipoItem == 'ENTRADA'" class="label label-info">
-                      {{ Item.tipoItem }}
-                    </span>
-                    <span style="margin-top:0px;" *ngIf="Item.tipoItem != 'ENTRADA'" class="label label-danger">
-                        {{ Item.tipoItem }}
-                    </span>
-                    <span style="margin-left: 5px;margin-top:0px;" *ngIf="Item.tipoItem != 'ENTRADA'" class="label label-warning">
-                      {{ Item.subTipoItem }}
-                    </span>
+        <div style="margin-right: 15px;margin-bottom: 10px;" class="pull-right">
+          <a (click)="novoItem(templateItem)" tooltip="Novo Item" class="btn btn-success">
+            <i class="fa fa-plus-circle"></i>&nbsp; Novo Item
+          </a>
+        </div>
+
+        <table class="table table-striped table-bordered mt-3">
+          <thead class="thead-light">
+            <tr>
+              <th>Id</th>
+              <th>Descrição</th>
+              <th>Tipo</th>
+              <th style="text-align: center;">Ações</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="produtoItens && produtoItens.length">
+            <tr *ngFor="let Item of produtoItens">
+              <td>{{ Item.id }}</td>
+              <td style="white-space: nowrap;">{{ Item.descricao }}</td>
+              <td style="white-space: nowrap;text-align: center;">
+                <span style="margin-top:0px;" *ngIf="Item.tipoItem == 'RECEITA'" class="label label-info">
+                  {{ Item.tipoItem }}
+                </span>
+                <span style="margin-top:0px;" *ngIf="Item.tipoItem != 'RECEITA'" class="label label-danger">
+                  {{ Item.tipoItem }}
+                </span>
+                <span style="margin-left: 5px;margin-top:0px;" *ngIf="Item.tipoItem != 'RECEITA'"
+                  class="label label-warning">
+                  {{ Item.subTipoItem }}
+                </span>
               </td>
-                <td style="white-space: nowrap;text-align: center;">
-                  <div class="btn-group">
-                    <a (click)="editarItem(templateItem, Item)" tooltip="Editar/Detalhes"
-                      class="btn btn-sm btn-primary">
-                      <i class="fa fa-edit"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-  
-            <tfoot *ngIf="!produtoItens">
-              <tr colspan="7" class="text-center"></tr>
-              <h4>
-                Nenhum Item encontrado!
-              </h4>
-            </tfoot>
-          </table>
-        </tab>
+              <td style="white-space: nowrap;text-align: center;">
+                <div class="btn-group">
+                  <a (click)="editarItem(templateItem, Item)" tooltip="Editar/Detalhes" class="btn btn-sm btn-primary">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot *ngIf="!produtoItens">
+            <tr colspan="7" class="text-center"></tr>
+            <h4>
+              Nenhum Item encontrado!
+            </h4>
+          </tfoot>
+        </table>
+      </tab>
     </tabset>
   </div>
 </div>
@@ -101,8 +100,7 @@
           <div class="row">
             <div class="form-group col-md-8">
               <label>Tipo:</label>
-              <ng-select [clearable]="false" [items]="tipos" [(ngModel)]="tipoSelecionado"
-                formControlName="tipoItem">
+              <ng-select [clearable]="false" [items]="tipos" [(ngModel)]="tipoSelecionado" formControlName="tipoItem">
               </ng-select>
               <div
                 *ngIf="cadastroItemForm.get('tipoItem').hasError('required') &&cadastroItemForm.get('tipoItem').touched"
@@ -112,7 +110,7 @@
             </div>
           </div>
 
-          <div *ngIf="tipoSelecionado == 'SAIDA'" class="row">
+          <div *ngIf="tipoSelecionado == 'DESPESA'" class="row">
             <div class="form-group col-md-8">
               <label>SubTipo:</label>
               <ng-select [clearable]="false" [items]="subTipos" [(ngModel)]="subTipoSelecionado"
@@ -126,10 +124,59 @@
             </div>
           </div>
 
+          <div *ngIf="tipoSelecionado == 'DESPESA'" class="row">
+            <div class="form-group col-md-8">
+              <label>Centro de Despesa:</label>
+              <ng-select  [clearable]="false" [items]="centrosDespesa" bindLabel="descricao" bindValue="id" [(ngModel)]="centroDespesaIdSelecionado"
+                formControlName="centroDespesaId">
+              </ng-select>
+            </div>
+          </div>
+
+          <div *ngIf="tipoSelecionado == 'RECEITA'" class="row">
+            <div class="form-group col-md-8">
+              <label>Centro de Receita:</label>
+              <ng-select  [clearable]="false" bindLabel="descricao" bindValue="id" [items]="centrosReceita" [(ngModel)]="centroReceitaIdSelecionado"
+                formControlName="centroReceitaId">
+              </ng-select>
+            </div>
+          </div>
+
+          <div *ngIf="tipoSelecionado == 'RECEITA' || tipoSelecionado == 'DESPESA' " class="row">
+            <div class="form-group col-md-10">
+              <label>Plano de Conta:</label>
+
+              <ng-select  *ngIf="tipoSelecionado == 'RECEITA'" style="text-transform: uppercase" [items]="planoContasReceita" bindLabel="descricao" required
+                  bindValue="id" [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId">
+                  <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                    <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
+                    <small><b>Nível:</b> {{item.nivel}}</small> <br>
+                    <small><b>Tipo:</b> {{item.tipo}}</small> <br>
+                    <small><b>Categoria:</b> {{item.categoria}}</small>
+                  </ng-template>
+                </ng-select>
+                <ng-select  *ngIf="tipoSelecionado != 'RECEITA'" style="text-transform: uppercase" [items]="planoContasDespesa" bindLabel="descricao" required
+                  bindValue="id" [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId">
+                  <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                    <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
+                    <small><b>Nível:</b> {{item.nivel}}</small> <br>
+                    <small><b>Tipo:</b> {{item.tipo}}</small> <br>
+                    <small><b>Categoria:</b> {{item.categoria}}</small>
+                  </ng-template>
+                </ng-select>
+              <div
+                *ngIf="cadastroItemForm.get('planoContasId').hasError('required') &&cadastroItemForm.get('planoContasId').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="form-group col-md-12">
               <label>Descrição:</label>
-              <input type="text" class="form-control" style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()"
+              <input type="text" class="form-control" style="text-transform: uppercase"
+                oninput="this.value = this.value.toUpperCase()"
                 [ngClass]="{'is-invalid':cadastroItemForm.get('descricao').errors &&cadastroItemForm.get('descricao').touched}"
                 formControlName="descricao" />
               <div

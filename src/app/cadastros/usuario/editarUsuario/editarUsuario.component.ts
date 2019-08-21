@@ -35,7 +35,7 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit {
   niveis: Nivel[];
   niveisIdSelecionado: any;
   niveisUsuario: UsuarioNivel[];
-  bsConfig: Partial<BsDatepickerConfig>;
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   dateFormat = '';
 
   constructor(private usuarioService: UsuarioService,
@@ -50,7 +50,6 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
     this.idUsuario = +this.router.snapshot.paramMap.get('id');
     this.getNiveis();
     this.validation();

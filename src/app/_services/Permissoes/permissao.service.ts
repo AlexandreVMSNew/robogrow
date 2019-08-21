@@ -11,7 +11,6 @@ import { PermissaoNivel } from 'src/app/_models/Permissoes/permissaoNivel';
 })
 export class PermissaoService {
 
-
   private jwtHelper = new JwtHelperService();
   private token = localStorage.getItem('token');
   private decodedToken = this.jwtHelper.decodeToken(this.token);

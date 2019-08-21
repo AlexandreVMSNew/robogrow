@@ -1,5 +1,5 @@
 <h2>Venda (Custo do Produto de Revenda)</h2>
-<h5 >Cliente: {{getNomeCliente()}}</h5>
+<h5>Cliente: {{getNomeCliente()}}</h5>
 <hr width="100%">
 <div class="box box-solid">
   <div class="box-header with-border">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="box-body">
 
-                  <table class="table table-responsive table-bordered">
+                  <table class="table table-responsive table-bordered ">
                     <thead>
                       <tr>
                         <th>Descrição</th>
@@ -29,17 +29,20 @@
                         <td>{{item.descricao}}</td>
                         <td style="white-space: nowrap;text-align: center;">
                           <div class="btn-group">
-                            <a *ngIf="this.editarValorPrevisto == true"(click)="abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)"
+                            <a *ngIf="this.editarValorPrevisto == true"
+                              (click)="abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)"
                               tooltip="Valor Previsto" class="btn btn-sm btn-warning">
                               <i class="fa fa-usd"></i>
                             </a>
 
-                            <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)" (click)="abrirFormValorRealizado(item.id, item.tipoItem, item.subTipoItem, item.descricao, templateValorRealizado)"
-                              tooltip="Valores Realizado" class="btn btn-sm btn-info">
+                            <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
+                              (click)="abrirTemplateRecebimento(item)"
+                              tooltip="Valor Realizado" class="btn btn-sm btn-info">
                               <i class="fa fa-usd"></i>
                             </a>
                             <a *ngIf="this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
-                              tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)" class="btn btn-sm btn-info" disabled>
+                              tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)"
+                              class="btn btn-sm btn-info" disabled>
                               <i class="fa fa-usd"></i>
                             </a>
                           </div>
@@ -51,28 +54,30 @@
                 </div>
               </div>
             </div>
-              <div class="form-group col-md-2">
-                <label>Data Negociação: </label>
-                <input *ngIf="disabledDataNegociacao() == true" type="text" class="form-control" formControlName="dataNegociacao"
-                  [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker [bsConfig]="this.bsConfig" disabled/>
+            <div class="form-group col-md-2">
+              <label>Data Negociação: </label>
+              <input *ngIf="disabledDataNegociacao() == true" type="text" class="form-control"
+                formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker
+                [bsConfig]="this.bsConfig" disabled />
 
-                <input *ngIf="disabledDataNegociacao() == false" type="text" class="form-control" formControlName="dataNegociacao"
-                  [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker [bsConfig]="this.bsConfig"/>
-              </div>
+              <input *ngIf="disabledDataNegociacao() == false" type="text" class="form-control"
+                formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker
+                [bsConfig]="this.bsConfig" />
+            </div>
 
-              <div *ngIf="showedDataFinalizado() == true" class="form-group col-md-2">
-                <label>Data Finalizado: </label>
-                <input  type="text" class="form-control" formControlName="dataFinalizado"
-                  [ngModel]="cadastroForm.get('dataFinalizado').value" bsDatepicker [bsConfig]="this.bsConfig" disabled/>
-              </div>
+            <div *ngIf="showedDataFinalizado() == true" class="form-group col-md-2">
+              <label>Data Finalizado: </label>
+              <input type="text" class="form-control" formControlName="dataFinalizado"
+                [ngModel]="cadastroForm.get('dataFinalizado').value" bsDatepicker [bsConfig]="this.bsConfig" disabled />
+            </div>
 
-              <div class="form-group col-md-2">
-                <label>Status:</label>
-                <ng-select *ngIf="disabledStatus() == true" [clearable]="false" 
-                (change)="setarDataFinalizado(cadastroForm.get('status').value)" 
-                [items]="status" [ngModel]="cadastroForm.get('status').value" formControlName="status">
-                </ng-select>
-              </div>
+            <div class="form-group col-md-2">
+              <label>Status:</label>
+              <ng-select *ngIf="disabledStatus() == true" [clearable]="false"
+                (change)="setarDataFinalizado(cadastroForm.get('status').value)" [items]="status"
+                [ngModel]="cadastroForm.get('status').value" formControlName="status">
+              </ng-select>
+            </div>
 
           </div>
 
@@ -106,17 +111,19 @@
                         </td>
                         <td style="white-space: nowrap;text-align: center;">
                           <div class="btn-group">
-                            <a *ngIf="this.editarValorPrevisto == true" (click)="abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)"
+                            <a *ngIf="this.editarValorPrevisto == true"
+                              (click)="abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)"
                               tooltip="Valor Previsto" class="btn btn-sm btn-warning">
                               <i class="fa fa-usd"></i>
                             </a>
 
-                            <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)" (click)="abrirFormValorRealizado(item.id, item.tipoItem, item.subTipoItem, item.descricao, templateValorRealizado)"
-                              tooltip="Valores Realizado" class="btn btn-sm btn-info">
+                            <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
+                              tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)" class="btn btn-sm btn-info">
                               <i class="fa fa-usd"></i>
                             </a>
                             <a *ngIf="this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
-                              tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)" class="btn btn-sm btn-info" disabled>
+                              tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)"
+                              class="btn btn-sm btn-info" disabled>
                               <i class="fa fa-usd"></i>
                             </a>
                           </div>
@@ -141,7 +148,7 @@
                     <thead class="thead-light">
                       <tr>
                         <th>Descrição</th>
-                       
+
                         <th style="text-align: center;">Ações</th>
                       </tr>
                     </thead>
@@ -150,17 +157,19 @@
                         <td>{{item.descricao}}</td>
                         <td style="white-space: nowrap;text-align: center;">
                           <div class="btn-group">
-                            <a *ngIf="this.editarValorPrevisto == true"(click)="abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)"
+                            <a *ngIf="this.editarValorPrevisto == true"
+                              (click)="abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)"
                               tooltip="Valor Previsto" class="btn btn-sm btn-warning">
                               <i class="fa fa-usd"></i>
                             </a>
 
-                            <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)" (click)="abrirFormValorRealizado(item.id, item.tipoItem, item.subTipoItem, item.descricao, templateValorRealizado)"
-                              tooltip="Valores Realizado" class="btn btn-sm btn-info">
+                            <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
+                              tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)" class="btn btn-sm btn-info">
                               <i class="fa fa-usd"></i>
                             </a>
                             <a *ngIf="this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
-                              tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)" class="btn btn-sm btn-info" disabled>
+                              tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)"
+                              class="btn btn-sm btn-info" disabled>
                               <i class="fa fa-usd"></i>
                             </a>
                           </div>
@@ -182,9 +191,8 @@
     </tabset>
   </div>
 </div>
-<button *ngIf="this.editar == true"
-  style="position:relative;" [disabled]="!cadastroForm.valid" (click)="salvarAlteracoes()"
-  tooltip="Salvar" class="btn btn-lg btn-primary">
+<button *ngIf="this.editar == true" style="position:relative;" [disabled]="!cadastroForm.valid"
+  (click)="salvarAlteracoes()" tooltip="Salvar" class="btn btn-lg btn-primary">
   &nbsp;Salvar Alterações
 </button>
 
@@ -193,7 +201,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 id="dialog-sizes-name1" class="modal-title pull-left">
-          Valor Previsto <label *ngIf="subTipoItem">({{subTipoItem}}) - </label><label>({{descricaoItem}})</label>
+          Valor Previsto 
         </h4>
         <button type="button" class="close pull-right" (click)="templateValorPrevisto.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -230,120 +238,12 @@
       </div>
     </div>
 
-  </div>
+  </div> 
 </div>
 
-<div bsModal #templateValorRealizado="bs-modal" class="modal fade bd-example-modal-xl">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
-          Valores Realizado <label *ngIf="subTipoItem">({{subTipoItem}}) - </label><label>({{descricaoItem}})</label>
-        </h4>
+<app-pagamentos-venda [produtoItem]="this.produtoItem" [idVenda]="this.idVenda" *ngIf="getPagamentosVenda() == true"></app-pagamentos-venda>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplateValorRealizado(templateValorRealizado)"
-          aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div *ngIf="this.verificarStatus() != 'FINALIZADO' && this.novoLancamento == true && this.subTipoItem != 'COMISSÃO'" class="row">
-          <div style="margin-right: 15px;margin-bottom: 15px;" class="pull-right">
-            <a (click)="novoValorRealizado()" class="btn btn-success">
-              <i class="fa fa-plus-circle"></i>&nbsp; Novo Lançamento
-            </a>
-          </div>
-        </div>
+<app-template-recebimento [idVenda]="this.idVenda" [vendaClienteId]="this.vendaClienteId" [produtoItem]="this.produtoItem"
+ *ngIf="getTemplateRecebimento() == true"></app-template-recebimento>
 
-        <div *ngIf="this.verificarStatus() != 'FINALIZADO' && this.novoLancamento == true && this.subTipoItem == 'COMISSÃO' && valorRealizadoValores.length < 1"
-          class="row">
-          <div style="margin-right: 15px;margin-bottom: 15px;" class="pull-right">
-            <a (click)="novoValorRealizado()" class="btn btn-success">
-              <i class="fa fa-plus-circle"></i>&nbsp; Novo Lançamento
-            </a>
-          </div>
-        </div>
-        <div *ngIf="valorRealizadoValores && valorRealizadoValores.length > 0">
-          <div *ngFor="let valores of valorRealizadoValores" class="row">
-            <div class="form-group col-md-2">
-              <label>Valor:</label>
-              <div class="input-group">
-                <input class="form-control" currencyMask [(ngModel)]="valores.valor" name="valor"
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" disabled />
-                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-              </div>
-            </div>
-
-            <div *ngIf="this.subTipoItem != 'GASTO'" class="form-group col-md-3">
-              <label *ngIf="this.tipoItem == 'SAIDA'" style="white-space: nowrap;">Pessoa comissionada:(*)</label>
-              <label *ngIf="this.tipoItem == 'ENTRADA'" style="white-space: nowrap;">Cobrador:(*)</label>
-              <ng-select style="text-transform: uppercase" [items]="pessoas" bindLabel="nome" bindValue="id"
-                [(ngModel)]="valores.pessoasId" name="pessoasId" disabled>
-              </ng-select>
-            </div>
-
-            <div class="form-group col-md-2">
-              <label *ngIf="this.tipoItem == 'SAIDA'" style="white-space: nowrap;">Data do Pagamento:(*)</label>
-              <label *ngIf="this.tipoItem == 'ENTRADA'" style="white-space: nowrap;">Data do Recebimento:(*)</label>
-              <input type="text" class="form-control" name="dataPagamento" disabled
-                [ngModel]="dataService.getDataPTBR(valores.dataPagamento)" bsDatepicker />
-            </div>
-
-            <div class="form-group col-md-3">
-              <label>Descrição:</label>
-              <input class="form-control" type="text" style="text-transform: uppercase"
-                oninput="this.value = this.value.toUpperCase()" [(ngModel)]="valores.descricao" name="descricao"
-                disabled />
-            </div>
-          </div>
-        </div>
-
-        <form [formGroup]="cadastroNovoValor">
-          <div *ngFor="let valores of valorRealizadoValoresNovo" class="row">
-            <div class="form-group col-md-2">
-              <label>Valor:</label>
-              <div class="input-group">
-                <input class="form-control" currencyMask [(ngModel)]="valorRealizadoNovoPipe" formControlName="valor"
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
-                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-              </div>
-            </div>
-
-            <div *ngIf="this.subTipoItem != 'GASTO'" class="form-group col-md-3">
-              <label *ngIf="this.tipoItem == 'SAIDA'" style="white-space: nowrap;">Pessoa comissionada:(*)</label>
-              <label *ngIf="this.tipoItem == 'ENTRADA'" style="white-space: nowrap;">Cobrador:(*)</label>
-              <ng-select style="text-transform: uppercase" [items]="pessoas" bindLabel="nome" bindValue="id"
-                [(ngModel)]="pessoaIdNovo" formControlName="pessoasId">
-              </ng-select>
-            </div>
-
-            <div class="form-group col-md-2">
-              <label *ngIf="this.tipoItem == 'SAIDA'" style="white-space: nowrap;">Data do Pagamento:(*)</label>
-              <label *ngIf="this.tipoItem == 'ENTRADA'" style="white-space: nowrap;">Data do Recebimento:(*)</label>
-              <input type="text" class="form-control" formControlName="dataPagamento" [ngModel]="dataPagamentoNovo"
-                bsDatepicker />
-            </div>
-
-            <div class="form-group col-md-3">
-              <label>Descrição:</label>
-              <input class="form-control" type="text" style="text-transform: uppercase"
-                oninput="this.value = this.value.toUpperCase()" [(ngModel)]="descricaoNovo"
-                formControlName="descricao" />
-            </div>
-            <div class="form-group col-md-2">
-              <a style="margin-top:25px;" (click)="cadastrarValorRealizado()" class="btn btn-success">
-                <i class="fa fa-plus-circle"></i>&nbsp;
-              </a>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer d-flex">
-        <button class="btn btn-secondary" (click)="fecharTemplateValorRealizado(templateValorRealizado)">
-          Fechar
-        </button>
-      </div>
-    </div>
-
-  </div>
-</div>
+ <app-detalhar-recebimento [idRecebimento]="this.idDetalharRecebimento" *ngIf="getDetalharRecebimento() == true"></app-detalhar-recebimento>

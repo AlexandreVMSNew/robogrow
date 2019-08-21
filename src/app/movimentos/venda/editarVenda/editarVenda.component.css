@@ -1,9 +1,14 @@
 .modal-xl {
-    width: 80%;
+    width: 50%;
     /* New width for large modal */
 }
 
 .modal-sm {
     width: 25%;
+    /* New width for large modal */
+}
+
+.modal-nw {
+width: 60%;
     /* New width for large modal */
 }

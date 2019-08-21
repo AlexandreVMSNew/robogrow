@@ -10,7 +10,11 @@ constructor() { }
 
   getDataPTBR(data: any) {
     if (data && data !== null && data.toString().length > 0) {
-      this.novaData = data.split('T')[0].split('-');
+      if (data.includes('T')) {
+        this.novaData = data.split('T')[0].split('-');
+      } else {
+        this.novaData = data.split('-');
+      }
       const dia = this.novaData[2];
       const mes = this.novaData[1];
       const ano = this.novaData[0];
@@ -22,7 +26,11 @@ constructor() { }
 
   getDataSQL(data: any) {
     if (data && data !== null && data.toString().length > 0) {
-      this.novaData = data.split(' ')[0].split('/');
+      if (data.includes(' ')) {
+        this.novaData = data.split(' ')[0].split('/');
+      } else {
+        this.novaData = data.split('/');
+      }
       const dia = this.novaData[0];
       const mes = this.novaData[1];
       const ano = this.novaData[2];

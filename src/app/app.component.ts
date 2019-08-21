@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { IdeiaService } from './_services/Cadastros/Ideias/ideia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Ideia } from './_models/Cadastros/Ideias/ideia';
@@ -13,19 +14,20 @@ import { AuthService } from './_services/Cadastros/Login/auth.service';
 import { Router } from '@angular/router';
 import { DataService } from './_services/Cadastros/Uteis/data.service';
 import { Permissao } from './_models/Permissoes/permissao';
-
+import { SidebarService } from './sidebar/sidebar.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('slide', [
+      state('up', style({ height: 0 })),
+      state('down', style({ height: '*' })),
+      transition('up <=> down', animate(200))
+    ])
+  ]
 })
 export class AppComponent implements OnInit, AfterViewInit {
-
-  listarPermissao = false;
-  listarVenda = false;
-  listarProduto = false;
-  listarPessoa = false;
-  listarCliente = false;
 
   title = 'VirtualWeb';
   ideia: Ideia;
@@ -38,50 +40,77 @@ export class AppComponent implements OnInit, AfterViewInit {
   logou = false;
   sidebar = 'sidebar-open';
 
-  Nav: any =
-  [
-    [
-      {
-        nome: 'DashBoard',
-        active: ''
-      }
-    ],
-    [
-      {
-        nome: 'Cadastros',
-        active: '',
-        menuOpen: 'menu-open',
-        subNav:
-        [
-          [
-            {
-              nome: 'Usuários',
-              active: ''
-            }
-          ],
-          [
-            {
-              nome: 'Clientes',
-              active: ''
-            }
-          ]
-        ]
-      }
-    ],
-    [
-      {
-        nome: 'Atendimentos',
-        active: '',
-        menuOpen: '',
-        subNav:
-        [
-          {
-            nome: 'Retornos',
-            active: ''
-          }
-        ]
-      }
-    ]
+  menus = [];
+
+  permissoes = [
+    {
+      component: 'Movimentos',
+      listar: false
+    },
+    {
+      component: 'Permissões',
+      listar: false
+    },
+    {
+      component: 'Venda',
+      listar: false
+    },
+    {
+      component: 'Clientes',
+      listar: false
+    },
+    {
+      component: 'Produtos',
+      listar: false
+    },
+    {
+      component: 'Pessoas',
+      listar: false
+    },
+    {
+      component: 'Plano de Contas',
+      listar: false
+    },
+    {
+      component: 'Centro de Receita',
+      listar: false
+    },
+    {
+      component: 'Centro de Despesa',
+      listar: false
+    },
+    {
+      component: 'Plano de Pagamento',
+      listar: false
+    },
+    {
+      component: 'Forma de Pagamento',
+      listar: false
+    },
+    {
+      component: 'Financeiro',
+      listar: false
+    },
+    {
+      component: 'Recebimentos',
+      listar: false
+    },
+    {
+      component: 'Pagamentos',
+      listar: false
+    },
+    {
+      component: 'Lançamentos',
+      listar: false
+    },
+    {
+      component: 'Relatórios Lançamentos',
+      listar: false
+    },
+    {
+      component: 'Cheques Pré-Datado',
+      listar: false
+    },
   ];
 
   constructor(private ideiaService: IdeiaService,
@@ -93,8 +122,10 @@ export class AppComponent implements OnInit, AfterViewInit {
               private notificacaoService: NotificacaoService,
               private authService: AuthService,
               private router: Router,
-              public dataService: DataService) {
+              public dataService: DataService,
+              private sidebarService: SidebarService) {
     this.localeService.use('pt-br');
+    this.menus = sidebarService.getMenuList();
   }
 
   ngOnInit() {
@@ -113,22 +144,95 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getSideBarState() {
+    return this.sidebarService.getSidebarState();
+  }
+
+  toggle(currentMenu) {
+    if (currentMenu.type === 'dropdown') {
+      this.menus.forEach(element => {
+        if (element === currentMenu) {
+          currentMenu.active = !currentMenu.active;
+        } else {
+          element.active = false;
+        }
+      });
+    }
+  }
+
+  getState(currentMenu) {
+
+    if (currentMenu.active) {
+      return 'down';
+    } else {
+      return 'up';
+    }
+  }
+
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-      this.listarPermissao = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-      this.listarPessoa = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-      this.listarCliente = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-      this.listarProduto = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-      this.listarVenda = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
+    if (this.logou === true) {
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Permissões')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Pessoas')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Clientes')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Produtos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE CONTAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Plano de Contas')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE RECEITA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Centro de Receita')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Centro de Despesa')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE PAGAMENTO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Plano de Pagamento')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Forma de Pagamento')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('RECEBIMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Recebimentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PAGAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Pagamentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Lançamentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS LANÇAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        // tslint:disable-next-line:max-line-length
+        this.permissoes.filter(c => c.component === 'Relatórios Lançamentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Cheques Pré-Datado')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('FINANCEIRO', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Financeiro')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Venda')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+        this.permissoes.filter(c => c.component === 'Movimentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+    }
+  }
+
+  verificarPermissao(component: string) {
+    if (this.permissoes.filter(c => c.component === component).length > 0) {
+      return this.permissoes.filter(c => c.component === component)[0].listar;
+    } else {
+      return true;
+    }
   }
 
   alterarSidebar() {

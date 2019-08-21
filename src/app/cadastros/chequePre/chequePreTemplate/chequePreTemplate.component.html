@@ -1,0 +1,125 @@
+{{abrirTemplate(templateChequePre)}}
+<div bsModal #templateChequePre="bs-modal" class="modal fade"  data-keyboard="false">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Cheque Pré-Datado<label></label>
+        </h4>
+
+        <button type="button" class="close pull-right" (click)="fecharTemplate(templateChequePre)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="cadastroCheque">
+
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>Cliente:(*)</label>
+              <ng-select style="text-transform: uppercase" [items]="clientes" bindLabel="nomeFantasia" bindValue="id"
+                [(ngModel)]="clienteIdSelecionado" formControlName="clientesId"
+                [ngClass]="{ 'is-invalid': cadastroCheque.get('clientesId').errors && cadastroCheque.get('clientesId').touched}">
+              </ng-select>
+              <div
+                *ngIf="cadastroCheque.get('clientesId').hasError('required') &&cadastroCheque.get('clientesId').touched"
+                class="invalid-feedback">
+                Campo Obrigatório.
+              </div>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label style="white-space: nowrap;">Data Pre-Datado</label>
+              <input type="text" class="form-control" formControlName="dataPreDatado"
+                [ngModel]="cadastroCheque.get('dataPreDatado').value" bsDatepicker [bsConfig]="this.bsConfig" [ngClass]="{ 'is-invalid': cadastroCheque.get('dataPreDatado').errors && 
+                cadastroCheque.get('dataPreDatado').touched}" />
+              <div
+                *ngIf="cadastroCheque.get('dataPreDatado').hasError('required') &&cadastroCheque.get('dataPreDatado').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-3">
+              <label>Valor:</label>
+              <div class="input-group">
+                <input class="form-control" currencyMask formControlName="valor"
+                  [options]="{ prefix: '', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroCheque.get('valor').errors && 
+                  cadastroCheque.get('valor').touched}" />
+                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+              </div>
+              <div *ngIf="cadastroCheque.get('valor').hasError('required') && cadastroCheque.get('valor').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+              <div *ngIf="cadastroCheque.get('valor').hasError('min') && cadastroCheque.get('valor').touched"
+                class="invalid-feedback">
+                Valor deve ser maior que 0.
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label style="white-space: nowrap;">Banco:</label>
+              <input class="form-control" type="text" formControlName="banco"
+                [ngClass]="{ 'is-invalid': cadastroCheque.get('banco').errors && cadastroCheque.get('banco').touched}" />
+              <div *ngIf="cadastroCheque.get('banco').hasError('required') && cadastroCheque.get('banco').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+
+            <div class="form-group col-md-4">
+              <label style="white-space: nowrap;">Agência:</label>
+              <input class="form-control" type="text" formControlName="agencia"
+                [ngClass]="{ 'is-invalid': cadastroCheque.get('agencia').errors && cadastroCheque.get('agencia').touched}" />
+              <div *ngIf="cadastroCheque.get('agencia').hasError('required') && cadastroCheque.get('agencia').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label style="white-space: nowrap;">Conta:</label>
+              <input class="form-control" type="text" formControlName="conta"
+                [ngClass]="{ 'is-invalid': cadastroCheque.get('conta').errors && cadastroCheque.get('conta').touched}" />
+              <div *ngIf="cadastroCheque.get('conta').hasError('required') && cadastroCheque.get('conta').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label style="white-space: nowrap;">N° do Cheque:</label>
+              <input class="form-control" type="text" formControlName="numero"
+                [ngClass]="{ 'is-invalid': cadastroCheque.get('numero').errors && cadastroCheque.get('numero').touched}" />
+              <div *ngIf="cadastroCheque.get('numero').hasError('required') && cadastroCheque.get('numero').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templateChequePre)">
+          Fechar
+        </button>
+        <button *ngIf="this.idChequePre != 0 && this.editar == true" [disabled]="!cadastroCheque.valid" class="btn btn-primary"
+          (click)="salvarChequePre(templateChequePre)">
+          Salvar
+        </button>
+        <button *ngIf="this.idChequePre == 0 && this.novo == true" [disabled]="!cadastroCheque.valid" class="btn btn-primary"
+          (click)="salvarChequePre(templateChequePre)">
+          Cadastrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

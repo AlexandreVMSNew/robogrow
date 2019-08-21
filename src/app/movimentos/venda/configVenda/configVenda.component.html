@@ -1,0 +1,67 @@
+{{abrirTemplate(templateConfigVenda)}}
+<div bsModal #templateConfigVenda="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
+  class="modal fade bd-example-modal-xl">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Configurações das Vendas
+        </h4>
+
+        <button type="button" class="close pull-right" (click)="fecharTemplate(templateConfigVenda)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <form [formGroup]="cadastroVendaConfig">
+
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label style="white-space: nowrap;">Plano de Contas(D) Parcela À VISTA(RECEITAS)</label>
+                  <ng-select style="text-transform: uppercase" [items]="planoContas" bindLabel="descricao" required
+                    bindValue="id" [clearable]="false" [(ngModel)]="planoContaRecebIdSelecionado"
+                    formControlName="planoContaRecebParcelaAVistaId">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row"> 
+                <div class="form-group col-md-12">
+                  <label style="white-space: nowrap;">Plano de Contas(C) Parcela À VISTA(DESPESA)</label>
+                  <ng-select style="text-transform: uppercase" [items]="planoContas" bindLabel="descricao" required
+                    bindValue="id" [clearable]="false" [(ngModel)]="planoContaPagIdSelecionado"
+                    formControlName="planoContaPagParcelaAVistaId">
+                  </ng-select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label style="white-space: nowrap;">Plano de Pagamento(DESPESAS)</label>
+                  <ng-select style="text-transform: uppercase" [items]="planosPagamento" bindLabel="descricao" required
+                    bindValue="id" [clearable]="false" [(ngModel)]="planoPagamentoIdSelecionado"
+                    formControlName="planoPagamentoSaidasId">
+                  </ng-select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templateConfigVenda)">
+          Fechar
+        </button>
+        <button class="btn btn-primary" [disabled]="cadastroVendaConfig.get('planoContaRecebParcelaAVistaId').hasError('required') == true ||
+        cadastroVendaConfig.get('planoContaPagParcelaAVistaId').hasError('required') == true || 
+        cadastroVendaConfig.get('planoPagamentoSaidasId').hasError('required') == true" (click)="salvarAlteracao()">
+          Salvar Configurações
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

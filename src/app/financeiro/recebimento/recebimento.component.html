@@ -1,0 +1,73 @@
+<h2>Recebimentos</h2>
+<hr width="100%">
+<div class="box box-solid">
+  <div class="box-header with-border" >
+    <div class="row">
+      <div *ngIf="this.novo == true" style="margin-right: 15px;" class="pull-right">
+        <a  (click)="abrirTemplateRecebimento()" class="btn btn-success">
+          <i class="fa fa-plus-circle"></i>&nbsp; Novo Recebimento
+        </a>
+      </div>
+    </div>
+    <table style="margin-top: 15px;" class="table table-striped table-bordered mt-4">
+        <thead class="thead-light">
+          <tr>
+            <th style="text-align: center;">N° Doc</th>
+            <th style="text-align: center;">Status</th>
+            <th>Cliente</th>
+            <th style="text-align: center;">Data Emissão</th>
+            <th style="text-align: center;">Data Vencimento</th>
+            <th style="text-align: center;">Forma Pagamento</th>
+            <th style="text-align: center;">Valor Parcela</th>
+            <th style="text-align: center;">Valor Recebido</th>
+            <th style="text-align: center;">Valor Restante</th>
+            <th style="text-align: center;">Ações</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="parcelas && parcelas.length">
+          <tr *ngFor="let parcela of parcelas | paginate: { itemsPerPage: 5,currentPage: paginaAtual, totalItems: totalRegistros };">
+            <td style="text-align: center;">{{ parcela.documento }}</td>
+            <td style="text-align: center;">
+              <span style="text-align: center;" *ngIf="parcela.status == 'PENDENTE'"  class="label label-warning">
+                {{ parcela.status }}
+              </span>
+              <span style="text-align: center;" *ngIf="parcela.status == 'PAGO'" class="label label-success">
+                {{ parcela.status }}
+              </span>
+            </td>
+            <td style="white-space: nowrap;">{{ parcela.clientes.nomeFantasia }}</td>
+            <td style="white-space: nowrap;text-align: center;">{{ parcela.dataEmissao  | date:'dd/MM/yyyy'}}</td>
+            <td style="white-space: nowrap;text-align: center;">{{ parcela.dataVencimento  | date:'dd/MM/yyyy'}}</td>
+            <td style="white-space: nowrap;text-align: center;">{{ parcela.formaPagamento.descricao }}</td>
+            <td style="text-align: center;">{{parcela.valor | currency:' ':false}}</td>
+            <td style="text-align: center;">{{parcela.valorRecebido | currency:' ':false}}</td>
+            <td style="text-align: center;">{{parcela.valorRestante | currency:' ':false}}</td>
+            <td style="text-align: center;white-space: nowrap;">
+              <div *ngIf="this.visualizar == true" class="btn-group">
+                <a (click)="abrirTemplateDetalharRecebimento(parcela.recebimentosId)" tooltip="Editar/Detalhes" class="btn btn-sm btn-primary">
+                  <i class="fa fa-edit"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="!parcelas">
+          <tr colspan="7" class="text-center"></tr>
+          <h4>
+            Nenhuma Parcela encontrada!
+          </h4>
+        </tfoot>
+      </table>
+      Total de Registros: {{totalRegistros}}
+      <div class="text-center">
+        <pagination-controls (pageChange)="paginaAtual = $event" name="retornoPagination" previousLabel="Anterior"
+          nextLabel="Próximo">
+        </pagination-controls>
+      </div>
+  </div>
+
+</div>
+
+<app-template-recebimento [idVenda]="0" *ngIf="getTemplateRecebimento() == true"></app-template-recebimento>
+
+<app-detalhar-recebimento [idRecebimento]="this.idDetalharRecebimento" *ngIf="getDetalharRecebimento() == true"></app-detalhar-recebimento>

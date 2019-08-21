@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 import { HttpClient } from '@angular/common/http';
@@ -6,15 +6,37 @@ import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { VendaProduto } from 'src/app/_models/Movimentos/Venda/VendaProduto';
 import { VendaValorPrevisto } from 'src/app/_models/Movimentos/Venda/VendaValorPrevisto';
 import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValorRealizado';
-import { VendaValorRealizadoValores } from 'src/app/_models/Movimentos/Venda/VendaValorRealizadoValores';
+import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VendaService {
-  baseURL = InfoAPI.URL + '/api/vendas';
+
+baseURL = InfoAPI.URL + '/api/movimentos/vendas';
+atualizaVenda = new EventEmitter<boolean>();
+atualizaRecebimentos = new EventEmitter<boolean>();
+atualizaPagamentos = new EventEmitter<boolean>();
+pagamentosVenda = false;
+configVenda = false;
 
 constructor(private http: HttpClient) { }
+
+getConfigVendaStatus() {
+  return this.configVenda;
+}
+
+setConfigVendaStatus(val: boolean) {
+  this.configVenda = val;
+}
+
+getPagamentosVendaStatus() {
+  return this.pagamentosVenda;
+}
+
+setPagamentosVendaStatus(val: boolean) {
+  this.pagamentosVenda = val;
+}
 
 getAllVenda(): Observable<Venda[]> {
   return this.http.get<Venda[]>(this.baseURL);
@@ -24,8 +46,30 @@ getVendaByClienteId(clienteId: number): Observable<Venda[]> {
   return this.http.get<Venda[]>(`${this.baseURL}/getByClienteId/${clienteId}`);
 }
 
+atualizarVenda() {
+  this.atualizaVenda.emit(true);
+}
+atualizarRecebimentos() {
+  this.atualizaRecebimentos.emit(true);
+}
+atualizarPagamentos() {
+  this.atualizaPagamentos.emit(true);
+}
+
 getVendaById(id: number): Observable<Venda> {
   return this.http.get<Venda>(`${this.baseURL}/${id}`);
+}
+
+getVendaConfig(): Observable<VendaConfig> {
+  return this.http.get<VendaConfig>(`${this.baseURL}/config`);
+}
+
+novoVendaConfig(vendaConfig: VendaConfig) {
+  return this.http.post(`${this.baseURL}/config/novo`, vendaConfig);
+}
+
+editarVendaConfig(vendaConfig: VendaConfig) {
+  return this.http.put(`${this.baseURL}/config/editar/${vendaConfig.id}`, vendaConfig);
 }
 
 getIdUltimaVenda(): Observable<Venda> {
@@ -59,14 +103,6 @@ novoVendaValorRealizado(vendaValorRealizado: VendaValorRealizado) {
 
 getIdUltimoValorRealizado(): Observable<VendaValorRealizado> {
   return this.http.get<VendaValorRealizado>(`${this.baseURL}/valorrealizado/idUltimo`);
-}
-
-getValorRealizadoValores(idValorRealizado: number): Observable<VendaValorRealizadoValores[]> {
-  return this.http.get<VendaValorRealizadoValores[]>(`${this.baseURL}/valorrealizado/valores/${idValorRealizado}`);
-}
-
-novoVendaValorRealizadoValores(valores: VendaValorRealizadoValores) {
-  return this.http.post(`${this.baseURL}/valorrealizado/valores/novo`, valores);
 }
 
 novoVenda(venda: Venda) {

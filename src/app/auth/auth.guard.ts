@@ -18,6 +18,16 @@ import { NovoPessoaComponent } from '../cadastros/pessoa/novoPessoa/novoPessoa.c
 import { ProdutoComponent } from '../cadastros/produto/produto.component';
 import { NovoProdutoComponent } from '../cadastros/produto/novoProduto/novoProduto.component';
 import { EditarProdutoComponent } from '../cadastros/produto/editarProduto/editarProduto.component';
+import { PlanoContaComponent } from '../cadastros/planoConta/planoConta.component';
+import { CentroReceitaComponent } from '../cadastros/centroReceita/centroReceita.component';
+import { CentroDespesaComponent } from '../cadastros/centroDespesa/centroDespesa.component';
+import { PlanoPagamentoComponent } from '../cadastros/planoPagamento/planoPagamento.component';
+import { FormaPagamentoComponent } from '../cadastros/formaPagamento/formaPagamento.component';
+import { RecebimentoComponent } from '../financeiro/recebimento/recebimento.component';
+import { PagamentoComponent } from '../financeiro/pagamento/pagamento.component';
+import { LancamentoComponent } from '../financeiro/lancamento/lancamento.component';
+import { RelatorioLancamentoComponent } from '../financeiro/lancamento/relatorioLancamento/relatorioLancamento.component';
+import { ChequePreComponent } from '../cadastros/chequePre/chequePre.component';
 
 @Injectable({
   providedIn: 'root'
@@ -172,6 +182,107 @@ export class AuthGuard implements CanActivate {
       } else if (next.component === EditarProdutoComponent) {
 
         this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === PlanoContaComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE CONTAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === CentroReceitaComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE RECEITA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === CentroDespesaComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === PlanoPagamentoComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE PAGAMENTO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === FormaPagamentoComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === RecebimentoComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('RECEBIMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === PagamentoComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PAGAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === LancamentoComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === RelatorioLancamentoComponent) {
+
+        // tslint:disable-next-line:max-line-length
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS LANÇAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === ChequePreComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;

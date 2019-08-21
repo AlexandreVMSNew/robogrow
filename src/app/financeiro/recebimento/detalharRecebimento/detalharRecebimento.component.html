@@ -1,0 +1,131 @@
+{{abrirTemplate(templateDetalharRecebimento)}}
+<div bsModal #templateDetalharRecebimento="bs-modal" [config]="{backdrop: 'static', keyboard: false}" class="modal fade bd-example-modal-xl">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Recebimento
+        </h4>
+
+        <button type="button" class="close pull-right"
+          (click)="fecharTemplate(templateDetalharRecebimento)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="cadastroRecebimento">
+
+          <div class="row">
+
+            <div class="form-group col-md-3">
+              <label style="white-space: nowrap;">Data Emissão</label>
+              <input type="text" class="form-control" formControlName="dataEmissao"
+                [ngModel]="cadastroRecebimento.get('dataEmissao').value" bsDatepicker [bsConfig]="this.bsConfig"
+                [ngClass]="{ 'is-invalid': cadastroRecebimento.get('dataEmissao').errors && 
+                cadastroRecebimento.get('dataEmissao').touched}"/>
+                <div *ngIf="cadastroRecebimento.get('dataEmissao').hasError('required') &&cadastroRecebimento.get('dataEmissao').touched"
+                  class="invalid-feedback">
+                  Campo obrigatório.
+                </div>
+            </div>
+            
+
+            <div class="form-group col-md-3">
+              <label>Valor da Venda:</label>
+              <div class="input-group">
+                <input class="form-control" currencyMask formControlName="valorTotal"
+                  [options]="{ prefix: '', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroRecebimento.get('valorTotal').errors && 
+                  cadastroRecebimento.get('valorTotal').touched}"/>           
+                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+              </div>
+              <div *ngIf="cadastroRecebimento.get('valorTotal').hasError('required') && cadastroRecebimento.get('valorTotal').touched"
+                    class="invalid-feedback">
+                    Campo obrigatório.
+                </div>
+                <div *ngIf="cadastroRecebimento.get('valorTotal').hasError('min') && cadastroRecebimento.get('valorTotal').touched"
+                    class="invalid-feedback">
+                    Valor deve ser maior que 0.
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label style="white-space: nowrap;">Centro de Receita:(*)</label>
+              <ng-select style="text-transform: uppercase" [items]="centrosReceita" bindLabel="descricao" required
+                bindValue="id" [clearable]="false" [(ngModel)]="centroReceitaIdSelecionado"
+                formControlName="centroReceitaId" [disabled]="true">
+              </ng-select>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label style="white-space: nowrap;">Plano de Conta:</label>
+              <ng-select style="text-transform: uppercase" [items]="planoContasReceita" bindLabel="descricao" required
+                bindValue="id" [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId" disabled>
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                  <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
+                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>
+                </ng-template>
+              </ng-select>
+            </div>
+
+          </div>
+          <div class="row">
+            <hr style="width: 100%">
+            <div class="form-group col-md-5">
+              <label style="white-space: nowrap;">Plano de Pagamento:(*)</label>
+              <ng-select style="text-transform: uppercase" [items]="planosPagamento" bindLabel="descricao" required
+                bindValue="id" [clearable]="false" [(ngModel)]="planoPagamentoIdSelecionado"
+                formControlName="planoPagamentoId">
+              </ng-select>
+            </div>
+          </div>
+        </form>
+
+        <div *ngIf="parcelas && parcelas.length > 0" class="box box-success">
+          <div class="box-body">
+            <table class="table table-responsive table-bordered">
+              <thead class="thead-light">
+                <tr>
+                  <th style="white-space: nowrap;text-align: center;">Documento</th>
+                  <th style="white-space: nowrap;text-align: center;">Data de Vencimento</th>
+                  <th style="white-space: nowrap;text-align: center;">Forma de Pagamento</th>
+                  <th style="white-space: nowrap;text-align: center;">Valor da Parcela</th>
+                  <th style="white-space: nowrap;text-align: center;">Status</th>
+                  <th style="white-space: nowrap;text-align: center;">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let parcela of parcelas">
+                  <td style="text-align: center;">{{parcela.documento}}</td>
+                  <td style="white-space: nowrap;text-align: center;">{{ parcela.dataVencimento }}</td>
+                  <td style="text-align: center;">{{parcela.formaPagamento.descricao}}</td>
+                  <td style="text-align: center;">{{parcela.valor | currency:' ':false}}</td>
+                  <td style="text-align: center;">
+                    <span style="text-align: center;" *ngIf="parcela.status == 'PENDENTE'"  class="label label-warning">
+                      {{ parcela.status }}
+                    </span>
+                    <span style="text-align: center;" *ngIf="parcela.status == 'PAGO'" class="label label-success">
+                      {{ parcela.status }}
+                    </span>
+                  </td>
+                  <td style="text-align: center;"><a 
+                      tooltip="Quitar Parcela" class="btn btn-sm btn-success">
+                      <i class="fa fa-usd"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templateDetalharRecebimento)">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

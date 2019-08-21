@@ -1,0 +1,78 @@
+<h2>Relatório de Lançamentos</h2>
+<hr width="100%">
+<div class="box box-solid">
+  <div class="box-header with-border">
+    <tabset>
+      <tab heading="Balancete" style="margin-top: 10px;">
+        <div class="row">
+          <div class="form-group col-md-2">
+            <label>Filtrar por:</label>
+            <ng-select [clearable]="false" [items]="filtrarPor" name="filtrarPor" [(ngModel)]="filtroSelecionado"
+            (change)="setFiltroSelecionado($event)">
+            </ng-select>
+          </div>
+
+          <div class="form-group col-md-3">
+            <label>Conta(*)</label>
+            <ng-select [items]="planoContasFiltrados" style="text-transform: uppercase" bindLabel="descricao" 
+              bindValue="id" [(ngModel)]="contaSelecionada" name="planoContaFiltro">
+            </ng-select>
+          </div>
+
+          
+        </div>
+        <div class="row">
+            <div class="form-group col-md-5">
+          <div class="pull-right">
+            <a (click)="getPlanoContasFilhosPorId(contaSelecionada)" tooltip="Consultar Lançamentos"
+              class="btn btn-primary">
+              <i class="fa fa-search"></i>&nbsp; Filtrar
+            </a>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+
+
+          <div class="box-body">
+
+            <table class="table table-responsive table-bordered">
+              <thead>
+                <tr>
+                  <th>Nível</th>
+                  <th style="white-space: nowrap;">Descrição</th>
+                  <th style="text-align: right;">Débito</th>
+                  <th style="text-align: right;">Crédito</th>
+                  <th style="text-align: right;">Saldo</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="listaContasFiltradas && listaContasFiltradas.length">
+                <tr *ngFor="let conta of listaContasFiltradas">
+                  <td [ngStyle]="{'font-weight': conta.negrito}">{{conta.nivel}}</td>
+                  <td [ngStyle]="{'font-weight': conta.negrito}">{{conta.espacamento}}{{conta.descricao}}</td>
+                  <td [ngStyle]="{'font-weight': conta.negrito}" 
+                  *ngIf="conta.categoria == 'ANALÍTICA'" style="text-align: right;">{{conta.valorDebito | currency:' ':false }}</td>
+                  <td [ngStyle]="{'font-weight': conta.negrito}" 
+                  *ngIf="conta.categoria == 'ANALÍTICA'" style="text-align: right;">{{conta.valorCredito | currency:' ':false }}</td>
+                  <td [ngStyle]="{'font-weight': conta.negrito}" 
+                  *ngIf="conta.categoria == 'ANALÍTICA'" style="text-align: right;">{{conta.valorSaldo | currency:' ':false }}&nbsp;{{conta.saldoTipo}}</td>
+                  <td *ngIf="conta.categoria == 'SINTÉTICA'" style="text-align: right;"></td>
+                  <td *ngIf="conta.categoria == 'SINTÉTICA'" style="text-align: right;"></td>
+                  <td *ngIf="conta.categoria == 'SINTÉTICA'" style="text-align: right;"></td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+      </tab>
+      <tab heading="Razão" style="margin-top: 10px;">
+
+      </tab>
+    </tabset>
+  </div>
+</div>
+<button style="position:relative;" tooltip="Salvar" class="btn btn-lg btn-primary">
+  &nbsp;Salvar Alterações
+</button>

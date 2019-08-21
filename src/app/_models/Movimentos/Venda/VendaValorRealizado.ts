@@ -1,8 +1,12 @@
-import { VendaValorRealizadoValores } from './VendaValorRealizadoValores';
+import { Recebimentos } from '../../Financeiro/Recebimentos/Recebimentos';
+import { Pagamentos } from '../../Financeiro/Pagamentos/Pagamentos';
 
 export class VendaValorRealizado {
     id: number;
     vendaId: number;
     produtosItensId: number;
-    vendaValorRealizadoValores: VendaValorRealizadoValores[];
+    recebimentosId: number;
+    recebimentos: Recebimentos;
+    pagamentosId: number;
+    pagamentos: Pagamentos;
 }

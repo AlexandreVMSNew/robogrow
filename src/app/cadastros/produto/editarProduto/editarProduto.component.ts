@@ -6,6 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
+import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/centroDespesa';
+import { CentroReceita } from 'src/app/_models/Cadastros/CentroReceita/CentroReceita';
+import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
+import { CentroReceitaService } from 'src/app/_services/Cadastros/CentroReceita/centroReceita.service';
+import { PlanoContaService } from 'src/app/_services/Cadastros/PlanosConta/planoConta.service';
+import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/centroDespesa.service';
 
 @Component({
   selector: 'app-editar-produto',
@@ -19,8 +25,18 @@ export class EditarProdutoComponent implements OnInit {
   produto: Produto;
   idProduto: number;
 
-  tipos = ['ENTRADA', 'SAIDA'];
+  tipos = ['RECEITA', 'DESPESA'];
   tipoSelecionado: string;
+
+  centrosReceita: CentroReceita[];
+  centroReceitaIdSelecionado: string;
+
+  centrosDespesa: CentroDespesa[];
+  centroDespesaIdSelecionado: string;
+
+  planoContasReceita: PlanoContas[];
+  planoContasDespesa: PlanoContas[];
+  planoContasIdSelecionado: string;
 
   subTipos = ['COMISSÃO', 'GASTO'];
   subTipoSelecionado: string;
@@ -36,6 +52,9 @@ export class EditarProdutoComponent implements OnInit {
               private produtoService: ProdutoService,
               public router: ActivatedRoute,
               private changeDetectionRef: ChangeDetectorRef,
+              private centroReceitaService: CentroReceitaService,
+              private centroDespesaService: CentroDespesaService,
+              private planoContaService: PlanoContaService,
               public permissaoService: PermissaoService) { }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -48,6 +67,9 @@ export class EditarProdutoComponent implements OnInit {
     this.validarForm();
     this.validarItemForm();
     this.carregarProduto();
+    this.getCentroDespesa();
+    this.getCentroReceita();
+    this.getPlanoContas();
   }
 
   carregarProduto() {
@@ -77,14 +99,17 @@ export class EditarProdutoComponent implements OnInit {
         id:  [''],
         produtosId: [''],
         tipoItem: ['', Validators.required],
-        subTipoItem: ['', Validators.required],
-        descricao: ['', Validators.required]
+        subTipoItem: [''],
+        descricao: ['', Validators.required],
+        centroDespesaId: ['', ],
+        centroReceitaId: [''],
+        planoContasId: ['', Validators.required]
     });
   }
 
   adicionarItem(template: any) {
 
-    if (this.cadastroItemForm.get('tipoItem').value === 'ENTRADA') {
+    if (this.cadastroItemForm.get('tipoItem').value === 'RECEITA') {
       this.cadastroItemForm.get('subTipoItem').setValue(null);
     }
 
@@ -115,6 +140,9 @@ export class EditarProdutoComponent implements OnInit {
     this.modoSalvar = 'editar';
     this.idItemEdit = Item.id;
     this.cadastroItemForm.patchValue(Item);
+    this.planoContasIdSelecionado = Item.planoContasId;
+    this.centroDespesaIdSelecionado = Item.centroDespesaId;
+    this.centroReceitaIdSelecionado = Item.centroReceitaId;
     this.subTipoSelecionado = Item.subTipoItem;
     template.show();
   }
@@ -139,4 +167,36 @@ export class EditarProdutoComponent implements OnInit {
         console.log(error.error);
       });
   }
+
+  getPlanoContas() {
+    this.planoContaService.getAllPlanosConta().subscribe(
+      (_PLANOS: PlanoContas[]) => {
+      this.planoContasReceita = _PLANOS.filter(c => c.tipo === 'RECEITA' && c.categoria === 'ANALÍTICA');
+      this.planoContasDespesa = _PLANOS.filter(c => c.tipo === 'DESPESA' && c.categoria === 'ANALÍTICA');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar Planos de Contas: ${error.error}`);
+    });
+  }
+
+  getCentroReceita() {
+    this.centroReceitaService.getAllCentroReceita().subscribe(
+      (_CENTROS: CentroReceita[]) => {
+      this.centrosReceita = _CENTROS.filter(c => c.status !== 'INATIVO');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar Centros de Receita: ${error.error}`);
+    });
+  }
+
+  getCentroDespesa() {
+    this.centroDespesaService.getAllCentroDespesa().subscribe(
+      (_CENTROS: CentroDespesa[]) => {
+      this.centrosDespesa = _CENTROS.filter(c => c.status !== 'INATIVO');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar Centros de Despesa: ${error.error}`);
+    });
+  }
+
 }

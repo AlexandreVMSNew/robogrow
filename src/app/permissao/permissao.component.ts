@@ -29,6 +29,39 @@ export class PermissaoComponent implements OnInit, AfterViewInit {
       nome: 'PRODUTOS'
     },
     {
+      nome: 'PLANO DE CONTAS'
+    },
+    {
+      nome: 'CENTRO DE RECEITA'
+    },
+    {
+      nome: 'CENTRO DE DESPESA'
+    },
+    {
+      nome: 'PLANO DE PAGAMENTO'
+    },
+    {
+      nome: 'FORMA DE PAGAMENTO'
+    },
+    {
+      nome: 'FINANCEIRO'
+    },
+    {
+      nome: 'RECEBIMENTOS'
+    },
+    {
+      nome: 'PAGAMENTOS'
+    },
+    {
+      nome: 'LANÇAMENTOS'
+    },
+    {
+      nome: 'RELATÓRIOS LANÇAMENTOS'
+    },
+    {
+      nome: 'CHEQUES PRE-DATADO'
+    },
+    {
       nome: 'VENDA'
     },
     {

@@ -7,6 +7,9 @@ export class ProdutoItem {
     tipoItem: string;
     subTipoItem: string;
     descricao: string;
-    vendaValorRealizado: VendaValorRealizado;
+    centroDespesaId: number;
+    centroReceitaId: number;
+    planoContasId: number;
+    vendaValorRealizado: VendaValorRealizado[];
     vendaValorPrevisto: VendaValorPrevisto;
 }

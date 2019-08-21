@@ -18,11 +18,7 @@ export class VendaComponent implements OnInit, AfterViewInit {
   excluir = false;
   visualizar = false;
 
-  vendaFiltrados: Venda[];
   vendas: Venda[];
-  vendaId: number;
-
-  cadastroForm: FormGroup;
 
   paginaAtual = 1;
   totalRegistros: number;
@@ -54,6 +50,14 @@ export class VendaComponent implements OnInit, AfterViewInit {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar VendaS: ${error.error}`);
     });
+}
+
+getVendaConfig() {
+  return this.vendaService.getConfigVendaStatus();
+}
+
+abrirVendaConfig() {
+  this.vendaService.setConfigVendaStatus(true);
 }
 
 }
