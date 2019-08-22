@@ -95,7 +95,7 @@ import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
 import { PermissaoComponent } from './permissao/permissao.component';
 
-const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
+const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + ':3000', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
 
