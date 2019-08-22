@@ -14,7 +14,6 @@ export class SocketService {
     private socket;
 
     constructor() {
-        console.log(this.url);
         this.socket = io(this.url);
     }
 

@@ -35,19 +35,19 @@ export class PermissaoService {
   getUsuarioId() {
     this.token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(this.token);
-    return this.decodedToken.nameid;
+    return (this.decodedToken) ? this.decodedToken.nameid : '';
   }
 
   getUsuario() {
     this.token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(this.token);
-    return this.decodedToken.unique_name;
+    return (this.decodedToken) ? this.decodedToken.unique_name : '';
   }
 
   getUsuarioNiveis() {
     this.token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(this.token);
-    return this.decodedToken.role;
+    return (this.decodedToken) ? this.decodedToken.role : [];
   }
 
   verificarPermissao(_PERMISSAO: any): any {
