@@ -77,7 +77,7 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
   }
 
   abrirTemplatePlanoConta(modo: string, planoConta: PlanoContas, template: any) {
-    this.planoContaIdSuperiorSelecionado = 0;
+    //this.planoContaIdSuperiorSelecionado = 0;
     this.modo = modo;
     if (modo === 'NOVO') {
       this.validarForm();
