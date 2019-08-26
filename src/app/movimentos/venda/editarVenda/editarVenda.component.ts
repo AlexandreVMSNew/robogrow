@@ -128,21 +128,21 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           });
 
           this.cadastroForm.patchValue(this.venda);
-          this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'ENTRADA');
+          this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
           this.vendaItensEntrada.forEach(item => {
             item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
             item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
           });
 
           this.vendaItensSaidaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
-            item => item.tipoItem === 'SAIDA' && item.subTipoItem === 'COMISSÃO');
+            item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO');
           this.vendaItensSaidaComissao.forEach(item => {
             item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
             item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
           });
 
           this.vendaItensSaidaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
-            item => item.tipoItem === 'SAIDA' && item.subTipoItem === 'GASTO');
+            item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO');
           this.vendaItensSaidaGasto.forEach(item => {
             item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
             item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
