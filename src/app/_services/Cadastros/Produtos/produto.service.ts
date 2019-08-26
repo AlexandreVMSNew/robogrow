@@ -18,7 +18,6 @@ getAllProduto(): Observable<Produto[]> {
   return this.http.get<Produto[]>(this.baseURL);
 }
 
-
 getProdutoByDescricao(descricao: string): Observable<Produto[]> {
   return this.http.get<Produto[]>(`${this.baseURL}/getByDescricao/${descricao}`);
 }

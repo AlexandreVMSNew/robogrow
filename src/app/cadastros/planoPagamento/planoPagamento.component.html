@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody *ngIf="planosPagamento && planosPagamento.length">
-        <tr *ngFor="let plano of planosPagamento | paginate: { itemsPerPage: 5,
+        <tr *ngFor="let plano of planosPagamento | paginate: { itemsPerPage: 100,
          currentPage: paginaAtual, totalItems: totalRegistros };">
           <td style="white-space: nowrap;">{{ plano.descricao }}</td>
           <td>{{ plano.status }}</td>
@@ -68,7 +68,7 @@
         <form [formGroup]="cadastroForm" class="mt-5">
           <div class="row">
             <div class="form-group col-md-3">
-              <label style="white-space: nowrap;">Forma de Pagamento:(*)</label>
+              <label style="white-space: nowrap;">Forma de Pagamento:</label>
               <ng-select style="text-transform: uppercase" [items]="formasPagamento" bindLabel="descricao" required
                 bindValue="id" [(ngModel)]="formaPagamentoIdSelecionado" formControlName="formaPagamentoId"
                 [ngClass]="{ 'is-invalid': cadastroForm.get('formaPagamentoId').errors && cadastroForm.get('formaPagamentoId').touched}">
@@ -81,7 +81,7 @@
             </div>
 
             <div class="form-group col-md-3">
-              <label style="white-space: nowrap;">N° de Parcelas:(*)</label>
+              <label style="white-space: nowrap;">N° de Parcelas:</label>
               <ng-select style="text-transform: uppercase"
                 [items]="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']" [clearable]="false"
                 [ngModel]="cadastroForm.get('qtdParcelas').value" formControlName="qtdParcelas"
@@ -95,7 +95,7 @@
             </div>
 
             <div class="form-group col-md-3">
-              <label style="white-space: nowrap;">Prazo 1ª Parcela:(*)</label>
+              <label style="white-space: nowrap;">Prazo 1ª Parcela:</label>
               <input currencyMask min="0" max="120" [options]="{ prefix: '',thousands: '', precision: 0 }"
                 class="form-control" formControlName="prazoPrimeiraParcela"
                 [ngClass]="{ 'is-invalid': cadastroForm.get('prazoPrimeiraParcela').errors &&  cadastroForm.get('prazoPrimeiraParcela').touched}" />
@@ -112,7 +112,7 @@
             </div>
 
             <div class="form-group col-md-3">
-              <label style="white-space: nowrap;">Intervalo Parcelas:(*)</label>
+              <label style="white-space: nowrap;">Intervalo Parcelas:</label>
               <input currencyMask min="0" max="365" [options]="{ prefix: '',thousands: '', precision: 0 }"
                 class="form-control" formControlName="intervaloParcelas"
                 [ngClass]="{ 'is-invalid': cadastroForm.get('intervaloParcelas').errors &&  cadastroForm.get('intervaloParcelas').touched}" />
@@ -132,7 +132,7 @@
 
 
             <div class="form-group col-md-3">
-              <label style="white-space: nowrap;">Juros:(*)</label>
+              <label style="white-space: nowrap;">Juros:</label>
               <div class="input-group">
                 <input class="form-control" min="0.0" max="100.0" currencyMask formControlName="juros"
                   [ngClass]="{ 'is-invalid': cadastroForm.get('juros').errors &&  cadastroForm.get('juros').touched}"
@@ -151,7 +151,7 @@
             </div>
 
             <div class="form-group col-md-3">
-              <label style="white-space: nowrap;">Desconto:(*)</label>
+              <label style="white-space: nowrap;">Desconto:</label>
               <div class="input-group">
                 <input class="form-control" min="0.0" max="100.0" currencyMask formControlName="desconto"
                   [ngClass]="{ 'is-invalid': cadastroForm.get('desconto').errors &&  cadastroForm.get('desconto').touched}"
@@ -171,7 +171,7 @@
             </div>
 
             <div class="form-group col-md-4">
-              <label style="white-space: nowrap;">Conta de Recebimentos:(*)</label>
+              <label style="white-space: nowrap;">Conta de Recebimentos:</label>
               <ng-select style="text-transform: uppercase" [items]="planoContas" bindLabel="descricao" required
                 bindValue="id" [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId"
                 [ngClass]="{ 'is-invalid': cadastroForm.get('planoContasId').errors && cadastroForm.get('planoContasId').touched}">
@@ -188,7 +188,7 @@
           <div class="row">
 
             <div class="form-group col-md-5">
-              <label style="white-space: nowrap;">Descrição:(*)</label>
+              <label style="white-space: nowrap;">Descrição:</label>
               <input type="text" style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()"
                 class="form-control" formControlName="descricao"
                 [ngClass]="{ 'is-invalid': cadastroForm.get('descricao').errors &&  cadastroForm.get('descricao').touched}" />
@@ -212,7 +212,7 @@
         </form>
       </div>
       <div class="modal-footer d-flex">
-        <button class="btn btn-secondary">
+        <button class="btn btn-secondary" (click)="templatePlanoPagamento.hide()">
           Fechar
         </button>
         <button *ngIf="this.modo == 'EDITAR' && this.editar == true" [disabled]="!cadastroForm.valid" class="btn btn-primary"

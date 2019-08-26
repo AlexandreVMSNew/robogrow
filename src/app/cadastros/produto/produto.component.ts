@@ -58,53 +58,13 @@ export class ProdutoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  get filtroLista() {
-    return this._filtroLista;
-  }
-
-  set filtroLista(value: string) {
-    this._filtroLista = value;
-    this.produtosFiltrados = this.filtrarProdutos(this.filtroLista);
-  }
-
-  excluirProduto(produto: Produto, template: any) {
-    template.show();
-    this.produto = produto;
-    this.bodyExcluirProduto = `Tem certeza que deseja excluir o Produto: ${produto.descricao}, Código: ${produto.id}?`;
-  }
-
-  confirmarExclusao(template: any) {
-    this.produtoService.excluirProduto(this.produto.id).subscribe(
-    () => {
-        template.hide();
-        this.getProdutos();
-        this.toastr.success('Excluído com sucesso!');
-      }, error => {
-        this.toastr.error(`Erro ao tentar Excluir: ${error}`);
-      });
-  }
-
-  filtrarProdutos(filtrarPor: string): Produto[] {
-    this.filtroProdutos = this.produtos;
-
-    if (filtrarPor) {
-      filtrarPor = filtrarPor.toLocaleLowerCase();
-      this.filtroProdutos = this.produtos.filter(
-        produto => produto.descricao.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-      );
-    }
-
-    this.totalRegistros = this.filtroProdutos.length;
-    return this.filtroProdutos;
-  }
-
   getProdutos() {
       this.produtoService.getAllProduto().subscribe(
         // tslint:disable-next-line:variable-name
         (_produtos: Produto[]) => {
         this.produtos = _produtos;
       }, error => {
-        this.toastr.error(`Erro ao tentar carregar produtos: ${error}`);
+        this.toastr.error(`Erro ao tentar carregar produtos: ${error.error}`);
       });
   }
 

@@ -4,10 +4,6 @@
   <div class="box-header with-border">
     <div class="d-flex">
       <div class="row">
-        <div class="form-group col-md-4">
-          <label>Filtro:</label>
-          <input type="text" class="form-control" placeholder="Pesquisar..." [(ngModel)]="filtroLista" />
-        </div>
         <div style="margin-right: 15px;"class="pull-right">
             <a *ngIf="this.novo == true" [routerLink]="['/produtos','novo']"
               tooltip="Novo Produto" class="btn btn-success"> 
@@ -31,10 +27,6 @@
           <td style="white-space: nowrap;">{{ produto.descricao }}</td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">
-              <button *ngIf="this.excluir == true" class="btn btn-sm btn-danger"
-                tooltip="Excluir" (click)="excluirProduto(produto, confirm)">
-                <i class="fa fa-eraser"></i>
-              </button>
               <a *ngIf="this.editar == true || this.visualizar == true"
                 [routerLink]="['/produtos','editar', produto.id]" tooltip="Editar/Detalhes"
                 class="btn btn-sm btn-primary">
@@ -56,31 +48,6 @@
       <pagination-controls (pageChange)="paginaAtual = $event" name="retornoPagination" previousLabel="Anterior"
         nextLabel="Próximo">
       </pagination-controls>
-    </div>
-  </div>
-</div>
-<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">
-          Excluir Produto
-        </h4>
-        <button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>{{bodyExcluirProduto}}</p>
-      </div>
-      <div class="modal-footer btn-group d-flex">
-        <button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
-          Cancelar
-        </button>
-        <button type="button" class="btn btn-outline-danger" (click)="confirmarExclusao(confirm)">
-          Excluir
-        </button>
-      </div>
     </div>
   </div>
 </div>
