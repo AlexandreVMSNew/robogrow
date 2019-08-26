@@ -102,11 +102,11 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
       qtdFilhos = _PLANOFILHOS.planoConta.length;
       const nivelFilho = qtdFilhos + 1;
       if (nivelPai.length === 7) {
-        return nivelPai + '.' + ('00' + nivelFilho.toString()).slice(-2);
-      } else if (nivelPai.length === 8) {
-        return nivelPai.toString() + '.' + ('0000' + nivelFilho.toString()).slice(-4).toString();
+        return `${nivelPai}.` + (`00${nivelFilho}`).slice(-2);
+      } else if (nivelPai.length === 10) {
+        return `${nivelPai}.` + (`0000${nivelFilho}`).slice(-4);
       } else {
-        return nivelPai.toString() + '.' + nivelFilho.toString();
+        return `${nivelPai}.${nivelFilho}`;
       }
     } else {
       qtdFilhos = _PLANOFILHOS.filter(c => c.planosContaId === null).length;
