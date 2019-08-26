@@ -20,6 +20,7 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
   cadastroForm: FormGroup;
 
   planoContas: PlanoContas[];
+  listaContasFiltradas: PlanoContas[];
 
   planoConta: PlanoContas;
   planoContaIdSuperiorSelecionado = 0;
@@ -77,7 +78,6 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
   }
 
   abrirTemplatePlanoConta(modo: string, planoConta: PlanoContas, template: any) {
-    //this.planoContaIdSuperiorSelecionado = 0;
     this.modo = modo;
     if (modo === 'NOVO') {
       this.validarForm();
@@ -109,7 +109,7 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
         return `${nivelPai}.${nivelFilho}`;
       }
     } else {
-      qtdFilhos = _PLANOFILHOS.filter(c => c.planosContaId === null).length;
+      qtdFilhos = _PLANOFILHOS.filter(c => c.planoContasId === null).length;
       qtdFilhos = qtdFilhos + 1;
       const nivelFilho = qtdFilhos.toString();
       return nivelFilho;
@@ -159,10 +159,28 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
     );
   }
 
+  async filtrarPlanoContas(conta: PlanoContas) {
+    let espaco = '';
+    for (let index = 0; index < conta.nivel.length; index++) {
+      espaco += '  ';
+      index = index;
+    }
+    conta = Object.assign(conta, { espacamento: espaco,
+      negrito: (conta.categoria === 'SINTÉTICA') ? 'bold' : 'regular'});
+    this.listaContasFiltradas.push(conta);
+    if (conta.planoConta) {
+      conta.planoConta.forEach((contaFilho) => {
+        this.filtrarPlanoContas(contaFilho);
+      });
+    }
+  }
+
   getPlanoContas() {
     this.planoContaService.getAllPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContas = _PLANOS;
+      this.listaContasFiltradas = [];
+      this.filtrarPlanoContas(this.planoContas.filter(c => c.nivel === '1')[0]);
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar Planos de Contas: ${error.error}`);

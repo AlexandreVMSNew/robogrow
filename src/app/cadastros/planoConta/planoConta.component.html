@@ -21,13 +21,13 @@
           <th>Ações</th>
         </tr>
       </thead>
-      <tbody *ngIf="planoContas && planoContas.length">
-        <tr *ngFor="let plano of planoContas | paginate: { itemsPerPage: 100,
+      <tbody *ngIf="listaContasFiltradas && listaContasFiltradas.length">
+        <tr *ngFor="let plano of listaContasFiltradas | paginate: { itemsPerPage: 100,
          currentPage: paginaAtual, totalItems: totalRegistros };">
-          <td>{{ plano.nivel }}</td>
-          <td style="white-space: nowrap;">{{ plano.descricao }}</td>
-          <td>{{ plano.tipo }}</td>
-          <td>{{ plano.categoria }}</td>
+          <td [ngStyle]="{'font-weight': conta.negrito}">{{ plano.nivel }}</td>
+          <td [ngStyle]="{'font-weight': conta.negrito}" style="white-space: nowrap;">{{ plano.descricao }}</td>
+          <td [ngStyle]="{'font-weight': conta.negrito}">{{ plano.tipo }}</td>
+          <td [ngStyle]="{'font-weight': conta.negrito}">{{ plano.categoria }}</td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">
               <a *ngIf="this.editar == true || this.visualizar == true"
