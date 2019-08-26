@@ -78,6 +78,7 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
   }
 
   abrirTemplatePlanoConta(modo: string, planoConta: PlanoContas, template: any) {
+    this.planoContaIdSuperiorSelecionado = 0;
     this.modo = modo;
     if (modo === 'NOVO') {
       this.validarForm();
@@ -180,7 +181,10 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
       (_PLANOS: PlanoContas[]) => {
       this.planoContas = _PLANOS;
       this.listaContasFiltradas = [];
-      this.filtrarPlanoContas(this.planoContas.filter(c => c.nivel === '1')[0]);
+      console.log(this.planoContas.filter(c => c.planoContasId === null));
+      this.planoContas.filter(c => c.planoContasId === null).forEach((conta) => {
+        this.filtrarPlanoContas(conta);
+      });
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar Planos de Contas: ${error.error}`);

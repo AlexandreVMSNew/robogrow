@@ -22,16 +22,16 @@
         </tr>
       </thead>
       <tbody *ngIf="listaContasFiltradas && listaContasFiltradas.length">
-        <tr *ngFor="let plano of listaContasFiltradas | paginate: { itemsPerPage: 100,
+        <tr *ngFor="let conta of listaContasFiltradas | paginate: { itemsPerPage: 100,
          currentPage: paginaAtual, totalItems: totalRegistros };">
-          <td [ngStyle]="{'font-weight': conta.negrito}">{{ plano.nivel }}</td>
-          <td [ngStyle]="{'font-weight': conta.negrito}" style="white-space: nowrap;">{{ plano.descricao }}</td>
-          <td [ngStyle]="{'font-weight': conta.negrito}">{{ plano.tipo }}</td>
-          <td [ngStyle]="{'font-weight': conta.negrito}">{{ plano.categoria }}</td>
+          <td>{{ conta.nivel }}</td>
+          <td [ngStyle]="{'font-weight': conta.negrito}" style="white-space: nowrap;">{{ conta.espacamento }}{{ conta.descricao }}</td>
+          <td [ngStyle]="{'font-weight': conta.negrito}">{{ conta.tipo }}</td>
+          <td [ngStyle]="{'font-weight': conta.negrito}">{{ conta.categoria }}</td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">
               <a *ngIf="this.editar == true || this.visualizar == true"
-                (click)="abrirTemplatePlanoConta('EDITAR', plano, templatePlanoConta)" tooltip="Editar/Detalhes"
+                (click)="abrirTemplatePlanoConta('EDITAR', conta, templatePlanoConta)" tooltip="Editar/Detalhes"
                 class="btn btn-sm btn-primary">
                 <i class="fa fa-edit"></i>
               </a>
