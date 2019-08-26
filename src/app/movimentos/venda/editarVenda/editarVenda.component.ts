@@ -227,7 +227,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   abrirTemplateRecebimento(produtoItem: ProdutoItem) {
     this.produtoItem = produtoItem;
-    if (produtoItem.vendaValorRealizado) {
+    if (produtoItem.vendaValorRealizado && produtoItem.vendaValorRealizado.length > 0) {
       if (produtoItem.vendaValorRealizado[0].recebimentos) {
         this.idDetalharRecebimento = produtoItem.vendaValorRealizado[0].recebimentos.id;
         this.recebimentoService.setDetalharRecebimentoStatus(true);

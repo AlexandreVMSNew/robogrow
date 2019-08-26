@@ -17,6 +17,8 @@ baseURL = InfoAPI.URL + '/api/movimentos/vendas';
 atualizaVenda = new EventEmitter<boolean>();
 atualizaRecebimentos = new EventEmitter<boolean>();
 atualizaPagamentos = new EventEmitter<boolean>();
+atualizaResumoVenda = new EventEmitter<boolean>();
+
 pagamentosVenda = false;
 configVenda = false;
 
@@ -54,6 +56,9 @@ atualizarRecebimentos() {
 }
 atualizarPagamentos() {
   this.atualizaPagamentos.emit(true);
+}
+atualizarResumoVenda() {
+  this.atualizaResumoVenda.emit(true);
 }
 
 getVendaById(id: number): Observable<Venda> {

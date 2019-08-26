@@ -105,7 +105,11 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
               private vendaService: VendaService,
               private pessoaService: PessoaService,
               public dataService: DataService,
-              private changeDetectionRef: ChangeDetectorRef) { }
+              private changeDetectionRef: ChangeDetectorRef) {
+                this.vendaService.atualizaResumoVenda.subscribe(x => {
+                  this.carregarVenda();
+                });
+              }
 
   ngOnInit() {
     this.idVenda = +this.router.snapshot.paramMap.get('id');
@@ -165,15 +169,26 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
     return '';
   }
 
+  atualizarResumoVenda() {
+    this.vendaService.atualizarResumoVenda();
+  }
+
   carregarVenda() {
+    this.previstoReceitaValores = [];
+    this.previstoDespesaComissaoValores = [];
+    this.previstoDespesaGastoValores = [];
+    this.realizadoDespesaComissaoValores = [];
+    this.realizadoDespesaGastoValores = [];
+
     this.vendaService.getVendaById(this.idVenda).subscribe((_VENDA: Venda) => {
       this.venda = Object.assign({}, _VENDA);
-
-      this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'ENTRADA');
+      console.log('carregou');
+      this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
       this.vendaItensReceita.map(itemReceita => {
 
-        this.valorTotalReceitasRealizado = itemReceita.vendaValorRealizado[0].recebimentos.valorTotal;
-
+        if (itemReceita.vendaValorRealizado && itemReceita.vendaValorRealizado.length > 0) {
+          this.valorTotalReceitasRealizado = itemReceita.vendaValorRealizado[0].recebimentos.valorTotal;
+        }
         this.vendaService.getVendaValorPrevistoByProdIdVendId(itemReceita.id, this.idVenda)
           .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
           if (_VALORPREVISTO) {
@@ -184,7 +199,7 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
       });
 
       this.vendaItensDespesaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
-        item => item.tipoItem === 'SAIDA' && item.subTipoItem === 'COMISSÃO');
+        item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO');
       this.vendaItensDespesaComissao.map(itemComissao => {
 
         if (itemComissao.vendaValorRealizado) {
@@ -192,7 +207,6 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
             this.realizadoDespesaComissaoValores.push(valorRealizado.pagamentos.valorTotal);
             this.verificarSoma = false;
           });
-          console.log(this.realizadoDespesaComissaoValores);
         }
 
         this.vendaService.getVendaValorPrevistoByProdIdVendId(itemComissao.id, this.idVenda)
@@ -202,11 +216,10 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
              this.verificarSoma = false;
             }
         });
-
       });
 
       this.vendaItensDespesaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
-        item => item.tipoItem === 'SAIDA' && item.subTipoItem === 'GASTO');
+        item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO');
       this.vendaItensDespesaGasto.map(itemGasto => {
 
         if (itemGasto.vendaValorRealizado) {

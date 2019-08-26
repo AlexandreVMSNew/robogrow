@@ -191,7 +191,8 @@ export class TemplateRecebimentoComponent implements OnInit {
         dataVencimento: (this.diasFixo === true) ? dataVencFixo : this.dataService.getDataPTBR(dataVencVariavel),
         dataRecebimento: (i === 0 && (dataEmissaoSQL === dataVencVariavel || dataEmissaoSQL === dataVencFixo)) ? dataEmissaoSQL : null,
         valor: valorParcela,
-        valorPago: (this.prazoPrimeiraParcela === 0 && i === 0) ? valorParcela : 0,
+        valorRecebido: ((i === 0 && (dataEmissaoSQL === dataVencVariavel || dataEmissaoSQL === dataVencFixo)) ||
+                formaPag.descricao === 'CHEQUE') ? valorParcela : 0,
         status: ((i === 0 && (dataEmissaoSQL === dataVencVariavel || dataEmissaoSQL === dataVencFixo)) ||
                 formaPag.descricao === 'CHEQUE') ? 'PAGO' : 'PENDENTE',
         formaPagamentoId: this.formaPagamentoIdSelecionado,

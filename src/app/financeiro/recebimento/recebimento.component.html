@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody *ngIf="parcelas && parcelas.length">
-          <tr *ngFor="let parcela of parcelas | paginate: { itemsPerPage: 5,currentPage: paginaAtual, totalItems: totalRegistros };">
+          <tr *ngFor="let parcela of parcelas | paginate: { itemsPerPage: 50,currentPage: paginaAtual, totalItems: totalRegistros };">
             <td style="text-align: center;">{{ parcela.documento }}</td>
             <td style="text-align: center;">
               <span style="text-align: center;" *ngIf="parcela.status == 'PENDENTE'"  class="label label-warning">
