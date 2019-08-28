@@ -21,7 +21,7 @@
           <td style="vertical-align: middle;">{{valorTotalReceitasPrevisto | currency:'BRL':true}}</td>
           <td style="vertical-align: middle;">{{valorTotalReceitasRealizado | currency:'BRL':true}}</td>
           <td style="vertical-align: middle;">
-            {{calcularDiferenca(valorTotalReceitasRealizado, valorTotalReceitasPrevisto) | currency:'BRL':true}}
+            {{valorDiferencaReceitas | currency:'BRL':true}}
           </td>
         </tr>
       </tbody>
@@ -46,7 +46,7 @@
           <td style="vertical-align: middle;">{{valorTotalDespesasComissaoPrevisto | currency:'BRL':true}}</td>
           <td style="vertical-align: middle;">{{valorTotalDespesasComissaoRealizado | currency:'BRL':true}}</td>
           <td style="vertical-align: middle;">
-            {{calcularDiferenca(valorTotalDespesasComissaoRealizado, valorTotalDespesasComissaoPrevisto) | currency:'BRL':true}}
+            {{valorDiferencaDespesasComissao | currency:'BRL':true}}
           </td>
         </tr>
       </tbody>
@@ -69,7 +69,7 @@
             <td style="vertical-align: middle;">{{valorTotalDespesasGastoPrevisto | currency:'BRL':true}}</td>
             <td style="vertical-align: middle;">{{valorTotalDespesasGastoRealizado | currency:'BRL':true}}</td>
             <td style="vertical-align: middle;">
-              {{calcularDiferenca(valorTotalDespesasGastoRealizado, valorTotalDespesasGastoPrevisto) | currency:'BRL':true}}
+              {{valorDiferencaDespesasGasto | currency:'BRL':true}}
             </td>
           </tr>
         </tbody>
@@ -84,12 +84,25 @@
       <table class="table  table-bordered">
         <thead class="thead-light">
           <tr>
-            <th style=" font-size:40px;text-align: center;">
-              <span *ngIf="verificarMaiorZero(calcularResultado()) == true"
-                class="label label-success">LUCRO
+            <th style=" font-size:30px;text-align: center;">
+              <span *ngIf="resultadoPrevisto >= 0"
+                class="label label-success">RESULTADO PREVISTO
               </span>
-              <span *ngIf="verificarMaiorZero(calcularResultado()) == false"
-                class="label label-danger">PREJUÍZO
+              <span *ngIf="0 > resultadoPrevisto"
+                class="label label-danger">RESULTADO PREVISTO
+              </span>
+            </th>
+            <th style=" font-size:30px;text-align: center;">
+              <span *ngIf="resultadoReal >= 0"
+                class="label label-success">RESULTADO REAL
+              </span>
+              <span *ngIf="0 > resultadoReal"
+                class="label label-danger">RESULTADO REAL
+              </span>
+            </th>
+            <th style=" font-size:30px;text-align: center;">
+              <span 
+                class="label label-primary">%
               </span>
             </th>
           </tr>
@@ -97,7 +110,13 @@
         <tbody>
           <tr style="vertical-align: middle;">
             <td style="text-align: center;font-size:30px;">
-              {{calcularResultado() | currency:'BRL':true}}
+              {{resultadoPrevisto | currency:'BRL':true}}
+            </td>
+            <td style="text-align: center;font-size:30px;">
+              {{resultadoReal | currency:'BRL':true}}
+            </td>
+            <td style="text-align: center;font-size:30px;">
+              {{porcentagemPrevistoReal | currency:' ':false}}
             </td>
           </tr>
         </tbody>

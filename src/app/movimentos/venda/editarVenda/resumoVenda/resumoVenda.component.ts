@@ -49,6 +49,14 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
   valorTotalDespesasGastoPrevisto = 0;
   valorTotalDespesasGastoRealizado = 0;
 
+  valorDiferencaReceitas = 0;
+  valorDiferencaDespesasComissao = 0;
+  valorDiferencaDespesasGasto = 0;
+
+  resultadoPrevisto = 0;
+  resultadoReal = 0;
+  porcentagemPrevistoReal = 0;
+
   verificarSoma = false;
   public pieChartOptions: ChartOptions = {
     responsive: true,
@@ -133,10 +141,10 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
     if (valores) {
         if (valores.length > 0) {
       valores.forEach(item => {
-          if (item.valor) {
-            valorTotal = valorTotal + item.valor;
+          if (typeof item === 'object') {
+            valorTotal = valorTotal + Number(item.valor);
           } else {
-            valorTotal = valorTotal + item;
+            valorTotal = valorTotal + Number(item);
           }
         });
       }
@@ -153,6 +161,9 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
     return this.valorTotalReceitasRealizado - valorTotalDespesa;
   }
 
+  calcularPorcentagemPrevistoReal() {
+    return (this.resultadoReal / this.resultadoPrevisto) * 100;
+  }
   somar(): any {
     if (this.verificarSoma === false) {
       this.valorTotalReceitasPrevisto = this.somarValores(this.previstoReceitaValores);
@@ -160,6 +171,17 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
       this.valorTotalDespesasComissaoRealizado = this.somarValores(this.realizadoDespesaComissaoValores);
       this.valorTotalDespesasGastoRealizado = this.somarValores(this.realizadoDespesaGastoValores);
       this.valorTotalDespesasGastoPrevisto = this.somarValores(this.previstoDespesaGastoValores);
+      this.valorDiferencaReceitas = this.calcularDiferenca(this.valorTotalReceitasRealizado, this.valorTotalReceitasPrevisto);
+      this.valorDiferencaDespesasComissao = this.calcularDiferenca(this.valorTotalDespesasComissaoRealizado,
+         this.valorTotalDespesasComissaoPrevisto);
+      this.valorDiferencaDespesasGasto = this.calcularDiferenca(this.valorTotalDespesasGastoRealizado,
+         this.valorTotalDespesasGastoPrevisto);
+      this.resultadoPrevisto = this.valorTotalReceitasPrevisto - this.valorTotalDespesasComissaoPrevisto -
+        this.valorTotalDespesasGastoPrevisto;
+      this.resultadoReal = this.valorTotalReceitasRealizado - this.valorTotalDespesasComissaoRealizado -
+        this.valorTotalDespesasGastoRealizado;
+      this.porcentagemPrevistoReal = this.calcularPorcentagemPrevistoReal();
+
       this.pieChartData = [this.valorTotalReceitasRealizado, this.valorTotalDespesasComissaoRealizado,
         this.valorTotalDespesasGastoRealizado];
       this.barChartData[0].data = [this.valorTotalReceitasRealizado];
@@ -182,7 +204,7 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
 
     this.vendaService.getVendaById(this.idVenda).subscribe((_VENDA: Venda) => {
       this.venda = Object.assign({}, _VENDA);
-      console.log('carregou');
+
       this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
       this.vendaItensReceita.map(itemReceita => {
 
