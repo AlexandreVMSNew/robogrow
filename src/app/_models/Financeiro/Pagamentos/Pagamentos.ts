@@ -4,6 +4,7 @@ import { Pessoa } from '../../Cadastros/Pessoas/Pessoa';
 
 export class Pagamentos {
     id: number;
+    vendaId: number;
     pessoasId: number;
     pessoas: Pessoa;
     dataEmissao: Date;

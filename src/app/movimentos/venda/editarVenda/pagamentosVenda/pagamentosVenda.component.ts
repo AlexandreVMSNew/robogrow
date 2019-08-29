@@ -40,7 +40,8 @@ export class PagamentosVendaComponent implements OnInit {
     this.pagamentoService.getAllPagamentos().subscribe(
       // tslint:disable-next-line:variable-name
       (_PAGAMENTOS: Pagamentos[]) => {
-      this.pagamentos = _PAGAMENTOS.filter(c => c.produtosItensId === this.produtoItem.id);
+        console.log(_PAGAMENTOS);
+      this.pagamentos = _PAGAMENTOS.filter(c => c.produtosItensId === this.produtoItem.id && c.vendaId === this.idVenda);
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar Pagamentos: ${error.error}`);

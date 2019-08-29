@@ -149,6 +149,7 @@ export class TemplatePagamentoComponent implements OnInit {
     const formaPag = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).formaPagamento;
     this.pagamento = Object.assign(this.cadastroPagamento.value, {
       id: 0,
+      vendaId: this.idVenda,
       qtdParcelas: this.qtdParcelas,
       dataEmissao: this.dataService.getDataSQL(dataEmissao),
       centroDespesaId: this.centroDespesaIdSelecionado,

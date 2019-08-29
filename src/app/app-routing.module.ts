@@ -18,6 +18,7 @@ import { PermissaoComponent } from './permissao/permissao.component';
 import { VendaComponent } from './movimentos/venda/venda.component';
 import { NovoVendaComponent } from './movimentos/venda/novoVenda/novoVenda.component';
 import { EditarVendaComponent } from './movimentos/venda/editarVenda/editarVenda.component';
+import { RelatorioVendaComponent } from './movimentos/venda/relatorioVenda/relatorioVenda.component';
 import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { NovoProdutoComponent } from './cadastros/produto/novoProduto/novoProduto.component';
 import { EditarProdutoComponent } from './cadastros/produto/editarProduto/editarProduto.component';
@@ -55,6 +56,7 @@ const routes: Routes = [
   { path: 'movimentos/vendas', component: VendaComponent, canActivate: [AuthGuard]},
   { path: 'movimentos/vendas/novo', component: NovoVendaComponent, canActivate: [AuthGuard]},
   { path: 'movimentos/vendas/editar/:id', component: EditarVendaComponent, canActivate: [AuthGuard]},
+  { path: 'movimentos/vendas/relatorios', component: RelatorioVendaComponent, canActivate: [AuthGuard]},
   { path: 'produtos', component: ProdutoComponent, canActivate: [AuthGuard]},
   { path: 'produtos/novo', component: NovoProdutoComponent, canActivate: [AuthGuard]},
   { path: 'produtos/editar/:id', component: EditarProdutoComponent, canActivate: [AuthGuard]},

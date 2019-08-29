@@ -1,0 +1,125 @@
+import { Component, OnInit } from '@angular/core';
+import { BsLocaleService, BsDatepickerConfig } from 'ngx-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
+import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
+import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
+import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValorRealizado';
+import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
+import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
+import { ChartType, ChartDataSets, ChartOptions } from 'chart.js';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { Label } from 'ng2-charts';
+
+@Component({
+  selector: 'app-relatorio-venda',
+  templateUrl: './relatorioVenda.component.html',
+  styleUrls: ['./relatorioVenda.component.css']
+})
+
+export class RelatorioVendaComponent implements OnInit {
+
+  vendas: Venda[];
+
+
+  dataPeriodo: DataPeriodo;
+
+  informacoes: any;
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { xAxes: [{}], yAxes: [{ticks: {max: 5000, min: 0, stepSize: 1000}}] },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = value.toFixed(2).replace('.', ',');
+          return 'R$' + label;
+        },
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+  public barChartLabels: Label[] = ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO',
+   'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+  public barChartPlugins = [pluginDataLabels];
+
+  public barChartData: ChartDataSets[] = [
+    { data: [], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)'},
+    { data: [], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)'}
+  ];
+
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
+  constructor(private localeService: BsLocaleService,
+              private toastr: ToastrService,
+              public permissaoService: PermissaoService,
+              private dataService: DataService,
+              public vendaService: VendaService) { }
+
+  ngOnInit() {
+    this.dataPeriodo = Object.assign(
+      {
+        dataInicial: this.dataService.getDataSQL('01/01/2019') + 'T00:00:00',
+        dataFinal: this.dataService.getDataSQL('31/12/2019') + 'T23:59:00'
+      }
+    );
+    this.getVendas(this.dataPeriodo);
+  }
+
+  carregarInformacoes() {
+    let valorTotalReceitasVendas = 0;
+    let valorTotalDespesasVendas = 0;
+    const quantidadeVendasEmNegociacao = this.vendas.filter(c => c.status === 'EM NEGOCIAÇÃO').length;
+    const quantidadeVendasEmImplantacao = this.vendas.filter(c => c.status === 'EM ANDAMENTO').length;
+    const quantidadeVendasFinalizado = this.vendas.filter(c => c.status === 'FINALIZADO').length;
+
+    this.vendas.forEach((venda) => {
+      if (venda.vendaValorRealizado) {
+
+        const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
+        if (valorRealizadoReceitas.length > 0) {
+          valorTotalReceitasVendas += valorRealizadoReceitas[0].recebimentos.valorTotal;
+        }
+
+        const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
+        if (valorRealizadoDespesas.length > 0) {
+          valorTotalDespesasVendas += valorRealizadoDespesas[0].pagamentos.valorTotal;
+        }
+      }
+    });
+
+    this.informacoes = Object.assign({
+      quantidadeEmNegociacao: quantidadeVendasEmNegociacao,
+      quantidadeEmImplantacao: quantidadeVendasEmImplantacao,
+      quantidadeFinalizado: quantidadeVendasFinalizado,
+      valorTotalReceitas: valorTotalReceitasVendas,
+      valorMedio: (valorTotalReceitasVendas / (quantidadeVendasEmImplantacao + quantidadeVendasFinalizado))
+    });
+  }
+
+  setDataFiltro(valor: Date[]) {
+    this.dataPeriodo = Object.assign(
+      {
+        dataInicial: this.dataService.getDataSQL(valor[0].toLocaleString()) + 'T00:00:00',
+        dataFinal: this.dataService.getDataSQL(valor[1].toLocaleString()) + 'T23:59:00'
+      }
+    );
+  }
+
+  getVendas(dataPeriodo: DataPeriodo) {
+    this.vendaService.getAllVendaRelatorio(dataPeriodo).subscribe(
+      // tslint:disable-next-line:variable-name
+      (_VENDAS: Venda[]) => {
+      this.vendas = _VENDAS;
+      console.log(this.vendas);
+      this.carregarInformacoes();
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar VendaS: ${error.error}`);
+    });
+}
+
+}

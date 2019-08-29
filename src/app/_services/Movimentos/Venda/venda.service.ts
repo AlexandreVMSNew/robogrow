@@ -7,6 +7,7 @@ import { VendaProduto } from 'src/app/_models/Movimentos/Venda/VendaProduto';
 import { VendaValorPrevisto } from 'src/app/_models/Movimentos/Venda/VendaValorPrevisto';
 import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValorRealizado';
 import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
+import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,10 @@ setPagamentosVendaStatus(val: boolean) {
 
 getAllVenda(): Observable<Venda[]> {
   return this.http.get<Venda[]>(this.baseURL);
+}
+
+getAllVendaRelatorio(datas: DataPeriodo): Observable<Venda[]> {
+  return this.http.post<Venda[]>(`${this.baseURL}/relatorios`, datas);
 }
 
 getVendaByClienteId(clienteId: number): Observable<Venda[]> {
