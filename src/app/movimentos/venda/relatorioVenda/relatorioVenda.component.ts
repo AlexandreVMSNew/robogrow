@@ -81,7 +81,7 @@ export class RelatorioVendaComponent implements OnInit {
     this.barChartData[0].data = [];
     this.barChartData[1].data = [];
     const quantidadeVendasEmNegociacao = this.vendas.filter(c => c.status === 'EM NEGOCIAÇÃO').length;
-    const quantidadeVendasEmImplantacao = this.vendas.filter(c => c.status === 'EM ANDAMENTO').length;
+    const quantidadeVendasEmImplantacao = this.vendas.filter(c => c.status === 'EM IMPLANTAÇÃO').length;
     const quantidadeVendasFinalizado = this.vendas.filter(c => c.status === 'FINALIZADO').length;
 
     this.vendas.forEach((venda) => {
@@ -103,11 +103,12 @@ export class RelatorioVendaComponent implements OnInit {
     });
     const barChartArrayReceitas = [];
     const barChartArrayDespesas = [];
-    for (let index = 1; index <= 12; index++) {
+    for (let index = 0; index <= 11; index++) {
 
       let valorTotalReceitasMes = 0;
       let valorTotalDespesasMes = 0;
-      const vendas = this.vendas.filter(c => moment(c.dataEmissao, 'YYYY-MM-DD').month() === index);
+      const vendas = this.vendas.filter(c => moment(c.dataNegociacao, 'YYYY-MM-DD').month() === index);
+
       vendas.forEach((venda) => {
         if (venda.vendaValorRealizado) {
           const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
@@ -128,7 +129,6 @@ export class RelatorioVendaComponent implements OnInit {
       barChartArrayReceitas.push(valorTotalReceitasMes);
       barChartArrayDespesas.push(valorTotalDespesasMes);
     }
-    console.log(barChartArrayReceitas);
     this.barChartData[0].data = barChartArrayReceitas;
     this.barChartData[1].data = barChartArrayDespesas;
 
@@ -155,7 +155,6 @@ export class RelatorioVendaComponent implements OnInit {
       // tslint:disable-next-line:variable-name
       (_VENDAS: Venda[]) => {
       this.vendas = _VENDAS;
-      console.log(this.vendas);
       this.carregarInformacoes();
     }, error => {
       console.log(error.error);
