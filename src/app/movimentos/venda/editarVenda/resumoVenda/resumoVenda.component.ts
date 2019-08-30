@@ -204,12 +204,12 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
 
     this.vendaService.getVendaById(this.idVenda).subscribe((_VENDA: Venda) => {
       this.venda = Object.assign({}, _VENDA);
-
+      console.log(this.venda);
       this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
       this.vendaItensReceita.map(itemReceita => {
-
-        if (itemReceita.vendaValorRealizado && itemReceita.vendaValorRealizado.length > 0) {
-          this.valorTotalReceitasRealizado = itemReceita.vendaValorRealizado[0].recebimentos.valorTotal;
+        const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemReceita.id);
+        if (valorRealizadoItem && valorRealizadoItem.length > 0) {
+          this.valorTotalReceitasRealizado = valorRealizadoItem[0].recebimentos.valorTotal;
         }
         this.vendaService.getVendaValorPrevistoByProdIdVendId(itemReceita.id, this.idVenda)
           .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
@@ -224,11 +224,13 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
         item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO');
       this.vendaItensDespesaComissao.map(itemComissao => {
 
-        if (itemComissao.vendaValorRealizado) {
-          itemComissao.vendaValorRealizado.forEach(valorRealizado => {
+        const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemComissao.id);
+        if (valorRealizadoItem) {
+          valorRealizadoItem.forEach(valorRealizado => {
             this.realizadoDespesaComissaoValores.push(valorRealizado.pagamentos.valorTotal);
-            this.verificarSoma = false;
           });
+          console.log(this.realizadoDespesaComissaoValores);
+          this.verificarSoma = false;
         }
 
         this.vendaService.getVendaValorPrevistoByProdIdVendId(itemComissao.id, this.idVenda)
@@ -244,11 +246,12 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
         item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO');
       this.vendaItensDespesaGasto.map(itemGasto => {
 
-        if (itemGasto.vendaValorRealizado) {
-          itemGasto.vendaValorRealizado.forEach(valorRealizado => {
+        const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemGasto.id);
+        if (valorRealizadoItem) {
+          valorRealizadoItem.forEach(valorRealizado => {
             this.realizadoDespesaGastoValores.push(valorRealizado.pagamentos.valorTotal);
-            this.verificarSoma = false;
           });
+          this.verificarSoma = false;
         }
 
         this.vendaService.getVendaValorPrevistoByProdIdVendId(itemGasto.id, this.idVenda)

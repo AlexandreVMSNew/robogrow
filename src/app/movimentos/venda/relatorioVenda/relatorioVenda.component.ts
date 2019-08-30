@@ -10,6 +10,8 @@ import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { ChartType, ChartDataSets, ChartOptions } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { FormaPagamento } from 'src/app/_models/Cadastros/FormaPagamento/FormaPagamento';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-relatorio-venda',
@@ -29,12 +31,16 @@ export class RelatorioVendaComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{ticks: {max: 5000, min: 0, stepSize: 1000}}] },
+    scales: { xAxes: [{}], yAxes: [{ticks: {max: 20000, min: 0, stepSize: 2000}}] },
     plugins: {
       datalabels: {
         formatter: (value, ctx) => {
           const label = value.toFixed(2).replace('.', ',');
-          return 'R$' + label;
+          if (Number(value) > 0) {
+            return 'R$' + label;
+          } else {
+            return '';
+          }
         },
         anchor: 'end',
         align: 'end',
@@ -72,13 +78,14 @@ export class RelatorioVendaComponent implements OnInit {
   carregarInformacoes() {
     let valorTotalReceitasVendas = 0;
     let valorTotalDespesasVendas = 0;
+    this.barChartData[0].data = [];
+    this.barChartData[1].data = [];
     const quantidadeVendasEmNegociacao = this.vendas.filter(c => c.status === 'EM NEGOCIAÇÃO').length;
     const quantidadeVendasEmImplantacao = this.vendas.filter(c => c.status === 'EM ANDAMENTO').length;
     const quantidadeVendasFinalizado = this.vendas.filter(c => c.status === 'FINALIZADO').length;
 
     this.vendas.forEach((venda) => {
       if (venda.vendaValorRealizado) {
-
         const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
         if (valorRealizadoReceitas.length > 0) {
           valorTotalReceitasVendas += valorRealizadoReceitas[0].recebimentos.valorTotal;
@@ -86,10 +93,44 @@ export class RelatorioVendaComponent implements OnInit {
 
         const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
         if (valorRealizadoDespesas.length > 0) {
-          valorTotalDespesasVendas += valorRealizadoDespesas[0].pagamentos.valorTotal;
+          valorRealizadoDespesas.forEach((despesa) => {
+            (despesa.pagamentos) ? valorTotalDespesasVendas += despesa.pagamentos.valorTotal :
+             valorTotalDespesasVendas = valorTotalDespesasVendas;
+          });
         }
       }
+
     });
+    const barChartArrayReceitas = [];
+    const barChartArrayDespesas = [];
+    for (let index = 1; index <= 12; index++) {
+
+      let valorTotalReceitasMes = 0;
+      let valorTotalDespesasMes = 0;
+      const vendas = this.vendas.filter(c => moment(c.dataEmissao, 'YYYY-MM-DD').month() === index);
+      vendas.forEach((venda) => {
+        if (venda.vendaValorRealizado) {
+          const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
+          if (valorRealizadoReceitas.length > 0) {
+            valorTotalReceitasMes += valorRealizadoReceitas[0].recebimentos.valorTotal;
+          }
+
+          const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.pagamentosId !== null);
+          if (valorRealizadoDespesas.length > 0) {
+            valorRealizadoDespesas.forEach((despesa) => {
+              (despesa.pagamentos) ? valorTotalDespesasMes += despesa.pagamentos.valorTotal :
+              valorTotalDespesasMes = valorTotalDespesasMes;
+            });
+          }
+        }
+      });
+
+      barChartArrayReceitas.push(valorTotalReceitasMes);
+      barChartArrayDespesas.push(valorTotalDespesasMes);
+    }
+    console.log(barChartArrayReceitas);
+    this.barChartData[0].data = barChartArrayReceitas;
+    this.barChartData[1].data = barChartArrayDespesas;
 
     this.informacoes = Object.assign({
       quantidadeEmNegociacao: quantidadeVendasEmNegociacao,

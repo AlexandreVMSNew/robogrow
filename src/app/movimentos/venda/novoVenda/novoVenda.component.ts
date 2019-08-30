@@ -50,7 +50,8 @@ export class NovoVendaComponent implements OnInit {
   cadastrarVenda() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     if (this.cadastroForm.valid) {
-      this.venda = Object.assign(this.cadastroForm.value, {id: 0, status: 'EM ABERTO', dataEmissao: dataAtual, dataHoraUltAlt: dataAtual});
+      this.venda = Object.assign(this.cadastroForm.value, {id: 0, status: 'EM NEGOCIAÇÃO',
+       dataEmissao: dataAtual, dataHoraUltAlt: dataAtual});
 
       this.vendaService.novoVenda(this.venda).subscribe(
         () => {
@@ -92,5 +93,4 @@ export class NovoVendaComponent implements OnInit {
       this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
     });
   }
-
 }

@@ -64,7 +64,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   valorPrevistoDisabled = true;
   idProdutoItemValorPrevisto: number;
 
-  status = ['EM ABERTO', 'FINALIZADO'];
+  status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'FINALIZADO'];
 
   planosPagamento: PlanoPagamento[];
   planoPagamentoIdSelecionado: any;
