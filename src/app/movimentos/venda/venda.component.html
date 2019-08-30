@@ -29,7 +29,10 @@
             <td style="white-space: nowrap;">{{ venda.clientes.nomeFantasia }}</td>
             <td style="white-space: nowrap;">{{ venda.dataEmissao  | date:'dd/MM/yyyy HH:mm'}}</td>
             <td style="text-align: center;">
-              <span style="text-align: center;" *ngIf="venda.status == 'EM ABERTO'"  class="label label-info">
+              <span style="text-align: center;" *ngIf="venda.status == 'EM IMPLANTAÇÃO'"  class="label label-info">
+                {{ venda.status }}
+              </span>
+              <span style="text-align: center;" *ngIf="venda.status == 'EM NEGOCIAÇÃO'"  class="label label-warning">
                 {{ venda.status }}
               </span>
               <span style="text-align: center;"*ngIf="venda.status == 'FINALIZADO'" class="label label-success">
