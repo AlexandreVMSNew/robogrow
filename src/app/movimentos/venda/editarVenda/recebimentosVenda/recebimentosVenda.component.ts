@@ -15,6 +15,7 @@ export class RecebimentosVendaComponent implements OnInit {
 
   @Input() produtoItem: ProdutoItem;
   @Input() idVenda: number;
+  @Input() vendaClienteId: number;
 
   recebimentos: Recebimentos[];
 
@@ -64,7 +65,6 @@ export class RecebimentosVendaComponent implements OnInit {
 
   abrirTemplateDetalharRecebimento(idRecebimento: number) {
     this.idDetalharRecebimento = idRecebimento;
-    console.log(this.idDetalharRecebimento);
     this.recebimentoService.setDetalharRecebimentoStatus(true);
   }
 

@@ -59,7 +59,7 @@
       </thead>
       <tbody *ngIf="retornos && retornos.length">
         <tr
-          *ngFor="let retorno of retornosFiltrados | paginate: { itemsPerPage: 5, currentPage: paginaAtual, totalItems: totalRegistros };">
+          *ngFor="let retorno of retornosFiltrados | paginate: { itemsPerPage: 25, currentPage: paginaAtual, totalItems: totalRegistros };">
           <td>{{ retorno.id }}</td>
           <td style="white-space: nowrap;">({{retorno.cliente.codSiga}}) - {{ retorno.cliente.nomeFantasia }}</td>
           <td style="text-align: center;">

@@ -242,5 +242,5 @@
 </div>
 
 <app-pagamentos-venda [produtoItem]="this.produtoItem" [idVenda]="this.idVenda" *ngIf="getPagamentosVenda() == true"></app-pagamentos-venda>
-<app-recebimentos-venda [produtoItem]="this.produtoItem" [idVenda]="this.idVenda" *ngIf="getRecebimentosVenda() == true"></app-recebimentos-venda>
+<app-recebimentos-venda [produtoItem]="this.produtoItem" [vendaClienteId]="this.vendaClienteId" [idVenda]="this.idVenda" *ngIf="getRecebimentosVenda() == true"></app-recebimentos-venda>
 

@@ -158,7 +158,7 @@ export class TemplateRecebimentoComponent implements OnInit {
       planoContasId: this.planoContasIdSelecionado,
       parcelas: []
     });
-
+    console.log(this.vendaClienteId);
     const valorTotal = this.cadastroRecebimento.get('valorTotal').value;
     const valorParcela = Number(Number(valorTotal) / this.qtdParcelas);
     for (let i = 0; i < this.qtdParcelas; i++) {

@@ -16,6 +16,7 @@ export class PagamentosVendaComponent implements OnInit {
 
   @Input() produtoItem: ProdutoItem;
   @Input() idVenda: number;
+  @Input() vendaClienteId: number;
 
   pagamentos: Pagamentos[];
 
