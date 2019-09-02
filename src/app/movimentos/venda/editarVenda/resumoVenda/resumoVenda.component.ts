@@ -35,6 +35,7 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
   previstoDespesaComissaoValores: VendaValorPrevisto[] = [];
   previstoDespesaGastoValores: VendaValorPrevisto[] = [];
 
+  realizadoReceitaValores = [];
   realizadoDespesaComissaoValores = [];
   realizadoDespesaGastoValores = [];
   subTipoItem: string;
@@ -167,6 +168,7 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
   somar(): any {
     if (this.verificarSoma === false) {
       this.valorTotalReceitasPrevisto = this.somarValores(this.previstoReceitaValores);
+      this.valorTotalReceitasRealizado = this.somarValores(this.realizadoReceitaValores);
       this.valorTotalDespesasComissaoPrevisto = this.somarValores(this.previstoDespesaComissaoValores);
       this.valorTotalDespesasComissaoRealizado = this.somarValores(this.realizadoDespesaComissaoValores);
       this.valorTotalDespesasGastoRealizado = this.somarValores(this.realizadoDespesaGastoValores);
@@ -204,12 +206,15 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
 
     this.vendaService.getVendaById(this.idVenda).subscribe((_VENDA: Venda) => {
       this.venda = Object.assign({}, _VENDA);
-      console.log(this.venda);
+
       this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
       this.vendaItensReceita.map(itemReceita => {
         const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemReceita.id);
-        if (valorRealizadoItem && valorRealizadoItem.length > 0) {
-          this.valorTotalReceitasRealizado = valorRealizadoItem[0].recebimentos.valorTotal;
+        if (valorRealizadoItem) {
+          valorRealizadoItem.forEach(valorRealizado => {
+            this.realizadoReceitaValores.push(valorRealizado.recebimentos.valorTotal);
+          });
+          this.verificarSoma = false;
         }
         this.vendaService.getVendaValorPrevistoByProdIdVendId(itemReceita.id, this.idVenda)
           .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
@@ -229,7 +234,6 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
           valorRealizadoItem.forEach(valorRealizado => {
             this.realizadoDespesaComissaoValores.push(valorRealizado.pagamentos.valorTotal);
           });
-          console.log(this.realizadoDespesaComissaoValores);
           this.verificarSoma = false;
         }
 

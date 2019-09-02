@@ -21,6 +21,7 @@ atualizaPagamentos = new EventEmitter<boolean>();
 atualizaResumoVenda = new EventEmitter<boolean>();
 
 pagamentosVenda = false;
+recebimentosVenda = false;
 configVenda = false;
 
 constructor(private http: HttpClient) { }
@@ -39,6 +40,14 @@ getPagamentosVendaStatus() {
 
 setPagamentosVendaStatus(val: boolean) {
   this.pagamentosVenda = val;
+}
+
+getRecebimentosVendaStatus() {
+  return this.recebimentosVenda;
+}
+
+setRecebimentosVendaStatus(val: boolean) {
+  this.recebimentosVenda = val;
 }
 
 getAllVenda(): Observable<Venda[]> {

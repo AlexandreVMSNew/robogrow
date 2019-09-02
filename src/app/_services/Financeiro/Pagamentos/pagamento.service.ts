@@ -12,8 +12,7 @@ export class PagamentoService {
   baseURL = InfoAPI.URL + '/api/pagamentos';
   detalharPagamento = false;
   templatePagamento = false;
-  
-  
+
   constructor(private http: HttpClient) { }
 
   getDetalharPagamentoStatus() {

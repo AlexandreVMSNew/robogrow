@@ -55,15 +55,12 @@ export class DetalharRecebimentoComponent implements OnInit {
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
-              private router: ActivatedRoute,
               private recebimentoService: RecebimentoService,
               private centroReceitaService: CentroReceitaService,
               private planoContaService: PlanoContaService,
               public dataService: DataService,
-              private clienteService: ClienteService,
               private planoPagamentoService: PlanoPagamentoService,
-              private formaPagamentoService: FormaPagamentoService,
-              private changeDetectionRef: ChangeDetectorRef) { }
+              private formaPagamentoService: FormaPagamentoService) { }
 
   ngOnInit() {
     this.getCentroReceita();
@@ -92,7 +89,6 @@ export class DetalharRecebimentoComponent implements OnInit {
           });
 
           this.recebimentoClientesId = this.recebimento.clientesId;
-          console.log(this.recebimento);
 
         }, error => {
           this.toastr.error(`Erro ao tentar carregar Recebimento: ${error.error}`);

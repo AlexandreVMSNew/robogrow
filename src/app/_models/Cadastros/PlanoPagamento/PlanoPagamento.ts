@@ -3,6 +3,7 @@ import { PlanoContas } from '../PlanoContas/planoContas';
 
 export class PlanoPagamento {
     id: number;
+    descricao: string;
     formaPagamentoId: number;
     formaPagamento: FormaPagamento;
     qtdParcelas: string;

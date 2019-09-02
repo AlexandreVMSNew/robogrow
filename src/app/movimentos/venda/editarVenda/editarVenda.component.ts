@@ -78,10 +78,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
               private router: ActivatedRoute,
               private vendaService: VendaService,
               private recebimentoService: RecebimentoService,
-              private pessoaService: PessoaService,
               public permissaoService: PermissaoService,
               public dataService: DataService,
-              private pagamentoService: PagamentoService,
               private changeDetectionRef: ChangeDetectorRef) {
                 this.vendaService.atualizaVenda.subscribe(x => {
                   this.carregarVenda();
@@ -217,14 +215,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
   }
 
-  getTemplateRecebimento() {
-    return this.recebimentoService.getTemplateRecebimentoStatus();
-  }
-
-  getDetalharRecebimento() {
-    return this.recebimentoService.getDetalharRecebimentoStatus();
-  }
-
   abrirTemplateRecebimento(produtoItem: ProdutoItem) {
     this.produtoItem = produtoItem;
     if (produtoItem.vendaValorRealizado && produtoItem.vendaValorRealizado.length > 0) {
@@ -243,10 +233,20 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     return this.vendaService.getPagamentosVendaStatus();
   }
 
+  getRecebimentosVenda() {
+    return this.vendaService.getRecebimentosVendaStatus();
+  }
+
   abrirPagamentosVenda(produtoItem: ProdutoItem) {
     this.produtoItem = produtoItem;
     this.vendaService.setPagamentosVendaStatus(true);
   }
+
+  abrirRecebimentosVenda(produtoItem: ProdutoItem) {
+    this.produtoItem = produtoItem;
+    this.vendaService.setRecebimentosVendaStatus(true);
+  }
+
 
   validarValorPrevistoForm() {
     this.cadastroValorPrevistoForm = this.fb.group({

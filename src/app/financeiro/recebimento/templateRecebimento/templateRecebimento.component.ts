@@ -153,6 +153,7 @@ export class TemplateRecebimentoComponent implements OnInit {
       clientesId: this.vendaClienteId,
       qtdParcelas: this.qtdParcelas,
       dataEmissao: this.dataService.getDataSQL(dataEmissao),
+      produtosItensId: this.produtoItem.id,
       centroReceitaId: this.centroReceitaIdSelecionado,
       planoContasId: this.planoContasIdSelecionado,
       parcelas: []

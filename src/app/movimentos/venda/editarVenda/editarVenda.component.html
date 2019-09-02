@@ -36,7 +36,7 @@
                             </a>
 
                             <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
-                              (click)="abrirTemplateRecebimento(item)"
+                              (click)="abrirRecebimentosVenda(item)"
                               tooltip="Valor Realizado" class="btn btn-sm btn-info">
                               <i class="fa fa-usd"></i>
                             </a>
@@ -242,8 +242,5 @@
 </div>
 
 <app-pagamentos-venda [produtoItem]="this.produtoItem" [idVenda]="this.idVenda" *ngIf="getPagamentosVenda() == true"></app-pagamentos-venda>
+<app-recebimentos-venda [produtoItem]="this.produtoItem" [idVenda]="this.idVenda" *ngIf="getRecebimentosVenda() == true"></app-recebimentos-venda>
 
-<app-template-recebimento [idVenda]="this.idVenda" [vendaClienteId]="this.vendaClienteId" [produtoItem]="this.produtoItem"
- *ngIf="getTemplateRecebimento() == true"></app-template-recebimento>
-
- <app-detalhar-recebimento [idRecebimento]="this.idDetalharRecebimento" *ngIf="getDetalharRecebimento() == true"></app-detalhar-recebimento>

@@ -36,11 +36,7 @@ export class RelatorioVendaComponent implements OnInit {
       datalabels: {
         formatter: (value, ctx) => {
           const label = value.toFixed(2).replace('.', ',');
-          if (Number(value) > 0) {
-            return 'R$' + label;
-          } else {
-            return '';
-          }
+          return '';
         },
         anchor: 'end',
         align: 'end',
@@ -136,8 +132,9 @@ export class RelatorioVendaComponent implements OnInit {
       quantidadeEmNegociacao: quantidadeVendasEmNegociacao,
       quantidadeEmImplantacao: quantidadeVendasEmImplantacao,
       quantidadeFinalizado: quantidadeVendasFinalizado,
+      quantidadeTotal: quantidadeVendasEmImplantacao + quantidadeVendasFinalizado,
       valorTotalReceitas: valorTotalReceitasVendas,
-      valorMedio: (valorTotalReceitasVendas / (quantidadeVendasEmImplantacao + quantidadeVendasFinalizado))
+      valorMedio: (valorTotalReceitasVendas / (quantidadeVendasEmImplantacao + quantidadeVendasFinalizado)),
     });
   }
 

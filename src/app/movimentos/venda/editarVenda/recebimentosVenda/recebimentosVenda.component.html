@@ -1,0 +1,79 @@
+{{abrirTemplate(templateRecebimentosVenda)}}
+<div bsModal #templateRecebimentosVenda="bs-modal" [config]="{backdrop: 'static', keyboard: false}" class="modal fade bd-example-modal-xl">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Recebimentos da Venda
+        </h4>
+
+        <button type="button" class="close pull-right" (click)="fecharTemplate(templateRecebimentosVenda)"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <div class="row">
+              <div style="margin-right: 15px;" class="pull-right">
+                <a (click)="abrirTemplateRecebimento()" class="btn btn-success">
+                  <i class="fa fa-plus-circle"></i>&nbsp; Novo Recebimento
+                </a>
+              </div>
+            </div>
+            <table style="margin-top: 15px;" class="table table-striped table-bordered mt-4">
+              <thead class="thead-light">
+                <tr>
+                  <th >Plano de Pagamento</th>
+                  <th style="text-align: center;">Data Emissão</th>
+                  <th style="text-align: center;">Valor</th>
+                  <th style="text-align: center;">Ações</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="recebimentos && recebimentos.length">
+                <tr
+                  *ngFor="let recebimento of recebimentos">
+                
+                  <td style="white-space: nowrap;">{{recebimento.planoPagamento.descricao}}</td>
+                  <td style="white-space: nowrap;text-align: center;">{{ recebimento.dataEmissao  | date:'dd/MM/yyyy'}}</td>
+                  <td style="white-space: nowrap;text-align: center;">{{ recebimento.valorTotal | currency:' ':false}}</td>
+                  <td style="text-align: center;white-space: nowrap;">
+                    <div class="btn-group">
+                      <a (click)="abrirTemplateDetalharRecebimento(recebimento.id)" tooltip="Detalhar Recebimento"
+                        class="btn btn-sm btn-primary">
+                        <i class="fa fa-edit"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="!recebimentos">
+                <tr colspan="7" class="text-center"></tr>
+                <h4>
+                  Nenhum Recebimento encontrado!
+                </h4>
+              </tfoot>
+            </table>
+
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templateRecebimentosVenda)">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<app-detalhar-recebimento [idRecebimento]="this.idDetalharRecebimento" *ngIf="getDetalharRecebimento() == true">
+</app-detalhar-recebimento>
+
+<app-template-recebimento [idVenda]="this.idVenda" [produtoItem]="this.produtoItem" *ngIf="getTemplateRecebimento() == true"></app-template-recebimento>

@@ -45,6 +45,7 @@ import { NovoVendaComponent } from './movimentos/venda/novoVenda/novoVenda.compo
 import { EditarVendaComponent } from './movimentos/venda/editarVenda/editarVenda.component';
 import { ResumoVendaComponent } from './movimentos/venda/editarVenda/resumoVenda/resumoVenda.component';
 import { PagamentosVendaComponent } from './movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component';
+import { RecebimentosVendaComponent } from './movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component';
 import { ConfigVendaComponent } from './movimentos/venda/configVenda/configVenda.component';
 import { RelatorioVendaComponent } from './movimentos/venda/relatorioVenda/relatorioVenda.component';
 
@@ -124,6 +125,7 @@ defineLocale('pt-br', ptBrLocale);
       ConfigVendaComponent,
       RelatorioVendaComponent,
       PagamentosVendaComponent,
+      RecebimentosVendaComponent,
       ProdutoComponent,
       NovoProdutoComponent,
       EditarProdutoComponent,
