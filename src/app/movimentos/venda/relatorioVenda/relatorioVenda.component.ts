@@ -26,7 +26,7 @@ export class RelatorioVendaComponent implements OnInit {
 
   dataPeriodo: DataPeriodo;
 
-  informacoes: any;
+  informacoes = Object.assign({});
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -81,17 +81,18 @@ export class RelatorioVendaComponent implements OnInit {
     const quantidadeVendasFinalizado = this.vendas.filter(c => c.status === 'FINALIZADO').length;
 
     this.vendas.forEach((venda) => {
-      if (venda.vendaValorRealizado) {
+      if (venda.vendaValorRealizado && venda.status !== 'EM NEGOCIAÇÃO') {
         const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
         if (valorRealizadoReceitas.length > 0) {
-          valorTotalReceitasVendas += valorRealizadoReceitas[0].recebimentos.valorTotal;
+          valorRealizadoReceitas.forEach((receita) => {
+            valorTotalReceitasVendas += receita.recebimentos.valorTotal;
+          });
         }
 
-        const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
+        const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.pagamentosId !== null);
         if (valorRealizadoDespesas.length > 0) {
           valorRealizadoDespesas.forEach((despesa) => {
-            (despesa.pagamentos) ? valorTotalDespesasVendas += despesa.pagamentos.valorTotal :
-             valorTotalDespesasVendas = valorTotalDespesasVendas;
+            valorTotalDespesasVendas += despesa.pagamentos.valorTotal;
           });
         }
       }
@@ -106,17 +107,18 @@ export class RelatorioVendaComponent implements OnInit {
       const vendas = this.vendas.filter(c => moment(c.dataNegociacao, 'YYYY-MM-DD').month() === index);
 
       vendas.forEach((venda) => {
-        if (venda.vendaValorRealizado) {
+        if (venda.vendaValorRealizado && venda.status !== 'EM NEGOCIAÇÃO') {
           const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
           if (valorRealizadoReceitas.length > 0) {
-            valorTotalReceitasMes += valorRealizadoReceitas[0].recebimentos.valorTotal;
+            valorRealizadoReceitas.forEach((receita) => {
+              valorTotalReceitasMes += receita.recebimentos.valorTotal;
+            });
           }
 
           const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.pagamentosId !== null);
           if (valorRealizadoDespesas.length > 0) {
             valorRealizadoDespesas.forEach((despesa) => {
-              (despesa.pagamentos) ? valorTotalDespesasMes += despesa.pagamentos.valorTotal :
-              valorTotalDespesasMes = valorTotalDespesasMes;
+              valorTotalDespesasMes += despesa.pagamentos.valorTotal;
             });
           }
         }
@@ -133,7 +135,7 @@ export class RelatorioVendaComponent implements OnInit {
       quantidadeEmImplantacao: quantidadeVendasEmImplantacao,
       quantidadeFinalizado: quantidadeVendasFinalizado,
       quantidadeTotal: quantidadeVendasEmImplantacao + quantidadeVendasFinalizado,
-      valorTotalReceitas: valorTotalReceitasVendas,
+      valorLiquidoReceitas: valorTotalReceitasVendas - valorTotalDespesasVendas,
       valorMedio: (valorTotalReceitasVendas / (quantidadeVendasEmImplantacao + quantidadeVendasFinalizado)),
     });
   }
