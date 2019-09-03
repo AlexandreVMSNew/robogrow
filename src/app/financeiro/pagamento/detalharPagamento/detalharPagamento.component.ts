@@ -16,6 +16,7 @@ import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagament
 import { FormaPagamentoService } from 'src/app/_services/Cadastros/FormaPagamento/formaPagamento.service';
 import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
+import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 
 @Component({
   selector: 'app-detalhar-pagamento',
@@ -25,6 +26,7 @@ import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 export class DetalharPagamentoComponent implements OnInit {
 
   @Input() idPagamento: number;
+  @Input() produtoItem: ProdutoItem;
 
   cadastroPagamento: FormGroup;
 

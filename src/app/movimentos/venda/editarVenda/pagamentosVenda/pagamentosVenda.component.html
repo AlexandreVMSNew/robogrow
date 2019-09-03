@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 id="dialog-sizes-name1" class="modal-title pull-left">
-          Pagamentos da Venda
+          Pagamentos da Venda ({{produtoItem.descricao}})
         </h4>
 
         <button type="button" class="close pull-right" (click)="fecharTemplate(templatePagamentosVenda)"
@@ -75,5 +75,5 @@
 
 <app-template-pagamento [idVenda]="this.idVenda" [produtoItem]="this.produtoItem" *ngIf="getTemplatePagamento() == true"></app-template-pagamento>
 
-<app-detalhar-pagamento [idPagamento]="this.idDetalharPagamento" *ngIf="getDetalharPagamento() == true">
+<app-detalhar-pagamento [idPagamento]="this.idDetalharPagamento" [produtoItem]="this.produtoItem" *ngIf="getDetalharPagamento() == true">
 </app-detalhar-pagamento>

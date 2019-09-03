@@ -17,6 +17,7 @@ import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.ser
 import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
 import { FormaPagamentoService } from 'src/app/_services/Cadastros/FormaPagamento/formaPagamento.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 
 @Component({
   selector: 'app-detalhar-recebimento',
@@ -26,6 +27,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap';
 export class DetalharRecebimentoComponent implements OnInit {
 
   @Input() idRecebimento: number;
+  @Input() produtoItem: ProdutoItem;
 
   cadastroRecebimento: FormGroup;
 

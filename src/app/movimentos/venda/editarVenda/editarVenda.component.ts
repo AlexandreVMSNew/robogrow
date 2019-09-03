@@ -19,6 +19,7 @@ import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/re
 import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
 import { PagamentoService } from 'src/app/_services/Financeiro/Pagamentos/pagamento.service';
+import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValorRealizado';
 
 @Component({
   selector: 'app-editar-venda',
@@ -262,12 +263,23 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     return false;
   }
 
-  verificarPagamento(vendaValorRealizado: any): boolean {
-    if (vendaValorRealizado) {
-      if (vendaValorRealizado.vendaValorRealizadoValores) {
-        if (vendaValorRealizado.vendaValorRealizadoValores.length > 0) {
-          return true;
-        }
+  verificarValorPrevistoMaiorZero(vendaValorPrevisto: any): boolean {
+    if (vendaValorPrevisto) {
+      if (vendaValorPrevisto.valor > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  verificarPagamento(ValorRealizado: any): boolean {
+    if (ValorRealizado) {
+      if (ValorRealizado.length > 0) {
+        return true;
+      } else {
+        return false;
       }
     }
     return false;
