@@ -134,7 +134,7 @@ export class SidebarService {
           link: 'movimentos/vendas'
         },
         {
-          title: 'Relatório Venda',
+          title: 'Relatórios Venda',
           icon: 'fa fa-shopping-cart',
           link: 'movimentos/vendas/relatorios'
         }

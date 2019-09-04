@@ -65,6 +65,9 @@ export class PermissaoComponent implements OnInit, AfterViewInit {
       nome: 'VENDA'
     },
     {
+      nome: 'RELATÓRIOS VENDA'
+    },
+    {
       nome: 'PERMISSOES'
     }
   ];

@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { BsLocaleService, BsDatepickerConfig } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
-import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValorRealizado';
 import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { ChartType, ChartDataSets, ChartOptions } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
-import { FormaPagamento } from 'src/app/_models/Cadastros/FormaPagamento/FormaPagamento';
 import * as moment from 'moment';
+import { Permissao } from 'src/app/_models/Permissoes/permissao';
 
 @Component({
   selector: 'app-relatorio-venda',
@@ -19,10 +18,11 @@ import * as moment from 'moment';
   styleUrls: ['./relatorioVenda.component.css']
 })
 
-export class RelatorioVendaComponent implements OnInit {
+export class RelatorioVendaComponent implements OnInit, AfterViewInit {
 
   vendas: Venda[];
 
+  visualizarRelatorio = false;
 
   dataPeriodo: DataPeriodo;
 
@@ -69,6 +69,12 @@ export class RelatorioVendaComponent implements OnInit {
       }
     );
     this.getVendas(this.dataPeriodo);
+  }
+
+  ngAfterViewInit() {
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS VENDA', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
+      this.visualizarRelatorio = this.permissaoService.verificarPermissao(_PERMISSAO);
+    });
   }
 
   carregarInformacoes() {

@@ -28,6 +28,7 @@ import { PagamentoComponent } from '../financeiro/pagamento/pagamento.component'
 import { LancamentoComponent } from '../financeiro/lancamento/lancamento.component';
 import { RelatorioLancamentoComponent } from '../financeiro/lancamento/relatorioLancamento/relatorioLancamento.component';
 import { ChequePreComponent } from '../cadastros/chequePre/chequePre.component';
+import { RelatorioVendaComponent } from '../movimentos/venda/relatorioVenda/relatorioVenda.component';
 
 @Injectable({
   providedIn: 'root'
@@ -122,6 +123,16 @@ export class AuthGuard implements CanActivate {
       } else if (next.component === VendaComponent) {
 
         this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === RelatorioVendaComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS VENDA', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;

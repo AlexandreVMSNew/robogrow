@@ -56,6 +56,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       listar: false
     },
     {
+      component: 'Relatórios Venda',
+      listar: false
+    },
+    {
       component: 'Clientes',
       listar: false
     },
@@ -223,6 +227,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
         this.permissoes.filter(c => c.component === 'Venda')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
         this.permissoes.filter(c => c.component === 'Movimentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS VENDA', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
+        // tslint:disable-next-line:max-line-length
+        this.permissoes.filter(c => c.component === 'Relatórios Venda')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
       });
     }
   }
