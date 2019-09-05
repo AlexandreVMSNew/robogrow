@@ -3,10 +3,69 @@
 <hr width="100%">
 <div class="box box-solid">
   <div class="box-header with-border">
-    <tabset >
+    <tabset>
       <tab heading="Geral" style="margin-top: 10px;">
         <form [formGroup]="cadastroForm" class="mt-3">
 
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label>Data Negociação: </label>
+              <input *ngIf="disabledDataNegociacao() == true" type="text" class="form-control"
+                formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker
+                [bsConfig]="this.bsConfig" disabled />
+
+              <input *ngIf="disabledDataNegociacao() == false" type="text" class="form-control"
+                formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker
+                [bsConfig]="this.bsConfig" />
+            </div>
+
+            <div class="form-group col-md-2">
+              <label>Data Finalizado: </label>
+              <input type="text" class="form-control" formControlName="dataFinalizado"
+                [ngModel]="cadastroForm.get('dataFinalizado').value" bsDatepicker [bsConfig]="this.bsConfig" disabled />
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Empresa</label>
+              <ng-select disabled style="text-transform: uppercase"  [clearable]="false" [items]="empresas" bindLabel="nomeFantasia" bindValue="id"
+                [(ngModel)]="empresaIdSelecionado" formControlName="empresasId">
+              </ng-select >
+            </div>
+
+            <div class="form-group col-md-2">
+              <label>Vendedor</label>
+              <ng-select style="text-transform: uppercase" [clearable]="false" [items]="vendedores" bindLabel="nome" bindValue="id"
+                [(ngModel)]="vendedorIdSelecionado" formControlName="vendedorId" >
+              </ng-select>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Cliente</label>
+              <ng-select style="text-transform: uppercase" [clearable]="false" [items]="clientes" bindLabel="nomeFantasia" bindValue="id"
+                [(ngModel)]="clienteIdSelecionado" formControlName="clientesId" >
+              </ng-select>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Produto</label>
+              <ng-select style="text-transform: uppercase" [clearable]="false" [items]="produtos" bindLabel="descricao" bindValue="id"
+                [(ngModel)]="produtoIdSelecionado" formControlName="produtoId" >
+              </ng-select>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label>Status:</label>
+              <ng-select [clearable]="false" *ngIf="disabledStatus() == true" (change)="setarDataFinalizado(cadastroForm.get('status').value)" [items]="status"
+                [(ngModel)]="cadastroForm.get('status').value" formControlName="status" disabled>
+              </ng-select> 
+            </div>
+
+            <button style="position:relative;margin-top:15px;" (click)="gerarPDF()" tooltip="Gerar Pedido de Venda"
+              class="btn btn-lg btn-primary">
+              &nbsp;Gerar Pedido
+            </button>
+          </div>
+          <hr style="width: 100%">
           <div class="row">
 
             <div class="col-md-6">
@@ -36,8 +95,8 @@
                             </a>
 
                             <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
-                              (click)="abrirRecebimentosVenda(item)"
-                              tooltip="Valor Realizado" class="btn btn-sm btn-info">
+                              (click)="abrirRecebimentosVenda(item)" tooltip="Valor Realizado"
+                              class="btn btn-sm btn-info">
                               <i class="fa fa-usd"></i>
                             </a>
                             <a *ngIf="this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
@@ -54,35 +113,6 @@
                 </div>
               </div>
             </div>
-            <div class="form-group col-md-2">
-              <label>Data Negociação: </label>
-              <input *ngIf="disabledDataNegociacao() == true" type="text" class="form-control"
-                formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker
-                [bsConfig]="this.bsConfig" disabled />
-
-              <input *ngIf="disabledDataNegociacao() == false" type="text" class="form-control"
-                formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker
-                [bsConfig]="this.bsConfig" />
-            </div>
-
-            <div *ngIf="showedDataFinalizado() == true" class="form-group col-md-2">
-              <label>Data Finalizado: </label>
-              <input type="text" class="form-control" formControlName="dataFinalizado"
-                [ngModel]="cadastroForm.get('dataFinalizado').value" bsDatepicker [bsConfig]="this.bsConfig" disabled />
-            </div>
-
-            <div class="form-group col-md-2">
-              <label>Status:</label>
-              <ng-select *ngIf="disabledStatus() == true" [clearable]="false"
-                (change)="setarDataFinalizado(cadastroForm.get('status').value)" [items]="status"
-                [ngModel]="cadastroForm.get('status').value" formControlName="status">
-              </ng-select>
-            </div>
-
-            <button style="position:relative;" 
-              (click)="gerarPDF()" tooltip="Salvar" class="btn btn-lg btn-primary" disabled>
-              &nbsp;Gerar Pedido
-            </button>
 
           </div>
 
@@ -128,7 +158,8 @@
                             </a>
 
                             <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
-                              tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)" class="btn btn-sm btn-info">
+                              tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)"
+                              class="btn btn-sm btn-info">
                               <i class="fa fa-usd"></i>
                             </a>
                             <a *ngIf="this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
@@ -174,7 +205,8 @@
                             </a>
 
                             <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
-                              tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)" class="btn btn-sm btn-info">
+                              tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)"
+                              class="btn btn-sm btn-info">
                               <i class="fa fa-usd"></i>
                             </a>
                             <a *ngIf="this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
@@ -249,9 +281,10 @@
       </div>
     </div>
 
-  </div> 
+  </div>
 </div>
 
-<app-pagamentos-venda [produtoItem]="this.produtoItem" [idVenda]="this.idVenda" *ngIf="getPagamentosVenda() == true"></app-pagamentos-venda>
-<app-recebimentos-venda [produtoItem]="this.produtoItem" [vendaClienteId]="this.vendaClienteId" [idVenda]="this.idVenda" *ngIf="getRecebimentosVenda() == true"></app-recebimentos-venda>
-
+<app-pagamentos-venda [produtoItem]="this.produtoItem" [idVenda]="this.idVenda" *ngIf="getPagamentosVenda() == true">
+</app-pagamentos-venda>
+<app-recebimentos-venda [produtoItem]="this.produtoItem" [vendaClienteId]="this.vendaClienteId" [idVenda]="this.idVenda"
+  *ngIf="getRecebimentosVenda() == true"></app-recebimentos-venda>

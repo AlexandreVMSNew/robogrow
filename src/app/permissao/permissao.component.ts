@@ -17,6 +17,9 @@ export class PermissaoComponent implements OnInit, AfterViewInit {
   formularios: any =
   [
     {
+      nome: 'EMPRESAS'
+    },
+    {
       nome: 'USUARIOS'
     },
     {

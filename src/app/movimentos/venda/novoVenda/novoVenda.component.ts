@@ -10,6 +10,10 @@ import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { VendaProduto } from 'src/app/_models/Movimentos/Venda/VendaProduto';
+import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
+import { EmpresaService } from 'src/app/_services/Cadastros/Empresas/empresa.service';
+import { Empresa } from 'src/app/_models/Cadastros/Empresas/empresa';
+import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 @Component({
   selector: 'app-novo-venda',
   templateUrl: './novoVenda.component.html'
@@ -21,6 +25,12 @@ export class NovoVendaComponent implements OnInit {
   clientes: Cliente[];
   clienteIdSelecionado: any;
 
+  empresas: Empresa[];
+  empresaIdSelecionado: any;
+
+  vendedores: Pessoa[];
+  vendedorIdSelecionado: any;
+
   produtos: Produto[];
   produtoIdSelecionado: any;
 
@@ -31,11 +41,15 @@ export class NovoVendaComponent implements OnInit {
               private router: Router,
               private clienteService: ClienteService,
               private produtoService: ProdutoService,
+              private pessoaService: PessoaService,
+              private empresaService: EmpresaService,
               private vendaService: VendaService) { }
 
   ngOnInit() {
     this.getClientes();
     this.getProdutos();
+    this.getEmpresas();
+    this.getVendedores();
     this.validarForm();
   }
 
@@ -43,7 +57,9 @@ export class NovoVendaComponent implements OnInit {
     this.cadastroForm = this.fb.group({
         id:  [''],
         clientesId: ['', Validators.required],
-        produtoId: ['', Validators.required]
+        produtoId: ['', Validators.required],
+        empresasId: ['', Validators.required],
+        vendedorId: ['', Validators.required]
     });
   }
 
@@ -91,6 +107,29 @@ export class NovoVendaComponent implements OnInit {
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
+    });
+  }
+
+  getEmpresas() {
+    this.empresaService.getAllEmpresa().subscribe(
+      (_EMPRESAS: Empresa[]) => {
+      this.empresas = _EMPRESAS.filter(cliente => cliente.status !== 'INATIVO');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar empresas: ${error.error}`);
+    });
+  }
+
+  getVendedores() {
+    this.pessoaService.getAllPessoa().subscribe(
+      (_PESSOAS: Pessoa[]) => {
+      console.log(_PESSOAS);
+      this.vendedores = _PESSOAS.filter(pessoa =>
+        pessoa.pessoaTipos.filter(c => c.tiposPessoa.descricao === 'VENDEDOR').length > 0
+        && pessoa.status !== 'INATIVO');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar vendedores: ${error.error}`);
     });
   }
 }

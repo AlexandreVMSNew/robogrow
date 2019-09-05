@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Empresa } from 'src/app/_models/Cadastros/Empresas/empresa';
+import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
@@ -70,10 +70,10 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
       this.novo = this.permissaoService.verificarPermissao(_PERMISSAO);
     });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
       this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
     });
   }

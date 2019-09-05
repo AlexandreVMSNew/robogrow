@@ -64,6 +64,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       listar: false
     },
     {
+      component: 'Minhas Empresas',
+      listar: false
+    },
+    {
       component: 'Produtos',
       listar: false
     },
@@ -222,6 +226,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       this.permissaoService.getPermissoesByFormularioAcaoObjeto('FINANCEIRO', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
         this.permissoes.filter(c => c.component === 'Financeiro')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Minhas Empresas')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
       });
 
       this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {

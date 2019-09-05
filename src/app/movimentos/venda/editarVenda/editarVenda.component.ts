@@ -19,6 +19,12 @@ import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/re
 import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
 import * as jsPDF from 'jspdf';
+import { Empresa } from 'src/app/_models/Cadastros/Empresas/empresa';
+import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
+import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
+import { ProdutoService } from 'src/app/_services/Cadastros/Produtos/produto.service';
+import { EmpresaService } from 'src/app/_services/Cadastros/Empresas/empresa.service';
+
 @Component({
   selector: 'app-editar-venda',
   templateUrl: './editarVenda.component.html',
@@ -40,6 +46,16 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   pessoaIdSelecionado: any;
 
   clientes: Cliente[];
+  clienteIdSelecionado: any;
+
+  empresas: Empresa[];
+  empresaIdSelecionado: any;
+
+  vendedores: Pessoa[];
+  vendedorIdSelecionado: any;
+
+  produtos: Produto[];
+  produtoIdSelecionado: any;
 
   centrosDespesa: CentroDespesa[];
   centroDespesaIdSelecionado: any;
@@ -79,6 +95,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
               private recebimentoService: RecebimentoService,
               public permissaoService: PermissaoService,
               public dataService: DataService,
+              private clienteService: ClienteService,
+              private produtoService: ProdutoService,
+              private pessoaService: PessoaService,
+              private empresaService: EmpresaService,
               private changeDetectionRef: ChangeDetectorRef) {
                 this.vendaService.atualizaVenda.subscribe(x => {
                   this.carregarVenda();
@@ -87,6 +107,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   ngOnInit() {
     this.idVenda = +this.router.snapshot.paramMap.get('id');
+    this.getClientes();
+    this.getProdutos();
+    this.getEmpresas();
+    this.getVendedores();
     this.validarForm();
     this.validarValorPrevistoForm();
     this.validarNovoValorForm();
@@ -124,6 +148,11 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
             dataFinalizado: this.dataService.getDataPTBR(this.venda.dataFinalizado)
           });
 
+          this.produtoIdSelecionado = this.venda.vendaProdutos[0].produtosId;
+          this.empresaIdSelecionado = this.venda.empresasId;
+          this.vendedorIdSelecionado = this.venda.vendedorId;
+          this.clienteIdSelecionado = this.venda.clientesId;
+
           this.cadastroForm.patchValue(this.venda);
           this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
           this.vendaItensEntrada.forEach(item => {
@@ -159,15 +188,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     documento.output('dataurlnewwindow');
   }
 
-  disabledDataNegociacao() {
-    if (this.venda) {
-      if (this.venda.dataNegociacao.toString() !== '') {
-        return true;
-      }
-    }
-    return false;
-  }
-
   disabledStatus() {
     if (this.venda) {
       if (this.venda.status === 'FINALIZADO') {
@@ -179,6 +199,15 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       }
     }
     return true;
+  }
+
+  disabledDataNegociacao() {
+    if (this.venda) {
+      if (this.venda.dataNegociacao.toString() !== '') {
+        return true;
+      }
+    }
+    return false;
   }
 
   showedDataFinalizado() {
@@ -212,6 +241,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.cadastroForm = this.fb.group({
         id:  [''],
         clientesId: ['', Validators.required],
+        vendedorId: ['', Validators.required],
+        empresasId: ['', Validators.required],
+        produtoId: ['', Validators.required],
         status: ['', Validators.required],
         dataEmissao: [''],
         dataNegociacao: [''],
@@ -343,11 +375,14 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   salvarAlteracoes() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const dataNeg = this.cadastroForm.get('dataNegociacao').value.toLocaleString();
+    const dataFin = this.cadastroForm.get('dataFinalizado').value.toLocaleString();
 
     this.venda = Object.assign(this.cadastroForm.value, {id: this.venda.id,
       dataNegociacao: this.dataService.getDataSQL(dataNeg),
+      dataFinalizado: this.dataService.getDataSQL(dataFin),
       dataHoraUltAlt: dataAtual
     });
+
     this.vendaService.editarVenda(this.venda).subscribe(
       () => {
         this.toastr.success('Editado com sucesso!');
@@ -356,6 +391,48 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
         console.log(error);
       });
+  }
+
+  getProdutos() {
+    this.produtoService.getAllProduto().subscribe(
+      (_PRODUTOS: Produto[]) => {
+      this.produtos = _PRODUTOS;
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar produtos: ${error.error}`);
+    });
+  }
+
+  getClientes() {
+    this.clienteService.getAllCliente().subscribe(
+      (_CLIENTES: Cliente[]) => {
+      this.clientes = _CLIENTES.filter(cliente => cliente.status !== 'INATIVO');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
+    });
+  }
+
+  getEmpresas() {
+    this.empresaService.getAllEmpresa().subscribe(
+      (_EMPRESAS: Empresa[]) => {
+      this.empresas = _EMPRESAS.filter(cliente => cliente.status !== 'INATIVO');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar empresas: ${error.error}`);
+    });
+  }
+
+  getVendedores() {
+    this.pessoaService.getAllPessoa().subscribe(
+      (_PESSOAS: Pessoa[]) => {
+      this.vendedores = _PESSOAS.filter(pessoa =>
+        pessoa.pessoaTipos.filter(c => c.tiposPessoa.descricao === 'VENDEDOR').length > 0
+        && pessoa.status !== 'INATIVO');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar vendedores: ${error.error}`);
+    });
   }
 
 }

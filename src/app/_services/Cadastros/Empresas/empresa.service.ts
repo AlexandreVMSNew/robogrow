@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
-import { Empresa } from 'src/app/_models/Cadastros/Empresas/empresa';
+import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

@@ -6,6 +6,8 @@ import { VendaProduto } from './VendaProduto';
 
 export class Venda {
     id: number;
+    empresasId: number;
+    vendedorId: number;
     clientesId: number;
     clientes: Cliente;
     status: string;

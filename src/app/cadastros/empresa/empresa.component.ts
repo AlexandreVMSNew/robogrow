@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresa } from 'src/app/_models/Cadastros/Empresas/empresa';
+import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { FormGroup } from '@angular/forms';
-import { Cidade } from 'src/app/_models/Cadastros/Uteis/Cidade';
-import { Estado } from 'src/app/_models/Cadastros/Uteis/Estado';
-import { CidadeService } from 'src/app/_services/Cadastros/Uteis/cidade.service';
-import { EstadoService } from 'src/app/_services/Cadastros/Uteis/estado.service';
 import { BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
@@ -19,7 +15,6 @@ export class EmpresaComponent implements OnInit {
 
   novo = false;
   editar = false;
-  excluir = false;
   visualizar = false;
 
   empresa: Empresa;
@@ -49,16 +44,13 @@ export class EmpresaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
       this.novo = this.permissaoService.verificarPermissao(_PERMISSAO);
     });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
       this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
     });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'EXCLUIR').subscribe((_PERMISSAO: Permissao) => {
-      this.excluir = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
       this.visualizar = this.permissaoService.verificarPermissao(_PERMISSAO);
     });
   }
@@ -77,7 +69,6 @@ export class EmpresaComponent implements OnInit {
     this.empresaService.getAllEmpresa().subscribe(
       (_EMPRESAS: Empresa[]) => {
       this.empresas = _EMPRESAS;
-      console.log(this.empresas);
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar empresas: ${error.error}`);
