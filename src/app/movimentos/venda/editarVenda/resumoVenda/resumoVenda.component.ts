@@ -60,6 +60,18 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
 
   verificarSoma = false;
   public pieChartOptions: ChartOptions = {
+    tooltips: {
+      callbacks: {
+        label: (value, ctx) => {
+          const texto = ctx.labels[value.index];
+          return texto;
+        },
+        afterLabel: (value, ctx) => {
+          const texto = Number(ctx.datasets[0].data[value.index]).toFixed(2).replace('.', ',');
+          return 'R$ ' +  texto;
+        },
+      }
+    },
     responsive: true,
     legend: {
       position: 'top',
@@ -67,8 +79,7 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
     plugins: {
       datalabels: {
         formatter: (value, ctx) => {
-          const label = value.toFixed(2).replace('.', ',');
-          return 'R$' + label;
+          return '';
         },
       },
     }
@@ -86,7 +97,14 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
+    tooltips: {
+      callbacks: {
+        label: (item, ctx) => {
+          const texto = Number(item.value).toFixed(2).replace('.', ',');
+          return 'R$ ' +  texto;
+        }
+      },
+    },
     scales: { xAxes: [{}], yAxes: [{ticks: {max: 5000, min: 0, stepSize: 1000}}] },
     plugins: {
       datalabels: {
@@ -105,8 +123,10 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
   public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
-    { data: [0], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)'},
-    { data: [0], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)'}
+    { data: [0], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)',
+      borderColor: 'rgba(0,192,239,1)'},
+    { data: [0], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)',
+      borderColor: 'rgba(221,75,57,1)'}
   ];
 
   constructor(private toastr: ToastrService,

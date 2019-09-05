@@ -65,7 +65,7 @@
       </thead>
       <tbody *ngIf="clientes && clientes.length">
         <tr
-          *ngFor="let cliente of clientesFiltrados | paginate: { itemsPerPage: 5, currentPage: paginaAtual, totalItems: totalRegistros };">
+          *ngFor="let cliente of clientesFiltrados | paginate: { itemsPerPage: 30, currentPage: paginaAtual, totalItems: totalRegistros };">
           <td>{{ cliente.id }}</td>
           <td style="white-space: nowrap;">{{ cliente.razaoSocial }}</td>
           <td style="white-space: nowrap;">{{ cliente.nomeFantasia }}</td>

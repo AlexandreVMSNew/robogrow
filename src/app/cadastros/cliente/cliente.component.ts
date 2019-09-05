@@ -31,7 +31,7 @@ export class ClienteComponent implements OnInit, AfterViewInit {
   bodyExcluirCliente = '';
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0;
 
   status = ['ATIVO', 'INATIVO', 'PROSPECT', 'TODOS'];
   statusFiltroSelecionado = 'ATIVO';

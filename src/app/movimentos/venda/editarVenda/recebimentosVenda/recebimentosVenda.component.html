@@ -26,6 +26,7 @@
             <table style="margin-top: 15px;" class="table table-striped table-bordered mt-4">
               <thead class="thead-light">
                 <tr>
+                  <th >Id</th>
                   <th >Plano de Pagamento</th>
                   <th style="text-align: center;">Data Emissão</th>
                   <th style="text-align: center;">Valor</th>
@@ -35,7 +36,7 @@
               <tbody *ngIf="recebimentos && recebimentos.length">
                 <tr
                   *ngFor="let recebimento of recebimentos">
-                
+                  <td style="white-space: nowrap;">{{recebimento.id}}</td>
                   <td style="white-space: nowrap;">{{recebimento.planoPagamento.descricao}}</td>
                   <td style="white-space: nowrap;text-align: center;">{{ recebimento.dataEmissao  | date:'dd/MM/yyyy'}}</td>
                   <td style="white-space: nowrap;text-align: center;">{{ recebimento.valorTotal | currency:' ':false}}</td>

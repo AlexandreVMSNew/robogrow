@@ -18,9 +18,7 @@ import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/recebimento.service';
 import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
-import { PagamentoService } from 'src/app/_services/Financeiro/Pagamentos/pagamento.service';
-import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValorRealizado';
-
+import * as jsPDF from 'jspdf';
 @Component({
   selector: 'app-editar-venda',
   templateUrl: './editarVenda.component.html',
@@ -153,6 +151,12 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
           console.log(error);
         });
+  }
+
+  gerarPDF() {
+    const documento: jsPDF = new jsPDF();
+    documento.text('Relatório em PDF no Angular', 10, 10);
+    documento.output('dataurlnewwindow');
   }
 
   disabledDataNegociacao() {

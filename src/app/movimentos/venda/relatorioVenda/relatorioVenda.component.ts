@@ -30,6 +30,14 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
+    tooltips: {
+      callbacks: {
+        label: (item, ctx) => {
+          const texto = Number(item.value).toFixed(2).replace('.', ',');
+          return 'R$ ' +  texto;
+        }
+      }
+    },
     // We use these empty structures as placeholders for dynamic theming.
     scales: { xAxes: [{}], yAxes: [{ticks: {max: 20000, min: 0, stepSize: 2000}}] },
     plugins: {
@@ -50,8 +58,10 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
   public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
-    { data: [], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)'},
-    { data: [], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)'}
+    { data: [0], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)',
+      borderColor: 'rgba(0,192,239,1)'},
+    { data: [0], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)',
+      borderColor: 'rgba(221,75,57,1)'}
   ];
 
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });

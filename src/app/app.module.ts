@@ -80,6 +80,11 @@ import { RelatorioLancamentoComponent } from './financeiro/lancamento/relatorioL
 import { ChequePreComponent } from './cadastros/chequePre/chequePre.component';
 import { ChequePreTemplateComponent } from './cadastros/chequePre/chequePreTemplate/chequePreTemplate.component';
 
+import { PermissaoComponent } from './permissao/permissao.component';
+
+import { EmpresaComponent } from './cadastros/empresa/empresa.component';
+import { EmpresaTemplateComponent } from './cadastros/empresa/empresaTemplate/empresaTemplate.component';
+
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
 import { CepPipe } from './pipes/cep.pipe';
@@ -95,7 +100,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
-import { PermissaoComponent } from './permissao/permissao.component';
 
 const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
@@ -148,6 +152,8 @@ defineLocale('pt-br', ptBrLocale);
       RelatorioLancamentoComponent,
       ChequePreComponent,
       ChequePreTemplateComponent,
+      EmpresaComponent,
+      EmpresaTemplateComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,

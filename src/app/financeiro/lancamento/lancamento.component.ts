@@ -19,7 +19,7 @@ export class LancamentoComponent implements OnInit, AfterViewInit {
   lancamentos: Lancamentos[];
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   idLancamento: number;
   constructor(private localeService: BsLocaleService,

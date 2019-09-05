@@ -29,7 +29,7 @@ export class ProdutoComponent implements OnInit, AfterViewInit {
   filtroProdutos: any;
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   constructor(private produtoService: ProdutoService,
               private localeService: BsLocaleService,

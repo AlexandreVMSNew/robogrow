@@ -42,7 +42,7 @@ export class RetornoComponent implements OnInit {
   clienteIdSelecionado: any;
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   filtrarPor = ['CLIENTE', 'DATA', 'PRIORIDADE'];
   filtroSelecionado = 'DATA';

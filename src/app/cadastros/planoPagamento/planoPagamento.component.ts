@@ -34,7 +34,7 @@ export class PlanoPagamentoComponent implements OnInit, AfterViewChecked, AfterV
   planoContasIdSelecionado = 0;
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   modo = '';
 

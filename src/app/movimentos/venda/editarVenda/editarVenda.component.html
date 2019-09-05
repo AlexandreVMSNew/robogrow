@@ -79,6 +79,11 @@
               </ng-select>
             </div>
 
+            <button style="position:relative;" 
+              (click)="gerarPDF()" tooltip="Salvar" class="btn btn-lg btn-primary" disabled>
+              &nbsp;Gerar Pedido
+            </button>
+
           </div>
 
           <hr style="width: 100%">
@@ -200,6 +205,7 @@
   (click)="salvarAlteracoes()" tooltip="Salvar" class="btn btn-lg btn-primary">
   &nbsp;Salvar Alterações
 </button>
+
 
 <div bsModal #templateValorPrevisto="bs-modal" class="modal fade">
   <div class="modal-dialog modal-sm">

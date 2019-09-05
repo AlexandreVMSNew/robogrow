@@ -24,7 +24,7 @@ export class CentroDespesaComponent implements OnInit, AfterViewChecked, AfterVi
   centroDespesa: CentroDespesa;
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   modo = '';
 

@@ -32,7 +32,7 @@ export class PessoaComponent implements OnInit, AfterViewInit {
   bodyExcluirPessoa = '';
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   status = ['ATIVO', 'INATIVO', 'TODOS'];
   statusFiltroSelecionado = 'ATIVO';

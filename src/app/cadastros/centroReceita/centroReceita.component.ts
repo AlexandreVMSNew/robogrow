@@ -24,7 +24,7 @@ export class CentroReceitaComponent implements OnInit, AfterViewChecked, AfterVi
   centroReceita: CentroReceita;
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   modo = '';
 

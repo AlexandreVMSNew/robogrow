@@ -63,7 +63,6 @@ export class TemplateRecebimentoComponent implements OnInit {
   intervaloParcelas: number;
 
   valorRealizado: VendaValorRealizado;
-  idValorRealizado: number;
   idProdutoItemValorRealizado: number;
 
   vendaConfig: VendaConfig;
@@ -147,22 +146,10 @@ export class TemplateRecebimentoComponent implements OnInit {
     this.intervaloParcelas = Number(this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).intervaloParcelas);
     this.formaPagamentoIdSelecionado = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).formaPagamentoId;
     const formaPag = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).formaPagamento;
-    this.recebimento = Object.assign(this.cadastroRecebimento.value, {
-      id: 0,
-      vendaId: this.idVenda,
-      clientesId: this.vendaClienteId,
-      qtdParcelas: this.qtdParcelas,
-      dataEmissao: this.dataService.getDataSQL(dataEmissao),
-      produtosItensId: this.produtoItem.id,
-      centroReceitaId: this.centroReceitaIdSelecionado,
-      planoContasId: this.planoContasIdSelecionado,
-      parcelas: []
-    });
-    console.log(this.vendaClienteId);
     const valorTotal = this.cadastroRecebimento.get('valorTotal').value;
     const valorParcela = Number(Number(valorTotal) / this.qtdParcelas);
     for (let i = 0; i < this.qtdParcelas; i++) {
-      const documentoText = this.idVenda + '/' + (i + 1);
+      const documentoText = (i + 1). toString();
       let diasSoma = 0;
       let mesSoma = 0;
       if (this.prazoPrimeiraParcela === 0) {
@@ -235,31 +222,58 @@ export class TemplateRecebimentoComponent implements OnInit {
 
   lancarRecebimento() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    this.parcelas.forEach((parcela) => {
-      const parc = Object.assign(parcela, {
-        dataVencimento: this.dataService.getDataSQL(parcela.dataVencimento),
-        formaPagamento: null,
-      });
-      this.recebimento.parcelas.push(parc);
-    });
-    this.valorRealizado = Object.assign({
+    const dataEmissao = this.cadastroRecebimento.get('dataEmissao').value.toLocaleString();
+    this.recebimento = Object.assign(this.cadastroRecebimento.value, {
       id: 0,
       vendaId: this.idVenda,
-      produtosItensId: this.idProdutoItemValorRealizado,
-      dataHoraUltAlt: dataAtual,
-      recebimentos: this.recebimento
+      clientesId: this.vendaClienteId,
+      qtdParcelas: this.qtdParcelas,
+      dataEmissao: this.dataService.getDataSQL(dataEmissao),
+      produtosItensId: this.produtoItem.id,
+      centroReceitaId: this.centroReceitaIdSelecionado,
+      planoContasId: this.planoContasIdSelecionado,
+      parcelas: []
     });
-    this.vendaService.novoVendaValorRealizado(this.valorRealizado).subscribe(() => {
-      this.vendaService.getIdUltimoValorRealizado().subscribe((_ID: VendaValorRealizado) => {
-        this.idValorRealizado = _ID.id;
-        this.toastr.success('Salvo com Sucesso!');
-        this.efetuarLancamentos();
-        this.vendaService.atualizarVenda();
-        this.fecharTemplate(this.templateRecebimentos);
+
+    this.recebimentoService.novoRecebimentos(this.recebimento).subscribe((_ID) => {
+      const recebimentoParcelas: RecebimentoParcelas[] = [];
+      this.parcelas.forEach((parcela) => {
+        const parc = Object.assign(parcela, {
+          id: 0,
+          dataVencimento: this.dataService.getDataSQL(parcela.dataVencimento),
+          formaPagamento: null,
+          documento: _ID.toString() + '/' + parcela.documento,
+          recebimentosId: _ID
+        });
+        recebimentoParcelas.push(parc);
+      });
+
+      this.recebimentoService.novoRecebimentoParcelas(recebimentoParcelas).subscribe(() => {
+        this.valorRealizado = Object.assign({
+          id: 0,
+          vendaId: this.idVenda,
+          produtosItensId: this.idProdutoItemValorRealizado,
+          dataHoraUltAlt: dataAtual,
+          recebimentos: null,
+          recebimentosId: _ID,
+        });
+        this.vendaService.novoVendaValorRealizado(this.valorRealizado).subscribe(() => {
+          this.toastr.success('Salvo com Sucesso!');
+          this.efetuarLancamentos();
+          this.vendaService.atualizarVenda();
+          this.vendaService.atualizarRecebimentos();
+          this.fecharTemplate(this.templateRecebimentos);
+        }, error => {
+          console.log(error.error);
+          this.toastr.error(`Erro ao tentar inserir novo Valor Realizado : ${error.error}`);
+        });
+      }, error => {
+        console.log(error.error);
+        this.toastr.error(`Erro ao tentar inserir novo Recebimento Parcelas : ${error.error}`);
       });
     }, error => {
       console.log(error.error);
-      this.toastr.error(`Erro ao tentar inserir nova venda : ${error.error}`);
+      this.toastr.error(`Erro ao tentar inserir novo Recebimento: ${error.error}`);
     });
   }
 

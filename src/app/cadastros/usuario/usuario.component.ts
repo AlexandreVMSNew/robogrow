@@ -31,7 +31,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   filtroUsuarios: any;
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   constructor(
     private usuarioService: UsuarioService,

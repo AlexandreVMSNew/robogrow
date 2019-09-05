@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 import { Recebimentos } from 'src/app/_models/Financeiro/Recebimentos/Recebimentos';
 import { Observable } from 'rxjs';
+import { RecebimentoParcelas } from 'src/app/_models/Financeiro/Recebimentos/RecebimentoParcelas';
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +38,15 @@ export class RecebimentoService {
   novoRecebimentos(recebimentos: Recebimentos) {
     return this.http.post(`${this.baseURL}/novo`, recebimentos);
   }
+  novoRecebimentoParcelas(recebimentoParcelas: RecebimentoParcelas[]) {
+    return this.http.post(`${this.baseURL}/parcelas/novo`, recebimentoParcelas);
+  }
   editarRecebimentos(recebimentos: Recebimentos) {
     return this.http.put(`${this.baseURL}/editar/${recebimentos.id}`, recebimentos);
+  }
+
+  editarRecebimentoParcelas(recebimentoParcelas: RecebimentoParcelas[]) {
+    return this.http.put(`${this.baseURL}/parcelas/editar/`, recebimentoParcelas);
   }
 
 

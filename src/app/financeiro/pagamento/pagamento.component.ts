@@ -19,7 +19,7 @@ export class PagamentoComponent implements OnInit, AfterViewInit {
   pagamentos: Pagamentos[];
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   parcelas: PagamentoParcelas[] = [];
 

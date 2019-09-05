@@ -45,6 +45,8 @@
     "jquery-knob": "^1.2.11",
     "jquery-sparkline": "^2.4.0",
     "jquery-ui": "^1.12.1",
+    "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.2.4",
     "jvectormap": "^2.0.4",
     "less": "^3.9.0",
     "moment": "^2.24.0",

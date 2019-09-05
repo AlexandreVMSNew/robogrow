@@ -19,7 +19,7 @@ export class ChequePreComponent implements OnInit, AfterViewInit {
   cheques: ChequePre[];
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   idChequePre: number;
   constructor(private localeService: BsLocaleService,

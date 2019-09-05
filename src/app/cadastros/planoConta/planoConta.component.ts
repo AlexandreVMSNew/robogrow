@@ -26,7 +26,7 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
   planoContaIdSuperiorSelecionado = 0;
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   disabledTipo = false;
   modo = '';

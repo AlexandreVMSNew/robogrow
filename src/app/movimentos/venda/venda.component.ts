@@ -21,7 +21,7 @@ export class VendaComponent implements OnInit, AfterViewInit {
   vendas: Venda[];
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   constructor(private localeService: BsLocaleService,
               private toastr: ToastrService,

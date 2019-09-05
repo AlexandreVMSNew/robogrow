@@ -30,6 +30,11 @@ export class SidebarService {
       type: 'dropdown',
       submenus: [
         {
+          title: 'Minhas Empresas',
+          link: 'empresas',
+          icon: 'fa fa-building-o'
+        },
+        {
           title: 'Usuários',
           link: 'usuarios',
           icon: 'fa fa-user-o'

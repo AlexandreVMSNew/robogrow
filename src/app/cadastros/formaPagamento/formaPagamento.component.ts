@@ -23,7 +23,7 @@ export class FormaPagamentoComponent implements OnInit, AfterViewChecked, AfterV
   formaPagamento: FormaPagamento;
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   modo = '';
 

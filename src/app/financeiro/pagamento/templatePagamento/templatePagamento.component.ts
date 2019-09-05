@@ -65,7 +65,6 @@ export class TemplatePagamentoComponent implements OnInit {
   intervaloParcelas: any;
 
   valorRealizado: VendaValorRealizado;
-  idValorRealizado: number;
   idProdutoItemValorRealizado: number;
 
   vendaConfig: VendaConfig;
@@ -147,19 +146,6 @@ export class TemplatePagamentoComponent implements OnInit {
     this.intervaloParcelas = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).intervaloParcelas;
     this.formaPagamentoIdSelecionado = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).formaPagamentoId;
     const formaPag = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).formaPagamento;
-    this.pagamento = Object.assign(this.cadastroPagamento.value, {
-      id: 0,
-      vendaId: this.idVenda,
-      qtdParcelas: this.qtdParcelas,
-      dataEmissao: this.dataService.getDataSQL(dataEmissao),
-      centroDespesaId: this.centroDespesaIdSelecionado,
-      planoContasId: this.planoContasIdSelecionado,
-      produtosItensId: this.idProdutoItemValorRealizado,
-      planoPagamento: null,
-      planoPagamentoId: this.planoPagamentoIdSelecionado,
-      parcelas: []
-    });
-
     const valorTotal = this.cadastroPagamento.get('valorTotal').value;
     const valorParcela = Number(Number(valorTotal) / this.qtdParcelas);
     for (let i = 0; i < this.qtdParcelas; i++) {
@@ -232,35 +218,58 @@ export class TemplatePagamentoComponent implements OnInit {
   }
 
   lancarPagamento() {
+    const dataEmissao = this.cadastroPagamento.get('dataEmissao').value.toLocaleString();
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    this.pagamento.parcelas = [];
-    this.parcelas.forEach((parcela) => {
-      const parc = Object.assign(parcela, {
-        dataVencimento: this.dataService.getDataSQL(parcela.dataVencimento),
-        formaPagamento: null
-      });
-      this.pagamento.parcelas.push(parc);
-    });
-    this.valorRealizado = Object.assign({
+    this.pagamento = Object.assign(this.cadastroPagamento.value, {
       id: 0,
       vendaId: this.idVenda,
+      qtdParcelas: this.qtdParcelas,
+      dataEmissao: this.dataService.getDataSQL(dataEmissao),
+      centroDespesaId: this.centroDespesaIdSelecionado,
+      planoContasId: this.planoContasIdSelecionado,
       produtosItensId: this.idProdutoItemValorRealizado,
-      dataHoraUltAlt: dataAtual,
-      pagamentos: this.pagamento
+      planoPagamento: null,
+      planoPagamentoId: this.planoPagamentoIdSelecionado,
+      parcelas: []
     });
-
-    this.vendaService.novoVendaValorRealizado(this.valorRealizado).subscribe(() => {
-      this.vendaService.getIdUltimoValorRealizado().subscribe((_ID: VendaValorRealizado) => {
-        this.idValorRealizado = _ID.id;
-        this.toastr.success('Salvo com Sucesso!');
-        this.efetuarLancamentos();
-        this.vendaService.atualizarVenda();
-        this.vendaService.atualizarPagamentos();
-        this.fecharTemplate(this.templatePagamentos);
+    this.pagamentoService.novoPagamento(this.pagamento).subscribe((_ID) => {
+      const pagamentoParcelas: PagamentoParcelas[] = [];
+      this.parcelas.forEach((parcela) => {
+        const parc = Object.assign(parcela, {
+          id: 0,
+          dataVencimento: this.dataService.getDataSQL(parcela.dataVencimento),
+          formaPagamento: null,
+          documento: _ID.toString() + '/' + parcela.documento,
+          pagamentosId: _ID
+        });
+        pagamentoParcelas.push(parc);
+      });
+      this.pagamentoService.novoPagamentoParcelas(pagamentoParcelas).subscribe(() => {
+        this.valorRealizado = Object.assign({
+          id: 0,
+          vendaId: this.idVenda,
+          produtosItensId: this.idProdutoItemValorRealizado,
+          dataHoraUltAlt: dataAtual,
+          pagamentos: null,
+          pagamentosId: _ID,
+        });
+        this.vendaService.novoVendaValorRealizado(this.valorRealizado).subscribe(() => {
+          this.toastr.success('Salvo com Sucesso!');
+          this.efetuarLancamentos();
+          this.vendaService.atualizarVenda();
+          this.vendaService.atualizarPagamentos();
+          this.fecharTemplate(this.templatePagamentos);
+        }, error => {
+          console.log(error.error);
+          this.toastr.error(`Erro ao tentar inserir novo Valor Realizado : ${error.error}`);
+        });
+      }, error => {
+        console.log(error.error);
+        this.toastr.error(`Erro ao tentar inserir novo Pagamento Parcelas : ${error.error}`);
       });
     }, error => {
       console.log(error.error);
-      this.toastr.error(`Erro ao tentar inserir nova venda : ${error.error}`);
+      this.toastr.error(`Erro ao tentar inserir novo Pagamento: ${error.error}`);
     });
   }
 

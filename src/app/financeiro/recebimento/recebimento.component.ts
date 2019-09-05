@@ -19,7 +19,7 @@ export class RecebimentoComponent implements OnInit, AfterViewInit {
   recebimentos: Recebimentos[];
 
   paginaAtual = 1;
-  totalRegistros: number;
+  totalRegistros = 0; number;
 
   parcelas: RecebimentoParcelas[] = [];
 
