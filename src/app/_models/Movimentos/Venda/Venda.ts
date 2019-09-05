@@ -3,6 +3,7 @@ import { VendaValorPrevisto } from './VendaValorPrevisto';
 import { VendaValorRealizado } from './VendaValorRealizado';
 import { Cliente } from '../../Cadastros/Clientes/Cliente';
 import { VendaProduto } from './VendaProduto';
+import { Empresa } from '../../Cadastros/Empresas/empresa';
 
 export class Venda {
     id: number;

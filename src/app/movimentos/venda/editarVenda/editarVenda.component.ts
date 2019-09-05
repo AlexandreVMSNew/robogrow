@@ -19,7 +19,7 @@ import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/re
 import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
 import * as jsPDF from 'jspdf';
-import { Empresa } from 'src/app/_models/Cadastros/Empresas/empresa';
+import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
 import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
 import { ProdutoService } from 'src/app/_services/Cadastros/Produtos/produto.service';
@@ -184,7 +184,11 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   gerarPDF() {
     const documento: jsPDF = new jsPDF();
-    documento.text('Relatório em PDF no Angular', 10, 10);
+    documento.line(10, 10, 200, 10);
+    documento.setFontSize(10);
+    documento.text(this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0].nomeFantasia, 10, 15);
+    documento.text(this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0].razaoSocial, 10, 20);
+    documento.text('CNPJ/CPF: ' + this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0].cnpjCpf, 10, 25);
     documento.output('dataurlnewwindow');
   }
 

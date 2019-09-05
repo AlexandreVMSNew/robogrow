@@ -12,7 +12,7 @@ import * as moment from 'moment';
 import { VendaProduto } from 'src/app/_models/Movimentos/Venda/VendaProduto';
 import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
 import { EmpresaService } from 'src/app/_services/Cadastros/Empresas/empresa.service';
-import { Empresa } from 'src/app/_models/Cadastros/Empresas/empresa';
+import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 @Component({
   selector: 'app-novo-venda',
