@@ -37,11 +37,11 @@
                   <div *ngIf="notificacao.visto == 0">
                     <li (click)="setarVistoNotificacao(notificacao)" style="cursor:pointer;">
                       <a>
-                        <h4>Retorno.<small class="pull-right">
+                        <h4>{{notificacao.tipo}}<small class="pull-right">
                             <i class="fa fa-clock-o "></i>
                             [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
                         </h4>
-                        <p>Você tem um novo {{notificacao.tipo}}.</p>
+                        <p style="margin-left:5px;">Você tem um novo(a) {{notificacao.tipo}}.</p>
                       </a>
                     </li>
                   </div>
@@ -49,12 +49,11 @@
                     <li class="bg-gray"
                       style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;">
                       <a>
-                        <h4>
-                          Retorno.
+                        <h4>{{notificacao.tipo}}
                           <small class="pull-right"><i class="fa fa-clock-o "></i>
                             [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
                         </h4>
-                        <p>Você tem um novo {{notificacao.tipo}}.</p>
+                        <p>Você tem um novo(a) {{notificacao.tipo}}.</p>
                       </a>
                     </li>
                   </div>

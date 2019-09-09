@@ -85,6 +85,9 @@ import { PermissaoComponent } from './permissao/permissao.component';
 import { EmpresaComponent } from './cadastros/empresa/empresa.component';
 import { EmpresaTemplateComponent } from './cadastros/empresa/empresaTemplate/empresaTemplate.component';
 
+import { AutorizacaoComponent } from './autorizacao/autorizacao.component';
+import { AutorizacaoTemplateComponent } from './autorizacao/autorizacaoTemplate/autorizacaoTemplate.component';
+
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
 import { CepPipe } from './pipes/cep.pipe';
@@ -154,6 +157,8 @@ defineLocale('pt-br', ptBrLocale);
       ChequePreTemplateComponent,
       EmpresaComponent,
       EmpresaTemplateComponent,
+      AutorizacaoComponent,
+      AutorizacaoTemplateComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,

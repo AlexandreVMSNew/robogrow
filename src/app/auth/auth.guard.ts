@@ -30,6 +30,7 @@ import { RelatorioLancamentoComponent } from '../financeiro/lancamento/relatorio
 import { ChequePreComponent } from '../cadastros/chequePre/chequePre.component';
 import { RelatorioVendaComponent } from '../movimentos/venda/relatorioVenda/relatorioVenda.component';
 import { EmpresaComponent } from '../cadastros/empresa/empresa.component';
+import { AutorizacaoComponent } from '../autorizacao/autorizacao.component';
 
 @Injectable({
   providedIn: 'root'
@@ -305,6 +306,16 @@ export class AuthGuard implements CanActivate {
       } else if (next.component === EmpresaComponent) {
 
         this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+          this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
+          if (!this.autorizado) {
+              return false;
+            } else {
+              return true;
+            }
+        });
+      } else if (next.component === AutorizacaoComponent) {
+
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;

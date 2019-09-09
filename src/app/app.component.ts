@@ -48,6 +48,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       listar: false
     },
     {
+      component: 'Autorizações',
+      listar: false
+    },
+    {
       component: 'Permissões',
       listar: false
     },
@@ -144,10 +148,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       Notification.requestPermission();
     }
     this.validation();
-    this.getSocket('NotificacaoUsuarioRetorno');
-    this.getSocket('NovaObservacao');
     this.idUsuario = this.permissaoService.getUsuarioId();
     if (this.idUsuario && this.verificarLogIn()) {
+      this.getSocket('NotificacaoUsuarioRetorno');
+      this.getSocket('NotificacaoAutorizacaoVendaGerarPedido');
+      this.getSocket('NovaObservacao');
       this.getNotificacoes();
     }
   }
@@ -230,6 +235,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
         this.permissoes.filter(c => c.component === 'Minhas Empresas')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+      });
+
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissoes.filter(c => c.component === 'Autorizações')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
       });
 
       this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
@@ -331,6 +340,21 @@ export class AppComponent implements OnInit, AfterViewInit {
           if (Number(data) === Number(this.idUsuario)) {
             const  notification = new Notification(`Retorno Específico!`, {
               body: 'Foi adicionado um Novo Retorno específico para você!'
+            });
+            this.getNotificacoes();
+          }
+        } else if (evento === 'NotificacaoAutorizacaoVendaGerarPedido') {
+          if (Number(data) === Number(this.idUsuario)) {
+            const  notification = new Notification(`Autorização Pedido de Venda!`, {
+              body: 'Um novo Pedido de Venda precisa ser Autorizado!'
+            });
+            this.getNotificacoes();
+          }
+        } else if (evento === 'NotificacaoRespAutorizacaoVendaGerarPedido') {
+          if (Number(data.solicitanteId) === Number(this.idUsuario)) {
+            const  notification = new Notification(`Resposta Autorização Pedido de Venda!`, {
+              body: (data.autorizado === 1) ? `Seu pedido de Venda foi autorizado pelo Usuário: ${data.autorizadorNome}.` :
+                                              `Seu pedido de Venda foi negado pelo Usuário: ${data.autorizadorNome}.`
             });
             this.getNotificacoes();
           }

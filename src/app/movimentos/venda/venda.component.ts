@@ -39,6 +39,9 @@ export class VendaComponent implements OnInit, AfterViewInit {
     this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
       this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
     });
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
+      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    });
   }
 
   getVendas() {

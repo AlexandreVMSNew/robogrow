@@ -19,6 +19,10 @@ io.on('connection', (socket) => {
     socket.on('NovaObservacao', (dados) => { io.emit('NovaObservacao', dados); });
 
     socket.on('NotificacaoUsuarioRetorno', (dados) => { io.emit('NotificacaoUsuarioRetorno', dados); });
+    
+    socket.on('NotificacaoAutorizacaoVendaGerarPedido', (dados) => { io.emit('NotificacaoAutorizacaoVendaGerarPedido', dados); });
+
+    socket.on('NotificacaoRespAutorizacaoVendaGerarPedido', (dados) => { io.emit('NotificacaoRespAutorizacaoVendaGerarPedido', dados); });
 
     socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
 });

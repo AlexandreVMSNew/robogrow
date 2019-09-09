@@ -22,8 +22,13 @@ getCountNotificacoesByUsuarioId(usuarioId: number): Observable<number> {
 }
 
 novaNotificacao(notificacao: Notificacao) {
-  return this.http.post(`${this.baseURL}/novo`, notificacao);
+  return this.http.post(`${this.baseURL}/nova`, notificacao);
 }
+
+novasNotificacoes(notificacoes: Notificacao[]) {
+  return this.http.post(`${this.baseURL}/novas`, notificacoes);
+}
+
 
 editarVistoNotificacao(notificacao: any) {
   return this.http.put(`${this.baseURL}/editar/visto`, notificacao);

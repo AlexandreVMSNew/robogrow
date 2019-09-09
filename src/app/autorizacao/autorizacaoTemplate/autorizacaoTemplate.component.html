@@ -1,0 +1,46 @@
+{{abrirTemplate(templateAutorizacao)}}
+<div bsModal #templateAutorizacao="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}" data-keyboard="false">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Autorizacão<label></label>
+        </h4>
+
+        <button type="button" class="close pull-right" (click)="fecharTemplate(templateAutorizacao)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="cadastroAutorizacao">
+
+          <div class="row">
+            <div class="form-group col-md-12">
+                <label>Autorizado</label>
+                <ng-select [clearable]="false" [items]="autorizado" [(ngModel)]="autorizadoSelecionado"
+                  formControlName="autorizado"
+                  [ngClass]="{ 'is-invalid': cadastroAutorizacao.get('autorizado').errors &&  cadastroAutorizacao.get('autorizado').touched}" >
+                </ng-select>
+                <div *ngIf="cadastroAutorizacao.get('autorizado').hasError('required') &&cadastroAutorizacao.get('autorizado').touched"
+                    class="invalid-feedback">
+                    Campo Obrigatório.
+                  </div>
+              </div>
+          </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templateAutorizacao)">
+          Fechar
+        </button>
+        <button *ngIf="this.idAutorizacao != 0 && this.editar == true" [disabled]="!cadastroAutorizacao.valid"
+          class="btn btn-primary" (click)="salvarAutorizacao(templateAutorizacao)">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

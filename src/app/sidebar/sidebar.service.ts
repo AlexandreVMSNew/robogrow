@@ -24,6 +24,17 @@ export class SidebarService {
       link: 'dashboard'
     },
     {
+      title: 'Autorizações',
+      icon: 'fa fa-dashboard',
+      active: false,
+      type: 'simple',
+      badge: {
+        text: '0',
+        class: 'badge-warning'
+      },
+      link: 'autorizacoes'
+    },
+    {
       title: 'Cadastros',
       icon: 'fa fa-file-alt',
       active: false,

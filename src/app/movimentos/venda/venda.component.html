@@ -39,7 +39,7 @@
                 {{ venda.status }}
               </span></td>
             <td style="text-align: center;white-space: nowrap;">
-              <div *ngIf="this.editar == true" class="btn-group">
+              <div *ngIf="this.visualizar == true" class="btn-group">
                 <a  [routerLink]="['/movimentos/vendas','editar', venda.id]" tooltip="Editar/Detalhes" class="btn btn-sm btn-primary">
                   <i class="fa fa-edit"></i>
                 </a>

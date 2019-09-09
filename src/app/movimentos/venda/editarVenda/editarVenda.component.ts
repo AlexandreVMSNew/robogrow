@@ -24,6 +24,13 @@ import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
 import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
 import { ProdutoService } from 'src/app/_services/Cadastros/Produtos/produto.service';
 import { EmpresaService } from 'src/app/_services/Cadastros/Empresas/empresa.service';
+import { AutorizacaoService } from 'src/app/_services/Autorizacoes/autorizacao.service';
+import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
+import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
+import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
+import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.service';
+import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
+import { Autorizacao } from 'src/app/_models/Autorizacoes/Autorizacao';
 
 @Component({
   selector: 'app-editar-venda',
@@ -36,6 +43,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   editarValorPrevisto = false;
   editarValorRealizado = false;
   visualizarResumo = false;
+  gerarPedido = false;
+  autorizadoGerarPedido = false;
 
   cadastroForm: FormGroup;
   cadastroValorPrevistoForm: FormGroup;
@@ -87,6 +96,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   idDetalharRecebimento: number;
   idProdutoItem: number;
 
+  autorizacoes: Autorizacao[];
+
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
@@ -98,7 +109,11 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
               private clienteService: ClienteService,
               private produtoService: ProdutoService,
               private pessoaService: PessoaService,
+              private usuarioService: UsuarioService,
               private empresaService: EmpresaService,
+              private autorizacaoService: AutorizacaoService,
+              private socketService: SocketService,
+              private notificacaoService: NotificacaoService,
               private changeDetectionRef: ChangeDetectorRef) {
                 this.vendaService.atualizaVenda.subscribe(x => {
                   this.carregarVenda();
@@ -111,6 +126,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.getProdutos();
     this.getEmpresas();
     this.getVendedores();
+    this.getAutorizacoes();
     this.validarForm();
     this.validarValorPrevistoForm();
     this.validarNovoValorForm();
@@ -133,6 +149,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
     this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'VISUALIZAR', 'RESUMO').subscribe((_PERMISSAO: Permissao) => {
       this.visualizarResumo = this.permissaoService.verificarPermissao(_PERMISSAO);
+    });
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'GERAR PEDIDO').subscribe((_PERMISSAO: Permissao) => {
+      this.gerarPedido = this.permissaoService.verificarPermissao(_PERMISSAO);
     });
   }
 
@@ -182,13 +201,73 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         });
   }
 
+  enviarNotificacoesAutorizacao() {
+    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    const usuariosIdNotificacao = [];
+    this.usuarioService.getAllUsuario().subscribe(
+      (_USUARIOS: Usuario[]) => {
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'GERAR PEDIDO').subscribe((_PERMISSAO: Permissao) => {
+        _PERMISSAO.permissaoNiveis.forEach((permissao) => {
+          _USUARIOS.forEach((usuario: Usuario) => {
+            if (usuario.usuarioNivel.filter(c => c.roleId === permissao.nivelId).length > 0) {
+              usuariosIdNotificacao.push(usuario.id);
+            }
+          });
+        });
+        const notificacao: Notificacao[] = [];
+        usuariosIdNotificacao.forEach(idUsuario => {
+          notificacao.push(Object.assign({id: 0, usuarioId: idUsuario, dataHora: dataAtual, tipo: 'Autorização', visto: 0}));
+        });
+        this.notificacaoService.novasNotificacoes(notificacao).subscribe(
+          () => {
+          usuariosIdNotificacao.forEach(idUsuario => {
+            this.socketService.sendSocket('NotificacaoAutorizacaoVendaGerarPedido', idUsuario);
+          });
+          this.toastr.success('Cadastrado com sucesso!');
+        });
+      });
+    });
+  }
+
+
+  solicitarAutorizacao() {
+    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    const autorizacao = Object.assign({
+      id: 0,
+      solicitanteId: this.permissaoService.getUsuarioId(),
+      formularioId: this.idVenda,
+      formulario: 'VENDA',
+      acao: 'GERAR PEDIDO',
+      dataHoraSolicitado: dataAtual,
+      autorizado: 0,
+      visto: 0
+    });
+    this.autorizacaoService.novaAutorizacao(autorizacao).subscribe(() => {
+      this.enviarNotificacoesAutorizacao();
+    }, error => {
+      this.toastr.error(`Erro ao tentar solicitar autorizacao: ${error.error}`);
+      console.log(error);
+    });
+  }
+
   gerarPDF() {
     const documento: jsPDF = new jsPDF();
+    const empresa: Empresa = this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0];
+
     documento.line(10, 10, 200, 10);
     documento.setFontSize(10);
-    documento.text(this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0].nomeFantasia, 10, 15);
-    documento.text(this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0].razaoSocial, 10, 20);
-    documento.text('CNPJ/CPF: ' + this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0].cnpjCpf, 10, 25);
+    documento.setFontType('bold');
+    documento.text('Nome Fantasia: ' , 10, 15);
+    documento.setFontType('regular');
+    documento.text(empresa.nomeFantasia, 40, 15);
+    documento.setFontType('bold');
+    documento.text('Razão Social: ' , 10, 20);
+    documento.setFontType('regular');
+    documento.text(empresa.razaoSocial, 34, 20);
+    documento.setFontType('bold');
+    documento.text('CNPJ/CPF: ' , 10, 25);
+    documento.setFontType('regular');
+    documento.text(empresa.cnpjCpf, 30, 25);
     documento.output('dataurlnewwindow');
   }
 
@@ -303,6 +382,17 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     return false;
   }
 
+  verificarValorPrevistoLancados() {
+    if (this.venda) {
+      if (this.venda.vendaValorPrevisto &&  this.venda.vendaProdutos[0].produtos.itens) {
+        if (this.venda.vendaValorPrevisto.length === this.venda.vendaProdutos[0].produtos.itens.length) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   verificarValorPrevistoMaiorZero(vendaValorPrevisto: any): boolean {
     if (vendaValorPrevisto) {
       if (vendaValorPrevisto.valor > 0) {
@@ -404,6 +494,19 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar produtos: ${error.error}`);
+    });
+  }
+
+  getAutorizacoes() {
+    this.autorizacaoService.getAutorizacaoFormularioById(this.idVenda).subscribe(
+      (_AUTORIZACOES: Autorizacao[]) => {
+      this.autorizacoes = _AUTORIZACOES;
+      if (this.autorizacoes.filter(c => c.autorizado === 1).length > 0) {
+        this.autorizadoGerarPedido = true;
+      }
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar autorizacoes: ${error.error}`);
     });
   }
 
