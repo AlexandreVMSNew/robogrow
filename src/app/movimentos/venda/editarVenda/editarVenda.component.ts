@@ -18,7 +18,6 @@ import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/recebimento.service';
 import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
-import * as jsPDF from 'jspdf';
 import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
 import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
@@ -31,6 +30,8 @@ import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.service';
 import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 import { Autorizacao } from 'src/app/_models/Autorizacoes/Autorizacao';
+import { EmailService } from 'src/app/_services/Email/email.service';
+import { Email } from 'src/app/_models/Email/Email';
 
 @Component({
   selector: 'app-editar-venda',
@@ -113,6 +114,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
               private empresaService: EmpresaService,
               private autorizacaoService: AutorizacaoService,
               private socketService: SocketService,
+              private emailService: EmailService,
               private notificacaoService: NotificacaoService,
               private changeDetectionRef: ChangeDetectorRef) {
                 this.vendaService.atualizaVenda.subscribe(x => {
@@ -204,6 +206,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   enviarNotificacoesAutorizacao() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const usuariosIdNotificacao = [];
+    const usuariosEmailNotificacao: any = [];
     this.usuarioService.getAllUsuario().subscribe(
       (_USUARIOS: Usuario[]) => {
       this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'GERAR PEDIDO').subscribe((_PERMISSAO: Permissao) => {
@@ -211,8 +214,23 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           _USUARIOS.forEach((usuario: Usuario) => {
             if (usuario.usuarioNivel.filter(c => c.roleId === permissao.nivelId).length > 0) {
               usuariosIdNotificacao.push(usuario.id);
+              usuariosEmailNotificacao.push(usuario.email);
             }
           });
+        });
+        const email: Email = {
+          emailRemetente: 'virtualwebsistema@gmail.com',
+          nomeRemetente: 'Virtual Web',
+          senhaRemetente: '1379258vms//',
+          emailDestinatario: usuariosEmailNotificacao,
+          assunto: 'Autorização PEDIDO DE VENDA',
+          mensagem: 'Você tem uma autorização de Pedido de Venda pendente. <br/>' +
+          'Para analisar a Venda: ' +
+          '<a href="https://virtualweb.herokuapp.com/movimentos/vendas/editar/' + this.idVenda + '">CLIQUE AQUI!</a>',
+        };
+        this.emailService.enviarEmail(email).subscribe((_RESPOSTA) => {
+        }, error => {
+          console.log(error.error);
         });
         const notificacao: Notificacao[] = [];
         usuariosIdNotificacao.forEach(idUsuario => {
@@ -251,7 +269,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   gerarPDF() {
-    const documento: jsPDF = new jsPDF();
+   /* const documento: jsPDF = new jsPDF();
     const empresa: Empresa = this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0];
 
     documento.line(10, 10, 200, 10);
@@ -268,7 +286,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     documento.text('CNPJ/CPF: ' , 10, 25);
     documento.setFontType('regular');
     documento.text(empresa.cnpjCpf, 30, 25);
-    documento.output('dataurlnewwindow');
+    documento.output('dataurlnewwindow');*/
   }
 
   disabledStatus() {

@@ -310,6 +310,26 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
+/***/ "./src/app/_models/Cadastros/Produtos/produtoItem.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/_models/Cadastros/Produtos/produtoItem.ts ***!
+  \***********************************************************/
+/*! exports provided: ProdutoItem */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProdutoItem", function() { return ProdutoItem; });
+var ProdutoItem = /** @class */ (function () {
+    function ProdutoItem() {
+    }
+    return ProdutoItem;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/_models/Cadastros/Usuarios/Usuario.ts":
 /*!*******************************************************!*\
   !*** ./src/app/_models/Cadastros/Usuarios/Usuario.ts ***!
@@ -324,6 +344,46 @@ var Usuario = /** @class */ (function () {
     function Usuario() {
     }
     return Usuario;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_models/Financeiro/Pagamentos/Pagamentos.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/_models/Financeiro/Pagamentos/Pagamentos.ts ***!
+  \*************************************************************/
+/*! exports provided: Pagamentos */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Pagamentos", function() { return Pagamentos; });
+var Pagamentos = /** @class */ (function () {
+    function Pagamentos() {
+    }
+    return Pagamentos;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_models/Financeiro/Recebimentos/Recebimentos.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/_models/Financeiro/Recebimentos/Recebimentos.ts ***!
+  \*****************************************************************/
+/*! exports provided: Recebimentos */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Recebimentos", function() { return Recebimentos; });
+var Recebimentos = /** @class */ (function () {
+    function Recebimentos() {
+    }
+    return Recebimentos;
 }());
 
 
@@ -423,6 +483,219 @@ var RetornoService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], RetornoService);
     return RetornoService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Autorizacoes/autorizacao.service.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/_services/Autorizacoes/autorizacao.service.ts ***!
+  \***************************************************************/
+/*! exports provided: AutorizacaoService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutorizacaoService", function() { return AutorizacaoService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var AutorizacaoService = /** @class */ (function () {
+    function AutorizacaoService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/autorizacoes';
+        this.autorizacaoTemplate = false;
+        this.atualizaAutorizacoes = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+    }
+    AutorizacaoService.prototype.atualizarAutorizacoes = function () {
+        this.atualizaAutorizacoes.emit(true);
+    };
+    AutorizacaoService.prototype.getAutorizacaoTemplateStatus = function () {
+        return this.autorizacaoTemplate;
+    };
+    AutorizacaoService.prototype.setAutorizacaoTemplateStatus = function (val) {
+        this.autorizacaoTemplate = val;
+    };
+    AutorizacaoService.prototype.getAllAutorizacoes = function () {
+        return this.http.get(this.baseURL);
+    };
+    AutorizacaoService.prototype.getAutorizacaoById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    AutorizacaoService.prototype.getAutorizacaoFormularioById = function (id) {
+        return this.http.get(this.baseURL + "/formulario/" + id);
+    };
+    AutorizacaoService.prototype.novaAutorizacao = function (autorizacao) {
+        return this.http.post(this.baseURL + "/novo", autorizacao);
+    };
+    AutorizacaoService.prototype.editarAutorizacao = function (autorizacao) {
+        return this.http.put(this.baseURL + "/editar/" + autorizacao.id, autorizacao);
+    };
+    AutorizacaoService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], AutorizacaoService);
+    return AutorizacaoService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Cadastros/CentroDespesa/centroDespesa.service.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/_services/Cadastros/CentroDespesa/centroDespesa.service.ts ***!
+  \****************************************************************************/
+/*! exports provided: CentroDespesaService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CentroDespesaService", function() { return CentroDespesaService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var CentroDespesaService = /** @class */ (function () {
+    function CentroDespesaService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/centrodespesa';
+    }
+    CentroDespesaService.prototype.getAllCentroDespesa = function () {
+        return this.http.get(this.baseURL);
+    };
+    CentroDespesaService.prototype.getCentroDespesaById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    CentroDespesaService.prototype.novoCentroDespesa = function (centroDespesa) {
+        return this.http.post(this.baseURL + "/novo", centroDespesa);
+    };
+    CentroDespesaService.prototype.editarCentroDespesa = function (centroDespesa) {
+        return this.http.put(this.baseURL + "/editar/" + centroDespesa.id, centroDespesa);
+    };
+    CentroDespesaService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], CentroDespesaService);
+    return CentroDespesaService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Cadastros/CentroReceita/centroReceita.service.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/_services/Cadastros/CentroReceita/centroReceita.service.ts ***!
+  \****************************************************************************/
+/*! exports provided: CentroReceitaService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CentroReceitaService", function() { return CentroReceitaService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var CentroReceitaService = /** @class */ (function () {
+    function CentroReceitaService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/centroreceita';
+    }
+    CentroReceitaService.prototype.getAllCentroReceita = function () {
+        return this.http.get(this.baseURL);
+    };
+    CentroReceitaService.prototype.getCentroReceitaById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    CentroReceitaService.prototype.novoCentroReceita = function (centroReceita) {
+        return this.http.post(this.baseURL + "/novo", centroReceita);
+    };
+    CentroReceitaService.prototype.editarCentroReceita = function (centroReceita) {
+        return this.http.put(this.baseURL + "/editar/" + centroReceita.id, centroReceita);
+    };
+    CentroReceitaService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], CentroReceitaService);
+    return CentroReceitaService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Cadastros/ChequePre/chequePre.service.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/_services/Cadastros/ChequePre/chequePre.service.ts ***!
+  \********************************************************************/
+/*! exports provided: ChequePreService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChequePreService", function() { return ChequePreService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var ChequePreService = /** @class */ (function () {
+    function ChequePreService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/chequepre';
+        this.chequePreTemplate = false;
+    }
+    ChequePreService.prototype.getChequePreTemplateStatus = function () {
+        return this.chequePreTemplate;
+    };
+    ChequePreService.prototype.setChequePreTemplateStatus = function (val) {
+        this.chequePreTemplate = val;
+    };
+    ChequePreService.prototype.getAllChequePre = function () {
+        return this.http.get(this.baseURL);
+    };
+    ChequePreService.prototype.getChequePreById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    ChequePreService.prototype.novoChequePre = function (chequepre) {
+        return this.http.post(this.baseURL + "/novo", chequepre);
+    };
+    ChequePreService.prototype.editarChequePre = function (chequepre) {
+        return this.http.put(this.baseURL + "/editar/" + chequepre.id, chequepre);
+    };
+    ChequePreService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], ChequePreService);
+    return ChequePreService;
 }());
 
 
@@ -573,6 +846,115 @@ var SistemaClienteService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], SistemaClienteService);
     return SistemaClienteService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Cadastros/Empresas/empresa.service.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/_services/Cadastros/Empresas/empresa.service.ts ***!
+  \*****************************************************************/
+/*! exports provided: EmpresaService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmpresaService", function() { return EmpresaService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var EmpresaService = /** @class */ (function () {
+    function EmpresaService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/empresas';
+        this.empresaTemplate = false;
+    }
+    EmpresaService.prototype.getEmpresaTemplateStatus = function () {
+        return this.empresaTemplate;
+    };
+    EmpresaService.prototype.setEmpresaTemplateStatus = function (val) {
+        this.empresaTemplate = val;
+    };
+    EmpresaService.prototype.getAllEmpresa = function () {
+        return this.http.get(this.baseURL);
+    };
+    EmpresaService.prototype.getEmpresaByName = function (name) {
+        return this.http.get(this.baseURL + "/getByName/" + name);
+    };
+    EmpresaService.prototype.getEmpresaById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    EmpresaService.prototype.getIdUltimaEmpresa = function () {
+        return this.http.get(this.baseURL + "/idultimaempresa");
+    };
+    EmpresaService.prototype.novaEmpresa = function (empresa) {
+        return this.http.post(this.baseURL + "/novo", empresa);
+    };
+    EmpresaService.prototype.editarEmpresa = function (empresa) {
+        return this.http.put(this.baseURL + "/editar/" + empresa.id, empresa);
+    };
+    EmpresaService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], EmpresaService);
+    return EmpresaService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Cadastros/FormaPagamento/formaPagamento.service.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/_services/Cadastros/FormaPagamento/formaPagamento.service.ts ***!
+  \******************************************************************************/
+/*! exports provided: FormaPagamentoService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormaPagamentoService", function() { return FormaPagamentoService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+
+
+
+
+var FormaPagamentoService = /** @class */ (function () {
+    function FormaPagamentoService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_3__["InfoAPI"].URL + '/api/formapagamento';
+    }
+    FormaPagamentoService.prototype.getAllFormaPagamento = function () {
+        return this.http.get(this.baseURL);
+    };
+    FormaPagamentoService.prototype.getFormaPagamentoById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    FormaPagamentoService.prototype.novoFormaPagamento = function (formaPagamento) {
+        return this.http.post(this.baseURL + "/novo", formaPagamento);
+    };
+    FormaPagamentoService.prototype.editarFormaPagamento = function (formaPagamento) {
+        return this.http.put(this.baseURL + "/editar/" + formaPagamento.id, formaPagamento);
+    };
+    FormaPagamentoService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], FormaPagamentoService);
+    return FormaPagamentoService;
 }());
 
 
@@ -745,6 +1127,108 @@ var PessoaService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
     ], PessoaService);
     return PessoaService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service.ts ***!
+  \******************************************************************************/
+/*! exports provided: PlanoPagamentoService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlanoPagamentoService", function() { return PlanoPagamentoService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var PlanoPagamentoService = /** @class */ (function () {
+    function PlanoPagamentoService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/planopagamento';
+    }
+    PlanoPagamentoService.prototype.getAllPlanoPagamento = function () {
+        return this.http.get(this.baseURL);
+    };
+    PlanoPagamentoService.prototype.getPlanoPagamentoById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    PlanoPagamentoService.prototype.novoPlanoPagamento = function (planoPagamento) {
+        return this.http.post(this.baseURL + "/novo", planoPagamento);
+    };
+    PlanoPagamentoService.prototype.editarPlanoPagamento = function (planoPagamento) {
+        return this.http.put(this.baseURL + "/editar/" + planoPagamento.id, planoPagamento);
+    };
+    PlanoPagamentoService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], PlanoPagamentoService);
+    return PlanoPagamentoService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts":
+/*!***********************************************************************!*\
+  !*** ./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts ***!
+  \***********************************************************************/
+/*! exports provided: PlanoContaService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlanoContaService", function() { return PlanoContaService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var PlanoContaService = /** @class */ (function () {
+    function PlanoContaService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/planoconta';
+    }
+    PlanoContaService.prototype.getAllPlanosConta = function () {
+        return this.http.get(this.baseURL);
+    };
+    PlanoContaService.prototype.getPlanoContasById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    PlanoContaService.prototype.getPlanoContasFilhosById = function (id) {
+        return this.http.get(this.baseURL + "/" + id + "/filhos");
+    };
+    PlanoContaService.prototype.novoPlanoConta = function (planoConta) {
+        return this.http.post(this.baseURL + "/novo", planoConta);
+    };
+    PlanoContaService.prototype.editarPlanoConta = function (planoConta) {
+        return this.http.put(this.baseURL + "/editar/" + planoConta.id, planoConta);
+    };
+    PlanoContaService.prototype.editarPlanoContaFilhos = function (superiorId, planoConta) {
+        return this.http.put(this.baseURL + "/editar/" + superiorId + "/filhos", planoConta);
+    };
+    PlanoContaService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], PlanoContaService);
+    return PlanoContaService;
 }());
 
 
@@ -946,7 +1430,12 @@ var DataService = /** @class */ (function () {
     }
     DataService.prototype.getDataPTBR = function (data) {
         if (data && data !== null && data.toString().length > 0) {
-            this.novaData = data.split('T')[0].split('-');
+            if (data.includes('T')) {
+                this.novaData = data.split('T')[0].split('-');
+            }
+            else {
+                this.novaData = data.split('-');
+            }
             var dia = this.novaData[2];
             var mes = this.novaData[1];
             var ano = this.novaData[0];
@@ -958,7 +1447,12 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.getDataSQL = function (data) {
         if (data && data !== null && data.toString().length > 0) {
-            this.novaData = data.split(' ')[0].split('/');
+            if (data.includes(' ')) {
+                this.novaData = data.split(' ')[0].split('/');
+            }
+            else {
+                this.novaData = data.split('/');
+            }
             var dia = this.novaData[0];
             var mes = this.novaData[1];
             var ano = this.novaData[2];
@@ -1034,6 +1528,256 @@ var EstadoService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/_services/Email/email.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/_services/Email/email.service.ts ***!
+  \**************************************************/
+/*! exports provided: EmailService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmailService", function() { return EmailService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var emailjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! emailjs */ "./node_modules/emailjs/email.js");
+/* harmony import */ var emailjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(emailjs__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var EmailService = /** @class */ (function () {
+    function EmailService() {
+        this.server = emailjs__WEBPACK_IMPORTED_MODULE_2__["server"].connect({
+            user: 'xandinhoavilatp.67@gmail.com',
+            password: 'Xandinho1379258//',
+            host: 'smtp.gmail.com',
+            ssl: true
+        });
+    }
+    EmailService.prototype.enviarEmail = function () {
+        var options = {
+            from: 'xandinhoavilatp.67@gmail.com',
+            to: 'alexandre_avila@virtualloja.com.br',
+            subject: 'Hello',
+            text: 'Testando'
+        };
+        this.server.send(options, function (error, info) {
+            if (error) {
+                return console.log("error: " + error);
+            }
+            console.log("E-mail enviado com sucesso. | " + info.response);
+        });
+    };
+    EmailService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], EmailService);
+    return EmailService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Financeiro/Pagamentos/pagamento.service.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/_services/Financeiro/Pagamentos/pagamento.service.ts ***!
+  \**********************************************************************/
+/*! exports provided: PagamentoService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PagamentoService", function() { return PagamentoService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var PagamentoService = /** @class */ (function () {
+    function PagamentoService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/pagamentos';
+        this.detalharPagamento = false;
+        this.templatePagamento = false;
+    }
+    PagamentoService.prototype.getDetalharPagamentoStatus = function () {
+        return this.detalharPagamento;
+    };
+    PagamentoService.prototype.setDetalharPagamentoStatus = function (val) {
+        this.detalharPagamento = val;
+    };
+    PagamentoService.prototype.getTemplatePagamentoStatus = function () {
+        return this.templatePagamento;
+    };
+    PagamentoService.prototype.setTemplatePagamentoStatus = function (val) {
+        this.templatePagamento = val;
+    };
+    PagamentoService.prototype.getAllPagamentos = function () {
+        return this.http.get(this.baseURL);
+    };
+    PagamentoService.prototype.getPagamentosById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    PagamentoService.prototype.novoPagamento = function (pagamento) {
+        return this.http.post(this.baseURL + "/novo", pagamento);
+    };
+    PagamentoService.prototype.editarPagamento = function (pagamento) {
+        return this.http.put(this.baseURL + "/editar/" + pagamento.id, pagamento);
+    };
+    PagamentoService.prototype.novoPagamentoParcelas = function (pagamentoParcelas) {
+        return this.http.post(this.baseURL + "/parcelas/novo", pagamentoParcelas);
+    };
+    PagamentoService.prototype.editarPagamentoParcelas = function (pagamentoParcelas) {
+        return this.http.put(this.baseURL + "/parcelas/editar/", pagamentoParcelas);
+    };
+    PagamentoService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], PagamentoService);
+    return PagamentoService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Financeiro/Recebimentos/recebimento.service.ts":
+/*!**************************************************************************!*\
+  !*** ./src/app/_services/Financeiro/Recebimentos/recebimento.service.ts ***!
+  \**************************************************************************/
+/*! exports provided: RecebimentoService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecebimentoService", function() { return RecebimentoService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+
+
+
+
+var RecebimentoService = /** @class */ (function () {
+    function RecebimentoService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_3__["InfoAPI"].URL + '/api/recebimentos';
+        this.detalharRecebimento = false;
+        this.templateRecebimento = false;
+    }
+    RecebimentoService.prototype.getDetalharRecebimentoStatus = function () {
+        return this.detalharRecebimento;
+    };
+    RecebimentoService.prototype.setDetalharRecebimentoStatus = function (val) {
+        this.detalharRecebimento = val;
+    };
+    RecebimentoService.prototype.getTemplateRecebimentoStatus = function () {
+        return this.templateRecebimento;
+    };
+    RecebimentoService.prototype.setTemplateRecebimentoStatus = function (val) {
+        this.templateRecebimento = val;
+    };
+    RecebimentoService.prototype.getAllRecebimentos = function () {
+        return this.http.get(this.baseURL);
+    };
+    RecebimentoService.prototype.getRecebimentosById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    RecebimentoService.prototype.novoRecebimentos = function (recebimentos) {
+        return this.http.post(this.baseURL + "/novo", recebimentos);
+    };
+    RecebimentoService.prototype.novoRecebimentoParcelas = function (recebimentoParcelas) {
+        return this.http.post(this.baseURL + "/parcelas/novo", recebimentoParcelas);
+    };
+    RecebimentoService.prototype.editarRecebimentos = function (recebimentos) {
+        return this.http.put(this.baseURL + "/editar/" + recebimentos.id, recebimentos);
+    };
+    RecebimentoService.prototype.editarRecebimentoParcelas = function (recebimentoParcelas) {
+        return this.http.put(this.baseURL + "/parcelas/editar/", recebimentoParcelas);
+    };
+    RecebimentoService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], RecebimentoService);
+    return RecebimentoService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/Movimentos/Lancamentos/lancamento.service.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/_services/Movimentos/Lancamentos/lancamento.service.ts ***!
+  \************************************************************************/
+/*! exports provided: LancamentoService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LancamentoService", function() { return LancamentoService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_models/Info/infoAPI */ "./src/app/_models/Info/infoAPI.ts");
+
+
+
+
+var LancamentoService = /** @class */ (function () {
+    function LancamentoService(http) {
+        this.http = http;
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_3__["InfoAPI"].URL + '/api/movimentos/lancamentos';
+        this.lancamentoTemplate = false;
+    }
+    LancamentoService.prototype.getLancamentoTemplateStatus = function () {
+        return this.lancamentoTemplate;
+    };
+    LancamentoService.prototype.setLancamentoTemplateStatus = function (val) {
+        this.lancamentoTemplate = val;
+    };
+    LancamentoService.prototype.getAllLancamentos = function () {
+        return this.http.get(this.baseURL);
+    };
+    LancamentoService.prototype.getLancamentoById = function (id) {
+        return this.http.get(this.baseURL + "/" + id);
+    };
+    LancamentoService.prototype.getIdUltimoLancamento = function () {
+        return this.http.get(this.baseURL + "/idUltimoLancamento");
+    };
+    LancamentoService.prototype.novoLancamento = function (lancamento) {
+        return this.http.post(this.baseURL + "/novo", lancamento);
+    };
+    LancamentoService.prototype.novosLancamentos = function (lancamento) {
+        return this.http.post(this.baseURL + "/novos", lancamento);
+    };
+    LancamentoService.prototype.editarLancamento = function (lancamento) {
+        return this.http.put(this.baseURL + "/editar/" + lancamento.id, lancamento);
+    };
+    LancamentoService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], LancamentoService);
+    return LancamentoService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/_services/Movimentos/Venda/venda.service.ts":
 /*!*************************************************************!*\
   !*** ./src/app/_services/Movimentos/Venda/venda.service.ts ***!
@@ -1055,16 +1799,65 @@ __webpack_require__.r(__webpack_exports__);
 var VendaService = /** @class */ (function () {
     function VendaService(http) {
         this.http = http;
-        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/vendas';
+        this.baseURL = src_app_models_Info_infoAPI__WEBPACK_IMPORTED_MODULE_2__["InfoAPI"].URL + '/api/movimentos/vendas';
+        this.atualizaVenda = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.atualizaRecebimentos = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.atualizaPagamentos = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.atualizaResumoVenda = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.pagamentosVenda = false;
+        this.recebimentosVenda = false;
+        this.configVenda = false;
     }
+    VendaService.prototype.getConfigVendaStatus = function () {
+        return this.configVenda;
+    };
+    VendaService.prototype.setConfigVendaStatus = function (val) {
+        this.configVenda = val;
+    };
+    VendaService.prototype.getPagamentosVendaStatus = function () {
+        return this.pagamentosVenda;
+    };
+    VendaService.prototype.setPagamentosVendaStatus = function (val) {
+        this.pagamentosVenda = val;
+    };
+    VendaService.prototype.getRecebimentosVendaStatus = function () {
+        return this.recebimentosVenda;
+    };
+    VendaService.prototype.setRecebimentosVendaStatus = function (val) {
+        this.recebimentosVenda = val;
+    };
     VendaService.prototype.getAllVenda = function () {
         return this.http.get(this.baseURL);
+    };
+    VendaService.prototype.getAllVendaRelatorio = function (datas) {
+        return this.http.post(this.baseURL + "/relatorios", datas);
     };
     VendaService.prototype.getVendaByClienteId = function (clienteId) {
         return this.http.get(this.baseURL + "/getByClienteId/" + clienteId);
     };
+    VendaService.prototype.atualizarVenda = function () {
+        this.atualizaVenda.emit(true);
+    };
+    VendaService.prototype.atualizarRecebimentos = function () {
+        this.atualizaRecebimentos.emit(true);
+    };
+    VendaService.prototype.atualizarPagamentos = function () {
+        this.atualizaPagamentos.emit(true);
+    };
+    VendaService.prototype.atualizarResumoVenda = function () {
+        this.atualizaResumoVenda.emit(true);
+    };
     VendaService.prototype.getVendaById = function (id) {
         return this.http.get(this.baseURL + "/" + id);
+    };
+    VendaService.prototype.getVendaConfig = function () {
+        return this.http.get(this.baseURL + "/config");
+    };
+    VendaService.prototype.novoVendaConfig = function (vendaConfig) {
+        return this.http.post(this.baseURL + "/config/novo", vendaConfig);
+    };
+    VendaService.prototype.editarVendaConfig = function (vendaConfig) {
+        return this.http.put(this.baseURL + "/config/editar/" + vendaConfig.id, vendaConfig);
     };
     VendaService.prototype.getIdUltimaVenda = function () {
         return this.http.get(this.baseURL + "/idUltimaVenda");
@@ -1089,12 +1882,6 @@ var VendaService = /** @class */ (function () {
     };
     VendaService.prototype.getIdUltimoValorRealizado = function () {
         return this.http.get(this.baseURL + "/valorrealizado/idUltimo");
-    };
-    VendaService.prototype.getValorRealizadoValores = function (idValorRealizado) {
-        return this.http.get(this.baseURL + "/valorrealizado/valores/" + idValorRealizado);
-    };
-    VendaService.prototype.novoVendaValorRealizadoValores = function (valores) {
-        return this.http.post(this.baseURL + "/valorrealizado/valores/novo", valores);
     };
     VendaService.prototype.novoVenda = function (venda) {
         return this.http.post(this.baseURL + "/novo", venda);
@@ -1145,7 +1932,10 @@ var NotificacaoService = /** @class */ (function () {
         return this.http.get(this.baseURL + "/usuario/count/" + usuarioId);
     };
     NotificacaoService.prototype.novaNotificacao = function (notificacao) {
-        return this.http.post(this.baseURL + "/novo", notificacao);
+        return this.http.post(this.baseURL + "/nova", notificacao);
+    };
+    NotificacaoService.prototype.novasNotificacoes = function (notificacoes) {
+        return this.http.post(this.baseURL + "/novas", notificacoes);
     };
     NotificacaoService.prototype.editarVistoNotificacao = function (notificacao) {
         return this.http.put(this.baseURL + "/editar/visto", notificacao);
@@ -1204,17 +1994,17 @@ var PermissaoService = /** @class */ (function () {
     PermissaoService.prototype.getUsuarioId = function () {
         this.token = localStorage.getItem('token');
         this.decodedToken = this.jwtHelper.decodeToken(this.token);
-        return this.decodedToken.nameid;
+        return (this.decodedToken) ? this.decodedToken.nameid : '';
     };
     PermissaoService.prototype.getUsuario = function () {
         this.token = localStorage.getItem('token');
         this.decodedToken = this.jwtHelper.decodeToken(this.token);
-        return this.decodedToken.unique_name;
+        return (this.decodedToken) ? this.decodedToken.unique_name : '';
     };
     PermissaoService.prototype.getUsuarioNiveis = function () {
         this.token = localStorage.getItem('token');
         this.decodedToken = this.jwtHelper.decodeToken(this.token);
-        return this.decodedToken.role;
+        return (this.decodedToken) ? this.decodedToken.role : [];
     };
     PermissaoService.prototype.verificarPermissao = function (_PERMISSAO) {
         var _this = this;
@@ -1319,12 +2109,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _movimentos_venda_venda_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./movimentos/venda/venda.component */ "./src/app/movimentos/venda/venda.component.ts");
 /* harmony import */ var _movimentos_venda_novoVenda_novoVenda_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./movimentos/venda/novoVenda/novoVenda.component */ "./src/app/movimentos/venda/novoVenda/novoVenda.component.ts");
 /* harmony import */ var _movimentos_venda_editarVenda_editarVenda_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./movimentos/venda/editarVenda/editarVenda.component */ "./src/app/movimentos/venda/editarVenda/editarVenda.component.ts");
-/* harmony import */ var _cadastros_produto_produto_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./cadastros/produto/produto.component */ "./src/app/cadastros/produto/produto.component.ts");
-/* harmony import */ var _cadastros_produto_novoProduto_novoProduto_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./cadastros/produto/novoProduto/novoProduto.component */ "./src/app/cadastros/produto/novoProduto/novoProduto.component.ts");
-/* harmony import */ var _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./cadastros/produto/editarProduto/editarProduto.component */ "./src/app/cadastros/produto/editarProduto/editarProduto.component.ts");
-/* harmony import */ var _cadastros_pessoa_pessoa_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./cadastros/pessoa/pessoa.component */ "./src/app/cadastros/pessoa/pessoa.component.ts");
-/* harmony import */ var _cadastros_pessoa_editarPessoa_editarPessoa_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./cadastros/pessoa/editarPessoa/editarPessoa.component */ "./src/app/cadastros/pessoa/editarPessoa/editarPessoa.component.ts");
-/* harmony import */ var _cadastros_pessoa_novoPessoa_novoPessoa_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./cadastros/pessoa/novoPessoa/novoPessoa.component */ "./src/app/cadastros/pessoa/novoPessoa/novoPessoa.component.ts");
+/* harmony import */ var _movimentos_venda_relatorioVenda_relatorioVenda_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./movimentos/venda/relatorioVenda/relatorioVenda.component */ "./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.ts");
+/* harmony import */ var _cadastros_produto_produto_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./cadastros/produto/produto.component */ "./src/app/cadastros/produto/produto.component.ts");
+/* harmony import */ var _cadastros_produto_novoProduto_novoProduto_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./cadastros/produto/novoProduto/novoProduto.component */ "./src/app/cadastros/produto/novoProduto/novoProduto.component.ts");
+/* harmony import */ var _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./cadastros/produto/editarProduto/editarProduto.component */ "./src/app/cadastros/produto/editarProduto/editarProduto.component.ts");
+/* harmony import */ var _cadastros_pessoa_pessoa_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./cadastros/pessoa/pessoa.component */ "./src/app/cadastros/pessoa/pessoa.component.ts");
+/* harmony import */ var _cadastros_pessoa_editarPessoa_editarPessoa_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./cadastros/pessoa/editarPessoa/editarPessoa.component */ "./src/app/cadastros/pessoa/editarPessoa/editarPessoa.component.ts");
+/* harmony import */ var _cadastros_pessoa_novoPessoa_novoPessoa_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./cadastros/pessoa/novoPessoa/novoPessoa.component */ "./src/app/cadastros/pessoa/novoPessoa/novoPessoa.component.ts");
+/* harmony import */ var _cadastros_planoConta_planoConta_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./cadastros/planoConta/planoConta.component */ "./src/app/cadastros/planoConta/planoConta.component.ts");
+/* harmony import */ var _cadastros_centroReceita_centroReceita_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./cadastros/centroReceita/centroReceita.component */ "./src/app/cadastros/centroReceita/centroReceita.component.ts");
+/* harmony import */ var _cadastros_centroDespesa_centroDespesa_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./cadastros/centroDespesa/centroDespesa.component */ "./src/app/cadastros/centroDespesa/centroDespesa.component.ts");
+/* harmony import */ var _cadastros_formaPagamento_formaPagamento_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./cadastros/formaPagamento/formaPagamento.component */ "./src/app/cadastros/formaPagamento/formaPagamento.component.ts");
+/* harmony import */ var _cadastros_planoPagamento_planoPagamento_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./cadastros/planoPagamento/planoPagamento.component */ "./src/app/cadastros/planoPagamento/planoPagamento.component.ts");
+/* harmony import */ var _financeiro_recebimento_recebimento_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./financeiro/recebimento/recebimento.component */ "./src/app/financeiro/recebimento/recebimento.component.ts");
+/* harmony import */ var _financeiro_lancamento_lancamento_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./financeiro/lancamento/lancamento.component */ "./src/app/financeiro/lancamento/lancamento.component.ts");
+/* harmony import */ var _cadastros_chequePre_chequePre_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./cadastros/chequePre/chequePre.component */ "./src/app/cadastros/chequePre/chequePre.component.ts");
+/* harmony import */ var _financeiro_lancamento_relatorioLancamento_relatorioLancamento_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./financeiro/lancamento/relatorioLancamento/relatorioLancamento.component */ "./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.ts");
+/* harmony import */ var _financeiro_pagamento_pagamento_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./financeiro/pagamento/pagamento.component */ "./src/app/financeiro/pagamento/pagamento.component.ts");
+/* harmony import */ var _cadastros_empresa_empresa_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./cadastros/empresa/empresa.component */ "./src/app/cadastros/empresa/empresa.component.ts");
+/* harmony import */ var _autorizacao_autorizacao_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./autorizacao/autorizacao.component */ "./src/app/autorizacao/autorizacao.component.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1372,12 +2188,25 @@ var routes = [
     { path: 'movimentos/vendas', component: _movimentos_venda_venda_component__WEBPACK_IMPORTED_MODULE_18__["VendaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
     { path: 'movimentos/vendas/novo', component: _movimentos_venda_novoVenda_novoVenda_component__WEBPACK_IMPORTED_MODULE_19__["NovoVendaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
     { path: 'movimentos/vendas/editar/:id', component: _movimentos_venda_editarVenda_editarVenda_component__WEBPACK_IMPORTED_MODULE_20__["EditarVendaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
-    { path: 'produtos', component: _cadastros_produto_produto_component__WEBPACK_IMPORTED_MODULE_21__["ProdutoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
-    { path: 'produtos/novo', component: _cadastros_produto_novoProduto_novoProduto_component__WEBPACK_IMPORTED_MODULE_22__["NovoProdutoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
-    { path: 'produtos/editar/:id', component: _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_23__["EditarProdutoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
-    { path: 'pessoas', component: _cadastros_pessoa_pessoa_component__WEBPACK_IMPORTED_MODULE_24__["PessoaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
-    { path: 'pessoas/novo', component: _cadastros_pessoa_novoPessoa_novoPessoa_component__WEBPACK_IMPORTED_MODULE_26__["NovoPessoaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
-    { path: 'pessoas/editar/:id', component: _cadastros_pessoa_editarPessoa_editarPessoa_component__WEBPACK_IMPORTED_MODULE_25__["EditarPessoaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'movimentos/vendas/relatorios', component: _movimentos_venda_relatorioVenda_relatorioVenda_component__WEBPACK_IMPORTED_MODULE_21__["RelatorioVendaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'produtos', component: _cadastros_produto_produto_component__WEBPACK_IMPORTED_MODULE_22__["ProdutoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'produtos/novo', component: _cadastros_produto_novoProduto_novoProduto_component__WEBPACK_IMPORTED_MODULE_23__["NovoProdutoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'produtos/editar/:id', component: _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_24__["EditarProdutoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'pessoas', component: _cadastros_pessoa_pessoa_component__WEBPACK_IMPORTED_MODULE_25__["PessoaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'pessoas/novo', component: _cadastros_pessoa_novoPessoa_novoPessoa_component__WEBPACK_IMPORTED_MODULE_27__["NovoPessoaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'pessoas/editar/:id', component: _cadastros_pessoa_editarPessoa_editarPessoa_component__WEBPACK_IMPORTED_MODULE_26__["EditarPessoaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'plano-conta', component: _cadastros_planoConta_planoConta_component__WEBPACK_IMPORTED_MODULE_28__["PlanoContaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'centro-receita', component: _cadastros_centroReceita_centroReceita_component__WEBPACK_IMPORTED_MODULE_29__["CentroReceitaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'centro-despesa', component: _cadastros_centroDespesa_centroDespesa_component__WEBPACK_IMPORTED_MODULE_30__["CentroDespesaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'forma-pagamento', component: _cadastros_formaPagamento_formaPagamento_component__WEBPACK_IMPORTED_MODULE_31__["FormaPagamentoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'plano-pagamento', component: _cadastros_planoPagamento_planoPagamento_component__WEBPACK_IMPORTED_MODULE_32__["PlanoPagamentoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'financeiro/recebimentos', component: _financeiro_recebimento_recebimento_component__WEBPACK_IMPORTED_MODULE_33__["RecebimentoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'financeiro/pagamentos', component: _financeiro_pagamento_pagamento_component__WEBPACK_IMPORTED_MODULE_37__["PagamentoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'financeiro/lancamentos', component: _financeiro_lancamento_lancamento_component__WEBPACK_IMPORTED_MODULE_34__["LancamentoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'financeiro/lancamentos/relatorios', component: _financeiro_lancamento_relatorioLancamento_relatorioLancamento_component__WEBPACK_IMPORTED_MODULE_36__["RelatorioLancamentoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'cheque-pre', component: _cadastros_chequePre_chequePre_component__WEBPACK_IMPORTED_MODULE_35__["ChequePreComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'empresas', component: _cadastros_empresa_empresa_component__WEBPACK_IMPORTED_MODULE_38__["EmpresaComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'autorizacoes', component: _autorizacao_autorizacao_component__WEBPACK_IMPORTED_MODULE_39__["AutorizacaoComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
@@ -1397,17 +2226,6 @@ var AppRoutingModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/app.component.css":
-/*!***********************************!*\
-  !*** ./src/app/app.component.css ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".btn-circle.btn-xl {\r\n    width: 70px;\r\n    height: 70px;\r\n    padding: 10px 16px;\r\n    border-radius: 35px;\r\n    font-size: 24px;\r\n    line-height: 1.33;\r\n}\r\n\r\n.btn-circle {\r\n    width: 30px;\r\n    height: 30px;\r\n    padding: 6px 0px;\r\n    border-radius: 15px;\r\n    text-align: center;\r\n    font-size: 12px;\r\n    line-height: 1.42857;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGtCQUFrQjtJQUNsQixtQkFBbUI7SUFDbkIsZUFBZTtJQUNmLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLFdBQVc7SUFDWCxZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLG1CQUFtQjtJQUNuQixrQkFBa0I7SUFDbEIsZUFBZTtJQUNmLG9CQUFvQjtBQUN4QiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJ0bi1jaXJjbGUuYnRuLXhsIHtcclxuICAgIHdpZHRoOiA3MHB4O1xyXG4gICAgaGVpZ2h0OiA3MHB4O1xyXG4gICAgcGFkZGluZzogMTBweCAxNnB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogMzVweDtcclxuICAgIGZvbnQtc2l6ZTogMjRweDtcclxuICAgIGxpbmUtaGVpZ2h0OiAxLjMzO1xyXG59XHJcblxyXG4uYnRuLWNpcmNsZSB7XHJcbiAgICB3aWR0aDogMzBweDtcclxuICAgIGhlaWdodDogMzBweDtcclxuICAgIHBhZGRpbmc6IDZweCAwcHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiAxNXB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgZm9udC1zaXplOiAxMnB4O1xyXG4gICAgbGluZS1oZWlnaHQ6IDEuNDI4NTc7XHJcbn1cclxuIl19 */"
-
-/***/ }),
-
 /***/ "./src/app/app.component.html":
 /*!************************************!*\
   !*** ./src/app/app.component.html ***!
@@ -1415,7 +2233,18 @@ module.exports = ".btn-circle.btn-xl {\r\n    width: 70px;\r\n    height: 70px;\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<html>\n\n<body class='hold-transition skin-blue sidebar-mini {{sidebar}}'>\n  <div class=\"wrapper\">\n\n    <header class=\"main-header \">\n\n      <!-- Logo -->\n      <a routerlink=\"dashboard\" class=\"logo\">\n        <!-- mini logo for sidebar mini 50x50 pixels -->\n        <span class=\"logo-mini\"><b></b>VMS</span>\n        <!-- logo for regular state and mobile devices -->\n        <span class=\"logo-lg\"><b>Virtual</b>Web</span>\n      </a>\n\n      <!-- Header Navbar: style can be found in header.less -->\n      <nav class=\"navbar navbar-static-top\">\n\n        <a class=\"sidebar-toggle\" (click)=\"alterarSidebar()\" role=\"button\">\n          <span class=\"sr-only\"></span>\n        </a>\n        <!-- Navbar Right Menu <div *dropdownMenu class=\"dropdown-menu\" style=\"position: absolute; width: 255px;\" aria-labelledby=\"navbarDropdownMenuLink2\">-->\n        <div class=\"navbar-custom-menu\">\n          <ul *ngIf=\"verificarLogIn()\" class=\"nav navbar-nav\">\n\n            <li class=\"dropdown messages-menu\" dropdown>\n              <a dropdownToggle class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                <i class=\"fa fa-bell-o\"></i>\n                <span *ngIf=\"getQtdNotificacoes() > 0\" class=\"label label-warning\">{{getQtdNotificacoes()}}</span>\n              </a>\n              <div *dropdownMenu class=\"dropdown-menu\">\n            <li class=\"header\">Você tem {{getQtdNotificacoes()}} Notificações</li>\n            <li>\n\n              <ul class=\"menu\">\n                \n                <div *ngFor=\"let notificacao of notificacoes\">\n                  <div *ngIf=\"notificacao.visto == 0\">\n                    <li (click)=\"setarVistoNotificacao(notificacao)\" style=\"cursor:pointer;\">\n                      <a>\n                        <h4>Retorno.<small class=\"pull-right\">\n                            <i class=\"fa fa-clock-o \"></i>\n                            [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>\n                        </h4>\n                        <p>Você tem um novo {{notificacao.tipo}}.</p>\n                      </a>\n                    </li>\n                  </div>\n                  <div *ngIf=\"notificacao.visto == 1\">\n                    <li class=\"bg-gray\"\n                      style=\"border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;\">\n                      <a>\n                        <h4>\n                          Retorno.\n                          <small class=\"pull-right\"><i class=\"fa fa-clock-o \"></i>\n                            [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>\n                        </h4>\n                        <p>Você tem um novo {{notificacao.tipo}}.</p>\n                      </a>\n                    </li>\n                  </div>\n                </div>\n\n              </ul>\n            </li>\n            <li class=\"footer\"><a></a></li>\n        </div>\n        </li>\n\n        <!-- Tasks: style can be found in dropdown.less -->\n\n        <!-- User Account: style can be found in dropdown.less -->\n        <li class=\"dropdown user user-menu\" dropdown>\n          <a dropdownToggle class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n            <img src=\"./../assets/img/user-default.png\" class=\"user-image\" alt=\"User Image\">\n            <span class=\"hidden-xs\">{{usuarioNome()}} </span>\n          </a>\n          <div *dropdownMenu class=\"dropdown-menu\">\n            <!-- User image -->\n        <li class=\"user-header\">\n          <img src=\"./../assets/img/user-default.png\" class=\"img-circle\" alt=\"User Image\">\n\n          <p>\n            {{usuarioNome()}}\n            <small></small>\n          </p>\n        </li>\n        <li class=\"user-footer\">\n          <div class=\"footer\">\n            <a [routerLink]=\"['/usuarios','editar', usuarioId()]\" class=\"btn btn-default btn-flat\">Perfil</a>\n            <a [routerLink]=\"['/usuarios','editar','senha', usuarioId()]\" class=\"btn btn-default btn-flat\">Alterar\n              Senha</a>\n            <a (click)=\"logout()\" class=\"btn btn-default btn-flat\">Sair</a>\n          </div>\n        </li>\n  </div>\n  </li>\n  <!-- Control Sidebar Toggle Button -->\n  <li>\n    <a data-toggle=\"control-sidebar\"><i></i></a>\n  </li>\n  </ul>\n  </div>\n\n  </nav>\n  </header>\n  <!-- Left side column. contains the logo and sidebar -->\n  <aside *ngIf=\"verificarLogIn()\" class=\"main-sidebar\">\n    <!-- sidebar: style can be found in sidebar.less -->\n    <section class=\"sidebar\">\n      <!-- Sidebar user panel -->\n      <div class=\"user-panel\">\n        <div class=\"pull-left image\">\n          <img src=\"./../assets/img/user-default.png\" class=\"img-circle\" alt=\"User Image\">\n        </div>\n        <div class=\"pull-left info\">\n          <p>{{usuarioNome()}}</p>\n          <a href=\"#\"><i class=\"fa fa-circle text-success\"></i> Online</a>\n        </div>\n      </div>\n      <!-- /.search form -->\n      <!-- sidebar menu: : style can be found in sidebar.less \n        <li class=\"dropdown messages-menu\" dropdown>\n              <a dropdownToggle class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                <i class=\"fa fa-bell-o\"></i>\n                <span class=\"label label-warning\">10</span>\n              </a>\n              <body *dropdownMenu class=\"dropdown-menu\">\n        \n        -->\n      <ul class=\"sidebar-menu\" data-widget=\"tree\">\n        <li class=\"header\">MAIN NAVIGATION</li>\n        <li>\n          <a routerLink=\"dashboard\">\n            <i class=\"fa fa-dashboard\"></i> <span>Dashboard</span>\n            <span class=\"pull-right-container\">\n              <small class=\"label pull-right bg-green\">new</small>\n            </span>\n          </a>\n        </li>\n\n        <li>\n          <a routerLink=\"usuarios\">\n            <i class=\"fa fa-user\"></i> <span>Usuários</span>\n          </a>\n        </li>\n\n        <li>\n          <a *ngIf=\"this.listarCliente == true\"routerLink=\"clientes\">\n            <i class=\"fa fa-users\"></i> <span>Clientes</span>\n          </a>\n        </li>\n\n        <li *ngIf=\"this.listarPessoa == true\">\n          <a routerLink=\"pessoas\">\n            <i class=\"fa fa-users\"></i> <span>Pessoas</span>\n          </a>\n        </li>\n\n        <li *ngIf=\"this.listarProduto == true\">\n          <a routerLink=\"produtos\">\n            <i class=\"fa fa-dropbox\"></i> <span>Produtos</span>\n          </a>\n        </li>\n\n        <li>\n          <a routerLink=\"atendimentos/retornos\">\n            <i class=\"fa fa-phone\"></i> <span>Retornos</span>\n          </a>\n        </li>\n\n        <li *ngIf=\"this.listarVenda == true\">\n          <a routerLink=\"movimentos/vendas\">\n            <i class=\"fa fa-dollar\"></i> <span>Venda</span>\n          </a>\n        </li>\n\n        <li *ngIf=\"this.visualizarPermissao == true\">\n          <a routerLink=\"permissoes\">\n            <i class=\"fa fa-lock\"></i> <span>Permissões</span>\n          </a>\n        </li>\n\n      </ul>\n    </section>\n    <!-- /.sidebar -->\n  </aside>\n\n  <div class=\"content-wrapper\">\n    <!-- Content Header (Page header) -->\n    <section class=\"content-header\">\n      <router-outlet></router-outlet>\n    </section>\n  </div>\n\n  <footer class=\"main-footer\">\n    <div class=\"pull-right hidden-xs\">\n      <b>Versão</b> BETA\n    </div>\n    <strong>Copyright &copy; 2019 <a>VMS Ltda</a>.</strong>\n  </footer>\n  </div>\n</body>\n\n</html>\n<!--\n<button type=\"button\" style=\"position:fixed;bottom:10%;left:2%;\" \ntooltip=\"Novas ideias!\" (click)=\"templateIdeia.show()\" class=\"btn btn-warning btn-circle btn-xl\"><i class=\"fa fa-lightbulb\"></i>\n</button>\n\n<div bsModal #templateIdeia=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\"\n  aria-labelledby=\"dialog-sizes-name1\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Novo Grupo\n        </h4>\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templateIdeia.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n\n      <div class=\"modal-body\">\n        <form class=\"container\" [formGroup]=\"cadastroIdeiaForm\">\n          <input type=\"hidden\" class=\"form-control\" formControlName=\"id\" value=\"0\"  />\n\n          <div class=\"form-row\">\n            <div class=\"form-group col-md-12\">\n                <label>Ideia: (*)</label>\n                <textarea class=\"form-control\"\n                  [ngClass]=\"{'is-invalid':cadastroIdeiaForm.get('ideia').errors &&cadastroIdeiaForm.get('ideia').touched}\"\n                  formControlName=\"ideia\" rows=\"4\"></textarea>\n                <div\n                  *ngIf=\"cadastroIdeiaForm.get('ideia').hasError('required') &&cadastroIdeiaForm.get('ideia').touched\"\n                  class=\"invalid-feedback\">\n                  Campo é obrigatório.\n                </div>\n              </div>\n          </div>\n\n        </form>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"templateIdeia.hide()\">\n          Fechar\n        </button>\n\n        <button class=\"btn btn-primary\" [disabled]=\"!cadastroIdeiaForm.valid\" (click)=\"cadastrarIdeia(templateIdeia)\">\n          Cadastrar\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n-->"
+module.exports = "<html>\n\n<body class='hold-transition skin-blue sidebar-mini {{sidebar}}'>\n  <div class=\"wrapper\">\n    <header class=\"main-header \">\n\n      <!-- Logo -->\n      <a routerlink=\"dashboard\" class=\"logo\">\n        <!-- mini logo for sidebar mini 50x50 pixels -->\n        <span class=\"logo-mini\"><b></b>VMS</span>\n        <!-- logo for regular state and mobile devices -->\n        <span class=\"logo-lg\"><b>Virtual</b>Web</span>\n      </a>\n\n      <!-- Header Navbar: style can be found in header.less -->\n      <nav class=\"navbar navbar-static-top\">\n\n        <a class=\"sidebar-toggle\" (click)=\"alterarSidebar()\" role=\"button\">\n          <span class=\"sr-only\"></span>\n        </a>\n        <!-- Navbar Right Menu <div *dropdownMenu class=\"dropdown-menu\" style=\"position: absolute; width: 255px;\" aria-labelledby=\"navbarDropdownMenuLink2\">-->\n        <div class=\"navbar-custom-menu\">\n          <ul *ngIf=\"verificarLogIn()\" class=\"nav navbar-nav\">\n\n            <li class=\"dropdown messages-menu\" dropdown>\n              <a dropdownToggle class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                <i class=\"fa fa-bell-o\"></i>\n                <span *ngIf=\"getQtdNotificacoes() > 0\" class=\"label label-warning\">{{getQtdNotificacoes()}}</span>\n              </a>\n              <div *dropdownMenu class=\"dropdown-menu\">\n            <li class=\"header\">Você tem {{getQtdNotificacoes()}} Notificações</li>\n            <li>\n\n              <ul class=\"menu\">\n\n                <div *ngFor=\"let notificacao of notificacoes\">\n                  <div *ngIf=\"notificacao.visto == 0\">\n                    <li (click)=\"setarVistoNotificacao(notificacao)\" style=\"cursor:pointer;\">\n                      <a>\n                        <h4 style=\"margin-left:5px;\">{{notificacao.tipo}}<small style=\"margin-right:5px;\"class=\"pull-right\">\n                            <i class=\"fa fa-clock-o \"></i>\n                            [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>\n                        </h4>\n                        <p style=\"margin-left:10px;\">Você tem um novo(a) {{notificacao.tipo}}.</p>\n                      </a>\n                    </li>\n                  </div>\n                  <div *ngIf=\"notificacao.visto == 1\">\n                    <li class=\"bg-gray\"\n                      style=\"border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;\">\n                      <a>\n                        <h4 style=\"margin-left:5px;\">{{notificacao.tipo}}\n                          <small style=\"margin-right:5px;\"class=\"pull-right\"><i class=\"fa fa-clock-o \"></i>\n                            [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>\n                        </h4>\n                        <p style=\"margin-left:10px;\">Você tem um novo(a) {{notificacao.tipo}}.</p>\n                      </a>\n                    </li>\n                  </div>\n                </div>\n\n              </ul>\n            </li>\n            <li class=\"footer\"><a></a></li>\n        </div>\n        </li>\n\n        <!-- Tasks: style can be found in dropdown.less -->\n\n        <!-- User Account: style can be found in dropdown.less -->\n        <li class=\"dropdown user user-menu\" dropdown>\n          <a dropdownToggle class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n            <img src=\"./../assets/img/user-default.png\" class=\"user-image\" alt=\"User Image\">\n            <span class=\"hidden-xs\">{{usuarioNome()}} </span>\n          </a>\n          <div *dropdownMenu class=\"dropdown-menu\">\n            <!-- User image -->\n        <li class=\"user-header\">\n          <img src=\"./../assets/img/user-default.png\" class=\"img-circle\" alt=\"User Image\">\n\n          <p>\n            {{usuarioNome()}}\n            <small></small>\n          </p>\n        </li>\n        <li class=\"user-footer\">\n          <div class=\"footer\">\n            <a [routerLink]=\"['/usuarios','editar', usuarioId()]\" class=\"btn btn-default btn-flat\">Perfil</a>\n            <a [routerLink]=\"['/usuarios','editar','senha', usuarioId()]\" class=\"btn btn-default btn-flat\">Alterar\n              Senha</a>\n            <a (click)=\"logout()\" class=\"btn btn-default btn-flat\">Sair</a>\n          </div>\n        </li>\n  </div>\n  </li>\n  <!-- Control Sidebar Toggle Button -->\n  <li>\n    <a data-toggle=\"control-sidebar\"><i></i></a>\n  </li>\n  </ul>\n  </div>\n  </nav>\n  </header>\n  <!-- Left side column. contains the logo and sidebar -->\n  <aside *ngIf=\"verificarLogIn()\" class=\"main-sidebar\">\n    <!-- sidebar: style can be found in sidebar.less -->\n    <section class=\"sidebar\">\n      <!-- Sidebar user panel -->\n      <div class=\"user-panel\">\n        <div class=\"pull-left image\">\n          <img src=\"./../assets/img/user-default.png\" class=\"img-circle\" alt=\"User Image\">\n        </div>\n        <div class=\"pull-left info\">\n          <p>{{usuarioNome()}}</p>\n          <a href=\"#\"><i class=\"fa fa-circle text-success\"></i> Online</a>\n        </div>\n      </div>\n      <!-- /.search form -->\n      <!-- sidebar menu: : style can be found in sidebar.less \n        <li class=\"dropdown messages-menu\" dropdown>\n              <a dropdownToggle class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                <i class=\"fa fa-bell-o\"></i>\n                <span class=\"label label-warning\">10</span>\n              </a>\n              <body *dropdownMenu class=\"dropdown-menu\">\n        \n        -->\n      <nav id=\"sidebar\" class=\"sidebar\">\n        <div class=\"sidebar-content\">\n\n          <perfect-scrollbar>\n\n            <div class=\"sidebar-menu\">\n              <ul>\n                <li *ngFor=\"let menu of menus\"\n                  [ngClass]=\"{'active': menu.active , 'sidebar-dropdown':menu.type === 'dropdown' , 'header-menu':menu.type === 'header'}\">\n                  <span *ngIf=\"menu.type === 'header'\">{{menu.title}}</span>\n                  <a *ngIf=\"menu.type !== 'header' && verificarPermissao(menu.title) == true\" [routerLink]=\"menu.link\" (click)='toggle(menu)'>\n                    <i class=\"{{menu.icon}}\" ></i>\n                    <span>{{menu.title}}</span>\n                    <span *ngIf=\"menu.badge\" class=\"badge badge-pill\"\n                      [ngClass]=\"menu.badge.class\">{{menu.badge.text}}</span>\n                  </a>\n                  <div *ngIf=\"menu.type === 'dropdown'\" class=\"sidebar-submenu\" [@slide]=\"getState(menu)\">\n                    <ul>\n                      <li *ngFor=\"let submenu of menu.submenus\">\n                        <a *ngIf=\"verificarPermissao(submenu.title) == true\"\n                         [routerLink]=\"submenu.link\"> <i class=\"{{submenu.icon}}\"></i>{{submenu.title}}\n                          <span *ngIf=\"submenu.badge\" class=\"badge badge-pill\"\n                            [ngClass]=\"submenu.badge.class\">{{submenu.badge.text}}</span>\n                        </a>\n                      </li>\n                    </ul>\n                  </div>\n                </li>\n              </ul>\n            </div>\n          </perfect-scrollbar>\n        </div>\n      </nav>\n    </section>\n\n    <!-- /.sidebar -->\n  </aside>\n\n  <div class=\"content-wrapper\">\n    <!-- Content Header (Page header) -->\n    <section class=\"content-header\">\n      <router-outlet></router-outlet>\n    </section>\n  </div>\n\n  <footer class=\"main-footer\">\n    <div class=\"pull-right hidden-xs\">\n      <b>Versão</b> BETA\n    </div>\n    <strong>Copyright &copy; 2019 <a>VMS Ltda</a>.</strong>\n  </footer>\n  </div>\n</body>\n\n</html>\n<!--\n<button type=\"button\" style=\"position:fixed;bottom:10%;left:2%;\" \ntooltip=\"Novas ideias!\" (click)=\"templateIdeia.show()\" class=\"btn btn-warning btn-circle btn-xl\"><i class=\"fa fa-lightbulb\"></i>\n</button>\n\n<div bsModal #templateIdeia=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\"\n  aria-labelledby=\"dialog-sizes-name1\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Novo Grupo\n        </h4>\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templateIdeia.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n\n      <div class=\"modal-body\">\n        <form class=\"container\" [formGroup]=\"cadastroIdeiaForm\">\n          <input type=\"hidden\" class=\"form-control\" formControlName=\"id\" value=\"0\"  />\n\n          <div class=\"form-row\">\n            <div class=\"form-group col-md-12\">\n                <label>Ideia: (*)</label>\n                <textarea class=\"form-control\"\n                  [ngClass]=\"{'is-invalid':cadastroIdeiaForm.get('ideia').errors &&cadastroIdeiaForm.get('ideia').touched}\"\n                  formControlName=\"ideia\" rows=\"4\"></textarea>\n                <div\n                  *ngIf=\"cadastroIdeiaForm.get('ideia').hasError('required') &&cadastroIdeiaForm.get('ideia').touched\"\n                  class=\"invalid-feedback\">\n                  Campo é obrigatório.\n                </div>\n              </div>\n          </div>\n\n        </form>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"templateIdeia.hide()\">\n          Fechar\n        </button>\n\n        <button class=\"btn btn-primary\" [disabled]=\"!cadastroIdeiaForm.valid\" (click)=\"cadastrarIdeia(templateIdeia)\">\n          Cadastrar\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n-->"
+
+/***/ }),
+
+/***/ "./src/app/app.component.scss":
+/*!************************************!*\
+  !*** ./src/app/app.component.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "@-webkit-keyframes swing {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  10% {\n    -webkit-transform: rotate(10deg);\n            transform: rotate(10deg); }\n  30% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  40% {\n    -webkit-transform: rotate(-10deg);\n            transform: rotate(-10deg); }\n  50% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  60% {\n    -webkit-transform: rotate(5deg);\n            transform: rotate(5deg); }\n  70% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  80% {\n    -webkit-transform: rotate(-5deg);\n            transform: rotate(-5deg); }\n  100% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); } }\n\n@keyframes swing {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  10% {\n    -webkit-transform: rotate(10deg);\n            transform: rotate(10deg); }\n  30% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  40% {\n    -webkit-transform: rotate(-10deg);\n            transform: rotate(-10deg); }\n  50% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  60% {\n    -webkit-transform: rotate(5deg);\n            transform: rotate(5deg); }\n  70% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  80% {\n    -webkit-transform: rotate(-5deg);\n            transform: rotate(-5deg); }\n  100% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); } }\n\n@-webkit-keyframes sonar {\n  0% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9);\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(2);\n            transform: scale(2);\n    opacity: 0; } }\n\n@keyframes sonar {\n  0% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9);\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(2);\n            transform: scale(2);\n    opacity: 0; } }\n\n.sidebar {\n  width: 230px;\n  height: 100%;\n  max-height: 100%;\n  position: relative;\n  top: 0;\n  left: 0px;\n  z-index: 999;\n  transition: left .3s ease; }\n\n.sidebar a {\n    text-decoration: none;\n    transition: color .3s ease; }\n\n.sidebar .sidebar-content {\n    max-height: calc(100% - 30px);\n    height: calc(100% - 30px);\n    overflow-y: auto;\n    position: relative; }\n\n.sidebar .sidebar-content .sidebar-header {\n      padding: 10px 20px;\n      display: flex;\n      align-items: center; }\n\n.sidebar .sidebar-content .sidebar-header > a {\n        text-transform: uppercase;\n        font-weight: bold;\n        flex-grow: 1;\n        text-decoration: none; }\n\n.sidebar .sidebar-content .sidebar-header #close-sidebar {\n        cursor: pointer;\n        font-size: 20px;\n        transition: color .3s ease; }\n\n.sidebar .sidebar-content .sidebar-profile {\n      padding: 20px;\n      overflow: hidden; }\n\n.sidebar .sidebar-content .sidebar-profile .user-pic {\n        float: left;\n        width: 60px;\n        padding: 2px;\n        border-radius: 12px;\n        margin-right: 15px;\n        overflow: hidden; }\n\n.sidebar .sidebar-content .sidebar-profile .user-pic img {\n          -o-object-fit: cover;\n             object-fit: cover;\n          height: 100%;\n          width: 100%; }\n\n.sidebar .sidebar-content .sidebar-profile .user-info {\n        float: left; }\n\n.sidebar .sidebar-content .sidebar-profile .user-info > span {\n          display: block; }\n\n.sidebar .sidebar-content .sidebar-profile .user-info .user-role {\n          font-size: 12px; }\n\n.sidebar .sidebar-content .sidebar-profile .user-info .user-status {\n          font-size: 11px;\n          margin-top: 4px; }\n\n.sidebar .sidebar-content .sidebar-profile .user-info .user-status i {\n            font-size: 8px;\n            margin-right: 4px;\n            color: #5cb85c; }\n\n.sidebar .sidebar-content .sidebar-search > div {\n      padding: 10px 20px; }\n\n.sidebar .sidebar-content .sidebar-search .input-group-append .input-group-text {\n      border-left: 0; }\n\n.sidebar .sidebar-content .sidebar-menu {\n      padding-bottom: 10px; }\n\n.sidebar .sidebar-content .sidebar-menu .header-menu span {\n        font-weight: bold;\n        font-size: 14px;\n        padding: 15px 20px 5px 20px;\n        display: inline-block; }\n\n.sidebar .sidebar-content .sidebar-menu ul {\n        list-style-type: none;\n        padding: 0;\n        margin: 0; }\n\n.sidebar .sidebar-content .sidebar-menu ul li a {\n          display: inline-block;\n          width: 100%;\n          text-decoration: none;\n          position: relative;\n          padding: 8px 30px 8px 20px; }\n\n.sidebar .sidebar-content .sidebar-menu ul li a i {\n            margin-right: 10px;\n            font-size: 12px;\n            width: 30px;\n            height: 30px;\n            line-height: 30px;\n            text-align: center;\n            border-radius: 4px; }\n\n.sidebar .sidebar-content .sidebar-menu ul li a:hover > i::before {\n            display: inline-block;\n            -webkit-animation: swing ease-in-out .5s 1 alternate;\n                    animation: swing ease-in-out .5s 1 alternate; }\n\n.sidebar .sidebar-content .sidebar-menu ul li a span.label,\n          .sidebar .sidebar-content .sidebar-menu ul li a span.badge {\n            float: right;\n            margin-top: 8px;\n            margin-left: 5px; }\n\n.sidebar .sidebar-content .sidebar-menu .sidebar-dropdown > a:after {\n        font-family: \"Font Awesome 5 Free\";\n        font-weight: 900;\n        content: \"\\f105\";\n        display: inline-block;\n        font-style: normal;\n        font-variant: normal;\n        text-rendering: auto;\n        -webkit-font-smoothing: antialiased;\n        -moz-osx-font-smoothing: grayscale;\n        text-align: center;\n        background: 0 0;\n        position: absolute;\n        right: 15px;\n        top: 14px;\n        transition: -webkit-transform .3s ease;\n        transition: transform .3s ease;\n        transition: transform .3s ease, -webkit-transform .3s ease; }\n\n.sidebar .sidebar-content .sidebar-menu .sidebar-dropdown .sidebar-submenu {\n        overflow: hidden; }\n\n.sidebar .sidebar-content .sidebar-menu .sidebar-dropdown .sidebar-submenu ul {\n          padding: 5px 0; }\n\n.sidebar .sidebar-content .sidebar-menu .sidebar-dropdown .sidebar-submenu li {\n          padding-left: 25px;\n          font-size: 13px; }\n\n.sidebar .sidebar-content .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {\n            font-family: \"Font Awesome 5 Free\";\n            font-weight: 400;\n            font-style: normal;\n            text-align: center;\n            text-decoration: none;\n            margin-right: 10px;\n            font-size: 8px; }\n\n.sidebar .sidebar-content .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before i {\n              margin-right: 10px;\n              font-size: 8px;\n              width: 30px;\n              height: 15px;\n              line-height: 15px;\n              text-align: center;\n              border-radius: 3px; }\n\n.sidebar .sidebar-content .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before:hover > i::before {\n              display: inline-block;\n              -webkit-animation: swing ease-in-out .5s 1 alternate;\n                      animation: swing ease-in-out .5s 1 alternate; }\n\n.sidebar .sidebar-content .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .badge,\n          .sidebar .sidebar-content .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .label {\n            float: right;\n            margin-top: 0px; }\n\n.sidebar .sidebar-content .sidebar-menu .sidebar-dropdown.active > a:after {\n        -webkit-transform: rotate(90deg);\n                transform: rotate(90deg);\n        right: 15px; }\n\n.sidebar .sidebar-footer {\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n    display: flex; }\n\n.sidebar .sidebar-footer > div {\n      flex-grow: 1;\n      text-align: center;\n      height: 30px;\n      line-height: 30px;\n      position: static;\n      display: flex; }\n\n.sidebar .sidebar-footer > div > a {\n        flex-grow: 1; }\n\n.sidebar .sidebar-footer > div a .notification {\n        position: absolute;\n        top: 0; }\n\n.sidebar .sidebar-footer .dropdown-menu {\n      bottom: 31px;\n      left: 0 !important;\n      top: initial !important;\n      right: 0 !important;\n      -webkit-transform: none !important;\n              transform: none !important;\n      border-bottom-left-radius: 0;\n      border-bottom-right-radius: 0;\n      font-size: .9rem; }\n\n.sidebar .sidebar-footer .messages .dropdown-item {\n      padding: .25rem 1rem; }\n\n.sidebar .sidebar-footer .messages .messages-header {\n      padding: 0 1rem; }\n\n.sidebar .sidebar-footer .messages .message-content {\n      display: flex; }\n\n.sidebar .sidebar-footer .messages .message-content .pic {\n        width: 40px;\n        height: 40px;\n        border-radius: 4px;\n        overflow: hidden; }\n\n.sidebar .sidebar-footer .messages .message-content .pic img {\n          -o-object-fit: cover;\n             object-fit: cover;\n          height: 100%; }\n\n.sidebar .sidebar-footer .messages .message-content .content {\n        line-height: 1.6;\n        padding-left: 5px;\n        width: calc(100% - 40px); }\n\n.sidebar .sidebar-footer .messages .message-content .content .message-title {\n          font-size: 13px; }\n\n.sidebar .sidebar-footer .messages .message-content .content .message-detail {\n          font-size: 12px;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n\n.sidebar .sidebar-footer .notifications .dropdown-item {\n      padding: .25rem 1rem; }\n\n.sidebar .sidebar-footer .notifications .notifications-header {\n      padding: 0 1rem; }\n\n.sidebar .sidebar-footer .notifications .notification-content {\n      display: flex; }\n\n.sidebar .sidebar-footer .notifications .notification-content .icon {\n        width: 40px;\n        height: 40px; }\n\n.sidebar .sidebar-footer .notifications .notification-content .icon i {\n          width: 35px;\n          height: 35px;\n          text-align: center;\n          line-height: 35px;\n          border-radius: 4px; }\n\n.sidebar .sidebar-footer .notifications .notification-content .content {\n        line-height: 1.6;\n        padding-left: 5px;\n        width: calc(100% - 40px); }\n\n.sidebar .sidebar-footer .notifications .notification-content .content .notification-time {\n          font-size: .7rem;\n          color: #828282; }\n\n.sidebar .sidebar-footer .notifications .notification-content .content .notification-detail {\n          font-size: 12px;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n\n.sidebar .sidebar-footer .badge-sonar {\n      display: inline-block;\n      background: #980303;\n      border-radius: 50%;\n      height: 8px;\n      width: 8px;\n      position: absolute;\n      top: 0; }\n\n.sidebar .sidebar-footer .badge-sonar:after {\n        content: '';\n        position: absolute;\n        top: 0;\n        left: 0;\n        border: 2px solid #980303;\n        opacity: 0;\n        border-radius: 50%;\n        width: 100%;\n        height: 100%;\n        -webkit-animation: sonar 1.5s infinite;\n                animation: sonar 1.5s infinite; }\n\n/*------------------------------default theme---------------------------------*/\n\n.sidebar {\n  background-color: #1d1d1d; }\n\n.sidebar .sidebar-profile,\n  .sidebar .sidebar-search,\n  .sidebar .sidebar-menu {\n    border-top: 1px solid #2b2b2b; }\n\n.sidebar .sidebar-search input.search-menu,\n  .sidebar .sidebar-search .input-group-text {\n    border-color: #2b2b2b;\n    box-shadow: none; }\n\n.sidebar .sidebar-profile .user-info .user-role,\n  .sidebar .sidebar-profile .user-info .user-status,\n  .sidebar .sidebar-search input.search-menu,\n  .sidebar .sidebar-search .input-group-text,\n  .sidebar .sidebar-header > a,\n  .sidebar .sidebar-menu ul li a,\n  .sidebar .sidebar-footer > div > a,\n  .sidebar #close-sidebar {\n    color: #bdbdbd; }\n\n.sidebar .sidebar-menu ul li:hover > a,\n  .sidebar .sidebar-menu .sidebar-dropdown.active > a,\n  .sidebar .sidebar-profile .user-info,\n  .sidebar .sidebar-header > a:hover,\n  .sidebar .sidebar-footer > div > a:hover i,\n  .sidebar #close-sidebar:hover {\n    color: #ffffff; }\n\n.sidebar ul li:hover a i,\n  .sidebar .sidebar-dropdown .sidebar-submenu li a:hover:before,\n  .sidebar .sidebar-search input.search-menu:focus + span,\n  .sidebar .sidebar-menu .sidebar-dropdown.active a i {\n    color: #ffffff; }\n\n.sidebar .sidebar-menu ul li a i,\n  .sidebar .sidebar-menu .sidebar-dropdown div,\n  .sidebar .sidebar-search input.search-menu,\n  .sidebar .sidebar-search .input-group-text {\n    background-color: #2b2b2b;\n    border: none;\n    margin-left: 1px; }\n\n.sidebar .sidebar-menu .header-menu span {\n    color: #6c7b88; }\n\n.sidebar .sidebar-footer {\n    background-color: #2b2b2b;\n    box-shadow: 0px -1px 5px #131212;\n    border-top: 1px solid #3a3a3a; }\n\n.sidebar .sidebar-footer > div:first-child {\n    border-left: none; }\n\n.sidebar .sidebar-footer > div:last-child {\n    border-right: none; }\n\n.sidebar.sidebar-bg {\n    background-image: url(/assets/img/bg1.jpg);\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat; }\n\n.sidebar.sidebar-bg:before {\n      content: '';\n      position: absolute;\n      top: 0;\n      right: 0;\n      bottom: 0;\n      left: 0;\n      background-color: rgba(29, 29, 29, 0.8); }\n\n.sidebar.sidebar-bg .sidebar-profile,\n    .sidebar.sidebar-bg .sidebar-search,\n    .sidebar.sidebar-bg .sidebar-menu {\n      border-top: 1px solid rgba(255, 255, 255, 0.1); }\n\n.sidebar.sidebar-bg .sidebar-search input.search-menu,\n    .sidebar.sidebar-bg .sidebar-search .input-group-text {\n      border-color: rgba(255, 255, 255, 0.1);\n      box-shadow: none; }\n\n.sidebar.sidebar-bg .sidebar-menu ul li a i,\n    .sidebar.sidebar-bg .sidebar-menu .sidebar-dropdown div,\n    .sidebar.sidebar-bg .sidebar-search input.search-menu,\n    .sidebar.sidebar-bg .sidebar-search .input-group-text {\n      background-color: rgba(255, 255, 255, 0.1); }\n\n.sidebar.sidebar-bg .sidebar-footer {\n      background-color: rgba(43, 43, 43, 0.5);\n      box-shadow: 0px -1px 5px rgba(43, 43, 43, 0.5);\n      border-top: 1px solid rgba(255, 255, 255, 0.1); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQzpcXFVzZXJzXFxTRVJWTVNcXERlc2t0b3BcXFZpcnR1YWxXZWJcXFZpcnR1YWxXZWItQXBwL3NyY1xcYXBwXFxhcHAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSTtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLGdDQUF3QjtZQUF4Qix3QkFBd0IsRUFBQTtFQUcxQjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLGlDQUF5QjtZQUF6Qix5QkFBeUIsRUFBQTtFQUczQjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLGdDQUF3QjtZQUF4Qix3QkFBd0IsRUFBQTtFQUcxQjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQSxFQUFBOztBQWxDN0I7RUFDSTtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLGdDQUF3QjtZQUF4Qix3QkFBd0IsRUFBQTtFQUcxQjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLGlDQUF5QjtZQUF6Qix5QkFBeUIsRUFBQTtFQUczQjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUd6QjtJQUNFLGdDQUF3QjtZQUF4Qix3QkFBd0IsRUFBQTtFQUcxQjtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQSxFQUFBOztBQUkzQjtFQUNFO0lBQ0UsNkJBQW9CO1lBQXBCLHFCQUFvQjtJQUNwQixVQUFVLEVBQUE7RUFHWjtJQUNFLDJCQUFtQjtZQUFuQixtQkFBbUI7SUFDbkIsVUFBVSxFQUFBLEVBQUE7O0FBUmQ7RUFDRTtJQUNFLDZCQUFvQjtZQUFwQixxQkFBb0I7SUFDcEIsVUFBVSxFQUFBO0VBR1o7SUFDRSwyQkFBbUI7WUFBbkIsbUJBQW1CO0lBQ25CLFVBQVUsRUFBQSxFQUFBOztBQUlkO0VBQ0UsWUFBWTtFQUNaLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsa0JBQWtCO0VBQ2xCLE1BQU07RUFDTixTQUFTO0VBQ1QsWUFBWTtFQUNaLHlCQUF5QixFQUFBOztBQVIzQjtJQVdJLHFCQUFxQjtJQUNyQiwwQkFBMEIsRUFBQTs7QUFaOUI7SUFnQkksNkJBQTZCO0lBQzdCLHlCQUF5QjtJQUN6QixnQkFBZ0I7SUFDaEIsa0JBQWtCLEVBQUE7O0FBbkJ0QjtNQXNCTSxrQkFBa0I7TUFDbEIsYUFBYTtNQUNiLG1CQUFtQixFQUFBOztBQXhCekI7UUEyQlEseUJBQXlCO1FBQ3pCLGlCQUFpQjtRQUNqQixZQUFZO1FBQ1oscUJBQXFCLEVBQUE7O0FBOUI3QjtRQWtDUSxlQUFlO1FBQ2YsZUFBZTtRQUNmLDBCQUEwQixFQUFBOztBQXBDbEM7TUF5Q00sYUFBYTtNQUNiLGdCQUFnQixFQUFBOztBQTFDdEI7UUE2Q1EsV0FBVztRQUNYLFdBQVc7UUFDWCxZQUFZO1FBQ1osbUJBQW1CO1FBQ25CLGtCQUFrQjtRQUNsQixnQkFBZ0IsRUFBQTs7QUFsRHhCO1VBcURVLG9CQUFpQjthQUFqQixpQkFBaUI7VUFDakIsWUFBWTtVQUNaLFdBQVcsRUFBQTs7QUF2RHJCO1FBNERRLFdBQVcsRUFBQTs7QUE1RG5CO1VBK0RVLGNBQWMsRUFBQTs7QUEvRHhCO1VBbUVVLGVBQWUsRUFBQTs7QUFuRXpCO1VBdUVVLGVBQWU7VUFDZixlQUFlLEVBQUE7O0FBeEV6QjtZQTJFWSxjQUFjO1lBQ2QsaUJBQWlCO1lBQ2pCLGNBQWMsRUFBQTs7QUE3RTFCO01BdUZRLGtCQUFrQixFQUFBOztBQXZGMUI7TUEyRlEsY0FBYyxFQUFBOztBQTNGdEI7TUFnR00sb0JBQW9CLEVBQUE7O0FBaEcxQjtRQW1HUSxpQkFBaUI7UUFDakIsZUFBZTtRQUNmLDJCQUEyQjtRQUMzQixxQkFBcUIsRUFBQTs7QUF0RzdCO1FBMkdRLHFCQUFxQjtRQUNyQixVQUFVO1FBQ1YsU0FBUyxFQUFBOztBQTdHakI7VUFnSFUscUJBQXFCO1VBQ3JCLFdBQVc7VUFDWCxxQkFBcUI7VUFDckIsa0JBQWtCO1VBQ2xCLDBCQUEwQixFQUFBOztBQXBIcEM7WUF1SFksa0JBQWtCO1lBQ2xCLGVBQWU7WUFDZixXQUFXO1lBQ1gsWUFBWTtZQUNaLGlCQUFpQjtZQUNqQixrQkFBa0I7WUFDbEIsa0JBQWtCLEVBQUE7O0FBN0g5QjtZQWlJWSxxQkFBcUI7WUFDckIsb0RBQTRDO29CQUE1Qyw0Q0FBNEMsRUFBQTs7QUFsSXhEOztZQXVJWSxZQUFZO1lBQ1osZUFBZTtZQUNmLGdCQUFnQixFQUFBOztBQXpJNUI7UUFnSlUsa0NBQWtDO1FBQ2xDLGdCQUFnQjtRQUNoQixnQkFBZ0I7UUFDaEIscUJBQXFCO1FBQ3JCLGtCQUFrQjtRQUNsQixvQkFBb0I7UUFDcEIsb0JBQW9CO1FBQ3BCLG1DQUFtQztRQUNuQyxrQ0FBa0M7UUFDbEMsa0JBQWtCO1FBQ2xCLGVBQWU7UUFDZixrQkFBa0I7UUFDbEIsV0FBVztRQUNYLFNBQVM7UUFDVCxzQ0FBOEI7UUFBOUIsOEJBQThCO1FBQTlCLDBEQUE4QixFQUFBOztBQTlKeEM7UUFvS1UsZ0JBQWdCLEVBQUE7O0FBcEsxQjtVQXVLWSxjQUFjLEVBQUE7O0FBdksxQjtVQTJLWSxrQkFBa0I7VUFDbEIsZUFBZSxFQUFBOztBQTVLM0I7WUFnTGdCLGtDQUFrQztZQUNsQyxnQkFBZ0I7WUFDaEIsa0JBQWtCO1lBQ2xCLGtCQUFrQjtZQUNsQixxQkFBcUI7WUFDckIsa0JBQWtCO1lBQ2xCLGNBQWMsRUFBQTs7QUF0TDlCO2NBeUxrQixrQkFBa0I7Y0FDbEIsY0FBYztjQUNkLFdBQVc7Y0FDWCxZQUFZO2NBQ1osaUJBQWlCO2NBQ2pCLGtCQUFrQjtjQUNsQixrQkFBa0IsRUFBQTs7QUEvTHBDO2NBbU1rQixxQkFBcUI7Y0FDckIsb0RBQTRDO3NCQUE1Qyw0Q0FBNEMsRUFBQTs7QUFwTTlEOztZQXlNZ0IsWUFBWTtZQUNaLGVBQWUsRUFBQTs7QUExTS9CO1FBaU5VLGdDQUF3QjtnQkFBeEIsd0JBQXdCO1FBQ3hCLFdBQVcsRUFBQTs7QUFsTnJCO0lBMk5JLGtCQUFrQjtJQUNsQixXQUFXO0lBQ1gsU0FBUztJQUNULGFBQWEsRUFBQTs7QUE5TmpCO01BaU9NLFlBQVk7TUFDWixrQkFBa0I7TUFDbEIsWUFBWTtNQUNaLGlCQUFpQjtNQUNqQixnQkFBZ0I7TUFDaEIsYUFBYSxFQUFBOztBQXRPbkI7UUF5T1EsWUFBWSxFQUFBOztBQXpPcEI7UUE2T1Esa0JBQWtCO1FBQ2xCLE1BQU0sRUFBQTs7QUE5T2Q7TUFtUE0sWUFBWTtNQUNaLGtCQUFrQjtNQUNsQix1QkFBdUI7TUFDdkIsbUJBQW1CO01BQ25CLGtDQUEwQjtjQUExQiwwQkFBMEI7TUFDMUIsNEJBQTRCO01BQzVCLDZCQUE2QjtNQUM3QixnQkFBZ0IsRUFBQTs7QUExUHRCO01BK1BRLG9CQUFvQixFQUFBOztBQS9QNUI7TUFtUVEsZUFBZSxFQUFBOztBQW5RdkI7TUF1UVEsYUFBYSxFQUFBOztBQXZRckI7UUEwUVUsV0FBVztRQUNYLFlBQVk7UUFDWixrQkFBa0I7UUFDbEIsZ0JBQWdCLEVBQUE7O0FBN1ExQjtVQWdSWSxvQkFBaUI7YUFBakIsaUJBQWlCO1VBQ2pCLFlBQVksRUFBQTs7QUFqUnhCO1FBc1JVLGdCQUFnQjtRQUNoQixpQkFBaUI7UUFDakIsd0JBQXdCLEVBQUE7O0FBeFJsQztVQTJSWSxlQUFlLEVBQUE7O0FBM1IzQjtVQStSWSxlQUFlO1VBQ2YsbUJBQW1CO1VBQ25CLGdCQUFnQjtVQUNoQix1QkFBdUIsRUFBQTs7QUFsU25DO01BNFNRLG9CQUFvQixFQUFBOztBQTVTNUI7TUFnVFEsZUFBZSxFQUFBOztBQWhUdkI7TUFvVFEsYUFBYSxFQUFBOztBQXBUckI7UUF1VFUsV0FBVztRQUNYLFlBQVksRUFBQTs7QUF4VHRCO1VBMlRZLFdBQVc7VUFDWCxZQUFZO1VBQ1osa0JBQWtCO1VBQ2xCLGlCQUFpQjtVQUNqQixrQkFBa0IsRUFBQTs7QUEvVDlCO1FBb1VVLGdCQUFnQjtRQUNoQixpQkFBaUI7UUFDakIsd0JBQXdCLEVBQUE7O0FBdFVsQztVQXlVWSxnQkFBZ0I7VUFDaEIsY0FBYyxFQUFBOztBQTFVMUI7VUE4VVksZUFBZTtVQUNmLG1CQUFtQjtVQUNuQixnQkFBZ0I7VUFDaEIsdUJBQXVCLEVBQUE7O0FBalZuQztNQXlWTSxxQkFBcUI7TUFDckIsbUJBQW1CO01BQ25CLGtCQUFrQjtNQUNsQixXQUFXO01BQ1gsVUFBVTtNQUNWLGtCQUFrQjtNQUNsQixNQUFNLEVBQUE7O0FBL1ZaO1FBa1dRLFdBQVc7UUFDWCxrQkFBa0I7UUFDbEIsTUFBTTtRQUNOLE9BQU87UUFDUCx5QkFBeUI7UUFDekIsVUFBVTtRQUNWLGtCQUFrQjtRQUNsQixXQUFXO1FBQ1gsWUFBWTtRQUNaLHNDQUE4QjtnQkFBOUIsOEJBQThCLEVBQUE7O0FBU3RDLCtFQUFBOztBQWtCQTtFQUVFLHlCQW5CMkIsRUFBQTs7QUFpQjdCOzs7SUFPSSw2QkF2Qm1CLEVBQUE7O0FBZ0J2Qjs7SUFZSSxxQkE1Qm1CO0lBNkJuQixnQkFBZ0IsRUFBQTs7QUFicEI7Ozs7Ozs7O0lBd0JJLGNBdENVLEVBQUE7O0FBY2Q7Ozs7OztJQWlDSSxjQTdDZ0IsRUFBQTs7QUFZcEI7Ozs7SUF3Q0ksY0FwRGdCLEVBQUE7O0FBWXBCOzs7O0lBK0NJLHlCQS9EbUI7SUFnRW5CLFlBQVk7SUFDWixnQkFBZ0IsRUFBQTs7QUFqRHBCO0lBcURJLGNBbEV1QixFQUFBOztBQWEzQjtJQXlESSx5QkF6RW1CO0lBMEVuQixnQ0FyRWlCO0lBc0VqQiw2QkExRTZCLEVBQUE7O0FBZWpDO0lBK0RJLGlCQUFpQixFQUFBOztBQS9EckI7SUFtRUksa0JBQWtCLEVBQUE7O0FBbkV0QjtJQXlFSSwwQ0FBMEM7SUFDMUMsc0JBQXNCO0lBQ3RCLDJCQUEyQjtJQUMzQiw0QkFBNEIsRUFBQTs7QUE1RWhDO01BK0VNLFdBQVc7TUFDWCxrQkFBa0I7TUFDbEIsTUFBTTtNQUNOLFFBQVE7TUFDUixTQUFTO01BQ1QsT0FBTztNQUNQLHVDQTVGeUMsRUFBQTs7QUFPL0M7OztNQTJGTSw4Q0FqR3NDLEVBQUE7O0FBTTVDOztNQWdHTSxzQ0F0R3NDO01BdUd0QyxnQkFBZ0IsRUFBQTs7QUFqR3RCOzs7O01Bd0dNLDBDQTlHc0MsRUFBQTs7QUFNNUM7TUE2R00sdUNBbEgrQjtNQW1IL0IsOENBbkgrQjtNQW9IL0IsOENBckhzQyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGtleWZyYW1lcyBzd2luZyB7XHJcbiAgICAwJSB7XHJcbiAgICAgIHRyYW5zZm9ybTogcm90YXRlKDBkZWcpO1xyXG4gICAgfVxyXG4gIFxyXG4gICAgMTAlIHtcclxuICAgICAgdHJhbnNmb3JtOiByb3RhdGUoMTBkZWcpO1xyXG4gICAgfVxyXG4gIFxyXG4gICAgMzAlIHtcclxuICAgICAgdHJhbnNmb3JtOiByb3RhdGUoMGRlZyk7XHJcbiAgICB9XHJcbiAgXHJcbiAgICA0MCUge1xyXG4gICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgtMTBkZWcpO1xyXG4gICAgfVxyXG4gIFxyXG4gICAgNTAlIHtcclxuICAgICAgdHJhbnNmb3JtOiByb3RhdGUoMGRlZyk7XHJcbiAgICB9XHJcbiAgXHJcbiAgICA2MCUge1xyXG4gICAgICB0cmFuc2Zvcm06IHJvdGF0ZSg1ZGVnKTtcclxuICAgIH1cclxuICBcclxuICAgIDcwJSB7XHJcbiAgICAgIHRyYW5zZm9ybTogcm90YXRlKDBkZWcpO1xyXG4gICAgfVxyXG4gIFxyXG4gICAgODAlIHtcclxuICAgICAgdHJhbnNmb3JtOiByb3RhdGUoLTVkZWcpO1xyXG4gICAgfVxyXG4gIFxyXG4gICAgMTAwJSB7XHJcbiAgICAgIHRyYW5zZm9ybTogcm90YXRlKDBkZWcpO1xyXG4gICAgfVxyXG4gIH1cclxuICBcclxuICBAa2V5ZnJhbWVzIHNvbmFyIHtcclxuICAgIDAlIHtcclxuICAgICAgdHJhbnNmb3JtOiBzY2FsZSguOSk7XHJcbiAgICAgIG9wYWNpdHk6IDE7XHJcbiAgICB9XHJcbiAgXHJcbiAgICAxMDAlIHtcclxuICAgICAgdHJhbnNmb3JtOiBzY2FsZSgyKTtcclxuICAgICAgb3BhY2l0eTogMDtcclxuICAgIH1cclxuICB9XHJcbiAgXHJcbiAgLnNpZGViYXIge1xyXG4gICAgd2lkdGg6IDIzMHB4O1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgbWF4LWhlaWdodDogMTAwJTtcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgIHRvcDogMDtcclxuICAgIGxlZnQ6IDBweDtcclxuICAgIHotaW5kZXg6IDk5OTtcclxuICAgIHRyYW5zaXRpb246IGxlZnQgLjNzIGVhc2U7XHJcbiAgXHJcbiAgICBhIHtcclxuICAgICAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xyXG4gICAgICB0cmFuc2l0aW9uOiBjb2xvciAuM3MgZWFzZTtcclxuICAgIH1cclxuICBcclxuICAgIC5zaWRlYmFyLWNvbnRlbnQge1xyXG4gICAgICBtYXgtaGVpZ2h0OiBjYWxjKDEwMCUgLSAzMHB4KTtcclxuICAgICAgaGVpZ2h0OiBjYWxjKDEwMCUgLSAzMHB4KTtcclxuICAgICAgb3ZlcmZsb3cteTogYXV0bztcclxuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIFxyXG4gICAgICAuc2lkZWJhci1oZWFkZXIge1xyXG4gICAgICAgIHBhZGRpbmc6IDEwcHggMjBweDtcclxuICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgXHJcbiAgICAgICAgPmEge1xyXG4gICAgICAgICAgdGV4dC10cmFuc2Zvcm06IHVwcGVyY2FzZTtcclxuICAgICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgICAgICAgZmxleC1ncm93OiAxO1xyXG4gICAgICAgICAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xyXG4gICAgICAgIH1cclxuICBcclxuICAgICAgICAjY2xvc2Utc2lkZWJhciB7XHJcbiAgICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICAgICAgICBmb250LXNpemU6IDIwcHg7XHJcbiAgICAgICAgICB0cmFuc2l0aW9uOiBjb2xvciAuM3MgZWFzZTtcclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICBcclxuICAgICAgLnNpZGViYXItcHJvZmlsZSB7XHJcbiAgICAgICAgcGFkZGluZzogMjBweDtcclxuICAgICAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gIFxyXG4gICAgICAgIC51c2VyLXBpYyB7XHJcbiAgICAgICAgICBmbG9hdDogbGVmdDtcclxuICAgICAgICAgIHdpZHRoOiA2MHB4O1xyXG4gICAgICAgICAgcGFkZGluZzogMnB4O1xyXG4gICAgICAgICAgYm9yZGVyLXJhZGl1czogMTJweDtcclxuICAgICAgICAgIG1hcmdpbi1yaWdodDogMTVweDtcclxuICAgICAgICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgXHJcbiAgICAgICAgICBpbWcge1xyXG4gICAgICAgICAgICBvYmplY3QtZml0OiBjb3ZlcjtcclxuICAgICAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgICAgICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgLnVzZXItaW5mbyB7XHJcbiAgICAgICAgICBmbG9hdDogbGVmdDtcclxuICBcclxuICAgICAgICAgID5zcGFuIHtcclxuICAgICAgICAgICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgICAudXNlci1yb2xlIHtcclxuICAgICAgICAgICAgZm9udC1zaXplOiAxMnB4O1xyXG4gICAgICAgICAgfVxyXG4gIFxyXG4gICAgICAgICAgLnVzZXItc3RhdHVzIHtcclxuICAgICAgICAgICAgZm9udC1zaXplOiAxMXB4O1xyXG4gICAgICAgICAgICBtYXJnaW4tdG9wOiA0cHg7XHJcbiAgXHJcbiAgICAgICAgICAgIGkge1xyXG4gICAgICAgICAgICAgIGZvbnQtc2l6ZTogOHB4O1xyXG4gICAgICAgICAgICAgIG1hcmdpbi1yaWdodDogNHB4O1xyXG4gICAgICAgICAgICAgIGNvbG9yOiAjNWNiODVjO1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gIFxyXG4gICAgICB9XHJcbiAgXHJcbiAgICAgIC5zaWRlYmFyLXNlYXJjaCB7XHJcbiAgXHJcbiAgICAgICAgPmRpdiB7XHJcbiAgICAgICAgICBwYWRkaW5nOiAxMHB4IDIwcHg7XHJcbiAgICAgICAgfVxyXG4gIFxyXG4gICAgICAgIC5pbnB1dC1ncm91cC1hcHBlbmQgLmlucHV0LWdyb3VwLXRleHQge1xyXG4gICAgICAgICAgYm9yZGVyLWxlZnQ6IDA7XHJcbiAgICAgICAgfVxyXG4gICAgICB9XHJcbiAgXHJcbiAgICAgIC5zaWRlYmFyLW1lbnUge1xyXG4gICAgICAgIHBhZGRpbmctYm90dG9tOiAxMHB4O1xyXG4gIFxyXG4gICAgICAgIC5oZWFkZXItbWVudSBzcGFuIHtcclxuICAgICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgICAgICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgICAgICAgcGFkZGluZzogMTVweCAyMHB4IDVweCAyMHB4O1xyXG4gICAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICAgICAgIH1cclxuICBcclxuICBcclxuICAgICAgICB1bCB7XHJcbiAgICAgICAgICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7XHJcbiAgICAgICAgICBwYWRkaW5nOiAwO1xyXG4gICAgICAgICAgbWFyZ2luOiAwO1xyXG4gIFxyXG4gICAgICAgICAgbGkgYSB7XHJcbiAgICAgICAgICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICAgICAgICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgICAgICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxuICAgICAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgICAgICAgICBwYWRkaW5nOiA4cHggMzBweCA4cHggMjBweDtcclxuICBcclxuICAgICAgICAgICAgaSB7XHJcbiAgICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTJweDtcclxuICAgICAgICAgICAgICB3aWR0aDogMzBweDtcclxuICAgICAgICAgICAgICBoZWlnaHQ6IDMwcHg7XHJcbiAgICAgICAgICAgICAgbGluZS1oZWlnaHQ6IDMwcHg7XHJcbiAgICAgICAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcclxuICAgICAgICAgICAgfVxyXG4gIFxyXG4gICAgICAgICAgICAmOmhvdmVyPmk6OmJlZm9yZSB7XHJcbiAgICAgICAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICAgICAgICAgICAgIGFuaW1hdGlvbjogc3dpbmcgZWFzZS1pbi1vdXQgLjVzIDEgYWx0ZXJuYXRlO1xyXG4gICAgICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgICAgIHNwYW4ubGFiZWwsXHJcbiAgICAgICAgICAgIHNwYW4uYmFkZ2Uge1xyXG4gICAgICAgICAgICAgIGZsb2F0OiByaWdodDtcclxuICAgICAgICAgICAgICBtYXJnaW4tdG9wOiA4cHg7XHJcbiAgICAgICAgICAgICAgbWFyZ2luLWxlZnQ6IDVweDtcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICBcclxuICAgICAgICAuc2lkZWJhci1kcm9wZG93biB7XHJcbiAgICAgICAgICA+YTphZnRlciB7XHJcbiAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBcIkZvbnQgQXdlc29tZSA1IEZyZWVcIjtcclxuICAgICAgICAgICAgZm9udC13ZWlnaHQ6IDkwMDtcclxuICAgICAgICAgICAgY29udGVudDogXCJcXGYxMDVcIjtcclxuICAgICAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICAgICAgICAgICBmb250LXN0eWxlOiBub3JtYWw7XHJcbiAgICAgICAgICAgIGZvbnQtdmFyaWFudDogbm9ybWFsO1xyXG4gICAgICAgICAgICB0ZXh0LXJlbmRlcmluZzogYXV0bztcclxuICAgICAgICAgICAgLXdlYmtpdC1mb250LXNtb290aGluZzogYW50aWFsaWFzZWQ7XHJcbiAgICAgICAgICAgIC1tb3otb3N4LWZvbnQtc21vb3RoaW5nOiBncmF5c2NhbGU7XHJcbiAgICAgICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgICAgICAgICAgYmFja2dyb3VuZDogMCAwO1xyXG4gICAgICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICAgICAgICAgIHJpZ2h0OiAxNXB4O1xyXG4gICAgICAgICAgICB0b3A6IDE0cHg7XHJcbiAgICAgICAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAuM3MgZWFzZTtcclxuICBcclxuICAgICAgICAgIH1cclxuICBcclxuICAgICAgICAgIC5zaWRlYmFyLXN1Ym1lbnUge1xyXG4gICAgICAgICAgICAvLyBkaXNwbGF5OiBub25lO1xyXG4gICAgICAgICAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG5cclxuICAgICAgICAgICAgdWwge1xyXG4gICAgICAgICAgICAgIHBhZGRpbmc6IDVweCAwO1xyXG4gICAgICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgICAgIGxpIHtcclxuICAgICAgICAgICAgICBwYWRkaW5nLWxlZnQ6IDI1cHg7XHJcbiAgICAgICAgICAgICAgZm9udC1zaXplOiAxM3B4O1xyXG4gICAgICAgICAgICAgIFxyXG4gICAgICAgICAgICAgIGEge1xyXG4gICAgICAgICAgICAgICAgJjpiZWZvcmUge1xyXG4gICAgICAgICAgICAgICAgICBmb250LWZhbWlseTogXCJGb250IEF3ZXNvbWUgNSBGcmVlXCI7XHJcbiAgICAgICAgICAgICAgICAgIGZvbnQtd2VpZ2h0OiA0MDA7XHJcbiAgICAgICAgICAgICAgICAgIGZvbnQtc3R5bGU6IG5vcm1hbDtcclxuICAgICAgICAgICAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgICAgICAgICAgICAgICAgIG1hcmdpbi1yaWdodDogMTBweDtcclxuICAgICAgICAgICAgICAgICAgZm9udC1zaXplOiA4cHg7ICAgICAgICAgXHJcbiAgICAgICAgICAgICAgICBcclxuICAgICAgICAgICAgICAgICAgaSB7XHJcbiAgICAgICAgICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogOHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIHdpZHRoOiAzMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIGhlaWdodDogMTVweDtcclxuICAgICAgICAgICAgICAgICAgICBsaW5lLWhlaWdodDogMTVweDtcclxuICAgICAgICAgICAgICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogM3B4O1xyXG4gICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgXHJcbiAgICAgICAgICAgICAgICAgICY6aG92ZXI+aTo6YmVmb3JlIHtcclxuICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgICAgICAgICAgICAgICAgICAgYW5pbWF0aW9uOiBzd2luZyBlYXNlLWluLW91dCAuNXMgMSBhbHRlcm5hdGU7XHJcbiAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIC5iYWRnZSxcclxuICAgICAgICAgICAgICAgIC5sYWJlbCB7XHJcbiAgICAgICAgICAgICAgICAgIGZsb2F0OiByaWdodDtcclxuICAgICAgICAgICAgICAgICAgbWFyZ2luLXRvcDogMHB4O1xyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgfVxyXG4gICAgICAgICAgfVxyXG4gIFxyXG4gICAgICAgICAgJi5hY3RpdmU+YTphZnRlciB7XHJcbiAgICAgICAgICAgIHRyYW5zZm9ybTogcm90YXRlKDkwZGVnKTtcclxuICAgICAgICAgICAgcmlnaHQ6IDE1cHg7XHJcbiAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gIFxyXG4gICAgICB9ICBcclxuICAgIH1cclxuICBcclxuICAgIC5zaWRlYmFyLWZvb3RlciB7XHJcbiAgXHJcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgIGJvdHRvbTogMDtcclxuICAgICAgZGlzcGxheTogZmxleDtcclxuICBcclxuICAgICAgPmRpdiB7XHJcbiAgICAgICAgZmxleC1ncm93OiAxO1xyXG4gICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgICAgICBoZWlnaHQ6IDMwcHg7XHJcbiAgICAgICAgbGluZS1oZWlnaHQ6IDMwcHg7XHJcbiAgICAgICAgcG9zaXRpb246IHN0YXRpYztcclxuICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gIFxyXG4gICAgICAgID5hIHtcclxuICAgICAgICAgIGZsZXgtZ3JvdzogMTtcclxuICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgYSAubm90aWZpY2F0aW9uIHtcclxuICAgICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICAgIHRvcDogMDtcclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICBcclxuICAgICAgLmRyb3Bkb3duLW1lbnUge1xyXG4gICAgICAgIGJvdHRvbTogMzFweDtcclxuICAgICAgICBsZWZ0OiAwICFpbXBvcnRhbnQ7XHJcbiAgICAgICAgdG9wOiBpbml0aWFsICFpbXBvcnRhbnQ7XHJcbiAgICAgICAgcmlnaHQ6IDAgIWltcG9ydGFudDtcclxuICAgICAgICB0cmFuc2Zvcm06IG5vbmUgIWltcG9ydGFudDtcclxuICAgICAgICBib3JkZXItYm90dG9tLWxlZnQtcmFkaXVzOiAwO1xyXG4gICAgICAgIGJvcmRlci1ib3R0b20tcmlnaHQtcmFkaXVzOiAwO1xyXG4gICAgICAgIGZvbnQtc2l6ZTogLjlyZW07XHJcbiAgICAgIH1cclxuICBcclxuICAgICAgLm1lc3NhZ2VzIHtcclxuICAgICAgICAuZHJvcGRvd24taXRlbSB7XHJcbiAgICAgICAgICBwYWRkaW5nOiAuMjVyZW0gMXJlbTtcclxuICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgLm1lc3NhZ2VzLWhlYWRlciB7XHJcbiAgICAgICAgICBwYWRkaW5nOiAwIDFyZW07XHJcbiAgICAgICAgfVxyXG4gIFxyXG4gICAgICAgIC5tZXNzYWdlLWNvbnRlbnQge1xyXG4gICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICBcclxuICAgICAgICAgIC5waWMge1xyXG4gICAgICAgICAgICB3aWR0aDogNDBweDtcclxuICAgICAgICAgICAgaGVpZ2h0OiA0MHB4O1xyXG4gICAgICAgICAgICBib3JkZXItcmFkaXVzOiA0cHg7XHJcbiAgICAgICAgICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgXHJcbiAgICAgICAgICAgIGltZyB7XHJcbiAgICAgICAgICAgICAgb2JqZWN0LWZpdDogY292ZXI7XHJcbiAgICAgICAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgICAuY29udGVudCB7XHJcbiAgICAgICAgICAgIGxpbmUtaGVpZ2h0OiAxLjY7XHJcbiAgICAgICAgICAgIHBhZGRpbmctbGVmdDogNXB4O1xyXG4gICAgICAgICAgICB3aWR0aDogY2FsYygxMDAlIC0gNDBweCk7XHJcbiAgXHJcbiAgICAgICAgICAgIC5tZXNzYWdlLXRpdGxlIHtcclxuICAgICAgICAgICAgICBmb250LXNpemU6IDEzcHg7XHJcbiAgICAgICAgICAgIH1cclxuICBcclxuICAgICAgICAgICAgLm1lc3NhZ2UtZGV0YWlsIHtcclxuICAgICAgICAgICAgICBmb250LXNpemU6IDEycHg7XHJcbiAgICAgICAgICAgICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcclxuICAgICAgICAgICAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgICAgICAgICAgIHRleHQtb3ZlcmZsb3c6IGVsbGlwc2lzO1xyXG4gICAgICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gIFxyXG4gICAgICB9XHJcbiAgXHJcbiAgICAgIC5ub3RpZmljYXRpb25zIHtcclxuICAgICAgICAuZHJvcGRvd24taXRlbSB7XHJcbiAgICAgICAgICBwYWRkaW5nOiAuMjVyZW0gMXJlbTtcclxuICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgLm5vdGlmaWNhdGlvbnMtaGVhZGVyIHtcclxuICAgICAgICAgIHBhZGRpbmc6IDAgMXJlbTtcclxuICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgLm5vdGlmaWNhdGlvbi1jb250ZW50IHtcclxuICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgXHJcbiAgICAgICAgICAuaWNvbiB7XHJcbiAgICAgICAgICAgIHdpZHRoOiA0MHB4O1xyXG4gICAgICAgICAgICBoZWlnaHQ6IDQwcHg7XHJcbiAgXHJcbiAgICAgICAgICAgIGkge1xyXG4gICAgICAgICAgICAgIHdpZHRoOiAzNXB4O1xyXG4gICAgICAgICAgICAgIGhlaWdodDogMzVweDtcclxuICAgICAgICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgbGluZS1oZWlnaHQ6IDM1cHg7XHJcbiAgICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4O1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgICB9XHJcbiAgXHJcbiAgICAgICAgICAuY29udGVudCB7XHJcbiAgICAgICAgICAgIGxpbmUtaGVpZ2h0OiAxLjY7XHJcbiAgICAgICAgICAgIHBhZGRpbmctbGVmdDogNXB4O1xyXG4gICAgICAgICAgICB3aWR0aDogY2FsYygxMDAlIC0gNDBweCk7XHJcbiAgXHJcbiAgICAgICAgICAgIC5ub3RpZmljYXRpb24tdGltZSB7XHJcbiAgICAgICAgICAgICAgZm9udC1zaXplOiAuN3JlbTtcclxuICAgICAgICAgICAgICBjb2xvcjogIzgyODI4MjtcclxuICAgICAgICAgICAgfVxyXG4gIFxyXG4gICAgICAgICAgICAubm90aWZpY2F0aW9uLWRldGFpbCB7XHJcbiAgICAgICAgICAgICAgZm9udC1zaXplOiAxMnB4O1xyXG4gICAgICAgICAgICAgIHdoaXRlLXNwYWNlOiBub3dyYXA7XHJcbiAgICAgICAgICAgICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgICAgICAgICAgICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gIFxyXG4gIFxyXG4gICAgICAuYmFkZ2Utc29uYXIge1xyXG4gICAgICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICAgICAgICBiYWNrZ3JvdW5kOiAjOTgwMzAzO1xyXG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICAgICAgICBoZWlnaHQ6IDhweDtcclxuICAgICAgICB3aWR0aDogOHB4O1xyXG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICB0b3A6IDA7XHJcbiAgXHJcbiAgICAgICAgJjphZnRlciB7XHJcbiAgICAgICAgICBjb250ZW50OiAnJztcclxuICAgICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICAgIHRvcDogMDtcclxuICAgICAgICAgIGxlZnQ6IDA7XHJcbiAgICAgICAgICBib3JkZXI6IDJweCBzb2xpZCAjOTgwMzAzO1xyXG4gICAgICAgICAgb3BhY2l0eTogMDtcclxuICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICAgICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgICAgICAgYW5pbWF0aW9uOiBzb25hciAxLjVzIGluZmluaXRlO1xyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gIFxyXG4gIFxyXG4gICAgfVxyXG4gIH1cclxuICBcclxuICBcclxuICAvKi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLWRlZmF1bHQgdGhlbWUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0qL1xyXG4gICRiZy1zaWRlYmFyLXdyYXBwZXIgOiAjMWQxZDFkO1xyXG4gICRib3JkZXItY29sb3IgOiAjMmIyYjJiO1xyXG4gICRmb290ZXItdG9wLWJvcmRlci1jb2xvciA6IzNhM2EzYTtcclxuICAkY29sb3I6I2JkYmRiZDtcclxuICAkaGVhZGVyLW1lbnUtY29sb3IgOiM2YzdiODg7XHJcbiAgJGhvdmVyLWNvbG9yOiNmZmZmZmY7XHJcbiAgJHNoYWRvdy1jb2xvcjojMTMxMjEyO1xyXG4gICRiZy1zY3JvbGxiYXIgOiM2MzYzNjM7XHJcbiAgXHJcbiAgLy8gY29sb3JzIHdpdGggYmFja2dvdW5kIGltYWdlXHJcbiAgJGltZy1iZy1zaWRlYmFyLXdyYXBwZXIgOiByZ2JhKDI5LCAyOSwgMjksIDAuOCk7XHJcbiAgJGltZy1ib3JkZXItY29sb3IgOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSk7XHJcbiAgJGltZy1iZy1mb290ZXIgOnJnYmEoNDMsIDQzLCA0MywgMC41KTtcclxuICAkaW1nLXNoYWRvdy1jb2xvcjpyZ2JhKDAsIDAsIDAsIDAuNSk7XHJcbiAgXHJcbiAgXHJcbiAgXHJcbiAgLnNpZGViYXIge1xyXG4gIFxyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogJGJnLXNpZGViYXItd3JhcHBlcjtcclxuICBcclxuICAgIC5zaWRlYmFyLXByb2ZpbGUsXHJcbiAgICAuc2lkZWJhci1zZWFyY2gsXHJcbiAgICAuc2lkZWJhci1tZW51IHtcclxuICAgICAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICRib3JkZXItY29sb3I7XHJcbiAgICB9XHJcbiAgXHJcbiAgICAuc2lkZWJhci1zZWFyY2ggaW5wdXQuc2VhcmNoLW1lbnUsXHJcbiAgICAuc2lkZWJhci1zZWFyY2ggLmlucHV0LWdyb3VwLXRleHQge1xyXG4gICAgICBib3JkZXItY29sb3I6ICRib3JkZXItY29sb3I7XHJcbiAgICAgIGJveC1zaGFkb3c6IG5vbmU7XHJcbiAgICB9XHJcbiAgXHJcbiAgICAuc2lkZWJhci1wcm9maWxlIC51c2VyLWluZm8gLnVzZXItcm9sZSxcclxuICAgIC5zaWRlYmFyLXByb2ZpbGUgLnVzZXItaW5mbyAudXNlci1zdGF0dXMsXHJcbiAgICAuc2lkZWJhci1zZWFyY2ggaW5wdXQuc2VhcmNoLW1lbnUsXHJcbiAgICAuc2lkZWJhci1zZWFyY2ggLmlucHV0LWdyb3VwLXRleHQsXHJcbiAgICAuc2lkZWJhci1oZWFkZXI+YSxcclxuICAgIC5zaWRlYmFyLW1lbnUgdWwgbGkgYSxcclxuICAgIC5zaWRlYmFyLWZvb3Rlcj5kaXY+YSxcclxuICAgICNjbG9zZS1zaWRlYmFyIHtcclxuICAgICAgY29sb3I6ICRjb2xvcjtcclxuICAgIH1cclxuICBcclxuICAgIC5zaWRlYmFyLW1lbnUgdWwgbGk6aG92ZXI+YSxcclxuICAgIC5zaWRlYmFyLW1lbnUgLnNpZGViYXItZHJvcGRvd24uYWN0aXZlPmEsXHJcbiAgICAuc2lkZWJhci1wcm9maWxlIC51c2VyLWluZm8sXHJcbiAgICAuc2lkZWJhci1oZWFkZXI+YTpob3ZlcixcclxuICAgIC5zaWRlYmFyLWZvb3Rlcj5kaXY+YTpob3ZlciBpLFxyXG4gICAgI2Nsb3NlLXNpZGViYXI6aG92ZXIge1xyXG4gICAgICBjb2xvcjogJGhvdmVyLWNvbG9yO1xyXG4gICAgfVxyXG4gIFxyXG4gICAgdWwgbGk6aG92ZXIgYSBpLFxyXG4gICAgLnNpZGViYXItZHJvcGRvd24gLnNpZGViYXItc3VibWVudSBsaSBhOmhvdmVyOmJlZm9yZSxcclxuICAgIC5zaWRlYmFyLXNlYXJjaCBpbnB1dC5zZWFyY2gtbWVudTpmb2N1cytzcGFuLFxyXG4gICAgLnNpZGViYXItbWVudSAuc2lkZWJhci1kcm9wZG93bi5hY3RpdmUgYSBpIHtcclxuICAgICAgY29sb3I6ICRob3Zlci1jb2xvcjtcclxuICAgIH1cclxuICBcclxuICAgIC5zaWRlYmFyLW1lbnUgdWwgbGkgYSBpLFxyXG4gICAgLnNpZGViYXItbWVudSAuc2lkZWJhci1kcm9wZG93biBkaXYsXHJcbiAgICAuc2lkZWJhci1zZWFyY2ggaW5wdXQuc2VhcmNoLW1lbnUsXHJcbiAgICAuc2lkZWJhci1zZWFyY2ggLmlucHV0LWdyb3VwLXRleHQge1xyXG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAkYm9yZGVyLWNvbG9yO1xyXG4gICAgICBib3JkZXI6IG5vbmU7XHJcbiAgICAgIG1hcmdpbi1sZWZ0OiAxcHg7XHJcbiAgICB9XHJcbiAgXHJcbiAgICAuc2lkZWJhci1tZW51IC5oZWFkZXItbWVudSBzcGFuIHtcclxuICAgICAgY29sb3I6ICRoZWFkZXItbWVudS1jb2xvcjtcclxuICAgIH1cclxuICBcclxuICAgIC5zaWRlYmFyLWZvb3RlciB7XHJcbiAgICAgIGJhY2tncm91bmQtY29sb3I6ICRib3JkZXItY29sb3I7XHJcbiAgICAgIGJveC1zaGFkb3c6IDBweCAtMXB4IDVweCAkc2hhZG93LWNvbG9yO1xyXG4gICAgICBib3JkZXItdG9wOiAxcHggc29saWQgJGZvb3Rlci10b3AtYm9yZGVyLWNvbG9yO1xyXG4gICAgfVxyXG4gIFxyXG4gICAgLnNpZGViYXItZm9vdGVyPmRpdjpmaXJzdC1jaGlsZCB7XHJcbiAgICAgIGJvcmRlci1sZWZ0OiBub25lO1xyXG4gICAgfVxyXG4gIFxyXG4gICAgLnNpZGViYXItZm9vdGVyPmRpdjpsYXN0LWNoaWxkIHtcclxuICAgICAgYm9yZGVyLXJpZ2h0OiBub25lO1xyXG4gICAgfVxyXG4gIFxyXG4gICAgLy8gc3R5bGVzIHdpdGggYmFja2dyb3VuZCBpbWFnZVxyXG4gICAgJi5zaWRlYmFyLWJnIHtcclxuICBcclxuICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1nL2JnMS5qcGcpO1xyXG4gICAgICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xyXG4gICAgICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XHJcbiAgICAgIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XHJcbiAgXHJcbiAgICAgICY6YmVmb3JlIHtcclxuICAgICAgICBjb250ZW50OiAnJztcclxuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICAgICAgdG9wOiAwO1xyXG4gICAgICAgIHJpZ2h0OiAwO1xyXG4gICAgICAgIGJvdHRvbTogMDtcclxuICAgICAgICBsZWZ0OiAwO1xyXG4gICAgICAgIGJhY2tncm91bmQtY29sb3I6ICRpbWctYmctc2lkZWJhci13cmFwcGVyO1xyXG4gICAgICB9XHJcbiAgXHJcbiAgICAgIC5zaWRlYmFyLXByb2ZpbGUsXHJcbiAgICAgIC5zaWRlYmFyLXNlYXJjaCxcclxuICAgICAgLnNpZGViYXItbWVudSB7XHJcbiAgICAgICAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICRpbWctYm9yZGVyLWNvbG9yO1xyXG4gICAgICB9XHJcbiAgXHJcbiAgICAgIC5zaWRlYmFyLXNlYXJjaCBpbnB1dC5zZWFyY2gtbWVudSxcclxuICAgICAgLnNpZGViYXItc2VhcmNoIC5pbnB1dC1ncm91cC10ZXh0IHtcclxuICAgICAgICBib3JkZXItY29sb3I6ICRpbWctYm9yZGVyLWNvbG9yO1xyXG4gICAgICAgIGJveC1zaGFkb3c6IG5vbmU7XHJcbiAgICAgIH1cclxuICBcclxuICAgICAgLnNpZGViYXItbWVudSB1bCBsaSBhIGksXHJcbiAgICAgIC5zaWRlYmFyLW1lbnUgLnNpZGViYXItZHJvcGRvd24gZGl2LFxyXG4gICAgICAuc2lkZWJhci1zZWFyY2ggaW5wdXQuc2VhcmNoLW1lbnUsXHJcbiAgICAgIC5zaWRlYmFyLXNlYXJjaCAuaW5wdXQtZ3JvdXAtdGV4dCB7XHJcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogJGltZy1ib3JkZXItY29sb3I7XHJcbiAgXHJcbiAgICAgIH1cclxuICBcclxuICAgICAgLnNpZGViYXItZm9vdGVyIHtcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAkaW1nLWJnLWZvb3RlcjtcclxuICAgICAgICBib3gtc2hhZG93OiAwcHggLTFweCA1cHggJGltZy1iZy1mb290ZXI7XHJcbiAgICAgICAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICRpbWctYm9yZGVyLWNvbG9yO1xyXG4gICAgICB9XHJcbiAgXHJcbiAgICB9XHJcbiAgXHJcbiAgfSJdfQ== */"
 
 /***/ }),
 
@@ -1433,16 +2262,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_Cadastros_Ideias_ideia_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_services/Cadastros/Ideias/ideia.service */ "./src/app/_services/Cadastros/Ideias/ideia.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./_services/WebSocket/Socket.service */ "./src/app/_services/WebSocket/Socket.service.ts");
-/* harmony import */ var _services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
-/* harmony import */ var _services_Notificacoes_notificacao_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./_services/Notificacoes/notificacao.service */ "./src/app/_services/Notificacoes/notificacao.service.ts");
-/* harmony import */ var _services_Cadastros_Login_auth_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./_services/Cadastros/Login/auth.service */ "./src/app/_services/Cadastros/Login/auth.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./_services/WebSocket/Socket.service */ "./src/app/_services/WebSocket/Socket.service.ts");
+/* harmony import */ var _services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var _services_Notificacoes_notificacao_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./_services/Notificacoes/notificacao.service */ "./src/app/_services/Notificacoes/notificacao.service.ts");
+/* harmony import */ var _services_Cadastros_Login_auth_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./_services/Cadastros/Login/auth.service */ "./src/app/_services/Cadastros/Login/auth.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var _sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./sidebar/sidebar.service */ "./src/app/sidebar/sidebar.service.ts");
+
+
 
 
 
@@ -1457,7 +2290,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(ideiaService, fb, localeService, toastr, socketService, permissaoService, notificacaoService, authService, router, dataService) {
+    function AppComponent(ideiaService, fb, localeService, toastr, socketService, permissaoService, notificacaoService, authService, router, dataService, sidebarService) {
         this.ideiaService = ideiaService;
         this.fb = fb;
         this.localeService = localeService;
@@ -1468,59 +2301,97 @@ var AppComponent = /** @class */ (function () {
         this.authService = authService;
         this.router = router;
         this.dataService = dataService;
-        this.visualizarPermissao = false;
-        this.listarVenda = false;
-        this.listarProduto = false;
-        this.listarPessoa = false;
-        this.listarCliente = false;
+        this.sidebarService = sidebarService;
         this.title = 'VirtualWeb';
         this.statusLogIn = false;
         this.paginaNotificacaoAtual = 1;
         this.logou = false;
         this.sidebar = 'sidebar-open';
-        this.Nav = [
-            [
-                {
-                    nome: 'DashBoard',
-                    active: ''
-                }
-            ],
-            [
-                {
-                    nome: 'Cadastros',
-                    active: '',
-                    menuOpen: 'menu-open',
-                    subNav: [
-                        [
-                            {
-                                nome: 'Usuários',
-                                active: ''
-                            }
-                        ],
-                        [
-                            {
-                                nome: 'Clientes',
-                                active: ''
-                            }
-                        ]
-                    ]
-                }
-            ],
-            [
-                {
-                    nome: 'Atendimentos',
-                    active: '',
-                    menuOpen: '',
-                    subNav: [
-                        {
-                            nome: 'Retornos',
-                            active: ''
-                        }
-                    ]
-                }
-            ]
+        this.menus = [];
+        this.permissoes = [
+            {
+                component: 'Movimentos',
+                listar: false
+            },
+            {
+                component: 'Autorizações',
+                listar: false
+            },
+            {
+                component: 'Permissões',
+                listar: false
+            },
+            {
+                component: 'Venda',
+                listar: false
+            },
+            {
+                component: 'Relatórios Venda',
+                listar: false
+            },
+            {
+                component: 'Clientes',
+                listar: false
+            },
+            {
+                component: 'Minhas Empresas',
+                listar: false
+            },
+            {
+                component: 'Produtos',
+                listar: false
+            },
+            {
+                component: 'Pessoas',
+                listar: false
+            },
+            {
+                component: 'Plano de Contas',
+                listar: false
+            },
+            {
+                component: 'Centro de Receita',
+                listar: false
+            },
+            {
+                component: 'Centro de Despesa',
+                listar: false
+            },
+            {
+                component: 'Plano de Pagamento',
+                listar: false
+            },
+            {
+                component: 'Forma de Pagamento',
+                listar: false
+            },
+            {
+                component: 'Financeiro',
+                listar: false
+            },
+            {
+                component: 'Recebimentos',
+                listar: false
+            },
+            {
+                component: 'Pagamentos',
+                listar: false
+            },
+            {
+                component: 'Lançamentos',
+                listar: false
+            },
+            {
+                component: 'Relatórios Lançamentos',
+                listar: false
+            },
+            {
+                component: 'Cheques Pré-Datado',
+                listar: false
+            },
         ];
         this.localeService.use('pt-br');
+        this.menus = sidebarService.getMenuList();
     }
     AppComponent.prototype.ngOnInit = function () {
         if (!('Notification' in window)) {
@@ -1530,30 +2401,110 @@ var AppComponent = /** @class */ (function () {
             Notification.requestPermission();
         }
         this.validation();
-        this.getSocket('NotificacaoUsuarioRetorno');
-        this.getSocket('NovaObservacao');
         this.idUsuario = this.permissaoService.getUsuarioId();
         if (this.idUsuario && this.verificarLogIn()) {
+            this.getSocket('NotificacaoUsuarioRetorno');
+            this.getSocket('AutorizacaoVendaGerarPedido');
+            this.getSocket('RespAutorizacaoVendaGerarPedido');
+            this.getSocket('NovaObservacao');
             this.getNotificacoes();
+        }
+    };
+    AppComponent.prototype.getSideBarState = function () {
+        return this.sidebarService.getSidebarState();
+    };
+    AppComponent.prototype.toggle = function (currentMenu) {
+        if (currentMenu.type === 'dropdown') {
+            this.menus.forEach(function (element) {
+                if (element === currentMenu) {
+                    currentMenu.active = !currentMenu.active;
+                }
+                else {
+                    element.active = false;
+                }
+            });
+        }
+    };
+    AppComponent.prototype.getState = function (currentMenu) {
+        if (currentMenu.active) {
+            return 'down';
+        }
+        else {
+            return 'up';
         }
     };
     AppComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
-            _this.visualizarPermissao = _this.permissaoService.verificarPermissao(_PERMISSAO);
-        });
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'LISTAR').subscribe(function (_PERMISSAO) {
-            _this.listarPessoa = _this.permissaoService.verificarPermissao(_PERMISSAO);
-        });
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'LISTAR').subscribe(function (_PERMISSAO) {
-            _this.listarCliente = _this.permissaoService.verificarPermissao(_PERMISSAO);
-        });
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
-            _this.listarProduto = _this.permissaoService.verificarPermissao(_PERMISSAO);
-        });
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe(function (_PERMISSAO) {
-            _this.listarVenda = _this.permissaoService.verificarPermissao(_PERMISSAO);
-        });
+        if (this.logou === true) {
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Permissões'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Pessoas'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Clientes'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Produtos'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE CONTAS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Plano de Contas'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE RECEITA', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Centro de Receita'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Centro de Despesa'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE PAGAMENTO', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Plano de Pagamento'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Forma de Pagamento'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('RECEBIMENTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Recebimentos'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('PAGAMENTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Pagamentos'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Lançamentos'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS LANÇAMENTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                // tslint:disable-next-line:max-line-length
+                _this.permissoes.filter(function (c) { return c.component === 'Relatórios Lançamentos'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Cheques Pré-Datado'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('FINANCEIRO', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Financeiro'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Minhas Empresas'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Autorizações'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe(function (_PERMISSAO) {
+                _this.permissoes.filter(function (c) { return c.component === 'Venda'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                _this.permissoes.filter(function (c) { return c.component === 'Movimentos'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+            this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS VENDA', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+                // tslint:disable-next-line:max-line-length
+                _this.permissoes.filter(function (c) { return c.component === 'Relatórios Venda'; })[0].listar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+        }
+    };
+    AppComponent.prototype.verificarPermissao = function (component) {
+        if (this.permissoes.filter(function (c) { return c.component === component; }).length > 0) {
+            return this.permissoes.filter(function (c) { return c.component === component; })[0].listar;
+        }
+        else {
+            return true;
+        }
     };
     AppComponent.prototype.alterarSidebar = function () {
         if (this.sidebar === '') {
@@ -1621,6 +2572,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.getSocket = function (evento) {
         var _this = this;
         this.socketService.getSocket(evento).subscribe(function (data) {
+            console.log(data);
             if (data) {
                 if (evento === 'NovaObservacao') {
                     var notification = new Notification("Ol\u00E1, " + _this.permissaoService.getUsuario() + " !", {
@@ -1631,6 +2583,23 @@ var AppComponent = /** @class */ (function () {
                     if (Number(data) === Number(_this.idUsuario)) {
                         var notification = new Notification("Retorno Espec\u00EDfico!", {
                             body: 'Foi adicionado um Novo Retorno específico para você!'
+                        });
+                        _this.getNotificacoes();
+                    }
+                }
+                else if (evento === 'AutorizacaoVendaGerarPedido') {
+                    if (Number(data) === Number(_this.idUsuario)) {
+                        var notification = new Notification("Autoriza\u00E7\u00E3o Pedido de Venda!", {
+                            body: 'Um novo Pedido de Venda precisa ser Autorizado!'
+                        });
+                        _this.getNotificacoes();
+                    }
+                }
+                else if (evento === 'RespAutorizacaoVendaGerarPedido') {
+                    if (Number(data.solicitanteId) === Number(_this.idUsuario)) {
+                        var notification = new Notification("Resposta Autoriza\u00E7\u00E3o Pedido de Venda!", {
+                            body: (data.autorizado === 1) ? "Seu pedido de Venda foi autorizado pelo Usu\u00E1rio: " + data.autorizadorNome + "." :
+                                "Seu pedido de Venda foi negado pelo Usu\u00E1rio: " + data.autorizadorNome + "."
                         });
                         _this.getNotificacoes();
                     }
@@ -1649,7 +2618,7 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.cadastrarIdeia = function (template) {
         var _this = this;
-        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_6__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_7__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
         this.ideia = Object.assign(this.cadastroIdeiaForm.value, { id: 0, usuarioId: this.permissaoService.getUsuarioId(),
             dataCadastro: dataAtual, status: 'EM ANALISE' });
         this.ideiaService.novaIdeia(this.ideia).subscribe(function () {
@@ -1663,18 +2632,26 @@ var AppComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
-            styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
+            animations: [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["trigger"])('slide', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])('up', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ height: 0 })),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])('down', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ height: '*' })),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])('up <=> down', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])(200))
+                ])
+            ],
+            styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_Cadastros_Ideias_ideia_service__WEBPACK_IMPORTED_MODULE_2__["IdeiaService"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"],
-            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
-            _services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_7__["SocketService"],
-            _services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_8__["PermissaoService"],
-            _services_Notificacoes_notificacao_service__WEBPACK_IMPORTED_MODULE_9__["NotificacaoService"],
-            _services_Cadastros_Login_auth_service__WEBPACK_IMPORTED_MODULE_10__["AuthService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_11__["Router"],
-            _services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_12__["DataService"]])
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
+            _services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_8__["SocketService"],
+            _services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_9__["PermissaoService"],
+            _services_Notificacoes_notificacao_service__WEBPACK_IMPORTED_MODULE_10__["NotificacaoService"],
+            _services_Cadastros_Login_auth_service__WEBPACK_IMPORTED_MODULE_11__["AuthService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_12__["Router"],
+            _services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_13__["DataService"],
+            _sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_14__["SidebarService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1710,43 +2687,99 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng2_datepicker__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ng2-datepicker */ "./node_modules/ng2-datepicker/dist/bundles/ng2-datepicker.umd.js");
 /* harmony import */ var ng2_datepicker__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(ng2_datepicker__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var ng2_charts__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ng2-charts */ "./node_modules/ng2-charts/fesm5/ng2-charts.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _cadastros_usuario_usuario_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./cadastros/usuario/usuario.component */ "./src/app/cadastros/usuario/usuario.component.ts");
-/* harmony import */ var _cadastros_usuario_login_login_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./cadastros/usuario/login/login.component */ "./src/app/cadastros/usuario/login/login.component.ts");
-/* harmony import */ var _cadastros_usuario_editarUsuario_editarUsuario_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./cadastros/usuario/editarUsuario/editarUsuario.component */ "./src/app/cadastros/usuario/editarUsuario/editarUsuario.component.ts");
-/* harmony import */ var _cadastros_usuario_novoUsuario_novoUsuario_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./cadastros/usuario/novoUsuario/novoUsuario.component */ "./src/app/cadastros/usuario/novoUsuario/novoUsuario.component.ts");
-/* harmony import */ var _cadastros_usuario_editarSenhaUsuario_editarSenhaUsuario_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./cadastros/usuario/editarSenhaUsuario/editarSenhaUsuario.component */ "./src/app/cadastros/usuario/editarSenhaUsuario/editarSenhaUsuario.component.ts");
-/* harmony import */ var _cadastros_cliente_cliente_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./cadastros/cliente/cliente.component */ "./src/app/cadastros/cliente/cliente.component.ts");
-/* harmony import */ var _cadastros_cliente_novoCliente_novoCliente_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./cadastros/cliente/novoCliente/novoCliente.component */ "./src/app/cadastros/cliente/novoCliente/novoCliente.component.ts");
-/* harmony import */ var _cadastros_cliente_editarCliente_editarCliente_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./cadastros/cliente/editarCliente/editarCliente.component */ "./src/app/cadastros/cliente/editarCliente/editarCliente.component.ts");
-/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
-/* harmony import */ var _atendimento_atendimento_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./atendimento/atendimento.component */ "./src/app/atendimento/atendimento.component.ts");
-/* harmony import */ var _atendimento_retorno_retorno_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./atendimento/retorno/retorno.component */ "./src/app/atendimento/retorno/retorno.component.ts");
-/* harmony import */ var _atendimento_retorno_novoRetorno_novoRetorno_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./atendimento/retorno/novoRetorno/novoRetorno.component */ "./src/app/atendimento/retorno/novoRetorno/novoRetorno.component.ts");
-/* harmony import */ var _atendimento_retorno_editarRetorno_editarRetorno_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./atendimento/retorno/editarRetorno/editarRetorno.component */ "./src/app/atendimento/retorno/editarRetorno/editarRetorno.component.ts");
-/* harmony import */ var _movimentos_venda_venda_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./movimentos/venda/venda.component */ "./src/app/movimentos/venda/venda.component.ts");
-/* harmony import */ var _movimentos_venda_novoVenda_novoVenda_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./movimentos/venda/novoVenda/novoVenda.component */ "./src/app/movimentos/venda/novoVenda/novoVenda.component.ts");
-/* harmony import */ var _movimentos_venda_editarVenda_editarVenda_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./movimentos/venda/editarVenda/editarVenda.component */ "./src/app/movimentos/venda/editarVenda/editarVenda.component.ts");
-/* harmony import */ var _movimentos_venda_editarVenda_resumoVenda_resumoVenda_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./movimentos/venda/editarVenda/resumoVenda/resumoVenda.component */ "./src/app/movimentos/venda/editarVenda/resumoVenda/resumoVenda.component.ts");
-/* harmony import */ var _cadastros_produto_produto_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./cadastros/produto/produto.component */ "./src/app/cadastros/produto/produto.component.ts");
-/* harmony import */ var _cadastros_produto_novoProduto_novoProduto_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./cadastros/produto/novoProduto/novoProduto.component */ "./src/app/cadastros/produto/novoProduto/novoProduto.component.ts");
-/* harmony import */ var _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./cadastros/produto/editarProduto/editarProduto.component */ "./src/app/cadastros/produto/editarProduto/editarProduto.component.ts");
-/* harmony import */ var _cadastros_pessoa_pessoa_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./cadastros/pessoa/pessoa.component */ "./src/app/cadastros/pessoa/pessoa.component.ts");
-/* harmony import */ var _cadastros_pessoa_novoPessoa_novoPessoa_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./cadastros/pessoa/novoPessoa/novoPessoa.component */ "./src/app/cadastros/pessoa/novoPessoa/novoPessoa.component.ts");
-/* harmony import */ var _cadastros_pessoa_editarPessoa_editarPessoa_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./cadastros/pessoa/editarPessoa/editarPessoa.component */ "./src/app/cadastros/pessoa/editarPessoa/editarPessoa.component.ts");
-/* harmony import */ var _pipes_cnpjCpf_pipe__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./pipes/cnpjCpf.pipe */ "./src/app/pipes/cnpjCpf.pipe.ts");
-/* harmony import */ var _pipes_celular_pipe__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pipes/celular.pipe */ "./src/app/pipes/celular.pipe.ts");
-/* harmony import */ var _pipes_cep_pipe__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./pipes/cep.pipe */ "./src/app/pipes/cep.pipe.ts");
-/* harmony import */ var _pipes_ie_pipe__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./pipes/ie.pipe */ "./src/app/pipes/ie.pipe.ts");
-/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "./node_modules/ngx-bootstrap/chronos/fesm5/ngx-bootstrap-chronos.js");
-/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ngx-bootstrap/locale */ "./node_modules/ngx-bootstrap/locale/fesm5/ngx-bootstrap-locale.js");
-/* harmony import */ var _angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! @angular/common/locales/pt */ "./node_modules/@angular/common/locales/pt.js");
-/* harmony import */ var _angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_46___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_46__);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./auth/auth.interceptor */ "./src/app/auth/auth.interceptor.ts");
-/* harmony import */ var _services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./_services/Cadastros/Clientes/cliente.service */ "./src/app/_services/Cadastros/Clientes/cliente.service.ts");
-/* harmony import */ var _services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./_services/WebSocket/Socket.service */ "./src/app/_services/WebSocket/Socket.service.ts");
-/* harmony import */ var _permissao_permissao_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./permissao/permissao.component */ "./src/app/permissao/permissao.component.ts");
+/* harmony import */ var ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-perfect-scrollbar */ "./node_modules/ngx-perfect-scrollbar/dist/ngx-perfect-scrollbar.es5.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _cadastros_usuario_usuario_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./cadastros/usuario/usuario.component */ "./src/app/cadastros/usuario/usuario.component.ts");
+/* harmony import */ var _cadastros_usuario_login_login_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./cadastros/usuario/login/login.component */ "./src/app/cadastros/usuario/login/login.component.ts");
+/* harmony import */ var _cadastros_usuario_editarUsuario_editarUsuario_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./cadastros/usuario/editarUsuario/editarUsuario.component */ "./src/app/cadastros/usuario/editarUsuario/editarUsuario.component.ts");
+/* harmony import */ var _cadastros_usuario_novoUsuario_novoUsuario_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./cadastros/usuario/novoUsuario/novoUsuario.component */ "./src/app/cadastros/usuario/novoUsuario/novoUsuario.component.ts");
+/* harmony import */ var _cadastros_usuario_editarSenhaUsuario_editarSenhaUsuario_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./cadastros/usuario/editarSenhaUsuario/editarSenhaUsuario.component */ "./src/app/cadastros/usuario/editarSenhaUsuario/editarSenhaUsuario.component.ts");
+/* harmony import */ var _cadastros_cliente_cliente_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./cadastros/cliente/cliente.component */ "./src/app/cadastros/cliente/cliente.component.ts");
+/* harmony import */ var _cadastros_cliente_novoCliente_novoCliente_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./cadastros/cliente/novoCliente/novoCliente.component */ "./src/app/cadastros/cliente/novoCliente/novoCliente.component.ts");
+/* harmony import */ var _cadastros_cliente_editarCliente_editarCliente_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./cadastros/cliente/editarCliente/editarCliente.component */ "./src/app/cadastros/cliente/editarCliente/editarCliente.component.ts");
+/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var _atendimento_atendimento_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./atendimento/atendimento.component */ "./src/app/atendimento/atendimento.component.ts");
+/* harmony import */ var _atendimento_retorno_retorno_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./atendimento/retorno/retorno.component */ "./src/app/atendimento/retorno/retorno.component.ts");
+/* harmony import */ var _atendimento_retorno_novoRetorno_novoRetorno_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./atendimento/retorno/novoRetorno/novoRetorno.component */ "./src/app/atendimento/retorno/novoRetorno/novoRetorno.component.ts");
+/* harmony import */ var _atendimento_retorno_editarRetorno_editarRetorno_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./atendimento/retorno/editarRetorno/editarRetorno.component */ "./src/app/atendimento/retorno/editarRetorno/editarRetorno.component.ts");
+/* harmony import */ var _movimentos_venda_venda_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./movimentos/venda/venda.component */ "./src/app/movimentos/venda/venda.component.ts");
+/* harmony import */ var _movimentos_venda_novoVenda_novoVenda_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./movimentos/venda/novoVenda/novoVenda.component */ "./src/app/movimentos/venda/novoVenda/novoVenda.component.ts");
+/* harmony import */ var _movimentos_venda_editarVenda_editarVenda_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./movimentos/venda/editarVenda/editarVenda.component */ "./src/app/movimentos/venda/editarVenda/editarVenda.component.ts");
+/* harmony import */ var _movimentos_venda_editarVenda_resumoVenda_resumoVenda_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./movimentos/venda/editarVenda/resumoVenda/resumoVenda.component */ "./src/app/movimentos/venda/editarVenda/resumoVenda/resumoVenda.component.ts");
+/* harmony import */ var _movimentos_venda_editarVenda_pagamentosVenda_pagamentosVenda_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component */ "./src/app/movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component.ts");
+/* harmony import */ var _movimentos_venda_editarVenda_recebimentosVenda_recebimentosVenda_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component */ "./src/app/movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component.ts");
+/* harmony import */ var _movimentos_venda_configVenda_configVenda_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./movimentos/venda/configVenda/configVenda.component */ "./src/app/movimentos/venda/configVenda/configVenda.component.ts");
+/* harmony import */ var _movimentos_venda_relatorioVenda_relatorioVenda_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./movimentos/venda/relatorioVenda/relatorioVenda.component */ "./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.ts");
+/* harmony import */ var _cadastros_produto_produto_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./cadastros/produto/produto.component */ "./src/app/cadastros/produto/produto.component.ts");
+/* harmony import */ var _cadastros_produto_novoProduto_novoProduto_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./cadastros/produto/novoProduto/novoProduto.component */ "./src/app/cadastros/produto/novoProduto/novoProduto.component.ts");
+/* harmony import */ var _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./cadastros/produto/editarProduto/editarProduto.component */ "./src/app/cadastros/produto/editarProduto/editarProduto.component.ts");
+/* harmony import */ var _cadastros_planoConta_planoConta_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./cadastros/planoConta/planoConta.component */ "./src/app/cadastros/planoConta/planoConta.component.ts");
+/* harmony import */ var _cadastros_centroDespesa_centroDespesa_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./cadastros/centroDespesa/centroDespesa.component */ "./src/app/cadastros/centroDespesa/centroDespesa.component.ts");
+/* harmony import */ var _cadastros_centroReceita_centroReceita_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./cadastros/centroReceita/centroReceita.component */ "./src/app/cadastros/centroReceita/centroReceita.component.ts");
+/* harmony import */ var _cadastros_formaPagamento_formaPagamento_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./cadastros/formaPagamento/formaPagamento.component */ "./src/app/cadastros/formaPagamento/formaPagamento.component.ts");
+/* harmony import */ var _cadastros_planoPagamento_planoPagamento_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./cadastros/planoPagamento/planoPagamento.component */ "./src/app/cadastros/planoPagamento/planoPagamento.component.ts");
+/* harmony import */ var _cadastros_pessoa_pessoa_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./cadastros/pessoa/pessoa.component */ "./src/app/cadastros/pessoa/pessoa.component.ts");
+/* harmony import */ var _cadastros_pessoa_novoPessoa_novoPessoa_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./cadastros/pessoa/novoPessoa/novoPessoa.component */ "./src/app/cadastros/pessoa/novoPessoa/novoPessoa.component.ts");
+/* harmony import */ var _cadastros_pessoa_editarPessoa_editarPessoa_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./cadastros/pessoa/editarPessoa/editarPessoa.component */ "./src/app/cadastros/pessoa/editarPessoa/editarPessoa.component.ts");
+/* harmony import */ var _financeiro_recebimento_recebimento_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./financeiro/recebimento/recebimento.component */ "./src/app/financeiro/recebimento/recebimento.component.ts");
+/* harmony import */ var _financeiro_recebimento_detalharRecebimento_detalharRecebimento_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./financeiro/recebimento/detalharRecebimento/detalharRecebimento.component */ "./src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component.ts");
+/* harmony import */ var _financeiro_recebimento_templateRecebimento_templateRecebimento_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./financeiro/recebimento/templateRecebimento/templateRecebimento.component */ "./src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component.ts");
+/* harmony import */ var _financeiro_pagamento_pagamento_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./financeiro/pagamento/pagamento.component */ "./src/app/financeiro/pagamento/pagamento.component.ts");
+/* harmony import */ var _financeiro_pagamento_templatePagamento_templatePagamento_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./financeiro/pagamento/templatePagamento/templatePagamento.component */ "./src/app/financeiro/pagamento/templatePagamento/templatePagamento.component.ts");
+/* harmony import */ var _financeiro_pagamento_detalharPagamento_detalharPagamento_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./financeiro/pagamento/detalharPagamento/detalharPagamento.component */ "./src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component.ts");
+/* harmony import */ var _financeiro_lancamento_lancamento_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./financeiro/lancamento/lancamento.component */ "./src/app/financeiro/lancamento/lancamento.component.ts");
+/* harmony import */ var _financeiro_lancamento_lancamentoTemplate_lancamentoTemplate_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component */ "./src/app/financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component.ts");
+/* harmony import */ var _financeiro_lancamento_relatorioLancamento_relatorioLancamento_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./financeiro/lancamento/relatorioLancamento/relatorioLancamento.component */ "./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.ts");
+/* harmony import */ var _cadastros_chequePre_chequePre_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./cadastros/chequePre/chequePre.component */ "./src/app/cadastros/chequePre/chequePre.component.ts");
+/* harmony import */ var _cadastros_chequePre_chequePreTemplate_chequePreTemplate_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./cadastros/chequePre/chequePreTemplate/chequePreTemplate.component */ "./src/app/cadastros/chequePre/chequePreTemplate/chequePreTemplate.component.ts");
+/* harmony import */ var _permissao_permissao_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./permissao/permissao.component */ "./src/app/permissao/permissao.component.ts");
+/* harmony import */ var _cadastros_empresa_empresa_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./cadastros/empresa/empresa.component */ "./src/app/cadastros/empresa/empresa.component.ts");
+/* harmony import */ var _cadastros_empresa_empresaTemplate_empresaTemplate_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./cadastros/empresa/empresaTemplate/empresaTemplate.component */ "./src/app/cadastros/empresa/empresaTemplate/empresaTemplate.component.ts");
+/* harmony import */ var _autorizacao_autorizacao_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./autorizacao/autorizacao.component */ "./src/app/autorizacao/autorizacao.component.ts");
+/* harmony import */ var _autorizacao_autorizacaoTemplate_autorizacaoTemplate_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./autorizacao/autorizacaoTemplate/autorizacaoTemplate.component */ "./src/app/autorizacao/autorizacaoTemplate/autorizacaoTemplate.component.ts");
+/* harmony import */ var _pipes_cnpjCpf_pipe__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./pipes/cnpjCpf.pipe */ "./src/app/pipes/cnpjCpf.pipe.ts");
+/* harmony import */ var _pipes_celular_pipe__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./pipes/celular.pipe */ "./src/app/pipes/celular.pipe.ts");
+/* harmony import */ var _pipes_cep_pipe__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./pipes/cep.pipe */ "./src/app/pipes/cep.pipe.ts");
+/* harmony import */ var _pipes_ie_pipe__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./pipes/ie.pipe */ "./src/app/pipes/ie.pipe.ts");
+/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "./node_modules/ngx-bootstrap/chronos/fesm5/ngx-bootstrap-chronos.js");
+/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ngx-bootstrap/locale */ "./node_modules/ngx-bootstrap/locale/fesm5/ngx-bootstrap-locale.js");
+/* harmony import */ var _angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! @angular/common/locales/pt */ "./node_modules/@angular/common/locales/pt.js");
+/* harmony import */ var _angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_73___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_73__);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./auth/auth.interceptor */ "./src/app/auth/auth.interceptor.ts");
+/* harmony import */ var _services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./_services/Cadastros/Clientes/cliente.service */ "./src/app/_services/Cadastros/Clientes/cliente.service.ts");
+/* harmony import */ var _services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./_services/WebSocket/Socket.service */ "./src/app/_services/WebSocket/Socket.service.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var DEFAULT_PERFECT_SCROLLBAR_CONFIG = {
+    suppressScrollX: true
+};
+
+
+
+
+
+
+
+
 
 
 
@@ -1802,47 +2835,73 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var config = { url: location.protocol + '//' + location.hostname + '', options: {} };
-Object(_angular_common__WEBPACK_IMPORTED_MODULE_47__["registerLocaleData"])(_angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_46___default.a, _angular_core__WEBPACK_IMPORTED_MODULE_2__["LOCALE_ID"]);
-Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_44__["defineLocale"])('pt-br', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_45__["ptBrLocale"]);
+Object(_angular_common__WEBPACK_IMPORTED_MODULE_74__["registerLocaleData"])(_angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_73___default.a, _angular_core__WEBPACK_IMPORTED_MODULE_2__["LOCALE_ID"]);
+Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_71__["defineLocale"])('pt-br', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_72__["ptBrLocale"]);
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_16__["AppComponent"],
-                _cadastros_usuario_usuario_component__WEBPACK_IMPORTED_MODULE_17__["UsuarioComponent"],
-                _cadastros_usuario_login_login_component__WEBPACK_IMPORTED_MODULE_18__["LoginComponent"],
-                _cadastros_usuario_novoUsuario_novoUsuario_component__WEBPACK_IMPORTED_MODULE_20__["NovoUsuarioComponent"],
-                _cadastros_usuario_editarUsuario_editarUsuario_component__WEBPACK_IMPORTED_MODULE_19__["EditarUsuarioComponent"],
-                _cadastros_usuario_editarSenhaUsuario_editarSenhaUsuario_component__WEBPACK_IMPORTED_MODULE_21__["EditarSenhaUsuarioComponent"],
-                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_25__["DashboardComponent"],
-                _cadastros_cliente_cliente_component__WEBPACK_IMPORTED_MODULE_22__["ClienteComponent"],
-                _cadastros_cliente_novoCliente_novoCliente_component__WEBPACK_IMPORTED_MODULE_23__["NovoClienteComponent"],
-                _cadastros_cliente_editarCliente_editarCliente_component__WEBPACK_IMPORTED_MODULE_24__["EditarClienteComponent"],
-                _atendimento_atendimento_component__WEBPACK_IMPORTED_MODULE_26__["AtendimentoComponent"],
-                _atendimento_retorno_retorno_component__WEBPACK_IMPORTED_MODULE_27__["RetornoComponent"],
-                _atendimento_retorno_novoRetorno_novoRetorno_component__WEBPACK_IMPORTED_MODULE_28__["NovoRetornoComponent"],
-                _atendimento_retorno_editarRetorno_editarRetorno_component__WEBPACK_IMPORTED_MODULE_29__["EditarRetornoComponent"],
-                _permissao_permissao_component__WEBPACK_IMPORTED_MODULE_51__["PermissaoComponent"],
-                _movimentos_venda_venda_component__WEBPACK_IMPORTED_MODULE_30__["VendaComponent"],
-                _movimentos_venda_novoVenda_novoVenda_component__WEBPACK_IMPORTED_MODULE_31__["NovoVendaComponent"],
-                _movimentos_venda_editarVenda_editarVenda_component__WEBPACK_IMPORTED_MODULE_32__["EditarVendaComponent"],
-                _movimentos_venda_editarVenda_resumoVenda_resumoVenda_component__WEBPACK_IMPORTED_MODULE_33__["ResumoVendaComponent"],
-                _cadastros_produto_produto_component__WEBPACK_IMPORTED_MODULE_34__["ProdutoComponent"],
-                _cadastros_produto_novoProduto_novoProduto_component__WEBPACK_IMPORTED_MODULE_35__["NovoProdutoComponent"],
-                _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_36__["EditarProdutoComponent"],
-                _cadastros_pessoa_pessoa_component__WEBPACK_IMPORTED_MODULE_37__["PessoaComponent"],
-                _cadastros_pessoa_novoPessoa_novoPessoa_component__WEBPACK_IMPORTED_MODULE_38__["NovoPessoaComponent"],
-                _cadastros_pessoa_editarPessoa_editarPessoa_component__WEBPACK_IMPORTED_MODULE_39__["EditarPessoaComponent"],
-                _pipes_cnpjCpf_pipe__WEBPACK_IMPORTED_MODULE_40__["CnpjCpfPipe"],
-                _pipes_celular_pipe__WEBPACK_IMPORTED_MODULE_41__["CelularPipe"],
-                _pipes_cep_pipe__WEBPACK_IMPORTED_MODULE_42__["CepPipe"],
-                _pipes_ie_pipe__WEBPACK_IMPORTED_MODULE_43__["IePipe"]
+                _app_component__WEBPACK_IMPORTED_MODULE_18__["AppComponent"],
+                _cadastros_usuario_usuario_component__WEBPACK_IMPORTED_MODULE_19__["UsuarioComponent"],
+                _cadastros_usuario_login_login_component__WEBPACK_IMPORTED_MODULE_20__["LoginComponent"],
+                _cadastros_usuario_novoUsuario_novoUsuario_component__WEBPACK_IMPORTED_MODULE_22__["NovoUsuarioComponent"],
+                _cadastros_usuario_editarUsuario_editarUsuario_component__WEBPACK_IMPORTED_MODULE_21__["EditarUsuarioComponent"],
+                _cadastros_usuario_editarSenhaUsuario_editarSenhaUsuario_component__WEBPACK_IMPORTED_MODULE_23__["EditarSenhaUsuarioComponent"],
+                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_27__["DashboardComponent"],
+                _cadastros_cliente_cliente_component__WEBPACK_IMPORTED_MODULE_24__["ClienteComponent"],
+                _cadastros_cliente_novoCliente_novoCliente_component__WEBPACK_IMPORTED_MODULE_25__["NovoClienteComponent"],
+                _cadastros_cliente_editarCliente_editarCliente_component__WEBPACK_IMPORTED_MODULE_26__["EditarClienteComponent"],
+                _atendimento_atendimento_component__WEBPACK_IMPORTED_MODULE_28__["AtendimentoComponent"],
+                _atendimento_retorno_retorno_component__WEBPACK_IMPORTED_MODULE_29__["RetornoComponent"],
+                _atendimento_retorno_novoRetorno_novoRetorno_component__WEBPACK_IMPORTED_MODULE_30__["NovoRetornoComponent"],
+                _atendimento_retorno_editarRetorno_editarRetorno_component__WEBPACK_IMPORTED_MODULE_31__["EditarRetornoComponent"],
+                _permissao_permissao_component__WEBPACK_IMPORTED_MODULE_62__["PermissaoComponent"],
+                _movimentos_venda_venda_component__WEBPACK_IMPORTED_MODULE_32__["VendaComponent"],
+                _movimentos_venda_novoVenda_novoVenda_component__WEBPACK_IMPORTED_MODULE_33__["NovoVendaComponent"],
+                _movimentos_venda_editarVenda_editarVenda_component__WEBPACK_IMPORTED_MODULE_34__["EditarVendaComponent"],
+                _movimentos_venda_editarVenda_resumoVenda_resumoVenda_component__WEBPACK_IMPORTED_MODULE_35__["ResumoVendaComponent"],
+                _movimentos_venda_configVenda_configVenda_component__WEBPACK_IMPORTED_MODULE_38__["ConfigVendaComponent"],
+                _movimentos_venda_relatorioVenda_relatorioVenda_component__WEBPACK_IMPORTED_MODULE_39__["RelatorioVendaComponent"],
+                _movimentos_venda_editarVenda_pagamentosVenda_pagamentosVenda_component__WEBPACK_IMPORTED_MODULE_36__["PagamentosVendaComponent"],
+                _movimentos_venda_editarVenda_recebimentosVenda_recebimentosVenda_component__WEBPACK_IMPORTED_MODULE_37__["RecebimentosVendaComponent"],
+                _cadastros_produto_produto_component__WEBPACK_IMPORTED_MODULE_40__["ProdutoComponent"],
+                _cadastros_produto_novoProduto_novoProduto_component__WEBPACK_IMPORTED_MODULE_41__["NovoProdutoComponent"],
+                _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_42__["EditarProdutoComponent"],
+                _cadastros_pessoa_pessoa_component__WEBPACK_IMPORTED_MODULE_48__["PessoaComponent"],
+                _cadastros_pessoa_novoPessoa_novoPessoa_component__WEBPACK_IMPORTED_MODULE_49__["NovoPessoaComponent"],
+                _cadastros_pessoa_editarPessoa_editarPessoa_component__WEBPACK_IMPORTED_MODULE_50__["EditarPessoaComponent"],
+                _cadastros_planoConta_planoConta_component__WEBPACK_IMPORTED_MODULE_43__["PlanoContaComponent"],
+                _cadastros_centroDespesa_centroDespesa_component__WEBPACK_IMPORTED_MODULE_44__["CentroDespesaComponent"],
+                _cadastros_centroReceita_centroReceita_component__WEBPACK_IMPORTED_MODULE_45__["CentroReceitaComponent"],
+                _cadastros_formaPagamento_formaPagamento_component__WEBPACK_IMPORTED_MODULE_46__["FormaPagamentoComponent"],
+                _cadastros_planoPagamento_planoPagamento_component__WEBPACK_IMPORTED_MODULE_47__["PlanoPagamentoComponent"],
+                _financeiro_recebimento_recebimento_component__WEBPACK_IMPORTED_MODULE_51__["RecebimentoComponent"],
+                _financeiro_recebimento_detalharRecebimento_detalharRecebimento_component__WEBPACK_IMPORTED_MODULE_52__["DetalharRecebimentoComponent"],
+                _financeiro_recebimento_templateRecebimento_templateRecebimento_component__WEBPACK_IMPORTED_MODULE_53__["TemplateRecebimentoComponent"],
+                _financeiro_pagamento_pagamento_component__WEBPACK_IMPORTED_MODULE_54__["PagamentoComponent"],
+                _financeiro_pagamento_templatePagamento_templatePagamento_component__WEBPACK_IMPORTED_MODULE_55__["TemplatePagamentoComponent"],
+                _financeiro_pagamento_detalharPagamento_detalharPagamento_component__WEBPACK_IMPORTED_MODULE_56__["DetalharPagamentoComponent"],
+                _financeiro_lancamento_lancamento_component__WEBPACK_IMPORTED_MODULE_57__["LancamentoComponent"],
+                _financeiro_lancamento_lancamentoTemplate_lancamentoTemplate_component__WEBPACK_IMPORTED_MODULE_58__["LancamentoTemplateComponent"],
+                _financeiro_lancamento_relatorioLancamento_relatorioLancamento_component__WEBPACK_IMPORTED_MODULE_59__["RelatorioLancamentoComponent"],
+                _cadastros_chequePre_chequePre_component__WEBPACK_IMPORTED_MODULE_60__["ChequePreComponent"],
+                _cadastros_chequePre_chequePreTemplate_chequePreTemplate_component__WEBPACK_IMPORTED_MODULE_61__["ChequePreTemplateComponent"],
+                _cadastros_empresa_empresa_component__WEBPACK_IMPORTED_MODULE_63__["EmpresaComponent"],
+                _cadastros_empresa_empresaTemplate_empresaTemplate_component__WEBPACK_IMPORTED_MODULE_64__["EmpresaTemplateComponent"],
+                _autorizacao_autorizacao_component__WEBPACK_IMPORTED_MODULE_65__["AutorizacaoComponent"],
+                _autorizacao_autorizacaoTemplate_autorizacaoTemplate_component__WEBPACK_IMPORTED_MODULE_66__["AutorizacaoTemplateComponent"],
+                _pipes_cnpjCpf_pipe__WEBPACK_IMPORTED_MODULE_67__["CnpjCpfPipe"],
+                _pipes_celular_pipe__WEBPACK_IMPORTED_MODULE_68__["CelularPipe"],
+                _pipes_cep_pipe__WEBPACK_IMPORTED_MODULE_69__["CepPipe"],
+                _pipes_ie_pipe__WEBPACK_IMPORTED_MODULE_70__["IePipe"]
             ],
             imports: [
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["BrowserAnimationsModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_17__["MatDialogModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["NoopAnimationsModule"],
                 ngx_socket_io__WEBPACK_IMPORTED_MODULE_13__["SocketIoModule"].forRoot(config),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsDropdownModule"].forRoot(),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsDatepickerModule"].forRoot(),
@@ -1852,6 +2911,7 @@ var AppModule = /** @class */ (function () {
                 ngx_mask__WEBPACK_IMPORTED_MODULE_9__["NgxMaskModule"].forRoot(),
                 ng2_datepicker__WEBPACK_IMPORTED_MODULE_14__["NgDatepickerModule"],
                 ng2_charts__WEBPACK_IMPORTED_MODULE_15__["ChartsModule"],
+                ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_16__["PerfectScrollbarModule"],
                 ngx_pagination__WEBPACK_IMPORTED_MODULE_12__["NgxPaginationModule"],
                 ngx_currency__WEBPACK_IMPORTED_MODULE_10__["NgxCurrencyModule"],
                 _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_11__["NgSelectModule"],
@@ -1867,19 +2927,23 @@ var AppModule = /** @class */ (function () {
                     useValue: 'pt-BR'
                 },
                 {
-                    provide: _angular_common__WEBPACK_IMPORTED_MODULE_47__["APP_BASE_HREF"],
+                    provide: _angular_common__WEBPACK_IMPORTED_MODULE_74__["APP_BASE_HREF"],
                     useValue: '/'
                 },
-                _services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_49__["ClienteService"],
+                {
+                    provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_16__["PERFECT_SCROLLBAR_CONFIG"],
+                    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+                },
+                _services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_76__["ClienteService"],
                 {
                     provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
-                    useClass: _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_48__["AuthInterceptor"],
+                    useClass: _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_75__["AuthInterceptor"],
                     multi: true
                 },
-                _services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_50__["SocketService"]
+                _services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_77__["SocketService"]
             ],
             bootstrap: [
-                _app_component__WEBPACK_IMPORTED_MODULE_16__["AppComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_18__["AppComponent"]
             ]
         })
     ], AppModule);
@@ -2187,7 +3251,7 @@ var NovoRetornoComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Retornos</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"row\">\n      <div class=\"form-group col-md-3\">\n        <label>Filtrar por:</label>\n        <ng-select [clearable]=\"false\" [items]=\"filtrarPor\" name=\"filtrarPor\" [(ngModel)]=\"filtroSelecionado\"\n          (change)=\"setFiltroSelecionado($event)\">\n        </ng-select>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'CLIENTE'\" class=\"form-group col-md-4\">\n        <label>Selecione o Cliente:</label>\n        <ng-select name=\"filtroNome\" [items]=\"clientes\" bindLabel=\"nomeFantasia\" bindValue=\"id\"\n          [(ngModel)]=\"filtroLista\">\n        </ng-select>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'DATA'\" class=\"form-group col-md-3\">\n        <label>Selecione a Data:</label>\n        <input type=\"text\" class=\"form-control\" name=\"dataFiltro\" (bsValueChange)=\"setDataFiltro($event)\"\n          bsDaterangepicker />\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'PRIORIDADE'\" class=\"form-group col-md-2\">\n        <label>Selecione a Prioridade:</label>\n        <ng-select name=\"filtroPrioridade\" [clearable]=\"false\" [items]=\"prioridades\" [(ngModel)]=\"filtroLista\">\n        </ng-select>\n      </div>\n\n      <div class=\"form-group col-md-2\">\n        <label>Status:</label>\n        <ng-select [clearable]=\"false\" [items]=\"status\" name=\"statusFiltro\" [(ngModel)]=\"statusFiltroSelecionado\"\n          (change)=\"setStatusFiltroSelecionado($event)\">\n        </ng-select>\n      </div>\n\n      <div style=\"margin-right: 15px;\" class=\"pull-right\">\n        <a [routerLink]=\"['novo']\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Retorno\n        </a>\n      </div>\n    </div>\n    <label>Atualizado às: {{horaUltimaAtt}}</label>\n\n\n    <table class=\"table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Id</th>\n          <th>Cliente</th>\n          <th style=\"text-align: center;\">Prioridade</th>\n          <th style=\"text-align: center;\">Status</th>\n          <th>Data/Hora</th>\n          <th>Atendente</th>\n          <th style=\"text-align: center;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"retornos && retornos.length\">\n        <tr\n          *ngFor=\"let retorno of retornosFiltrados | paginate: { itemsPerPage: 5, currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td>{{ retorno.id }}</td>\n          <td style=\"white-space: nowrap;\">({{retorno.cliente.codSiga}}) - {{ retorno.cliente.nomeFantasia }}</td>\n          <td style=\"text-align: center;\">\n            <button *ngIf=\"retorno.prioridade == 'NORMAL'\" type=\"button\" disabled class=\"btn btn-dark btn-sm\"><i\n                class=\"fa fa-history\"></i></button>\n            <button *ngIf=\"retorno.prioridade == 'URGENTE'\" type=\"button\" class=\"btn btn-danger btn-sm\"><i\n                class=\"fa fa-exclamation-triangle\"></i></button>\n          </td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <button *ngIf=\"retorno.status == 'AGUARDANDO'\" type=\"button\" disabled\n              class=\"btn btn-warning btn-sm\">AGUARDANDO</button>\n\n            <button *ngIf=\"retorno.status == 'FINALIZADO'\" type=\"button\" disabled\n              class=\"btn btn-danger btn-sm\">FINALIZADO</button>\n\n            <button style=\"white-space: nowrap;\" *ngIf=\"retorno.status == 'EM ANDAMENTO'\" type=\"button\" disabled\n              class=\"btn btn-info btn-sm\">EM ANDAMENTO</button>\n          </td>\n          <td style=\"white-space: nowrap;\">{{ retorno.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}</td>\n          <td style=\"white-space: nowrap;\">{{ retorno.usuarioId ? retorno.usuario.userName : 'TODOS'}}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n\n              <button *ngIf=\"retorno.status == 'AGUARDANDO'\" type=\"button\" class=\"btn btn-success\"\n                (click)=\"alterarStatus(retorno)\" tooltip=\"Ligar\">\n                <i class=\"fa fa-phone\"></i>\n              </button>\n\n              <button *ngIf=\"retorno.status == 'EM ANDAMENTO'\" type=\"button\" class=\"btn btn-warning\"\n                (click)=\"alterarStatus(retorno)\" tooltip=\"Não Atendeu\">\n                <i class=\"fa fa-ban\"></i>\n              </button>\n              <button *ngIf=\"retorno.status == 'EM ANDAMENTO'\" type=\"button\" class=\"btn btn-danger\"\n                (click)=\"finalizarRetorno(retorno)\" tooltip=\"Finalizar\">\n                <i class=\"fa fa-check\"></i>\n              </button>\n\n              <button type=\"button\" class=\"btn btn-info\" (click)=\"retornoLog(retorno.id,templateLog)\" tooltip=\"Log(s)\">\n                <i class=\"fa fa-file-alt \"></i>\n              </button>\n\n              <button type=\"button\" class=\"btn btn-dark\"\n                (click)=\"getRetornoInformacoes(retorno.id, retorno.telefone, retorno.contatoNome,templateInformacoes)\"\n                tooltip=\"Informações\">\n                <i class=\"fa fa-info\"></i>\n              </button>\n            </div>\n            <div class=\"btn-group\">\n\n\n\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!retornos\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum retorno encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\">\n      </pagination-controls>\n    </div>\n\n\n    <div bsModal #templateLog=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\"\n      aria-labelledby=\"dialog-sizes-name1\">\n      <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n          <div class=\"modal-header\">\n            <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n              Log(s) do Retorno\n            </h4>\n            <button type=\"button\" class=\"close pull-right\" (click)=\"templateLog.hide()\" aria-label=\"Close\">\n              <span aria-hidden=\"true\">&times;</span>\n            </button>\n          </div>\n\n          <div class=\"modal-body\">\n            <table class=\"container-fluid table table-striped table-bordered mt-4\">\n              <thead class=\"thead-light\">\n                <tr>\n                  <th>Usuario</th>\n                  <th>Data/Hora</th>\n                  <th>Status</th>\n                </tr>\n              </thead>\n              <tbody *ngIf=\"logRetorno && logRetorno.length\">\n                <tr *ngFor=\"let log of logRetorno;\">\n                  <td style=\"white-space: nowrap;\">{{ log.usuario.userName }}</td>\n                  <td style=\"white-space: nowrap;\">{{ log.dataHora  | date:'dd/MM/yyyy HH:mm:ss'}}</td>\n                  <td style=\"text-align: center;\">\n                    <button *ngIf=\"log.status == 'AGUARDANDO'\" type=\"button\" disabled\n                      class=\"btn btn-warning\">AGUARDANDO</button>\n\n                    <button *ngIf=\"log.status == 'FINALIZADO'\" type=\"button\" disabled\n                      class=\"btn btn-danger\">FINALIZADO</button>\n\n                    <button style=\"white-space: nowrap;\" *ngIf=\"log.status == 'EM ANDAMENTO'\" type=\"button\" disabled\n                      class=\"btn btn-info\">EM ANDAMENTO</button>\n                  </td>\n                </tr>\n              </tbody>\n\n              <tfoot *ngIf=\"!logRetorno\">\n                <tr colspan=\"7\" class=\"text-center\"></tr>\n                <h4>\n                  Nenhum Log encontrado!\n                </h4>\n              </tfoot>\n            </table>\n          </div>\n          <div class=\"modal-footer d-flex\">\n            <button class=\"btn btn-secondary\" (click)=\"templateLog.hide()\">\n              Fechar\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div bsModal #templateInformacoes=\"bs-modal\" class=\"modal fade\">\n    <div class=\"modal-dialog  modal-lg\">\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n            Observações do Retorno\n          </h4>\n          <button type=\"button\" class=\"close pull-right\" (click)=\"templateInformacoes.hide()\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n\n        <div class=\"modal-body\">\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-3\">\n              <label>Telefone:</label>\n              <input class=\"form-control\" type=\"text\" maxlength=\"14\" name=\"retornoTel\"\n                [ngModel]=\"retornoTelefone | celularPipePipe\" (ngModelChange)=\"retornoTelefone=$event\" />\n            </div>\n            <div class=\"form-group col-md-3\">\n              <label>Solicitante:</label>\n              <input class=\"form-control\" type=\"text\" name=\"retornoSol\" [(ngModel)]=\"retornoSolicitante\" />\n            </div>\n            <div class=\"form-group col-md-6\">\n              <form [formGroup]=\"cadastroObservacaoForm\">\n                <input type=\"hidden\" class=\"form-control\" formControlName=\"id\" value=\"0\" placeholder=\"\" />\n                <label>Observação:(*)</label>\n                <div class=\"input-group\">\n                  <input type=\"text\" style=\"text-transform: uppercase\" formControlName=\"observacao\"\n                    oninput=\"this.value = this.value.toUpperCase()\" oninput=\"this.value = this.value.toUpperCase()\"\n                    class=\"form-control\" name=\"nome\"\n                    [ngClass]=\"{'is-invalid':cadastroObservacaoForm.get('observacao').errors &&cadastroObservacaoForm.get('observacao').touched}\" />\n                  <span class=\"input-group-btn\">\n                    <button class=\"btn btn-success\" [disabled]=\"!cadastroObservacaoForm.valid\"\n                      (click)=\"novaObservacao()\" tooltip=\"Nova Observação\">\n                      <i class=\"fa fa-plus-circle\"> </i></button>\n                  </span>\n                </div>\n                <div\n                  *ngIf=\"cadastroObservacaoForm.get('observacao').hasError('required') && cadastroObservacaoForm.get('observacao').touched\"\n                  class=\"invalid-feedback\">\n                  Campo obrigatório.\n                </div>\n              </form>\n            </div>\n          </div>\n\n        <table class=\"container-fluid table table-striped table-bordered mt-4\">\n          <thead class=\"thead-light\">\n            <tr>\n              <th>Usuário</th>\n              <th>Data/Hora</th>\n              <th>Observação</th>\n            </tr>\n          </thead>\n          <tbody *ngIf=\"retornoObservacoes && retornoObservacoes.length\">\n            <tr *ngFor=\"let observacao of retornoObservacoes;\">\n              <td style=\"white-space: nowrap;\">{{ observacao.usuario.userName }}</td>\n              <td style=\"white-space: nowrap;\">{{ observacao.dataHora  | date:'dd/MM/yyyy HH:mm:ss'}}</td>\n              <td style=\"text-align: center;\">\n                <div class=\"col-md-12\">\n                  <textarea class=\"form-control\" rows=\"1\">{{observacao.observacao}}</textarea>\n                </div>\n              </td>\n            </tr>\n          </tbody>\n\n          <tfoot *ngIf=\"!retornoObservacoes\">\n            <tr colspan=\"7\" class=\"text-center\"></tr>\n            <h4>\n              Nenhuma observação encontrada!\n            </h4>\n          </tfoot>\n        </table>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"templateInformacoes.hide()\">\n          Fechar\n        </button>\n      </div>\n    </div>\n\n  </div>\n</div>"
+module.exports = "<h2>Retornos</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"row\">\n      <div class=\"form-group col-md-3\">\n        <label>Filtrar por:</label>\n        <ng-select [clearable]=\"false\" [items]=\"filtrarPor\" name=\"filtrarPor\" [(ngModel)]=\"filtroSelecionado\"\n          (change)=\"setFiltroSelecionado($event)\">\n        </ng-select>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'CLIENTE'\" class=\"form-group col-md-4\">\n        <label>Selecione o Cliente:</label>\n        <ng-select name=\"filtroNome\" [items]=\"clientes\" bindLabel=\"nomeFantasia\" bindValue=\"id\"\n          [(ngModel)]=\"filtroLista\">\n        </ng-select>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'DATA'\" class=\"form-group col-md-3\">\n        <label>Selecione a Data:</label>\n        <input type=\"text\" class=\"form-control\" name=\"dataFiltro\" (bsValueChange)=\"setDataFiltro($event)\"\n          bsDaterangepicker />\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'PRIORIDADE'\" class=\"form-group col-md-2\">\n        <label>Selecione a Prioridade:</label>\n        <ng-select name=\"filtroPrioridade\" [clearable]=\"false\" [items]=\"prioridades\" [(ngModel)]=\"filtroLista\">\n        </ng-select>\n      </div>\n\n      <div class=\"form-group col-md-2\">\n        <label>Status:</label>\n        <ng-select [clearable]=\"false\" [items]=\"status\" name=\"statusFiltro\" [(ngModel)]=\"statusFiltroSelecionado\"\n          (change)=\"setStatusFiltroSelecionado($event)\">\n        </ng-select>\n      </div>\n\n      <div style=\"margin-right: 15px;\" class=\"pull-right\">\n        <a [routerLink]=\"['novo']\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Retorno\n        </a>\n      </div>\n    </div>\n    <label>Atualizado às: {{horaUltimaAtt}}</label>\n\n\n    <table class=\"table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Id</th>\n          <th>Cliente</th>\n          <th style=\"text-align: center;\">Prioridade</th>\n          <th style=\"text-align: center;\">Status</th>\n          <th>Data/Hora</th>\n          <th>Atendente</th>\n          <th style=\"text-align: center;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"retornos && retornos.length\">\n        <tr\n          *ngFor=\"let retorno of retornosFiltrados | paginate: { itemsPerPage: 25, currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td>{{ retorno.id }}</td>\n          <td style=\"white-space: nowrap;\">({{retorno.cliente.codSiga}}) - {{ retorno.cliente.nomeFantasia }}</td>\n          <td style=\"text-align: center;\">\n            <button *ngIf=\"retorno.prioridade == 'NORMAL'\" type=\"button\" disabled class=\"btn btn-dark btn-sm\"><i\n                class=\"fa fa-history\"></i></button>\n            <button *ngIf=\"retorno.prioridade == 'URGENTE'\" type=\"button\" class=\"btn btn-danger btn-sm\"><i\n                class=\"fa fa-exclamation-triangle\"></i></button>\n          </td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <button *ngIf=\"retorno.status == 'AGUARDANDO'\" type=\"button\" disabled\n              class=\"btn btn-warning btn-sm\">AGUARDANDO</button>\n\n            <button *ngIf=\"retorno.status == 'FINALIZADO'\" type=\"button\" disabled\n              class=\"btn btn-danger btn-sm\">FINALIZADO</button>\n\n            <button style=\"white-space: nowrap;\" *ngIf=\"retorno.status == 'EM ANDAMENTO'\" type=\"button\" disabled\n              class=\"btn btn-info btn-sm\">EM ANDAMENTO</button>\n          </td>\n          <td style=\"white-space: nowrap;\">{{ retorno.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}</td>\n          <td style=\"white-space: nowrap;\">{{ retorno.usuarioId ? retorno.usuario.userName : 'TODOS'}}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n\n              <button *ngIf=\"retorno.status == 'AGUARDANDO'\" type=\"button\" class=\"btn btn-success\"\n                (click)=\"alterarStatus(retorno)\" tooltip=\"Ligar\">\n                <i class=\"fa fa-phone\"></i>\n              </button>\n\n              <button *ngIf=\"retorno.status == 'EM ANDAMENTO'\" type=\"button\" class=\"btn btn-warning\"\n                (click)=\"alterarStatus(retorno)\" tooltip=\"Não Atendeu\">\n                <i class=\"fa fa-ban\"></i>\n              </button>\n              <button *ngIf=\"retorno.status == 'EM ANDAMENTO'\" type=\"button\" class=\"btn btn-danger\"\n                (click)=\"finalizarRetorno(retorno)\" tooltip=\"Finalizar\">\n                <i class=\"fa fa-check\"></i>\n              </button>\n\n              <button type=\"button\" class=\"btn btn-info\" (click)=\"retornoLog(retorno.id,templateLog)\" tooltip=\"Log(s)\">\n                <i class=\"fa fa-file-alt \"></i>\n              </button>\n\n              <button type=\"button\" class=\"btn btn-dark\"\n                (click)=\"getRetornoInformacoes(retorno.id, retorno.telefone, retorno.contatoNome,templateInformacoes)\"\n                tooltip=\"Informações\">\n                <i class=\"fa fa-info\"></i>\n              </button>\n            </div>\n            <div class=\"btn-group\">\n\n\n\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!retornos\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum retorno encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\">\n      </pagination-controls>\n    </div>\n\n\n    <div bsModal #templateLog=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\"\n      aria-labelledby=\"dialog-sizes-name1\">\n      <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n          <div class=\"modal-header\">\n            <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n              Log(s) do Retorno\n            </h4>\n            <button type=\"button\" class=\"close pull-right\" (click)=\"templateLog.hide()\" aria-label=\"Close\">\n              <span aria-hidden=\"true\">&times;</span>\n            </button>\n          </div>\n\n          <div class=\"modal-body\">\n            <table class=\"container-fluid table table-striped table-bordered mt-4\">\n              <thead class=\"thead-light\">\n                <tr>\n                  <th>Usuario</th>\n                  <th>Data/Hora</th>\n                  <th>Status</th>\n                </tr>\n              </thead>\n              <tbody *ngIf=\"logRetorno && logRetorno.length\">\n                <tr *ngFor=\"let log of logRetorno;\">\n                  <td style=\"white-space: nowrap;\">{{ log.usuario.userName }}</td>\n                  <td style=\"white-space: nowrap;\">{{ log.dataHora  | date:'dd/MM/yyyy HH:mm:ss'}}</td>\n                  <td style=\"text-align: center;\">\n                    <button *ngIf=\"log.status == 'AGUARDANDO'\" type=\"button\" disabled\n                      class=\"btn btn-warning\">AGUARDANDO</button>\n\n                    <button *ngIf=\"log.status == 'FINALIZADO'\" type=\"button\" disabled\n                      class=\"btn btn-danger\">FINALIZADO</button>\n\n                    <button style=\"white-space: nowrap;\" *ngIf=\"log.status == 'EM ANDAMENTO'\" type=\"button\" disabled\n                      class=\"btn btn-info\">EM ANDAMENTO</button>\n                  </td>\n                </tr>\n              </tbody>\n\n              <tfoot *ngIf=\"!logRetorno\">\n                <tr colspan=\"7\" class=\"text-center\"></tr>\n                <h4>\n                  Nenhum Log encontrado!\n                </h4>\n              </tfoot>\n            </table>\n          </div>\n          <div class=\"modal-footer d-flex\">\n            <button class=\"btn btn-secondary\" (click)=\"templateLog.hide()\">\n              Fechar\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div bsModal #templateInformacoes=\"bs-modal\" class=\"modal fade\">\n    <div class=\"modal-dialog  modal-lg\">\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n            Observações do Retorno\n          </h4>\n          <button type=\"button\" class=\"close pull-right\" (click)=\"templateInformacoes.hide()\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n\n        <div class=\"modal-body\">\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-3\">\n              <label>Telefone:</label>\n              <input class=\"form-control\" type=\"text\" maxlength=\"14\" name=\"retornoTel\"\n                [ngModel]=\"retornoTelefone | celularPipePipe\" (ngModelChange)=\"retornoTelefone=$event\" />\n            </div>\n            <div class=\"form-group col-md-3\">\n              <label>Solicitante:</label>\n              <input class=\"form-control\" type=\"text\" name=\"retornoSol\" [(ngModel)]=\"retornoSolicitante\" />\n            </div>\n            <div class=\"form-group col-md-6\">\n              <form [formGroup]=\"cadastroObservacaoForm\">\n                <input type=\"hidden\" class=\"form-control\" formControlName=\"id\" value=\"0\" placeholder=\"\" />\n                <label>Observação:(*)</label>\n                <div class=\"input-group\">\n                  <input type=\"text\" style=\"text-transform: uppercase\" formControlName=\"observacao\"\n                    oninput=\"this.value = this.value.toUpperCase()\" oninput=\"this.value = this.value.toUpperCase()\"\n                    class=\"form-control\" name=\"nome\"\n                    [ngClass]=\"{'is-invalid':cadastroObservacaoForm.get('observacao').errors &&cadastroObservacaoForm.get('observacao').touched}\" />\n                  <span class=\"input-group-btn\">\n                    <button class=\"btn btn-success\" [disabled]=\"!cadastroObservacaoForm.valid\"\n                      (click)=\"novaObservacao()\" tooltip=\"Nova Observação\">\n                      <i class=\"fa fa-plus-circle\"> </i></button>\n                  </span>\n                </div>\n                <div\n                  *ngIf=\"cadastroObservacaoForm.get('observacao').hasError('required') && cadastroObservacaoForm.get('observacao').touched\"\n                  class=\"invalid-feedback\">\n                  Campo obrigatório.\n                </div>\n              </form>\n            </div>\n          </div>\n\n        <table class=\"container-fluid table table-striped table-bordered mt-4\">\n          <thead class=\"thead-light\">\n            <tr>\n              <th>Usuário</th>\n              <th>Data/Hora</th>\n              <th>Observação</th>\n            </tr>\n          </thead>\n          <tbody *ngIf=\"retornoObservacoes && retornoObservacoes.length\">\n            <tr *ngFor=\"let observacao of retornoObservacoes;\">\n              <td style=\"white-space: nowrap;\">{{ observacao.usuario.userName }}</td>\n              <td style=\"white-space: nowrap;\">{{ observacao.dataHora  | date:'dd/MM/yyyy HH:mm:ss'}}</td>\n              <td style=\"text-align: center;\">\n                <div class=\"col-md-12\">\n                  <textarea class=\"form-control\" rows=\"1\">{{observacao.observacao}}</textarea>\n                </div>\n              </td>\n            </tr>\n          </tbody>\n\n          <tfoot *ngIf=\"!retornoObservacoes\">\n            <tr colspan=\"7\" class=\"text-center\"></tr>\n            <h4>\n              Nenhuma observação encontrada!\n            </h4>\n          </tfoot>\n        </table>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"templateInformacoes.hide()\">\n          Fechar\n        </button>\n      </div>\n    </div>\n\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2235,6 +3299,7 @@ var RetornoComponent = /** @class */ (function () {
         this.permissaoService = permissaoService;
         this.dataService = dataService;
         this.paginaAtual = 1;
+        this.totalRegistros = 0;
         this.filtrarPor = ['CLIENTE', 'DATA', 'PRIORIDADE'];
         this.filtroSelecionado = 'DATA';
         this.prioridades = ['NORMAL', 'URGENTE'];
@@ -2512,6 +3577,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cadastros_produto_produto_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../cadastros/produto/produto.component */ "./src/app/cadastros/produto/produto.component.ts");
 /* harmony import */ var _cadastros_produto_novoProduto_novoProduto_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../cadastros/produto/novoProduto/novoProduto.component */ "./src/app/cadastros/produto/novoProduto/novoProduto.component.ts");
 /* harmony import */ var _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../cadastros/produto/editarProduto/editarProduto.component */ "./src/app/cadastros/produto/editarProduto/editarProduto.component.ts");
+/* harmony import */ var _cadastros_planoConta_planoConta_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../cadastros/planoConta/planoConta.component */ "./src/app/cadastros/planoConta/planoConta.component.ts");
+/* harmony import */ var _cadastros_centroReceita_centroReceita_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../cadastros/centroReceita/centroReceita.component */ "./src/app/cadastros/centroReceita/centroReceita.component.ts");
+/* harmony import */ var _cadastros_centroDespesa_centroDespesa_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../cadastros/centroDespesa/centroDespesa.component */ "./src/app/cadastros/centroDespesa/centroDespesa.component.ts");
+/* harmony import */ var _cadastros_planoPagamento_planoPagamento_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../cadastros/planoPagamento/planoPagamento.component */ "./src/app/cadastros/planoPagamento/planoPagamento.component.ts");
+/* harmony import */ var _cadastros_formaPagamento_formaPagamento_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../cadastros/formaPagamento/formaPagamento.component */ "./src/app/cadastros/formaPagamento/formaPagamento.component.ts");
+/* harmony import */ var _financeiro_recebimento_recebimento_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../financeiro/recebimento/recebimento.component */ "./src/app/financeiro/recebimento/recebimento.component.ts");
+/* harmony import */ var _financeiro_pagamento_pagamento_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../financeiro/pagamento/pagamento.component */ "./src/app/financeiro/pagamento/pagamento.component.ts");
+/* harmony import */ var _financeiro_lancamento_lancamento_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../financeiro/lancamento/lancamento.component */ "./src/app/financeiro/lancamento/lancamento.component.ts");
+/* harmony import */ var _financeiro_lancamento_relatorioLancamento_relatorioLancamento_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../financeiro/lancamento/relatorioLancamento/relatorioLancamento.component */ "./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.ts");
+/* harmony import */ var _cadastros_chequePre_chequePre_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../cadastros/chequePre/chequePre.component */ "./src/app/cadastros/chequePre/chequePre.component.ts");
+/* harmony import */ var _movimentos_venda_relatorioVenda_relatorioVenda_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../movimentos/venda/relatorioVenda/relatorioVenda.component */ "./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.ts");
+/* harmony import */ var _cadastros_empresa_empresa_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../cadastros/empresa/empresa.component */ "./src/app/cadastros/empresa/empresa.component.ts");
+/* harmony import */ var _autorizacao_autorizacao_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../autorizacao/autorizacao.component */ "./src/app/autorizacao/autorizacao.component.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2587,7 +3678,7 @@ var AuthGuard = /** @class */ (function () {
                 });
             }
             else if (next.component === _permissao_permissao_component__WEBPACK_IMPORTED_MODULE_9__["PermissaoComponent"]) {
-                this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'EDITAR').subscribe(function (_PERMISSAO) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'LISTAR').subscribe(function (_PERMISSAO) {
                     _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
                     if (!_this.autorizado) {
                         return false;
@@ -2621,6 +3712,17 @@ var AuthGuard = /** @class */ (function () {
             }
             else if (next.component === _movimentos_venda_venda_component__WEBPACK_IMPORTED_MODULE_10__["VendaComponent"]) {
                 this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _movimentos_venda_relatorioVenda_relatorioVenda_component__WEBPACK_IMPORTED_MODULE_29__["RelatorioVendaComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS VENDA', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
                     _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
                     if (!_this.autorizado) {
                         return false;
@@ -2687,6 +3789,139 @@ var AuthGuard = /** @class */ (function () {
             }
             else if (next.component === _cadastros_produto_editarProduto_editarProduto_component__WEBPACK_IMPORTED_MODULE_18__["EditarProdutoComponent"]) {
                 this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'EDITAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _cadastros_planoConta_planoConta_component__WEBPACK_IMPORTED_MODULE_19__["PlanoContaComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE CONTAS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _cadastros_centroReceita_centroReceita_component__WEBPACK_IMPORTED_MODULE_20__["CentroReceitaComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE RECEITA', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _cadastros_centroDespesa_centroDespesa_component__WEBPACK_IMPORTED_MODULE_21__["CentroDespesaComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _cadastros_planoPagamento_planoPagamento_component__WEBPACK_IMPORTED_MODULE_22__["PlanoPagamentoComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE PAGAMENTO', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _cadastros_formaPagamento_formaPagamento_component__WEBPACK_IMPORTED_MODULE_23__["FormaPagamentoComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _financeiro_recebimento_recebimento_component__WEBPACK_IMPORTED_MODULE_24__["RecebimentoComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('RECEBIMENTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _financeiro_pagamento_pagamento_component__WEBPACK_IMPORTED_MODULE_25__["PagamentoComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('PAGAMENTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _financeiro_lancamento_lancamento_component__WEBPACK_IMPORTED_MODULE_26__["LancamentoComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _financeiro_lancamento_relatorioLancamento_relatorioLancamento_component__WEBPACK_IMPORTED_MODULE_27__["RelatorioLancamentoComponent"]) {
+                // tslint:disable-next-line:max-line-length
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS LANÇAMENTOS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _cadastros_chequePre_chequePre_component__WEBPACK_IMPORTED_MODULE_28__["ChequePreComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _cadastros_empresa_empresa_component__WEBPACK_IMPORTED_MODULE_30__["EmpresaComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'LISTAR').subscribe(function (_PERMISSAO) {
+                    _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
+                    if (!_this.autorizado) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+            }
+            else if (next.component === _autorizacao_autorizacao_component__WEBPACK_IMPORTED_MODULE_31__["AutorizacaoComponent"]) {
+                this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'LISTAR').subscribe(function (_PERMISSAO) {
                     _this.autorizado = _this.permissaoService.verificarPermissao(_PERMISSAO);
                     if (!_this.autorizado) {
                         return false;
@@ -2772,6 +4007,891 @@ var AuthInterceptor = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/autorizacao/autorizacao.component.css":
+/*!*******************************************************!*\
+  !*** ./src/app/autorizacao/autorizacao.component.css ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2F1dG9yaXphY2FvL2F1dG9yaXphY2FvLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/autorizacao/autorizacao.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/autorizacao/autorizacao.component.html ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Autorizacões</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n\n    <table class=\"container-fluid table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Id</th>\n          <th>Data/Hora Solicitado</th>\n          <th>Solicitante</th>\n          <th>Formulário</th>\n          <th>Ação Solicitada</th>\n          <th>Autorizador</th>\n          <th>Data/Hora Autorizado</th>\n          <th>Autorizado</th>\n          <th style=\"text-align: center;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"autorizacoes && autorizacoes.length\">\n        <tr\n          *ngFor=\"let autorizacao of autorizacoes | paginate: { itemsPerPage: 30, currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td>{{ autorizacao.id }}</td>\n          <td style=\"white-space: nowrap;\">{{ autorizacao.dataHoraSolicitado | date:'dd/MM/yyyy HH:mm'}}</td>\n          <td style=\"white-space: nowrap;\">{{ autorizacao.solicitante.nomeCompleto }}</td>\n          <td style=\"white-space: nowrap;\">{{ autorizacao.formulario }}</td>\n          <td style=\"white-space: nowrap;\">{{ autorizacao.acao }}</td>\n          <td style=\"white-space: nowrap;\">{{ (autorizacao.autorizador) ? autorizacao.autorizador.nomeCompleto : ''}}</td>\n          <td style=\"white-space: nowrap;\">{{ autorizacao.dataHoraAutorizado | date:'dd/MM/yyyy HH:mm'}}</td>\n          <td style=\"white-space: nowrap;text-align: center;\">\n              <span style=\"margin-top:0px;\" *ngIf=\"autorizacao.autorizador && autorizacao.autorizado == 0\"\n                class=\"label label-danger\">NÃO</span>\n              <span style=\"margin-top:0px;\" *ngIf=\"autorizacao.autorizador && autorizacao.autorizado == 1\"\n                class=\"label label-success\">SIM</span>\n              <span style=\"margin-top:0px;\" *ngIf=\"!autorizacao.autorizador && autorizacao.autorizado == 0\"\n                class=\"label label-warning\">PENDENTE</span>\n            </td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <a *ngIf=\"this.editar == true || this.visualizar\" (click)=\"abrirTemplateAutorizacao(autorizacao.id)\" tooltip=\"Editar/Perfil\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!autorizacoes\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum autorizacao encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"autorizacaoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\"></pagination-controls>\n    </div>\n  </div>\n</div>\n\n<app-autorizacao-template [idAutorizacao]=\"this.idAutorizacao\" *ngIf=\"getTemplateAutorizacao() == true\"></app-autorizacao-template>"
+
+/***/ }),
+
+/***/ "./src/app/autorizacao/autorizacao.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/autorizacao/autorizacao.component.ts ***!
+  \******************************************************/
+/*! exports provided: AutorizacaoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutorizacaoComponent", function() { return AutorizacaoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_Autorizacoes_autorizacao_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services/Autorizacoes/autorizacao.service */ "./src/app/_services/Autorizacoes/autorizacao.service.ts");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+
+
+
+
+
+
+var AutorizacaoComponent = /** @class */ (function () {
+    function AutorizacaoComponent(autorizacaoService, localeService, toastr, permissaoService) {
+        var _this = this;
+        this.autorizacaoService = autorizacaoService;
+        this.localeService = localeService;
+        this.toastr = toastr;
+        this.permissaoService = permissaoService;
+        this.novo = false;
+        this.editar = false;
+        this.visualizar = false;
+        this.modoSalvar = '';
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+        this.valueCnpjCpfPipe = '';
+        this.autorizacaoService.atualizaAutorizacoes.subscribe(function (x) {
+            _this.getAutorizacoes();
+        });
+        this.localeService.use('pt-br');
+    }
+    AutorizacaoComponent.prototype.ngOnInit = function () {
+        this.getAutorizacoes();
+    };
+    AutorizacaoComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    AutorizacaoComponent.prototype.getTemplateAutorizacao = function () {
+        return this.autorizacaoService.getAutorizacaoTemplateStatus();
+    };
+    AutorizacaoComponent.prototype.abrirTemplateAutorizacao = function (idAutorizacao) {
+        this.idAutorizacao = idAutorizacao;
+        this.autorizacaoService.setAutorizacaoTemplateStatus(true);
+    };
+    AutorizacaoComponent.prototype.getAutorizacoes = function () {
+        var _this = this;
+        this.autorizacaoService.getAllAutorizacoes().subscribe(function (_EMPRESAS) {
+            _this.autorizacoes = _EMPRESAS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar autorizacoes: " + error.error);
+        });
+    };
+    AutorizacaoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-autorizacao',
+            template: __webpack_require__(/*! ./autorizacao.component.html */ "./src/app/autorizacao/autorizacao.component.html"),
+            styles: [__webpack_require__(/*! ./autorizacao.component.css */ "./src/app/autorizacao/autorizacao.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_Autorizacoes_autorizacao_service__WEBPACK_IMPORTED_MODULE_2__["AutorizacaoService"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsLocaleService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"],
+            _services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_5__["PermissaoService"]])
+    ], AutorizacaoComponent);
+    return AutorizacaoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/autorizacao/autorizacaoTemplate/autorizacaoTemplate.component.css":
+/*!***********************************************************************************!*\
+  !*** ./src/app/autorizacao/autorizacaoTemplate/autorizacaoTemplate.component.css ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".modal-xl {\r\n    width: 20%;\r\n    /* New width for large modal */\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXV0b3JpemFjYW8vYXV0b3JpemFjYW9UZW1wbGF0ZS9hdXRvcml6YWNhb1RlbXBsYXRlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxVQUFVO0lBQ1YsOEJBQThCO0FBQ2xDIiwiZmlsZSI6InNyYy9hcHAvYXV0b3JpemFjYW8vYXV0b3JpemFjYW9UZW1wbGF0ZS9hdXRvcml6YWNhb1RlbXBsYXRlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubW9kYWwteGwge1xyXG4gICAgd2lkdGg6IDIwJTtcclxuICAgIC8qIE5ldyB3aWR0aCBmb3IgbGFyZ2UgbW9kYWwgKi9cclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/autorizacao/autorizacaoTemplate/autorizacaoTemplate.component.html":
+/*!************************************************************************************!*\
+  !*** ./src/app/autorizacao/autorizacaoTemplate/autorizacaoTemplate.component.html ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templateAutorizacao)}}\n<div bsModal #templateAutorizacao=\"bs-modal\" class=\"modal fade\" [config]=\"{backdrop: 'static', keyboard: false}\" data-keyboard=\"false\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Autorizacão<label></label>\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templateAutorizacao)\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroAutorizacao\">\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-12\">\n                <label>Autorizado</label>\n                <ng-select [clearable]=\"false\" [items]=\"autorizado\" [(ngModel)]=\"autorizadoSelecionado\"\n                  formControlName=\"autorizado\"\n                  [ngClass]=\"{ 'is-invalid': cadastroAutorizacao.get('autorizado').errors &&  cadastroAutorizacao.get('autorizado').touched}\" >\n                </ng-select>\n                <div *ngIf=\"cadastroAutorizacao.get('autorizado').hasError('required') &&cadastroAutorizacao.get('autorizado').touched\"\n                    class=\"invalid-feedback\">\n                    Campo Obrigatório.\n                  </div>\n              </div>\n          </div>\n\n        </form>\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templateAutorizacao)\">\n          Fechar\n        </button>\n        <button *ngIf=\"this.idAutorizacao != 0 && this.editar == true\" [disabled]=\"!cadastroAutorizacao.valid\"\n          class=\"btn btn-primary\" (click)=\"salvarAutorizacao(templateAutorizacao)\">\n          Salvar\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/autorizacao/autorizacaoTemplate/autorizacaoTemplate.component.ts":
+/*!**********************************************************************************!*\
+  !*** ./src/app/autorizacao/autorizacaoTemplate/autorizacaoTemplate.component.ts ***!
+  \**********************************************************************************/
+/*! exports provided: AutorizacaoTemplateComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutorizacaoTemplateComponent", function() { return AutorizacaoTemplateComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_Autorizacoes_autorizacao_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/Autorizacoes/autorizacao.service */ "./src/app/_services/Autorizacoes/autorizacao.service.ts");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_services_Cadastros_Usuarios_usuario_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_services/Cadastros/Usuarios/usuario.service */ "./src/app/_services/Cadastros/Usuarios/usuario.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var src_app_services_Notificacoes_notificacao_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_services/Notificacoes/notificacao.service */ "./src/app/_services/Notificacoes/notificacao.service.ts");
+/* harmony import */ var src_app_services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/_services/WebSocket/Socket.service */ "./src/app/_services/WebSocket/Socket.service.ts");
+
+
+
+
+
+
+
+
+
+
+
+var AutorizacaoTemplateComponent = /** @class */ (function () {
+    function AutorizacaoTemplateComponent(fb, toastr, dataService, permissaoService, usuarioService, changeDetectionRef, autorizacaoService, notificacaoService, socketService) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.dataService = dataService;
+        this.permissaoService = permissaoService;
+        this.usuarioService = usuarioService;
+        this.changeDetectionRef = changeDetectionRef;
+        this.autorizacaoService = autorizacaoService;
+        this.notificacaoService = notificacaoService;
+        this.socketService = socketService;
+        this.editar = false;
+        this.autorizado = ['NÃO', 'SIM'];
+        this.templateEnabled = false;
+    }
+    AutorizacaoTemplateComponent.prototype.ngOnInit = function () {
+        this.getUsuarios();
+        this.validarAutorizacao();
+        if (this.idAutorizacao !== 0) {
+            this.carregarAutorizacao();
+        }
+    };
+    AutorizacaoTemplateComponent.prototype.ngAfterViewChecked = function () {
+        this.changeDetectionRef.detectChanges();
+    };
+    AutorizacaoTemplateComponent.prototype.carregarAutorizacao = function () {
+        var _this = this;
+        this.autorizacao = null;
+        this.autorizacaoService.getAutorizacaoById(this.idAutorizacao)
+            .subscribe(function (_AUTORIZACAO) {
+            _this.autorizacao = Object.assign(_AUTORIZACAO);
+            var autorizado = '';
+            if (_this.autorizacao.autorizado === 0 && _this.autorizacao.autorizador) {
+                autorizado = 'NÃO';
+            }
+            else if (_this.autorizacao.autorizado === 1 && _this.autorizacao.autorizador) {
+                autorizado = 'SIM';
+            }
+            _this.cadastroAutorizacao.patchValue(_this.autorizacao);
+            _this.cadastroAutorizacao.controls.autorizado.setValue(autorizado);
+            _this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', _this.autorizacao.acao).subscribe(function (_PERMISSAO) {
+                _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+            });
+        }, function (error) {
+            _this.toastr.error("Erro ao tentar carregar Autorizacao: " + error.error);
+            console.log(error);
+        });
+    };
+    AutorizacaoTemplateComponent.prototype.validarAutorizacao = function () {
+        this.cadastroAutorizacao = this.fb.group({
+            id: [''],
+            solicitanteId: [''],
+            autorizadorId: [''],
+            formularioId: [''],
+            formulario: [''],
+            acao: [''],
+            objeto: [''],
+            dataHoraSolicitado: [''],
+            dataHoraAutorizado: [''],
+            autorizado: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required],
+            visto: [0]
+        });
+    };
+    AutorizacaoTemplateComponent.prototype.salvarAutorizacao = function (template) {
+        var _this = this;
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_8__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        var autorizadoValor = (this.autorizadoSelecionado === 'SIM') ? 1 : 0;
+        this.autorizacao = Object.assign(this.cadastroAutorizacao.value, {
+            autorizadorId: this.permissaoService.getUsuarioId(),
+            dataHoraAutorizado: dataAtual,
+            autorizado: autorizadoValor,
+        });
+        this.autorizacaoService.editarAutorizacao(this.autorizacao).subscribe(function () {
+            var idSolicitante = _this.cadastroAutorizacao.get('solicitanteId').value;
+            var nomeAutorizador = _this.permissaoService.getUsuario();
+            var notificacao = Object.assign({ id: 0, usuarioId: idSolicitante, dataHora: dataAtual, tipo: 'Resposta Autorização', visto: 0 });
+            var info = {
+                autorizadorNome: nomeAutorizador,
+                solicitanteId: idSolicitante,
+                autorizado: autorizadoValor
+            };
+            _this.notificacaoService.novaNotificacao(notificacao).subscribe(function () {
+                _this.socketService.sendSocket('RespAutorizacaoVendaGerarPedido', info);
+            });
+            _this.autorizacaoService.atualizarAutorizacoes();
+            _this.toastr.success("Editado com Sucesso!");
+            _this.fecharTemplate(_this.templateAutorizacao);
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    AutorizacaoTemplateComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            template.show();
+            this.templateEnabled = true;
+        }
+    };
+    AutorizacaoTemplateComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.autorizacaoService.setAutorizacaoTemplateStatus(false);
+        this.templateEnabled = false;
+    };
+    AutorizacaoTemplateComponent.prototype.getUsuarios = function () {
+        var _this = this;
+        this.usuarioService.getAllUsuario().subscribe(function (_USUAIROS) {
+            _this.usuarios = _USUAIROS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar usuarios: " + error.error);
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], AutorizacaoTemplateComponent.prototype, "idAutorizacao", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], AutorizacaoTemplateComponent.prototype, "formulario", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], AutorizacaoTemplateComponent.prototype, "acao", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], AutorizacaoTemplateComponent.prototype, "objeto", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('templateAutorizacao'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutorizacaoTemplateComponent.prototype, "templateAutorizacao", void 0);
+    AutorizacaoTemplateComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-autorizacao-template',
+            template: __webpack_require__(/*! ./autorizacaoTemplate.component.html */ "./src/app/autorizacao/autorizacaoTemplate/autorizacaoTemplate.component.html"),
+            styles: [__webpack_require__(/*! ./autorizacaoTemplate.component.css */ "./src/app/autorizacao/autorizacaoTemplate/autorizacaoTemplate.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"],
+            src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_5__["DataService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_3__["PermissaoService"],
+            src_app_services_Cadastros_Usuarios_usuario_service__WEBPACK_IMPORTED_MODULE_7__["UsuarioService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            src_app_services_Autorizacoes_autorizacao_service__WEBPACK_IMPORTED_MODULE_2__["AutorizacaoService"],
+            src_app_services_Notificacoes_notificacao_service__WEBPACK_IMPORTED_MODULE_9__["NotificacaoService"],
+            src_app_services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_10__["SocketService"]])
+    ], AutorizacaoTemplateComponent);
+    return AutorizacaoTemplateComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/cadastros/centroDespesa/centroDespesa.component.html":
+/*!**********************************************************************!*\
+  !*** ./src/app/cadastros/centroDespesa/centroDespesa.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Centro de Despesas</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"d-flex\">\n      <div class=\"row\">\n        <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;margin-bottom: 15px;\" class=\"pull-right\">\n          <a (click)=\"abrirTemplateCentroDespesa('NOVO', null, templateCentroDespesa)\" tooltip=\"Novo\" class=\"btn btn-success\">\n            <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo\n          </a>\n        </div>\n      </div>\n    </div>\n    <table class=\"table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Descrição</th>\n          <th>Status</th>\n          <th style=\"text-align: center;width: 100px;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"centrosDespesa && centrosDespesa.length\">\n        <tr *ngFor=\"let centro of centrosDespesa | paginate: { itemsPerPage: 5,\n         currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td style=\"white-space: nowrap;\">{{ centro.descricao }}</td>\n          <td>{{ centro.status }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <a *ngIf=\"this.editar == true || this.visualizar == true\"\n                (click)=\"abrirTemplateCentroDespesa('EDITAR', centro, templateCentroDespesa)\" tooltip=\"Editar/Detalhes\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!centrosDespesa || centrosDespesa.length == 0\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum Centro de Despesa encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\">\n      </pagination-controls>\n    </div>\n  </div>\n</div>\n\n<div bsModal #templateCentroDespesa=\"bs-modal\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Centro de Despesa\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templateCentroDespesa.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-6\">\n              <label style=\"white-space: nowrap;\">Descrição:(*)</label>\n              <input type=\"text\" style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n              class=\"form-control\" formControlName=\"descricao\" \n              [ngClass]=\"{ 'is-invalid': cadastroForm.get('descricao').errors &&  cadastroForm.get('descricao').touched}\" />\n              <div *ngIf=\"cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-4\">\n              <label style=\"white-space: nowrap;\">Status:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"['ATIVO', 'INATIVO']\" [clearable]=\"false\"\n                [ngModel]=\"cadastroForm.get('status').value\" formControlName=\"status\" disabled\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('status').errors &&  cadastroForm.get('status').touched}\" >\n              </ng-select>\n              <div *ngIf=\"cadastroForm.get('status').hasError('required') &&cadastroForm.get('status').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\">\n          Fechar\n        </button>\n        <button *ngIf=\"this.modo == 'EDITAR' && this.editar == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\"  (click)=\"salvarCentroDespesa(templateCentroDespesa)\">\n          Salvar\n        </button>\n        <button *ngIf=\"this.modo == 'NOVO' && this.novo == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\"  (click)=\"cadastrarCentroDespesa(templateCentroDespesa)\">\n          Cadastrar\n        </button>\n      </div>\n    </div>\n\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/centroDespesa/centroDespesa.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/cadastros/centroDespesa/centroDespesa.component.ts ***!
+  \********************************************************************/
+/*! exports provided: CentroDespesaComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CentroDespesaComponent", function() { return CentroDespesaComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_Cadastros_CentroDespesa_centroDespesa_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/CentroDespesa/centroDespesa.service */ "./src/app/_services/Cadastros/CentroDespesa/centroDespesa.service.ts");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+
+
+
+
+
+
+
+var CentroDespesaComponent = /** @class */ (function () {
+    function CentroDespesaComponent(fb, toastr, router, centroDespesaService, permissaoService, changeDetectionRef) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.router = router;
+        this.centroDespesaService = centroDespesaService;
+        this.permissaoService = permissaoService;
+        this.changeDetectionRef = changeDetectionRef;
+        this.novo = true;
+        this.editar = true;
+        this.visualizar = true;
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+        this.modo = '';
+    }
+    CentroDespesaComponent.prototype.ngOnInit = function () {
+        this.getCentroDespesa();
+        this.validarForm();
+    };
+    CentroDespesaComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    CentroDespesaComponent.prototype.ngAfterViewChecked = function () {
+        this.changeDetectionRef.detectChanges();
+    };
+    CentroDespesaComponent.prototype.carregarCentroDespesa = function (centroDespesa) {
+        this.centroDespesa = Object.assign({}, centroDespesa);
+        this.cadastroForm.patchValue(this.centroDespesa);
+    };
+    CentroDespesaComponent.prototype.validarForm = function () {
+        this.cadastroForm = this.fb.group({
+            id: [''],
+            descricao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            status: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+    };
+    CentroDespesaComponent.prototype.abrirTemplateCentroDespesa = function (modo, centroDespesa, template) {
+        this.modo = modo;
+        if (modo === 'NOVO') {
+            this.cadastroForm.reset();
+        }
+        else if (modo === 'EDITAR') {
+            this.carregarCentroDespesa(centroDespesa);
+        }
+        template.show();
+    };
+    CentroDespesaComponent.prototype.cadastrarCentroDespesa = function (template) {
+        var _this = this;
+        this.centroDespesa = Object.assign(this.cadastroForm.value, { id: 0 });
+        this.centroDespesaService.novoCentroDespesa(this.centroDespesa).subscribe(function () {
+            _this.getCentroDespesa();
+            template.hide();
+            _this.toastr.success("Cadastrado com Sucesso!");
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    CentroDespesaComponent.prototype.salvarCentroDespesa = function (template) {
+        var _this = this;
+        this.centroDespesa = Object.assign(this.cadastroForm.value);
+        this.centroDespesaService.editarCentroDespesa(this.centroDespesa).subscribe(function () {
+            _this.getCentroDespesa();
+            template.hide();
+            _this.toastr.success("Editado com Sucesso!");
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    CentroDespesaComponent.prototype.getCentroDespesa = function () {
+        var _this = this;
+        this.centroDespesaService.getAllCentroDespesa().subscribe(function (_CENTROS) {
+            _this.centrosDespesa = _CENTROS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Centros de Despesa: " + error.error);
+        });
+    };
+    CentroDespesaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-centro-despesa',
+            template: __webpack_require__(/*! ./centroDespesa.component.html */ "./src/app/cadastros/centroDespesa/centroDespesa.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            src_app_services_Cadastros_CentroDespesa_centroDespesa_service__WEBPACK_IMPORTED_MODULE_5__["CentroDespesaService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_6__["PermissaoService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+    ], CentroDespesaComponent);
+    return CentroDespesaComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/cadastros/centroReceita/centroReceita.component.html":
+/*!**********************************************************************!*\
+  !*** ./src/app/cadastros/centroReceita/centroReceita.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Centro de Receitas</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"d-flex\">\n      <div class=\"row\">\n        <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;margin-bottom: 15px;\" class=\"pull-right\">\n          <a (click)=\"abrirTemplateCentroReceita('NOVO', null, templateCentroReceita)\" tooltip=\"Novo\" class=\"btn btn-success\">\n            <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo\n          </a>\n        </div>\n      </div>\n    </div>\n    <table class=\"table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Descrição</th>\n          <th>Status</th>\n          <th style=\"text-align: center;width: 100px;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"centrosReceita && centrosReceita.length\">\n        <tr *ngFor=\"let centro of centrosReceita | paginate: { itemsPerPage: 5,\n         currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td style=\"white-space: nowrap;\">{{ centro.descricao }}</td>\n          <td>{{ centro.status }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <a *ngIf=\"this.editar == true || this.visualizar == true\"\n                (click)=\"abrirTemplateCentroReceita('EDITAR', centro, templateCentroReceita)\" tooltip=\"Editar/Detalhes\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!centrosReceita || centrosReceita.length == 0\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum Centro de Receita encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\">\n      </pagination-controls>\n    </div>\n  </div>\n</div>\n\n<div bsModal #templateCentroReceita=\"bs-modal\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Centro de Receita\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templateCentroReceita.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-6\">\n              <label style=\"white-space: nowrap;\">Descrição:(*)</label>\n              <input type=\"text\" style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n              class=\"form-control\" formControlName=\"descricao\"\n              [ngClass]=\"{ 'is-invalid': cadastroForm.get('descricao').errors &&  cadastroForm.get('descricao').touched}\" />\n              <div *ngIf=\"cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-4\">\n              <label style=\"white-space: nowrap;\">Status:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"['ATIVO', 'INATIVO']\" [clearable]=\"false\"\n                [ngModel]=\"cadastroForm.get('status').value\" formControlName=\"status\" \n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('status').errors && cadastroForm.get('status').touched}\" disabled>\n              </ng-select>\n              <div *ngIf=\"cadastroForm.get('status').hasError('required') &&cadastroForm.get('status').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\">\n          Fechar\n        </button>\n        <button *ngIf=\"this.modo == 'EDITAR' && this.editar == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\" (click)=\"salvarCentroReceita(templateCentroReceita)\">\n          Salvar\n        </button>\n        <button *ngIf=\"this.modo == 'NOVO' && this.novo == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\" (click)=\"cadastrarCentroReceita(templateCentroReceita)\">\n          Cadastrar\n        </button>\n      </div>\n    </div>\n\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/centroReceita/centroReceita.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/cadastros/centroReceita/centroReceita.component.ts ***!
+  \********************************************************************/
+/*! exports provided: CentroReceitaComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CentroReceitaComponent", function() { return CentroReceitaComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_Cadastros_CentroReceita_centroReceita_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/CentroReceita/centroReceita.service */ "./src/app/_services/Cadastros/CentroReceita/centroReceita.service.ts");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+
+
+
+
+
+
+
+var CentroReceitaComponent = /** @class */ (function () {
+    function CentroReceitaComponent(fb, toastr, router, centroReceitaService, permissaoService, changeDetectionRef) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.router = router;
+        this.centroReceitaService = centroReceitaService;
+        this.permissaoService = permissaoService;
+        this.changeDetectionRef = changeDetectionRef;
+        this.novo = true;
+        this.editar = true;
+        this.visualizar = true;
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+        this.modo = '';
+    }
+    CentroReceitaComponent.prototype.ngOnInit = function () {
+        this.getCentroReceita();
+        this.validarForm();
+    };
+    CentroReceitaComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE RECEITA', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE RECEITA', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE RECEITA', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    CentroReceitaComponent.prototype.ngAfterViewChecked = function () {
+        this.changeDetectionRef.detectChanges();
+    };
+    CentroReceitaComponent.prototype.carregarCentroReceita = function (centroReceita) {
+        this.centroReceita = Object.assign({}, centroReceita);
+        this.cadastroForm.patchValue(this.centroReceita);
+    };
+    CentroReceitaComponent.prototype.validarForm = function () {
+        this.cadastroForm = this.fb.group({
+            id: [''],
+            descricao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            status: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+    };
+    CentroReceitaComponent.prototype.abrirTemplateCentroReceita = function (modo, centroReceita, template) {
+        this.modo = modo;
+        if (modo === 'NOVO') {
+            this.cadastroForm.reset();
+        }
+        else if (modo === 'EDITAR') {
+            this.carregarCentroReceita(centroReceita);
+        }
+        template.show();
+    };
+    CentroReceitaComponent.prototype.cadastrarCentroReceita = function (template) {
+        var _this = this;
+        this.centroReceita = Object.assign(this.cadastroForm.value, { id: 0 });
+        console.log(this.centroReceita);
+        this.centroReceitaService.novoCentroReceita(this.centroReceita).subscribe(function () {
+            _this.getCentroReceita();
+            template.hide();
+            _this.toastr.success("Cadastrado com Sucesso!");
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    CentroReceitaComponent.prototype.salvarCentroReceita = function (template) {
+        var _this = this;
+        this.centroReceita = Object.assign(this.cadastroForm.value);
+        this.centroReceitaService.editarCentroReceita(this.centroReceita).subscribe(function () {
+            _this.getCentroReceita();
+            template.hide();
+            _this.toastr.success("Editado com Sucesso!");
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    CentroReceitaComponent.prototype.getCentroReceita = function () {
+        var _this = this;
+        this.centroReceitaService.getAllCentroReceita().subscribe(function (_CENTROS) {
+            _this.centrosReceita = _CENTROS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Centros de Receita: " + error.error);
+        });
+    };
+    CentroReceitaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-centro-receita',
+            template: __webpack_require__(/*! ./centroReceita.component.html */ "./src/app/cadastros/centroReceita/centroReceita.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            src_app_services_Cadastros_CentroReceita_centroReceita_service__WEBPACK_IMPORTED_MODULE_5__["CentroReceitaService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_6__["PermissaoService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+    ], CentroReceitaComponent);
+    return CentroReceitaComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/cadastros/chequePre/chequePre.component.html":
+/*!**************************************************************!*\
+  !*** ./src/app/cadastros/chequePre/chequePre.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Cheques Pré-Datado</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\" >\n    <div class=\"row\">\n      <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;\" class=\"pull-right\">\n        <a  (click)=\"abrirTemplateChequePre(0)\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Lançamento\n        </a>\n      </div>\n    </div>\n    <table style=\"margin-top: 15px;\" class=\"table table-striped table-bordered mt-4\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th>Id</th>\n            <th>Cliente</th>\n            <th style=\"text-align: center;\">Data Lançamento</th>\n            <th style=\"text-align: center;\">N° Cheque</th>\n            <th style=\"text-align: center;\">Valor</th>\n            <th style=\"text-align: center;\">Data Pré-Datado</th>\n            <th style=\"text-align: center;\">Status</th>\n            <th style=\"text-align: center;\">Ações</th>\n          </tr>\n        </thead>\n        <tbody *ngIf=\"cheques && cheques.length\">\n          <tr *ngFor=\"let cheque of cheques | paginate: { itemsPerPage: 5,currentPage: paginaAtual, totalItems: totalRegistros };\">\n            <td>{{ cheque.id }}</td>\n            <td style=\"white-space: nowrap;\">{{ cheque.clientes.nomeFantasia }}</td>\n            <td style=\"white-space: nowrap;text-align: center;\">{{ cheque.dataLancamento | date:'dd/MM/yyyy'}}</td>\n            <td style=\"text-align: center;\">{{ cheque.numero }}</td>\n            <td style=\"text-align: center;\">{{ cheque.valor | currency:' ':false }}</td>\n            <td style=\"text-align: center;\">{{ cheque.dataPreDatado | date:'dd/MM/yyyy'}}</td>\n            <td style=\"text-align: center;\">{{ cheque.status }}</td>\n            <td style=\"text-align: center;white-space: nowrap;\">\n              <div *ngIf=\"this.editar == true || this.visualizar == true\" class=\"btn-group\">\n                <a  (click)=\"abrirTemplateChequePre(cheque.Id)\" tooltip=\"Editar/Detalhes\" class=\"btn btn-sm btn-primary\">\n                  <i class=\"fa fa-edit\"></i>\n                </a>\n              </div>\n            </td>\n          </tr>\n        </tbody>\n        <tfoot *ngIf=\"!cheques\">\n          <tr colspan=\"7\" class=\"text-center\"></tr>\n          <h4>\n            Nenhum Cheque encontrado!\n          </h4>\n        </tfoot>\n      </table>\n      Total de Registros: {{totalRegistros}}\n      <div class=\"text-center\">\n        <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n          nextLabel=\"Próximo\">\n        </pagination-controls>\n      </div>\n  </div>\n\n</div>\n\n<app-cheque-pre-template [idChequePre]=\"this.idChequePre\" *ngIf=\"getTemplateChequePre() == true\"></app-cheque-pre-template>\n\n "
+
+/***/ }),
+
+/***/ "./src/app/cadastros/chequePre/chequePre.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/cadastros/chequePre/chequePre.component.ts ***!
+  \************************************************************/
+/*! exports provided: ChequePreComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChequePreComponent", function() { return ChequePreComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Cadastros_ChequePre_chequePre_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/ChequePre/chequePre.service */ "./src/app/_services/Cadastros/ChequePre/chequePre.service.ts");
+
+
+
+
+
+
+var ChequePreComponent = /** @class */ (function () {
+    function ChequePreComponent(localeService, toastr, permissaoService, chequePreService) {
+        this.localeService = localeService;
+        this.toastr = toastr;
+        this.permissaoService = permissaoService;
+        this.chequePreService = chequePreService;
+        this.novo = false;
+        this.editar = false;
+        this.visualizar = false;
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+    }
+    ChequePreComponent.prototype.ngOnInit = function () {
+        this.getChequePre();
+    };
+    ChequePreComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    ChequePreComponent.prototype.getTemplateChequePre = function () {
+        return this.chequePreService.getChequePreTemplateStatus();
+    };
+    ChequePreComponent.prototype.abrirTemplateChequePre = function (idLancamento) {
+        this.idChequePre = idLancamento;
+        this.chequePreService.setChequePreTemplateStatus(true);
+    };
+    ChequePreComponent.prototype.getChequePre = function () {
+        var _this = this;
+        this.chequePreService.getAllChequePre().subscribe(
+        // tslint:disable-next-line:variable-name
+        function (_CHEQUES) {
+            _this.cheques = _CHEQUES;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar ChequePre: " + error.error);
+        });
+    };
+    ChequePreComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-cheque-pre',
+            template: __webpack_require__(/*! ./chequePre.component.html */ "./src/app/cadastros/chequePre/chequePre.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsLocaleService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__["PermissaoService"],
+            src_app_services_Cadastros_ChequePre_chequePre_service__WEBPACK_IMPORTED_MODULE_5__["ChequePreService"]])
+    ], ChequePreComponent);
+    return ChequePreComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/cadastros/chequePre/chequePreTemplate/chequePreTemplate.component.css":
+/*!***************************************************************************************!*\
+  !*** ./src/app/cadastros/chequePre/chequePreTemplate/chequePreTemplate.component.css ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".modal-xl {\r\n    width: 55%;\r\n    /* New width for large modal */\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FkYXN0cm9zL2NoZXF1ZVByZS9jaGVxdWVQcmVUZW1wbGF0ZS9jaGVxdWVQcmVUZW1wbGF0ZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksVUFBVTtJQUNWLDhCQUE4QjtBQUNsQyIsImZpbGUiOiJzcmMvYXBwL2NhZGFzdHJvcy9jaGVxdWVQcmUvY2hlcXVlUHJlVGVtcGxhdGUvY2hlcXVlUHJlVGVtcGxhdGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tb2RhbC14bCB7XHJcbiAgICB3aWR0aDogNTUlO1xyXG4gICAgLyogTmV3IHdpZHRoIGZvciBsYXJnZSBtb2RhbCAqL1xyXG59XHJcbiJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/chequePre/chequePreTemplate/chequePreTemplate.component.html":
+/*!****************************************************************************************!*\
+  !*** ./src/app/cadastros/chequePre/chequePreTemplate/chequePreTemplate.component.html ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templateChequePre)}}\n<div bsModal #templateChequePre=\"bs-modal\" class=\"modal fade\"  [config]=\"{backdrop: 'static', keyboard: false}\"data-keyboard=\"false\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\" >\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Cheque Pré-Datado<label></label>\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templateChequePre)\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroCheque\">\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-4\">\n              <label>Cliente:(*)</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"clientes\" bindLabel=\"nomeFantasia\" bindValue=\"id\"\n                [(ngModel)]=\"clienteIdSelecionado\" formControlName=\"clientesId\"\n                [ngClass]=\"{ 'is-invalid': cadastroCheque.get('clientesId').errors && cadastroCheque.get('clientesId').touched}\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroCheque.get('clientesId').hasError('required') &&cadastroCheque.get('clientesId').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label style=\"white-space: nowrap;\">Data Pre-Datado</label>\n              <input type=\"text\" class=\"form-control\" formControlName=\"dataPreDatado\"\n                [ngModel]=\"cadastroCheque.get('dataPreDatado').value\" bsDatepicker [bsConfig]=\"this.bsConfig\" [ngClass]=\"{ 'is-invalid': cadastroCheque.get('dataPreDatado').errors && \n                cadastroCheque.get('dataPreDatado').touched}\" />\n              <div\n                *ngIf=\"cadastroCheque.get('dataPreDatado').hasError('required') &&cadastroCheque.get('dataPreDatado').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n\n            <div class=\"form-group col-md-3\">\n              <label>Valor:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask formControlName=\"valor\"\n                  [options]=\"{ prefix: '', thousands: '.', decimal: ',' }\" [ngClass]=\"{ 'is-invalid': cadastroCheque.get('valor').errors && \n                  cadastroCheque.get('valor').touched}\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n              <div *ngIf=\"cadastroCheque.get('valor').hasError('required') && cadastroCheque.get('valor').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n              <div *ngIf=\"cadastroCheque.get('valor').hasError('min') && cadastroCheque.get('valor').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Banco:</label>\n              <input class=\"form-control\" type=\"text\" formControlName=\"banco\"\n                [ngClass]=\"{ 'is-invalid': cadastroCheque.get('banco').errors && cadastroCheque.get('banco').touched}\" />\n              <div *ngIf=\"cadastroCheque.get('banco').hasError('required') && cadastroCheque.get('banco').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n\n\n            <div class=\"form-group col-md-4\">\n              <label style=\"white-space: nowrap;\">Agência:</label>\n              <input class=\"form-control\" type=\"text\" formControlName=\"agencia\"\n                [ngClass]=\"{ 'is-invalid': cadastroCheque.get('agencia').errors && cadastroCheque.get('agencia').touched}\" />\n              <div *ngIf=\"cadastroCheque.get('agencia').hasError('required') && cadastroCheque.get('agencia').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-4\">\n              <label style=\"white-space: nowrap;\">Conta:</label>\n              <input class=\"form-control\" type=\"text\" formControlName=\"conta\"\n                [ngClass]=\"{ 'is-invalid': cadastroCheque.get('conta').errors && cadastroCheque.get('conta').touched}\" />\n              <div *ngIf=\"cadastroCheque.get('conta').hasError('required') && cadastroCheque.get('conta').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-4\">\n              <label style=\"white-space: nowrap;\">N° do Cheque:</label>\n              <input class=\"form-control\" type=\"text\" formControlName=\"numero\"\n                [ngClass]=\"{ 'is-invalid': cadastroCheque.get('numero').errors && cadastroCheque.get('numero').touched}\" />\n              <div *ngIf=\"cadastroCheque.get('numero').hasError('required') && cadastroCheque.get('numero').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n          </div>\n        </form>\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templateChequePre)\">\n          Fechar\n        </button>\n        <button *ngIf=\"this.idChequePre != 0 && this.editar == true\" [disabled]=\"!cadastroCheque.valid\" class=\"btn btn-primary\"\n          (click)=\"salvarChequePre(templateChequePre)\">\n          Salvar\n        </button>\n        <button *ngIf=\"this.idChequePre == 0 && this.novo == true\" [disabled]=\"!cadastroCheque.valid\" class=\"btn btn-primary\"\n          (click)=\"salvarChequePre(templateChequePre)\">\n          Cadastrar\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/chequePre/chequePreTemplate/chequePreTemplate.component.ts":
+/*!**************************************************************************************!*\
+  !*** ./src/app/cadastros/chequePre/chequePreTemplate/chequePreTemplate.component.ts ***!
+  \**************************************************************************************/
+/*! exports provided: ChequePreTemplateComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChequePreTemplateComponent", function() { return ChequePreTemplateComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var src_app_services_Cadastros_ChequePre_chequePre_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/ChequePre/chequePre.service */ "./src/app/_services/Cadastros/ChequePre/chequePre.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Cadastros/Clientes/cliente.service */ "./src/app/_services/Cadastros/Clientes/cliente.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+
+
+
+
+
+
+
+
+
+var ChequePreTemplateComponent = /** @class */ (function () {
+    function ChequePreTemplateComponent(fb, toastr, dataService, clienteService, permissaoService, chequePreService) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.dataService = dataService;
+        this.clienteService = clienteService;
+        this.permissaoService = permissaoService;
+        this.chequePreService = chequePreService;
+        this.novo = false;
+        this.editar = false;
+        this.templateEnabled = false;
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+    }
+    ChequePreTemplateComponent.prototype.ngOnInit = function () {
+        this.getClientes();
+        this.validarChequePre();
+        if (this.idChequePre !== 0) {
+            this.carregarChequePre();
+        }
+    };
+    ChequePreTemplateComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    ChequePreTemplateComponent.prototype.carregarChequePre = function () {
+        var _this = this;
+        this.cheque = null;
+        this.chequePreService.getChequePreById(this.idChequePre)
+            .subscribe(function (_CHEQUE) {
+            _this.cheque = Object.assign(_CHEQUE, {
+                dataLancamento: _this.dataService.getDataPTBR(_CHEQUE.dataLancamento),
+                dataPreDatado: _this.dataService.getDataPTBR(_CHEQUE.dataPreDatado)
+            });
+            _this.cadastroCheque.patchValue(_this.cheque);
+            console.log(_this.cheque);
+        }, function (error) {
+            _this.toastr.error("Erro ao tentar carregar ChequePre: " + error.error);
+            console.log(error);
+        });
+    };
+    ChequePreTemplateComponent.prototype.validarChequePre = function () {
+        this.cadastroCheque = this.fb.group({
+            id: [''],
+            clientesId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            recebimentoParcelasId: [''],
+            banco: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            agencia: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            conta: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            numero: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            valor: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].min(1)]],
+            usuarioLancamentoid: [''],
+            usuarioBaixaId: [''],
+            status: [''],
+            dataPreDatado: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            dataLancamento: [''],
+        });
+    };
+    ChequePreTemplateComponent.prototype.salvarChequePre = function (template) {
+        var _this = this;
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_7__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        if (this.idChequePre === 0) {
+            this.cheque = Object.assign(this.cadastroCheque.value, { id: 0,
+                dataPreDatado: this.dataService.getDataSQL(this.cadastroCheque.get('dataPreDatado').value.toLocaleString()),
+                dataLancamento: dataAtual });
+            this.chequePreService.novoChequePre(this.cheque).subscribe(function () {
+                _this.fecharTemplate(template);
+                _this.toastr.success("Cadastrado com Sucesso!");
+            }, function (error) {
+                console.log(error.error);
+            });
+        }
+        else {
+            this.cheque = Object.assign(this.cadastroCheque.value, {
+                dataPreDatado: this.dataService.getDataSQL(this.cadastroCheque.get('dataPreDatado').value),
+                dataLancamento: this.dataService.getDataSQL(this.cadastroCheque.get('dataLancamento').value)
+            });
+            this.chequePreService.editarChequePre(this.cheque).subscribe(function () {
+                _this.toastr.success("Editado com Sucesso!");
+            }, function (error) {
+                console.log(error.error);
+            });
+        }
+    };
+    ChequePreTemplateComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            template.show();
+            this.templateEnabled = true;
+        }
+    };
+    ChequePreTemplateComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        console.log(true);
+        this.chequePreService.setChequePreTemplateStatus(false);
+        this.templateEnabled = false;
+    };
+    ChequePreTemplateComponent.prototype.getClientes = function () {
+        var _this = this;
+        this.clienteService.getAllCliente().subscribe(function (_CLIENTES) {
+            _this.clientes = _CLIENTES.filter(function (cliente) { return cliente.status === 'ATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar clientes: " + error.error);
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], ChequePreTemplateComponent.prototype, "idChequePre", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('templateChequePre'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ChequePreTemplateComponent.prototype, "templateChequePre", void 0);
+    ChequePreTemplateComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-cheque-pre-template',
+            template: __webpack_require__(/*! ./chequePreTemplate.component.html */ "./src/app/cadastros/chequePre/chequePreTemplate/chequePreTemplate.component.html"),
+            styles: [__webpack_require__(/*! ./chequePreTemplate.component.css */ "./src/app/cadastros/chequePre/chequePreTemplate/chequePreTemplate.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_4__["DataService"],
+            src_app_services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_6__["ClienteService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_8__["PermissaoService"],
+            src_app_services_Cadastros_ChequePre_chequePre_service__WEBPACK_IMPORTED_MODULE_5__["ChequePreService"]])
+    ], ChequePreTemplateComponent);
+    return ChequePreTemplateComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/cadastros/cliente/cliente.component.html":
 /*!**********************************************************!*\
   !*** ./src/app/cadastros/cliente/cliente.component.html ***!
@@ -2779,7 +4899,7 @@ var AuthInterceptor = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Clientes</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"row\">\n      <div class=\"form-group col-md-2\">\n        <label>Filtrar por:</label>\n        <ng-select [clearable]=\"false\" [items]=\"filtrarPor\" name=\"filtrarPor\" [(ngModel)]=\"filtroSelecionado\"\n          (change)=\"setFiltroSelecionado($event)\">\n        </ng-select>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado != 'CIDADE'\" class=\"form-group col-md-3\">\n        <div\n          *ngIf=\"filtroSelecionado == 'NOME FANTASIA' || filtroSelecionado == 'RAZÃO SOCIAL' || filtroSelecionado == 'COD.SIGA'\">\n          <label>Filtro:</label>\n          <input type=\"text\" class=\"form-control\" placeholder=\"...\" name=\"filtro\" [(ngModel)]=\"filtroLista\" />\n        </div>\n\n        <div *ngIf=\"filtroSelecionado == 'CNPJ/CPF'\">\n          <label>Filtro:</label>\n          <input class=\"form-control\" type=\"text\" maxlength=\"18\" placeholder=\"...\" name=\"filtro\"\n            [ngModel]=\"filtroLista | cnpjCpfPipePipe\" (ngModelChange)=\"filtroLista=$event\" />\n        </div>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'CIDADE'\" class=\"form-group col-md-1\">\n        <label>Estado:(*)</label>\n        <ng-select [items]=\"estados\" bindLabel=\"uf\" (clear)=\"limparEstado()\" bindValue=\"id\"\n          (change)=\"getCidades(estadoIdSelecionado)\" [(ngModel)]=\"estadoIdSelecionado\" name=\"estadoFiltro\">\n        </ng-select>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'CIDADE'\" class=\"form-group col-md-3\">\n        <label>Cidade:(*)</label>\n        <ng-select [items]=\"cidades\" style=\"text-transform: uppercase\" bindLabel=\"nome\" (clear)=\"limparCidade()\"\n          bindValue=\"id\" [(ngModel)]=\"filtroLista\" name=\"cidadeFiltro\">\n        </ng-select>\n      </div>\n\n      <div class=\"form-group col-md-2\">\n        <label>Status:</label>\n        <ng-select [clearable]=\"false\" [items]=\"status\" name=\"statusFiltro\" [(ngModel)]=\"statusFiltroSelecionado\"\n          (change)=\"setStatusFiltroSelecionado($event)\">\n        </ng-select>\n      </div>\n      <div style=\"margin-right: 15px;\"class=\"pull-right\">\n        <a *ngIf=\"this.novo == true\"\n          [routerLink]=\"['/clientes','novo']\" tooltip=\"Novo Cliente\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Cliente\n        </a>\n      </div>\n    </div>\n\n    <table class=\"container-fluid table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Id</th>\n          <th>Razão Socia</th>\n          <th>Nome Fantasia</th>\n          <th>Telefone</th>\n          <th>Celular</th> \n          <th style=\"text-align: center;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"clientes && clientes.length\">\n        <tr\n          *ngFor=\"let cliente of clientesFiltrados | paginate: { itemsPerPage: 5, currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td>{{ cliente.id }}</td>\n          <td style=\"white-space: nowrap;\">{{ cliente.razaoSocial }}</td>\n          <td style=\"white-space: nowrap;\">{{ cliente.nomeFantasia }}</td>\n          <td style=\"white-space: nowrap;\">{{ cliente.telefone }}</td>\n          <td style=\"white-space: nowrap;\">{{ cliente.celular }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <button *ngIf=\"this.excluir == true\" class=\"btn btn-sm btn-danger\"\n                tooltip=\"Excluir\" (click)=\"excluirCliente(cliente, confirm)\">\n                <i class=\"fa fa-eraser\"></i>\n              </button>\n              <a *ngIf=\"this.editar == true || this.visualizar\" [routerLink]=\"['/clientes','editar', cliente.id]\" tooltip=\"Editar/Perfil\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!clientes\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum cliente encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"clientePagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\"></pagination-controls>\n    </div>\n  </div>\n</div>\n\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\n  <div class=\"modal-dialog modal-sm\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 class=\"modal-title pull-left\">\n          Excluir Cliente\n        </h4>\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <p>{{bodyExcluirCliente}}</p>\n      </div>\n      <div class=\"modal-footer btn-group d-flex\">\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\n          Cancelar\n        </button>\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmarExclusao(confirm)\">\n          Excluir\n        </button>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<h2>Clientes</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"row\">\n      <div class=\"form-group col-md-2\">\n        <label>Filtrar por:</label>\n        <ng-select [clearable]=\"false\" [items]=\"filtrarPor\" name=\"filtrarPor\" [(ngModel)]=\"filtroSelecionado\"\n          (change)=\"setFiltroSelecionado($event)\">\n        </ng-select>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado != 'CIDADE'\" class=\"form-group col-md-3\">\n        <div\n          *ngIf=\"filtroSelecionado == 'NOME FANTASIA' || filtroSelecionado == 'RAZÃO SOCIAL' || filtroSelecionado == 'COD.SIGA'\">\n          <label>Filtro:</label>\n          <input type=\"text\" class=\"form-control\" placeholder=\"...\" name=\"filtro\" [(ngModel)]=\"filtroLista\" />\n        </div>\n\n        <div *ngIf=\"filtroSelecionado == 'CNPJ/CPF'\">\n          <label>Filtro:</label>\n          <input class=\"form-control\" type=\"text\" maxlength=\"18\" placeholder=\"...\" name=\"filtro\"\n            [ngModel]=\"filtroLista | cnpjCpfPipePipe\" (ngModelChange)=\"filtroLista=$event\" />\n        </div>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'CIDADE'\" class=\"form-group col-md-1\">\n        <label>Estado:(*)</label>\n        <ng-select [items]=\"estados\" bindLabel=\"uf\" (clear)=\"limparEstado()\" bindValue=\"id\"\n          (change)=\"getCidades(estadoIdSelecionado)\" [(ngModel)]=\"estadoIdSelecionado\" name=\"estadoFiltro\">\n        </ng-select>\n      </div>\n\n      <div *ngIf=\"filtroSelecionado == 'CIDADE'\" class=\"form-group col-md-3\">\n        <label>Cidade:(*)</label>\n        <ng-select [items]=\"cidades\" style=\"text-transform: uppercase\" bindLabel=\"nome\" (clear)=\"limparCidade()\"\n          bindValue=\"id\" [(ngModel)]=\"filtroLista\" name=\"cidadeFiltro\">\n        </ng-select>\n      </div>\n\n      <div class=\"form-group col-md-2\">\n        <label>Status:</label>\n        <ng-select [clearable]=\"false\" [items]=\"status\" name=\"statusFiltro\" [(ngModel)]=\"statusFiltroSelecionado\"\n          (change)=\"setStatusFiltroSelecionado($event)\">\n        </ng-select>\n      </div>\n      <div style=\"margin-right: 15px;\"class=\"pull-right\">\n        <a *ngIf=\"this.novo == true\"\n          [routerLink]=\"['/clientes','novo']\" tooltip=\"Novo Cliente\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Cliente\n        </a>\n      </div>\n    </div>\n\n    <table class=\"container-fluid table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Id</th>\n          <th>Razão Socia</th>\n          <th>Nome Fantasia</th>\n          <th>Telefone</th>\n          <th>Celular</th> \n          <th style=\"text-align: center;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"clientes && clientes.length\">\n        <tr\n          *ngFor=\"let cliente of clientesFiltrados | paginate: { itemsPerPage: 30, currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td>{{ cliente.id }}</td>\n          <td style=\"white-space: nowrap;\">{{ cliente.razaoSocial }}</td>\n          <td style=\"white-space: nowrap;\">{{ cliente.nomeFantasia }}</td>\n          <td style=\"white-space: nowrap;\">{{ cliente.telefone }}</td>\n          <td style=\"white-space: nowrap;\">{{ cliente.celular }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <button *ngIf=\"this.excluir == true\" class=\"btn btn-sm btn-danger\"\n                tooltip=\"Excluir\" (click)=\"excluirCliente(cliente, confirm)\">\n                <i class=\"fa fa-eraser\"></i>\n              </button>\n              <a *ngIf=\"this.editar == true || this.visualizar\" [routerLink]=\"['/clientes','editar', cliente.id]\" tooltip=\"Editar/Perfil\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!clientes\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum cliente encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"clientePagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\"></pagination-controls>\n    </div>\n  </div>\n</div>\n\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\n  <div class=\"modal-dialog modal-sm\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 class=\"modal-title pull-left\">\n          Excluir Cliente\n        </h4>\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <p>{{bodyExcluirCliente}}</p>\n      </div>\n      <div class=\"modal-footer btn-group d-flex\">\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\n          Cancelar\n        </button>\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmarExclusao(confirm)\">\n          Excluir\n        </button>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2824,6 +4944,7 @@ var ClienteComponent = /** @class */ (function () {
         this.modoSalvar = '';
         this.bodyExcluirCliente = '';
         this.paginaAtual = 1;
+        this.totalRegistros = 0;
         this.status = ['ATIVO', 'INATIVO', 'PROSPECT', 'TODOS'];
         this.statusFiltroSelecionado = 'ATIVO';
         this.filtrarPor = ['COD.SIGA', 'RAZÃO SOCIAL', 'NOME FANTASIA', 'CNPJ/CPF', 'CIDADE'];
@@ -3621,6 +5742,442 @@ var NovoClienteComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/cadastros/empresa/empresa.component.html":
+/*!**********************************************************!*\
+  !*** ./src/app/cadastros/empresa/empresa.component.html ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Empresas</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"row\">\n      <div style=\"margin-right: 15px;margin-bottom: 15px;\"class=\"pull-right\">\n        <a *ngIf=\"this.novo == true\"\n          (click)=\"abrirTemplateEmpresa(0)\" tooltip=\"Nova Empresa\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Nova Empresa\n        </a>\n      </div>\n    </div>\n\n    <table class=\"container-fluid table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Id</th>\n          <th>Razão Socia</th>\n          <th>Nome Fantasia</th>\n          <th>Telefone</th>\n          <th style=\"text-align: center;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"empresas && empresas.length\">\n        <tr\n          *ngFor=\"let empresa of empresas | paginate: { itemsPerPage: 30, currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td>{{ empresa.id }}</td>\n          <td style=\"white-space: nowrap;\">{{ empresa.razaoSocial }}</td>\n          <td style=\"white-space: nowrap;\">{{ empresa.nomeFantasia }}</td>\n          <td style=\"white-space: nowrap;\">{{ empresa.telefone }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <a *ngIf=\"this.editar == true || this.visualizar\" (click)=\"abrirTemplateEmpresa(empresa.id)\" tooltip=\"Editar/Perfil\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!empresas\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum empresa encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"empresaPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\"></pagination-controls>\n    </div>\n  </div>\n</div>\n\n<app-empresa-template [idEmpresa]=\"this.idEmpresa\" *ngIf=\"getTemplateEmpresa() == true\"></app-empresa-template>"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/empresa/empresa.component.ts":
+/*!********************************************************!*\
+  !*** ./src/app/cadastros/empresa/empresa.component.ts ***!
+  \********************************************************/
+/*! exports provided: EmpresaComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmpresaComponent", function() { return EmpresaComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Empresas_empresa_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/Empresas/empresa.service */ "./src/app/_services/Cadastros/Empresas/empresa.service.ts");
+
+
+
+
+
+
+var EmpresaComponent = /** @class */ (function () {
+    function EmpresaComponent(empresaService, localeService, toastr, permissaoService) {
+        this.empresaService = empresaService;
+        this.localeService = localeService;
+        this.toastr = toastr;
+        this.permissaoService = permissaoService;
+        this.novo = false;
+        this.editar = false;
+        this.visualizar = false;
+        this.modoSalvar = '';
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+        this.valueCnpjCpfPipe = '';
+        this.localeService.use('pt-br');
+    }
+    EmpresaComponent.prototype.ngOnInit = function () {
+        this.getEmpresas();
+    };
+    EmpresaComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    EmpresaComponent.prototype.getTemplateEmpresa = function () {
+        return this.empresaService.getEmpresaTemplateStatus();
+    };
+    EmpresaComponent.prototype.abrirTemplateEmpresa = function (idEmpresa) {
+        this.idEmpresa = idEmpresa;
+        this.empresaService.setEmpresaTemplateStatus(true);
+    };
+    EmpresaComponent.prototype.getEmpresas = function () {
+        var _this = this;
+        this.empresaService.getAllEmpresa().subscribe(function (_EMPRESAS) {
+            _this.empresas = _EMPRESAS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar empresas: " + error.error);
+        });
+    };
+    EmpresaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-empresa',
+            template: __webpack_require__(/*! ./empresa.component.html */ "./src/app/cadastros/empresa/empresa.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_Cadastros_Empresas_empresa_service__WEBPACK_IMPORTED_MODULE_5__["EmpresaService"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsLocaleService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__["PermissaoService"]])
+    ], EmpresaComponent);
+    return EmpresaComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/cadastros/empresa/empresaTemplate/empresaTemplate.component.css":
+/*!*********************************************************************************!*\
+  !*** ./src/app/cadastros/empresa/empresaTemplate/empresaTemplate.component.css ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".modal-xl {\r\n    width: 55%;\r\n    /* New width for large modal */\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FkYXN0cm9zL2VtcHJlc2EvZW1wcmVzYVRlbXBsYXRlL2VtcHJlc2FUZW1wbGF0ZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksVUFBVTtJQUNWLDhCQUE4QjtBQUNsQyIsImZpbGUiOiJzcmMvYXBwL2NhZGFzdHJvcy9lbXByZXNhL2VtcHJlc2FUZW1wbGF0ZS9lbXByZXNhVGVtcGxhdGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tb2RhbC14bCB7XHJcbiAgICB3aWR0aDogNTUlO1xyXG4gICAgLyogTmV3IHdpZHRoIGZvciBsYXJnZSBtb2RhbCAqL1xyXG59XHJcbiJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/empresa/empresaTemplate/empresaTemplate.component.html":
+/*!**********************************************************************************!*\
+  !*** ./src/app/cadastros/empresa/empresaTemplate/empresaTemplate.component.html ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templateEmpresa)}}\n<div bsModal #templateEmpresa=\"bs-modal\" class=\"modal fade\" [config]=\"{backdrop: 'static', keyboard: false}\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Empresa<label></label>\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templateEmpresa)\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroEmpresa\">\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-6\">\n              <label>Razão Social:(*)</label>\n              <input style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                class=\"form-control\" type=\"text\" formControlName=\"razaoSocial\" [ngClass]=\"{ 'is-invalid': cadastroEmpresa.get('razaoSocial').errors && \n                                            cadastroEmpresa.get('razaoSocial').touched}\" />\n\n              <div\n                *ngIf=\"cadastroEmpresa.get('razaoSocial').hasError('required') &&cadastroEmpresa.get('razaoSocial').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-6\">\n              <label>Nome Fantasia:(*)</label>\n              <input style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                class=\"form-control\" type=\"text\" formControlName=\"nomeFantasia\" [ngClass]=\"{ 'is-invalid': cadastroEmpresa.get('nomeFantasia').errors && \n                                                          cadastroEmpresa.get('nomeFantasia').touched}\" />\n\n              <div\n                *ngIf=\"cadastroEmpresa.get('nomeFantasia').hasError('required') &&cadastroEmpresa.get('nomeFantasia').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n          </div>\n\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-3\">\n              <label>Inscrição Estadual:</label>\n              <input class=\"form-control\" type=\"text\" maxlength=\"16\" [ngModel]=\"valueIePipe | iePipePipe\"\n                (ngModelChange)=\"valueIePipe=$event\" formControlName=\"ie\" />\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label>Cnpj/Cpf:(*)</label>\n              <input class=\"form-control\" type=\"text\" maxlength=\"18\" formControlName=\"cnpjCpf\" [ngClass]=\"{ 'is-invalid': cadastroEmpresa.get('cnpjCpf').errors && \n                      cadastroEmpresa.get('cnpjCpf').touched}\" [ngModel]=\"valueCnpjCpfPipe | cnpjCpfPipePipe\"\n                (ngModelChange)=\"valueCnpjCpfPipe=$event\" />\n\n              <div *ngIf=\"cadastroEmpresa.get('cnpjCpf').hasError('required') &&cadastroEmpresa.get('cnpjCpf').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label>Cep:(*)</label>\n              <input class=\"form-control\" type=\"text\" maxlength=\"9\" formControlName=\"cep\" [ngClass]=\"{ 'is-invalid': cadastroEmpresa.get('cep').errors && \n                  cadastroEmpresa.get('cep').touched}\" [ngModel]=\"valueCepPipe | cepPipePipe\"\n                (ngModelChange)=\"valueCepPipe=$event\" />\n\n              <div *ngIf=\"cadastroEmpresa.get('cep').hasError('required') &&cadastroEmpresa.get('cep').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label>Estado:(*)</label>\n              <ng-select [items]=\"estados\" bindLabel=\"uf\" required (clear)=\"limparEstado()\" bindValue=\"id\"\n                (change)=\"getCidades(estadoIdSelecionado)\" [(ngModel)]=\"estadoIdSelecionado\" formControlName=\"estadoId\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroEmpresa.get('estadoId').hasError('required') && cadastroEmpresa.get('estadoId').touched\"\n                class=\"invalid-feedback d-block ng-invalid ng-touched\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n\n          </div>\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-3\">\n              <label>Cidade:(*)</label>\n              <ng-select [items]=\"cidades\" style=\"text-transform: uppercase\" bindLabel=\"nome\" bindValue=\"id\"\n                [(ngModel)]=\"cidadeIdSelecionado\" formControlName=\"cidadeId\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroEmpresa.get('cidadeId').hasError('required') && cadastroEmpresa.get('cidadeId').touched\"\n                class=\"invalid-feedback d-block ng-invalid ng-touched\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-4\">\n              <label>Endereço:(*)</label>\n              <input class=\"form-control\" style=\"text-transform: uppercase\"\n                oninput=\"this.value = this.value.toUpperCase()\" type=\"text\" formControlName=\"endereco\" [ngClass]=\"{ 'is-invalid': cadastroEmpresa.get('endereco').errors && \n                                                                        cadastroEmpresa.get('endereco').touched}\" />\n\n              <div\n                *ngIf=\"cadastroEmpresa.get('endereco').hasError('required') &&cadastroEmpresa.get('endereco').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n\n\n            <div class=\"form-group col-md-4\">\n              <label>Bairro:(*)</label>\n              <input class=\"form-control\" style=\"text-transform: uppercase\"\n                oninput=\"this.value = this.value.toUpperCase()\" type=\"text\" formControlName=\"bairro\"\n                [ngClass]=\"{ 'is-invalid': cadastroEmpresa.get('bairro').errors && cadastroEmpresa.get('bairro').touched}\" />\n\n              <div *ngIf=\"cadastroEmpresa.get('bairro').hasError('required') &&cadastroEmpresa.get('bairro').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n          </div>\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-3\">\n              <label>Telefone:(*)</label>\n              <input class=\"form-control\" type=\"text\" maxlength=\"14\" formControlName=\"telefone\" [ngClass]=\"{ 'is-invalid': cadastroEmpresa.get('telefone').errors && \n                      cadastroEmpresa.get('telefone').touched}\" [ngModel]=\"valueTelefonePipe | celularPipePipe\"\n                (ngModelChange)=\"valueTelefonePipe=$event\" />\n\n              <div\n                *ngIf=\"cadastroEmpresa.get('telefone').hasError('required') &&cadastroEmpresa.get('telefone').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label>Status:</label>\n              <ng-select [clearable]=\"false\" [items]=\"status\" [(ngModel)]=\"statusSelecionado\" formControlName=\"status\">\n              </ng-select>\n            </div>\n          </div>\n\n        </form>\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templateEmpresa)\">\n          Fechar\n        </button>\n        <button *ngIf=\"this.idEmpresa != 0 && this.editar == true\" [disabled]=\"!cadastroEmpresa.valid\"\n          class=\"btn btn-primary\" (click)=\"salvarEmpresa(templateEmpresa)\">\n          Salvar\n        </button>\n        <button *ngIf=\"this.idEmpresa == 0 && this.novo == true\" [disabled]=\"!cadastroEmpresa.valid\"\n          class=\"btn btn-primary\" (click)=\"salvarEmpresa(templateEmpresa)\">\n          Cadastrar\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/empresa/empresaTemplate/empresaTemplate.component.ts":
+/*!********************************************************************************!*\
+  !*** ./src/app/cadastros/empresa/empresaTemplate/empresaTemplate.component.ts ***!
+  \********************************************************************************/
+/*! exports provided: EmpresaTemplateComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmpresaTemplateComponent", function() { return EmpresaTemplateComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Empresas_empresa_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Cadastros/Empresas/empresa.service */ "./src/app/_services/Cadastros/Empresas/empresa.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Uteis_cidade_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/cidade.service */ "./src/app/_services/Cadastros/Uteis/cidade.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Uteis_estado_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/estado.service */ "./src/app/_services/Cadastros/Uteis/estado.service.ts");
+
+
+
+
+
+
+
+
+
+var EmpresaTemplateComponent = /** @class */ (function () {
+    function EmpresaTemplateComponent(fb, toastr, dataService, cidadeService, estadoService, permissaoService, changeDetectionRef, empresaService) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.dataService = dataService;
+        this.cidadeService = cidadeService;
+        this.estadoService = estadoService;
+        this.permissaoService = permissaoService;
+        this.changeDetectionRef = changeDetectionRef;
+        this.empresaService = empresaService;
+        this.novo = false;
+        this.editar = false;
+        this.status = ['ATIVO', 'INATIVO'];
+        this.valueCnpjCpfPipe = '';
+        this.valueCepPipe = '';
+        this.valueCelularPipe = '';
+        this.valueTelefonePipe = '';
+        this.valueIePipe = '';
+        this.templateEnabled = false;
+    }
+    EmpresaTemplateComponent.prototype.ngOnInit = function () {
+        this.getEstados();
+        this.estadoIdSelecionado = 11;
+        this.getCidades(this.estadoIdSelecionado);
+        this.validarEmpresa();
+        if (this.idEmpresa !== 0) {
+            this.carregarEmpresa();
+        }
+    };
+    EmpresaTemplateComponent.prototype.ngAfterViewChecked = function () {
+        this.changeDetectionRef.detectChanges();
+    };
+    EmpresaTemplateComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    EmpresaTemplateComponent.prototype.carregarEmpresa = function () {
+        var _this = this;
+        this.empresa = null;
+        this.empresaService.getEmpresaById(this.idEmpresa)
+            .subscribe(function (_EMPRESA) {
+            _this.empresa = Object.assign(_EMPRESA);
+            _this.cadastroEmpresa.patchValue(_this.empresa);
+        }, function (error) {
+            _this.toastr.error("Erro ao tentar carregar Empresa: " + error.error);
+            console.log(error);
+        });
+    };
+    EmpresaTemplateComponent.prototype.validarEmpresa = function () {
+        this.cadastroEmpresa = this.fb.group({
+            id: [''],
+            razaoSocial: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            nomeFantasia: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            telefone: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            cnpjCpf: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            ie: [''],
+            estadoId: [0, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            cidadeId: [0, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            cep: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            endereco: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            bairro: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            status: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+    };
+    EmpresaTemplateComponent.prototype.salvarEmpresa = function (template) {
+        var _this = this;
+        if (this.idEmpresa === 0) {
+            this.empresa = Object.assign(this.cadastroEmpresa.value, { id: 0 });
+            this.empresaService.novaEmpresa(this.empresa).subscribe(function () {
+                _this.fecharTemplate(template);
+                _this.toastr.success("Cadastrado com Sucesso!");
+            }, function (error) {
+                console.log(error.error);
+            });
+        }
+        else {
+            this.empresa = Object.assign(this.cadastroEmpresa.value);
+            this.empresaService.editarEmpresa(this.empresa).subscribe(function () {
+                _this.toastr.success("Editado com Sucesso!");
+            }, function (error) {
+                console.log(error.error);
+            });
+        }
+    };
+    EmpresaTemplateComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            template.show();
+            this.templateEnabled = true;
+        }
+    };
+    EmpresaTemplateComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.empresaService.setEmpresaTemplateStatus(false);
+        this.templateEnabled = false;
+    };
+    EmpresaTemplateComponent.prototype.getEstados = function () {
+        var _this = this;
+        this.estadoService.getAllEstados().subscribe(function (_ESTADOS) {
+            _this.estados = _ESTADOS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar estados: " + error.error);
+        });
+    };
+    EmpresaTemplateComponent.prototype.getCidades = function (EstadoId) {
+        var _this = this;
+        if (EstadoId != null) {
+            this.cidadeService.getCidadeByEstadoId(EstadoId).subscribe(function (_CIDADES) {
+                _this.cidades = _CIDADES;
+            }, function (error) {
+                console.log(error.error);
+                _this.toastr.error("Erro ao tentar carregar cidades: " + error.error);
+            });
+        }
+    };
+    EmpresaTemplateComponent.prototype.limparEstado = function () {
+        this.cidades = [];
+        this.estadoIdSelecionado = [];
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], EmpresaTemplateComponent.prototype, "idEmpresa", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('templateEmpresa'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], EmpresaTemplateComponent.prototype, "templateEmpresa", void 0);
+    EmpresaTemplateComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-empresa-template',
+            template: __webpack_require__(/*! ./empresaTemplate.component.html */ "./src/app/cadastros/empresa/empresaTemplate/empresaTemplate.component.html"),
+            styles: [__webpack_require__(/*! ./empresaTemplate.component.css */ "./src/app/cadastros/empresa/empresaTemplate/empresaTemplate.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_4__["DataService"],
+            src_app_services_Cadastros_Uteis_cidade_service__WEBPACK_IMPORTED_MODULE_7__["CidadeService"],
+            src_app_services_Cadastros_Uteis_estado_service__WEBPACK_IMPORTED_MODULE_8__["EstadoService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_5__["PermissaoService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            src_app_services_Cadastros_Empresas_empresa_service__WEBPACK_IMPORTED_MODULE_6__["EmpresaService"]])
+    ], EmpresaTemplateComponent);
+    return EmpresaTemplateComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/cadastros/formaPagamento/formaPagamento.component.html":
+/*!************************************************************************!*\
+  !*** ./src/app/cadastros/formaPagamento/formaPagamento.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Formas de Pagamanento</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"d-flex\">\n      <div class=\"row\">\n        <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;margin-bottom: 15px;\" class=\"pull-right\">\n          <a (click)=\"abrirTemplateFormaPagamento('NOVO', null, templateFormaPagamento)\" tooltip=\"Novo\"\n            class=\"btn btn-success\">\n            <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo\n          </a>\n        </div>\n      </div>\n    </div>\n    <table class=\"table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Descrição</th>\n          <th>Status</th>\n          <th style=\"text-align: center;width: 100px;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"formasPagamento && formasPagamento.length\">\n        <tr *ngFor=\"let forma of formasPagamento | paginate: { itemsPerPage: 5,\n         currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td style=\"white-space: nowrap;\">{{ forma.descricao }}</td>\n          <td>{{ forma.status }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <a *ngIf=\"this.editar == true || this.visualizar == true\"\n                (click)=\"abrirTemplateFormaPagamento('EDITAR', forma, templateFormaPagamento)\" tooltip=\"Editar/Detalhes\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!formasPagamento || formasPagamento.length == 0\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhuma Forma de Pagamento encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\">\n      </pagination-controls>\n    </div>\n  </div>\n</div>\n\n<div bsModal #templateFormaPagamento=\"bs-modal\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Forma de Pagamento\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templateFormaPagamento.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <div class=\"row\">\n            <div class=\"form-group col-md-6\">\n              <label style=\"white-space: nowrap;\">Descrição:(*)</label>\n              <input type=\"text\" style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                class=\"form-control\" formControlName=\"descricao\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('descricao').errors &&  cadastroForm.get('descricao').touched}\" />\n              <div *ngIf=\"cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n            <div class=\"form-group col-md-4\">\n              <label style=\"white-space: nowrap;\">Status:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"['ATIVO', 'INATIVO']\" [clearable]=\"false\"\n                [ngModel]=\"cadastroForm.get('status').value\" formControlName=\"status\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('status').errors && cadastroForm.get('status').touched}\">\n              </ng-select>\n              <div *ngIf=\"cadastroForm.get('status').hasError('required') &&cadastroForm.get('status').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n          </div>\n      </form>\n    </div>\n    <div class=\"modal-footer d-flex\">\n      <button class=\"btn btn-secondary\">\n        Fechar\n      </button>\n      <button *ngIf=\"this.modo == 'EDITAR' && this.editar == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\"\n        (click)=\"salvarFormaPagamento(templateFormaPagamento)\">\n        Salvar\n      </button>\n      <button *ngIf=\"this.modo == 'NOVO' && this.novo == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\"\n        (click)=\"cadastrarFormaPagamento(templateFormaPagamento)\">\n        Cadastrar\n      </button>\n    </div>\n  </div>\n\n</div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/formaPagamento/formaPagamento.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/cadastros/formaPagamento/formaPagamento.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: FormaPagamentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormaPagamentoComponent", function() { return FormaPagamentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Cadastros/FormaPagamento/formaPagamento.service */ "./src/app/_services/Cadastros/FormaPagamento/formaPagamento.service.ts");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+
+
+
+
+
+
+var FormaPagamentoComponent = /** @class */ (function () {
+    function FormaPagamentoComponent(fb, toastr, formaPagamentoService, permissaoService, changeDetectionRef) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.formaPagamentoService = formaPagamentoService;
+        this.permissaoService = permissaoService;
+        this.changeDetectionRef = changeDetectionRef;
+        this.novo = true;
+        this.editar = true;
+        this.visualizar = true;
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+        this.modo = '';
+    }
+    FormaPagamentoComponent.prototype.ngOnInit = function () {
+        this.getFormaPagamento();
+        this.validarForm();
+    };
+    FormaPagamentoComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    FormaPagamentoComponent.prototype.ngAfterViewChecked = function () {
+        this.changeDetectionRef.detectChanges();
+    };
+    FormaPagamentoComponent.prototype.carregarFormaPagamento = function (formaPagamento) {
+        this.formaPagamento = Object.assign({}, formaPagamento);
+        this.cadastroForm.patchValue(this.formaPagamento);
+    };
+    FormaPagamentoComponent.prototype.validarForm = function () {
+        this.cadastroForm = this.fb.group({
+            id: [''],
+            descricao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            status: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+    };
+    FormaPagamentoComponent.prototype.abrirTemplateFormaPagamento = function (modo, formaPagamento, template) {
+        this.modo = modo;
+        if (modo === 'NOVO') {
+            this.cadastroForm.reset();
+        }
+        else if (modo === 'EDITAR') {
+            this.carregarFormaPagamento(formaPagamento);
+        }
+        template.show();
+    };
+    FormaPagamentoComponent.prototype.cadastrarFormaPagamento = function (template) {
+        var _this = this;
+        this.formaPagamento = Object.assign(this.cadastroForm.value, { id: 0 });
+        this.formaPagamentoService.novoFormaPagamento(this.formaPagamento).subscribe(function () {
+            _this.getFormaPagamento();
+            template.hide();
+            _this.toastr.success("Cadastrado com Sucesso!");
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    FormaPagamentoComponent.prototype.salvarFormaPagamento = function (template) {
+        var _this = this;
+        this.formaPagamento = Object.assign(this.cadastroForm.value);
+        this.formaPagamentoService.editarFormaPagamento(this.formaPagamento).subscribe(function () {
+            _this.getFormaPagamento();
+            template.hide();
+            _this.toastr.success("Editado com Sucesso!");
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    FormaPagamentoComponent.prototype.getFormaPagamento = function () {
+        var _this = this;
+        this.formaPagamentoService.getAllFormaPagamento().subscribe(function (_FORMAS) {
+            _this.formasPagamento = _FORMAS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Formas de Pagamento: " + error.error);
+        });
+    };
+    FormaPagamentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-forma-pagamento',
+            template: __webpack_require__(/*! ./formaPagamento.component.html */ "./src/app/cadastros/formaPagamento/formaPagamento.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_4__["FormaPagamentoService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_5__["PermissaoService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+    ], FormaPagamentoComponent);
+    return FormaPagamentoComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/cadastros/pessoa/editarPessoa/editarPessoa.component.html":
 /*!***************************************************************************!*\
   !*** ./src/app/cadastros/pessoa/editarPessoa/editarPessoa.component.html ***!
@@ -4049,6 +6606,7 @@ var PessoaComponent = /** @class */ (function () {
         this.modoSalvar = '';
         this.bodyExcluirPessoa = '';
         this.paginaAtual = 1;
+        this.totalRegistros = 0;
         this.status = ['ATIVO', 'INATIVO', 'TODOS'];
         this.statusFiltroSelecionado = 'ATIVO';
         this.filtrarPor = ['NOME', 'TIPO', 'CNPJ/CPF', 'CIDADE'];
@@ -4205,6 +6763,413 @@ var PessoaComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/cadastros/planoConta/planoConta.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/cadastros/planoConta/planoConta.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Plano de Contas</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"d-flex\">\n      <div class=\"row\">\n        <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;\" class=\"pull-right\">\n          <a (click)=\"abrirTemplatePlanoConta('NOVO', null, templatePlanoConta)\" tooltip=\"Novo\" class=\"btn btn-success\">\n            <i class=\"fa fa-plus-circle\"></i>&nbsp; Nova Conta\n          </a>\n        </div>\n      </div>\n    </div>\n    <table style=\"margin-top: 15px;\"class=\"table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Nível</th>\n          <th>Descrição</th>\n          <th>Tipo</th>\n          <th>Categoria</th>\n          <th>Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"listaContasFiltradas && listaContasFiltradas.length\">\n        <tr *ngFor=\"let conta of listaContasFiltradas | paginate: { itemsPerPage: 100,\n         currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td>{{ conta.nivel }}</td>\n          <td [ngStyle]=\"{'font-weight': conta.negrito}\" style=\"white-space: nowrap;\">{{ conta.espacamento }}{{ conta.descricao }}</td>\n          <td [ngStyle]=\"{'font-weight': conta.negrito}\">{{ conta.tipo }}</td>\n          <td [ngStyle]=\"{'font-weight': conta.negrito}\">{{ conta.categoria }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <a *ngIf=\"this.editar == true || this.visualizar == true\"\n                (click)=\"abrirTemplatePlanoConta('EDITAR', conta, templatePlanoConta)\" tooltip=\"Editar/Detalhes\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!planoContas\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum Plano de Conta encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\">\n      </pagination-controls>\n    </div>\n  </div>\n</div>\n\n<div bsModal #templatePlanoConta=\"bs-modal\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-lg\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Plano de Conta\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templatePlanoConta.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Descrição:(*)</label>\n              <input type=\"text\" style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n              class=\"form-control\" formControlName=\"descricao\" \n              [ngClass]=\"{ 'is-invalid': cadastroForm.get('descricao').errors && \n                cadastroForm.get('descricao').touched}\"/>\n              <div *ngIf=\"cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Conta Superior:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planoContas\" bindLabel=\"descricao\"\n                bindValue=\"id\" (change)=\"setTipoConta($event)\" [(ngModel)]=\"planoContaIdSuperiorSelecionado\" formControlName=\"planoContasId\">\n                <ng-template ng-option-tmp let-item=\"item\" let-search=\"searchTerm\">\n                  <div><span></span><span [ngOptionHighlight]=\"search\">{{item.descricao}}</span></div>\n                  <small><b>Nível:</b> {{item.nivel}}</small> <br>\n                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>\n                  <small><b>Categoria:</b> {{item.categoria}}</small>\n                </ng-template>\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label style=\"white-space: nowrap;\">Tipo:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"['RECEITA', 'DESPESA', 'MOVIMENTO']\" [clearable]=\"false\"\n                [ngModel]=\"cadastroForm.get('tipo').value\" formControlName=\"tipo\" \n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('tipo').errors && cadastroForm.get('tipo').touched}\">\n              <div *ngIf=\"cadastroForm.get('tipo').hasError('required') &&cadastroForm.get('tipo').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label style=\"white-space: nowrap;\">Categoria:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"['ANALÍTICA', 'SINTÉTICA']\" [clearable]=\"false\"\n                [ngModel]=\"cadastroForm.get('categoria').value\" formControlName=\"categoria\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('categoria').errors && \n                cadastroForm.get('categoria').touched}\">\n              <div *ngIf=\"cadastroForm.get('categoria').hasError('required') &&cadastroForm.get('categoria').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label style=\"white-space: nowrap;\">Status:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"['ATIVO', 'INATIVO']\" [clearable]=\"false\"\n                [ngModel]=\"cadastroForm.get('status').value\" formControlName=\"status\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('status').errors && cadastroForm.get('status').touched}\">\n              </ng-select>\n              <div *ngIf=\"cadastroForm.get('status').hasError('required') &&cadastroForm.get('status').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button (click)=\"templatePlanoConta.hide()\" class=\"btn btn-secondary\">\n          Fechar\n        </button>\n        <button *ngIf=\"this.modo == 'EDITAR' && this.editar == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\"  (click)=\"salvarPlanoConta(templatePlanoConta)\">\n          Salvar\n        </button>\n        <button *ngIf=\"this.modo == 'NOVO' && this.novo == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\"  (click)=\"cadastrarPlanoConta(templatePlanoConta)\">\n          Cadastrar\n        </button>\n      </div>\n    </div>\n\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/planoConta/planoConta.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/cadastros/planoConta/planoConta.component.ts ***!
+  \**************************************************************/
+/*! exports provided: PlanoContaComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlanoContaComponent", function() { return PlanoContaComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+
+
+
+
+
+
+
+var PlanoContaComponent = /** @class */ (function () {
+    function PlanoContaComponent(fb, toastr, router, permissaoService, planoContaService, changeDetectionRef) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.router = router;
+        this.permissaoService = permissaoService;
+        this.planoContaService = planoContaService;
+        this.changeDetectionRef = changeDetectionRef;
+        this.novo = true;
+        this.editar = true;
+        this.visualizar = true;
+        this.planoContaIdSuperiorSelecionado = 0;
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+        this.disabledTipo = false;
+        this.modo = '';
+    }
+    PlanoContaComponent.prototype.ngOnInit = function () {
+        this.getPlanoContas();
+        this.validarForm();
+    };
+    PlanoContaComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE CONTAS', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE CONTAS', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE CONTAS', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    PlanoContaComponent.prototype.ngAfterViewChecked = function () {
+        this.changeDetectionRef.detectChanges();
+    };
+    PlanoContaComponent.prototype.carregarPlanoConta = function (planoConta) {
+        this.planoConta = Object.assign({}, planoConta);
+        this.cadastroForm.patchValue(this.planoConta);
+        this.setTipoConta(this.planoConta);
+    };
+    PlanoContaComponent.prototype.validarForm = function () {
+        this.cadastroForm = this.fb.group({
+            id: [''],
+            descricao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            tipo: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            categoria: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            nivel: [''],
+            planoContasId: [''],
+            status: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+    };
+    PlanoContaComponent.prototype.abrirTemplatePlanoConta = function (modo, planoConta, template) {
+        this.planoContaIdSuperiorSelecionado = 0;
+        this.modo = modo;
+        if (modo === 'NOVO') {
+            this.validarForm();
+        }
+        else if (modo === 'EDITAR') {
+            this.carregarPlanoConta(planoConta);
+        }
+        template.show();
+    };
+    PlanoContaComponent.prototype.setTipoConta = function (contaSelecionada) {
+        if (contaSelecionada) {
+            this.cadastroForm.get('tipo').setValue(contaSelecionada.tipo);
+        }
+        else {
+            this.cadastroForm.get('tipo').setValue(null);
+        }
+    };
+    PlanoContaComponent.prototype.criarNivel = function (_PLANOFILHOS, raiz) {
+        var qtdFilhos = 0;
+        var nivelPai = _PLANOFILHOS.nivel;
+        if (raiz === false) {
+            qtdFilhos = _PLANOFILHOS.planoConta.length;
+            var nivelFilho = qtdFilhos + 1;
+            if (nivelPai.length === 7) {
+                return nivelPai + "." + ("00" + nivelFilho).slice(-2);
+            }
+            else if (nivelPai.length === 10) {
+                return nivelPai + "." + ("0000" + nivelFilho).slice(-4);
+            }
+            else {
+                return nivelPai + "." + nivelFilho;
+            }
+        }
+        else {
+            qtdFilhos = _PLANOFILHOS.filter(function (c) { return c.planoContasId === null; }).length;
+            qtdFilhos = qtdFilhos + 1;
+            var nivelFilho = qtdFilhos.toString();
+            return nivelFilho;
+        }
+    };
+    PlanoContaComponent.prototype.cadastrarPlanoConta = function (template) {
+        var _this = this;
+        var nivelFilho = '';
+        if (!this.planoContaIdSuperiorSelecionado) {
+            this.planoContaIdSuperiorSelecionado = 0;
+        }
+        this.planoContaService.getPlanoContasFilhosById(this.planoContaIdSuperiorSelecionado).subscribe(function (_PLANOFILHOS) {
+            if (_PLANOFILHOS) {
+                nivelFilho = _this.criarNivel(_PLANOFILHOS, false);
+            }
+            else {
+                nivelFilho = _this.criarNivel(_this.planoContas, true);
+                _this.planoContaIdSuperiorSelecionado = null;
+            }
+            _this.planoConta = Object.assign(_this.cadastroForm.value, { id: 0, nivel: nivelFilho, planoContasId: _this.planoContaIdSuperiorSelecionado });
+            _this.planoContaService.novoPlanoConta(_this.planoConta).subscribe(function () {
+                _this.getPlanoContas();
+                template.hide();
+                _this.toastr.success("Cadastrado com Sucesso!");
+            }, function (error) {
+                console.log(error.error);
+            });
+        });
+    };
+    PlanoContaComponent.prototype.salvarPlanoConta = function (template) {
+        var _this = this;
+        this.planoConta = Object.assign(this.cadastroForm.value, { tipo: this.cadastroForm.get('tipo').value, planosContaId: this.planoContaIdSuperiorSelecionado });
+        this.planoContaService.editarPlanoConta(this.planoConta).subscribe(function () {
+            _this.getPlanoContas();
+            template.hide();
+            _this.toastr.success("Editado com Sucesso!");
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    PlanoContaComponent.prototype.filtrarPlanoContas = function (conta) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var espaco, index;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                espaco = '';
+                for (index = 0; index < conta.nivel.length; index++) {
+                    espaco += '  ';
+                    index = index;
+                }
+                conta = Object.assign(conta, { espacamento: espaco,
+                    negrito: (conta.categoria === 'SINTÉTICA') ? 'bold' : 'regular' });
+                this.listaContasFiltradas.push(conta);
+                if (conta.planoConta) {
+                    conta.planoConta.forEach(function (contaFilho) {
+                        _this.filtrarPlanoContas(contaFilho);
+                    });
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
+    PlanoContaComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContas = _PLANOS;
+            _this.listaContasFiltradas = [];
+            console.log(_this.planoContas.filter(function (c) { return c.planoContasId === null; }));
+            _this.planoContas.filter(function (c) { return c.planoContasId === null; }).forEach(function (conta) {
+                _this.filtrarPlanoContas(conta);
+            });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    PlanoContaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-plano-conta',
+            template: __webpack_require__(/*! ./planoConta.component.html */ "./src/app/cadastros/planoConta/planoConta.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_6__["PermissaoService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_5__["PlanoContaService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+    ], PlanoContaComponent);
+    return PlanoContaComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/cadastros/planoPagamento/planoPagamento.component.css":
+/*!***********************************************************************!*\
+  !*** ./src/app/cadastros/planoPagamento/planoPagamento.component.css ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".modal-xl {\r\n    width: 45%;\r\n    /* New width for large modal */\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FkYXN0cm9zL3BsYW5vUGFnYW1lbnRvL3BsYW5vUGFnYW1lbnRvLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxVQUFVO0lBQ1YsOEJBQThCO0FBQ2xDIiwiZmlsZSI6InNyYy9hcHAvY2FkYXN0cm9zL3BsYW5vUGFnYW1lbnRvL3BsYW5vUGFnYW1lbnRvLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubW9kYWwteGwge1xyXG4gICAgd2lkdGg6IDQ1JTtcclxuICAgIC8qIE5ldyB3aWR0aCBmb3IgbGFyZ2UgbW9kYWwgKi9cclxufVxyXG4iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/planoPagamento/planoPagamento.component.html":
+/*!************************************************************************!*\
+  !*** ./src/app/cadastros/planoPagamento/planoPagamento.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Planos de Pagamanento</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"d-flex\">\n      <div class=\"row\">\n        <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;margin-bottom: 15px;\" class=\"pull-right\">\n          <a (click)=\"abrirTemplatePlanoPagamento('NOVO', null, templatePlanoPagamento)\" tooltip=\"Novo\"\n            class=\"btn btn-success\">\n            <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo\n          </a>\n        </div>\n      </div>\n    </div>\n    <table class=\"table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Descrição</th>\n          <th>Status</th>\n          <th style=\"text-align: center;width: 100px;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"planosPagamento && planosPagamento.length\">\n        <tr *ngFor=\"let plano of planosPagamento | paginate: { itemsPerPage: 100,\n         currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td style=\"white-space: nowrap;\">{{ plano.descricao }}</td>\n          <td>{{ plano.status }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <a *ngIf=\"this.editar == true || this.visualizar == true\"\n                (click)=\"abrirTemplatePlanoPagamento('EDITAR', plano, templatePlanoPagamento)\" tooltip=\"Editar/Detalhes\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!planosPagamento || planosPagamento.length == 0\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhuma Plano de Pagamento encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\">\n      </pagination-controls>\n    </div>\n  </div>\n</div>\n\n<div bsModal #templatePlanoPagamento=\"bs-modal\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Plano de Pagamento\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templatePlanoPagamento.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-5\">\n          <div class=\"row\">\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Forma de Pagamento:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"formasPagamento\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [(ngModel)]=\"formaPagamentoIdSelecionado\" formControlName=\"formaPagamentoId\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('formaPagamentoId').errors && cadastroForm.get('formaPagamentoId').touched}\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroForm.get('formaPagamentoId').hasError('required') &&cadastroForm.get('formaPagamentoId').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">N° de Parcelas:</label>\n              <ng-select style=\"text-transform: uppercase\"\n                [items]=\"['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']\" [clearable]=\"false\"\n                [ngModel]=\"cadastroForm.get('qtdParcelas').value\" formControlName=\"qtdParcelas\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('qtdParcelas').errors && cadastroForm.get('qtdParcelas').touched}\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroForm.get('qtdParcelas').hasError('required') &&cadastroForm.get('qtdParcelas').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Prazo 1ª Parcela:</label>\n              <input currencyMask min=\"0\" max=\"120\" [options]=\"{ prefix: '',thousands: '', precision: 0 }\"\n                class=\"form-control\" formControlName=\"prazoPrimeiraParcela\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('prazoPrimeiraParcela').errors &&  cadastroForm.get('prazoPrimeiraParcela').touched}\" />\n              <div\n                *ngIf=\"cadastroForm.get('prazoPrimeiraParcela').hasError('required') &&cadastroForm.get('prazoPrimeiraParcela').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n              <div\n                *ngIf=\"cadastroForm.get('prazoPrimeiraParcela').hasError('max') || cadastroForm.get('prazoPrimeiraParcela').hasError('min') && cadastroForm.get('prazoPrimeiraParcela').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0 e menor que 120.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Intervalo Parcelas:</label>\n              <input currencyMask min=\"0\" max=\"365\" [options]=\"{ prefix: '',thousands: '', precision: 0 }\"\n                class=\"form-control\" formControlName=\"intervaloParcelas\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('intervaloParcelas').errors &&  cadastroForm.get('intervaloParcelas').touched}\" />\n              <div\n                *ngIf=\"cadastroForm.get('intervaloParcelas').hasError('required') &&cadastroForm.get('intervaloParcelas').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n              <div\n                *ngIf=\"cadastroForm.get('intervaloParcelas').hasError('max') || cadastroForm.get('intervaloParcelas').hasError('min') && cadastroForm.get('intervaloParcelas').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0 e menor que 365.\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Juros:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" min=\"0.0\" max=\"100.0\" currencyMask formControlName=\"juros\"\n                  [ngClass]=\"{ 'is-invalid': cadastroForm.get('juros').errors &&  cadastroForm.get('juros').touched}\"\n                  [options]=\"{ prefix: '', thousands: '', precision: 2 }\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-percent\"></i></span>\n              </div>\n              <div *ngIf=\"cadastroForm.get('juros').hasError('required') &&cadastroForm.get('juros').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n              <div\n                *ngIf=\"cadastroForm.get('juros').hasError('max') || cadastroForm.get('juros').hasError('min') && cadastroForm.get('juros').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0 e menor que 100.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Desconto:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" min=\"0.0\" max=\"100.0\" currencyMask formControlName=\"desconto\"\n                  [ngClass]=\"{ 'is-invalid': cadastroForm.get('desconto').errors &&  cadastroForm.get('desconto').touched}\"\n                  [options]=\"{ prefix: '', precision: 2 }\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-percent\"></i></span>\n              </div>\n              <div *ngIf=\"cadastroForm.get('desconto').hasError('required') && cadastroForm.get('desconto').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n              <div\n                *ngIf=\"cadastroForm.get('desconto').hasError('max') || cadastroForm.get('desconto').hasError('min') && cadastroForm.get('desconto').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0 e menor que 100.\n              </div>\n\n            </div>\n\n            <div class=\"form-group col-md-4\">\n              <label style=\"white-space: nowrap;\">Conta de Recebimentos:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planoContas\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [(ngModel)]=\"planoContasIdSelecionado\" formControlName=\"planoContasId\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('planoContasId').errors && cadastroForm.get('planoContasId').touched}\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroForm.get('planoContasId').hasError('required') &&cadastroForm.get('planoContasId').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n\n          </div>\n\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-5\">\n              <label style=\"white-space: nowrap;\">Descrição:</label>\n              <input type=\"text\" style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                class=\"form-control\" formControlName=\"descricao\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('descricao').errors &&  cadastroForm.get('descricao').touched}\" />\n              <div *ngIf=\"cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Status:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"['ATIVO', 'INATIVO']\" [clearable]=\"false\"\n                [ngModel]=\"cadastroForm.get('status').value\" formControlName=\"status\"\n                [ngClass]=\"{ 'is-invalid': cadastroForm.get('status').errors && cadastroForm.get('status').touched}\">\n              </ng-select>\n              <div *ngIf=\"cadastroForm.get('status').hasError('required') &&cadastroForm.get('status').touched\"\n                class=\"invalid-feedback\">\n                Campo Obrigatório.\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"templatePlanoPagamento.hide()\">\n          Fechar\n        </button>\n        <button *ngIf=\"this.modo == 'EDITAR' && this.editar == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\"\n          (click)=\"salvarPlanoPagamento(templatePlanoPagamento)\">\n          Salvar\n        </button>\n        <button *ngIf=\"this.modo == 'NOVO' && this.novo == true\" [disabled]=\"!cadastroForm.valid\" class=\"btn btn-primary\"\n          (click)=\"cadastrarPlanoPagamento(templatePlanoPagamento)\">\n          Cadastrar\n        </button>\n      </div>\n    </div>\n\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/cadastros/planoPagamento/planoPagamento.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/cadastros/planoPagamento/planoPagamento.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: PlanoPagamentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlanoPagamentoComponent", function() { return PlanoPagamentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service */ "./src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/FormaPagamento/formaPagamento.service */ "./src/app/_services/Cadastros/FormaPagamento/formaPagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+
+
+
+
+
+
+
+
+var PlanoPagamentoComponent = /** @class */ (function () {
+    function PlanoPagamentoComponent(fb, toastr, planoPagamentoService, formaPagamentoService, planoContaService, permissaoService, changeDetectionRef) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.planoPagamentoService = planoPagamentoService;
+        this.formaPagamentoService = formaPagamentoService;
+        this.planoContaService = planoContaService;
+        this.permissaoService = permissaoService;
+        this.changeDetectionRef = changeDetectionRef;
+        this.novo = true;
+        this.editar = true;
+        this.visualizar = true;
+        this.formaPagamentoIdSelecionado = 0;
+        this.planoContasIdSelecionado = 0;
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+        this.modo = '';
+    }
+    PlanoPagamentoComponent.prototype.ngOnInit = function () {
+        this.getPlanoPagamento();
+        this.getPlanoContas();
+        this.getFormaPagamento();
+        this.validarForm();
+    };
+    PlanoPagamentoComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    PlanoPagamentoComponent.prototype.ngAfterViewChecked = function () {
+        this.changeDetectionRef.detectChanges();
+    };
+    PlanoPagamentoComponent.prototype.carregarPlanoPagamento = function (planoPagamento) {
+        this.planoPagamento = Object.assign({}, planoPagamento);
+        this.cadastroForm.patchValue(this.planoPagamento);
+    };
+    PlanoPagamentoComponent.prototype.validarForm = function () {
+        this.cadastroForm = this.fb.group({
+            id: [''],
+            formaPagamentoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            descricao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            qtdParcelas: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            prazoPrimeiraParcela: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].max(120), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].min(0)]],
+            intervaloParcelas: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].max(365), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].min(0)]],
+            juros: [0, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].max(100), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].min(0)]],
+            desconto: [0, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].max(100), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].min(0)]],
+            planoContasId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            status: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+    };
+    PlanoPagamentoComponent.prototype.abrirTemplatePlanoPagamento = function (modo, planoPagamento, template) {
+        this.modo = modo;
+        if (modo === 'NOVO') {
+            this.cadastroForm.reset();
+        }
+        else if (modo === 'EDITAR') {
+            this.carregarPlanoPagamento(planoPagamento);
+        }
+        template.show();
+    };
+    PlanoPagamentoComponent.prototype.cadastrarPlanoPagamento = function (template) {
+        var _this = this;
+        this.planoPagamento = Object.assign(this.cadastroForm.value, { id: 0,
+            formaPagamentoId: this.formaPagamentoIdSelecionado,
+            planoContasId: this.planoContasIdSelecionado
+        });
+        this.planoPagamentoService.novoPlanoPagamento(this.planoPagamento).subscribe(function () {
+            _this.getPlanoPagamento();
+            template.hide();
+            _this.toastr.success("Cadastrado com Sucesso!");
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    PlanoPagamentoComponent.prototype.salvarPlanoPagamento = function (template) {
+        var _this = this;
+        this.planoPagamento = Object.assign(this.cadastroForm.value, { formaPagamentoId: this.formaPagamentoIdSelecionado });
+        this.planoPagamentoService.editarPlanoPagamento(this.planoPagamento).subscribe(function () {
+            _this.getPlanoPagamento();
+            template.hide();
+            _this.toastr.success("Editado com Sucesso!");
+        }, function (error) {
+            console.log(error.error);
+        });
+    };
+    PlanoPagamentoComponent.prototype.getPlanoPagamento = function () {
+        var _this = this;
+        this.planoPagamentoService.getAllPlanoPagamento().subscribe(function (_FORMAS) {
+            _this.planosPagamento = _FORMAS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Pagamento: " + error.error);
+        });
+    };
+    PlanoPagamentoComponent.prototype.getFormaPagamento = function () {
+        var _this = this;
+        this.formaPagamentoService.getAllFormaPagamento().subscribe(function (_FORMAS) {
+            _this.formasPagamento = _FORMAS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Formas de Pagamentos: " + error.error);
+        });
+    };
+    PlanoPagamentoComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContas = _PLANOS.filter(function (c) { return c.tipo === 'MOVIMENTO' && c.categoria === 'ANALÍTICA'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Plano de Contas: " + error.error);
+        });
+    };
+    PlanoPagamentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-plano-pagamento',
+            template: __webpack_require__(/*! ./planoPagamento.component.html */ "./src/app/cadastros/planoPagamento/planoPagamento.component.html"),
+            styles: [__webpack_require__(/*! ./planoPagamento.component.css */ "./src/app/cadastros/planoPagamento/planoPagamento.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_4__["PlanoPagamentoService"],
+            src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_5__["FormaPagamentoService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__["PlanoContaService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_7__["PermissaoService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+    ], PlanoPagamentoComponent);
+    return PlanoPagamentoComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/cadastros/produto/editarProduto/editarProduto.component.html":
 /*!******************************************************************************!*\
   !*** ./src/app/cadastros/produto/editarProduto/editarProduto.component.html ***!
@@ -4212,7 +7177,7 @@ var PessoaComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Produto</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <tabset>\n      <tab heading=\"Geral\" style=\"margin-top: 10px;\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <div class=\"row mt-4\">\n            <div class=\"form-group col-md-5\">\n              <label>Descrição:(*)</label>\n              <input style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                class=\"form-control\" type=\"text\" formControlName=\"descricao\" [ngClass]=\"{ 'is-invalid': cadastroForm.get('descricao').errors && \n                                        cadastroForm.get('descricao').touched}\" />\n\n              <div *ngIf=\"cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Descrição é obrigatório.\n              </div>\n            </div>\n          </div>\n        </form>\n      </tab>\n \n      <tab heading=\"Produto Itens\" style=\"margin-top: 20px;\">\n          <div style=\"margin-right: 15px;margin-bottom: 10px;\"class=\"pull-right\">\n              <a (click)=\"novoItem(templateItem)\"\n                tooltip=\"Novo Item\" class=\"btn btn-success\"> \n                <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Item\n              </a>\n            </div>\n  \n          <table class=\"table table-striped table-bordered mt-3\">\n            <thead class=\"thead-light\">\n              <tr>\n                <th>Id</th>\n                <th>Descrição</th>\n                <th>Tipo</th>\n                <th style=\"text-align: center;\">Ações</th>\n              </tr>\n            </thead>\n            <tbody *ngIf=\"produtoItens && produtoItens.length\">\n              <tr *ngFor=\"let Item of produtoItens\">\n                <td>{{ Item.id }}</td>\n                <td style=\"white-space: nowrap;\" >{{ Item.descricao }}</td>\n                <td style=\"white-space: nowrap;text-align: center;\">\n                    <span style=\"margin-top:0px;\" *ngIf=\"Item.tipoItem == 'ENTRADA'\" class=\"label label-info\">\n                      {{ Item.tipoItem }}\n                    </span>\n                    <span style=\"margin-top:0px;\" *ngIf=\"Item.tipoItem != 'ENTRADA'\" class=\"label label-danger\">\n                        {{ Item.tipoItem }}\n                    </span>\n                    <span style=\"margin-left: 5px;margin-top:0px;\" *ngIf=\"Item.tipoItem != 'ENTRADA'\" class=\"label label-warning\">\n                      {{ Item.subTipoItem }}\n                    </span>\n              </td>\n                <td style=\"white-space: nowrap;text-align: center;\">\n                  <div class=\"btn-group\">\n                    <a (click)=\"editarItem(templateItem, Item)\" tooltip=\"Editar/Detalhes\"\n                      class=\"btn btn-sm btn-primary\">\n                      <i class=\"fa fa-edit\"></i>\n                    </a>\n                  </div>\n                </td>\n              </tr>\n            </tbody>\n  \n            <tfoot *ngIf=\"!produtoItens\">\n              <tr colspan=\"7\" class=\"text-center\"></tr>\n              <h4>\n                Nenhum Item encontrado!\n              </h4>\n            </tfoot>\n          </table>\n        </tab>\n    </tabset>\n  </div>\n</div>\n<button style=\"position:relative;\" [disabled]=\"!cadastroForm.valid\" (click)=\"salvarAlteracoes()\" tooltip=\"Salvar\"\n  class=\"btn btn-lg btn-primary\">\n  &nbsp;Salvar Alterações\n</button>\n\n\n<div bsModal #templateItem=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\"\n  aria-labelledby=\"dialog-sizes-name1\">\n  <div class=\"modal-dialog modal-sm\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Item\n        </h4>\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templateItem.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroItemForm\">\n          <input type=\"hidden\" class=\"form-control\" formControlName=\"id\" value=\"0\" placeholder=\"\" />\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-8\">\n              <label>Tipo:</label>\n              <ng-select [clearable]=\"false\" [items]=\"tipos\" [(ngModel)]=\"tipoSelecionado\"\n                formControlName=\"tipoItem\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroItemForm.get('tipoItem').hasError('required') &&cadastroItemForm.get('tipoItem').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n          </div>\n\n          <div *ngIf=\"tipoSelecionado == 'SAIDA'\" class=\"row\">\n            <div class=\"form-group col-md-8\">\n              <label>SubTipo:</label>\n              <ng-select [clearable]=\"false\" [items]=\"subTipos\" [(ngModel)]=\"subTipoSelecionado\"\n                formControlName=\"subTipoItem\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroItemForm.get('subTipoItem').hasError('required') &&cadastroItemForm.get('subTipoItem').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n          </div>\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-12\">\n              <label>Descrição:</label>\n              <input type=\"text\" class=\"form-control\" style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                [ngClass]=\"{'is-invalid':cadastroItemForm.get('descricao').errors &&cadastroItemForm.get('descricao').touched}\"\n                formControlName=\"descricao\" />\n              <div\n                *ngIf=\"cadastroItemForm.get('descricao').hasError('required') &&cadastroItemForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n          </div>\n\n        </form>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"templateItem.hide()\">\n          Fechar\n        </button>\n\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!cadastroItemForm.valid\"\n          (click)=\"adicionarItem(templateItem)\">\n          Salvar Alterações\n        </button>\n      </div>\n    </div>\n  </div>"
+module.exports = "<h2>Produto</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <tabset>\n      <tab heading=\"Geral\" style=\"margin-top: 10px;\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <div class=\"row mt-4\">\n            <div class=\"form-group col-md-5\">\n              <label>Descrição:(*)</label>\n              <input style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                class=\"form-control\" type=\"text\" formControlName=\"descricao\" [ngClass]=\"{ 'is-invalid': cadastroForm.get('descricao').errors && \n                                        cadastroForm.get('descricao').touched}\" />\n\n              <div *ngIf=\"cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Descrição é obrigatório.\n              </div>\n            </div>\n          </div>\n        </form>\n      </tab>\n\n      <tab heading=\"Produto Itens\" style=\"margin-top: 20px;\">\n        <div style=\"margin-right: 15px;margin-bottom: 10px;\" class=\"pull-right\">\n          <a (click)=\"novoItem(templateItem)\" tooltip=\"Novo Item\" class=\"btn btn-success\">\n            <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Item\n          </a>\n        </div>\n\n        <table class=\"table table-striped table-bordered mt-3\">\n          <thead class=\"thead-light\">\n            <tr>\n              <th>Id</th>\n              <th>Descrição</th>\n              <th>Tipo</th>\n              <th style=\"text-align: center;\">Ações</th>\n            </tr>\n          </thead>\n          <tbody *ngIf=\"produtoItens && produtoItens.length\">\n            <tr *ngFor=\"let Item of produtoItens\">\n              <td>{{ Item.id }}</td>\n              <td style=\"white-space: nowrap;\">{{ Item.descricao }}</td>\n              <td style=\"white-space: nowrap;text-align: center;\">\n                <span style=\"margin-top:0px;\" *ngIf=\"Item.tipoItem == 'RECEITA'\" class=\"label label-info\">\n                  {{ Item.tipoItem }}\n                </span>\n                <span style=\"margin-top:0px;\" *ngIf=\"Item.tipoItem != 'RECEITA'\" class=\"label label-danger\">\n                  {{ Item.tipoItem }}\n                </span>\n                <span style=\"margin-left: 5px;margin-top:0px;\" *ngIf=\"Item.tipoItem != 'RECEITA'\"\n                  class=\"label label-warning\">\n                  {{ Item.subTipoItem }}\n                </span>\n              </td>\n              <td style=\"white-space: nowrap;text-align: center;\">\n                <div class=\"btn-group\">\n                  <a (click)=\"editarItem(templateItem, Item)\" tooltip=\"Editar/Detalhes\" class=\"btn btn-sm btn-primary\">\n                    <i class=\"fa fa-edit\"></i>\n                  </a>\n                </div>\n              </td>\n            </tr>\n          </tbody>\n\n          <tfoot *ngIf=\"!produtoItens\">\n            <tr colspan=\"7\" class=\"text-center\"></tr>\n            <h4>\n              Nenhum Item encontrado!\n            </h4>\n          </tfoot>\n        </table>\n      </tab>\n    </tabset>\n  </div>\n</div>\n<button style=\"position:relative;\" [disabled]=\"!cadastroForm.valid\" (click)=\"salvarAlteracoes()\" tooltip=\"Salvar\"\n  class=\"btn btn-lg btn-primary\">\n  &nbsp;Salvar Alterações\n</button>\n\n\n<div bsModal #templateItem=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\"\n  aria-labelledby=\"dialog-sizes-name1\">\n  <div class=\"modal-dialog \">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Item\n        </h4>\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templateItem.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroItemForm\">\n          <input type=\"hidden\" class=\"form-control\" formControlName=\"id\" value=\"0\" placeholder=\"\" />\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-8\">\n              <label>Tipo:</label>\n              <ng-select [clearable]=\"false\" [items]=\"tipos\" [(ngModel)]=\"tipoSelecionado\" formControlName=\"tipoItem\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroItemForm.get('tipoItem').hasError('required') &&cadastroItemForm.get('tipoItem').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n          </div>\n\n          <div *ngIf=\"tipoSelecionado == 'DESPESA'\" class=\"row\">\n            <div class=\"form-group col-md-8\">\n              <label>SubTipo:</label>\n              <ng-select [clearable]=\"false\" [items]=\"subTipos\" [(ngModel)]=\"subTipoSelecionado\"\n                formControlName=\"subTipoItem\">\n              </ng-select>\n              <div\n                *ngIf=\"cadastroItemForm.get('subTipoItem').hasError('required') &&cadastroItemForm.get('subTipoItem').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n          </div>\n\n          <div *ngIf=\"tipoSelecionado == 'DESPESA'\" class=\"row\">\n            <div class=\"form-group col-md-8\">\n              <label>Centro de Despesa:</label>\n              <ng-select  [clearable]=\"false\" [items]=\"centrosDespesa\" bindLabel=\"descricao\" bindValue=\"id\" [(ngModel)]=\"centroDespesaIdSelecionado\"\n                formControlName=\"centroDespesaId\">\n              </ng-select>\n            </div>\n          </div>\n\n          <div *ngIf=\"tipoSelecionado == 'RECEITA'\" class=\"row\">\n            <div class=\"form-group col-md-8\">\n              <label>Centro de Receita:</label>\n              <ng-select  [clearable]=\"false\" bindLabel=\"descricao\" bindValue=\"id\" [items]=\"centrosReceita\" [(ngModel)]=\"centroReceitaIdSelecionado\"\n                formControlName=\"centroReceitaId\">\n              </ng-select>\n            </div>\n          </div>\n\n          <div *ngIf=\"tipoSelecionado == 'RECEITA' || tipoSelecionado == 'DESPESA' \" class=\"row\">\n            <div class=\"form-group col-md-10\">\n              <label>Plano de Conta:</label>\n\n              <ng-select  *ngIf=\"tipoSelecionado == 'RECEITA'\" style=\"text-transform: uppercase\" [items]=\"planoContasReceita\" bindLabel=\"descricao\" required\n                  bindValue=\"id\" [(ngModel)]=\"planoContasIdSelecionado\" formControlName=\"planoContasId\">\n                  <ng-template ng-option-tmp let-item=\"item\" let-search=\"searchTerm\">\n                    <div><span></span><span [ngOptionHighlight]=\"search\">{{item.descricao}}</span></div>\n                    <small><b>Nível:</b> {{item.nivel}}</small> <br>\n                    <small><b>Tipo:</b> {{item.tipo}}</small> <br>\n                    <small><b>Categoria:</b> {{item.categoria}}</small>\n                  </ng-template>\n                </ng-select>\n                <ng-select  *ngIf=\"tipoSelecionado != 'RECEITA'\" style=\"text-transform: uppercase\" [items]=\"planoContasDespesa\" bindLabel=\"descricao\" required\n                  bindValue=\"id\" [(ngModel)]=\"planoContasIdSelecionado\" formControlName=\"planoContasId\">\n                  <ng-template ng-option-tmp let-item=\"item\" let-search=\"searchTerm\">\n                    <div><span></span><span [ngOptionHighlight]=\"search\">{{item.descricao}}</span></div>\n                    <small><b>Nível:</b> {{item.nivel}}</small> <br>\n                    <small><b>Tipo:</b> {{item.tipo}}</small> <br>\n                    <small><b>Categoria:</b> {{item.categoria}}</small>\n                  </ng-template>\n                </ng-select>\n              <div\n                *ngIf=\"cadastroItemForm.get('planoContasId').hasError('required') &&cadastroItemForm.get('planoContasId').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n          </div>\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-12\">\n              <label>Descrição:</label>\n              <input type=\"text\" class=\"form-control\" style=\"text-transform: uppercase\"\n                oninput=\"this.value = this.value.toUpperCase()\"\n                [ngClass]=\"{'is-invalid':cadastroItemForm.get('descricao').errors &&cadastroItemForm.get('descricao').touched}\"\n                formControlName=\"descricao\" />\n              <div\n                *ngIf=\"cadastroItemForm.get('descricao').hasError('required') &&cadastroItemForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n          </div>\n\n        </form>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"templateItem.hide()\">\n          Fechar\n        </button>\n\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!cadastroItemForm.valid\"\n          (click)=\"adicionarItem(templateItem)\">\n          Salvar Alterações\n        </button>\n      </div>\n    </div>\n  </div>"
 
 /***/ }),
 
@@ -4233,6 +7198,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_Cadastros_Produtos_produto_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Cadastros/Produtos/produto.service */ "./src/app/_services/Cadastros/Produtos/produto.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Cadastros_CentroReceita_centroReceita_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_services/Cadastros/CentroReceita/centroReceita.service */ "./src/app/_services/Cadastros/CentroReceita/centroReceita.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+/* harmony import */ var src_app_services_Cadastros_CentroDespesa_centroDespesa_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_services/Cadastros/CentroDespesa/centroDespesa.service */ "./src/app/_services/Cadastros/CentroDespesa/centroDespesa.service.ts");
+
+
+
 
 
 
@@ -4241,14 +7212,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var EditarProdutoComponent = /** @class */ (function () {
-    function EditarProdutoComponent(fb, toastr, produtoService, router, changeDetectionRef, permissaoService) {
+    function EditarProdutoComponent(fb, toastr, produtoService, router, changeDetectionRef, centroReceitaService, centroDespesaService, planoContaService, permissaoService) {
         this.fb = fb;
         this.toastr = toastr;
         this.produtoService = produtoService;
         this.router = router;
         this.changeDetectionRef = changeDetectionRef;
+        this.centroReceitaService = centroReceitaService;
+        this.centroDespesaService = centroDespesaService;
+        this.planoContaService = planoContaService;
         this.permissaoService = permissaoService;
-        this.tipos = ['ENTRADA', 'SAIDA'];
+        this.tipos = ['RECEITA', 'DESPESA'];
         this.subTipos = ['COMISSÃO', 'GASTO'];
         this.produtoItens = [];
         this.novosItem = [];
@@ -4263,6 +7237,9 @@ var EditarProdutoComponent = /** @class */ (function () {
         this.validarForm();
         this.validarItemForm();
         this.carregarProduto();
+        this.getCentroDespesa();
+        this.getCentroReceita();
+        this.getPlanoContas();
     };
     EditarProdutoComponent.prototype.carregarProduto = function () {
         var _this = this;
@@ -4288,13 +7265,16 @@ var EditarProdutoComponent = /** @class */ (function () {
             id: [''],
             produtosId: [''],
             tipoItem: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            subTipoItem: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            descricao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+            subTipoItem: [''],
+            descricao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            centroDespesaId: ['',],
+            centroReceitaId: [''],
+            planoContasId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
         });
     };
     EditarProdutoComponent.prototype.adicionarItem = function (template) {
         var _this = this;
-        if (this.cadastroItemForm.get('tipoItem').value === 'ENTRADA') {
+        if (this.cadastroItemForm.get('tipoItem').value === 'RECEITA') {
             this.cadastroItemForm.get('subTipoItem').setValue(null);
         }
         if (this.modoSalvar === 'novo') {
@@ -4322,6 +7302,9 @@ var EditarProdutoComponent = /** @class */ (function () {
         this.modoSalvar = 'editar';
         this.idItemEdit = Item.id;
         this.cadastroItemForm.patchValue(Item);
+        this.planoContasIdSelecionado = Item.planoContasId;
+        this.centroDespesaIdSelecionado = Item.centroDespesaId;
+        this.centroReceitaIdSelecionado = Item.centroReceitaId;
         this.subTipoSelecionado = Item.subTipoItem;
         template.show();
     };
@@ -4343,6 +7326,34 @@ var EditarProdutoComponent = /** @class */ (function () {
             console.log(error.error);
         });
     };
+    EditarProdutoComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContasReceita = _PLANOS.filter(function (c) { return c.tipo === 'RECEITA' && c.categoria === 'ANALÍTICA'; });
+            _this.planoContasDespesa = _PLANOS.filter(function (c) { return c.tipo === 'DESPESA' && c.categoria === 'ANALÍTICA'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    EditarProdutoComponent.prototype.getCentroReceita = function () {
+        var _this = this;
+        this.centroReceitaService.getAllCentroReceita().subscribe(function (_CENTROS) {
+            _this.centrosReceita = _CENTROS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Centros de Receita: " + error.error);
+        });
+    };
+    EditarProdutoComponent.prototype.getCentroDespesa = function () {
+        var _this = this;
+        this.centroDespesaService.getAllCentroDespesa().subscribe(function (_CENTROS) {
+            _this.centrosDespesa = _CENTROS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Centros de Despesa: " + error.error);
+        });
+    };
     EditarProdutoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-editar-produto',
@@ -4353,6 +7364,9 @@ var EditarProdutoComponent = /** @class */ (function () {
             src_app_services_Cadastros_Produtos_produto_service__WEBPACK_IMPORTED_MODULE_4__["ProdutoService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"],
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            src_app_services_Cadastros_CentroReceita_centroReceita_service__WEBPACK_IMPORTED_MODULE_7__["CentroReceitaService"],
+            src_app_services_Cadastros_CentroDespesa_centroDespesa_service__WEBPACK_IMPORTED_MODULE_9__["CentroDespesaService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_8__["PlanoContaService"],
             src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_6__["PermissaoService"]])
     ], EditarProdutoComponent);
     return EditarProdutoComponent;
@@ -4369,7 +7383,7 @@ var EditarProdutoComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Produto</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <tabset>\n      <tab heading=\"Geral\" style=\"margin-top: 10px;\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <div class=\"row mt-4\">\n            <div class=\"form-group col-md-5\">\n              <label>Descrição:(*)</label>\n              <input style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                class=\"form-control\" type=\"text\" formControlName=\"descricao\" [ngClass]=\"{ 'is-invalid': cadastroForm.get('descricao').errors && \n                                        cadastroForm.get('descricao').touched}\" />\n\n              <div *ngIf=\"cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Descrição é obrigatório.\n              </div>\n            </div>\n          </div>\n        </form>\n      </tab>\n    </tabset>\n  </div>\n</div>\n<button style=\"position:relative;\" [disabled]=\"!cadastroForm.valid\" (click)=\"cadastrarProduto()\" tooltip=\"Novo Produto\"\n  class=\"btn btn-lg btn-primary\">\n  &nbsp;Cadastrar\n</button>"
+module.exports = "<h2>Produto</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <tabset>\n      <tab heading=\"Geral\" style=\"margin-top: 10px;\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <div class=\"row mt-4\">\n            <div class=\"form-group col-md-5\">\n              <label>Descrição:(*)</label>\n              <input style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                class=\"form-control\" type=\"text\" formControlName=\"descricao\" [ngClass]=\"{ 'is-invalid': cadastroForm.get('descricao').errors && \n                                        cadastroForm.get('descricao').touched}\" />\n\n              <div *ngIf=\"cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n          </div>\n        </form>\n      </tab>\n    </tabset>\n  </div>\n</div>\n<button style=\"position:relative;\" [disabled]=\"!cadastroForm.valid\" (click)=\"cadastrarProduto()\" tooltip=\"Novo Produto\"\n  class=\"btn btn-lg btn-primary\">\n  &nbsp;Cadastrar\n</button>"
 
 /***/ }),
 
@@ -4460,7 +7474,7 @@ var NovoProdutoComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Produtos</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"d-flex\">\n      <div class=\"row\">\n        <div class=\"form-group col-md-4\">\n          <label>Filtro:</label>\n          <input type=\"text\" class=\"form-control\" placeholder=\"Pesquisar...\" [(ngModel)]=\"filtroLista\" />\n        </div>\n        <div style=\"margin-right: 15px;\"class=\"pull-right\">\n            <a *ngIf=\"this.novo == true\" [routerLink]=\"['/produtos','novo']\"\n              tooltip=\"Novo Produto\" class=\"btn btn-success\"> \n              <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Produto\n            </a>\n          </div>\n      </div>\n    </div>\n    <table class=\"table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Id</th>\n          <th>Descrição</th>\n          <th style=\"text-align: center;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"produtos && produtos.length\">\n        <tr *ngFor=\"let produto of produtosFiltrados | paginate: { itemsPerPage: 5,\n         currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td>{{ produto.id }}</td>\n          <td style=\"white-space: nowrap;\">{{ produto.descricao }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <button *ngIf=\"this.excluir == true\" class=\"btn btn-sm btn-danger\"\n                tooltip=\"Excluir\" (click)=\"excluirProduto(produto, confirm)\">\n                <i class=\"fa fa-eraser\"></i>\n              </button>\n              <a *ngIf=\"this.editar == true || this.visualizar == true\"\n                [routerLink]=\"['/produtos','editar', produto.id]\" tooltip=\"Editar/Detalhes\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!produtos\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum produto encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\">\n      </pagination-controls>\n    </div>\n  </div>\n</div>\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\n  <div class=\"modal-dialog modal-sm\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 class=\"modal-title pull-left\">\n          Excluir Produto\n        </h4>\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <p>{{bodyExcluirProduto}}</p>\n      </div>\n      <div class=\"modal-footer btn-group d-flex\">\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\n          Cancelar\n        </button>\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmarExclusao(confirm)\">\n          Excluir\n        </button>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<h2>Produtos</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <div class=\"d-flex\">\n      <div class=\"row\">\n        <div style=\"margin-right: 15px;\"class=\"pull-right\">\n            <a *ngIf=\"this.novo == true\" [routerLink]=\"['/produtos','novo']\"\n              tooltip=\"Novo Produto\" class=\"btn btn-success\"> \n              <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Produto\n            </a>\n          </div>\n      </div>\n    </div>\n    <table class=\"table table-striped table-bordered mt-4\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Id</th>\n          <th>Descrição</th>\n          <th style=\"text-align: center;\">Ações</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"produtos && produtos.length\">\n        <tr *ngFor=\"let produto of produtos | paginate: { itemsPerPage: 5,\n         currentPage: paginaAtual, totalItems: totalRegistros };\">\n          <td>{{ produto.id }}</td>\n          <td style=\"white-space: nowrap;\">{{ produto.descricao }}</td>\n          <td style=\"text-align: center;white-space: nowrap;\">\n            <div class=\"btn-group\">\n              <a *ngIf=\"this.editar == true || this.visualizar == true\"\n                [routerLink]=\"['/produtos','editar', produto.id]\" tooltip=\"Editar/Detalhes\"\n                class=\"btn btn-sm btn-primary\">\n                <i class=\"fa fa-edit\"></i>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n      <tfoot *ngIf=\"!produtos\">\n        <tr colspan=\"7\" class=\"text-center\"></tr>\n        <h4>\n          Nenhum produto encontrado!\n        </h4>\n      </tfoot>\n    </table>\n    Total de Registros: {{totalRegistros}}\n    <div class=\"text-center\">\n      <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n        nextLabel=\"Próximo\">\n      </pagination-controls>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -4498,6 +7512,7 @@ var ProdutoComponent = /** @class */ (function () {
         this.visualizar = false;
         this.bodyExcluirProduto = '';
         this.paginaAtual = 1;
+        this.totalRegistros = 0;
         this.localeService.use('pt-br');
     }
     ProdutoComponent.prototype.ngOnInit = function () {
@@ -4518,50 +7533,14 @@ var ProdutoComponent = /** @class */ (function () {
             _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
         });
     };
-    Object.defineProperty(ProdutoComponent.prototype, "filtroLista", {
-        get: function () {
-            return this._filtroLista;
-        },
-        set: function (value) {
-            this._filtroLista = value;
-            this.produtosFiltrados = this.filtrarProdutos(this.filtroLista);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ProdutoComponent.prototype.excluirProduto = function (produto, template) {
-        template.show();
-        this.produto = produto;
-        this.bodyExcluirProduto = "Tem certeza que deseja excluir o Produto: " + produto.descricao + ", C\u00F3digo: " + produto.id + "?";
-    };
-    ProdutoComponent.prototype.confirmarExclusao = function (template) {
-        var _this = this;
-        this.produtoService.excluirProduto(this.produto.id).subscribe(function () {
-            template.hide();
-            _this.getProdutos();
-            _this.toastr.success('Excluído com sucesso!');
-        }, function (error) {
-            _this.toastr.error("Erro ao tentar Excluir: " + error);
-        });
-    };
-    ProdutoComponent.prototype.filtrarProdutos = function (filtrarPor) {
-        this.filtroProdutos = this.produtos;
-        if (filtrarPor) {
-            filtrarPor = filtrarPor.toLocaleLowerCase();
-            this.filtroProdutos = this.produtos.filter(function (produto) { return produto.descricao.toLocaleLowerCase().indexOf(filtrarPor) !== -1; });
-        }
-        this.totalRegistros = this.filtroProdutos.length;
-        return this.filtroProdutos;
-    };
     ProdutoComponent.prototype.getProdutos = function () {
         var _this = this;
         this.produtoService.getAllProduto().subscribe(
         // tslint:disable-next-line:variable-name
         function (_produtos) {
             _this.produtos = _produtos;
-            _this.produtosFiltrados = _this.filtrarProdutos(_this.filtroLista);
         }, function (error) {
-            _this.toastr.error("Erro ao tentar carregar produtos: " + error);
+            _this.toastr.error("Erro ao tentar carregar produtos: " + error.error);
         });
     };
     ProdutoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -4743,11 +7722,11 @@ var EditarUsuarioComponent = /** @class */ (function () {
         this.usuarioOcorrencias = [];
         this.dataAtual = '';
         this.modoSalvarOcorrencia = '';
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
         this.dateFormat = '';
         this.localeService.use('pt-br');
     }
     EditarUsuarioComponent.prototype.ngOnInit = function () {
-        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
         this.idUsuario = +this.router.snapshot.paramMap.get('id');
         this.getNiveis();
         this.validation();
@@ -5169,6 +8148,7 @@ var UsuarioComponent = /** @class */ (function () {
         this.modoSalvar = '';
         this.bodyExcluirUsuario = '';
         this.paginaAtual = 1;
+        this.totalRegistros = 0;
         this.localeService.use('pt-br');
     }
     UsuarioComponent.prototype.ngOnInit = function () {
@@ -5297,6 +8277,1986 @@ var DashboardComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/financeiro/lancamento/lancamento.component.html":
+/*!*****************************************************************!*\
+  !*** ./src/app/financeiro/lancamento/lancamento.component.html ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Lançamentos</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\" >\n    <div class=\"row\">\n      <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;\" class=\"pull-right\">\n        <a  (click)=\"abrirTemplateLancamento(0)\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Lançamento\n        </a>\n      </div>\n    </div>\n    <table style=\"margin-top: 15px;\" class=\"table table-striped table-bordered mt-4\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th>Id</th>\n            <th style=\"white-space: nowrap;\">Descrição</th>\n            <th style=\"text-align: center;\">Data Lançamento</th>\n            <th style=\"text-align: center;\">Conta Débitada</th>\n            <th style=\"text-align: center;\">Conta Créditada</th>\n            <th style=\"text-align: center;\">Valor</th>\n            <th style=\"text-align: center;\">Ações</th>\n          </tr>\n        </thead>\n        <tbody *ngIf=\"lancamentos && lancamentos.length\">\n          <tr *ngFor=\"let lancamento of lancamentos | paginate: { itemsPerPage: 5,currentPage: paginaAtual, totalItems: totalRegistros };\">\n            <td>{{ lancamento.id }}</td>\n            <td style=\"white-space: nowrap;\">{{ lancamento.descricao }}</td>\n            <td style=\"text-align: center;\">{{ lancamento.dataLancamento | date:'dd/MM/yyyy'}}</td>\n            <td style=\"text-align: center;\">{{ lancamento.planoDebito.descricao}}</td>\n            <td style=\"text-align: center;\">{{ lancamento.planoCredito.descricao}}</td>\n            <td style=\"text-align: center;\">{{ lancamento.valor | currency:' ':false }}</td>\n            <td style=\"text-align: center;white-space: nowrap;\">\n              <div *ngIf=\"this.editar == true || this.visualizar\" class=\"btn-group\">\n                <a  (click)=\"abrirTemplateLancamento(lancamento.Id)\" tooltip=\"Editar/Detalhes\" class=\"btn btn-sm btn-primary\">\n                  <i class=\"fa fa-edit\"></i>\n                </a>\n              </div>\n            </td>\n          </tr>\n        </tbody>\n        <tfoot *ngIf=\"!lancamentos\">\n          <tr colspan=\"7\" class=\"text-center\"></tr>\n          <h4>\n            Nenhum Lançamento encontrado!\n          </h4>\n        </tfoot>\n      </table>\n      Total de Registros: {{totalRegistros}}\n      <div class=\"text-center\">\n        <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n          nextLabel=\"Próximo\">\n        </pagination-controls>\n      </div>\n  </div>\n\n</div>\n\n<app-lancamento-templante [idLancamento]=\"this.idLancamento\" *ngIf=\"getLancamentoTemplate() == true\"></app-lancamento-templante>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/lancamento/lancamento.component.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/financeiro/lancamento/lancamento.component.ts ***!
+  \***************************************************************/
+/*! exports provided: LancamentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LancamentoComponent", function() { return LancamentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Movimentos/Lancamentos/lancamento.service */ "./src/app/_services/Movimentos/Lancamentos/lancamento.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+
+var LancamentoComponent = /** @class */ (function () {
+    function LancamentoComponent(localeService, toastr, permissaoService, lancamentoService) {
+        this.localeService = localeService;
+        this.toastr = toastr;
+        this.permissaoService = permissaoService;
+        this.lancamentoService = lancamentoService;
+        this.novo = false;
+        this.editar = false;
+        this.visualizar = false;
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+    }
+    LancamentoComponent.prototype.ngOnInit = function () {
+        this.getLancamentos();
+    };
+    LancamentoComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    LancamentoComponent.prototype.getLancamentoTemplate = function () {
+        return this.lancamentoService.getLancamentoTemplateStatus();
+    };
+    LancamentoComponent.prototype.abrirTemplateLancamento = function (idLancamento) {
+        this.idLancamento = idLancamento;
+        this.lancamentoService.setLancamentoTemplateStatus(true);
+    };
+    LancamentoComponent.prototype.getLancamentos = function () {
+        var _this = this;
+        this.lancamentoService.getAllLancamentos().subscribe(
+        // tslint:disable-next-line:variable-name
+        function (_LANCAMENTOS) {
+            _this.lancamentos = _LANCAMENTOS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar VendaS: " + error.error);
+        });
+    };
+    LancamentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-lancamento',
+            template: __webpack_require__(/*! ./lancamento.component.html */ "./src/app/financeiro/lancamento/lancamento.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsLocaleService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_3__["PermissaoService"],
+            src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_4__["LancamentoService"]])
+    ], LancamentoComponent);
+    return LancamentoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component.css":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component.css ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".modal-xl {\r\n    width: 50%;\r\n    /* New width for large modal */\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZmluYW5jZWlyby9sYW5jYW1lbnRvL2xhbmNhbWVudG9UZW1wbGF0ZS9sYW5jYW1lbnRvVGVtcGxhdGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFVBQVU7SUFDViw4QkFBOEI7QUFDbEMiLCJmaWxlIjoic3JjL2FwcC9maW5hbmNlaXJvL2xhbmNhbWVudG8vbGFuY2FtZW50b1RlbXBsYXRlL2xhbmNhbWVudG9UZW1wbGF0ZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1vZGFsLXhsIHtcclxuICAgIHdpZHRoOiA1MCU7XHJcbiAgICAvKiBOZXcgd2lkdGggZm9yIGxhcmdlIG1vZGFsICovXHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component.html":
+/*!********************************************************************************************!*\
+  !*** ./src/app/financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component.html ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templateLancamento)}}\n<div bsModal #templateLancamento=\"bs-modal\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Lançamento<label></label>\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templateLancamento)\"\n          aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroLancamento\">\n\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-5\">\n              <label>Descrição(*)</label>\n              <input style=\"text-transform: uppercase\" oninput=\"this.value = this.value.toUpperCase()\"\n                class=\"form-control\" type=\"text\" formControlName=\"descricao\"\n                [ngClass]=\"{ 'is-invalid': cadastroLancamento.get('descricao').errors && cadastroLancamento.get('descricao').touched}\" />\n              <div\n                *ngIf=\"cadastroLancamento.get('descricao').hasError('required') &&cadastroLancamento.get('descricao').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Data Lançamento</label>\n              <input type=\"text\" class=\"form-control\" formControlName=\"dataLancamento\"\n                [ngModel]=\"cadastroLancamento.get('dataLancamento').value\" bsDatepicker [bsConfig]=\"this.bsConfig\" [ngClass]=\"{ 'is-invalid': cadastroLancamento.get('dataLancamento').errors && \n                cadastroLancamento.get('dataLancamento').touched}\" />\n              <div\n                *ngIf=\"cadastroLancamento.get('dataLancamento').hasError('required') &&cadastroLancamento.get('dataLancamento').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n\n            <div class=\"form-group col-md-3\">\n              <label>Valor:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask formControlName=\"valor\"\n                  [options]=\"{ prefix: '', thousands: '.', decimal: ',' }\" [ngClass]=\"{ 'is-invalid': cadastroLancamento.get('valor').errors && \n                  cadastroLancamento.get('valor').touched}\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n              <div\n                *ngIf=\"cadastroLancamento.get('valor').hasError('required') && cadastroLancamento.get('valor').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n              <div *ngIf=\"cadastroLancamento.get('valor').hasError('min') && cadastroLancamento.get('valor').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0.\n              </div>\n            </div>\n\n          </div>\n          <div class=\"row\">\n            <div class=\"form-group col-md-4\">\n              <label style=\"white-space: nowrap;\">Conta de Débito:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planoContas\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [(ngModel)]=\"contaDebitoIdSelecionado\" formControlName=\"planoDebitoId\" disabled\n                [ngClass]=\"{ 'is-invalid': cadastroLancamento.get('planoDebitoId').errors && cadastroLancamento.get('planoDebitoId').touched}\">\n                <ng-template ng-option-tmp let-item=\"item\" let-search=\"searchTerm\">\n                  <div><span></span><span [ngOptionHighlight]=\"search\">{{item.descricao}}</span></div>\n                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>\n                </ng-template>\n              </ng-select>\n              <div\n                *ngIf=\"cadastroLancamento.get('planoDebitoId').hasError('required') && cadastroLancamento.get('planoDebitoId').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-4\">\n              <label style=\"white-space: nowrap;\">Conta de Crédito:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planoContas\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [(ngModel)]=\"contaCreditoIdSelecionado\" formControlName=\"planoCreditoId\" disabled\n                [ngClass]=\"{ 'is-invalid': cadastroLancamento.get('planoCreditoId').errors && cadastroLancamento.get('planoCreditoId').touched}\">\n                <ng-template ng-option-tmp let-item=\"item\" let-search=\"searchTerm\">\n                  <div><span></span><span [ngOptionHighlight]=\"search\">{{item.descricao}}</span></div>\n                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>\n                </ng-template>\n              </ng-select>\n              <div\n                *ngIf=\"cadastroLancamento.get('planoCreditoId').hasError('required') && cadastroLancamento.get('planoCreditoId').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n          </div>\n        </form>\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templateLancamento)\">\n          Fechar\n        </button>\n        <button *ngIf=\"this.idLancamento != 0 && this.editar == true\" [disabled]=\"!cadastroLancamento.valid\" class=\"btn btn-primary\"\n          (click)=\"salvarLancamento(templateLancamento)\">\n          Salvar\n        </button>\n        <button *ngIf=\"this.idLancamento == 0 && this.novo == true\" [disabled]=\"!cadastroLancamento.valid\" class=\"btn btn-primary\"\n          (click)=\"salvarLancamento(templateLancamento)\">\n          Cadastrar\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component.ts":
+/*!******************************************************************************************!*\
+  !*** ./src/app/financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component.ts ***!
+  \******************************************************************************************/
+/*! exports provided: LancamentoTemplateComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LancamentoTemplateComponent", function() { return LancamentoTemplateComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Movimentos/Lancamentos/lancamento.service */ "./src/app/_services/Movimentos/Lancamentos/lancamento.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+
+
+
+
+
+
+
+
+
+var LancamentoTemplateComponent = /** @class */ (function () {
+    function LancamentoTemplateComponent(fb, toastr, planoContaService, permissaoService, dataService, lancamentoService) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.planoContaService = planoContaService;
+        this.permissaoService = permissaoService;
+        this.dataService = dataService;
+        this.lancamentoService = lancamentoService;
+        this.novo = false;
+        this.editar = false;
+        this.templateEnabled = false;
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+    }
+    LancamentoTemplateComponent.prototype.ngOnInit = function () {
+        this.idUsuario = this.permissaoService.getUsuarioId();
+        this.validarLancamentos();
+        this.getPlanoContas();
+        if (this.idLancamento !== 0) {
+            this.carregarLancamento();
+        }
+    };
+    LancamentoTemplateComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    LancamentoTemplateComponent.prototype.carregarLancamento = function () {
+        var _this = this;
+        this.lancamento = null;
+        this.lancamentoService.getLancamentoById(this.idLancamento)
+            .subscribe(function (_LANCAMENTO) {
+            _this.lancamento = Object.assign(_LANCAMENTO, {
+                dataLancamento: _this.dataService.getDataPTBR(_LANCAMENTO.dataLancamento)
+            });
+            _this.cadastroLancamento.patchValue(_this.lancamento);
+            console.log(_this.lancamento);
+        }, function (error) {
+            _this.toastr.error("Erro ao tentar carregar Lancamento: " + error.error);
+            console.log(error);
+        });
+    };
+    LancamentoTemplateComponent.prototype.validarLancamentos = function () {
+        this.cadastroLancamento = this.fb.group({
+            id: [''],
+            centroDespesaId: [''],
+            centroReceitaId: [''],
+            descricao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            planoDebitoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            planoCreditoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            valor: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].min(1)]],
+            usuarioId: [''],
+            dataHora: [''],
+            dataLancamento: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+    };
+    LancamentoTemplateComponent.prototype.salvarLancamento = function (template) {
+        var _this = this;
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_7__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        var dataLanc = moment__WEBPACK_IMPORTED_MODULE_7__(this.cadastroLancamento.get('dataLancamento').value, 'DD/MM/YYYY').format('YYYY-MM-DD');
+        if (this.idLancamento === 0) {
+            this.lancamento = Object.assign(this.cadastroLancamento.value, { id: 0, dataHora: dataAtual,
+                dataLancamento: dataLanc,
+                usuarioId: this.idUsuario });
+            this.lancamentoService.novoLancamento(this.lancamento).subscribe(function () {
+                _this.fecharTemplate(template);
+                _this.toastr.success("Cadastrado com Sucesso!");
+            }, function (error) {
+                console.log(error.error);
+            });
+        }
+        else {
+            this.lancamento = Object.assign(this.cadastroLancamento.value, {
+                dataLancamento: dataLanc
+            });
+            this.lancamentoService.editarLancamento(this.lancamento).subscribe(function () {
+                _this.toastr.success("Editado com Sucesso!");
+            }, function (error) {
+                console.log(error.error);
+            });
+        }
+    };
+    LancamentoTemplateComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            template.show();
+            this.templateEnabled = true;
+        }
+    };
+    LancamentoTemplateComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.lancamentoService.setLancamentoTemplateStatus(false);
+    };
+    LancamentoTemplateComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContas = _PLANOS.filter(function (c) { return c.categoria === 'ANALÍTICA'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], LancamentoTemplateComponent.prototype, "idLancamento", void 0);
+    LancamentoTemplateComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-lancamento-templante',
+            template: __webpack_require__(/*! ./lancamentoTemplate.component.html */ "./src/app/financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component.html"),
+            styles: [__webpack_require__(/*! ./lancamentoTemplate.component.css */ "./src/app/financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_4__["PlanoContaService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_8__["PermissaoService"],
+            src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_5__["DataService"],
+            src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_6__["LancamentoService"]])
+    ], LancamentoTemplateComponent);
+    return LancamentoTemplateComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.css":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.css ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "table td{\r\n    border:none !important;\r\n  }\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZmluYW5jZWlyby9sYW5jYW1lbnRvL3JlbGF0b3Jpb0xhbmNhbWVudG8vcmVsYXRvcmlvTGFuY2FtZW50by5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksc0JBQXNCO0VBQ3hCIiwiZmlsZSI6InNyYy9hcHAvZmluYW5jZWlyby9sYW5jYW1lbnRvL3JlbGF0b3Jpb0xhbmNhbWVudG8vcmVsYXRvcmlvTGFuY2FtZW50by5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGFibGUgdGR7XHJcbiAgICBib3JkZXI6bm9uZSAhaW1wb3J0YW50O1xyXG4gIH0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.html":
+/*!**********************************************************************************************!*\
+  !*** ./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.html ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Relatório de Lançamentos</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <tabset>\n      <tab heading=\"Balancete\" style=\"margin-top: 10px;\">\n        <div class=\"row\">\n          <div class=\"form-group col-md-2\">\n            <label>Filtrar por:</label>\n            <ng-select [clearable]=\"false\" [items]=\"filtrarPor\" name=\"filtrarPor\" [(ngModel)]=\"filtroSelecionado\"\n            (change)=\"setFiltroSelecionado($event)\">\n            </ng-select>\n          </div>\n\n          <div class=\"form-group col-md-3\">\n            <label>Conta(*)</label>\n            <ng-select [items]=\"planoContasFiltrados\" style=\"text-transform: uppercase\" bindLabel=\"descricao\" \n              bindValue=\"id\" [(ngModel)]=\"contaSelecionada\" name=\"planoContaFiltro\">\n            </ng-select>\n          </div>\n\n          \n        </div>\n        <div class=\"row\">\n            <div class=\"form-group col-md-5\">\n          <div class=\"pull-right\">\n            <a (click)=\"getPlanoContasFilhosPorId(contaSelecionada)\" tooltip=\"Consultar Lançamentos\"\n              class=\"btn btn-primary\">\n              <i class=\"fa fa-search\"></i>&nbsp; Filtrar\n            </a>\n          </div>\n          </div>\n        </div>\n        <div class=\"row\">\n\n\n          <div class=\"box-body\">\n\n            <table class=\"table table-responsive table-bordered\">\n              <thead>\n                <tr>\n                  <th>Nível</th>\n                  <th style=\"white-space: nowrap;\">Descrição</th>\n                  <th style=\"text-align: right;\">Débito</th>\n                  <th style=\"text-align: right;\">Crédito</th>\n                  <th style=\"text-align: right;\">Saldo</th>\n                </tr>\n              </thead>\n              <tbody *ngIf=\"listaContasFiltradas && listaContasFiltradas.length\">\n                <tr *ngFor=\"let conta of listaContasFiltradas\">\n                  <td [ngStyle]=\"{'font-weight': conta.negrito}\">{{conta.nivel}}</td>\n                  <td [ngStyle]=\"{'font-weight': conta.negrito}\">{{conta.espacamento}}{{conta.descricao}}</td>\n                  <td [ngStyle]=\"{'font-weight': conta.negrito}\" \n                  *ngIf=\"conta.categoria == 'ANALÍTICA'\" style=\"text-align: right;\">{{conta.valorDebito | currency:' ':false }}</td>\n                  <td [ngStyle]=\"{'font-weight': conta.negrito}\" \n                  *ngIf=\"conta.categoria == 'ANALÍTICA'\" style=\"text-align: right;\">{{conta.valorCredito | currency:' ':false }}</td>\n                  <td [ngStyle]=\"{'font-weight': conta.negrito}\" \n                  *ngIf=\"conta.categoria == 'ANALÍTICA'\" style=\"text-align: right;\">{{conta.valorSaldo | currency:' ':false }}&nbsp;{{conta.saldoTipo}}</td>\n                  <td *ngIf=\"conta.categoria == 'SINTÉTICA'\" style=\"text-align: right;\"></td>\n                  <td *ngIf=\"conta.categoria == 'SINTÉTICA'\" style=\"text-align: right;\"></td>\n                  <td *ngIf=\"conta.categoria == 'SINTÉTICA'\" style=\"text-align: right;\"></td>\n                </tr>\n              </tbody>\n            </table>\n\n          </div>\n\n        </div>\n      </tab>\n      <tab heading=\"Razão\" style=\"margin-top: 10px;\">\n\n      </tab>\n    </tabset>\n  </div>\n</div>\n<button style=\"position:relative;\" tooltip=\"Salvar\" class=\"btn btn-lg btn-primary\">\n  &nbsp;Salvar Alterações\n</button>"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.ts":
+/*!********************************************************************************************!*\
+  !*** ./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.ts ***!
+  \********************************************************************************************/
+/*! exports provided: RelatorioLancamentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RelatorioLancamentoComponent", function() { return RelatorioLancamentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Movimentos/Lancamentos/lancamento.service */ "./src/app/_services/Movimentos/Lancamentos/lancamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+
+
+
+
+
+
+
+var RelatorioLancamentoComponent = /** @class */ (function () {
+    function RelatorioLancamentoComponent(localeService, toastr, permissaoService, planoContaService, lancamentoService) {
+        this.localeService = localeService;
+        this.toastr = toastr;
+        this.permissaoService = permissaoService;
+        this.planoContaService = planoContaService;
+        this.lancamentoService = lancamentoService;
+        this.filtrarPor = ['GERAL', 'CONTA SINTÉTICA', 'CONTA ANALÍTICA'];
+        this.filtroSelecionado = 'GERAL';
+        this.listaContasFiltradas = [];
+        this.idContasVerificadas = [];
+    }
+    RelatorioLancamentoComponent.prototype.ngOnInit = function () {
+        this.getLancamentos();
+        this.getPlanoContas();
+    };
+    RelatorioLancamentoComponent.prototype.setFiltroSelecionado = function (valor) {
+        this.filtroSelecionado = valor;
+        this.planoContasFiltrados = this.filtrarPlanoContas();
+    };
+    RelatorioLancamentoComponent.prototype.filtrarPlanoContas = function () {
+        if (this.planoContas) {
+            if (this.filtroSelecionado === 'CONTA SINTÉTICA') {
+                return this.planoContas.filter(function (c) { return c.categoria === 'SINTÉTICA'; });
+            }
+            else if (this.filtroSelecionado === 'CONTA ANALÍTICA') {
+                return this.planoContas.filter(function (c) { return c.categoria === 'ANALÍTICA'; });
+            }
+            else {
+                return this.planoContas;
+            }
+        }
+        else {
+            return [];
+        }
+    };
+    RelatorioLancamentoComponent.prototype.retornaInferiores = function (idSuperior) {
+        return this.planoContas.filter(function (c) { return c.planoContasId === idSuperior; });
+    };
+    RelatorioLancamentoComponent.prototype.filtrarLancamentos = function (conta) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var debito, credito, saldo, espaco, index;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                debito = 0;
+                credito = 0;
+                this.lancamentos.filter(function (c) { return c.planoDebitoId === conta.id; }).forEach((function (lancamento) {
+                    debito = lancamento.valor + debito;
+                }));
+                this.lancamentos.filter(function (c) { return c.planoCreditoId === conta.id; }).forEach((function (lancamento) {
+                    credito = lancamento.valor + credito;
+                }));
+                saldo = (debito - credito);
+                espaco = '';
+                for (index = 0; index < conta.nivel.length; index++) {
+                    espaco += '  ';
+                    index = index;
+                }
+                conta = Object.assign(conta, { valorDebito: debito, valorCredito: credito, espacamento: espaco,
+                    valorSaldo: (saldo < 0) ? (saldo * -1) : saldo, saldoTipo: (saldo < 0) ? 'C' : 'D',
+                    negrito: (conta.categoria === 'SINTÉTICA') ? 'bold' : 'regular' });
+                this.listaContasFiltradas.push(conta);
+                if (conta.planoConta) {
+                    conta.planoConta.forEach(function (contaFilho) {
+                        _this.filtrarLancamentos(contaFilho);
+                    });
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
+    RelatorioLancamentoComponent.prototype.getLancamentos = function () {
+        var _this = this;
+        this.lancamentoService.getAllLancamentos().subscribe(function (_LANCAMENTOS) {
+            _this.lancamentos = _LANCAMENTOS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar VendaS: " + error.error);
+        });
+    };
+    RelatorioLancamentoComponent.prototype.getPlanoContasFilhosPorId = function (idConta) {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.listaContas = _PLANOS.filter(function (c) { return c.id === idConta; })[0];
+            _this.listaContasFiltradas = [];
+            _this.filtrarLancamentos(_this.listaContas);
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    RelatorioLancamentoComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContas = _PLANOS;
+            _this.setFiltroSelecionado('GERAL');
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    RelatorioLancamentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-relatorio-lancamento',
+            template: __webpack_require__(/*! ./relatorioLancamento.component.html */ "./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.html"),
+            styles: [__webpack_require__(/*! ./relatorioLancamento.component.css */ "./src/app/financeiro/lancamento/relatorioLancamento/relatorioLancamento.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsLocaleService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__["PermissaoService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__["PlanoContaService"],
+            src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_5__["LancamentoService"]])
+    ], RelatorioLancamentoComponent);
+    return RelatorioLancamentoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component.css":
+/*!****************************************************************************************!*\
+  !*** ./src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component.css ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".modal-xl {\r\n    width: 55%;\r\n    /* New width for large modal */\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZmluYW5jZWlyby9wYWdhbWVudG8vZGV0YWxoYXJQYWdhbWVudG8vZGV0YWxoYXJQYWdhbWVudG8uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFVBQVU7SUFDViw4QkFBOEI7QUFDbEMiLCJmaWxlIjoic3JjL2FwcC9maW5hbmNlaXJvL3BhZ2FtZW50by9kZXRhbGhhclBhZ2FtZW50by9kZXRhbGhhclBhZ2FtZW50by5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1vZGFsLXhsIHtcclxuICAgIHdpZHRoOiA1NSU7XHJcbiAgICAvKiBOZXcgd2lkdGggZm9yIGxhcmdlIG1vZGFsICovXHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component.html":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component.html ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templateDetalharPagamento)}}\n<div bsModal #templateDetalharPagamento=\"bs-modal\" [config]=\"{backdrop: 'static', keyboard: false}\"\n  class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Pagamento ({{produtoItem.descricao}})\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templateDetalharPagamento)\"\n          aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroPagamento\">\n\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Data Emissão</label>\n              <input type=\"text\" class=\"form-control\" formControlName=\"dataEmissao\"\n                [ngModel]=\"cadastroPagamento.get('dataEmissao').value\" bsDatepicker [bsConfig]=\"this.bsConfig\"\n                [ngClass]=\"{ 'is-invalid': cadastroPagamento.get('dataEmissao').errors && \n                cadastroPagamento.get('dataEmissao').touched}\" />\n              <div\n                *ngIf=\"cadastroPagamento.get('dataEmissao').hasError('required') &&cadastroPagamento.get('dataEmissao').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-5\">\n              <label>Pessoa/Fornecedor:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"pessoas\" bindLabel=\"nome\" bindValue=\"id\"\n                [(ngModel)]=\"pessoaIdSelecionado\" formControlName=\"pessoasId\">\n              </ng-select>\n            </div>\n\n\n            <div class=\"form-group col-md-3\">\n              <label>Valor do Pagamento:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask formControlName=\"valorTotal\"\n                  [options]=\"{ prefix: '', thousands: '.', decimal: ',' }\" [ngClass]=\"{ 'is-invalid': cadastroPagamento.get('valorTotal').errors && \n                  cadastroPagamento.get('valorTotal').touched}\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n              <div\n                *ngIf=\"cadastroPagamento.get('valorTotal').hasError('required') && cadastroPagamento.get('valorTotal').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n              <div\n                *ngIf=\"cadastroPagamento.get('valorTotal').hasError('min') && cadastroPagamento.get('valorTotal').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0.\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Centro de Despesa:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"centrosDespesa\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"centroDespesaIdSelecionado\"\n                formControlName=\"centroDespesaId\" [disabled]=\"true\">\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Plano de Conta:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planoContasDespesa\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [(ngModel)]=\"planoContasIdSelecionado\" formControlName=\"planoContasId\" disabled>\n                <ng-template ng-option-tmp let-item=\"item\" let-search=\"searchTerm\">\n                  <div><span></span><span [ngOptionHighlight]=\"search\">{{item.descricao}}</span></div>\n                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>\n                </ng-template>\n              </ng-select>\n            </div>\n\n          </div>\n          <div class=\"row\">\n            <hr style=\"width: 100%\">\n            <div class=\"form-group col-md-5\">\n              <label style=\"white-space: nowrap;\">Plano de Pagamento:(*)</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planosPagamento\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"planoPagamentoIdSelecionado\"\n                formControlName=\"planoPagamentoId\">\n              </ng-select>\n            </div>\n          </div>\n        </form>\n\n        <div *ngIf=\"parcelas && parcelas.length > 0\" class=\"box box-success\">\n          <div class=\"box-body\">\n            <table class=\"table table-responsive table-bordered\">\n              <thead class=\"thead-light\">\n                <tr>\n                  <th style=\"white-space: nowrap;text-align: center;\">Documento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Data de Vencimento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Forma de Pagamento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Valor da Parcela</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Status</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Ações</th>\n                </tr>\n              </thead>\n              <tbody>\n                <tr *ngFor=\"let parcela of parcelas\">\n                  <td style=\"text-align: center;\">{{parcela.documento}}</td>\n                  <td style=\"white-space: nowrap;text-align: center;\">{{ parcela.dataVencimento }}</td>\n                  <td style=\"text-align: center;\">{{parcela.formaPagamento.descricao}}</td>\n                  <td style=\"text-align: center;\">{{parcela.valor | currency:' ':false}}</td>\n                  <td style=\"text-align: center;\">\n                    <span style=\"text-align: center;\" *ngIf=\"parcela.status == 'PENDENTE'\" class=\"label label-warning\">\n                      {{ parcela.status }}\n                    </span>\n                    <span style=\"text-align: center;\" *ngIf=\"parcela.status == 'PAGO'\" class=\"label label-success\">\n                      {{ parcela.status }}\n                    </span>\n                  </td>\n                  <td style=\"text-align: center;\"><a *ngIf=\"parcela.status == 'PENDENTE'\" tooltip=\"Quitar Parcela\" class=\"btn btn-sm btn-success\">\n                      <i class=\"fa fa-usd\"></i>\n                    </a>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n\n          </div>\n        </div>\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templateDetalharPagamento)\">\n          Fechar\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component.ts":
+/*!***************************************************************************************!*\
+  !*** ./src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component.ts ***!
+  \***************************************************************************************/
+/*! exports provided: DetalharPagamentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetalharPagamentoComponent", function() { return DetalharPagamentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Financeiro_Pagamentos_pagamento_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Financeiro/Pagamentos/pagamento.service */ "./src/app/_services/Financeiro/Pagamentos/pagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_CentroDespesa_centroDespesa_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/CentroDespesa/centroDespesa.service */ "./src/app/_services/Cadastros/CentroDespesa/centroDespesa.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service */ "./src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_services/Cadastros/FormaPagamento/formaPagamento.service */ "./src/app/_services/Cadastros/FormaPagamento/formaPagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Pessoas_pessoa_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/_services/Cadastros/Pessoas/pessoa.service */ "./src/app/_services/Cadastros/Pessoas/pessoa.service.ts");
+/* harmony import */ var src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/_models/Cadastros/Produtos/produtoItem */ "./src/app/_models/Cadastros/Produtos/produtoItem.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+var DetalharPagamentoComponent = /** @class */ (function () {
+    function DetalharPagamentoComponent(fb, toastr, pagamentoService, centroDespesaService, planoContaService, dataService, planoPagamentoService, formaPagamentoService, pessoaService, changeDetectionRef) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.pagamentoService = pagamentoService;
+        this.centroDespesaService = centroDespesaService;
+        this.planoContaService = planoContaService;
+        this.dataService = dataService;
+        this.planoPagamentoService = planoPagamentoService;
+        this.formaPagamentoService = formaPagamentoService;
+        this.pessoaService = pessoaService;
+        this.changeDetectionRef = changeDetectionRef;
+        this.parcelas = [];
+        this.templateEnabled = false;
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+    }
+    DetalharPagamentoComponent.prototype.ngOnInit = function () {
+        this.getCentroDespesa();
+        this.getPessoas();
+        this.getFormaPagamento();
+        this.getPlanoContas();
+        this.getPlanoPagamento();
+        this.validarPagamentos();
+        this.carregarPagamento();
+    };
+    DetalharPagamentoComponent.prototype.carregarPagamento = function () {
+        var _this = this;
+        this.pagamento = null;
+        this.pagamentoService.getPagamentosById(this.idPagamento)
+            .subscribe(function (_PAGAMENTO) {
+            _this.pagamento = Object.assign(_PAGAMENTO, {
+                dataEmissao: _this.dataService.getDataPTBR(_PAGAMENTO.dataEmissao)
+            });
+            _this.pessoaIdSelecionado = _this.pagamento.pessoasId;
+            _this.centroDespesaIdSelecionado = _this.pagamento.centroDespesaId;
+            _this.planoPagamentoIdSelecionado = _this.pagamento.planoPagamentoId;
+            _this.cadastroPagamento.patchValue(_this.pagamento);
+            _this.cadastroPagamento.disable();
+            _this.parcelas = _this.pagamento.parcelas;
+            _this.parcelas.forEach(function (parcela) {
+                parcela.dataVencimento = _this.dataService.getDataPTBR(parcela.dataVencimento);
+            });
+        }, function (error) {
+            _this.toastr.error("Erro ao tentar carregar Pagamento: " + error.error);
+            console.log(error);
+        });
+    };
+    DetalharPagamentoComponent.prototype.validarPagamentos = function () {
+        this.cadastroPagamento = this.fb.group({
+            id: [''],
+            pessoasId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            dataEmissao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            dataCompetencia: [''],
+            qtdParcelas: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            valorTotal: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].min(1)]],
+            planoPagamentoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            centroDespesaId: [{ value: '', disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            planoContasId: [{ value: '', disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+        });
+    };
+    DetalharPagamentoComponent.prototype.getPessoas = function () {
+        var _this = this;
+        this.pessoaService.getAllPessoa().subscribe(
+        // tslint:disable-next-line:variable-name
+        function (_PESSOAS) {
+            _this.pessoas = _PESSOAS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Pessoas: " + error.error);
+        });
+    };
+    DetalharPagamentoComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContasDespesa = _PLANOS.filter(function (c) { return c.tipo === 'DESPESA'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    DetalharPagamentoComponent.prototype.getCentroDespesa = function () {
+        var _this = this;
+        this.centroDespesaService.getAllCentroDespesa().subscribe(function (_CENTROS) {
+            _this.centrosDespesa = _CENTROS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Centros de Despesa: " + error.error);
+        });
+    };
+    DetalharPagamentoComponent.prototype.getPlanoPagamento = function () {
+        var _this = this;
+        this.planoPagamentoService.getAllPlanoPagamento().subscribe(function (_PLANOS) {
+            _this.planosPagamento = _PLANOS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Pagamento: " + error.error);
+        });
+    };
+    DetalharPagamentoComponent.prototype.getFormaPagamento = function () {
+        var _this = this;
+        this.formaPagamentoService.getAllFormaPagamento().subscribe(function (_FORMAS) {
+            _this.formasPagamento = _FORMAS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Formas de Pagamento: " + error.error);
+        });
+    };
+    DetalharPagamentoComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            template.show();
+            this.templateEnabled = true;
+        }
+    };
+    DetalharPagamentoComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.pagamentoService.setDetalharPagamentoStatus(false);
+        this.templateEnabled = false;
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], DetalharPagamentoComponent.prototype, "idPagamento", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_11__["ProdutoItem"])
+    ], DetalharPagamentoComponent.prototype, "produtoItem", void 0);
+    DetalharPagamentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-detalhar-pagamento',
+            template: __webpack_require__(/*! ./detalharPagamento.component.html */ "./src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component.html"),
+            styles: [__webpack_require__(/*! ./detalharPagamento.component.css */ "./src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Financeiro_Pagamentos_pagamento_service__WEBPACK_IMPORTED_MODULE_4__["PagamentoService"],
+            src_app_services_Cadastros_CentroDespesa_centroDespesa_service__WEBPACK_IMPORTED_MODULE_5__["CentroDespesaService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__["PlanoContaService"],
+            src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_7__["DataService"],
+            src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_8__["PlanoPagamentoService"],
+            src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_9__["FormaPagamentoService"],
+            src_app_services_Cadastros_Pessoas_pessoa_service__WEBPACK_IMPORTED_MODULE_10__["PessoaService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+    ], DetalharPagamentoComponent);
+    return DetalharPagamentoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/financeiro/pagamento/pagamento.component.html":
+/*!***************************************************************!*\
+  !*** ./src/app/financeiro/pagamento/pagamento.component.html ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Pagamentos</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\" >\n    <div class=\"row\">\n      <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;\" class=\"pull-right\">\n        <a  (click)=\"abrirTemplatePagamento()\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Pagamento\n        </a>\n      </div>\n    </div>\n    <table style=\"margin-top: 15px;\" class=\"table table-striped table-bordered mt-4\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th style=\"text-align: center;\">N° Doc</th>\n            <th style=\"text-align: center;\">Status</th>\n            <th>Pessoa</th>\n            <th style=\"text-align: center;\">Data Emissão</th>\n            <th style=\"text-align: center;\">Data Vencimento</th>\n            <th style=\"text-align: center;\">Forma Pagamento</th>\n            <th style=\"text-align: center;\">Valor Parcela</th>\n            <th style=\"text-align: center;\">Valor Pago</th>\n            <th style=\"text-align: center;\">Valor Restante</th>\n            <th style=\"text-align: center;\">Ações</th>\n          </tr>\n        </thead>\n        <tbody *ngIf=\"parcelas && parcelas.length\">\n          <tr *ngFor=\"let parcela of parcelas | paginate: { itemsPerPage: 5,currentPage: paginaAtual, totalItems: totalRegistros };\">\n            <td style=\"text-align: center;\">{{ parcela.documento }}</td>\n            <td style=\"text-align: center;\">\n              <span style=\"text-align: center;\" *ngIf=\"parcela.status == 'PENDENTE'\"  class=\"label label-warning\">\n                {{ parcela.status }}\n              </span>\n              <span style=\"text-align: center;\" *ngIf=\"parcela.status == 'PAGO'\" class=\"label label-success\">\n                {{ parcela.status }}\n              </span>\n            </td>\n            <td style=\"white-space: nowrap;\">{{ parcela.pessoas.nome }}</td>\n            <td style=\"white-space: nowrap;text-align: center;\">{{ parcela.dataEmissao  | date:'dd/MM/yyyy'}}</td>\n            <td style=\"white-space: nowrap;text-align: center;\">{{ parcela.dataVencimento  | date:'dd/MM/yyyy'}}</td>\n            <td style=\"white-space: nowrap;text-align: center;\">{{ parcela.formaPagamento.descricao }}</td>\n            <td style=\"text-align: center;\">{{parcela.valor | currency:' ':false}}</td>\n            <td style=\"text-align: center;\">{{parcela.valorPago| currency:' ':false}}</td>\n            <td style=\"text-align: center;\">{{parcela.valorRestante | currency:' ':false}}</td>\n            <td style=\"text-align: center;white-space: nowrap;\">\n              <div class=\"btn-group\">\n                <a *ngIf=\"this.visualizar == true\" (click)=\"abrirTemplateDetalharPagamento(parcela.pagamentosId)\" tooltip=\"Editar/Detalhes\" class=\"btn btn-sm btn-primary\">\n                  <i class=\"fa fa-edit\"></i>\n                </a>\n              </div>\n            </td>\n          </tr>\n        </tbody>\n        <tfoot *ngIf=\"!parcelas\">\n          <tr colspan=\"7\" class=\"text-center\"></tr>\n          <h4>\n            Nenhuma Parcela encontrada!\n          </h4>\n        </tfoot>\n      </table>\n      Total de Registros: {{totalRegistros}}\n      <div class=\"text-center\">\n        <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n          nextLabel=\"Próximo\">\n        </pagination-controls>\n      </div>\n  </div>\n\n</div>\n<app-template-pagamento  *ngIf=\"getTemplatePagamento() == true\"></app-template-pagamento>\n\n<app-detalhar-pagamento [idPagamento]=\"this.idDetalharPagamento\" *ngIf=\"getDetalharPagamento() == true\"></app-detalhar-pagamento>\n"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/pagamento/pagamento.component.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/financeiro/pagamento/pagamento.component.ts ***!
+  \*************************************************************/
+/*! exports provided: PagamentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PagamentoComponent", function() { return PagamentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Financeiro_Pagamentos_pagamento_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Financeiro/Pagamentos/pagamento.service */ "./src/app/_services/Financeiro/Pagamentos/pagamento.service.ts");
+
+
+
+
+
+var PagamentoComponent = /** @class */ (function () {
+    function PagamentoComponent(toastr, permissaoService, pagamentoService) {
+        this.toastr = toastr;
+        this.permissaoService = permissaoService;
+        this.pagamentoService = pagamentoService;
+        this.novo = false;
+        this.editar = false;
+        this.visualizar = false;
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+        this.parcelas = [];
+    }
+    PagamentoComponent.prototype.ngOnInit = function () {
+        this.pagamentoService.setDetalharPagamentoStatus(false);
+        this.getPagamentos();
+    };
+    PagamentoComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PAGAMENTOS', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PAGAMENTOS', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    PagamentoComponent.prototype.getPagamentos = function () {
+        var _this = this;
+        this.pagamentoService.getAllPagamentos().subscribe(
+        // tslint:disable-next-line:variable-name
+        function (_PAGAMENTOS) {
+            _this.pagamentos = _PAGAMENTOS;
+            console.log(_this.pagamentos);
+            _this.pagamentos.forEach(function (pagamento) {
+                pagamento.parcelas.forEach(function (parcela) {
+                    parcela = Object.assign(parcela, {
+                        pessoas: pagamento.pessoas,
+                        dataEmissao: pagamento.dataEmissao,
+                        valorTotal: pagamento.valorTotal,
+                        valorRestante: parcela.valor - parcela.valorPago,
+                        centroDespesaId: pagamento.centroDespesaId,
+                        planoContasId: pagamento.planoContasId
+                    });
+                    _this.parcelas.push(parcela);
+                });
+            });
+            console.log(_this.parcelas);
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Pagamentos: " + error.error);
+        });
+    };
+    PagamentoComponent.prototype.getDetalharPagamento = function () {
+        return this.pagamentoService.getDetalharPagamentoStatus();
+    };
+    PagamentoComponent.prototype.abrirTemplateDetalharPagamento = function (idPagamento) {
+        this.idDetalharPagamento = idPagamento;
+        this.pagamentoService.setDetalharPagamentoStatus(true);
+    };
+    PagamentoComponent.prototype.getTemplatePagamento = function () {
+        return this.pagamentoService.getTemplatePagamentoStatus();
+    };
+    PagamentoComponent.prototype.abrirTemplatePagamento = function () {
+        this.pagamentoService.setTemplatePagamentoStatus(true);
+    };
+    PagamentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-pagamento',
+            template: __webpack_require__(/*! ./pagamento.component.html */ "./src/app/financeiro/pagamento/pagamento.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_3__["PermissaoService"],
+            src_app_services_Financeiro_Pagamentos_pagamento_service__WEBPACK_IMPORTED_MODULE_4__["PagamentoService"]])
+    ], PagamentoComponent);
+    return PagamentoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/financeiro/pagamento/templatePagamento/templatePagamento.component.css":
+/*!****************************************************************************************!*\
+  !*** ./src/app/financeiro/pagamento/templatePagamento/templatePagamento.component.css ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".modal-xl {\r\n    width: 50%;\r\n    /* New width for large modal */\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZmluYW5jZWlyby9wYWdhbWVudG8vdGVtcGxhdGVQYWdhbWVudG8vdGVtcGxhdGVQYWdhbWVudG8uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFVBQVU7SUFDViw4QkFBOEI7QUFDbEMiLCJmaWxlIjoic3JjL2FwcC9maW5hbmNlaXJvL3BhZ2FtZW50by90ZW1wbGF0ZVBhZ2FtZW50by90ZW1wbGF0ZVBhZ2FtZW50by5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1vZGFsLXhsIHtcclxuICAgIHdpZHRoOiA1MCU7XHJcbiAgICAvKiBOZXcgd2lkdGggZm9yIGxhcmdlIG1vZGFsICovXHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/pagamento/templatePagamento/templatePagamento.component.html":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/financeiro/pagamento/templatePagamento/templatePagamento.component.html ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templatePagamentos)}}\n<div bsModal #templatePagamentos=\"bs-modal\" [config]=\"{backdrop: 'static', keyboard: false}\"\n  class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Pagamento ({{produtoItem.descricao}})\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templatePagamentos)\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroPagamento\">\n\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Data Emissão</label>\n              <input type=\"text\" class=\"form-control\" formControlName=\"dataEmissao\"\n                [ngModel]=\"cadastroPagamento.get('dataEmissao').value\" bsDatepicker [bsConfig]=\"this.bsConfig\"\n                [ngClass]=\"{ 'is-invalid': cadastroPagamento.get('dataEmissao').errors && \n                cadastroPagamento.get('dataEmissao').touched}\" />\n              <div\n                *ngIf=\"cadastroPagamento.get('dataEmissao').hasError('required') &&cadastroPagamento.get('dataEmissao').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-5\">\n              <label>Pessoa/Fornecedor:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"pessoas\" bindLabel=\"nome\" bindValue=\"id\"\n                [(ngModel)]=\"pessoaIdSelecionado\" formControlName=\"pessoasId\">\n              </ng-select>\n            </div>\n\n\n            <div class=\"form-group col-md-3\">\n              <label>Valor do Pagamento:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask formControlName=\"valorTotal\"\n                  [options]=\"{ prefix: '', thousands: '.', decimal: ',' }\" [ngClass]=\"{ 'is-invalid': cadastroPagamento.get('valorTotal').errors && \n                  cadastroPagamento.get('valorTotal').touched}\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n              <div\n                *ngIf=\"cadastroPagamento.get('valorTotal').hasError('required') && cadastroPagamento.get('valorTotal').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n              <div\n                *ngIf=\"cadastroPagamento.get('valorTotal').hasError('min') && cadastroPagamento.get('valorTotal').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0.\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Centro de Despesa:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"centrosDespesa\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"centroDespesaIdSelecionado\"\n                formControlName=\"centroDespesaId\" [disabled]=\"true\">\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-5\">\n              <label style=\"white-space: nowrap;\">Plano de Conta:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planoContasDespesa\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [(ngModel)]=\"planoContasIdSelecionado\" formControlName=\"planoContasId\" disabled>\n                <ng-template ng-option-tmp let-item=\"item\" let-search=\"searchTerm\">\n                  <div><span></span><span [ngOptionHighlight]=\"search\">{{item.descricao}}</span></div>\n                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>\n                </ng-template>\n              </ng-select>\n            </div>\n\n          </div>\n          <div class=\"row\">\n            <hr style=\"width: 100%\">\n            <div class=\"form-group col-md-5\">\n              <label style=\"white-space: nowrap;\">Plano de Pagamento: </label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planosPagamento\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"planoPagamentoIdSelecionado\"\n                formControlName=\"planoPagamentoId\">\n              </ng-select>\n            </div>\n            <div  *ngIf=\"!idVenda\" class=\"form-check form-group col-md-2\" style=\"margin-top: 30px;\">\n              <div class=\"custom-control custom-checkbox\">\n                <input type=\"checkbox\" class=\"custom-control-input\" [(ngModel)]=\"diasFixo\"\n                  formControlName=\"diasfixoCheck\">\n                <label class=\"custom-control-label\" for=\"customCheck\">&nbsp;Dias Fixo</label>\n              </div>\n            </div>\n            <div class=\"form-group col-md-2\" style=\"margin-left: -10px;\" *ngIf=\"this.diasFixo == true\">\n              <label>Dia:</label>\n              <input class=\"form-control\" currencyMask formControlName=\"diasFixo\"\n                [options]=\"{ prefix: '', thousands: '.', decimal: ',', precision: 0 }\" v\n                [ngClass]=\"{ 'is-invalid': cadastroPagamento.get('diasFixo').errors && cadastroPagamento.get('diasFixo').touched}\" />\n              <div\n                *ngIf=\"cadastroPagamento.get('diasFixo').hasError('required') && cadastroPagamento.get('diasFixo').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n              <div\n                *ngIf=\"cadastroPagamento.get('diasFixo').hasError('min') && cadastroPagamento.get('diasFixo').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0.\n              </div>\n            </div>\n\n            <div class=\" form-group col-md-2\">\n              <button style=\"position:relative;margin-top: 24px;\" [disabled]=\"cadastroPagamento.get('dataEmissao').hasError('required') == true ||\n                   cadastroPagamento.get('valorTotal').hasError('required') == true || \n                   cadastroPagamento.get('valorTotal').hasError('min') == true\" tooltip=\"Gerar Parcelas\" (click)=\"gerarParcelas()\"\n                class=\"btn btn-primary\">\n                &nbsp;Gerar Parcelas\n              </button>\n            </div>\n          </div>\n        </form>\n\n        <div *ngIf=\"parcelas && parcelas.length > 0\" class=\"box box-success\">\n          <div class=\"box-body\">\n            <table class=\"table table-responsive table-bordered\">\n              <thead class=\"thead-light\">\n                <tr>\n                  <th style=\"white-space: nowrap;text-align: center;\">Documento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Data de Vencimento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Forma de Pagamento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Valor da Parcela</th>\n                </tr>\n              </thead>\n              <tbody>\n                <tr *ngFor=\"let parcela of parcelas\">\n                  <td style=\"text-align: center;\">{{parcela.documento}}</td>\n                  <td style=\"text-align: center;\">\n                    <div class=\"col-md-12\">\n                      <input type=\"text\" class=\"form-control\" name=\"dataVencimento\"\n                        [ngModel]=\"this.dataService.getDataPTBR(parcela.dataVencimento)\" (ngModel)=\"parcela.dataVencimento\"  bsDatepicker\n                        [bsConfig]=\"this.bsConfig\" />\n                    </div>\n                  </td>\n                  <td style=\"text-align: center;\">\n                    <div class=\"col-md-12\">\n                      <ng-select style=\"text-transform: uppercase\" [items]=\"formasPagamento\" bindLabel=\"descricao\"\n                        required bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"parcela.formaPagamentoId\"\n                        name=\"formaPagamentoId\" disabled>\n                      </ng-select>\n                    </div>\n                  </td>\n                  <td style=\"text-align: center;\">\n                    <div class=\"col-md-12\">\n                      <div class=\"input-group\">\n                        <input class=\"form-control\" currencyMask name=\"valor\" [(ngModel)]=\"parcela.valor\"\n                          [options]=\"{ prefix: '', thousands: '.', decimal: ',' }\" />\n                        <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n                      </div>\n                    </div>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n\n          </div>\n        </div>\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templatePagamentos)\">\n          Fechar\n        </button>\n\n        <button class=\"btn btn-primary\" [disabled]=\"cadastroPagamento.get('dataEmissao').hasError('required') == true ||\n        cadastroPagamento.get('valorTotal').hasError('required') == true || \n        cadastroPagamento.get('valorTotal').hasError('min') == true || parcelas.length == 0 || !parcelas\" (click)=\"lancarPagamento()\">\n          Cadastrar Pagamento\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/pagamento/templatePagamento/templatePagamento.component.ts":
+/*!***************************************************************************************!*\
+  !*** ./src/app/financeiro/pagamento/templatePagamento/templatePagamento.component.ts ***!
+  \***************************************************************************************/
+/*! exports provided: TemplatePagamentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemplatePagamentoComponent", function() { return TemplatePagamentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Financeiro_Pagamentos_Pagamentos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Financeiro/Pagamentos/Pagamentos */ "./src/app/_models/Financeiro/Pagamentos/Pagamentos.ts");
+/* harmony import */ var src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_models/Cadastros/Produtos/produtoItem */ "./src/app/_models/Cadastros/Produtos/produtoItem.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Financeiro_Pagamentos_pagamento_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Financeiro/Pagamentos/pagamento.service */ "./src/app/_services/Financeiro/Pagamentos/pagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_CentroDespesa_centroDespesa_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_services/Cadastros/CentroDespesa/centroDespesa.service */ "./src/app/_services/Cadastros/CentroDespesa/centroDespesa.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/_services/Movimentos/Venda/venda.service */ "./src/app/_services/Movimentos/Venda/venda.service.ts");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service */ "./src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/_services/Cadastros/FormaPagamento/formaPagamento.service */ "./src/app/_services/Cadastros/FormaPagamento/formaPagamento.service.ts");
+/* harmony import */ var src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/_services/Movimentos/Lancamentos/lancamento.service */ "./src/app/_services/Movimentos/Lancamentos/lancamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Pessoas_pessoa_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/_services/Cadastros/Pessoas/pessoa.service */ "./src/app/_services/Cadastros/Pessoas/pessoa.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_16__);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var TemplatePagamentoComponent = /** @class */ (function () {
+    function TemplatePagamentoComponent(fb, toastr, pagamentoService, centroDespesaService, planoContaService, dataService, pessoaService, vendaService, permissaoService, planoPagamentoService, formaPagamentoService, lancamentoService) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.pagamentoService = pagamentoService;
+        this.centroDespesaService = centroDespesaService;
+        this.planoContaService = planoContaService;
+        this.dataService = dataService;
+        this.pessoaService = pessoaService;
+        this.vendaService = vendaService;
+        this.permissaoService = permissaoService;
+        this.planoPagamentoService = planoPagamentoService;
+        this.formaPagamentoService = formaPagamentoService;
+        this.lancamentoService = lancamentoService;
+        this.parcelas = [];
+        this.templateEnabled = false;
+        this.diasFixo = false;
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+    }
+    TemplatePagamentoComponent.prototype.ngOnInit = function () {
+        this.getPessoas();
+        this.getPlanoContas();
+        this.getFormaPagamento();
+        this.getCentroDespesa();
+        this.getPlanoPagamento();
+        this.getVendaConfig();
+        this.validarPagamentos();
+        this.carregarPagamentoVenda(this.produtoItem);
+    };
+    TemplatePagamentoComponent.prototype.carregarPagamentoVenda = function (produtoItem) {
+        this.centroDespesaIdSelecionado = produtoItem.centroDespesaId;
+        this.planoContasIdSelecionado = produtoItem.planoContasId;
+        this.idProdutoItemValorRealizado = produtoItem.id;
+    };
+    TemplatePagamentoComponent.prototype.validarPagamentos = function () {
+        this.cadastroPagamento = this.fb.group({
+            id: [''],
+            pessoasId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            dataEmissao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            dataCompetencia: [''],
+            qtdParcelas: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            valorTotal: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].min(1)]],
+            planoPagamentoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            centroDespesaId: [{ value: '', disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            planoContasId: [{ value: '', disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            diasFixo: ['10', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].min(1)]],
+            diasfixoCheck: ['']
+        });
+    };
+    TemplatePagamentoComponent.prototype.getInfoPlanoPagamento = function (idPlanoPagamento) {
+        var info = this.planosPagamento.filter(function (c) { return c.id === idPlanoPagamento; })[0];
+        return info;
+    };
+    TemplatePagamentoComponent.prototype.setarDiaFixo = function (data, dia) {
+        if (data && data !== null && data.toString().length > 0) {
+            var novaData = data.split('T')[0].split('-');
+            var mes = novaData[1];
+            var ano = novaData[0];
+            return ano + '-' + mes + '-' + dia;
+        }
+        else {
+            return '';
+        }
+    };
+    TemplatePagamentoComponent.prototype.gerarParcelas = function () {
+        this.parcelas = [];
+        this.pagamento = new src_app_models_Financeiro_Pagamentos_Pagamentos__WEBPACK_IMPORTED_MODULE_2__["Pagamentos"]();
+        this.pagamento.parcelas = [];
+        var diaFixo = this.cadastroPagamento.get('diasFixo').value;
+        var dataEmissao = this.cadastroPagamento.get('dataEmissao').value.toLocaleString();
+        this.qtdParcelas = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).qtdParcelas;
+        this.prazoPrimeiraParcela = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).prazoPrimeiraParcela;
+        this.intervaloParcelas = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).intervaloParcelas;
+        this.formaPagamentoIdSelecionado = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).formaPagamentoId;
+        var formaPag = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).formaPagamento;
+        var valorTotal = this.cadastroPagamento.get('valorTotal').value;
+        var valorParcela = Number(Number(valorTotal) / this.qtdParcelas);
+        for (var i = 0; i < this.qtdParcelas; i++) {
+            var documentoText = this.idVenda + '/' + (i + 1);
+            var diasSoma = 0;
+            var mesSoma = 0;
+            if (Number(this.prazoPrimeiraParcela) === 0) {
+                if (i === 0) {
+                    mesSoma = 0;
+                    diasSoma = Number(this.prazoPrimeiraParcela);
+                }
+                else {
+                    mesSoma = i;
+                    diasSoma = (Number(this.intervaloParcelas) * i);
+                }
+            }
+            else {
+                if (i === 0) {
+                    diasSoma = Number(this.prazoPrimeiraParcela);
+                }
+                else {
+                    diasSoma = Number(this.intervaloParcelas * i) + Number(this.prazoPrimeiraParcela);
+                }
+                mesSoma = i + 1;
+            }
+            var dataEmissaoSQL = moment__WEBPACK_IMPORTED_MODULE_16__(dataEmissao, 'DD/MM/YYYY').format('YYYY-MM-DD');
+            var dataEmissaoPTBR = this.dataService.getDataPTBR(dataEmissaoSQL);
+            var dataVencVariavel = moment__WEBPACK_IMPORTED_MODULE_16__(dataEmissaoPTBR, 'DD/MM/YYYY').add('days', diasSoma).format('YYYY-MM-DD');
+            var dataVencFixoAux = moment__WEBPACK_IMPORTED_MODULE_16__(dataEmissaoPTBR, 'DD/MM/YYYY').add('months', mesSoma).format('YYYY-MM-DD');
+            var dataVencFixo = (Number(this.prazoPrimeiraParcela) === 0 && i === 0) ? dataEmissaoPTBR :
+                this.dataService.getDataPTBR(this.setarDiaFixo(dataVencFixoAux, diaFixo));
+            var parcela = Object.assign({ id: 0, documento: documentoText,
+                dataVencimento: (this.diasFixo === true) ? dataVencFixo : this.dataService.getDataPTBR(dataVencVariavel),
+                dataPagamento: (i === 0 && (dataEmissaoSQL === dataVencVariavel || dataEmissaoSQL === dataVencFixo)) ? dataEmissaoSQL : null,
+                valor: Number(valorParcela),
+                valorPago: (Number(this.prazoPrimeiraParcela) === 0 && i === 0) ? Number(valorParcela) : 0,
+                status: ((i === 0 && (dataEmissaoSQL === dataVencVariavel || dataEmissaoSQL === dataVencFixo)) ||
+                    formaPag.descricao === 'CHEQUE') ? 'PAGO' : 'PENDENTE',
+                formaPagamentoId: this.formaPagamentoIdSelecionado,
+                formaPagamento: formaPag,
+                dataLancamento: dataEmissao,
+                numeroParcela: i
+            });
+            this.parcelas.push(parcela);
+        }
+    };
+    TemplatePagamentoComponent.prototype.efetuarLancamentos = function () {
+        var _this = this;
+        var lancamentos;
+        lancamentos = [];
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_16__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        this.parcelas.forEach(function (parcela) {
+            var conta = _this.getInfoPlanoPagamento(_this.planoPagamentoIdSelecionado).planoContasId;
+            lancamentos.push(Object.assign({
+                id: 0,
+                centroDespesaId: _this.centroDespesaIdSelecionado,
+                descricao: 'VALOR PAGT - VENDA DE SISTEMA',
+                planoDebitoId: _this.planoContasIdSelecionado,
+                planoCreditoId: _this.vendaConfig.planoContaPagParcelaAVistaId,
+                valor: parcela.valor,
+                usuarioId: _this.permissaoService.getUsuarioId(),
+                dataHora: dataAtual,
+                dataLancamento: _this.dataService.getDataSQL(parcela.dataLancamento)
+            }));
+        });
+        this.lancamentoService.novosLancamentos(lancamentos).subscribe(function () {
+            console.log('Lançamentos Efetuados.');
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar inserir lancamentos : " + error.error);
+        });
+    };
+    TemplatePagamentoComponent.prototype.lancarPagamento = function () {
+        var _this = this;
+        var dataEmissao = this.cadastroPagamento.get('dataEmissao').value.toLocaleString();
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_16__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        this.pagamento = Object.assign(this.cadastroPagamento.value, {
+            id: 0,
+            vendaId: this.idVenda,
+            qtdParcelas: this.qtdParcelas,
+            dataEmissao: this.dataService.getDataSQL(dataEmissao),
+            centroDespesaId: this.centroDespesaIdSelecionado,
+            planoContasId: this.planoContasIdSelecionado,
+            produtosItensId: this.idProdutoItemValorRealizado,
+            planoPagamento: null,
+            planoPagamentoId: this.planoPagamentoIdSelecionado,
+            parcelas: []
+        });
+        this.pagamentoService.novoPagamento(this.pagamento).subscribe(function (_ID) {
+            var pagamentoParcelas = [];
+            _this.parcelas.forEach(function (parcela) {
+                var parc = Object.assign(parcela, {
+                    id: 0,
+                    dataVencimento: _this.dataService.getDataSQL(parcela.dataVencimento),
+                    formaPagamento: null,
+                    documento: _ID.toString() + '/' + parcela.documento,
+                    pagamentosId: _ID
+                });
+                pagamentoParcelas.push(parc);
+            });
+            _this.pagamentoService.novoPagamentoParcelas(pagamentoParcelas).subscribe(function () {
+                _this.valorRealizado = Object.assign({
+                    id: 0,
+                    vendaId: _this.idVenda,
+                    produtosItensId: _this.idProdutoItemValorRealizado,
+                    dataHoraUltAlt: dataAtual,
+                    pagamentos: null,
+                    pagamentosId: _ID,
+                });
+                _this.vendaService.novoVendaValorRealizado(_this.valorRealizado).subscribe(function () {
+                    _this.toastr.success('Salvo com Sucesso!');
+                    _this.efetuarLancamentos();
+                    _this.vendaService.atualizarVenda();
+                    _this.vendaService.atualizarPagamentos();
+                    _this.fecharTemplate(_this.templatePagamentos);
+                }, function (error) {
+                    console.log(error.error);
+                    _this.toastr.error("Erro ao tentar inserir novo Valor Realizado : " + error.error);
+                });
+            }, function (error) {
+                console.log(error.error);
+                _this.toastr.error("Erro ao tentar inserir novo Pagamento Parcelas : " + error.error);
+            });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar inserir novo Pagamento: " + error.error);
+        });
+    };
+    TemplatePagamentoComponent.prototype.getPessoas = function () {
+        var _this = this;
+        this.pessoaService.getAllPessoa().subscribe(
+        // tslint:disable-next-line:variable-name
+        function (_PESSOAS) {
+            _this.pessoas = _PESSOAS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Pessoas: " + error.error);
+        });
+    };
+    TemplatePagamentoComponent.prototype.getVendaConfig = function () {
+        var _this = this;
+        this.vendaService.getVendaConfig().subscribe(function (_CONFIG) {
+            _this.vendaConfig = _CONFIG;
+            if (_this.idVenda !== 0) {
+                _this.planoPagamentoIdSelecionado = _this.vendaConfig.planoPagamentoSaidasId;
+                _this.cadastroPagamento.get('planoPagamentoId').disable();
+            }
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar VendaConfig: " + error.error);
+        });
+    };
+    TemplatePagamentoComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContasDespesa = _PLANOS.filter(function (c) { return c.tipo === 'DESPESA'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    TemplatePagamentoComponent.prototype.getCentroDespesa = function () {
+        var _this = this;
+        this.centroDespesaService.getAllCentroDespesa().subscribe(function (_CENTROS) {
+            _this.centrosDespesa = _CENTROS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Centros de Despesa: " + error.error);
+        });
+    };
+    TemplatePagamentoComponent.prototype.getPlanoPagamento = function () {
+        var _this = this;
+        this.planoPagamentoService.getAllPlanoPagamento().subscribe(function (_PLANOS) {
+            _this.planosPagamento = _PLANOS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Pagamento: " + error.error);
+        });
+    };
+    TemplatePagamentoComponent.prototype.getFormaPagamento = function () {
+        var _this = this;
+        this.formaPagamentoService.getAllFormaPagamento().subscribe(function (_FORMAS) {
+            _this.formasPagamento = _FORMAS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Formas de Pagamento: " + error.error);
+        });
+    };
+    TemplatePagamentoComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            template.show();
+            this.templateEnabled = true;
+        }
+    };
+    TemplatePagamentoComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.pagamentoService.setTemplatePagamentoStatus(false);
+        this.templateEnabled = false;
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_3__["ProdutoItem"])
+    ], TemplatePagamentoComponent.prototype, "produtoItem", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], TemplatePagamentoComponent.prototype, "idVenda", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], TemplatePagamentoComponent.prototype, "vendaClienteId", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('templatePagamentos'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TemplatePagamentoComponent.prototype, "templatePagamentos", void 0);
+    TemplatePagamentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-template-pagamento',
+            template: __webpack_require__(/*! ./templatePagamento.component.html */ "./src/app/financeiro/pagamento/templatePagamento/templatePagamento.component.html"),
+            styles: [__webpack_require__(/*! ./templatePagamento.component.css */ "./src/app/financeiro/pagamento/templatePagamento/templatePagamento.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+            src_app_services_Financeiro_Pagamentos_pagamento_service__WEBPACK_IMPORTED_MODULE_6__["PagamentoService"],
+            src_app_services_Cadastros_CentroDespesa_centroDespesa_service__WEBPACK_IMPORTED_MODULE_7__["CentroDespesaService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_8__["PlanoContaService"],
+            src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_9__["DataService"],
+            src_app_services_Cadastros_Pessoas_pessoa_service__WEBPACK_IMPORTED_MODULE_15__["PessoaService"],
+            src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_10__["VendaService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_11__["PermissaoService"],
+            src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_12__["PlanoPagamentoService"],
+            src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_13__["FormaPagamentoService"],
+            src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_14__["LancamentoService"]])
+    ], TemplatePagamentoComponent);
+    return TemplatePagamentoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component.css":
+/*!**********************************************************************************************!*\
+  !*** ./src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component.css ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".modal-xl {\r\n    width: 55%;\r\n    /* New width for large modal */\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZmluYW5jZWlyby9yZWNlYmltZW50by9kZXRhbGhhclJlY2ViaW1lbnRvL2RldGFsaGFyUmVjZWJpbWVudG8uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFVBQVU7SUFDViw4QkFBOEI7QUFDbEMiLCJmaWxlIjoic3JjL2FwcC9maW5hbmNlaXJvL3JlY2ViaW1lbnRvL2RldGFsaGFyUmVjZWJpbWVudG8vZGV0YWxoYXJSZWNlYmltZW50by5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1vZGFsLXhsIHtcclxuICAgIHdpZHRoOiA1NSU7XHJcbiAgICAvKiBOZXcgd2lkdGggZm9yIGxhcmdlIG1vZGFsICovXHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component.html":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component.html ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templateDetalharRecebimento)}}\n<div bsModal #templateDetalharRecebimento=\"bs-modal\" [config]=\"{backdrop: 'static', keyboard: false}\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Recebimento ({{produtoItem.descricao}})\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\"\n          (click)=\"fecharTemplate(templateDetalharRecebimento)\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroRecebimento\">\n\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Data Emissão</label>\n              <input type=\"text\" class=\"form-control\" formControlName=\"dataEmissao\"\n                [ngModel]=\"cadastroRecebimento.get('dataEmissao').value\" bsDatepicker [bsConfig]=\"this.bsConfig\"\n                [ngClass]=\"{ 'is-invalid': cadastroRecebimento.get('dataEmissao').errors && \n                cadastroRecebimento.get('dataEmissao').touched}\"/>\n                <div *ngIf=\"cadastroRecebimento.get('dataEmissao').hasError('required') &&cadastroRecebimento.get('dataEmissao').touched\"\n                  class=\"invalid-feedback\">\n                  Campo obrigatório.\n                </div>\n            </div>\n            \n\n            <div class=\"form-group col-md-3\">\n              <label>Valor da Venda:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask formControlName=\"valorTotal\"\n                  [options]=\"{ prefix: '', thousands: '.', decimal: ',' }\" [ngClass]=\"{ 'is-invalid': cadastroRecebimento.get('valorTotal').errors && \n                  cadastroRecebimento.get('valorTotal').touched}\"/>           \n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n              <div *ngIf=\"cadastroRecebimento.get('valorTotal').hasError('required') && cadastroRecebimento.get('valorTotal').touched\"\n                    class=\"invalid-feedback\">\n                    Campo obrigatório.\n                </div>\n                <div *ngIf=\"cadastroRecebimento.get('valorTotal').hasError('min') && cadastroRecebimento.get('valorTotal').touched\"\n                    class=\"invalid-feedback\">\n                    Valor deve ser maior que 0.\n                </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Centro de Receita:(*)</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"centrosReceita\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"centroReceitaIdSelecionado\"\n                formControlName=\"centroReceitaId\" [disabled]=\"true\">\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Plano de Conta:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planoContasReceita\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [(ngModel)]=\"planoContasIdSelecionado\" formControlName=\"planoContasId\" disabled>\n                <ng-template ng-option-tmp let-item=\"item\" let-search=\"searchTerm\">\n                  <div><span></span><span [ngOptionHighlight]=\"search\">{{item.descricao}}</span></div>\n                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>\n                </ng-template>\n              </ng-select>\n            </div>\n\n          </div>\n          <div class=\"row\">\n            <hr style=\"width: 100%\">\n            <div class=\"form-group col-md-5\">\n              <label style=\"white-space: nowrap;\">Plano de Pagamento:(*)</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planosPagamento\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"planoPagamentoIdSelecionado\"\n                formControlName=\"planoPagamentoId\">\n              </ng-select>\n            </div>\n          </div>\n        </form>\n\n        <div *ngIf=\"parcelas && parcelas.length > 0\" class=\"box box-success\">\n          <div class=\"box-body\">\n            <table class=\"table table-responsive table-bordered\">\n              <thead class=\"thead-light\">\n                <tr>\n                  <th style=\"white-space: nowrap;text-align: center;\">Documento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Data de Vencimento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Forma de Pagamento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Valor da Parcela</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Status</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Ações</th>\n                </tr>\n              </thead>\n              <tbody>\n                <tr *ngFor=\"let parcela of parcelas\">\n                  <td style=\"text-align: center;\">{{parcela.documento}}</td>\n                  <td style=\"white-space: nowrap;text-align: center;\">{{ parcela.dataVencimento }}</td>\n                  <td style=\"text-align: center;\">{{parcela.formaPagamento.descricao}}</td>\n                  <td style=\"text-align: center;\">{{parcela.valor | currency:' ':false}}</td>\n                  <td style=\"text-align: center;\">\n                    <span style=\"text-align: center;\" *ngIf=\"parcela.status == 'PENDENTE'\"  class=\"label label-warning\">\n                      {{ parcela.status }}\n                    </span>\n                    <span style=\"text-align: center;\" *ngIf=\"parcela.status == 'PAGO'\" class=\"label label-success\">\n                      {{ parcela.status }}\n                    </span>\n                  </td>\n                  <td style=\"text-align: center;\"><a \n                      tooltip=\"Quitar Parcela\" class=\"btn btn-sm btn-success\">\n                      <i class=\"fa fa-usd\"></i>\n                    </a>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n\n          </div>\n        </div>\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templateDetalharRecebimento)\">\n          Fechar\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component.ts":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component.ts ***!
+  \*********************************************************************************************/
+/*! exports provided: DetalharRecebimentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetalharRecebimentoComponent", function() { return DetalharRecebimentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Financeiro/Recebimentos/recebimento.service */ "./src/app/_services/Financeiro/Recebimentos/recebimento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_CentroReceita_centroReceita_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/CentroReceita/centroReceita.service */ "./src/app/_services/Cadastros/CentroReceita/centroReceita.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service */ "./src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_services/Cadastros/FormaPagamento/formaPagamento.service */ "./src/app/_services/Cadastros/FormaPagamento/formaPagamento.service.ts");
+/* harmony import */ var src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/_models/Cadastros/Produtos/produtoItem */ "./src/app/_models/Cadastros/Produtos/produtoItem.ts");
+
+
+
+
+
+
+
+
+
+
+
+var DetalharRecebimentoComponent = /** @class */ (function () {
+    function DetalharRecebimentoComponent(fb, toastr, recebimentoService, centroReceitaService, planoContaService, dataService, planoPagamentoService, formaPagamentoService) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.recebimentoService = recebimentoService;
+        this.centroReceitaService = centroReceitaService;
+        this.planoContaService = planoContaService;
+        this.dataService = dataService;
+        this.planoPagamentoService = planoPagamentoService;
+        this.formaPagamentoService = formaPagamentoService;
+        this.parcelas = [];
+        this.templateEnabled = false;
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+    }
+    DetalharRecebimentoComponent.prototype.ngOnInit = function () {
+        this.getCentroReceita();
+        this.getFormaPagamento();
+        this.getPlanoContas();
+        this.getPlanoPagamento();
+        this.validarRecebimentos();
+        this.carregarRecebimento();
+    };
+    DetalharRecebimentoComponent.prototype.carregarRecebimento = function () {
+        var _this = this;
+        this.recebimento = null;
+        this.recebimentoService.getRecebimentosById(this.idRecebimento)
+            .subscribe(function (_RECEBIMENTO) {
+            _this.recebimento = Object.assign(_RECEBIMENTO, {
+                dataEmissao: _this.dataService.getDataPTBR(_RECEBIMENTO.dataEmissao)
+            });
+            _this.cadastroRecebimento.patchValue(_this.recebimento);
+            _this.cadastroRecebimento.disable();
+            _this.parcelas = _this.recebimento.parcelas;
+            _this.parcelas.forEach(function (parcela) {
+                parcela.dataVencimento = _this.dataService.getDataPTBR(parcela.dataVencimento);
+            });
+            _this.recebimentoClientesId = _this.recebimento.clientesId;
+        }, function (error) {
+            _this.toastr.error("Erro ao tentar carregar Recebimento: " + error.error);
+            console.log(error);
+        });
+    };
+    DetalharRecebimentoComponent.prototype.validarRecebimentos = function () {
+        this.cadastroRecebimento = this.fb.group({
+            id: [''],
+            clientesId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            dataEmissao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            dataCompetencia: [''],
+            qtdParcelas: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            valorTotal: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].min(1)]],
+            planoPagamentoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            centroReceitaId: [{ value: '', disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            planoContasId: [{ value: '', disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+        });
+    };
+    DetalharRecebimentoComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            template.show();
+            this.templateEnabled = true;
+        }
+    };
+    DetalharRecebimentoComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.recebimentoService.setDetalharRecebimentoStatus(false);
+        this.templateEnabled = false;
+    };
+    DetalharRecebimentoComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContasReceita = _PLANOS.filter(function (c) { return c.tipo === 'RECEITA'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    DetalharRecebimentoComponent.prototype.getCentroReceita = function () {
+        var _this = this;
+        this.centroReceitaService.getAllCentroReceita().subscribe(function (_CENTROS) {
+            _this.centrosReceita = _CENTROS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Centros de Receita: " + error.error);
+        });
+    };
+    DetalharRecebimentoComponent.prototype.getPlanoPagamento = function () {
+        var _this = this;
+        this.planoPagamentoService.getAllPlanoPagamento().subscribe(function (_PLANOS) {
+            _this.planosPagamento = _PLANOS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Pagamento: " + error.error);
+        });
+    };
+    DetalharRecebimentoComponent.prototype.getFormaPagamento = function () {
+        var _this = this;
+        this.formaPagamentoService.getAllFormaPagamento().subscribe(function (_FORMAS) {
+            _this.formasPagamento = _FORMAS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Formas de Pagamento: " + error.error);
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], DetalharRecebimentoComponent.prototype, "idRecebimento", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_10__["ProdutoItem"])
+    ], DetalharRecebimentoComponent.prototype, "produtoItem", void 0);
+    DetalharRecebimentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-detalhar-recebimento',
+            template: __webpack_require__(/*! ./detalharRecebimento.component.html */ "./src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component.html"),
+            styles: [__webpack_require__(/*! ./detalharRecebimento.component.css */ "./src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_4__["RecebimentoService"],
+            src_app_services_Cadastros_CentroReceita_centroReceita_service__WEBPACK_IMPORTED_MODULE_5__["CentroReceitaService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__["PlanoContaService"],
+            src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_7__["DataService"],
+            src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_8__["PlanoPagamentoService"],
+            src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_9__["FormaPagamentoService"]])
+    ], DetalharRecebimentoComponent);
+    return DetalharRecebimentoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/financeiro/recebimento/recebimento.component.html":
+/*!*******************************************************************!*\
+  !*** ./src/app/financeiro/recebimento/recebimento.component.html ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Recebimentos</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\" >\n    <div class=\"row\">\n      <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;\" class=\"pull-right\">\n        <a  (click)=\"abrirTemplateRecebimento()\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Recebimento\n        </a>\n      </div>\n    </div>\n    <table style=\"margin-top: 15px;\" class=\"table table-striped table-bordered mt-4\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th style=\"text-align: center;\">N° Doc</th>\n            <th style=\"text-align: center;\">Status</th>\n            <th>Cliente</th>\n            <th style=\"text-align: center;\">Data Emissão</th>\n            <th style=\"text-align: center;\">Data Vencimento</th>\n            <th style=\"text-align: center;\">Forma Pagamento</th>\n            <th style=\"text-align: center;\">Valor Parcela</th>\n            <th style=\"text-align: center;\">Valor Recebido</th>\n            <th style=\"text-align: center;\">Valor Restante</th>\n            <th style=\"text-align: center;\">Ações</th>\n          </tr>\n        </thead>\n        <tbody *ngIf=\"parcelas && parcelas.length\">\n          <tr *ngFor=\"let parcela of parcelas | paginate: { itemsPerPage: 50,currentPage: paginaAtual, totalItems: totalRegistros };\">\n            <td style=\"text-align: center;\">{{ parcela.documento }}</td>\n            <td style=\"text-align: center;\">\n              <span style=\"text-align: center;\" *ngIf=\"parcela.status == 'PENDENTE'\"  class=\"label label-warning\">\n                {{ parcela.status }}\n              </span>\n              <span style=\"text-align: center;\" *ngIf=\"parcela.status == 'PAGO'\" class=\"label label-success\">\n                {{ parcela.status }}\n              </span>\n            </td>\n            <td style=\"white-space: nowrap;\">{{ parcela.clientes.nomeFantasia }}</td>\n            <td style=\"white-space: nowrap;text-align: center;\">{{ parcela.dataEmissao  | date:'dd/MM/yyyy'}}</td>\n            <td style=\"white-space: nowrap;text-align: center;\">{{ parcela.dataVencimento  | date:'dd/MM/yyyy'}}</td>\n            <td style=\"white-space: nowrap;text-align: center;\">{{ parcela.formaPagamento.descricao }}</td>\n            <td style=\"text-align: center;\">{{parcela.valor | currency:' ':false}}</td>\n            <td style=\"text-align: center;\">{{parcela.valorRecebido | currency:' ':false}}</td>\n            <td style=\"text-align: center;\">{{parcela.valorRestante | currency:' ':false}}</td>\n            <td style=\"text-align: center;white-space: nowrap;\">\n              <div *ngIf=\"this.visualizar == true\" class=\"btn-group\">\n                <a (click)=\"abrirTemplateDetalharRecebimento(parcela.recebimentosId)\" tooltip=\"Editar/Detalhes\" class=\"btn btn-sm btn-primary\">\n                  <i class=\"fa fa-edit\"></i>\n                </a>\n              </div>\n            </td>\n          </tr>\n        </tbody>\n        <tfoot *ngIf=\"!parcelas\">\n          <tr colspan=\"7\" class=\"text-center\"></tr>\n          <h4>\n            Nenhuma Parcela encontrada!\n          </h4>\n        </tfoot>\n      </table>\n      Total de Registros: {{totalRegistros}}\n      <div class=\"text-center\">\n        <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n          nextLabel=\"Próximo\">\n        </pagination-controls>\n      </div>\n  </div>\n\n</div>\n\n<app-template-recebimento [idVenda]=\"0\" *ngIf=\"getTemplateRecebimento() == true\"></app-template-recebimento>\n\n<app-detalhar-recebimento [idRecebimento]=\"this.idDetalharRecebimento\" *ngIf=\"getDetalharRecebimento() == true\"></app-detalhar-recebimento>\n"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/recebimento/recebimento.component.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/financeiro/recebimento/recebimento.component.ts ***!
+  \*****************************************************************/
+/*! exports provided: RecebimentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecebimentoComponent", function() { return RecebimentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Financeiro/Recebimentos/recebimento.service */ "./src/app/_services/Financeiro/Recebimentos/recebimento.service.ts");
+
+
+
+
+
+var RecebimentoComponent = /** @class */ (function () {
+    function RecebimentoComponent(toastr, permissaoService, recebimentoService) {
+        this.toastr = toastr;
+        this.permissaoService = permissaoService;
+        this.recebimentoService = recebimentoService;
+        this.novo = false;
+        this.visualizar = false;
+        this.paginaAtual = 1;
+        this.totalRegistros = 0;
+        this.parcelas = [];
+    }
+    RecebimentoComponent.prototype.ngOnInit = function () {
+        this.recebimentoService.setDetalharRecebimentoStatus(false);
+        this.getRecebimentos();
+    };
+    RecebimentoComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('RECEBIMENTOS', 'NOVO').subscribe(function (_PERMISSAO) {
+            _this.novo = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('RECEBIMENTOS', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    RecebimentoComponent.prototype.getRecebimentos = function () {
+        var _this = this;
+        this.recebimentoService.getAllRecebimentos().subscribe(
+        // tslint:disable-next-line:variable-name
+        function (_RECEBIMENTOS) {
+            _this.recebimentos = _RECEBIMENTOS;
+            _this.recebimentos.forEach(function (recebimento) {
+                recebimento.parcelas.forEach(function (parcela) {
+                    parcela = Object.assign(parcela, {
+                        clientes: recebimento.clientes,
+                        dataEmissao: recebimento.dataEmissao,
+                        valorTotal: recebimento.valorTotal,
+                        valorRestante: parcela.valor - parcela.valorRecebido,
+                        centroReceitaId: recebimento.centroReceitaId,
+                        planoContasId: recebimento.planoContasId
+                    });
+                    _this.parcelas.push(parcela);
+                });
+            });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Recebimentos: " + error.error);
+        });
+    };
+    RecebimentoComponent.prototype.getDetalharRecebimento = function () {
+        return this.recebimentoService.getDetalharRecebimentoStatus();
+    };
+    RecebimentoComponent.prototype.abrirTemplateDetalharRecebimento = function (idRecebimento) {
+        this.idDetalharRecebimento = idRecebimento;
+        this.recebimentoService.setDetalharRecebimentoStatus(true);
+    };
+    RecebimentoComponent.prototype.getTemplateRecebimento = function () {
+        return this.recebimentoService.getTemplateRecebimentoStatus();
+    };
+    RecebimentoComponent.prototype.abrirTemplateRecebimento = function () {
+        this.recebimentoService.setTemplateRecebimentoStatus(true);
+    };
+    RecebimentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-recebimento',
+            template: __webpack_require__(/*! ./recebimento.component.html */ "./src/app/financeiro/recebimento/recebimento.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_3__["PermissaoService"],
+            src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_4__["RecebimentoService"]])
+    ], RecebimentoComponent);
+    return RecebimentoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component.css":
+/*!**********************************************************************************************!*\
+  !*** ./src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component.css ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".modal-xl {\r\n    width: 50%;\r\n    /* New width for large modal */\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZmluYW5jZWlyby9yZWNlYmltZW50by90ZW1wbGF0ZVJlY2ViaW1lbnRvL3RlbXBsYXRlUmVjZWJpbWVudG8uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFVBQVU7SUFDViw4QkFBOEI7QUFDbEMiLCJmaWxlIjoic3JjL2FwcC9maW5hbmNlaXJvL3JlY2ViaW1lbnRvL3RlbXBsYXRlUmVjZWJpbWVudG8vdGVtcGxhdGVSZWNlYmltZW50by5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1vZGFsLXhsIHtcclxuICAgIHdpZHRoOiA1MCU7XHJcbiAgICAvKiBOZXcgd2lkdGggZm9yIGxhcmdlIG1vZGFsICovXHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component.html":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component.html ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templateRecebimentos)}}\n<div bsModal #templateRecebimentos=\"bs-modal\" [config]=\"{backdrop: 'static', keyboard: false}\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Recebimento ({{produtoItem.descricao}})\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templateRecebimentos)\"\n          aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <form [formGroup]=\"cadastroRecebimento\">\n\n          <div class=\"row\">\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Data Emissão</label>\n              <input type=\"text\" class=\"form-control\" formControlName=\"dataEmissao\"\n                [ngModel]=\"cadastroRecebimento.get('dataEmissao').value\" bsDatepicker [bsConfig]=\"this.bsConfig\"\n                [ngClass]=\"{ 'is-invalid': cadastroRecebimento.get('dataEmissao').errors && \n                cadastroRecebimento.get('dataEmissao').touched}\" />\n              <div\n                *ngIf=\"cadastroRecebimento.get('dataEmissao').hasError('required') &&cadastroRecebimento.get('dataEmissao').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n            </div>\n\n\n            <div class=\"form-group col-md-3\">\n              <label>Valor da Venda:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask formControlName=\"valorTotal\"\n                  [options]=\"{ prefix: '', thousands: '.', decimal: ',' }\" [ngClass]=\"{ 'is-invalid': cadastroRecebimento.get('valorTotal').errors && \n                  cadastroRecebimento.get('valorTotal').touched}\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n              <div\n                *ngIf=\"cadastroRecebimento.get('valorTotal').hasError('required') && cadastroRecebimento.get('valorTotal').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n              <div\n                *ngIf=\"cadastroRecebimento.get('valorTotal').hasError('min') && cadastroRecebimento.get('valorTotal').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0.\n              </div>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label style=\"white-space: nowrap;\">Centro de Receita:(*)</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"centrosReceita\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"centroReceitaIdSelecionado\"\n                formControlName=\"centroReceitaId\" [disabled]=\"true\">\n              </ng-select>\n            </div>\n\n          </div>\n\n          <div class=\"row\">\n            <div class=\"form-group col-md-5\">\n              <label style=\"white-space: nowrap;\">Plano de Conta:</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planoContasReceita\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [(ngModel)]=\"planoContasIdSelecionado\" formControlName=\"planoContasId\" disabled>\n                <ng-template ng-option-tmp let-item=\"item\" let-search=\"searchTerm\">\n                  <div><span></span><span [ngOptionHighlight]=\"search\">{{item.descricao}}</span></div>\n                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>\n                </ng-template>\n              </ng-select>\n            </div>\n          </div>\n\n          <div class=\"row\">\n            <hr style=\"width: 100%\">\n            <div class=\"form-group col-md-5\">\n              <label style=\"white-space: nowrap;\">Plano de Pagamento:(*)</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"planosPagamento\" bindLabel=\"descricao\" required\n                bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"planoPagamentoIdSelecionado\"\n                formControlName=\"planoPagamentoId\">\n              </ng-select>\n            </div>\n            <div class=\"form-check form-group col-md-2\" style=\"margin-top: 30px;\">\n              <div class=\"custom-control custom-checkbox\">\n                <input type=\"checkbox\" class=\"custom-control-input\" [(ngModel)]=\"diasFixo\"\n                  formControlName=\"diasfixoCheck\">\n                <label class=\"custom-control-label\" for=\"customCheck\">&nbsp;Dias Fixo</label>\n              </div>\n            </div>\n            <div class=\"form-group col-md-2\" style=\"margin-left: -10px;\" *ngIf=\"this.diasFixo == true\">\n              <label>Dia:</label>\n              <input class=\"form-control\" currencyMask formControlName=\"diasFixo\"\n                [options]=\"{ prefix: '', thousands: '.', decimal: ',', precision: 0 }\" v\n                [ngClass]=\"{ 'is-invalid': cadastroRecebimento.get('diasFixo').errors && cadastroRecebimento.get('diasFixo').touched}\" />\n              <div\n                *ngIf=\"cadastroRecebimento.get('diasFixo').hasError('required') && cadastroRecebimento.get('diasFixo').touched\"\n                class=\"invalid-feedback\">\n                Campo obrigatório.\n              </div>\n              <div\n                *ngIf=\"cadastroRecebimento.get('diasFixo').hasError('min') && cadastroRecebimento.get('diasFixo').touched\"\n                class=\"invalid-feedback\">\n                Valor deve ser maior que 0.\n              </div>\n            </div>\n\n            <div class=\" form-group col-md-2\">\n              <button style=\"position:relative;margin-top: 24px;\" [disabled]=\"cadastroRecebimento.get('dataEmissao').hasError('required') == true ||\n                   cadastroRecebimento.get('valorTotal').hasError('required') == true || \n                   cadastroRecebimento.get('valorTotal').hasError('min') == true\" (click)=\"gerarParcelas()\"\n                tooltip=\"Gerar Parcelas\" class=\"btn btn-primary\">\n                &nbsp;Gerar Parcelas\n              </button>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\" form-group col-md-2 pull-right\" style=\"margin-right: 35px;\">\n              <button  class=\"btn btn-success\" (click)=\"abrirTemplateChequePre()\" tooltip=\"Novo Cheque Pre\">\n                <i class=\"fa fa-plus-circle\"> </i>&nbsp;Novo Cheque Pre</button>\n            </div>\n          </div>\n        </form>\n\n        <div *ngIf=\"parcelas && parcelas.length > 0\" class=\"box box-success\">\n          <div class=\"box-body\">\n            <table class=\"table table-responsive table-bordered\">\n              <thead class=\"thead-light\">\n                <tr>\n                  <th style=\"white-space: nowrap;text-align: center;\">Documento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Data de Vencimento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Forma de Pagamento</th>\n                  <th style=\"white-space: nowrap;text-align: center;\">Valor da Parcela</th>\n                </tr>\n              </thead>\n              <tbody>\n                <tr *ngFor=\"let parcela of parcelas\">\n                  <td style=\"text-align: center;\">{{parcela.documento}}</td>\n                  <td style=\"text-align: center;\">\n                    <div class=\"col-md-12\">\n                      <input type=\"text\" class=\"form-control\" name=\"dataVencimento\"\n                        [ngModel]=\"this.dataService.getDataPTBR(parcela.dataVencimento)\" (ngModel)=\"parcela.dataVencimento\"bsDatepicker\n                        [bsConfig]=\"this.bsConfig\" />\n                    </div>\n                  </td>\n                  <td style=\"text-align: center;\">\n                    <div class=\"col-md-12\">\n                      <ng-select style=\"text-transform: uppercase\" [items]=\"formasPagamento\" bindLabel=\"descricao\"\n                        required bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"parcela.formaPagamentoId\"\n                        name=\"formaPagamentoId\" disabled>\n                      </ng-select>\n                    </div>\n                  </td>\n                  <td style=\"text-align: center;\">\n                    <div class=\"col-md-12\">\n                      <div class=\"input-group\">\n                        <input class=\"form-control\" currencyMask name=\"valor\" [(ngModel)]=\"parcela.valor\"\n                          [options]=\"{ prefix: '', thousands: '.', decimal: ',' }\" />\n                        <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n                      </div>\n                    </div>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n\n          </div>\n        </div>\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templateRecebimentos)\">\n          Fechar\n        </button>\n        \n        <button class=\"btn btn-primary\" [disabled]=\"cadastroRecebimento.get('dataEmissao').hasError('required') == true ||\n        cadastroRecebimento.get('valorTotal').hasError('required') == true || \n        cadastroRecebimento.get('valorTotal').hasError('min') == true || parcelas.length == 0 || !parcelas\" (click)=\"lancarRecebimento()\">\n          Cadastrar Recebimento\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n<app-cheque-pre-template [idChequePre]=\"0\" *ngIf=\"getTemplateChequePre() == true\"></app-cheque-pre-template>"
+
+/***/ }),
+
+/***/ "./src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component.ts":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component.ts ***!
+  \*********************************************************************************************/
+/*! exports provided: TemplateRecebimentoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemplateRecebimentoComponent", function() { return TemplateRecebimentoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/Cadastros/FormaPagamento/formaPagamento.service */ "./src/app/_services/Cadastros/FormaPagamento/formaPagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service */ "./src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Cadastros/Clientes/cliente.service */ "./src/app/_services/Cadastros/Clientes/cliente.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+/* harmony import */ var src_app_services_Cadastros_CentroReceita_centroReceita_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_services/Cadastros/CentroReceita/centroReceita.service */ "./src/app/_services/Cadastros/CentroReceita/centroReceita.service.ts");
+/* harmony import */ var src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/Financeiro/Recebimentos/recebimento.service */ "./src/app/_services/Financeiro/Recebimentos/recebimento.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/_models/Cadastros/Produtos/produtoItem */ "./src/app/_models/Cadastros/Produtos/produtoItem.ts");
+/* harmony import */ var src_app_models_Financeiro_Recebimentos_Recebimentos__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/_models/Financeiro/Recebimentos/Recebimentos */ "./src/app/_models/Financeiro/Recebimentos/Recebimentos.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/_services/Movimentos/Venda/venda.service */ "./src/app/_services/Movimentos/Venda/venda.service.ts");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/_services/Movimentos/Lancamentos/lancamento.service */ "./src/app/_services/Movimentos/Lancamentos/lancamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_ChequePre_chequePre_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/_services/Cadastros/ChequePre/chequePre.service */ "./src/app/_services/Cadastros/ChequePre/chequePre.service.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var TemplateRecebimentoComponent = /** @class */ (function () {
+    function TemplateRecebimentoComponent(fb, toastr, recebimentoService, centroReceitaService, planoContaService, dataService, clienteService, vendaService, permissaoService, planoPagamentoService, formaPagamentoService, lancamentoService, chequePreService) {
+        this.fb = fb;
+        this.toastr = toastr;
+        this.recebimentoService = recebimentoService;
+        this.centroReceitaService = centroReceitaService;
+        this.planoContaService = planoContaService;
+        this.dataService = dataService;
+        this.clienteService = clienteService;
+        this.vendaService = vendaService;
+        this.permissaoService = permissaoService;
+        this.planoPagamentoService = planoPagamentoService;
+        this.formaPagamentoService = formaPagamentoService;
+        this.lancamentoService = lancamentoService;
+        this.chequePreService = chequePreService;
+        this.parcelas = [];
+        this.templateEnabled = false;
+        this.diasFixo = false;
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+    }
+    TemplateRecebimentoComponent.prototype.ngOnInit = function () {
+        this.getPlanoPagamento();
+        this.getFormaPagamento();
+        this.getCentroReceita();
+        this.getPlanoContas();
+        this.getVendaConfig();
+        this.validarRecebimentos();
+        if (this.idVenda !== 0) {
+            this.carregarRecebimentoVenda(this.produtoItem);
+        }
+    };
+    TemplateRecebimentoComponent.prototype.carregarRecebimentoVenda = function (produtoItem) {
+        this.centroReceitaIdSelecionado = produtoItem.centroReceitaId;
+        this.planoContasIdSelecionado = produtoItem.planoContasId;
+        this.idProdutoItemValorRealizado = produtoItem.id;
+    };
+    TemplateRecebimentoComponent.prototype.validarRecebimentos = function () {
+        this.cadastroRecebimento = this.fb.group({
+            id: [''],
+            clientesId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required],
+            dataEmissao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required],
+            dataCompetencia: [''],
+            qtdParcelas: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required],
+            valorTotal: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].min(1)]],
+            planoPagamentoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required],
+            centroReceitaId: [{ value: '', disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required],
+            planoContasId: [{ value: '', disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required],
+            diasFixo: ['10', [_angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].min(1)]],
+            diasfixoCheck: ['']
+        });
+    };
+    TemplateRecebimentoComponent.prototype.getInfoPlanoPagamento = function (idPlanoPagamento) {
+        var info = this.planosPagamento.filter(function (c) { return c.id === idPlanoPagamento; })[0];
+        return info;
+    };
+    TemplateRecebimentoComponent.prototype.setarDiaFixo = function (data, dia) {
+        if (data && data !== null && data.toString().length > 0) {
+            var novaData = data.split('T')[0].split('-');
+            var mes = novaData[1];
+            var ano = novaData[0];
+            return ano + '-' + mes + '-' + dia;
+        }
+        else {
+            return '';
+        }
+    };
+    TemplateRecebimentoComponent.prototype.gerarParcelas = function () {
+        this.parcelas = [];
+        this.recebimento = new src_app_models_Financeiro_Recebimentos_Recebimentos__WEBPACK_IMPORTED_MODULE_12__["Recebimentos"]();
+        this.recebimento.parcelas = [];
+        var diaFixo = this.cadastroRecebimento.get('diasFixo').value;
+        var dataEmissao = this.cadastroRecebimento.get('dataEmissao').value.toLocaleString();
+        this.qtdParcelas = Number(this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).qtdParcelas);
+        this.prazoPrimeiraParcela = Number(this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).prazoPrimeiraParcela);
+        this.intervaloParcelas = Number(this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).intervaloParcelas);
+        this.formaPagamentoIdSelecionado = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).formaPagamentoId;
+        var formaPag = this.getInfoPlanoPagamento(this.planoPagamentoIdSelecionado).formaPagamento;
+        var valorTotal = this.cadastroRecebimento.get('valorTotal').value;
+        var valorParcela = Number(Number(valorTotal) / this.qtdParcelas);
+        for (var i = 0; i < this.qtdParcelas; i++) {
+            var documentoText = (i + 1).toString();
+            var diasSoma = 0;
+            var mesSoma = 0;
+            if (this.prazoPrimeiraParcela === 0) {
+                if (i === 0) {
+                    mesSoma = 0;
+                    diasSoma = this.prazoPrimeiraParcela;
+                }
+                else {
+                    mesSoma = i;
+                    diasSoma = (this.intervaloParcelas * i);
+                }
+            }
+            else {
+                if (i === 0) {
+                    diasSoma = this.prazoPrimeiraParcela;
+                }
+                else {
+                    diasSoma = (this.intervaloParcelas * i) + this.prazoPrimeiraParcela;
+                }
+                mesSoma = i + 1;
+            }
+            var dataEmissaoSQL = moment__WEBPACK_IMPORTED_MODULE_13__(dataEmissao, 'DD/MM/YYYY').format('YYYY-MM-DD');
+            var dataEmissaoPTBR = this.dataService.getDataPTBR(dataEmissaoSQL);
+            var dataVencVariavel = moment__WEBPACK_IMPORTED_MODULE_13__(dataEmissaoPTBR, 'DD/MM/YYYY').add('days', diasSoma).format('YYYY-MM-DD');
+            var dataVencFixoAux = moment__WEBPACK_IMPORTED_MODULE_13__(dataEmissaoPTBR, 'DD/MM/YYYY').add('months', mesSoma).format('YYYY-MM-DD');
+            var dataVencFixo = (this.prazoPrimeiraParcela === 0 && i === 0) ? dataEmissaoPTBR :
+                this.dataService.getDataPTBR(this.setarDiaFixo(dataVencFixoAux, diaFixo));
+            var parcela = Object.assign({ id: 0, documento: documentoText,
+                dataVencimento: (this.diasFixo === true) ? dataVencFixo : this.dataService.getDataPTBR(dataVencVariavel),
+                dataRecebimento: (i === 0 && (dataEmissaoSQL === dataVencVariavel || dataEmissaoSQL === dataVencFixo)) ? dataEmissaoSQL : null,
+                valor: valorParcela,
+                valorRecebido: ((i === 0 && (dataEmissaoSQL === dataVencVariavel || dataEmissaoSQL === dataVencFixo)) ||
+                    formaPag.descricao === 'CHEQUE') ? valorParcela : 0,
+                status: ((i === 0 && (dataEmissaoSQL === dataVencVariavel || dataEmissaoSQL === dataVencFixo)) ||
+                    formaPag.descricao === 'CHEQUE') ? 'PAGO' : 'PENDENTE',
+                formaPagamentoId: this.formaPagamentoIdSelecionado,
+                formaPagamento: formaPag,
+                dataLancamento: dataEmissao,
+                numeroParcela: i
+            });
+            this.parcelas.push(parcela);
+        }
+    };
+    TemplateRecebimentoComponent.prototype.efetuarLancamentos = function () {
+        var _this = this;
+        var lancamentos;
+        lancamentos = [];
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_13__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        this.parcelas.forEach(function (parcela) {
+            var conta = _this.getInfoPlanoPagamento(_this.planoPagamentoIdSelecionado).planoContasId;
+            lancamentos.push(Object.assign({
+                id: 0,
+                centroReceitaId: _this.centroReceitaIdSelecionado,
+                descricao: 'VALOR PAGT - VENDA DE SISTEMA',
+                planoDebitoId: (parcela.numeroParcela === 0 && _this.prazoPrimeiraParcela === 0) ?
+                    _this.vendaConfig.planoContaRecebParcelaAVistaId : conta,
+                planoCreditoId: _this.planoContasIdSelecionado,
+                valor: parcela.valor,
+                usuarioId: _this.permissaoService.getUsuarioId(),
+                dataHora: dataAtual,
+                dataLancamento: _this.dataService.getDataSQL(parcela.dataLancamento)
+            }));
+        });
+        this.lancamentoService.novosLancamentos(lancamentos).subscribe(function () {
+            console.log('Lançamentos Efetuados.');
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar inserir lancamentos : " + error.error);
+        });
+    };
+    TemplateRecebimentoComponent.prototype.lancarRecebimento = function () {
+        var _this = this;
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_13__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        var dataEmissao = this.cadastroRecebimento.get('dataEmissao').value.toLocaleString();
+        this.recebimento = Object.assign(this.cadastroRecebimento.value, {
+            id: 0,
+            vendaId: this.idVenda,
+            clientesId: this.vendaClienteId,
+            qtdParcelas: this.qtdParcelas,
+            dataEmissao: this.dataService.getDataSQL(dataEmissao),
+            produtosItensId: this.produtoItem.id,
+            centroReceitaId: this.centroReceitaIdSelecionado,
+            planoContasId: this.planoContasIdSelecionado,
+            parcelas: []
+        });
+        this.recebimentoService.novoRecebimentos(this.recebimento).subscribe(function (_ID) {
+            var recebimentoParcelas = [];
+            _this.parcelas.forEach(function (parcela) {
+                var parc = Object.assign(parcela, {
+                    id: 0,
+                    dataVencimento: _this.dataService.getDataSQL(parcela.dataVencimento),
+                    formaPagamento: null,
+                    documento: _ID.toString() + '/' + parcela.documento,
+                    recebimentosId: _ID
+                });
+                recebimentoParcelas.push(parc);
+            });
+            _this.recebimentoService.novoRecebimentoParcelas(recebimentoParcelas).subscribe(function () {
+                _this.valorRealizado = Object.assign({
+                    id: 0,
+                    vendaId: _this.idVenda,
+                    produtosItensId: _this.idProdutoItemValorRealizado,
+                    dataHoraUltAlt: dataAtual,
+                    recebimentos: null,
+                    recebimentosId: _ID,
+                });
+                _this.vendaService.novoVendaValorRealizado(_this.valorRealizado).subscribe(function () {
+                    _this.toastr.success('Salvo com Sucesso!');
+                    _this.efetuarLancamentos();
+                    _this.vendaService.atualizarVenda();
+                    _this.vendaService.atualizarRecebimentos();
+                    _this.fecharTemplate(_this.templateRecebimentos);
+                }, function (error) {
+                    console.log(error.error);
+                    _this.toastr.error("Erro ao tentar inserir novo Valor Realizado : " + error.error);
+                });
+            }, function (error) {
+                console.log(error.error);
+                _this.toastr.error("Erro ao tentar inserir novo Recebimento Parcelas : " + error.error);
+            });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar inserir novo Recebimento: " + error.error);
+        });
+    };
+    TemplateRecebimentoComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            template.show();
+            this.templateEnabled = true;
+        }
+    };
+    TemplateRecebimentoComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.recebimentoService.setTemplateRecebimentoStatus(false);
+        this.templateEnabled = false;
+    };
+    TemplateRecebimentoComponent.prototype.getTemplateChequePre = function () {
+        return this.chequePreService.getChequePreTemplateStatus();
+    };
+    TemplateRecebimentoComponent.prototype.abrirTemplateChequePre = function () {
+        this.chequePreService.setChequePreTemplateStatus(true);
+    };
+    TemplateRecebimentoComponent.prototype.getVendaConfig = function () {
+        var _this = this;
+        this.vendaService.getVendaConfig().subscribe(function (_CONFIG) {
+            _this.vendaConfig = _CONFIG;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar VendaConfig: " + error.error);
+        });
+    };
+    TemplateRecebimentoComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContasReceita = _PLANOS.filter(function (c) { return c.tipo === 'RECEITA'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    TemplateRecebimentoComponent.prototype.getClientes = function () {
+        var _this = this;
+        this.clienteService.getAllCliente().subscribe(function (_CLIENTES) {
+            _this.clientes = _CLIENTES.filter(function (cliente) { return cliente.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar clientes: " + error.error);
+        });
+    };
+    TemplateRecebimentoComponent.prototype.getCentroReceita = function () {
+        var _this = this;
+        this.centroReceitaService.getAllCentroReceita().subscribe(function (_CENTROS) {
+            _this.centrosReceita = _CENTROS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Centros de Receita: " + error.error);
+        });
+    };
+    TemplateRecebimentoComponent.prototype.getPlanoPagamento = function () {
+        var _this = this;
+        this.planoPagamentoService.getAllPlanoPagamento().subscribe(function (_PLANOS) {
+            _this.planosPagamento = _PLANOS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Pagamento: " + error.error);
+        });
+    };
+    TemplateRecebimentoComponent.prototype.getFormaPagamento = function () {
+        var _this = this;
+        this.formaPagamentoService.getAllFormaPagamento().subscribe(function (_FORMAS) {
+            _this.formasPagamento = _FORMAS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Formas de Pagamento: " + error.error);
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_11__["ProdutoItem"])
+    ], TemplateRecebimentoComponent.prototype, "produtoItem", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], TemplateRecebimentoComponent.prototype, "idVenda", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], TemplateRecebimentoComponent.prototype, "vendaClienteId", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('templateRecebimentos'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TemplateRecebimentoComponent.prototype, "templateRecebimentos", void 0);
+    TemplateRecebimentoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-template-recebimento',
+            template: __webpack_require__(/*! ./templateRecebimento.component.html */ "./src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component.html"),
+            styles: [__webpack_require__(/*! ./templateRecebimento.component.css */ "./src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormBuilder"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_9__["ToastrService"],
+            src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_8__["RecebimentoService"],
+            src_app_services_Cadastros_CentroReceita_centroReceita_service__WEBPACK_IMPORTED_MODULE_7__["CentroReceitaService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_6__["PlanoContaService"],
+            src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_5__["DataService"],
+            src_app_services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_4__["ClienteService"],
+            src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_14__["VendaService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_15__["PermissaoService"],
+            src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_3__["PlanoPagamentoService"],
+            src_app_services_Cadastros_FormaPagamento_formaPagamento_service__WEBPACK_IMPORTED_MODULE_2__["FormaPagamentoService"],
+            src_app_services_Movimentos_Lancamentos_lancamento_service__WEBPACK_IMPORTED_MODULE_16__["LancamentoService"],
+            src_app_services_Cadastros_ChequePre_chequePre_service__WEBPACK_IMPORTED_MODULE_17__["ChequePreService"]])
+    ], TemplateRecebimentoComponent);
+    return TemplateRecebimentoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/configVenda/configVenda.component.css":
+/*!************************************************************************!*\
+  !*** ./src/app/movimentos/venda/configVenda/configVenda.component.css ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21vdmltZW50b3MvdmVuZGEvY29uZmlnVmVuZGEvY29uZmlnVmVuZGEuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/configVenda/configVenda.component.html":
+/*!*************************************************************************!*\
+  !*** ./src/app/movimentos/venda/configVenda/configVenda.component.html ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templateConfigVenda)}}\n<div bsModal #templateConfigVenda=\"bs-modal\" [config]=\"{backdrop: 'static', keyboard: false}\"\n  class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Configurações das Vendas\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templateConfigVenda)\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n\n        <div class=\"box box-solid\">\n          <div class=\"box-header with-border\">\n            <form [formGroup]=\"cadastroVendaConfig\">\n\n              <div class=\"row\">\n                <div class=\"form-group col-md-12\">\n                  <label style=\"white-space: nowrap;\">Plano de Contas(D) Parcela À VISTA(RECEITAS)</label>\n                  <ng-select style=\"text-transform: uppercase\" [items]=\"planoContas\" bindLabel=\"descricao\" required\n                    bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"planoContaRecebIdSelecionado\"\n                    formControlName=\"planoContaRecebParcelaAVistaId\">\n                  </ng-select>\n                </div>\n              </div>\n              <div class=\"row\"> \n                <div class=\"form-group col-md-12\">\n                  <label style=\"white-space: nowrap;\">Plano de Contas(C) Parcela À VISTA(DESPESA)</label>\n                  <ng-select style=\"text-transform: uppercase\" [items]=\"planoContas\" bindLabel=\"descricao\" required\n                    bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"planoContaPagIdSelecionado\"\n                    formControlName=\"planoContaPagParcelaAVistaId\">\n                  </ng-select>\n                </div>\n              </div>\n\n              <div class=\"row\">\n                <div class=\"form-group col-md-12\">\n                  <label style=\"white-space: nowrap;\">Plano de Pagamento(DESPESAS)</label>\n                  <ng-select style=\"text-transform: uppercase\" [items]=\"planosPagamento\" bindLabel=\"descricao\" required\n                    bindValue=\"id\" [clearable]=\"false\" [(ngModel)]=\"planoPagamentoIdSelecionado\"\n                    formControlName=\"planoPagamentoSaidasId\">\n                  </ng-select>\n                </div>\n              </div>\n            </form>\n          </div>\n        </div>\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templateConfigVenda)\">\n          Fechar\n        </button>\n        <button class=\"btn btn-primary\" [disabled]=\"cadastroVendaConfig.get('planoContaRecebParcelaAVistaId').hasError('required') == true ||\n        cadastroVendaConfig.get('planoContaPagParcelaAVistaId').hasError('required') == true || \n        cadastroVendaConfig.get('planoPagamentoSaidasId').hasError('required') == true\" (click)=\"salvarAlteracao()\">\n          Salvar Configurações\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/configVenda/configVenda.component.ts":
+/*!***********************************************************************!*\
+  !*** ./src/app/movimentos/venda/configVenda/configVenda.component.ts ***!
+  \***********************************************************************/
+/*! exports provided: ConfigVendaComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigVendaComponent", function() { return ConfigVendaComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service */ "./src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/Cadastros/PlanosConta/planoConta.service */ "./src/app/_services/Cadastros/PlanosConta/planoConta.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Movimentos/Venda/venda.service */ "./src/app/_services/Movimentos/Venda/venda.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
+
+
+
+
+var ConfigVendaComponent = /** @class */ (function () {
+    function ConfigVendaComponent(planoPagamentoService, planoContaService, vendaService, toastr, fb) {
+        this.planoPagamentoService = planoPagamentoService;
+        this.planoContaService = planoContaService;
+        this.vendaService = vendaService;
+        this.toastr = toastr;
+        this.fb = fb;
+        this.templateEnabled = false;
+        this.idVendaConfig = 0;
+    }
+    ConfigVendaComponent.prototype.ngOnInit = function () {
+        this.getPlanoContas();
+        this.getPlanoPagamento();
+        this.validarRecebimentos();
+        this.carregarConfigVenda();
+    };
+    ConfigVendaComponent.prototype.carregarConfigVenda = function () {
+        var _this = this;
+        this.vendaService.getVendaConfig()
+            .subscribe(function (_CONFIG) {
+            _this.vendaConfig = Object.assign({}, _CONFIG);
+            _this.idVendaConfig = _this.vendaConfig.id;
+            _this.cadastroVendaConfig.patchValue(_this.vendaConfig);
+            _this.planoPagamentoIdSelecionado = _this.vendaConfig.planoPagamentoSaidasId;
+            _this.planoContaRecebIdSelecionado = _this.vendaConfig.planoContaRecebParcelaAVistaId;
+            _this.planoContaPagIdSelecionado = _this.vendaConfig.planoContaPagParcelaAVistaId;
+        }, function (error) {
+            _this.toastr.error("Erro ao tentar carregar Venda: " + error.error);
+            console.log(error);
+        });
+    };
+    ConfigVendaComponent.prototype.validarRecebimentos = function () {
+        this.cadastroVendaConfig = this.fb.group({
+            id: [''],
+            planoContaRecebParcelaAVistaId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required],
+            planoContaPagParcelaAVistaId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required],
+            planoPagamentoSaidasId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required]
+        });
+    };
+    ConfigVendaComponent.prototype.salvarAlteracao = function () {
+        var _this = this;
+        if (this.idVendaConfig === 0) {
+            var vendaConfig = Object.assign(this.cadastroVendaConfig.value, { id: 0 });
+            this.vendaService.novoVendaConfig(vendaConfig).subscribe(function (_CONFIG) {
+                _this.vendaConfig = Object.assign({}, _CONFIG[0]);
+                _this.toastr.success('Salvo com Sucesso!');
+            }, function (error) {
+                console.log(error.error);
+                _this.toastr.error("Erro ao tentar inserir nova venda config : " + error.error);
+            });
+        }
+        else {
+            var vendaConfig = Object.assign(this.cadastroVendaConfig.value);
+            console.log(vendaConfig);
+            this.vendaService.editarVendaConfig(vendaConfig).subscribe(function (_CONFIG) {
+                _this.vendaConfig = Object.assign({}, _CONFIG[0]);
+                _this.toastr.success('Salvo com Sucesso!');
+            }, function (error) {
+                console.log(error.error);
+                _this.toastr.error("Erro ao tentar inserir nova venda config : " + error.error);
+            });
+        }
+    };
+    ConfigVendaComponent.prototype.getPlanoContas = function () {
+        var _this = this;
+        this.planoContaService.getAllPlanosConta().subscribe(function (_PLANOS) {
+            _this.planoContas = _PLANOS.filter(function (c) { return c.tipo === 'MOVIMENTO' && c.categoria === 'ANALÍTICA'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Contas: " + error.error);
+        });
+    };
+    ConfigVendaComponent.prototype.getPlanoPagamento = function () {
+        var _this = this;
+        this.planoPagamentoService.getAllPlanoPagamento().subscribe(function (_PLANOS) {
+            _this.planosPagamento = _PLANOS.filter(function (c) { return c.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Planos de Pagamento: " + error.error);
+        });
+    };
+    ConfigVendaComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            this.templateEnabled = true;
+            template.show();
+        }
+    };
+    ConfigVendaComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.vendaService.setConfigVendaStatus(false);
+        this.templateEnabled = false;
+    };
+    ConfigVendaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-config-venda',
+            template: __webpack_require__(/*! ./configVenda.component.html */ "./src/app/movimentos/venda/configVenda/configVenda.component.html"),
+            styles: [__webpack_require__(/*! ./configVenda.component.css */ "./src/app/movimentos/venda/configVenda/configVenda.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_Cadastros_PlanoPagamento_planoPagamento_service__WEBPACK_IMPORTED_MODULE_2__["PlanoPagamentoService"],
+            src_app_services_Cadastros_PlanosConta_planoConta_service__WEBPACK_IMPORTED_MODULE_3__["PlanoContaService"],
+            src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_5__["VendaService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"]])
+    ], ConfigVendaComponent);
+    return ConfigVendaComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/movimentos/venda/editarVenda/editarVenda.component.css":
 /*!************************************************************************!*\
   !*** ./src/app/movimentos/venda/editarVenda/editarVenda.component.css ***!
@@ -5304,7 +10264,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".modal-xl {\r\n    width: 80%;\r\n    /* New width for large modal */\r\n}\r\n\r\n.modal-sm {\r\n    width: 25%;\r\n    /* New width for large modal */\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW92aW1lbnRvcy92ZW5kYS9lZGl0YXJWZW5kYS9lZGl0YXJWZW5kYS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksVUFBVTtJQUNWLDhCQUE4QjtBQUNsQzs7QUFFQTtJQUNJLFVBQVU7SUFDViw4QkFBOEI7QUFDbEMiLCJmaWxlIjoic3JjL2FwcC9tb3ZpbWVudG9zL3ZlbmRhL2VkaXRhclZlbmRhL2VkaXRhclZlbmRhLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubW9kYWwteGwge1xyXG4gICAgd2lkdGg6IDgwJTtcclxuICAgIC8qIE5ldyB3aWR0aCBmb3IgbGFyZ2UgbW9kYWwgKi9cclxufVxyXG5cclxuLm1vZGFsLXNtIHtcclxuICAgIHdpZHRoOiAyNSU7XHJcbiAgICAvKiBOZXcgd2lkdGggZm9yIGxhcmdlIG1vZGFsICovXHJcbn0iXX0= */"
+module.exports = ".modal-xl {\r\n    width: 50%;\r\n    /* New width for large modal */\r\n}\r\n\r\n.modal-sm {\r\n    width: 25%;\r\n    /* New width for large modal */\r\n}\r\n\r\n.modal-nw {\r\nwidth: 60%;\r\n    /* New width for large modal */\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW92aW1lbnRvcy92ZW5kYS9lZGl0YXJWZW5kYS9lZGl0YXJWZW5kYS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksVUFBVTtJQUNWLDhCQUE4QjtBQUNsQzs7QUFFQTtJQUNJLFVBQVU7SUFDViw4QkFBOEI7QUFDbEM7O0FBRUE7QUFDQSxVQUFVO0lBQ04sOEJBQThCO0FBQ2xDIiwiZmlsZSI6InNyYy9hcHAvbW92aW1lbnRvcy92ZW5kYS9lZGl0YXJWZW5kYS9lZGl0YXJWZW5kYS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1vZGFsLXhsIHtcclxuICAgIHdpZHRoOiA1MCU7XHJcbiAgICAvKiBOZXcgd2lkdGggZm9yIGxhcmdlIG1vZGFsICovXHJcbn1cclxuXHJcbi5tb2RhbC1zbSB7XHJcbiAgICB3aWR0aDogMjUlO1xyXG4gICAgLyogTmV3IHdpZHRoIGZvciBsYXJnZSBtb2RhbCAqL1xyXG59XHJcblxyXG4ubW9kYWwtbncge1xyXG53aWR0aDogNjAlO1xyXG4gICAgLyogTmV3IHdpZHRoIGZvciBsYXJnZSBtb2RhbCAqL1xyXG59Il19 */"
 
 /***/ }),
 
@@ -5315,7 +10275,7 @@ module.exports = ".modal-xl {\r\n    width: 80%;\r\n    /* New width for large m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Venda (Custo do Produto de Revenda)</h2>\n<h5 >Cliente: {{getNomeCliente()}}</h5>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <tabset>\n      <tab heading=\"Geral\" style=\"margin-top: 10px;\">\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n\n          <div class=\"row\">\n\n            <div class=\"col-md-6\">\n              <div class=\"box box-info\">\n                <div class=\"box-header with-border\">\n                  <i class=\"fa fa-share\"></i>\n                  <h3 class=\"box-title\">Entradas</h3>\n                </div>\n                <div class=\"box-body\">\n\n                  <table class=\"table table-responsive table-bordered\">\n                    <thead>\n                      <tr>\n                        <th>Descrição</th>\n                        <th style=\"text-align: center;\">Ações</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr *ngFor=\"let item of vendaItensEntrada\">\n                        <td>{{item.descricao}}</td>\n                        <td style=\"white-space: nowrap;text-align: center;\">\n                          <div class=\"btn-group\">\n                            <a *ngIf=\"this.editarValorPrevisto == true\"(click)=\"abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)\"\n                              tooltip=\"Valor Previsto\" class=\"btn btn-sm btn-warning\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n\n                            <a *ngIf=\"this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)\" (click)=\"abrirFormValorRealizado(item.id, item.tipoItem, item.subTipoItem, item.descricao, templateValorRealizado)\"\n                              tooltip=\"Valores Realizado\" class=\"btn btn-sm btn-info\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                            <a *ngIf=\"this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)\"\n                              tooltip=\"Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)\" class=\"btn btn-sm btn-info\" disabled>\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n\n                </div>\n              </div>\n            </div>\n              <div class=\"form-group col-md-2\">\n                <label>Data Negociação: </label>\n                <input *ngIf=\"disabledDataNegociacao() == true\" type=\"text\" class=\"form-control\" formControlName=\"dataNegociacao\"\n                  [ngModel]=\"cadastroForm.get('dataNegociacao').value\" bsDatepicker [bsConfig]=\"this.bsConfig\" disabled/>\n\n                <input *ngIf=\"disabledDataNegociacao() == false\" type=\"text\" class=\"form-control\" formControlName=\"dataNegociacao\"\n                  [ngModel]=\"cadastroForm.get('dataNegociacao').value\" bsDatepicker [bsConfig]=\"this.bsConfig\"/>\n              </div>\n\n              <div *ngIf=\"showedDataFinalizado() == true\" class=\"form-group col-md-2\">\n                <label>Data Finalizado: </label>\n                <input  type=\"text\" class=\"form-control\" formControlName=\"dataFinalizado\"\n                  [ngModel]=\"cadastroForm.get('dataFinalizado').value\" bsDatepicker [bsConfig]=\"this.bsConfig\" disabled/>\n              </div>\n\n              <div class=\"form-group col-md-2\">\n                <label>Status:</label>\n                <ng-select *ngIf=\"disabledStatus() == true\" [clearable]=\"false\" \n                (change)=\"setarDataFinalizado(cadastroForm.get('status').value)\" \n                [items]=\"status\" [ngModel]=\"cadastroForm.get('status').value\" formControlName=\"status\">\n                </ng-select>\n              </div>\n\n          </div>\n\n          <hr style=\"width: 100%\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n\n              <div class=\"box box-danger\">\n                <div class=\"box-header with-border\">\n                  <i class=\"fa fa-reply\"></i>\n                  <h3 class=\"box-title\">Saídas(COMISSÕES)</h3>\n                </div>\n                <div class=\"box-body\">\n                  <table class=\"table table-responsive table-bordered\">\n                    <thead class=\"thead-light\">\n                      <tr>\n                        <th>Descrição</th>\n                        <th style=\"text-align: center;\">Status</th>\n                        <th style=\"text-align: center;\">Ações</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr *ngFor=\"let item of vendaItensSaidaComissao\">\n                        <td>{{item.descricao}}</td>\n\n                        <td style=\"white-space: nowrap;text-align: center;\">\n                          <span style=\"margin-top:0px;\" *ngIf=\"verificarPagamento(item.vendaValorRealizado) == true\"\n                            class=\"label label-success\">PAGO</span>\n                          <span style=\"margin-top:0px;\" *ngIf=\"verificarPagamento(item.vendaValorRealizado) == false\"\n                            class=\"label label-warning\">PENDENTE</span>\n                        </td>\n                        <td style=\"white-space: nowrap;text-align: center;\">\n                          <div class=\"btn-group\">\n                            <a *ngIf=\"this.editarValorPrevisto == true\" (click)=\"abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)\"\n                              tooltip=\"Valor Previsto\" class=\"btn btn-sm btn-warning\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n\n                            <a *ngIf=\"this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)\" (click)=\"abrirFormValorRealizado(item.id, item.tipoItem, item.subTipoItem, item.descricao, templateValorRealizado)\"\n                              tooltip=\"Valores Realizado\" class=\"btn btn-sm btn-info\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                            <a *ngIf=\"this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)\"\n                              tooltip=\"Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)\" class=\"btn btn-sm btn-info\" disabled>\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n\n                </div>\n              </div>\n            </div>\n\n            <div class=\"col-md-6\">\n\n              <div class=\"box box-danger\">\n                <div class=\"box-header with-border\">\n                  <i class=\"fa fa-reply\"></i>\n                  <h3 class=\"box-title\">Saídas(GASTOS)</h3>\n                </div>\n                <div class=\"box-body\">\n                  <table class=\"table table-responsive table-bordered\">\n                    <thead class=\"thead-light\">\n                      <tr>\n                        <th>Descrição</th>\n                       \n                        <th style=\"text-align: center;\">Ações</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr *ngFor=\"let item of vendaItensSaidaGasto\">\n                        <td>{{item.descricao}}</td>\n                        <td style=\"white-space: nowrap;text-align: center;\">\n                          <div class=\"btn-group\">\n                            <a *ngIf=\"this.editarValorPrevisto == true\"(click)=\"abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)\"\n                              tooltip=\"Valor Previsto\" class=\"btn btn-sm btn-warning\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n\n                            <a *ngIf=\"this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)\" (click)=\"abrirFormValorRealizado(item.id, item.tipoItem, item.subTipoItem, item.descricao, templateValorRealizado)\"\n                              tooltip=\"Valores Realizado\" class=\"btn btn-sm btn-info\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                            <a *ngIf=\"this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)\"\n                              tooltip=\"Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)\" class=\"btn btn-sm btn-info\" disabled>\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n\n                </div>\n              </div>\n            </div>\n          </div>\n\n        </form>\n      </tab>\n      <tab *ngIf=\"this.visualizarResumo == true\" heading=\"Resumo\" style=\"margin-top: 10px;\">\n        <app-resumo-venda></app-resumo-venda>\n      </tab>\n    </tabset>\n  </div>\n</div>\n<button *ngIf=\"this.editar == true\"\n  style=\"position:relative;\" [disabled]=\"!cadastroForm.valid\" (click)=\"salvarAlteracoes()\"\n  tooltip=\"Salvar\" class=\"btn btn-lg btn-primary\">\n  &nbsp;Salvar Alterações\n</button>\n\n<div bsModal #templateValorPrevisto=\"bs-modal\" class=\"modal fade\">\n  <div class=\"modal-dialog modal-sm\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Valor Previsto <label *ngIf=\"subTipoItem\">({{subTipoItem}}) - </label><label>({{descricaoItem}})</label>\n        </h4>\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templateValorPrevisto.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n\n      <div class=\"modal-body\">\n\n        <div class=\"row\">\n\n          <div class=\"form-group col-md-12\">\n            <form [formGroup]=\"cadastroValorPrevistoForm\">\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask [(ngModel)]=\"valorPrevistoPipe\" formControlName=\"valor\"\n                  [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',' }\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"templateValorPrevisto.hide()\">\n          Fechar\n        </button>\n        <button *ngIf=\"!cadastroValorPrevistoForm.valid || valorPrevistoDisabled == true\" class=\"btn btn-primary\"\n          (click)=\"salvarValorPrevisto(templateValorPrevisto)\" disabled>\n          Salvar\n        </button>\n        <button *ngIf=\"cadastroValorPrevistoForm.valid && valorPrevistoDisabled == false\" class=\"btn btn-primary\"\n          (click)=\"salvarValorPrevisto(templateValorPrevisto)\">\n          Salvar\n        </button>\n      </div>\n    </div>\n\n  </div>\n</div>\n\n<div bsModal #templateValorRealizado=\"bs-modal\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Valores Realizado <label *ngIf=\"subTipoItem\">({{subTipoItem}}) - </label><label>({{descricaoItem}})</label>\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplateValorRealizado(templateValorRealizado)\"\n          aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <div *ngIf=\"this.verificarStatus() != 'FINALIZADO' && this.novoLancamento == true && this.subTipoItem != 'COMISSÃO'\" class=\"row\">\n          <div style=\"margin-right: 15px;margin-bottom: 15px;\" class=\"pull-right\">\n            <a (click)=\"novoValorRealizado()\" class=\"btn btn-success\">\n              <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Lançamento\n            </a>\n          </div>\n        </div>\n\n        <div *ngIf=\"this.verificarStatus() != 'FINALIZADO' && this.novoLancamento == true && this.subTipoItem == 'COMISSÃO' && valorRealizadoValores.length < 1\"\n          class=\"row\">\n          <div style=\"margin-right: 15px;margin-bottom: 15px;\" class=\"pull-right\">\n            <a (click)=\"novoValorRealizado()\" class=\"btn btn-success\">\n              <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Lançamento\n            </a>\n          </div>\n        </div>\n        <div *ngIf=\"valorRealizadoValores && valorRealizadoValores.length > 0\">\n          <div *ngFor=\"let valores of valorRealizadoValores\" class=\"row\">\n            <div class=\"form-group col-md-2\">\n              <label>Valor:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask [(ngModel)]=\"valores.valor\" name=\"valor\"\n                  [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',' }\" disabled />\n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n            </div>\n\n            <div *ngIf=\"this.subTipoItem != 'GASTO'\" class=\"form-group col-md-3\">\n              <label *ngIf=\"this.tipoItem == 'SAIDA'\" style=\"white-space: nowrap;\">Pessoa comissionada:(*)</label>\n              <label *ngIf=\"this.tipoItem == 'ENTRADA'\" style=\"white-space: nowrap;\">Cobrador:(*)</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"pessoas\" bindLabel=\"nome\" bindValue=\"id\"\n                [(ngModel)]=\"valores.pessoasId\" name=\"pessoasId\" disabled>\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label *ngIf=\"this.tipoItem == 'SAIDA'\" style=\"white-space: nowrap;\">Data do Pagamento:(*)</label>\n              <label *ngIf=\"this.tipoItem == 'ENTRADA'\" style=\"white-space: nowrap;\">Data do Recebimento:(*)</label>\n              <input type=\"text\" class=\"form-control\" name=\"dataPagamento\" disabled\n                [ngModel]=\"dataService.getDataPTBR(valores.dataPagamento)\" bsDatepicker />\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label>Descrição:</label>\n              <input class=\"form-control\" type=\"text\" style=\"text-transform: uppercase\"\n                oninput=\"this.value = this.value.toUpperCase()\" [(ngModel)]=\"valores.descricao\" name=\"descricao\"\n                disabled />\n            </div>\n          </div>\n        </div>\n\n        <form [formGroup]=\"cadastroNovoValor\">\n          <div *ngFor=\"let valores of valorRealizadoValoresNovo\" class=\"row\">\n            <div class=\"form-group col-md-2\">\n              <label>Valor:</label>\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask [(ngModel)]=\"valorRealizadoNovoPipe\" formControlName=\"valor\"\n                  [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',' }\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n            </div>\n\n            <div *ngIf=\"this.subTipoItem != 'GASTO'\" class=\"form-group col-md-3\">\n              <label *ngIf=\"this.tipoItem == 'SAIDA'\" style=\"white-space: nowrap;\">Pessoa comissionada:(*)</label>\n              <label *ngIf=\"this.tipoItem == 'ENTRADA'\" style=\"white-space: nowrap;\">Cobrador:(*)</label>\n              <ng-select style=\"text-transform: uppercase\" [items]=\"pessoas\" bindLabel=\"nome\" bindValue=\"id\"\n                [(ngModel)]=\"pessoaIdNovo\" formControlName=\"pessoasId\">\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label *ngIf=\"this.tipoItem == 'SAIDA'\" style=\"white-space: nowrap;\">Data do Pagamento:(*)</label>\n              <label *ngIf=\"this.tipoItem == 'ENTRADA'\" style=\"white-space: nowrap;\">Data do Recebimento:(*)</label>\n              <input type=\"text\" class=\"form-control\" formControlName=\"dataPagamento\" [ngModel]=\"dataPagamentoNovo\"\n                bsDatepicker />\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label>Descrição:</label>\n              <input class=\"form-control\" type=\"text\" style=\"text-transform: uppercase\"\n                oninput=\"this.value = this.value.toUpperCase()\" [(ngModel)]=\"descricaoNovo\"\n                formControlName=\"descricao\" />\n            </div>\n            <div class=\"form-group col-md-2\">\n              <a style=\"margin-top:25px;\" (click)=\"cadastrarValorRealizado()\" class=\"btn btn-success\">\n                <i class=\"fa fa-plus-circle\"></i>&nbsp;\n              </a>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplateValorRealizado(templateValorRealizado)\">\n          Fechar\n        </button>\n      </div>\n    </div>\n\n  </div>\n</div>\n"
+module.exports = "<h2>Venda (Custo do Produto de Revenda)</h2>\n<h5>Cliente: {{getNomeCliente()}}</h5>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <tabset>\n\n      <tab heading=\"Geral\" style=\"margin-top: 10px;\">\n\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <div class=\"row\">\n            <div class=\"form-group col-md-2\">\n              <label>Data Negociação: </label>\n              <input *ngIf=\"disabledDataNegociacao() == true\" type=\"text\" class=\"form-control\"\n                formControlName=\"dataNegociacao\" [ngModel]=\"cadastroForm.get('dataNegociacao').value\" bsDatepicker\n                [bsConfig]=\"this.bsConfig\" disabled />\n\n              <input *ngIf=\"disabledDataNegociacao() == false\" type=\"text\" class=\"form-control\"\n                formControlName=\"dataNegociacao\" [ngModel]=\"cadastroForm.get('dataNegociacao').value\" bsDatepicker\n                [bsConfig]=\"this.bsConfig\" />\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label>Data Finalizado: </label>\n              <input type=\"text\" class=\"form-control\" formControlName=\"dataFinalizado\"\n                [ngModel]=\"cadastroForm.get('dataFinalizado').value\" bsDatepicker [bsConfig]=\"this.bsConfig\" disabled />\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label>Empresa</label>\n              <ng-select disabled style=\"text-transform: uppercase\" [clearable]=\"false\" [items]=\"empresas\"\n                bindLabel=\"nomeFantasia\" bindValue=\"id\" [(ngModel)]=\"empresaIdSelecionado\" formControlName=\"empresasId\">\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label>Vendedor</label>\n              <ng-select style=\"text-transform: uppercase\" [clearable]=\"false\" [items]=\"vendedores\" bindLabel=\"nome\"\n                bindValue=\"id\" [(ngModel)]=\"vendedorIdSelecionado\" formControlName=\"vendedorId\">\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label>Cliente</label>\n              <ng-select style=\"text-transform: uppercase\" [clearable]=\"false\" [items]=\"clientes\"\n                bindLabel=\"nomeFantasia\" bindValue=\"id\" [(ngModel)]=\"clienteIdSelecionado\" formControlName=\"clientesId\">\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-3\">\n              <label>Produto</label>\n              <ng-select style=\"text-transform: uppercase\" [clearable]=\"false\" [items]=\"produtos\" bindLabel=\"descricao\"\n                bindValue=\"id\" [(ngModel)]=\"produtoIdSelecionado\" formControlName=\"produtoId\">\n              </ng-select>\n            </div>\n\n            <div class=\"form-group col-md-2\">\n              <label>Status:</label>\n              <ng-select [clearable]=\"false\" *ngIf=\"disabledStatus() == true\"\n                (change)=\"setarDataFinalizado(cadastroForm.get('status').value)\" [items]=\"status\"\n                [(ngModel)]=\"cadastroForm.get('status').value\" formControlName=\"status\" disabled>\n              </ng-select>\n            </div>\n\n            <button *ngIf=\"this.gerarPedido == true && !this.autorizadoGerarPedido\" style=\"position:relative;margin-top:15px;\" (click)=\"solicitarAutorizacao()\"\n              tooltip=\"Solicitar Autorização\" [disabled]=\"verificarValorPrevistoLancados()\" class=\"btn btn-lg btn-warning\">\n              &nbsp;Solicitar Autorização\n            </button>\n\n            <button *ngIf=\"this.gerarPedido == true\" style=\"position:relative;margin-top:15px;margin-left:15px;\" (click)=\"gerarPDF()\"\n              tooltip=\"Gerar Pedido de Venda\" class=\"btn btn-lg btn-success\" [disabled]=\"!autorizadoGerarPedido\">\n              &nbsp;Gerar Pedido\n            </button>\n            <button  style=\"position:relative;margin-top:15px;margin-left:15px;\" (click)=\"enviarEmail()\"\n              tooltip=\"Gerar Pedido de Venda\" class=\"btn btn-lg btn-success\" >\n              &nbsp;Testar E-mail\n            </button>\n          </div>\n        </form>\n      </tab>\n      <tab heading=\"Receitas e Despesas\" style=\"margin-top: 10px;\">\n\n        <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n          <hr style=\"width: 100%\">\n          <div class=\"row\">\n\n            <div class=\"col-md-6\">\n              <div class=\"box box-info\">\n                <div class=\"box-header with-border\">\n                  <i class=\"fa fa-share\"></i>\n                  <h3 class=\"box-title\">Receitas</h3>\n                </div>\n                <div class=\"box-body\">\n\n                  <table class=\"table table-responsive table-bordered \">\n                    <thead>\n                      <tr>\n                        <th>Descrição</th>\n                        <th style=\"text-align: center;\">Ações</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr *ngFor=\"let item of vendaItensEntrada\">\n                        <td>{{item.descricao}}</td>\n                        <td style=\"white-space: nowrap;text-align: center;\">\n                          <div class=\"btn-group\">\n                            <a *ngIf=\"this.editarValorPrevisto == true\"\n                              (click)=\"abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)\"\n                              tooltip=\"Valor Previsto\" class=\"btn btn-sm btn-warning\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n\n                            <a *ngIf=\"this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)\"\n                              (click)=\"abrirRecebimentosVenda(item)\" tooltip=\"Valor Realizado\"\n                              class=\"btn btn-sm btn-info\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                            <a *ngIf=\"this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)\"\n                              tooltip=\"Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)\"\n                              class=\"btn btn-sm btn-info\" disabled>\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n\n                </div>\n              </div>\n            </div>\n\n          </div>\n\n          <hr style=\"width: 100%\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n\n              <div class=\"box box-danger\">\n                <div class=\"box-header with-border\">\n                  <i class=\"fa fa-reply\"></i>\n                  <h3 class=\"box-title\">Despesas(COMISSÕES)</h3>\n                </div>\n                <div class=\"box-body\">\n                  <table class=\"table table-responsive table-bordered\">\n                    <thead class=\"thead-light\">\n                      <tr>\n                        <th>Descrição</th>\n                        <th style=\"text-align: center;\">Status</th>\n                        <th style=\"text-align: center;\">Ações</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr *ngFor=\"let item of vendaItensSaidaComissao\">\n                        <td>{{item.descricao}}</td>\n\n                        <td style=\"white-space: nowrap;text-align: center;\">\n                          <span style=\"margin-top:0px;\" *ngIf=\"verificarPrevisto(item.vendaValorPrevisto) == true &&\n                          verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == false\"\n                            class=\"label label-danger\">X</span>\n                          <span style=\"margin-top:0px;\" *ngIf=\"verificarPagamento(item.vendaValorRealizado) == true &&\n                          verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == true\"\n                            class=\"label label-success\">PAGO</span>\n                          <span style=\"margin-top:0px;\" *ngIf=\"verificarPagamento(item.vendaValorRealizado) == false &&\n                          verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == true\"\n                            class=\"label label-warning\">PENDENTE</span>\n                        </td>\n                        <td style=\"white-space: nowrap;text-align: center;\">\n                          <div class=\"btn-group\">\n                            <a *ngIf=\"this.editarValorPrevisto == true\"\n                              (click)=\"abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)\"\n                              tooltip=\"Valor Previsto\" class=\"btn btn-sm btn-warning\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n\n                            <a *ngIf=\"this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)\"\n                              tooltip=\"Valores Realizado\" (click)=\"abrirPagamentosVenda(item)\"\n                              class=\"btn btn-sm btn-info\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                            <a *ngIf=\"this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)\"\n                              tooltip=\"Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)\"\n                              class=\"btn btn-sm btn-info\" disabled>\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n\n                </div>\n              </div>\n            </div>\n\n            <div class=\"col-md-6\">\n\n              <div class=\"box box-danger\">\n                <div class=\"box-header with-border\">\n                  <i class=\"fa fa-reply\"></i>\n                  <h3 class=\"box-title\">Despesas(GASTOS)</h3>\n                </div>\n                <div class=\"box-body\">\n                  <table class=\"table table-responsive table-bordered\">\n                    <thead class=\"thead-light\">\n                      <tr>\n                        <th>Descrição</th>\n\n                        <th style=\"text-align: center;\">Ações</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr *ngFor=\"let item of vendaItensSaidaGasto\">\n                        <td>{{item.descricao}}</td>\n                        <td style=\"white-space: nowrap;text-align: center;\">\n                          <div class=\"btn-group\">\n                            <a *ngIf=\"this.editarValorPrevisto == true\"\n                              (click)=\"abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)\"\n                              tooltip=\"Valor Previsto\" class=\"btn btn-sm btn-warning\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n\n                            <a *ngIf=\"this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)\"\n                              tooltip=\"Valores Realizado\" (click)=\"abrirPagamentosVenda(item)\"\n                              class=\"btn btn-sm btn-info\">\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                            <a *ngIf=\"this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)\"\n                              tooltip=\"Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)\"\n                              class=\"btn btn-sm btn-info\" disabled>\n                              <i class=\"fa fa-usd\"></i>\n                            </a>\n                          </div>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n\n                </div>\n              </div>\n            </div>\n          </div>\n\n        </form>\n      </tab>\n\n      <tab *ngIf=\"this.visualizarResumo == true\" heading=\"Resumo\" style=\"margin-top: 10px;\">\n        <app-resumo-venda></app-resumo-venda>\n      </tab>\n    </tabset>\n  </div>\n</div>\n<button *ngIf=\"this.editar == true\" style=\"position:relative;\" [disabled]=\"!cadastroForm.valid\"\n  (click)=\"salvarAlteracoes()\" tooltip=\"Salvar\" class=\"btn btn-lg btn-primary\">\n  &nbsp;Salvar Alterações\n</button>\n\n\n<div bsModal #templateValorPrevisto=\"bs-modal\" class=\"modal fade\">\n  <div class=\"modal-dialog modal-sm\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Valor Previsto ({{(produtoItem) ? produtoItem.descricao : ''}})\n        </h4>\n        <button type=\"button\" class=\"close pull-right\" (click)=\"templateValorPrevisto.hide()\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n\n      <div class=\"modal-body\">\n\n        <div class=\"row\">\n\n          <div class=\"form-group col-md-12\">\n            <form [formGroup]=\"cadastroValorPrevistoForm\">\n              <div class=\"input-group\">\n                <input class=\"form-control\" currencyMask [(ngModel)]=\"valorPrevistoPipe\" formControlName=\"valor\"\n                  [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',' }\" />\n                <span class=\"input-group-addon\"><i class=\"fa fa-dollar\"></i></span>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"templateValorPrevisto.hide()\">\n          Fechar\n        </button>\n        <button *ngIf=\"!cadastroValorPrevistoForm.valid || valorPrevistoDisabled == true\" class=\"btn btn-primary\"\n          (click)=\"salvarValorPrevisto(templateValorPrevisto)\" disabled>\n          Salvar\n        </button>\n        <button *ngIf=\"cadastroValorPrevistoForm.valid && valorPrevistoDisabled == false\" class=\"btn btn-primary\"\n          (click)=\"salvarValorPrevisto(templateValorPrevisto)\">\n          Salvar\n        </button>\n      </div>\n    </div>\n\n  </div>\n</div>\n\n<app-pagamentos-venda [produtoItem]=\"this.produtoItem\" [idVenda]=\"this.idVenda\" *ngIf=\"getPagamentosVenda() == true\">\n</app-pagamentos-venda>\n<app-recebimentos-venda [produtoItem]=\"this.produtoItem\" [vendaClienteId]=\"this.vendaClienteId\" [idVenda]=\"this.idVenda\"\n  *ngIf=\"getRecebimentosVenda() == true\"></app-recebimentos-venda>"
 
 /***/ }),
 
@@ -5340,6 +10300,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_Cadastros_Pessoas_pessoa_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_services/Cadastros/Pessoas/pessoa.service */ "./src/app/_services/Cadastros/Pessoas/pessoa.service.ts");
 /* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
 /* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/_services/Financeiro/Recebimentos/recebimento.service */ "./src/app/_services/Financeiro/Recebimentos/recebimento.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/_services/Cadastros/Clientes/cliente.service */ "./src/app/_services/Cadastros/Clientes/cliente.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Produtos_produto_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/_services/Cadastros/Produtos/produto.service */ "./src/app/_services/Cadastros/Produtos/produto.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Empresas_empresa_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/_services/Cadastros/Empresas/empresa.service */ "./src/app/_services/Cadastros/Empresas/empresa.service.ts");
+/* harmony import */ var src_app_services_Autorizacoes_autorizacao_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/_services/Autorizacoes/autorizacao.service */ "./src/app/_services/Autorizacoes/autorizacao.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Usuarios_usuario_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/_services/Cadastros/Usuarios/usuario.service */ "./src/app/_services/Cadastros/Usuarios/usuario.service.ts");
+/* harmony import */ var src_app_services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/_services/WebSocket/Socket.service */ "./src/app/_services/WebSocket/Socket.service.ts");
+/* harmony import */ var src_app_services_Notificacoes_notificacao_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/_services/Notificacoes/notificacao.service */ "./src/app/_services/Notificacoes/notificacao.service.ts");
+/* harmony import */ var src_app_services_Email_email_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/_services/Email/email.service */ "./src/app/_services/Email/email.service.ts");
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5351,32 +10329,48 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var EditarVendaComponent = /** @class */ (function () {
-    function EditarVendaComponent(fb, toastr, router, vendaService, pessoaService, permissaoService, dataService, changeDetectionRef) {
+    function EditarVendaComponent(fb, toastr, router, vendaService, recebimentoService, permissaoService, dataService, clienteService, produtoService, pessoaService, usuarioService, empresaService, autorizacaoService, socketService, notificacaoService, emailService, changeDetectionRef) {
+        var _this = this;
         this.fb = fb;
         this.toastr = toastr;
         this.router = router;
         this.vendaService = vendaService;
-        this.pessoaService = pessoaService;
+        this.recebimentoService = recebimentoService;
         this.permissaoService = permissaoService;
         this.dataService = dataService;
+        this.clienteService = clienteService;
+        this.produtoService = produtoService;
+        this.pessoaService = pessoaService;
+        this.usuarioService = usuarioService;
+        this.empresaService = empresaService;
+        this.autorizacaoService = autorizacaoService;
+        this.socketService = socketService;
+        this.notificacaoService = notificacaoService;
+        this.emailService = emailService;
         this.changeDetectionRef = changeDetectionRef;
         this.editar = false;
         this.editarValorPrevisto = false;
         this.editarValorRealizado = false;
         this.visualizarResumo = false;
+        this.gerarPedido = false;
+        this.autorizadoGerarPedido = false;
         this.valorPrevistoDisabled = true;
-        this.valorRealizadoValores = [];
-        this.valorRealizadoValoresNovo = [];
-        this.novoLancamento = true;
-        this.status = ['EM ABERTO', 'FINALIZADO'];
+        this.status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'FINALIZADO'];
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+        this.vendaService.atualizaVenda.subscribe(function (x) {
+            _this.carregarVenda();
+        });
     }
     EditarVendaComponent.prototype.ngOnInit = function () {
-        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
         this.idVenda = +this.router.snapshot.paramMap.get('id');
+        this.getClientes();
+        this.getProdutos();
+        this.getEmpresas();
+        this.getVendedores();
+        this.getAutorizacoes();
         this.validarForm();
         this.validarValorPrevistoForm();
         this.validarNovoValorForm();
-        this.getPessoas();
         this.carregarVenda();
     };
     EditarVendaComponent.prototype.ngAfterViewChecked = function () {
@@ -5396,6 +10390,9 @@ var EditarVendaComponent = /** @class */ (function () {
         this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'VISUALIZAR', 'RESUMO').subscribe(function (_PERMISSAO) {
             _this.visualizarResumo = _this.permissaoService.verificarPermissao(_PERMISSAO);
         });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'GERAR PEDIDO').subscribe(function (_PERMISSAO) {
+            _this.gerarPedido = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
     };
     EditarVendaComponent.prototype.carregarVenda = function () {
         var _this = this;
@@ -5407,34 +10404,100 @@ var EditarVendaComponent = /** @class */ (function () {
                 dataNegociacao: _this.dataService.getDataPTBR(_this.venda.dataNegociacao),
                 dataFinalizado: _this.dataService.getDataPTBR(_this.venda.dataFinalizado)
             });
+            _this.produtoIdSelecionado = _this.venda.vendaProdutos[0].produtosId;
+            _this.empresaIdSelecionado = _this.venda.empresasId;
+            _this.vendedorIdSelecionado = _this.venda.vendedorId;
+            _this.clienteIdSelecionado = _this.venda.clientesId;
             _this.cadastroForm.patchValue(_this.venda);
-            _this.vendaItensEntrada = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'ENTRADA'; });
+            _this.vendaItensEntrada = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'RECEITA'; });
             _this.vendaItensEntrada.forEach(function (item) {
                 item.vendaValorPrevisto = _this.venda.vendaValorPrevisto.filter(function (c) { return c.produtosItensId === item.id; })[0];
-                item.vendaValorRealizado = _this.venda.vendaValorRealizado.filter(function (c) { return c.produtosItensId === item.id; })[0];
+                item.vendaValorRealizado = _this.venda.vendaValorRealizado.filter(function (c) { return c.produtosItensId === item.id; });
             });
-            _this.vendaItensSaidaComissao = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'SAIDA' && item.subTipoItem === 'COMISSÃO'; });
+            _this.vendaItensSaidaComissao = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO'; });
             _this.vendaItensSaidaComissao.forEach(function (item) {
                 item.vendaValorPrevisto = _this.venda.vendaValorPrevisto.filter(function (c) { return c.produtosItensId === item.id; })[0];
-                item.vendaValorRealizado = _this.venda.vendaValorRealizado.filter(function (c) { return c.produtosItensId === item.id; })[0];
+                item.vendaValorRealizado = _this.venda.vendaValorRealizado.filter(function (c) { return c.produtosItensId === item.id; });
             });
-            _this.vendaItensSaidaGasto = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'SAIDA' && item.subTipoItem === 'GASTO'; });
+            _this.vendaItensSaidaGasto = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO'; });
             _this.vendaItensSaidaGasto.forEach(function (item) {
                 item.vendaValorPrevisto = _this.venda.vendaValorPrevisto.filter(function (c) { return c.produtosItensId === item.id; })[0];
-                item.vendaValorRealizado = _this.venda.vendaValorRealizado.filter(function (c) { return c.produtosItensId === item.id; })[0];
+                item.vendaValorRealizado = _this.venda.vendaValorRealizado.filter(function (c) { return c.produtosItensId === item.id; });
             });
+            _this.vendaClienteId = _this.venda.clientesId;
         }, function (error) {
             _this.toastr.error("Erro ao tentar carregar Venda: " + error.error);
             console.log(error);
         });
     };
-    EditarVendaComponent.prototype.disabledDataNegociacao = function () {
-        if (this.venda) {
-            if (this.venda.dataNegociacao.toString() !== '') {
-                return true;
-            }
-        }
-        return false;
+    EditarVendaComponent.prototype.enviarNotificacoesAutorizacao = function () {
+        var _this = this;
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_4__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        var usuariosIdNotificacao = [];
+        this.usuarioService.getAllUsuario().subscribe(function (_USUARIOS) {
+            _this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'GERAR PEDIDO').subscribe(function (_PERMISSAO) {
+                _PERMISSAO.permissaoNiveis.forEach(function (permissao) {
+                    _USUARIOS.forEach(function (usuario) {
+                        if (usuario.usuarioNivel.filter(function (c) { return c.roleId === permissao.nivelId; }).length > 0) {
+                            usuariosIdNotificacao.push(usuario.id);
+                        }
+                    });
+                });
+                var notificacao = [];
+                usuariosIdNotificacao.forEach(function (idUsuario) {
+                    notificacao.push(Object.assign({ id: 0, usuarioId: idUsuario, dataHora: dataAtual, tipo: 'Autorização', visto: 0 }));
+                });
+                _this.notificacaoService.novasNotificacoes(notificacao).subscribe(function () {
+                    usuariosIdNotificacao.forEach(function (idUsuario) {
+                        _this.socketService.sendSocket('AutorizacaoVendaGerarPedido', idUsuario);
+                    });
+                    _this.toastr.success('Cadastrado com sucesso!');
+                });
+            });
+        });
+    };
+    EditarVendaComponent.prototype.solicitarAutorizacao = function () {
+        var _this = this;
+        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_4__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+        var autorizacao = Object.assign({
+            id: 0,
+            solicitanteId: this.permissaoService.getUsuarioId(),
+            formularioId: this.idVenda,
+            formulario: 'VENDA',
+            acao: 'GERAR PEDIDO',
+            dataHoraSolicitado: dataAtual,
+            autorizado: 0,
+            visto: 0
+        });
+        this.autorizacaoService.novaAutorizacao(autorizacao).subscribe(function () {
+            _this.enviarNotificacoesAutorizacao();
+        }, function (error) {
+            _this.toastr.error("Erro ao tentar solicitar autorizacao: " + error.error);
+            console.log(error);
+        });
+    };
+    EditarVendaComponent.prototype.enviarEmail = function () {
+        this.emailService.enviarEmail();
+    };
+    EditarVendaComponent.prototype.gerarPDF = function () {
+        /* const documento: jsPDF = new jsPDF();
+         const empresa: Empresa = this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0];
+     
+         documento.line(10, 10, 200, 10);
+         documento.setFontSize(10);
+         documento.setFontType('bold');
+         documento.text('Nome Fantasia: ' , 10, 15);
+         documento.setFontType('regular');
+         documento.text(empresa.nomeFantasia, 40, 15);
+         documento.setFontType('bold');
+         documento.text('Razão Social: ' , 10, 20);
+         documento.setFontType('regular');
+         documento.text(empresa.razaoSocial, 34, 20);
+         documento.setFontType('bold');
+         documento.text('CNPJ/CPF: ' , 10, 25);
+         documento.setFontType('regular');
+         documento.text(empresa.cnpjCpf, 30, 25);
+         documento.output('dataurlnewwindow');*/
     };
     EditarVendaComponent.prototype.disabledStatus = function () {
         if (this.venda) {
@@ -5448,6 +10511,14 @@ var EditarVendaComponent = /** @class */ (function () {
             }
         }
         return true;
+    };
+    EditarVendaComponent.prototype.disabledDataNegociacao = function () {
+        if (this.venda) {
+            if (this.venda.dataNegociacao.toString() !== '') {
+                return true;
+            }
+        }
+        return false;
     };
     EditarVendaComponent.prototype.showedDataFinalizado = function () {
         if (this.venda) {
@@ -5478,12 +10549,44 @@ var EditarVendaComponent = /** @class */ (function () {
         this.cadastroForm = this.fb.group({
             id: [''],
             clientesId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            vendedorId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            empresasId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            produtoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             status: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             dataEmissao: [''],
             dataNegociacao: [''],
             dataFinalizado: [''],
             dataHoraUltAlt: ['']
         });
+    };
+    EditarVendaComponent.prototype.abrirTemplateRecebimento = function (produtoItem) {
+        this.produtoItem = produtoItem;
+        if (produtoItem.vendaValorRealizado && produtoItem.vendaValorRealizado.length > 0) {
+            if (produtoItem.vendaValorRealizado[0].recebimentos) {
+                this.idDetalharRecebimento = produtoItem.vendaValorRealizado[0].recebimentos.id;
+                this.recebimentoService.setDetalharRecebimentoStatus(true);
+            }
+            else {
+                this.recebimentoService.setTemplateRecebimentoStatus(true);
+            }
+        }
+        else {
+            this.recebimentoService.setTemplateRecebimentoStatus(true);
+        }
+    };
+    EditarVendaComponent.prototype.getPagamentosVenda = function () {
+        return this.vendaService.getPagamentosVendaStatus();
+    };
+    EditarVendaComponent.prototype.getRecebimentosVenda = function () {
+        return this.vendaService.getRecebimentosVendaStatus();
+    };
+    EditarVendaComponent.prototype.abrirPagamentosVenda = function (produtoItem) {
+        this.produtoItem = produtoItem;
+        this.vendaService.setPagamentosVendaStatus(true);
+    };
+    EditarVendaComponent.prototype.abrirRecebimentosVenda = function (produtoItem) {
+        this.produtoItem = produtoItem;
+        this.vendaService.setRecebimentosVendaStatus(true);
     };
     EditarVendaComponent.prototype.validarValorPrevistoForm = function () {
         this.cadastroValorPrevistoForm = this.fb.group({
@@ -5497,12 +10600,34 @@ var EditarVendaComponent = /** @class */ (function () {
         }
         return false;
     };
-    EditarVendaComponent.prototype.verificarPagamento = function (vendaValorRealizado) {
-        if (vendaValorRealizado) {
-            if (vendaValorRealizado.vendaValorRealizadoValores) {
-                if (vendaValorRealizado.vendaValorRealizadoValores.length > 0) {
-                    return true;
+    EditarVendaComponent.prototype.verificarValorPrevistoLancados = function () {
+        if (this.venda) {
+            if (this.venda.vendaValorPrevisto && this.venda.vendaProdutos[0].produtos.itens) {
+                if (this.venda.vendaValorPrevisto.length === this.venda.vendaProdutos[0].produtos.itens.length) {
+                    return false;
                 }
+            }
+        }
+        return true;
+    };
+    EditarVendaComponent.prototype.verificarValorPrevistoMaiorZero = function (vendaValorPrevisto) {
+        if (vendaValorPrevisto) {
+            if (vendaValorPrevisto.valor > 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return false;
+    };
+    EditarVendaComponent.prototype.verificarPagamento = function (ValorRealizado) {
+        if (ValorRealizado) {
+            if (ValorRealizado.length > 0) {
+                return true;
+            }
+            else {
+                return false;
             }
         }
         return false;
@@ -5515,7 +10640,6 @@ var EditarVendaComponent = /** @class */ (function () {
     EditarVendaComponent.prototype.abrirFormValorPrevisto = function (idProdutoItem, descricaoItem, template) {
         var _this = this;
         this.idProdutoItemValorPrevisto = idProdutoItem;
-        this.descricaoItem = descricaoItem;
         this.vendaService.getVendaValorPrevistoByProdIdVendId(idProdutoItem, this.idVenda).subscribe(function (_VALORPREVISTO) {
             if (_VALORPREVISTO) {
                 _this.valorPrevistoDisabled = true;
@@ -5552,92 +10676,14 @@ var EditarVendaComponent = /** @class */ (function () {
             descricao: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
         });
     };
-    EditarVendaComponent.prototype.novoValorRealizado = function () {
-        this.novoLancamento = false;
-        this.valorRealizadoValoresNovo.push(Object.assign({ id: 0, vendaValorRealizadoId: this.idValorRealizado }));
-        this.valorRealizadoNovoPipe = null;
-        this.descricaoNovo = null;
-        this.pessoaIdNovo = null;
-    };
-    EditarVendaComponent.prototype.fecharTemplateValorRealizado = function (template) {
-        this.valorRealizadoValor = null;
-        this.valorRealizadoValoresNovo = [];
-        template.hide();
-    };
-    EditarVendaComponent.prototype.cadastrarValorRealizado = function () {
-        var _this = this;
-        var dataPag = this.cadastroNovoValor.get('dataPagamento').value.toLocaleString();
-        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_4__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-        this.valorRealizadoValor = Object.assign({ id: 0, pessoasId: this.pessoaIdNovo, vendaValorRealizadoId: this.idValorRealizado,
-            descricao: this.descricaoNovo, dataPagamento: this.dataService.getDataSQL(dataPag),
-            dataHoraUltAlt: dataAtual, valor: this.valorRealizadoNovoPipe });
-        this.vendaService.novoVendaValorRealizadoValores(this.valorRealizadoValor).subscribe(function () {
-            _this.valorRealizadoValoresNovo = [];
-            _this.novoLancamento = true;
-            _this.carregarVenda();
-            _this.carregarValores(_this.idValorRealizado);
-            _this.toastr.success('Lançado com Sucesso!');
-        });
-    };
-    EditarVendaComponent.prototype.abrirFormValorRealizado = function (idProdutoItem, tipoItem, subTipoItem, descricaoItem, template) {
-        var _this = this;
-        this.descricaoItem = descricaoItem;
-        this.novoLancamento = true;
-        this.valorRealizadoValor = null;
-        this.valorRealizadoValoresNovo = [];
-        this.valorRealizadoValores = [];
-        this.subTipoItem = subTipoItem;
-        this.tipoItem = tipoItem;
-        var dataAtual = moment__WEBPACK_IMPORTED_MODULE_4__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-        this.idProdutoItemValorRealizado = idProdutoItem;
-        this.vendaService.getVendaValoresRealizadosByProdIdVendId(idProdutoItem, this.idVenda).subscribe(function (_VALORREALIZADO) {
-            if (_VALORREALIZADO) {
-                _this.idValorRealizado = _VALORREALIZADO.id;
-                _this.valorRealizado = Object.assign({}, _VALORREALIZADO);
-                _this.valorRealizadoValores = _VALORREALIZADO.vendaValorRealizadoValores;
-            }
-            else {
-                _this.valorRealizado = Object.assign({ id: 0, vendaId: _this.idVenda, produtosItensId: idProdutoItem, dataHoraUltAlt: dataAtual });
-                _this.vendaService.novoVendaValorRealizado(_this.valorRealizado).subscribe(function () {
-                    _this.vendaService.getIdUltimoValorRealizado().subscribe(function (_ID) {
-                        _this.idValorRealizado = _ID.id;
-                    });
-                });
-            }
-        }, function (error) {
-            console.log(error.error);
-        });
-        template.show();
-    };
-    EditarVendaComponent.prototype.carregarValores = function (idValorRealizado) {
-        var _this = this;
-        this.vendaService.getValorRealizadoValores(idValorRealizado).subscribe(function (_VALORES) {
-            _this.valorRealizadoValores = _VALORES;
-        });
-        this.vendaItensSaidaComissao.forEach(function (item) {
-            _this.vendaService.getVendaValoresRealizadosByProdIdVendId(item.id, _this.idVenda)
-                .subscribe(function (_VALORES) {
-                if (_VALORES) {
-                    item.vendaValorRealizado = _VALORES;
-                }
-            });
-        });
-    };
-    EditarVendaComponent.prototype.getPessoas = function () {
-        var _this = this;
-        this.pessoaService.getAllPessoa().subscribe(function (_PESSOAS) {
-            _this.pessoas = _PESSOAS;
-        }, function (error) {
-            console.log(error.error);
-            _this.toastr.error("Erro ao tentar carregar pessoas: " + error.error);
-        });
-    };
     EditarVendaComponent.prototype.salvarAlteracoes = function () {
         var _this = this;
         var dataAtual = moment__WEBPACK_IMPORTED_MODULE_4__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
         var dataNeg = this.cadastroForm.get('dataNegociacao').value.toLocaleString();
+        var dataFin = this.cadastroForm.get('dataFinalizado').value.toLocaleString();
         this.venda = Object.assign(this.cadastroForm.value, { id: this.venda.id,
             dataNegociacao: this.dataService.getDataSQL(dataNeg),
+            dataFinalizado: this.dataService.getDataSQL(dataFin),
             dataHoraUltAlt: dataAtual
         });
         this.vendaService.editarVenda(this.venda).subscribe(function () {
@@ -5646,6 +10692,57 @@ var EditarVendaComponent = /** @class */ (function () {
         }, function (error) {
             _this.toastr.error("Erro ao tentar Editar: " + error.error);
             console.log(error);
+        });
+    };
+    EditarVendaComponent.prototype.getProdutos = function () {
+        var _this = this;
+        this.produtoService.getAllProduto().subscribe(function (_PRODUTOS) {
+            _this.produtos = _PRODUTOS;
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar produtos: " + error.error);
+        });
+    };
+    EditarVendaComponent.prototype.getAutorizacoes = function () {
+        var _this = this;
+        this.autorizacaoService.getAutorizacaoFormularioById(this.idVenda).subscribe(function (_AUTORIZACOES) {
+            _this.autorizacoes = _AUTORIZACOES;
+            if (_this.autorizacoes.filter(function (c) { return c.autorizado === 1; }).length > 0) {
+                _this.autorizadoGerarPedido = true;
+            }
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar autorizacoes: " + error.error);
+        });
+    };
+    EditarVendaComponent.prototype.getClientes = function () {
+        var _this = this;
+        this.clienteService.getAllCliente().subscribe(function (_CLIENTES) {
+            _this.clientes = _CLIENTES.filter(function (cliente) { return cliente.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar clientes: " + error.error);
+        });
+    };
+    EditarVendaComponent.prototype.getEmpresas = function () {
+        var _this = this;
+        this.empresaService.getAllEmpresa().subscribe(function (_EMPRESAS) {
+            _this.empresas = _EMPRESAS.filter(function (cliente) { return cliente.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar empresas: " + error.error);
+        });
+    };
+    EditarVendaComponent.prototype.getVendedores = function () {
+        var _this = this;
+        this.pessoaService.getAllPessoa().subscribe(function (_PESSOAS) {
+            _this.vendedores = _PESSOAS.filter(function (pessoa) {
+                return pessoa.pessoaTipos.filter(function (c) { return c.tiposPessoa.descricao === 'VENDEDOR'; }).length > 0
+                    && pessoa.status !== 'INATIVO';
+            });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar vendedores: " + error.error);
         });
     };
     EditarVendaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -5658,12 +10755,269 @@ var EditarVendaComponent = /** @class */ (function () {
             ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"],
             src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_5__["VendaService"],
-            src_app_services_Cadastros_Pessoas_pessoa_service__WEBPACK_IMPORTED_MODULE_7__["PessoaService"],
+            src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_10__["RecebimentoService"],
             src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_9__["PermissaoService"],
             src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_8__["DataService"],
+            src_app_services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_11__["ClienteService"],
+            src_app_services_Cadastros_Produtos_produto_service__WEBPACK_IMPORTED_MODULE_12__["ProdutoService"],
+            src_app_services_Cadastros_Pessoas_pessoa_service__WEBPACK_IMPORTED_MODULE_7__["PessoaService"],
+            src_app_services_Cadastros_Usuarios_usuario_service__WEBPACK_IMPORTED_MODULE_15__["UsuarioService"],
+            src_app_services_Cadastros_Empresas_empresa_service__WEBPACK_IMPORTED_MODULE_13__["EmpresaService"],
+            src_app_services_Autorizacoes_autorizacao_service__WEBPACK_IMPORTED_MODULE_14__["AutorizacaoService"],
+            src_app_services_WebSocket_Socket_service__WEBPACK_IMPORTED_MODULE_16__["SocketService"],
+            src_app_services_Notificacoes_notificacao_service__WEBPACK_IMPORTED_MODULE_17__["NotificacaoService"],
+            src_app_services_Email_email_service__WEBPACK_IMPORTED_MODULE_18__["EmailService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], EditarVendaComponent);
     return EditarVendaComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component.css":
+/*!********************************************************************************************!*\
+  !*** ./src/app/movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component.css ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21vdmltZW50b3MvdmVuZGEvZWRpdGFyVmVuZGEvcGFnYW1lbnRvc1ZlbmRhL3BhZ2FtZW50b3NWZW5kYS5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component.html":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component.html ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templatePagamentosVenda)}}\n<div bsModal #templatePagamentosVenda=\"bs-modal\" [config]=\"{backdrop: 'static', keyboard: false}\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Pagamentos da Venda ({{produtoItem.descricao}})\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templatePagamentosVenda)\"\n          aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n\n        <div class=\"box box-solid\">\n          <div class=\"box-header with-border\">\n            <div class=\"row\">\n              <div style=\"margin-right: 15px;\" class=\"pull-right\">\n                <a (click)=\"abrirTemplatePagamento()\" class=\"btn btn-success\">\n                  <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Pagamento\n                </a>\n              </div>\n            </div>\n            <table style=\"margin-top: 15px;\" class=\"table table-striped table-bordered mt-4\">\n              <thead class=\"thead-light\">\n                <tr>\n                  <th >Id</th>\n                  <th >Pessoa</th>\n                  <th style=\"text-align: center;\">Data Emissão</th>\n                  <th style=\"text-align: center;\">Valor</th>\n                  <th style=\"text-align: center;\">Ações</th>\n                </tr>\n              </thead>\n              <tbody *ngIf=\"pagamentos && pagamentos.length\">\n                <tr\n                  *ngFor=\"let pagamento of pagamentos\">\n                 \n                  <td style=\"white-space: nowrap;\">{{pagamento.id}}</td>\n                  <td style=\"white-space: nowrap;\">{{pagamento.pessoas.nome}}</td>\n                  <td style=\"white-space: nowrap;text-align: center;\">{{ pagamento.dataEmissao  | date:'dd/MM/yyyy'}}</td>\n                  <td style=\"white-space: nowrap;text-align: center;\">{{ pagamento.valorTotal | currency:' ':false}}</td>\n                  <td style=\"text-align: center;white-space: nowrap;\">\n                    <div class=\"btn-group\">\n                      <a (click)=\"abrirTemplateDetalharPagamento(pagamento.id)\" tooltip=\"Detalhar Pagamento\"\n                        class=\"btn btn-sm btn-primary\">\n                        <i class=\"fa fa-edit\"></i>\n                      </a>\n                    </div>\n                  </td>\n                </tr>\n              </tbody>\n              <tfoot *ngIf=\"!pagamentos\">\n                <tr colspan=\"7\" class=\"text-center\"></tr>\n                <h4>\n                  Nenhum Pagamento encontrado!\n                </h4>\n              </tfoot>\n            </table>\n\n          </div>\n\n        </div>\n\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templatePagamentosVenda)\">\n          Fechar\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n<app-template-pagamento [idVenda]=\"this.idVenda\" [produtoItem]=\"this.produtoItem\" *ngIf=\"getTemplatePagamento() == true\"></app-template-pagamento>\n\n<app-detalhar-pagamento [idPagamento]=\"this.idDetalharPagamento\" [produtoItem]=\"this.produtoItem\" *ngIf=\"getDetalharPagamento() == true\">\n</app-detalhar-pagamento>"
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: PagamentosVendaComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PagamentosVendaComponent", function() { return PagamentosVendaComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/Movimentos/Venda/venda.service */ "./src/app/_services/Movimentos/Venda/venda.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Financeiro_Pagamentos_pagamento_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Financeiro/Pagamentos/pagamento.service */ "./src/app/_services/Financeiro/Pagamentos/pagamento.service.ts");
+/* harmony import */ var src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_models/Cadastros/Produtos/produtoItem */ "./src/app/_models/Cadastros/Produtos/produtoItem.ts");
+
+
+
+
+
+
+
+var PagamentosVendaComponent = /** @class */ (function () {
+    function PagamentosVendaComponent(vendaService, toastr, permissaoService, pagamentoService) {
+        var _this = this;
+        this.vendaService = vendaService;
+        this.toastr = toastr;
+        this.permissaoService = permissaoService;
+        this.pagamentoService = pagamentoService;
+        this.templateEnabled = false;
+        this.vendaService.atualizaVenda.subscribe(function (x) {
+            _this.getPagamentos();
+        });
+    }
+    PagamentosVendaComponent.prototype.ngOnInit = function () {
+        this.getPagamentos();
+    };
+    PagamentosVendaComponent.prototype.getPagamentos = function () {
+        var _this = this;
+        this.pagamentoService.getAllPagamentos().subscribe(
+        // tslint:disable-next-line:variable-name
+        function (_PAGAMENTOS) {
+            _this.pagamentos = _PAGAMENTOS.filter(function (c) { return c.produtosItensId === _this.produtoItem.id && c.vendaId === _this.idVenda; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Pagamentos: " + error.error);
+        });
+    };
+    PagamentosVendaComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            this.templateEnabled = true;
+            template.show();
+        }
+    };
+    PagamentosVendaComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.vendaService.setPagamentosVendaStatus(false);
+        this.templateEnabled = false;
+    };
+    PagamentosVendaComponent.prototype.getDetalharPagamento = function () {
+        return this.pagamentoService.getDetalharPagamentoStatus();
+    };
+    PagamentosVendaComponent.prototype.abrirTemplateDetalharPagamento = function (idPagamento) {
+        this.idDetalharPagamento = idPagamento;
+        this.pagamentoService.setDetalharPagamentoStatus(true);
+    };
+    PagamentosVendaComponent.prototype.getTemplatePagamento = function () {
+        return this.pagamentoService.getTemplatePagamentoStatus();
+    };
+    PagamentosVendaComponent.prototype.abrirTemplatePagamento = function () {
+        this.pagamentoService.setTemplatePagamentoStatus(true);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_6__["ProdutoItem"])
+    ], PagamentosVendaComponent.prototype, "produtoItem", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], PagamentosVendaComponent.prototype, "idVenda", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], PagamentosVendaComponent.prototype, "vendaClienteId", void 0);
+    PagamentosVendaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-pagamentos-venda',
+            template: __webpack_require__(/*! ./pagamentosVenda.component.html */ "./src/app/movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component.html"),
+            styles: [__webpack_require__(/*! ./pagamentosVenda.component.css */ "./src/app/movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_2__["VendaService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__["PermissaoService"],
+            src_app_services_Financeiro_Pagamentos_pagamento_service__WEBPACK_IMPORTED_MODULE_5__["PagamentoService"]])
+    ], PagamentosVendaComponent);
+    return PagamentosVendaComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component.css":
+/*!************************************************************************************************!*\
+  !*** ./src/app/movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component.css ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21vdmltZW50b3MvdmVuZGEvZWRpdGFyVmVuZGEvcmVjZWJpbWVudG9zVmVuZGEvcmVjZWJpbWVudG9zVmVuZGEuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component.html":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component.html ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{abrirTemplate(templateRecebimentosVenda)}}\n<div bsModal #templateRecebimentosVenda=\"bs-modal\" [config]=\"{backdrop: 'static', keyboard: false}\" class=\"modal fade bd-example-modal-xl\">\n  <div class=\"modal-dialog modal-xl\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">\n          Recebimentos da Venda ({{produtoItem.descricao}})\n        </h4>\n\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fecharTemplate(templateRecebimentosVenda)\"\n          aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n\n        <div class=\"box box-solid\">\n          <div class=\"box-header with-border\">\n            <div class=\"row\">\n              <div style=\"margin-right: 15px;\" class=\"pull-right\">\n                <a (click)=\"abrirTemplateRecebimento()\" class=\"btn btn-success\">\n                  <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Recebimento\n                </a>\n              </div>\n            </div>\n            <table style=\"margin-top: 15px;\" class=\"table table-striped table-bordered mt-4\">\n              <thead class=\"thead-light\">\n                <tr>\n                  <th >Id</th>\n                  <th >Plano de Pagamento</th>\n                  <th style=\"text-align: center;\">Data Emissão</th>\n                  <th style=\"text-align: center;\">Valor</th>\n                  <th style=\"text-align: center;\">Ações</th>\n                </tr>\n              </thead>\n              <tbody *ngIf=\"recebimentos && recebimentos.length\">\n                <tr\n                  *ngFor=\"let recebimento of recebimentos\">\n                  <td style=\"white-space: nowrap;\">{{recebimento.id}}</td>\n                  <td style=\"white-space: nowrap;\">{{recebimento.planoPagamento.descricao}}</td>\n                  <td style=\"white-space: nowrap;text-align: center;\">{{ recebimento.dataEmissao  | date:'dd/MM/yyyy'}}</td>\n                  <td style=\"white-space: nowrap;text-align: center;\">{{ recebimento.valorTotal | currency:' ':false}}</td>\n                  <td style=\"text-align: center;white-space: nowrap;\">\n                    <div class=\"btn-group\">\n                      <a (click)=\"abrirTemplateDetalharRecebimento(recebimento.id)\" tooltip=\"Detalhar Recebimento\"\n                        class=\"btn btn-sm btn-primary\">\n                        <i class=\"fa fa-edit\"></i>\n                      </a>\n                    </div>\n                  </td>\n                </tr>\n              </tbody>\n              <tfoot *ngIf=\"!recebimentos\">\n                <tr colspan=\"7\" class=\"text-center\"></tr>\n                <h4>\n                  Nenhum Recebimento encontrado!\n                </h4>\n              </tfoot>\n            </table>\n\n          </div>\n\n        </div>\n\n\n      </div>\n      <div class=\"modal-footer d-flex\">\n        <button class=\"btn btn-secondary\" (click)=\"fecharTemplate(templateRecebimentosVenda)\">\n          Fechar\n        </button>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n<app-detalhar-recebimento [idRecebimento]=\"this.idDetalharRecebimento\" [produtoItem]=\"this.produtoItem\" *ngIf=\"getDetalharRecebimento() == true\">\n</app-detalhar-recebimento>\n\n<app-template-recebimento [idVenda]=\"this.idVenda\" [vendaClienteId]=\"this.vendaClienteId\" [produtoItem]=\"this.produtoItem\" *ngIf=\"getTemplateRecebimento() == true\"></app-template-recebimento>\n"
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: RecebimentosVendaComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecebimentosVendaComponent", function() { return RecebimentosVendaComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/Cadastros/Produtos/produtoItem */ "./src/app/_models/Cadastros/Produtos/produtoItem.ts");
+/* harmony import */ var src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/Movimentos/Venda/venda.service */ "./src/app/_services/Movimentos/Venda/venda.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Financeiro/Recebimentos/recebimento.service */ "./src/app/_services/Financeiro/Recebimentos/recebimento.service.ts");
+
+
+
+
+
+
+var RecebimentosVendaComponent = /** @class */ (function () {
+    function RecebimentosVendaComponent(vendaService, toastr, recebimentoService) {
+        var _this = this;
+        this.vendaService = vendaService;
+        this.toastr = toastr;
+        this.recebimentoService = recebimentoService;
+        this.templateEnabled = false;
+        this.vendaService.atualizaVenda.subscribe(function (x) {
+            _this.getRecebimentos();
+        });
+    }
+    RecebimentosVendaComponent.prototype.ngOnInit = function () {
+        this.getRecebimentos();
+    };
+    RecebimentosVendaComponent.prototype.getRecebimentos = function () {
+        var _this = this;
+        this.recebimentoService.getAllRecebimentos().subscribe(
+        // tslint:disable-next-line:variable-name
+        function (_RECEBIMENTOS) {
+            _this.recebimentos = _RECEBIMENTOS.filter(function (c) { return c.produtosItensId === _this.produtoItem.id && c.vendaId === _this.idVenda; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar Recebimentos: " + error.error);
+        });
+    };
+    RecebimentosVendaComponent.prototype.abrirTemplate = function (template) {
+        if (this.templateEnabled === false) {
+            this.templateEnabled = true;
+            template.show();
+        }
+    };
+    RecebimentosVendaComponent.prototype.fecharTemplate = function (template) {
+        template.hide();
+        this.vendaService.setRecebimentosVendaStatus(false);
+        this.templateEnabled = false;
+    };
+    RecebimentosVendaComponent.prototype.getDetalharRecebimento = function () {
+        return this.recebimentoService.getDetalharRecebimentoStatus();
+    };
+    RecebimentosVendaComponent.prototype.abrirTemplateDetalharRecebimento = function (idRecebimento) {
+        this.idDetalharRecebimento = idRecebimento;
+        this.recebimentoService.setDetalharRecebimentoStatus(true);
+    };
+    RecebimentosVendaComponent.prototype.getTemplateRecebimento = function () {
+        return this.recebimentoService.getTemplateRecebimentoStatus();
+    };
+    RecebimentosVendaComponent.prototype.abrirTemplateRecebimento = function () {
+        this.recebimentoService.setTemplateRecebimentoStatus(true);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", src_app_models_Cadastros_Produtos_produtoItem__WEBPACK_IMPORTED_MODULE_2__["ProdutoItem"])
+    ], RecebimentosVendaComponent.prototype, "produtoItem", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], RecebimentosVendaComponent.prototype, "idVenda", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], RecebimentosVendaComponent.prototype, "vendaClienteId", void 0);
+    RecebimentosVendaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-recebimentos-venda',
+            template: __webpack_require__(/*! ./recebimentosVenda.component.html */ "./src/app/movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component.html"),
+            styles: [__webpack_require__(/*! ./recebimentosVenda.component.css */ "./src/app/movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_3__["VendaService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"],
+            src_app_services_Financeiro_Recebimentos_recebimento_service__WEBPACK_IMPORTED_MODULE_5__["RecebimentoService"]])
+    ], RecebimentosVendaComponent);
+    return RecebimentosVendaComponent;
 }());
 
 
@@ -5688,7 +11042,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"col-md-5\">\n  {{somar()}}\n  <div class=\"box box-info\">\n    <table class=\"table  table-bordered\" style=\"table-layout:fixed;\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Descrição</th>\n          <th>Previsto</th>\n          <th>Realizado</th>\n          <th>Diferença</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td style=\"font-size:20px;max-width:60px;\">Entradas</td>\n          <td style=\"vertical-align: middle;\">{{valorTotalEntradasPrevisto | currency:'BRL':true}}</td>\n          <td style=\"vertical-align: middle;\">{{valorTotalEntradasRealizado | currency:'BRL':true}}</td>\n          <td style=\"vertical-align: middle;\">\n            {{calcularDiferenca(valorTotalEntradasRealizado, valorTotalEntradasPrevisto) | currency:'BRL':true}}\n          </td>\n        </tr>\n      </tbody>\n    </table>\n\n  </div>\n  <hr style=\"width: 100%;\">\n\n  <div class=\"box box-danger\">\n    <table class=\"table  table-bordered \" style=\"table-layout:fixed;\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Descrição</th>\n          <th>Previsto</th>\n          <th>Realizado</th>\n          <th>Diferença</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td style=\"font-size:20px;\">Comissões</td>\n          <td style=\"vertical-align: middle;\">{{valorTotalSaidasComissaoPrevisto | currency:'BRL':true}}</td>\n          <td style=\"vertical-align: middle;\">{{valorTotalSaidasComissaoRealizado | currency:'BRL':true}}</td>\n          <td style=\"vertical-align: middle;\">\n            {{calcularDiferenca(valorTotalSaidasComissaoRealizado, valorTotalSaidasComissaoPrevisto) | currency:'BRL':true}}\n          </td>\n        </tr>\n      </tbody>\n    </table>\n\n    <hr style=\"width: 100%;\">\n    <div class=\"box box-danger\">\n      <table class=\"table table-bordered\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th>Descrição</th>\n            <th>Previsto</th>\n            <th>Realizado</th>\n            <th>Diferença</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr style=\"vertical-align: middle;\">\n            <td style=\"font-size:20px;\">Gastos</td>\n            <td style=\"vertical-align: middle;\">{{valorTotalSaidasGastoPrevisto | currency:'BRL':true}}</td>\n            <td style=\"vertical-align: middle;\">{{valorTotalSaidasGastoRealizado | currency:'BRL':true}}</td>\n            <td style=\"vertical-align: middle;\">\n              {{calcularDiferenca(valorTotalSaidasGastoRealizado, valorTotalSaidasGastoPrevisto) | currency:'BRL':true}}\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n  </div>\n</div>\n<div class=\"col-md-7\">\n\n  <div class=\"md-2\">\n    <div class=\"box box-info\">\n      <table class=\"table  table-bordered\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th style=\" font-size:40px;text-align: center;\">\n              <span *ngIf=\"verificarMaiorZero(calcularResultado()) == true\"\n                class=\"label label-success\">LUCRO\n              </span>\n              <span *ngIf=\"verificarMaiorZero(calcularResultado()) == false\"\n                class=\"label label-danger\">PREJUÍZO\n              </span>\n            </th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr style=\"vertical-align: middle;\">\n            <td style=\"text-align: center;font-size:30px;\">\n              {{calcularResultado() | currency:'BRL':true}}\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n  </div>\n\n</div>\n<div class=\"col-md-3\">\n  <div class=\"chart\" style=\"width: 400px;height: 200px;\">\n    <canvas baseChart [data]=\"pieChartData\" [labels]=\"pieChartLabels\" [chartType]=\"pieChartType\"\n      [options]=\"pieChartOptions\" [plugins]=\"pieChartPlugins\" [colors]=\"pieChartColors\" [legend]=\"pieChartLegend\">\n    </canvas>\n  </div>\n</div>\n<div class=\"col-md-4\">\n  <div class=\"chart\" style=\"width: 350px;margin-left:55px;margin-top: 20px;height: 200px;\">\n    <canvas baseChart [datasets]=\"barChartData\" [labels]=\"barChartLabels\" [options]=\"barChartOptions\"\n      [plugins]=\"barChartPlugins\" [legend]=\"barChartLegend\" [chartType]=\"barChartType\">\n    </canvas>\n  </div>\n</div>"
+module.exports = "<div style=\"margin-right: 15px; margin-bottom: 15px;\" >\n  <a  (click)=\"atualizarResumoVenda()\" class=\"btn btn-primary\">\n    <i class=\"fa fa-refresh\"></i>&nbsp; Atualizar Resultados\n  </a>\n</div>\n<div class=\"col-md-5\">\n  {{somar()}}\n  <div class=\"box box-info\">\n    <table class=\"table  table-bordered\" style=\"table-layout:fixed;\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Descrição</th>\n          <th>Previsto</th>\n          <th>Realizado</th>\n          <th>Diferença</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td style=\"font-size:20px;max-width:60px;\">Receitas</td>\n          <td style=\"vertical-align: middle;\">{{valorTotalReceitasPrevisto | currency:'BRL':true}}</td>\n          <td style=\"vertical-align: middle;\">{{valorTotalReceitasRealizado | currency:'BRL':true}}</td>\n          <td style=\"vertical-align: middle;\">\n            {{valorDiferencaReceitas | currency:'BRL':true}}\n          </td>\n        </tr>\n      </tbody>\n    </table>\n\n  </div>\n  <hr style=\"width: 100%;\">\n\n  <div class=\"box box-danger\">\n    <table class=\"table  table-bordered \" style=\"table-layout:fixed;\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th>Descrição</th>\n          <th>Previsto</th>\n          <th>Realizado</th>\n          <th>Diferença</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td style=\"font-size:20px;\">Comissões</td>\n          <td style=\"vertical-align: middle;\">{{valorTotalDespesasComissaoPrevisto | currency:'BRL':true}}</td>\n          <td style=\"vertical-align: middle;\">{{valorTotalDespesasComissaoRealizado | currency:'BRL':true}}</td>\n          <td style=\"vertical-align: middle;\">\n            {{valorDiferencaDespesasComissao | currency:'BRL':true}}\n          </td>\n        </tr>\n      </tbody>\n    </table>\n\n    <hr style=\"width: 100%;\">\n    <div class=\"box box-danger\">\n      <table class=\"table table-bordered\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th>Descrição</th>\n            <th>Previsto</th>\n            <th>Realizado</th>\n            <th>Diferença</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr style=\"vertical-align: middle;\">\n            <td style=\"font-size:20px;\">Gastos</td>\n            <td style=\"vertical-align: middle;\">{{valorTotalDespesasGastoPrevisto | currency:'BRL':true}}</td>\n            <td style=\"vertical-align: middle;\">{{valorTotalDespesasGastoRealizado | currency:'BRL':true}}</td>\n            <td style=\"vertical-align: middle;\">\n              {{valorDiferencaDespesasGasto | currency:'BRL':true}}\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n  </div>\n</div>\n<div class=\"col-md-7\">\n\n  <div class=\"md-2\">\n    <div class=\"box box-info\">\n      <table class=\"table  table-bordered\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th style=\" font-size:30px;text-align: center;\">\n              <span *ngIf=\"resultadoPrevisto >= 0\"\n                class=\"label label-success\">RESULTADO PREVISTO\n              </span>\n              <span *ngIf=\"0 > resultadoPrevisto\"\n                class=\"label label-danger\">RESULTADO PREVISTO\n              </span>\n            </th>\n            <th style=\" font-size:30px;text-align: center;\">\n              <span *ngIf=\"resultadoReal >= 0\"\n                class=\"label label-success\">RESULTADO REAL\n              </span>\n              <span *ngIf=\"0 > resultadoReal\"\n                class=\"label label-danger\">RESULTADO REAL\n              </span>\n            </th>\n            <th style=\" font-size:30px;text-align: center;\">\n              <span \n                class=\"label label-primary\">%\n              </span>\n            </th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr style=\"vertical-align: middle;\">\n            <td style=\"text-align: center;font-size:30px;\">\n              {{resultadoPrevisto | currency:'BRL':true}}\n            </td>\n            <td style=\"text-align: center;font-size:30px;\">\n              {{resultadoReal | currency:'BRL':true}}\n            </td>\n            <td style=\"text-align: center;font-size:30px;\">\n              {{porcentagemPrevistoReal | currency:' ':false}}\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n  </div>\n\n</div>\n<div class=\"col-md-3\">\n  <div class=\"chart\" style=\"width: 400px;height: 200px;\">\n    <canvas baseChart [data]=\"pieChartData\" [labels]=\"pieChartLabels\" [chartType]=\"pieChartType\"\n      [options]=\"pieChartOptions\" [plugins]=\"pieChartPlugins\" [colors]=\"pieChartColors\" [legend]=\"pieChartLegend\">\n    </canvas>\n  </div>\n</div>\n<div class=\"col-md-4\">\n  <div class=\"chart\" style=\"width: 350px;margin-left:55px;margin-top: 20px;height: 200px;\">\n    <canvas baseChart [datasets]=\"barChartData\" [labels]=\"barChartLabels\" [options]=\"barChartOptions\"\n      [plugins]=\"barChartPlugins\" [legend]=\"barChartLegend\" [chartType]=\"barChartType\">\n    </canvas>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -5721,26 +11075,45 @@ __webpack_require__.r(__webpack_exports__);
 
 var ResumoVendaComponent = /** @class */ (function () {
     function ResumoVendaComponent(toastr, router, vendaService, pessoaService, dataService, changeDetectionRef) {
+        var _this = this;
         this.toastr = toastr;
         this.router = router;
         this.vendaService = vendaService;
         this.pessoaService = pessoaService;
         this.dataService = dataService;
         this.changeDetectionRef = changeDetectionRef;
-        this.realizadoEntradaValores = [];
-        this.realizadoSaidaComissaoValores = [];
-        this.realizadoSaidaGastoValores = [];
-        this.previstoEntradaValores = [];
-        this.previstoSaidaComissaoValores = [];
-        this.previstoSaidaGastoValores = [];
-        this.valorTotalEntradasPrevisto = 0;
-        this.valorTotalEntradasRealizado = 0;
-        this.valorTotalSaidasComissaoPrevisto = 0;
-        this.valorTotalSaidasComissaoRealizado = 0;
-        this.valorTotalSaidasGastoPrevisto = 0;
-        this.valorTotalSaidasGastoRealizado = 0;
+        this.previstoReceitaValores = [];
+        this.previstoDespesaComissaoValores = [];
+        this.previstoDespesaGastoValores = [];
+        this.realizadoReceitaValores = [];
+        this.realizadoDespesaComissaoValores = [];
+        this.realizadoDespesaGastoValores = [];
+        this.valorTotalReceitasPrevisto = 0;
+        this.valorTotalReceitasRealizado = 0;
+        this.valorTotalDespesasComissaoPrevisto = 0;
+        this.valorTotalDespesasComissaoRealizado = 0;
+        this.valorTotalDespesasGastoPrevisto = 0;
+        this.valorTotalDespesasGastoRealizado = 0;
+        this.valorDiferencaReceitas = 0;
+        this.valorDiferencaDespesasComissao = 0;
+        this.valorDiferencaDespesasGasto = 0;
+        this.resultadoPrevisto = 0;
+        this.resultadoReal = 0;
+        this.porcentagemPrevistoReal = 0;
         this.verificarSoma = false;
         this.pieChartOptions = {
+            tooltips: {
+                callbacks: {
+                    label: function (value, ctx) {
+                        var texto = ctx.labels[value.index];
+                        return texto;
+                    },
+                    afterLabel: function (value, ctx) {
+                        var texto = Number(ctx.datasets[0].data[value.index]).toFixed(2).replace('.', ',');
+                        return 'R$ ' + texto;
+                    },
+                }
+            },
             responsive: true,
             legend: {
                 position: 'top',
@@ -5748,13 +11121,12 @@ var ResumoVendaComponent = /** @class */ (function () {
             plugins: {
                 datalabels: {
                     formatter: function (value, ctx) {
-                        var label = value.toFixed(2).replace('.', ',');
-                        return 'R$' + label;
+                        return '';
                     },
                 },
             }
         };
-        this.pieChartLabels = ['ENTRADAS', 'COMISSÕES', 'GASTOS'];
+        this.pieChartLabels = ['RECEITAS', 'COMISSÕES', 'GASTOS'];
         this.pieChartData = [0, 0, 0];
         this.pieChartType = 'pie';
         this.pieChartLegend = true;
@@ -5766,7 +11138,14 @@ var ResumoVendaComponent = /** @class */ (function () {
         ];
         this.barChartOptions = {
             responsive: true,
-            // We use these empty structures as placeholders for dynamic theming.
+            tooltips: {
+                callbacks: {
+                    label: function (item, ctx) {
+                        var texto = Number(item.value).toFixed(2).replace('.', ',');
+                        return 'R$ ' + texto;
+                    }
+                },
+            },
             scales: { xAxes: [{}], yAxes: [{ ticks: { max: 5000, min: 0, stepSize: 1000 } }] },
             plugins: {
                 datalabels: {
@@ -5784,9 +11163,14 @@ var ResumoVendaComponent = /** @class */ (function () {
         this.barChartLegend = true;
         this.barChartPlugins = [chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_7__];
         this.barChartData = [
-            { data: [0], label: 'Entradas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)' },
-            { data: [0], label: 'Saídas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)' }
+            { data: [0], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)',
+                borderColor: 'rgba(0,192,239,1)' },
+            { data: [0], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)',
+                borderColor: 'rgba(221,75,57,1)' }
         ];
+        this.vendaService.atualizaResumoVenda.subscribe(function (x) {
+            _this.carregarVenda();
+        });
     }
     ResumoVendaComponent.prototype.ngOnInit = function () {
         this.idVenda = +this.router.snapshot.paramMap.get('id');
@@ -5808,7 +11192,12 @@ var ResumoVendaComponent = /** @class */ (function () {
         if (valores) {
             if (valores.length > 0) {
                 valores.forEach(function (item) {
-                    valorTotal = valorTotal + item.valor;
+                    if (typeof item === 'object') {
+                        valorTotal = valorTotal + Number(item.valor);
+                    }
+                    else {
+                        valorTotal = valorTotal + Number(item);
+                    }
                 });
             }
         }
@@ -5818,79 +11207,95 @@ var ResumoVendaComponent = /** @class */ (function () {
         return valorPrevisto - valorRealizado;
     };
     ResumoVendaComponent.prototype.calcularResultado = function () {
-        var valorTotalSaida = this.valorTotalSaidasComissaoRealizado + this.valorTotalSaidasGastoRealizado;
-        return this.valorTotalEntradasRealizado - valorTotalSaida;
+        var valorTotalDespesa = this.valorTotalDespesasComissaoRealizado + this.valorTotalDespesasGastoRealizado;
+        return this.valorTotalReceitasRealizado - valorTotalDespesa;
+    };
+    ResumoVendaComponent.prototype.calcularPorcentagemPrevistoReal = function () {
+        return (this.resultadoReal / this.resultadoPrevisto) * 100;
     };
     ResumoVendaComponent.prototype.somar = function () {
         if (this.verificarSoma === false) {
-            this.valorTotalEntradasRealizado = this.somarValores(this.realizadoEntradaValores);
-            this.valorTotalEntradasPrevisto = this.somarValores(this.previstoEntradaValores);
-            this.valorTotalSaidasComissaoPrevisto = this.somarValores(this.previstoSaidaComissaoValores);
-            this.valorTotalSaidasComissaoRealizado = this.somarValores(this.realizadoSaidaComissaoValores);
-            this.valorTotalSaidasGastoRealizado = this.somarValores(this.realizadoSaidaGastoValores);
-            this.valorTotalSaidasGastoPrevisto = this.somarValores(this.previstoSaidaGastoValores);
-            this.pieChartData = [this.valorTotalEntradasRealizado, this.valorTotalSaidasComissaoRealizado, this.valorTotalSaidasGastoRealizado];
-            this.barChartData[0].data = [this.valorTotalEntradasRealizado];
-            this.barChartData[1].data = [this.valorTotalSaidasComissaoRealizado + this.valorTotalSaidasGastoRealizado];
+            this.valorTotalReceitasPrevisto = this.somarValores(this.previstoReceitaValores);
+            this.valorTotalReceitasRealizado = this.somarValores(this.realizadoReceitaValores);
+            this.valorTotalDespesasComissaoPrevisto = this.somarValores(this.previstoDespesaComissaoValores);
+            this.valorTotalDespesasComissaoRealizado = this.somarValores(this.realizadoDespesaComissaoValores);
+            this.valorTotalDespesasGastoRealizado = this.somarValores(this.realizadoDespesaGastoValores);
+            this.valorTotalDespesasGastoPrevisto = this.somarValores(this.previstoDespesaGastoValores);
+            this.valorDiferencaReceitas = this.calcularDiferenca(this.valorTotalReceitasRealizado, this.valorTotalReceitasPrevisto);
+            this.valorDiferencaDespesasComissao = this.calcularDiferenca(this.valorTotalDespesasComissaoRealizado, this.valorTotalDespesasComissaoPrevisto);
+            this.valorDiferencaDespesasGasto = this.calcularDiferenca(this.valorTotalDespesasGastoRealizado, this.valorTotalDespesasGastoPrevisto);
+            this.resultadoPrevisto = this.valorTotalReceitasPrevisto - this.valorTotalDespesasComissaoPrevisto -
+                this.valorTotalDespesasGastoPrevisto;
+            this.resultadoReal = this.valorTotalReceitasRealizado - this.valorTotalDespesasComissaoRealizado -
+                this.valorTotalDespesasGastoRealizado;
+            this.porcentagemPrevistoReal = this.calcularPorcentagemPrevistoReal();
+            this.pieChartData = [this.valorTotalReceitasRealizado, this.valorTotalDespesasComissaoRealizado,
+                this.valorTotalDespesasGastoRealizado];
+            this.barChartData[0].data = [this.valorTotalReceitasRealizado];
+            this.barChartData[1].data = [this.valorTotalDespesasComissaoRealizado + this.valorTotalDespesasGastoRealizado];
             this.verificarSoma = true;
         }
         return '';
     };
+    ResumoVendaComponent.prototype.atualizarResumoVenda = function () {
+        this.vendaService.atualizarResumoVenda();
+    };
     ResumoVendaComponent.prototype.carregarVenda = function () {
         var _this = this;
+        this.previstoReceitaValores = [];
+        this.previstoDespesaComissaoValores = [];
+        this.previstoDespesaGastoValores = [];
+        this.realizadoDespesaComissaoValores = [];
+        this.realizadoDespesaGastoValores = [];
         this.vendaService.getVendaById(this.idVenda).subscribe(function (_VENDA) {
             _this.venda = Object.assign({}, _VENDA);
-            _this.vendaItensEntrada = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'ENTRADA'; });
-            _this.vendaItensEntrada.map(function (itemEntrada) {
-                _this.vendaService.getVendaValoresRealizadosByProdIdVendId(itemEntrada.id, _this.idVenda)
-                    .subscribe(function (_VALORREALIZADO) {
-                    if (_VALORREALIZADO) {
-                        _this.realizadoEntradaValores = _VALORREALIZADO.vendaValorRealizadoValores;
-                        _this.verificarSoma = false;
-                    }
-                });
-                _this.vendaService.getVendaValorPrevistoByProdIdVendId(itemEntrada.id, _this.idVenda)
+            _this.vendaItensReceita = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'RECEITA'; });
+            _this.vendaItensReceita.map(function (itemReceita) {
+                var valorRealizadoItem = _this.venda.vendaValorRealizado.filter(function (c) { return c.produtosItensId === itemReceita.id; });
+                if (valorRealizadoItem) {
+                    valorRealizadoItem.forEach(function (valorRealizado) {
+                        _this.realizadoReceitaValores.push(valorRealizado.recebimentos.valorTotal);
+                    });
+                    _this.verificarSoma = false;
+                }
+                _this.vendaService.getVendaValorPrevistoByProdIdVendId(itemReceita.id, _this.idVenda)
                     .subscribe(function (_VALORPREVISTO) {
                     if (_VALORPREVISTO) {
-                        _this.previstoEntradaValores.push(_VALORPREVISTO);
+                        _this.previstoReceitaValores.push(_VALORPREVISTO);
                         _this.verificarSoma = false;
                     }
                 });
             });
-            _this.vendaItensSaidaComissao = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'SAIDA' && item.subTipoItem === 'COMISSÃO'; });
-            _this.vendaItensSaidaComissao.map(function (itemComissao) {
+            _this.vendaItensDespesaComissao = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO'; });
+            _this.vendaItensDespesaComissao.map(function (itemComissao) {
+                var valorRealizadoItem = _this.venda.vendaValorRealizado.filter(function (c) { return c.produtosItensId === itemComissao.id; });
+                if (valorRealizadoItem) {
+                    valorRealizadoItem.forEach(function (valorRealizado) {
+                        _this.realizadoDespesaComissaoValores.push(valorRealizado.pagamentos.valorTotal);
+                    });
+                    _this.verificarSoma = false;
+                }
                 _this.vendaService.getVendaValorPrevistoByProdIdVendId(itemComissao.id, _this.idVenda)
                     .subscribe(function (_VALORPREVISTO) {
                     if (_VALORPREVISTO) {
-                        _this.previstoSaidaComissaoValores.push(_VALORPREVISTO);
+                        _this.previstoDespesaComissaoValores.push(_VALORPREVISTO);
                         _this.verificarSoma = false;
                     }
                 });
-                _this.vendaService.getVendaValoresRealizadosByProdIdVendId(itemComissao.id, _this.idVenda)
-                    .subscribe(function (_VALORREALIZADO) {
-                    if (_VALORREALIZADO) {
-                        _VALORREALIZADO.vendaValorRealizadoValores.map(function (_VALOR) {
-                            _this.realizadoSaidaComissaoValores.push(_VALOR);
-                            _this.verificarSoma = false;
-                        });
-                    }
-                });
             });
-            _this.vendaItensSaidaGasto = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'SAIDA' && item.subTipoItem === 'GASTO'; });
-            _this.vendaItensSaidaGasto.map(function (itemGasto) {
-                _this.vendaService.getVendaValoresRealizadosByProdIdVendId(itemGasto.id, _this.idVenda)
-                    .subscribe(function (_VALORREALIZADO) {
-                    if (_VALORREALIZADO) {
-                        _VALORREALIZADO.vendaValorRealizadoValores.map(function (_VALOR) {
-                            _this.realizadoSaidaGastoValores.push(_VALOR);
-                            _this.verificarSoma = false;
-                        });
-                    }
-                });
+            _this.vendaItensDespesaGasto = _this.venda.vendaProdutos[0].produtos.itens.filter(function (item) { return item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO'; });
+            _this.vendaItensDespesaGasto.map(function (itemGasto) {
+                var valorRealizadoItem = _this.venda.vendaValorRealizado.filter(function (c) { return c.produtosItensId === itemGasto.id; });
+                if (valorRealizadoItem) {
+                    valorRealizadoItem.forEach(function (valorRealizado) {
+                        _this.realizadoDespesaGastoValores.push(valorRealizado.pagamentos.valorTotal);
+                    });
+                    _this.verificarSoma = false;
+                }
                 _this.vendaService.getVendaValorPrevistoByProdIdVendId(itemGasto.id, _this.idVenda)
                     .subscribe(function (_VALORPREVISTO) {
                     if (_VALORPREVISTO) {
-                        _this.previstoSaidaGastoValores.push(_VALORPREVISTO);
+                        _this.previstoDespesaGastoValores.push(_VALORPREVISTO);
                         _this.verificarSoma = false;
                     }
                 });
@@ -5927,7 +11332,7 @@ var ResumoVendaComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Novo Venda</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n      <div class=\"row mt-4\">\n        <div class=\"form-group col-md-5\">\n          <label>Cliente:(*)</label>\n          <ng-select style=\"text-transform: uppercase\" [items]=\"clientes\" bindLabel=\"nomeFantasia\" bindValue=\"id\"\n            [(ngModel)]=\"clienteIdSelecionado\" formControlName=\"clientesId\">\n          </ng-select>\n        </div>\n      </div>\n      <div class=\"row mt-4\">\n        <div class=\"form-group col-md-5\">\n          <label>Produto:(*)</label>\n          <ng-select style=\"text-transform: uppercase\" [items]=\"produtos\" bindLabel=\"descricao\" bindValue=\"id\"\n            [(ngModel)]=\"produtoIdSelecionado\" formControlName=\"produtoId\">\n          </ng-select>\n        </div>\n      </div>\n\n    </form>\n\n    <div *ngIf=\"!cadastroForm.valid\" style=\"font-size:18px;\" class=\"invalid-feedback d-block\">\n      Preencha todos os campos com (*).\n    </div>\n  </div>\n</div>\n\n<button style=\"position:relative;\" [disabled]=\"!cadastroForm.valid\" (click)=\"cadastrarVenda()\" tooltip=\"Novo Venda\"\n  class=\"btn btn-lg btn-primary\">\n  &nbsp;Cadastrar\n</button>"
+module.exports = "<h2>Novo Venda</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <form [formGroup]=\"cadastroForm\" class=\"mt-3\">\n      <div class=\"row\">\n        <div class=\"form-group col-md-5\">\n          <label>Empresa:(*)</label>\n          <ng-select style=\"text-transform: uppercase\" [items]=\"empresas\" bindLabel=\"nomeFantasia\" bindValue=\"id\"\n            [(ngModel)]=\"empresaIdSelecionado\" formControlName=\"empresasId\">\n          </ng-select>\n        </div>\n        <div class=\"form-group col-md-5\">\n          <label>Vendedor:(*)</label>\n          <ng-select style=\"text-transform: uppercase\" [items]=\"vendedores\" bindLabel=\"nome\" bindValue=\"id\"\n            [(ngModel)]=\"vendedorIdSelecionado\" formControlName=\"vendedorId\">\n          </ng-select>\n        </div>\n      </div>\n\n      <div class=\"row\">\n        <div class=\"form-group col-md-5\">\n          <label>Cliente:(*)</label>\n          <ng-select style=\"text-transform: uppercase\" [items]=\"clientes\" bindLabel=\"nomeFantasia\" bindValue=\"id\"\n            [(ngModel)]=\"clienteIdSelecionado\" formControlName=\"clientesId\">\n          </ng-select>\n        </div>\n        <div class=\"form-group col-md-5\">\n          <label>Produto:(*)</label>\n          <ng-select style=\"text-transform: uppercase\" [items]=\"produtos\" bindLabel=\"descricao\" bindValue=\"id\"\n            [(ngModel)]=\"produtoIdSelecionado\" formControlName=\"produtoId\">\n          </ng-select>\n        </div>\n      </div>\n\n    </form>\n\n    <div *ngIf=\"!cadastroForm.valid\" style=\"font-size:18px;\" class=\"invalid-feedback d-block\">\n      Preencha todos os campos com (*).\n    </div>\n  </div>\n</div>\n\n<button style=\"position:relative;\" [disabled]=\"!cadastroForm.valid\" (click)=\"cadastrarVenda()\" tooltip=\"Novo Venda\"\n  class=\"btn btn-lg btn-primary\">\n  &nbsp;Cadastrar\n</button>"
 
 /***/ }),
 
@@ -5951,6 +11356,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var src_app_services_Cadastros_Pessoas_pessoa_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_services/Cadastros/Pessoas/pessoa.service */ "./src/app/_services/Cadastros/Pessoas/pessoa.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Empresas_empresa_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/_services/Cadastros/Empresas/empresa.service */ "./src/app/_services/Cadastros/Empresas/empresa.service.ts");
+
+
 
 
 
@@ -5961,31 +11370,38 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var NovoVendaComponent = /** @class */ (function () {
-    function NovoVendaComponent(fb, toastr, router, clienteService, produtoService, vendaService) {
+    function NovoVendaComponent(fb, toastr, router, clienteService, produtoService, pessoaService, empresaService, vendaService) {
         this.fb = fb;
         this.toastr = toastr;
         this.router = router;
         this.clienteService = clienteService;
         this.produtoService = produtoService;
+        this.pessoaService = pessoaService;
+        this.empresaService = empresaService;
         this.vendaService = vendaService;
     }
     NovoVendaComponent.prototype.ngOnInit = function () {
         this.getClientes();
         this.getProdutos();
+        this.getEmpresas();
+        this.getVendedores();
         this.validarForm();
     };
     NovoVendaComponent.prototype.validarForm = function () {
         this.cadastroForm = this.fb.group({
             id: [''],
             clientesId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            produtoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+            produtoId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            empresasId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            vendedorId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
         });
     };
     NovoVendaComponent.prototype.cadastrarVenda = function () {
         var _this = this;
         var dataAtual = moment__WEBPACK_IMPORTED_MODULE_8__(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
         if (this.cadastroForm.valid) {
-            this.venda = Object.assign(this.cadastroForm.value, { id: 0, status: 'EM ABERTO', dataEmissao: dataAtual, dataHoraUltAlt: dataAtual });
+            this.venda = Object.assign(this.cadastroForm.value, { id: 0, status: 'EM NEGOCIAÇÃO',
+                dataEmissao: dataAtual, dataHoraUltAlt: dataAtual });
             this.vendaService.novoVenda(this.venda).subscribe(function () {
                 _this.vendaService.getIdUltimaVenda().subscribe(function (_VENDA) {
                     var IdUltimaVenda = _VENDA.id;
@@ -6019,6 +11435,28 @@ var NovoVendaComponent = /** @class */ (function () {
             _this.toastr.error("Erro ao tentar carregar clientes: " + error.error);
         });
     };
+    NovoVendaComponent.prototype.getEmpresas = function () {
+        var _this = this;
+        this.empresaService.getAllEmpresa().subscribe(function (_EMPRESAS) {
+            _this.empresas = _EMPRESAS.filter(function (cliente) { return cliente.status !== 'INATIVO'; });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar empresas: " + error.error);
+        });
+    };
+    NovoVendaComponent.prototype.getVendedores = function () {
+        var _this = this;
+        this.pessoaService.getAllPessoa().subscribe(function (_PESSOAS) {
+            console.log(_PESSOAS);
+            _this.vendedores = _PESSOAS.filter(function (pessoa) {
+                return pessoa.pessoaTipos.filter(function (c) { return c.tiposPessoa.descricao === 'VENDEDOR'; }).length > 0
+                    && pessoa.status !== 'INATIVO';
+            });
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar vendedores: " + error.error);
+        });
+    };
     NovoVendaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-novo-venda',
@@ -6029,9 +11467,222 @@ var NovoVendaComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
             src_app_services_Cadastros_Clientes_cliente_service__WEBPACK_IMPORTED_MODULE_4__["ClienteService"],
             src_app_services_Cadastros_Produtos_produto_service__WEBPACK_IMPORTED_MODULE_5__["ProdutoService"],
+            src_app_services_Cadastros_Pessoas_pessoa_service__WEBPACK_IMPORTED_MODULE_9__["PessoaService"],
+            src_app_services_Cadastros_Empresas_empresa_service__WEBPACK_IMPORTED_MODULE_10__["EmpresaService"],
             src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_6__["VendaService"]])
     ], NovoVendaComponent);
     return NovoVendaComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.css":
+/*!******************************************************************************!*\
+  !*** ./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.css ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21vdmltZW50b3MvdmVuZGEvcmVsYXRvcmlvVmVuZGEvcmVsYXRvcmlvVmVuZGEuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Relatório Vendas</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\">\n    <tabset>\n      <tab heading=\"Geral\" style=\"margin-top: 10px;\">\n\n        <div class=\"row\">\n\n          <div class=\"col-md-3 col-sm-6 col-xs-12\">\n            <div class=\"info-box\">\n              <span class=\"info-box-icon bg-yellow\"><i class=\"fa fa-spinner\"></i></span>\n\n              <div class=\"info-box-content\">\n                <span class=\"info-box-text\">EM NEGOCIAÇÃO</span>\n                <span class=\"info-box-number\" style=\"font-size:40px;\">{{this.informacoes.quantidadeEmNegociacao}}</span>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"clearfix visible-sm-block\"></div>\n\n          <div class=\"col-md-3 col-sm-6 col-xs-12\">\n            <div class=\"info-box\">\n              <span class=\"info-box-icon bg-aqua\"><i class=\"fa fa-download\"></i></span>\n              <div class=\"info-box-content\">\n                <span class=\"info-box-text\">EM IMPLANTAÇÃO</span>\n                <span class=\"info-box-number\"\n                  style=\"font-size:40px;\">{{this.informacoes.quantidadeEmImplantacao}}</span>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-3 col-sm-6 col-xs-12\">\n            <div class=\"info-box\">\n              <span class=\"info-box-icon bg-green\"><i class=\"fa fa-thumbs-o-up\"></i></span>\n\n              <div class=\"info-box-content\">\n                <span class=\"info-box-text\">FINALIZADO</span>\n                <span class=\"info-box-number\" style=\"font-size:40px;\">{{this.informacoes.quantidadeFinalizado}}</span>\n              </div>\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"row\" style=\"height: 300px;\">\n          <div class=\"col-md-8\">\n            <div class=\"box\">\n              <div class=\"box-header with-border\">\n                <h3 class=\"box-title\">Grafico Geral</h3>\n              </div>\n              <div class=\"box-body\">\n                <p class=\"text-center\">\n                  <strong>Vendas: 01/01/2019 - 31/12/2019</strong>\n                </p>\n                <div class=\"chart\">\n                  <canvas baseChart [datasets]=\"barChartData\" [labels]=\"barChartLabels\" [options]=\"barChartOptions\"\n                    [plugins]=\"barChartPlugins\" [legend]=\"barChartLegend\" [chartType]=\"barChartType\">\n                  </canvas>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-4\">\n            <div class=\"row\">\n              <div class=\"col-sm-10 col-xs-12\">\n                <div class=\"info-box\">\n                  <span class=\"info-box-icon\"><i class=\"fa fa-handshake\"></i></span>\n\n                  <div class=\"info-box-content\">\n                    <span class=\"info-box-text\">Total de Vendas Negociadas</span>\n                    <span class=\"info-box-number\" style=\"font-size:35px;\">{{this.informacoes.quantidadeTotal}}</span>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"clearfix visible-sm-block\"></div>\n            <div class=\"row\">\n              <div class=\"col-sm-10 col-xs-12\">\n                <div class=\"info-box\">\n                  <span class=\"info-box-icon\"><i class=\"fa fa-dollar\"></i></span>\n\n                  <div class=\"info-box-content\">\n                    <span class=\"info-box-text\">Valor Líquido de Vendas Negociadas</span>\n                    <span class=\"info-box-number\"\n                      style=\"font-size:35px;\">{{this.informacoes.valorLiquidoReceitas | currency:'BRL':true}}</span>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"clearfix visible-sm-block\"></div>\n            <div class=\"row\">\n              <div class=\"col-sm-10 col-xs-12\">\n                <div class=\"info-box\">\n                  <span class=\"info-box-icon\"><i class=\"fa fa-dollar\"></i></span>\n\n                  <div class=\"info-box-content\">\n                    <span class=\"info-box-text\">Valor Médio</span>\n                    <span class=\"info-box-number\"\n                      style=\"font-size:35px;\">{{this.informacoes.valorMedio | currency:'BRL':true}}</span>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </tab>\n\n      <tab heading=\"Resumo\" style=\"margin-top: 10px;\">\n        <div class=\"row\">\n\n          <div class=\"form-group col-md-3\">\n            <label>Selecione a Data:</label>\n            <input type=\"text\" class=\"form-control\" name=\"dataFiltro\" (bsValueChange)=\"setDataFiltro($event)\"\n              [bsConfig]=\"this.bsConfig\" bsDaterangepicker />\n          </div>\n\n          <div style=\"margin-right: 15px; margin-top: 24px;\">\n            <a (click)=\"getVendas(this.dataPeriodo)\" class=\"btn btn-primary\">\n              <i class=\"fa fa-search\"></i>&nbsp; Gerar Relatório\n            </a>\n          </div>\n        </div>\n\n      </tab>\n    </tabset>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: RelatorioVendaComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RelatorioVendaComponent", function() { return RelatorioVendaComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+/* harmony import */ var src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/Movimentos/Venda/venda.service */ "./src/app/_services/Movimentos/Venda/venda.service.ts");
+/* harmony import */ var src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/Cadastros/Uteis/data.service */ "./src/app/_services/Cadastros/Uteis/data.service.ts");
+/* harmony import */ var chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! chartjs-plugin-datalabels */ "./node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js");
+/* harmony import */ var chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
+
+
+
+
+
+
+
+
+
+var RelatorioVendaComponent = /** @class */ (function () {
+    function RelatorioVendaComponent(localeService, toastr, permissaoService, dataService, vendaService) {
+        this.localeService = localeService;
+        this.toastr = toastr;
+        this.permissaoService = permissaoService;
+        this.dataService = dataService;
+        this.vendaService = vendaService;
+        this.visualizarRelatorio = false;
+        this.informacoes = Object.assign({});
+        this.barChartOptions = {
+            responsive: true,
+            tooltips: {
+                callbacks: {
+                    label: function (item, ctx) {
+                        var texto = Number(item.value).toFixed(2).replace('.', ',');
+                        return 'R$ ' + texto;
+                    }
+                }
+            },
+            // We use these empty structures as placeholders for dynamic theming.
+            scales: { xAxes: [{}], yAxes: [{ ticks: { max: 20000, min: 0, stepSize: 2000 } }] },
+            plugins: {
+                datalabels: {
+                    formatter: function (value, ctx) {
+                        var label = value.toFixed(2).replace('.', ',');
+                        return '';
+                    },
+                    anchor: 'end',
+                    align: 'end',
+                }
+            }
+        };
+        this.barChartLabels = ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO',
+            'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'];
+        this.barChartType = 'bar';
+        this.barChartLegend = true;
+        this.barChartPlugins = [chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_7__];
+        this.barChartData = [
+            { data: [0], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)',
+                borderColor: 'rgba(0,192,239,1)' },
+            { data: [0], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)',
+                borderColor: 'rgba(221,75,57,1)' }
+        ];
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+    }
+    RelatorioVendaComponent.prototype.ngOnInit = function () {
+        this.dataPeriodo = Object.assign({
+            dataInicial: this.dataService.getDataSQL('01/01/2019') + 'T00:00:00',
+            dataFinal: this.dataService.getDataSQL('31/12/2019') + 'T23:59:00'
+        });
+        this.getVendas(this.dataPeriodo);
+    };
+    RelatorioVendaComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS VENDA', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizarRelatorio = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
+    };
+    RelatorioVendaComponent.prototype.carregarInformacoes = function () {
+        var valorTotalReceitasVendas = 0;
+        var valorTotalDespesasVendas = 0;
+        this.barChartData[0].data = [];
+        this.barChartData[1].data = [];
+        var quantidadeVendasEmNegociacao = this.vendas.filter(function (c) { return c.status === 'EM NEGOCIAÇÃO'; }).length;
+        var quantidadeVendasEmImplantacao = this.vendas.filter(function (c) { return c.status === 'EM IMPLANTAÇÃO'; }).length;
+        var quantidadeVendasFinalizado = this.vendas.filter(function (c) { return c.status === 'FINALIZADO'; }).length;
+        this.vendas.forEach(function (venda) {
+            if (venda.vendaValorRealizado && venda.status !== 'EM NEGOCIAÇÃO') {
+                var valorRealizadoReceitas = venda.vendaValorRealizado.filter(function (c) { return c.recebimentosId !== null; });
+                if (valorRealizadoReceitas.length > 0) {
+                    valorRealizadoReceitas.forEach(function (receita) {
+                        valorTotalReceitasVendas += receita.recebimentos.valorTotal;
+                    });
+                }
+                var valorRealizadoDespesas = venda.vendaValorRealizado.filter(function (c) { return c.pagamentosId !== null; });
+                if (valorRealizadoDespesas.length > 0) {
+                    valorRealizadoDespesas.forEach(function (despesa) {
+                        valorTotalDespesasVendas += despesa.pagamentos.valorTotal;
+                    });
+                }
+            }
+        });
+        var barChartArrayReceitas = [];
+        var barChartArrayDespesas = [];
+        var _loop_1 = function (index) {
+            var valorTotalReceitasMes = 0;
+            var valorTotalDespesasMes = 0;
+            var vendas = this_1.vendas.filter(function (c) { return moment__WEBPACK_IMPORTED_MODULE_8__(c.dataNegociacao, 'YYYY-MM-DD').month() === index; });
+            vendas.forEach(function (venda) {
+                if (venda.vendaValorRealizado && venda.status !== 'EM NEGOCIAÇÃO') {
+                    var valorRealizadoReceitas = venda.vendaValorRealizado.filter(function (c) { return c.recebimentosId !== null; });
+                    if (valorRealizadoReceitas.length > 0) {
+                        valorRealizadoReceitas.forEach(function (receita) {
+                            valorTotalReceitasMes += receita.recebimentos.valorTotal;
+                        });
+                    }
+                    var valorRealizadoDespesas = venda.vendaValorRealizado.filter(function (c) { return c.pagamentosId !== null; });
+                    if (valorRealizadoDespesas.length > 0) {
+                        valorRealizadoDespesas.forEach(function (despesa) {
+                            valorTotalDespesasMes += despesa.pagamentos.valorTotal;
+                        });
+                    }
+                }
+            });
+            barChartArrayReceitas.push(valorTotalReceitasMes);
+            barChartArrayDespesas.push(valorTotalDespesasMes);
+        };
+        var this_1 = this;
+        for (var index = 0; index <= 11; index++) {
+            _loop_1(index);
+        }
+        this.barChartData[0].data = barChartArrayReceitas;
+        this.barChartData[1].data = barChartArrayDespesas;
+        this.informacoes = Object.assign({
+            quantidadeEmNegociacao: quantidadeVendasEmNegociacao,
+            quantidadeEmImplantacao: quantidadeVendasEmImplantacao,
+            quantidadeFinalizado: quantidadeVendasFinalizado,
+            quantidadeTotal: quantidadeVendasEmImplantacao + quantidadeVendasFinalizado,
+            valorLiquidoReceitas: valorTotalReceitasVendas - valorTotalDespesasVendas,
+            valorMedio: (valorTotalReceitasVendas / (quantidadeVendasEmImplantacao + quantidadeVendasFinalizado)),
+        });
+    };
+    RelatorioVendaComponent.prototype.setDataFiltro = function (valor) {
+        this.dataPeriodo = Object.assign({
+            dataInicial: this.dataService.getDataSQL(valor[0].toLocaleString()) + 'T00:00:00',
+            dataFinal: this.dataService.getDataSQL(valor[1].toLocaleString()) + 'T23:59:00'
+        });
+    };
+    RelatorioVendaComponent.prototype.getVendas = function (dataPeriodo) {
+        var _this = this;
+        this.vendaService.getAllVendaRelatorio(dataPeriodo).subscribe(
+        // tslint:disable-next-line:variable-name
+        function (_VENDAS) {
+            _this.vendas = _VENDAS;
+            _this.carregarInformacoes();
+        }, function (error) {
+            console.log(error.error);
+            _this.toastr.error("Erro ao tentar carregar VendaS: " + error.error);
+        });
+    };
+    RelatorioVendaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-relatorio-venda',
+            template: __webpack_require__(/*! ./relatorioVenda.component.html */ "./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.html"),
+            styles: [__webpack_require__(/*! ./relatorioVenda.component.css */ "./src/app/movimentos/venda/relatorioVenda/relatorioVenda.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsLocaleService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
+            src_app_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_4__["PermissaoService"],
+            src_app_services_Cadastros_Uteis_data_service__WEBPACK_IMPORTED_MODULE_6__["DataService"],
+            src_app_services_Movimentos_Venda_venda_service__WEBPACK_IMPORTED_MODULE_5__["VendaService"]])
+    ], RelatorioVendaComponent);
+    return RelatorioVendaComponent;
 }());
 
 
@@ -6045,7 +11696,7 @@ var NovoVendaComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Venda</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\" >\n    <div class=\"row\">\n      <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;\" class=\"pull-right\">\n        <a  [routerLink]=\"['novo']\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Venda\n        </a>\n      </div>\n    </div>\n    <table style=\"margin-top: 15px;\" class=\"table table-striped table-bordered mt-4\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th>Id</th>\n            <th>Cliente</th>\n            <th>Data Emissão</th>\n            <th style=\"text-align: center;\">Status</th>\n            <th style=\"text-align: center;\">Ações</th>\n          </tr>\n        </thead>\n        <tbody *ngIf=\"vendas && vendas.length\">\n          <tr *ngFor=\"let venda of vendas | paginate: { itemsPerPage: 5,currentPage: paginaAtual, totalItems: totalRegistros };\">\n            <td>{{ venda.id }}</td>\n            <td style=\"white-space: nowrap;\">{{ venda.clientes.nomeFantasia }}</td>\n            <td style=\"white-space: nowrap;\">{{ venda.dataEmissao  | date:'dd/MM/yyyy HH:mm'}}</td>\n            <td style=\"text-align: center;\">\n              <span style=\"text-align: center;\" *ngIf=\"venda.status == 'EM ABERTO'\"  class=\"label label-info\">\n                {{ venda.status }}\n              </span>\n              <span style=\"text-align: center;\"*ngIf=\"venda.status == 'FINALIZADO'\" class=\"label label-success\">\n                {{ venda.status }}\n              </span></td>\n            <td style=\"text-align: center;white-space: nowrap;\">\n              <div *ngIf=\"this.editar == true\" class=\"btn-group\">\n                <a  [routerLink]=\"['/movimentos/vendas','editar', venda.id]\" tooltip=\"Editar/Detalhes\" class=\"btn btn-sm btn-primary\">\n                  <i class=\"fa fa-edit\"></i>\n                </a>\n              </div>\n            </td>\n          </tr>\n        </tbody>\n        <tfoot *ngIf=\"!vendas\">\n          <tr colspan=\"7\" class=\"text-center\"></tr>\n          <h4>\n            Nenhum produto encontrado!\n          </h4>\n        </tfoot>\n      </table>\n      Total de Registros: {{totalRegistros}}\n      <div class=\"text-center\">\n        <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n          nextLabel=\"Próximo\">\n        </pagination-controls>\n      </div>\n  </div>\n\n</div>\n"
+module.exports = "<h2>Venda</h2>\n\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\" >\n    <div class=\"row\">\n      <div *ngIf=\"this.novo == true\" style=\"margin-right: 15px;\" class=\"pull-right\">\n        <a  [routerLink]=\"['novo']\" class=\"btn btn-success\">\n          <i class=\"fa fa-plus-circle\"></i>&nbsp; Novo Venda\n        </a>\n        <a (click)=\"abrirVendaConfig()\" style=\"margin-left:5px;\" class=\"btn btn-primary\">\n            <i class=\"fa fa-gear\"></i>\n          </a>\n      </div>\n    </div>\n    <table style=\"margin-top: 15px;\" class=\"table table-striped table-bordered mt-4\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th>Id</th>\n            <th>Cliente</th>\n            <th>Data Emissão</th>\n            <th style=\"text-align: center;\">Status</th>\n            <th style=\"text-align: center;\">Ações</th>\n          </tr>\n        </thead>\n        <tbody *ngIf=\"vendas && vendas.length\">\n          <tr *ngFor=\"let venda of vendas | paginate: { itemsPerPage: 50,currentPage: paginaAtual, totalItems: totalRegistros };\">\n            <td>{{ venda.id }}</td>\n            <td style=\"white-space: nowrap;\">{{ venda.clientes.nomeFantasia }}</td>\n            <td style=\"white-space: nowrap;\">{{ venda.dataEmissao  | date:'dd/MM/yyyy HH:mm'}}</td>\n            <td style=\"text-align: center;\">\n              <span style=\"text-align: center;\" *ngIf=\"venda.status == 'EM IMPLANTAÇÃO'\"  class=\"label label-info\">\n                {{ venda.status }}\n              </span>\n              <span style=\"text-align: center;\" *ngIf=\"venda.status == 'EM NEGOCIAÇÃO'\"  class=\"label label-warning\">\n                {{ venda.status }}\n              </span>\n              <span style=\"text-align: center;\"*ngIf=\"venda.status == 'FINALIZADO'\" class=\"label label-success\">\n                {{ venda.status }}\n              </span></td>\n            <td style=\"text-align: center;white-space: nowrap;\">\n              <div *ngIf=\"this.visualizar == true\" class=\"btn-group\">\n                <a  [routerLink]=\"['/movimentos/vendas','editar', venda.id]\" tooltip=\"Editar/Detalhes\" class=\"btn btn-sm btn-primary\">\n                  <i class=\"fa fa-edit\"></i>\n                </a>\n              </div>\n            </td>\n          </tr>\n        </tbody>\n        <tfoot *ngIf=\"!vendas\">\n          <tr colspan=\"7\" class=\"text-center\"></tr>\n          <h4>\n            Nenhum produto encontrado!\n          </h4>\n        </tfoot>\n      </table>\n      Total de Registros: {{totalRegistros}}\n      <div class=\"text-center\">\n        <pagination-controls (pageChange)=\"paginaAtual = $event\" name=\"retornoPagination\" previousLabel=\"Anterior\"\n          nextLabel=\"Próximo\">\n        </pagination-controls>\n      </div>\n  </div>\n\n</div>\n\n<app-config-venda *ngIf=\"getVendaConfig() == true\"></app-config-venda>\n"
 
 /***/ }),
 
@@ -6082,6 +11733,7 @@ var VendaComponent = /** @class */ (function () {
         this.excluir = false;
         this.visualizar = false;
         this.paginaAtual = 1;
+        this.totalRegistros = 0;
     }
     VendaComponent.prototype.ngOnInit = function () {
         this.getVendas();
@@ -6094,6 +11746,9 @@ var VendaComponent = /** @class */ (function () {
         this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'EDITAR').subscribe(function (_PERMISSAO) {
             _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
         });
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'VISUALIZAR').subscribe(function (_PERMISSAO) {
+            _this.visualizar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
     };
     VendaComponent.prototype.getVendas = function () {
         var _this = this;
@@ -6105,6 +11760,12 @@ var VendaComponent = /** @class */ (function () {
             console.log(error.error);
             _this.toastr.error("Erro ao tentar carregar VendaS: " + error.error);
         });
+    };
+    VendaComponent.prototype.getVendaConfig = function () {
+        return this.vendaService.getConfigVendaStatus();
+    };
+    VendaComponent.prototype.abrirVendaConfig = function () {
+        this.vendaService.setConfigVendaStatus(true);
     };
     VendaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -6130,7 +11791,7 @@ var VendaComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Permissões</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\" >\n    <div class=\"row\">\n      <div class=\"form-group col-md-3\">\n        <label>Formulário: </label>\n        <ng-select [items]=\"formularios\" style=\"text-transform: uppercase\" bindLabel=\"nome\" bindValue=\"nome\"\n          [(ngModel)]=\"formularioSelecionado\" (change)=\"getPermissoesFormularios()\" name=\"cidadeId\">\n        </ng-select>\n      </div>\n    </div>\n\n    <table class=\"table\"> \n      <thead>\n        <tr>\n          <th>Ação</th>\n          <th>Níveis Permitidos</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"formularioSelecionado !== ''\" >\n        <tr *ngFor=\"let permissao of permissoesFormulario\">\n          \n          <td *ngIf=\"permissao.objeto == null\">{{permissao.acao}}</td>\n          <td *ngIf=\"permissao.objeto !== null\">{{permissao.acao}} {{permissao.objeto}} </td>\n          <td>\n            <ng-select style=\"max-height:35px;\" [items]=\"niveis\" bindLabel=\"name\" bindValue=\"id\" \n            [ngModel]=\"getNiveisPermissao(permissao.id)\"\n            \n            (change)=\"setNiveisPermissao(permissao.id, $event)\"\n            required [multiple]=\"true\">\n            </ng-select>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n   \n  </div>\n\n</div>\n\n<button style=\"position:relative;\" (click)=\"salvarAlteracao()\" tooltip=\"Salvar\"\n  class=\"btn btn-lg btn-primary\">\n  &nbsp;Salvar Alterações\n</button>"
+module.exports = "<h2>Permissões</h2>\n<hr width=\"100%\">\n<div class=\"box box-solid\">\n  <div class=\"box-header with-border\" >\n    <div class=\"row\">\n      <div class=\"form-group col-md-3\">\n        <label>Formulário: </label>\n        <ng-select [items]=\"formularios\" style=\"text-transform: uppercase\" bindLabel=\"nome\" bindValue=\"nome\"\n          [(ngModel)]=\"formularioSelecionado\" (change)=\"getPermissoesFormularios()\" name=\"cidadeId\">\n        </ng-select>\n      </div>\n    </div>\n\n    <table class=\"table\"> \n      <thead>\n        <tr>\n          <th>Ação</th>\n          <th>Níveis Permitidos</th>\n        </tr>\n      </thead>\n      <tbody *ngIf=\"formularioSelecionado !== ''\" >\n        <tr *ngFor=\"let permissao of permissoesFormulario\">\n          \n          <td *ngIf=\"permissao.objeto == null\">{{permissao.acao}}</td>\n          <td *ngIf=\"permissao.objeto !== null\">{{permissao.acao}} {{permissao.objeto}} </td>\n          <td>\n            <ng-select style=\"max-height:35px;\" [items]=\"niveis\" bindLabel=\"name\" bindValue=\"id\" \n            [ngModel]=\"getNiveisPermissao(permissao.id)\"\n            \n            (change)=\"setNiveisPermissao(permissao.id, $event)\"\n            required [multiple]=\"true\">\n            </ng-select>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n   \n  </div>\n\n</div>\n\n<button *ngIf=\"this.editar == true\" style=\"position:relative;\" (click)=\"salvarAlteracao()\" tooltip=\"Salvar\"\n  class=\"btn btn-lg btn-primary\">\n  &nbsp;Salvar Alterações\n</button>"
 
 /***/ }),
 
@@ -6161,6 +11822,9 @@ var PermissaoComponent = /** @class */ (function () {
         this.permissaoService = permissaoService;
         this.formularios = [
             {
+                nome: 'EMPRESAS'
+            },
+            {
                 nome: 'USUARIOS'
             },
             {
@@ -6173,17 +11837,63 @@ var PermissaoComponent = /** @class */ (function () {
                 nome: 'PRODUTOS'
             },
             {
+                nome: 'PLANO DE CONTAS'
+            },
+            {
+                nome: 'CENTRO DE RECEITA'
+            },
+            {
+                nome: 'CENTRO DE DESPESA'
+            },
+            {
+                nome: 'PLANO DE PAGAMENTO'
+            },
+            {
+                nome: 'FORMA DE PAGAMENTO'
+            },
+            {
+                nome: 'FINANCEIRO'
+            },
+            {
+                nome: 'RECEBIMENTOS'
+            },
+            {
+                nome: 'PAGAMENTOS'
+            },
+            {
+                nome: 'LANÇAMENTOS'
+            },
+            {
+                nome: 'RELATÓRIOS LANÇAMENTOS'
+            },
+            {
+                nome: 'CHEQUES PRE-DATADO'
+            },
+            {
                 nome: 'VENDA'
             },
             {
+                nome: 'RELATÓRIOS VENDA'
+            },
+            {
                 nome: 'PERMISSOES'
+            },
+            {
+                nome: 'AUTORIZACOES'
             }
         ];
+        this.editar = false;
         this.niveisPermissao = [];
         this.controllerPermissaoNivel = [];
     }
     PermissaoComponent.prototype.ngOnInit = function () {
         this.getNiveis();
+    };
+    PermissaoComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'EDITAR').subscribe(function (_PERMISSAO) {
+            _this.editar = _this.permissaoService.verificarPermissao(_PERMISSAO);
+        });
     };
     PermissaoComponent.prototype.getPermissoesFormularios = function () {
         var _this = this;
@@ -6498,6 +12208,224 @@ var IePipe = /** @class */ (function () {
         })
     ], IePipe);
     return IePipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/sidebar/sidebar.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/sidebar/sidebar.service.ts ***!
+  \********************************************/
+/*! exports provided: SidebarService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidebarService", function() { return SidebarService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services/Permissoes/permissao.service */ "./src/app/_services/Permissoes/permissao.service.ts");
+
+
+
+var SidebarService = /** @class */ (function () {
+    function SidebarService(permissaoService) {
+        this.permissaoService = permissaoService;
+        this.toggled = false;
+        this.idUsuario = '';
+        this.menus = [
+            {
+                title: 'Geral',
+                type: 'header'
+            },
+            {
+                title: 'Dashboard',
+                icon: 'fa fa-dashboard',
+                active: false,
+                type: 'simple',
+                badge: {
+                    text: 'New ',
+                    class: 'badge-warning'
+                },
+                link: 'dashboard'
+            },
+            {
+                title: 'Autorizações',
+                icon: 'fa fa-dashboard',
+                active: false,
+                type: 'simple',
+                badge: {
+                    text: '0',
+                    class: 'badge-warning'
+                },
+                link: 'autorizacoes'
+            },
+            {
+                title: 'Cadastros',
+                icon: 'fa fa-file-alt',
+                active: false,
+                type: 'dropdown',
+                submenus: [
+                    {
+                        title: 'Minhas Empresas',
+                        link: 'empresas',
+                        icon: 'fa fa-building-o'
+                    },
+                    {
+                        title: 'Usuários',
+                        link: 'usuarios',
+                        icon: 'fa fa-user-o'
+                    },
+                    {
+                        title: 'Clientes',
+                        link: 'clientes',
+                        icon: 'fa fa-users'
+                    },
+                    {
+                        title: 'Pessoas',
+                        link: 'pessoas',
+                        icon: 'fa fa-users'
+                    },
+                    {
+                        title: 'Produtos',
+                        link: 'produtos',
+                        icon: 'fa fa-dropbox'
+                    },
+                    {
+                        title: 'Plano de Contas',
+                        link: 'plano-conta',
+                        icon: 'fa fa-sitemap'
+                    },
+                    {
+                        title: 'Centro de Receita',
+                        link: 'centro-receita',
+                        icon: 'fa fa-arrow-right'
+                    },
+                    {
+                        title: 'Centro de Despesa',
+                        link: 'centro-despesa',
+                        icon: 'fa fa-arrow-left'
+                    },
+                    {
+                        title: 'Plano de Pagamento',
+                        link: 'plano-pagamento',
+                        icon: 'fa fa-sitemap'
+                    },
+                    {
+                        title: 'Forma de Pagamento',
+                        link: 'forma-pagamento',
+                        icon: 'fa fa-dollar'
+                    }
+                ]
+            },
+            {
+                title: 'Atendimentos',
+                icon: 'fa fa-phone',
+                active: false,
+                type: 'dropdown',
+                submenus: [
+                    {
+                        title: 'Retornos',
+                        icon: 'fa fa-phone',
+                        link: 'atendimentos/retornos'
+                    }
+                ]
+            },
+            {
+                title: 'Financeiro',
+                icon: 'fa fa-dollar',
+                active: false,
+                type: 'dropdown',
+                submenus: [
+                    {
+                        title: 'Recebimentos',
+                        icon: 'fa fa-arrow-right',
+                        link: 'financeiro/recebimentos'
+                    },
+                    {
+                        title: 'Pagamentos',
+                        icon: 'fa fa-arrow-left',
+                        link: 'financeiro/pagamentos'
+                    },
+                    {
+                        title: 'Lançamentos',
+                        icon: 'fa fa-exchange',
+                        link: 'financeiro/lancamentos'
+                    },
+                    {
+                        title: 'Relatórios Lançamentos',
+                        icon: 'fa fa-chart-line',
+                        link: 'financeiro/lancamentos/relatorios'
+                    },
+                    {
+                        title: 'Cheques Pré-Datado',
+                        icon: 'fa fa-credit-card',
+                        link: 'cheque-pre'
+                    }
+                ]
+            },
+            {
+                title: 'Movimentos',
+                icon: 'fa fa-handshake',
+                active: false,
+                type: 'dropdown',
+                submenus: [
+                    {
+                        title: 'Venda',
+                        icon: 'fa fa-shopping-cart',
+                        link: 'movimentos/vendas'
+                    },
+                    {
+                        title: 'Relatórios Venda',
+                        icon: 'fa fa-shopping-cart',
+                        link: 'movimentos/vendas/relatorios'
+                    }
+                ]
+            },
+            {
+                title: 'Configurações',
+                type: 'header'
+            },
+            {
+                title: 'Permissões',
+                icon: 'fa fa-lock',
+                active: false,
+                type: 'simple',
+                link: 'permissoes'
+            },
+            {
+                title: 'Meu Perfil',
+                icon: 'fa fa-user-o',
+                active: false,
+                type: 'simple',
+                link: 'usuarios/editar/' + this.idUsuario
+            }
+        ];
+        if (this.permissaoService.getUsuarioId() !== null) {
+            this.idUsuario = this.permissaoService.getUsuarioId();
+        }
+    }
+    SidebarService.prototype.toggle = function () {
+        this.toggled = !this.toggled;
+    };
+    SidebarService.prototype.getSidebarState = function () {
+        return this.toggled;
+    };
+    SidebarService.prototype.setSidebarState = function (state) {
+        this.toggled = state;
+    };
+    SidebarService.prototype.getMenuList = function () {
+        return this.menus;
+    };
+    SidebarService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_Permissoes_permissao_service__WEBPACK_IMPORTED_MODULE_2__["PermissaoService"]])
+    ], SidebarService);
+    return SidebarService;
 }());
 
 
