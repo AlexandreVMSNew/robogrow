@@ -20,9 +20,9 @@ io.on('connection', (socket) => {
 
     socket.on('NotificacaoUsuarioRetorno', (dados) => { io.emit('NotificacaoUsuarioRetorno', dados); });
     
-    socket.on('NotificacaoAutorizacaoVendaGerarPedido', (dados) => { io.emit('NotificacaoAutorizacaoVendaGerarPedido', dados); });
-
-    socket.on('NotificacaoRespAutorizacaoVendaGerarPedido', (dados) => { io.emit('NotificacaoRespAutorizacaoVendaGerarPedido', dados); });
+    socket.on('AutorizacaoVendaGerarPedido', (dados) => { io.emit('AutorizacaoVendaGerarPedido', dados); });
+ 
+    socket.on('RespAutorizacaoVendaGerarPedido', (dados) => { io.emit('RespAutorizacaoVendaGerarPedido', dados); });
 
     socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
 });

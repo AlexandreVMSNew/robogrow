@@ -221,7 +221,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         this.notificacaoService.novasNotificacoes(notificacao).subscribe(
           () => {
           usuariosIdNotificacao.forEach(idUsuario => {
-            this.socketService.sendSocket('NotificacaoAutorizacaoVendaGerarPedido', idUsuario);
+            this.socketService.sendSocket('AutorizacaoVendaGerarPedido', idUsuario);
           });
           this.toastr.success('Cadastrado com sucesso!');
         });

@@ -123,7 +123,7 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
         };
         this.notificacaoService.novaNotificacao(notificacao).subscribe(
           () => {
-          this.socketService.sendSocket('NotificacaoRespAutorizacaoVendaGerarPedido', info);
+          this.socketService.sendSocket('RespAutorizacaoVendaGerarPedido', info);
         });
         this.autorizacaoService.atualizarAutorizacoes();
         this.toastr.success(`Editado com Sucesso!`);

@@ -151,7 +151,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.idUsuario = this.permissaoService.getUsuarioId();
     if (this.idUsuario && this.verificarLogIn()) {
       this.getSocket('NotificacaoUsuarioRetorno');
-      this.getSocket('NotificacaoAutorizacaoVendaGerarPedido');
+      this.getSocket('AutorizacaoVendaGerarPedido');
+      this.getSocket('RespAutorizacaoVendaGerarPedido');
       this.getSocket('NovaObservacao');
       this.getNotificacoes();
     }
@@ -331,6 +332,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   getSocket(evento: string) {
     this.socketService.getSocket(evento).subscribe((data: any) => {
+      console.log(data);
       if (data) {
         if (evento === 'NovaObservacao') {
           const  notification = new Notification(`Olá, ${this.permissaoService.getUsuario()} !`, {
@@ -343,14 +345,14 @@ export class AppComponent implements OnInit, AfterViewInit {
             });
             this.getNotificacoes();
           }
-        } else if (evento === 'NotificacaoAutorizacaoVendaGerarPedido') {
+        } else if (evento === 'AutorizacaoVendaGerarPedido') {
           if (Number(data) === Number(this.idUsuario)) {
             const  notification = new Notification(`Autorização Pedido de Venda!`, {
               body: 'Um novo Pedido de Venda precisa ser Autorizado!'
             });
             this.getNotificacoes();
           }
-        } else if (evento === 'NotificacaoRespAutorizacaoVendaGerarPedido') {
+        } else if (evento === 'RespAutorizacaoVendaGerarPedido') {
           if (Number(data.solicitanteId) === Number(this.idUsuario)) {
             const  notification = new Notification(`Resposta Autorização Pedido de Venda!`, {
               body: (data.autorizado === 1) ? `Seu pedido de Venda foi autorizado pelo Usuário: ${data.autorizadorNome}.` :
