@@ -88,6 +88,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   valorPrevisto: VendaValorPrevisto;
   valorPrevistoDisabled = true;
   idProdutoItemValorPrevisto: number;
+  itemDescricao: string;
 
   status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'FINALIZADO'];
 
@@ -441,6 +442,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   abrirFormValorPrevisto(idProdutoItem: number, descricaoItem: string, template: any) {
     this.idProdutoItemValorPrevisto = idProdutoItem;
+    this.itemDescricao = descricaoItem;
     this.vendaService.getVendaValorPrevistoByProdIdVendId(idProdutoItem, this.idVenda).subscribe(
       (_VALORPREVISTO: VendaValorPrevisto) => {
         if (_VALORPREVISTO) {
