@@ -318,10 +318,10 @@ export class AuthGuard implements CanActivate {
         this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
-              return false;
-            } else {
-              return true;
-            }
+            return false;
+          } else {
+            return true;
+          }
         });
       }
 

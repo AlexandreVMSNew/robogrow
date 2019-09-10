@@ -1,5 +1,7 @@
-<h2>Venda (Custo do Produto de Revenda)</h2>
-<h5>Cliente: {{getNomeCliente()}}</h5>
+<label style="font-weight: bold;font-size:20px;">Nome Fantasia:</label>
+&nbsp;<label style="font-weight: normal;font-size:20px;">{{(getCliente()) ? getCliente().nomeFantasia : ''}}</label><br/>
+<label  style="font-weight: bold;font-size:20px;">Razão Social:</label>
+&nbsp;<label  style="font-weight: normal;font-size:20px;">{{(getCliente()) ? getCliente().razaoSocial : ''}}</label><br/>
 <hr width="100%">
 <div class="box box-solid">
   <div class="box-header with-border">
@@ -62,12 +64,12 @@
               </ng-select>
             </div>
 
-            <button *ngIf="this.gerarPedido == true && !this.autorizadoGerarPedido" style="position:relative;margin-top:15px;" (click)="solicitarAutorizacao()"
+            <button *ngIf="this.gerarPedido == true && !this.autorizadoGerarPedido" style="position:relative;margin-bottom: 15px;margin-top:15px;" (click)="solicitarAutorizacao()"
               tooltip="Solicitar Autorização" [disabled]="verificarValorPrevistoLancados()" class="btn btn-lg btn-warning">
               &nbsp;Solicitar Autorização
             </button>
 
-            <button *ngIf="this.gerarPedido == true" style="position:relative;margin-top:15px;margin-left:15px;" (click)="gerarPDF()"
+            <button *ngIf="this.gerarPedido == true" style="position:relative;margin-bottom: 15px;margin-top:15px;margin-left:15px;" (click)="gerarPDF()"
               tooltip="Gerar Pedido de Venda" class="btn btn-lg btn-success" [disabled]="!autorizadoGerarPedido">
               &nbsp;Gerar Pedido
             </button>
@@ -246,7 +248,7 @@
     </tabset>
   </div>
 </div>
-<button *ngIf="this.editar == true" style="position:relative;" [disabled]="!cadastroForm.valid"
+<button *ngIf="this.editar == true" style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid"
   (click)="salvarAlteracoes()" tooltip="Salvar" class="btn btn-lg btn-primary">
   &nbsp;Salvar Alterações
 </button>

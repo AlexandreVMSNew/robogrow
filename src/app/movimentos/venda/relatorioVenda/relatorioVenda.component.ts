@@ -101,14 +101,18 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
         const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
         if (valorRealizadoReceitas.length > 0) {
           valorRealizadoReceitas.forEach((receita) => {
-            valorTotalReceitasVendas += receita.recebimentos.valorTotal;
+            if (receita.recebimentos) {
+              valorTotalReceitasVendas += receita.recebimentos.valorTotal;
+            }
           });
         }
 
         const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.pagamentosId !== null);
         if (valorRealizadoDespesas.length > 0) {
           valorRealizadoDespesas.forEach((despesa) => {
-            valorTotalDespesasVendas += despesa.pagamentos.valorTotal;
+            if (despesa.pagamentos) {
+              valorTotalDespesasVendas += despesa.pagamentos.valorTotal;
+            }
           });
         }
       }
@@ -127,14 +131,18 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
           const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
           if (valorRealizadoReceitas.length > 0) {
             valorRealizadoReceitas.forEach((receita) => {
-              valorTotalReceitasMes += receita.recebimentos.valorTotal;
+              if (receita.recebimentos) {
+                valorTotalReceitasMes += receita.recebimentos.valorTotal;
+              }
             });
           }
 
           const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.pagamentosId !== null);
           if (valorRealizadoDespesas.length > 0) {
             valorRealizadoDespesas.forEach((despesa) => {
-              valorTotalDespesasMes += despesa.pagamentos.valorTotal;
+              if (despesa.pagamentos) {
+                valorTotalDespesasMes += despesa.pagamentos.valorTotal;
+              }
             });
           }
         }

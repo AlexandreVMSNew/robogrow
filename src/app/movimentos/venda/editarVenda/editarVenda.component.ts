@@ -329,13 +329,13 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     }
   }
 
-  getNomeCliente() {
+  getCliente(): Cliente {
     if (this.venda) {
       if (this.venda.clientes) {
-        return this.venda.clientes.nomeFantasia;
+        return this.venda.clientes;
       }
     }
-    return '';
+    return null;
   }
 
   validarForm() {

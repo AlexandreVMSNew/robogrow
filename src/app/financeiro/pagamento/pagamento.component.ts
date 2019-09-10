@@ -48,7 +48,6 @@ export class PagamentoComponent implements OnInit, AfterViewInit {
       // tslint:disable-next-line:variable-name
       (_PAGAMENTOS: Pagamentos[]) => {
       this.pagamentos = _PAGAMENTOS;
-      console.log(this.pagamentos);
 
       this.pagamentos.forEach((pagamento) => {
         pagamento.parcelas.forEach(parcela => {
@@ -66,7 +65,6 @@ export class PagamentoComponent implements OnInit, AfterViewInit {
         });
       });
 
-      console.log(this.parcelas);
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar Pagamentos: ${error.error}`);

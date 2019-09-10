@@ -108,7 +108,7 @@
             </div>
 
             <div class=" form-group col-md-2">
-              <button style="position:relative;margin-top: 24px;" [disabled]="cadastroRecebimento.get('dataEmissao').hasError('required') == true ||
+              <button style="position:relative;margin-bottom: 15px;margin-top: 24px;" [disabled]="cadastroRecebimento.get('dataEmissao').hasError('required') == true ||
                    cadastroRecebimento.get('valorTotal').hasError('required') == true || 
                    cadastroRecebimento.get('valorTotal').hasError('min') == true" (click)="gerarParcelas()"
                 tooltip="Gerar Parcelas" class="btn btn-primary">

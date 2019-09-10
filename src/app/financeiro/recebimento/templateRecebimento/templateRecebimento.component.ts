@@ -149,7 +149,7 @@ export class TemplateRecebimentoComponent implements OnInit {
     const valorTotal = this.cadastroRecebimento.get('valorTotal').value;
     const valorParcela = Number(Number(valorTotal) / this.qtdParcelas);
     for (let i = 0; i < this.qtdParcelas; i++) {
-      const documentoText = (i + 1). toString();
+      const documentoText = (i + 1).toString();
       let diasSoma = 0;
       let mesSoma = 0;
       if (this.prazoPrimeiraParcela === 0) {

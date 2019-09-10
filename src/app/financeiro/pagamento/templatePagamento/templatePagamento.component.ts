@@ -149,7 +149,7 @@ export class TemplatePagamentoComponent implements OnInit {
     const valorTotal = this.cadastroPagamento.get('valorTotal').value;
     const valorParcela = Number(Number(valorTotal) / this.qtdParcelas);
     for (let i = 0; i < this.qtdParcelas; i++) {
-      const documentoText = this.idVenda + '/' + (i + 1);
+      const documentoText = (i + 1).toString();
       let diasSoma = 0;
       let mesSoma = 0;
       if (Number(this.prazoPrimeiraParcela) === 0) {
