@@ -32,6 +32,7 @@ import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 import { Autorizacao } from 'src/app/_models/Autorizacoes/Autorizacao';
 import { EmailService } from 'src/app/_services/Email/email.service';
 import { Email } from 'src/app/_models/Email/Email';
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-editar-venda',
@@ -270,9 +271,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   gerarPDF() {
-   /* const documento: jsPDF = new jsPDF();
+    const documento: jsPDF = new jsPDF();
     const empresa: Empresa = this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0];
-
+    const cliente: Cliente = this.venda.clientes;
     documento.line(10, 10, 200, 10);
     documento.setFontSize(10);
     documento.setFontType('bold');
@@ -287,7 +288,18 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     documento.text('CNPJ/CPF: ' , 10, 25);
     documento.setFontType('regular');
     documento.text(empresa.cnpjCpf, 30, 25);
-    documento.output('dataurlnewwindow');*/
+
+    documento.line(10, 30, 200, 30);
+    documento.setFontType('bold');
+    documento.text('Nome Fantasia: ' , 10, 35);
+    documento.setFontType('regular');
+    documento.text(cliente.nomeFantasia, 40, 35);
+    documento.setFontType('bold');
+    documento.text('Razão Social: ' , 10, 40);
+    documento.setFontType('regular');
+    documento.text(cliente.razaoSocial, 34, 40);
+    documento.rect(50, 50, 100, 100);
+    documento.output('dataurlnewwindow');
   }
 
   disabledStatus() {
@@ -322,9 +334,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   setarDataFinalizado(status: string) {
-    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    const dataAtual = moment(new Date(), 'DD/MM/YYYY').format('YYYY-MM-DD');
     if (status === 'FINALIZADO') {
-      this.cadastroForm.controls.dataFinalizado.setValue(dataAtual);
+      this.cadastroForm.controls.dataFinalizado.setValue(this.dataService.getDataPTBR(dataAtual));
     } else {
       this.cadastroForm.controls.dataFinalizado.setValue('');
     }

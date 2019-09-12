@@ -101,7 +101,7 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
       callbacks: {
         label: (item, ctx) => {
           const texto = Number(item.value).toFixed(2).replace('.', ',');
-          return 'R$ ' +  texto;
+          return '' +  texto;
         }
       },
     },
@@ -232,7 +232,9 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
         const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemReceita.id);
         if (valorRealizadoItem) {
           valorRealizadoItem.forEach(valorRealizado => {
-            this.realizadoReceitaValores.push(valorRealizado.recebimentos.valorTotal);
+            if (valorRealizado.recebimentos) {
+              this.realizadoReceitaValores.push(valorRealizado.recebimentos.valorTotal);
+            }
           });
           this.verificarSoma = false;
         }
@@ -252,7 +254,9 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
         const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemComissao.id);
         if (valorRealizadoItem) {
           valorRealizadoItem.forEach(valorRealizado => {
-            this.realizadoDespesaComissaoValores.push(valorRealizado.pagamentos.valorTotal);
+            if (valorRealizado.pagamentos) {
+              this.realizadoDespesaComissaoValores.push(valorRealizado.pagamentos.valorTotal);
+            }
           });
           this.verificarSoma = false;
         }
@@ -273,7 +277,9 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
         const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemGasto.id);
         if (valorRealizadoItem) {
           valorRealizadoItem.forEach(valorRealizado => {
-            this.realizadoDespesaGastoValores.push(valorRealizado.pagamentos.valorTotal);
+            if (valorRealizado.pagamentos) {
+              this.realizadoDespesaGastoValores.push(valorRealizado.pagamentos.valorTotal);
+            }
           });
           this.verificarSoma = false;
         }

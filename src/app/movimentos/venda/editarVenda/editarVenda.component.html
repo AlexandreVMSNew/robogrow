@@ -3,6 +3,7 @@
 <label  style="font-weight: bold;font-size:20px;">Razão Social:</label>
 &nbsp;<label  style="font-weight: normal;font-size:20px;">{{(getCliente()) ? getCliente().razaoSocial : ''}}</label><br/>
 <hr width="100%">
+
 <div class="box box-solid">
   <div class="box-header with-border">
     <tabset>
@@ -69,8 +70,9 @@
               &nbsp;Solicitar Autorização
             </button>
 
-            <button *ngIf="this.gerarPedido == true" style="position:relative;margin-bottom: 15px;margin-top:15px;margin-left:15px;" (click)="gerarPDF()"
-              tooltip="Gerar Pedido de Venda" class="btn btn-lg btn-success" [disabled]="!autorizadoGerarPedido">
+            <button *ngIf="this.gerarPedido == true" style="position:relative;margin-bottom: 15px;margin-top:15px;margin-left:15px;" 
+             (click)="gerarPDF()"
+              tooltip="Gerar Pedido de Venda" class="btn btn-lg btn-success" [disabled]="autorizadoGerarPedido">
               &nbsp;Gerar Pedido
             </button>
           </div>

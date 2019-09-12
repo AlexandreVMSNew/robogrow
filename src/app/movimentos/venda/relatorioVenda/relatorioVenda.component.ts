@@ -39,7 +39,7 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
       }
     },
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{ticks: {max: 20000, min: 0, stepSize: 2000}}] },
+    scales: { xAxes: [{}], yAxes: [{ticks: {max: 26000, min: 0, stepSize: 2000}}] },
     plugins: {
       datalabels: {
         formatter: (value, ctx) => {
