@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   idUsuario: number;
   paginaNotificacaoAtual = 1;
   logou = false;
-  sidebar = 'sidebar-open';
+  sidebar = 'sidebar-collapse sidebar-closed';
 
   menus = [];
 
@@ -220,7 +220,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.filtrarPermissao('Recebimentos').listar =
         this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'RECEBIMENTOS' && c.acao === 'LISTAR')[0]);
 
-        this.filtrarPermissao('Recebimentos').listar =
+        this.filtrarPermissao('Pagamentos').listar =
         this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PAGAMENTOS' && c.acao === 'LISTAR')[0]);
 
         this.filtrarPermissao('Lançamentos').listar =
@@ -264,7 +264,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   alterarSidebar() {
-    (this.sidebar === '') ? this.sidebar = ' sidebar-open' : this.sidebar = '';
+    (this.sidebar === 'sidebar-collapse sidebar-closed') ? this.sidebar = 'sidebar-open' : this.sidebar = 'sidebar-collapse sidebar-closed';
 
   }
 
@@ -277,7 +277,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
       return true;
     } else {
-      this.sidebar = 'sidebar-collapse';
+      this.sidebar = 'sidebar-collapse sidebar-closed';
       this.logou = false;
       return false;
     }

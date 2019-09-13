@@ -1,6 +1,7 @@
 import { RecebimentoParcelas } from './RecebimentoParcelas';
 import { Cliente } from '../../Cadastros/Clientes/Cliente';
 import { PlanoPagamento } from '../../Cadastros/PlanoPagamento/PlanoPagamento';
+import { ProdutoItem } from '../../Cadastros/Produtos/produtoItem';
 
 export class Recebimentos {
     id: number;
@@ -11,6 +12,7 @@ export class Recebimentos {
     dataCompetencia: Date;
     qtdParcelas: number;
     valorTotal: number;
+    produtosItens: ProdutoItem;
     produtosItensId: number;
     planoPagamentoId: number;
     planoPagamento: PlanoPagamento;

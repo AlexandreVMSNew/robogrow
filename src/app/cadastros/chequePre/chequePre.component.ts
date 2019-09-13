@@ -33,7 +33,7 @@ export class ChequePreComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'CHEQUE PRE-DATADO'})).subscribe((_PERMISSOES: Permissao[]) => {
+      Object.assign({formulario: 'CHEQUES PRE-DATADO'})).subscribe((_PERMISSOES: Permissao[]) => {
       this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
       this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
       this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);

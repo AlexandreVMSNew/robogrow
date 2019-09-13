@@ -1,6 +1,7 @@
 import { PagamentoParcelas } from './PagamentoParcelas';
 import { PlanoContas } from '../../Cadastros/PlanoContas/planoContas';
 import { Pessoa } from '../../Cadastros/Pessoas/Pessoa';
+import { ProdutoItem } from '../../Cadastros/Produtos/produtoItem';
 
 export class Pagamentos {
     id: number;
@@ -11,6 +12,7 @@ export class Pagamentos {
     dataCompetencia: Date;
     qtdParcelas: number;
     valorTotal: number;
+    produtosItens: ProdutoItem;
     produtosItensId: number;
     planoPagamentoId: number;
     centroDespesaId: number;

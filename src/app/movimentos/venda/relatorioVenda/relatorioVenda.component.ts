@@ -82,10 +82,7 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto(
-      Object.assign({formulario: 'RELATÓRIOS VENDA', acao: 'VISUALIZAR'})).subscribe((_PERMISSAO: Permissao) => {
-      this.visualizarRelatorio = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
+
   }
 
   carregarInformacoes() {

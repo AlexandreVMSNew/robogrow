@@ -143,7 +143,7 @@ export class AuthGuard implements CanActivate {
       } else if (next.component === RelatorioVendaComponent) {
 
         this.permissaoService.getPermissoesByFormularioAcaoObjeto(
-          Object.assign({formulario: 'RELATÓRIOS VENDA', acao: 'VISUALIZAR'})).subscribe((_PERMISSAO: Permissao) => {
+          Object.assign({formulario: 'RELATÓRIOS VENDA', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;

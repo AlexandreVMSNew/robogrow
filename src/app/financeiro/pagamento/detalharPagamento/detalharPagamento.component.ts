@@ -83,6 +83,9 @@ export class DetalharPagamentoComponent implements OnInit {
           this.pagamento = Object.assign(_PAGAMENTO, {
             dataEmissao: this.dataService.getDataPTBR(_PAGAMENTO.dataEmissao)
           });
+
+          (!this.produtoItem) ? this.produtoItem = this.pagamento.produtosItens : this.produtoItem = this.produtoItem;
+
           this.pessoaIdSelecionado = this.pagamento.pessoasId;
           this.centroDespesaIdSelecionado = this.pagamento.centroDespesaId;
           this.planoPagamentoIdSelecionado = this.pagamento.planoPagamentoId;

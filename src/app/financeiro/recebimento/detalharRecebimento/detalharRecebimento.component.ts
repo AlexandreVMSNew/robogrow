@@ -81,6 +81,7 @@ export class DetalharRecebimentoComponent implements OnInit {
           this.recebimento = Object.assign(_RECEBIMENTO, {
             dataEmissao: this.dataService.getDataPTBR(_RECEBIMENTO.dataEmissao)
           });
+          (!this.produtoItem) ? this.produtoItem = this.recebimento.produtosItens : this.produtoItem = this.produtoItem;
 
           this.cadastroRecebimento.patchValue(this.recebimento);
           this.cadastroRecebimento.disable();
