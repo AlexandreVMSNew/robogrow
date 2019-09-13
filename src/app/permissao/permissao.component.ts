@@ -94,7 +94,8 @@ export class PermissaoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+    this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+      Object.assign({formulario: 'PERMISSOES', acao: 'EDITAR'})).subscribe((_PERMISSAO: Permissao) => {
       this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
     });
   }

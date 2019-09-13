@@ -70,17 +70,12 @@ export class ClienteComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'EXCLUIR').subscribe((_PERMISSAO: Permissao) => {
-      this.excluir = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormulario(
+      Object.assign({formulario: 'CLIENTES'})).subscribe((_PERMISSOES: Permissao[]) => {
+      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
+      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+      this.excluir = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EXCLUIR')[0]);
+      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
     });
   }
 

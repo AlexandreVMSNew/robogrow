@@ -51,11 +51,10 @@ export class LancamentoTemplateComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormulario(
+      Object.assign({formulario: 'LANÇAMENTO'})).subscribe((_PERMISSOES: Permissao[]) => {
+      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
+      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
     });
   }
 

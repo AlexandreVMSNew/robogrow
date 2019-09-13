@@ -183,72 +183,74 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  filtrarPermissao(component: string) {
+    return this.permissoes.filter(c => c.component === component)[0];
+  }
+
   ngAfterViewInit() {
     if (this.logou === true) {
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Permissões')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Pessoas')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Clientes')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Produtos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE CONTAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Plano de Contas')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE RECEITA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Centro de Receita')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Centro de Despesa')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE PAGAMENTO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Plano de Pagamento')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Forma de Pagamento')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
+      this.permissaoService.getAllPermissoes().subscribe((_PERMISSOES: Permissao[]) => {
+        this.filtrarPermissao('Permissões').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PERMISSOES' && c.acao === 'LISTAR')[0]);
 
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('RECEBIMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Recebimentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('PAGAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Pagamentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Lançamentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS LANÇAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        // tslint:disable-next-line:max-line-length
-        this.permissoes.filter(c => c.component === 'Relatórios Lançamentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Cheques Pré-Datado')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
+        this.filtrarPermissao('Pessoas').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PESSOAS' && c.acao === 'LISTAR')[0]);
 
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('FINANCEIRO', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Financeiro')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
+        this.filtrarPermissao('Clientes').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'CLIENTES' && c.acao === 'LISTAR')[0]);
 
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Minhas Empresas')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
+        this.filtrarPermissao('Produtos').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PRODUTOS' && c.acao === 'LISTAR')[0]);
 
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Autorizações')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
+        this.filtrarPermissao('Plano de Contas').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PLANO DE CONTAS' && c.acao === 'LISTAR')[0]);
 
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
-        this.permissoes.filter(c => c.component === 'Venda')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-        this.permissoes.filter(c => c.component === 'Movimentos')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS VENDA', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
-        // tslint:disable-next-line:max-line-length
-        this.permissoes.filter(c => c.component === 'Relatórios Venda')[0].listar = this.permissaoService.verificarPermissao(_PERMISSAO);
+        this.filtrarPermissao('Centro de Receita').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'CENTRO DE RECEITA' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Centro de Despesa').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'CENTRO DE DESPESA' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Plano de Pagamento').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PLANO DE PAGAMENTO' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Forma de Pagamento').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'FORMA DE PAGAMENTO' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Recebimentos').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'RECEBIMENTOS' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Recebimentos').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PAGAMENTOS' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Lançamentos').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'LANÇAMENTOS' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Relatórios Lançamentos').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'RELATÓRIOS LANÇAMENTOS'
+        && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Cheques Pré-Datado').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'CHEQUES PRE-DATADO' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Financeiro').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'FINANCEIRO' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Minhas Empresas').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'EMPRESAS' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Autorizações').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'AUTORIZACOES' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Venda').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'VENDA' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Movimentos').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'VENDA' && c.acao === 'LISTAR')[0]);
+
+        this.filtrarPermissao('Relatórios Venda').listar =
+        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'RELATÓRIOS VENDA' && c.acao === 'LISTAR')[0]);
+
       });
     }
   }
@@ -262,11 +264,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   alterarSidebar() {
-    if (this.sidebar === '') {
-      this.sidebar = 'sidebar-open';
-    } else {
-      this.sidebar = '';
-    }
+    (this.sidebar === '') ? this.sidebar = ' sidebar-open' : this.sidebar = '';
+
   }
 
   verificarLogIn() {
@@ -332,7 +331,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   getSocket(evento: string) {
     this.socketService.getSocket(evento).subscribe((data: any) => {
-      console.log(data);
       if (data) {
         if (evento === 'NovaObservacao') {
           const  notification = new Notification(`Olá, ${this.permissaoService.getUsuario()} !`, {

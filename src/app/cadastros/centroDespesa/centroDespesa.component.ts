@@ -41,14 +41,11 @@ export class CentroDespesaComponent implements OnInit, AfterViewChecked, AfterVi
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormulario(
+      Object.assign({formulario: 'CENTRO DE DESPESA'})).subscribe((_PERMISSOES: Permissao[]) => {
+      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
+      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
     });
   }
 

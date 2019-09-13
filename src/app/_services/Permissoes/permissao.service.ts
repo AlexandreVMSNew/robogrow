@@ -20,12 +20,20 @@ export class PermissaoService {
   constructor(private http: HttpClient) {
   }
 
-  getPermissoesByFormularioAcaoObjeto(formulario: string, acao: string, objeto = 'NULL'): Observable<Permissao> {
-    return this.http.get<Permissao>(`${this.baseURL}/${formulario}/${acao}/${objeto}`);
+  getPermissoesByFormularioAcaoObjeto(permissao: Permissao): Observable<Permissao> {
+    return this.http.post<Permissao>(`${this.baseURL}/formulario/acao/objeto`, permissao);
   }
 
-  getPermissoesByFormulario(formulario: string): Observable<Permissao[]> {
-    return this.http.get<Permissao[]>(`${this.baseURL}/${formulario}`);
+  getPermissoesByFormulario(permissao: Permissao): Observable<Permissao[]> {
+    return this.http.post<Permissao[]>(`${this.baseURL}/formulario`, permissao);
+  }
+
+  getPermissoesByAcao(permissao: Permissao): Observable<Permissao[]> {
+    return this.http.post<Permissao[]>(`${this.baseURL}/acao`, permissao);
+  }
+
+  getAllPermissoes(): Observable<Permissao[]> {
+    return this.http.get<Permissao[]>(`${this.baseURL}`);
   }
 
   editarNiveisPermissoes(formulario: string, permissaoNivel: PermissaoNivel[]): Observable<PermissaoNivel[]> {

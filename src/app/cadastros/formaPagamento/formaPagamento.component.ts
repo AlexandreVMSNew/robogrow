@@ -39,14 +39,11 @@ export class FormaPagamentoComponent implements OnInit, AfterViewChecked, AfterV
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormulario(
+      Object.assign({formulario: 'FORMA DE PAGAMENTO'})).subscribe((_PERMISSOES: Permissao[]) => {
+      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
+      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
     });
   }
 

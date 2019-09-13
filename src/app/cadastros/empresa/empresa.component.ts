@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { FormGroup } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap';
@@ -11,7 +11,7 @@ import { EmpresaService } from 'src/app/_services/Cadastros/Empresas/empresa.ser
   selector: 'app-empresa',
   templateUrl: './empresa.component.html'
 })
-export class EmpresaComponent implements OnInit {
+export class EmpresaComponent implements OnInit, AfterViewInit {
 
   novo = false;
   editar = false;
@@ -44,14 +44,11 @@ export class EmpresaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormulario(
+      Object.assign({formulario: 'EMPRESAS'})).subscribe((_PERMISSOES: Permissao[]) => {
+      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
+      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
     });
   }
 

@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, Input, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { Component, OnInit, ViewChild, Input, ChangeDetectorRef,  AfterViewInit, AfterViewChecked } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { ToastrService } from 'ngx-toastr';
@@ -17,7 +16,7 @@ import { Estado } from 'src/app/_models/Cadastros/Uteis/Estado';
   templateUrl: './empresaTemplate.component.html',
   styleUrls: ['./empresaTemplate.component.css']
 })
-export class EmpresaTemplateComponent implements OnInit, AfterViewChecked {
+export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   @Input() idEmpresa: number;
   @ViewChild('templateEmpresa') templateEmpresa: any;
@@ -70,11 +69,10 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormulario(
+      Object.assign({formulario: 'EMPRESAS'})).subscribe((_PERMISSOES: Permissao[]) => {
+      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
+      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
     });
   }
 

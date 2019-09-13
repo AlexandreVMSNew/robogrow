@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate,  ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NovoUsuarioComponent } from '../cadastros/usuario/novoUsuario/novoUsuario.component';
@@ -51,7 +51,8 @@ export class AuthGuard implements CanActivate {
     if (token !== null && !this.jwtHelper.isTokenExpired(token) ) {
       if (next.component === NovoUsuarioComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('USUARIOS', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'USUARIOS', acao: 'NOVO'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
             return false;
@@ -61,7 +62,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === EditarUsuarioComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('USUARIOS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'USUARIOS', acao: 'EDITAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
             return false;
@@ -72,7 +74,8 @@ export class AuthGuard implements CanActivate {
 
       } else if (next.component === NovoClienteComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'CLIENTES', acao: 'NOVO'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -83,7 +86,8 @@ export class AuthGuard implements CanActivate {
 
       } else if (next.component === EditarClienteComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CLIENTES', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'CLIENTES', acao: 'EDITAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -94,7 +98,8 @@ export class AuthGuard implements CanActivate {
 
       } else if (next.component === PermissaoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PERMISSOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PERMISSOES', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -104,7 +109,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === EditarVendaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'VENDA', acao: 'EDITAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -114,7 +120,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === NovoVendaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'VENDA', acao: 'NOVO'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -124,7 +131,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === VendaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'VENDA', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -134,7 +142,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === RelatorioVendaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS VENDA', 'VISUALIZAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'RELATÓRIOS VENDA', acao: 'VISUALIZAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -144,7 +153,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === PessoaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PESSOAS', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -154,7 +164,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === EditarPessoaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PESSOAS', acao: 'EDITAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -164,7 +175,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === NovoPessoaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PESSOAS', acao: 'NOVO'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -174,7 +186,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === ProdutoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PRODUTOS', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -184,7 +197,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === NovoProdutoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PRODUTOS', acao: 'NOVO'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -194,7 +208,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === EditarProdutoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PRODUTOS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PRODUTOS', acao: 'EDITAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -204,7 +219,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === PlanoContaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE CONTAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PLANO DE CONTAS', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -214,7 +230,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === CentroReceitaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE RECEITA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'CENTRO DE RECEITA', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -224,7 +241,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === CentroDespesaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CENTRO DE DESPESA', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'CENTRO DE DESPESA', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -234,7 +252,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === PlanoPagamentoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PLANO DE PAGAMENTO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PLANO DE PAGAMENTO', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -244,7 +263,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === FormaPagamentoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('FORMA DE PAGAMENTO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'FORMA DE PAGAMENTO', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -254,7 +274,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === RecebimentoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('RECEBIMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'RECEBIMENTOS', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -264,7 +285,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === PagamentoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('PAGAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'PAGAMENTOS', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -274,7 +296,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === LancamentoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('LANÇAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'LANÇAMENTOS', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -285,7 +308,8 @@ export class AuthGuard implements CanActivate {
       } else if (next.component === RelatorioLancamentoComponent) {
 
         // tslint:disable-next-line:max-line-length
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('RELATÓRIOS LANÇAMENTOS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'RELATÓRIOS LANÇAMENTOS', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -295,7 +319,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === ChequePreComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('CHEQUES PRE-DATADO', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'CHEQUES PRE-DATADO', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -305,7 +330,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === EmpresaComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('EMPRESAS', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'EMPRESAS', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
               return false;
@@ -315,7 +341,8 @@ export class AuthGuard implements CanActivate {
         });
       } else if (next.component === AutorizacaoComponent) {
 
-        this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'LISTAR').subscribe((_PERMISSAO: Permissao) => {
+        this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+          Object.assign({formulario: 'AUTORIZACOES', acao: 'LISTAR'})).subscribe((_PERMISSAO: Permissao) => {
           this.autorizado = this.permissaoService.verificarPermissao(_PERMISSAO);
           if (!this.autorizado) {
             return false;
@@ -327,7 +354,8 @@ export class AuthGuard implements CanActivate {
 
       return true;
     } else {
-      this.router.navigate(['/usuarios/login']);
+      this.router.navigate(
+        Object.assign({formulario: '/usuarios/login'}));
       return false;
     }
   }

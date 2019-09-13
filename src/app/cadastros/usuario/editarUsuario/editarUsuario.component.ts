@@ -62,14 +62,13 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('USUARIOS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('USUARIOS', 'VISUALIZAR', 'OCORRENCIA').subscribe((_PERMISSAO: Permissao) => {
-      this.visualizarOcorrencia = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('USUARIOS', 'VISUALIZAR', 'NIVEL').subscribe((_PERMISSAO: Permissao) => {
-      this.visualizarNivel = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormulario(
+      Object.assign({formulario: 'PRODUTOS'})).subscribe((_PERMISSOES: Permissao[]) => {
+       this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+       this.visualizarOcorrencia = this.permissaoService.verificarPermissao(_PERMISSOES
+          .filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'OCORRENCIA')[0]);
+       this.visualizarNivel = this.permissaoService.verificarPermissao(_PERMISSOES
+          .filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'NIVEL')[0]);
     });
   }
 

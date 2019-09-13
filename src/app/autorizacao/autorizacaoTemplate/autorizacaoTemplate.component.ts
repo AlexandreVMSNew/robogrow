@@ -76,7 +76,8 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
       }
       this.cadastroAutorizacao.patchValue(this.autorizacao);
       this.cadastroAutorizacao.controls.autorizado.setValue(autorizado);
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', this.autorizacao.acao).subscribe(
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+        Object.assign({formulario: 'AUTORIZACOES', acao: this.autorizacao.acao})).subscribe(
         (_PERMISSAO: Permissao) => {
         this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
       });

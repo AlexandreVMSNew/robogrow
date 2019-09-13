@@ -47,14 +47,11 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('USUARIOS', 'NOVO').subscribe((_PERMISSAO: Permissao) => {
-        this.novo = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('USUARIOS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-        this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('USUARIOS', 'EXCLUIR').subscribe((_PERMISSAO: Permissao) => {
-        this.excluir = this.permissaoService.verificarPermissao(_PERMISSAO);
+      this.permissaoService.getPermissoesByFormulario(
+        Object.assign({formulario: 'USUARIOS'})).subscribe((_PERMISSOES: Permissao[]) => {
+        this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
+        this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+        this.excluir = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EXCLUIR')[0]);
       });
       this.usuarioId = this.permissaoService.getUsuarioId();
     }

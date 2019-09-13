@@ -44,7 +44,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   editar = false;
   editarValorPrevisto = false;
   editarValorRealizado = false;
+  editarDataNegociacao = false;
+  editarStatus = false;
   visualizarResumo = false;
+  visualizar = false;
   gerarPedido = false;
   autorizadoGerarPedido = false;
 
@@ -91,7 +94,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   idProdutoItemValorPrevisto: number;
   itemDescricao: string;
 
-  status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'FINALIZADO'];
+  status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
+  statusSelecionado: string;
 
   planosPagamento: PlanoPagamento[];
   planoPagamentoIdSelecionado: any;
@@ -100,6 +104,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   idProdutoItem: number;
 
   autorizacoes: Autorizacao[];
+
+  statusBoxInformacoes = '';
+  statusBoxImplantacao = '';
+  statusBoxConversao = '';
 
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
@@ -134,7 +142,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.validarForm();
     this.validarValorPrevistoForm();
     this.validarNovoValorForm();
-    this.carregarVenda();
   }
 
   ngAfterViewChecked() {
@@ -142,21 +149,34 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormulario(
+      Object.assign({formulario: 'VENDA'})).subscribe((_PERMISSOES: Permissao[]) => {
+      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+      this.editarValorPrevisto = this.permissaoService
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'VALOR PREVISTO')[0]);
+      this.editarValorRealizado = this.permissaoService
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'VALOR REALIZADO')[0]);
+      this.editarDataNegociacao = this.permissaoService
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'DATA NEGOCIAÇÃO')[0]);
+      this.editarStatus = this.permissaoService
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'STATUS')[0]);
+      this.visualizar = this.permissaoService
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
+      this.visualizarResumo = this.permissaoService
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'RESUMO')[0]);
+      this.gerarPedido = this.permissaoService
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR PEDIDO')[0]);
+      const form = this.cadastroForm.controls;
+      if (this.editar) {
+        form.empresasId.enable(); form.vendedorId.enable(); form.clientesId.enable(); form.produtoId.enable();
+      } else {
+        form.empresasId.disable(); form.vendedorId.disable(); form.clientesId.disable(); form.produtoId.disable();
+      }
+      (this.editarDataNegociacao) ? form.dataNegociacao.enable() : form.dataNegociacao.disable();
+      (this.editarStatus) ? form.status.enable() : form.status.disable();
+      this.carregarVenda();
     });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'EDITAR', 'VALOR PREVISTO').subscribe((_PERMISSAO: Permissao) => {
-      this.editarValorPrevisto = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'EDITAR', 'VALOR REALIZADO').subscribe((_PERMISSAO: Permissao) => {
-      this.editarValorRealizado = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'VISUALIZAR', 'RESUMO').subscribe((_PERMISSAO: Permissao) => {
-      this.visualizarResumo = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('VENDA', 'GERAR PEDIDO').subscribe((_PERMISSAO: Permissao) => {
-      this.gerarPedido = this.permissaoService.verificarPermissao(_PERMISSAO);
-    });
+
   }
 
   carregarVenda() {
@@ -175,6 +195,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           this.empresaIdSelecionado = this.venda.empresasId;
           this.vendedorIdSelecionado = this.venda.vendedorId;
           this.clienteIdSelecionado = this.venda.clientesId;
+          this.statusSelecionado = this.venda.status;
 
           this.cadastroForm.patchValue(this.venda);
           this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
@@ -211,7 +232,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     const usuariosEmailNotificacao: any = [];
     this.usuarioService.getAllUsuario().subscribe(
       (_USUARIOS: Usuario[]) => {
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto('AUTORIZACOES', 'GERAR PEDIDO').subscribe((_PERMISSAO: Permissao) => {
+      this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+        Object.assign({formulario: 'AUTORIZACOES', acao: 'GERAR PEDIDO'})).subscribe((_PERMISSAO: Permissao) => {
         _PERMISSAO.permissaoNiveis.forEach((permissao) => {
           _USUARIOS.forEach((usuario: Usuario) => {
             if (usuario.usuarioNivel.filter(c => c.roleId === permissao.nivelId).length > 0) {
@@ -398,6 +420,15 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.vendaService.setRecebimentosVendaStatus(true);
   }
 
+  alterarStatusBoxInformacoes() {
+    (this.statusBoxInformacoes === '') ? this.statusBoxInformacoes = ' collapsed-box' : this.statusBoxInformacoes = '';
+  }
+  alterarStatusBoxImplantacao() {
+    (this.statusBoxImplantacao === '') ? this.statusBoxImplantacao = ' collapsed-box' : this.statusBoxImplantacao = '';
+  }
+  alterarStatusBoxConversao() {
+    (this.statusBoxConversao === '') ? this.statusBoxConversao = ' collapsed-box' : this.statusBoxConversao = '';
+  }
 
   validarValorPrevistoForm() {
     this.cadastroValorPrevistoForm = this.fb.group({
@@ -506,7 +537,12 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.venda = Object.assign(this.cadastroForm.value, {id: this.venda.id,
       dataNegociacao: this.dataService.getDataSQL(dataNeg),
       dataFinalizado: this.dataService.getDataSQL(dataFin),
-      dataHoraUltAlt: dataAtual
+      dataHoraUltAlt: dataAtual,
+      empresasId: this.empresaIdSelecionado,
+      clienteId: this.clienteIdSelecionado,
+      produtoId: this.produtoIdSelecionado,
+      vendendorId: this.vendedorIdSelecionado,
+      status: this.statusSelecionado,
     });
 
     this.vendaService.editarVenda(this.venda).subscribe(

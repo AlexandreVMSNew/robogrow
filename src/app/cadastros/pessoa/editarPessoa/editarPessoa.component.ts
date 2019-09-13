@@ -65,8 +65,9 @@ export class EditarPessoaComponent implements OnInit, AfterViewChecked, AfterVie
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormularioAcaoObjeto('PESSOAS', 'EDITAR').subscribe((_PERMISSAO: Permissao) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
+    this.permissaoService.getPermissoesByFormulario(
+      Object.assign({formulario: 'PESSOAS'})).subscribe((_PERMISSOES: Permissao[]) => {
+      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
     });
   }
 
