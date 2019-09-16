@@ -539,7 +539,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       dataFinalizado: this.dataService.getDataSQL(dataFin),
       dataHoraUltAlt: dataAtual,
       empresasId: this.empresaIdSelecionado,
-      clienteId: this.clienteIdSelecionado,
+      clientesId: this.clienteIdSelecionado,
       produtoId: this.produtoIdSelecionado,
       vendendorId: this.vendedorIdSelecionado,
       status: this.statusSelecionado,
@@ -581,7 +581,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   getClientes() {
     this.clienteService.getAllCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
-      this.clientes = _CLIENTES.filter(cliente => cliente.status !== 'INATIVO');
+      this.clientes = _CLIENTES;
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);

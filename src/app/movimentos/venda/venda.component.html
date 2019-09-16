@@ -6,7 +6,7 @@
     <div class="row">
       <div *ngIf="this.novo == true" style="margin-right: 15px;" class="pull-right">
         <a  [routerLink]="['novo']" class="btn btn-success">
-          <i class="fa fa-plus-circle"></i>&nbsp; Novo Venda
+          <i class="fa fa-plus-circle"></i>&nbsp; Nova Venda
         </a>
         <a (click)="abrirVendaConfig()" style="margin-left:5px;" class="btn btn-primary">
             <i class="fa fa-gear"></i>
@@ -29,13 +29,21 @@
             <td style="white-space: nowrap;">{{ venda.clientes.nomeFantasia }}</td>
             <td style="white-space: nowrap;">{{ venda.dataEmissao  | date:'dd/MM/yyyy HH:mm'}}</td>
             <td style="text-align: center;">
-              <span style="text-align: center;" *ngIf="venda.status == 'EM IMPLANTAÇÃO'"  class="label label-info">
+            
+              <span style="text-align: center;" *ngIf="venda.status == 'EM NEGOCIAÇÃO'" style="border-radius: 3px;"
+               class="p-3 mb-2 bg-secondary">
+               &nbsp;{{ venda.status }}&nbsp;
+              </span>
+              <span style="text-align: center;" *ngIf="venda.status == 'EM IMPLANTAÇÃO'"  class="label label-warning">
                 {{ venda.status }}
               </span>
-              <span style="text-align: center;" *ngIf="venda.status == 'EM NEGOCIAÇÃO'"  class="label label-warning">
+              <span style="text-align: center;" *ngIf="venda.status == 'IMPLANTADO'"  class="label label-info">
                 {{ venda.status }}
               </span>
-              <span style="text-align: center;"*ngIf="venda.status == 'FINALIZADO'" class="label label-success">
+              <span style="text-align: center;" *ngIf="venda.status == 'FINALIZADO'"  class="label label-success">
+                {{ venda.status }}
+              </span>
+              <span style="text-align: center;"*ngIf="venda.status == 'DISTRATADO'" class="label label-danger">
                 {{ venda.status }}
               </span></td>
             <td style="text-align: center;white-space: nowrap;">

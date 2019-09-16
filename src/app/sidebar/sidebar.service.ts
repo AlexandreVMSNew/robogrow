@@ -25,7 +25,7 @@ export class SidebarService {
     },
     {
       title: 'Autorizações',
-      icon: 'fa fa-dashboard',
+      icon: 'fa fa-gavel',
       active: false,
       type: 'simple',
       badge: {
