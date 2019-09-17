@@ -151,6 +151,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   ngAfterViewInit() {
     this.permissaoService.getPermissoesByFormulario(
       Object.assign({formulario: 'VENDA'})).subscribe((_PERMISSOES: Permissao[]) => {
+
       this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
       this.editarValorPrevisto = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'VALOR PREVISTO')[0]);
@@ -166,13 +167,16 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'RESUMO')[0]);
       this.gerarPedido = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR PEDIDO')[0]);
+
       const form = this.cadastroForm.controls;
       if (this.editar) {
         form.empresasId.enable(); form.vendedorId.enable(); form.clientesId.enable(); form.produtoId.enable();
       } else {
         form.empresasId.disable(); form.vendedorId.disable(); form.clientesId.disable(); form.produtoId.disable();
       }
-      (this.editarDataNegociacao) ? form.dataNegociacao.enable() : form.dataNegociacao.disable();
+
+      form.dataFinalizado.disable();
+      (this.editarDataNegociacao && form.status.value === 'EM NEGOCIAÇÃO') ? form.dataNegociacao.enable() : form.dataNegociacao.disable();
       (this.editarStatus) ? form.status.enable() : form.status.disable();
       this.carregarVenda();
     });
@@ -541,7 +545,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       empresasId: this.empresaIdSelecionado,
       clientesId: this.clienteIdSelecionado,
       produtoId: this.produtoIdSelecionado,
-      vendendorId: this.vendedorIdSelecionado,
+      vendedorId: this.vendedorIdSelecionado,
       status: this.statusSelecionado,
     });
 

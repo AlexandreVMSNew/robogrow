@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
 import { ActivatedRoute } from '@angular/router';
 import { BsLocaleService, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -9,16 +9,13 @@ import { UsuarioOcorrencia } from 'src/app/_models/Cadastros/Usuarios/UsuarioOco
 import { Nivel } from 'src/app/_models/Cadastros/Usuarios/Nivel';
 import { UsuarioNivel } from 'src/app/_models/Cadastros/Usuarios/UsuarioNivel';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
-import * as moment from 'moment';
-import { DatepickerOptions } from 'ng2-datepicker';
-import * as ptLocale from 'date-fns/locale/pt';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editarUsuario.component.html'
 })
-export class EditarUsuarioComponent implements OnInit, AfterViewInit {
+export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   editar = false;
   visualizarOcorrencia = false;
@@ -56,7 +53,6 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit {
     this.carregarUsuario();
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewChecked() {
     this.changeDetectionRef.detectChanges();
   }

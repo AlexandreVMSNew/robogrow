@@ -60,7 +60,6 @@ export class RetornoComponent implements OnInit {
   _filtroLista: string;
 
   countRetornos: number;
-  private updateSubscription: Subscription;
 
   dataPeriodo: DataPeriodo;
 

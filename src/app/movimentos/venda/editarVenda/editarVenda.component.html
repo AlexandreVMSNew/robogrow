@@ -111,6 +111,11 @@
             </div>
           </div>
         </form>
+        
+      <button *ngIf="this.editar == true || this.editarDataNegociacao || this.editarStatus" style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid"
+      (click)="salvarAlteracoes()" tooltip="Salvar" class="btn btn-lg btn-primary">
+      &nbsp;Salvar Alterações
+      </button>
       </tab>
       <tab heading="Receitas e Despesas" style="margin-top: 10px;">
 
@@ -284,10 +289,6 @@
     </tabset>
   </div>
 </div>
-<button *ngIf="this.editar == true || this.editarDataNegociacao || this.editarStatus" style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid"
-  (click)="salvarAlteracoes()" tooltip="Salvar" class="btn btn-lg btn-primary">
-  &nbsp;Salvar Alterações
-</button>
 
 
 <div bsModal #templateValorPrevisto="bs-modal" class="modal fade">

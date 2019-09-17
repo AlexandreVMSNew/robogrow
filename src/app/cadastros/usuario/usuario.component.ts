@@ -68,7 +68,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   excluirUsuario(usuario: Usuario, template: any) {
     template.show();
     this.usuario = usuario;
-    this.bodyExcluirUsuario = `Tem certeza que deseja excluir o Usuario: ${usuario.userName}, Código: ${usuario.id}?`;
+    this.bodyExcluirUsuario = `Tem certeza que deseja excluir o Usuário: ${usuario.userName}, Código: ${usuario.id}?`;
   }
 
   confirmeDelete(template: any) {
@@ -98,9 +98,8 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
 
   getUsuarios() {
       this.usuarioService.getAllUsuario().subscribe(
-        // tslint:disable-next-line:variable-name
-        (_usuarios: Usuario[]) => {
-        this.usuarios = _usuarios;
+        (_USUARIOS: Usuario[]) => {
+        this.usuarios = _USUARIOS;
         this.usuariosFiltrados = this.filtrarUsuarios(this.filtroLista);
       }, error => {
         this.toastr.error(`Erro ao tentar carregar usuarios: ${error}`);
