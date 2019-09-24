@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
 import { ProdutoService } from 'src/app/_services/Cadastros/Produtos/produto.service';
 import { ToastrService } from 'ngx-toastr';
@@ -34,7 +34,8 @@ export class NovoProdutoComponent implements OnInit {
   validarForm() {
     this.cadastroForm = this.fb.group({
         id:  [''],
-        descricao: ['']
+        descricao: ['', Validators.required],
+        valorMinimo: ['', [Validators.required, Validators.min(1)]],
     });
   }
 

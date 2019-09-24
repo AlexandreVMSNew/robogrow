@@ -90,7 +90,8 @@ export class EditarProdutoComponent implements OnInit {
   validarForm() {
     this.cadastroForm = this.fb.group({
         id:  [''],
-        descricao: ['', Validators.required]
+        descricao: ['', Validators.required],
+        valorMinimo: ['', [Validators.required, Validators.min(1)]],
     });
   }
 

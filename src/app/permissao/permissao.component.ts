@@ -103,7 +103,7 @@ export class PermissaoComponent implements OnInit, AfterViewInit {
   getPermissoesFormularios() {
     this.niveisPermissao = [];
     let niveisConst;
-    this.permissaoService.getPermissoesByFormulario(this.formularioSelecionado)
+    this.permissaoService.getPermissoesByFormulario(Object.assign({formulario: this.formularioSelecionado}))
     .subscribe((_PERMISSOES: Permissao[]) => {
       this.permissoesFormulario = _PERMISSOES;
       _PERMISSOES.forEach(permissao => {

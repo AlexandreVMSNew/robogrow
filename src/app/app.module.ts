@@ -16,7 +16,7 @@ import { ChartsModule } from 'ng2-charts';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import {MatDialogModule} from '@angular/material';
+import {MatDialogModule, MatCheckboxModule, MatRadioModule, MatDividerModule} from '@angular/material';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -168,6 +168,9 @@ defineLocale('pt-br', ptBrLocale);
       BrowserAnimationsModule,
       BrowserModule,
       MatDialogModule,
+      MatCheckboxModule,
+      MatRadioModule,
+      MatDividerModule,
       NoopAnimationsModule,
       SocketIoModule.forRoot(config),
       BsDropdownModule.forRoot(),

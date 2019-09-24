@@ -1,7 +1,9 @@
 <label style="font-weight: bold;font-size:20px;">Nome Fantasia:</label>
-&nbsp;<label style="font-weight: normal;font-size:20px;">{{(getCliente()) ? getCliente().nomeFantasia : ''}}</label><br/>
-<label  style="font-weight: bold;font-size:20px;">Razão Social:</label>
-&nbsp;<label  style="font-weight: normal;font-size:20px;">{{(getCliente()) ? getCliente().razaoSocial : ''}}</label><br/>
+&nbsp;<label
+  style="font-weight: normal;font-size:20px;">{{(getCliente()) ? getCliente().nomeFantasia : ''}}</label><br />
+<label style="font-weight: bold;font-size:20px;">Razão Social:</label>
+&nbsp;<label
+  style="font-weight: normal;font-size:20px;">{{(getCliente()) ? getCliente().razaoSocial : ''}}</label><br />
 <hr width="100%">
 
 <div class="box box-solid">
@@ -17,9 +19,10 @@
               <div class="box box-success {{this.statusBoxInformacoes}}">
                 <div class="box-header with-border">
                   <h3 class="box-title">Informações da Venda</h3>
-    
+
                   <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" (click)="alterarStatusBoxInformacoes()"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" (click)="alterarStatusBoxInformacoes()"><i
+                        class="fa fa-minus"></i></button>
                   </div>
                 </div>
                 <div class="box-body">
@@ -27,64 +30,71 @@
                     <div class="form-group col-md-2">
                       <label>Data Negociação </label>
                       <input *ngIf="disabledDataNegociacao() == true" type="text" class="form-control"
-                        formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker
-                        [bsConfig]="this.bsConfig"  />
-        
+                        formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value"
+                        bsDatepicker [bsConfig]="this.bsConfig" />
+
                       <input *ngIf="disabledDataNegociacao() == false" type="text" class="form-control"
-                        formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker
-                        [bsConfig]="this.bsConfig" />
+                        formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value"
+                        bsDatepicker [bsConfig]="this.bsConfig" />
                     </div>
-        
+
                     <div class="form-group col-md-2">
                       <label>Data Finalizado </label>
                       <input type="text" class="form-control" formControlName="dataFinalizado"
                         [ngModel]="cadastroForm.get('dataFinalizado').value" bsDatepicker [bsConfig]="this.bsConfig" />
                     </div>
-        
+
                     <div class="form-group col-md-3">
                       <label>Empresa</label>
-                      <ng-select  style="text-transform: uppercase" [clearable]="false" [items]="empresas" 
-                        bindLabel="nomeFantasia" bindValue="id" [(ngModel)]="empresaIdSelecionado" formControlName="empresasId">
+                      <ng-select style="text-transform: uppercase" [clearable]="false" [items]="empresas"
+                        bindLabel="nomeFantasia" bindValue="id" [(ngModel)]="empresaIdSelecionado"
+                        formControlName="empresasId">
                       </ng-select>
                     </div>
-        
+
                     <div class="form-group col-md-2">
                       <label>Vendedor</label>
-                      <ng-select style="text-transform: uppercase" [clearable]="false" [items]="vendedores" bindLabel="nome"
-                        bindValue="id" [(ngModel)]="vendedorIdSelecionado" formControlName="vendedorId" >
+                      <ng-select style="text-transform: uppercase" [clearable]="false" [items]="vendedores"
+                        bindLabel="nome" bindValue="id" [(ngModel)]="vendedorIdSelecionado"
+                        formControlName="vendedorId">
                       </ng-select>
                     </div>
-        
+
                     <div class="form-group col-md-3">
                       <label>Cliente</label>
-                      <ng-select style="text-transform: uppercase" [clearable]="false" [items]="clientes" 
-                        bindLabel="nomeFantasia" bindValue="id" [(ngModel)]="clienteIdSelecionado" formControlName="clientesId">
+                      <ng-select style="text-transform: uppercase" [clearable]="false" [items]="clientes"
+                        bindLabel="nomeFantasia" bindValue="id" [(ngModel)]="clienteIdSelecionado"
+                        formControlName="clientesId">
                       </ng-select>
                     </div>
-        
+
                     <div class="form-group col-md-3">
                       <label>Produto</label>
-                      <ng-select style="text-transform: uppercase" [clearable]="false" [items]="produtos" bindLabel="descricao"
-                        bindValue="id" [(ngModel)]="produtoIdSelecionado" formControlName="produtoId">
+                      <ng-select style="text-transform: uppercase" [clearable]="false" [items]="produtos"
+                        bindLabel="descricao" bindValue="id" [(ngModel)]="produtoIdSelecionado"
+                        formControlName="produtoId">
                       </ng-select>
                     </div>
-        
+
                     <div class="form-group col-md-2">
                       <label>Status</label>
                       <ng-select [clearable]="false" *ngIf="disabledStatus() == true"
                         (change)="setarDataFinalizado(cadastroForm.get('status').value)" [items]="status"
-                        [(ngModel)]="statusSelecionado" formControlName="status"  >
+                        [(ngModel)]="statusSelecionado" formControlName="status">
                       </ng-select>
                     </div>
-        
-                    <button *ngIf="this.gerarPedido == true && !this.autorizadoGerarPedido" style="position:relative;margin-bottom: 15px;margin-top:15px;" (click)="solicitarAutorizacao()"
-                      tooltip="Solicitar Autorização" [disabled]="verificarValorPrevistoLancados()" class="btn btn-lg btn-warning">
+
+                    <button *ngIf="this.gerarPedido == true && !this.autorizadoGerarPedido"
+                      style="position:relative;margin-bottom: 15px;margin-top:15px;" (click)="solicitarAutorizacao()"
+                      tooltip="Solicitar Autorização" [disabled]="verificarValorPrevistoLancados()"
+                      class="btn btn-lg btn-warning">
                       &nbsp;Solicitar Autorização
                     </button>
-        
-                    <button *ngIf="this.gerarPedido == true" style="position:relative;margin-bottom: 15px;margin-top:15px;margin-left:15px;" 
-                     (click)="gerarPDF()"
-                      tooltip="Gerar Pedido de Venda" class="btn btn-lg btn-success" [disabled]="!autorizadoGerarPedido">
+
+                    <button *ngIf="this.gerarPedido == true"
+                      style="position:relative;margin-bottom: 15px;margin-top:15px;margin-left:15px;"
+                      (click)="gerarPDF()" tooltip="Gerar Pedido de Venda" class="btn btn-lg btn-success"
+                      [disabled]="!autorizadoGerarPedido">
                       &nbsp;Gerar Pedido
                     </button>
                   </div>
@@ -93,29 +103,106 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <div class="box">
+            <div class="col-md-6">
+              <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Implantação</h3>
-    
+
                   <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                        class="fa fa-minus"></i></button>
                   </div>
                 </div>
                 <div class="box-body">
                   <div class="row">
-                    
+                      <div class="form-group col-md-4">
+                          <label>Cad. Prod</label>
+                          <ng-select style="text-transform: uppercase" [clearable]="false" [items]="['REMOTO', 'PRESENCIAL']"
+                            >
+                          </ng-select>
+                        </div>
+                        <div class="form-group col-md-4">
+                      <label>Frente Loja</label>
+                      <ng-select style="text-transform: uppercase" [clearable]="false" [items]="['REMOTO', 'PRESENCIAL']"
+                        >
+                      </ng-select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Financeiro</label>
+                        <ng-select style="text-transform: uppercase" [clearable]="false" [items]="['REMOTO', 'PRESENCIAL']"
+                        >
+                        </ng-select>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Conversão</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                        class="fa fa-minus"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <table class="table table-responsive table-bordered">
+                        <thead class="thead-light">
+                          <tr>
+                            <th>Cad. Produto</th>
+                            <th>Frente de Loja</th>
+                            <th>Financeiro</th>
+                            <th>Total</th>
+                          </tr> 
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td style="white-space: nowrap;">
+                              <mat-radio-group aria-label="Select an option">
+                                <mat-radio-button color="primary" value="1">Sim</mat-radio-button><br />
+                                <mat-radio-button color="primary" value="2">Não</mat-radio-button>
+                              </mat-radio-group>
+                            </td>
+
+                            <td style="white-space: nowrap;">
+                              <mat-radio-group aria-label="Select an option">
+                                <mat-radio-button color="primary" value="1">Sim</mat-radio-button><br />
+                                <mat-radio-button color="primary" value="2">Não</mat-radio-button>
+                              </mat-radio-group>
+                            </td>
+                            <td style="white-space: nowrap;">
+                              <mat-radio-group aria-label="Select an option">
+                                <mat-radio-button color="primary" value="1">Sim</mat-radio-button><br />
+                                <mat-radio-button color="primary" value="2">Não</mat-radio-button>
+                              </mat-radio-group>
+                            </td>
+                            <td style="white-space: nowrap;">
+                              <mat-radio-group aria-label="Select an option">
+                                <mat-radio-button color="primary" value="1">Sim</mat-radio-button><br />
+                                <mat-radio-button color="primary" value="2">Não</mat-radio-button>
+                              </mat-radio-group>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </form>
-        
-      <button *ngIf="this.editar == true || this.editarDataNegociacao || this.editarStatus" style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid"
-      (click)="salvarAlteracoes()" tooltip="Salvar" class="btn btn-lg btn-primary">
-      &nbsp;Salvar Alterações
-      </button>
+
+        <button *ngIf="this.editar == true || this.editarDataNegociacao || this.editarStatus"
+          style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="salvarAlteracoes()"
+          tooltip="Salvar" class="btn btn-lg btn-primary">
+          &nbsp;Salvar Alterações
+        </button>
       </tab>
       <tab heading="Receitas e Despesas" style="margin-top: 10px;">
 
@@ -144,7 +231,7 @@
                         <td style="white-space: nowrap;text-align: center;">
                           <div class="btn-group">
                             <a *ngIf="this.editarValorPrevisto == true"
-                              (click)="abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)"
+                              (click)="abrirFormValorPrevisto(item.id, item.descricao, item.tipoItem, templateValorPrevisto)"
                               tooltip="Valor Previsto" class="btn btn-sm btn-warning">
                               <i class="fa fa-usd"></i>
                             </a>
@@ -197,8 +284,7 @@
                           <span style="margin-top:0px;" *ngIf="verificarPrevisto(item.vendaValorPrevisto) == true &&
                           verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == false"
                             class="label label-danger">X</span>
-                          <span style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == true &&
-                          verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == true"
+                          <span style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == true"
                             class="label label-success">PAGO</span>
                           <span style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == false &&
                           verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == true"
@@ -207,7 +293,7 @@
                         <td style="white-space: nowrap;text-align: center;">
                           <div class="btn-group">
                             <a *ngIf="this.editarValorPrevisto == true"
-                              (click)="abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)"
+                              (click)="abrirFormValorPrevisto(item.id, item.descricao, item.tipoItem, templateValorPrevisto)"
                               tooltip="Valor Previsto" class="btn btn-sm btn-warning">
                               <i class="fa fa-usd"></i>
                             </a>
@@ -254,7 +340,7 @@
                         <td style="white-space: nowrap;text-align: center;">
                           <div class="btn-group">
                             <a *ngIf="this.editarValorPrevisto == true"
-                              (click)="abrirFormValorPrevisto(item.id, item.descricao, templateValorPrevisto)"
+                              (click)="abrirFormValorPrevisto(item.id, item.descricao, item.tipoItem, templateValorPrevisto)"
                               tooltip="Valor Previsto" class="btn btn-sm btn-warning">
                               <i class="fa fa-usd"></i>
                             </a>
@@ -311,8 +397,19 @@
             <form [formGroup]="cadastroValorPrevistoForm">
               <div class="input-group">
                 <input class="form-control" currencyMask [(ngModel)]="valorPrevistoPipe" formControlName="valor"
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroValorPrevistoForm.get('valor').errors && 
+                  cadastroValorPrevistoForm.get('valor').touched}" />
                 <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+              </div>
+              <div
+                *ngIf="cadastroValorPrevistoForm.get('valor').hasError('required') && cadastroValorPrevistoForm.get('valor').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+              <div
+                *ngIf="cadastroValorPrevistoForm.get('valor').hasError('min') && cadastroValorPrevistoForm.get('valor').touched"
+                class="invalid-feedback">
+                Valor deve ser maior que {{this.valorMinimoProduto | currency:'BRL':true}}.
               </div>
             </form>
           </div>

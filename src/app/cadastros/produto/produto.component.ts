@@ -59,6 +59,7 @@ export class ProdutoComponent implements OnInit, AfterViewInit {
         (_produtos: Produto[]) => {
         this.produtos = _produtos;
       }, error => {
+        console.log(error.error);
         this.toastr.error(`Erro ao tentar carregar produtos: ${error.error}`);
       });
   }

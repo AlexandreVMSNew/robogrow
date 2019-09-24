@@ -90,9 +90,11 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   valorPrevistoPipe: any;
   valorPrevisto: VendaValorPrevisto;
+  valorMinimoProduto = 0;
   valorPrevistoDisabled = true;
   idProdutoItemValorPrevisto: number;
   itemDescricao: string;
+  itemTipo = '';
 
   status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
   statusSelecionado: string;
@@ -221,9 +223,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
             item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
             item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
           });
-
           this.vendaClienteId = this.venda.clientesId;
-
         }, error => {
           this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
           console.log(error);
@@ -325,6 +325,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     documento.setFontType('regular');
     documento.text(cliente.razaoSocial, 34, 40);
     documento.rect(50, 50, 100, 100);
+
     documento.output('dataurlnewwindow');
   }
 
@@ -435,9 +436,11 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   validarValorPrevistoForm() {
+    this.valorMinimoProduto = (this.produtos && this.produtoIdSelecionado && this.itemTipo === 'RECEITA') ?
+     this.produtos.filter(c => c.id === this.produtoIdSelecionado)[0].valorMinimo : 0;
     this.cadastroValorPrevistoForm = this.fb.group({
         id: [''],
-        valor: ['', Validators.required]
+        valor: ['', [Validators.required, Validators.min(this.valorMinimoProduto)]]
     });
   }
 
@@ -487,11 +490,13 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     }
   }
 
-  abrirFormValorPrevisto(idProdutoItem: number, descricaoItem: string, template: any) {
+  abrirFormValorPrevisto(idProdutoItem: number, descricaoItem: string, tipoItem: string, template: any) {
     this.idProdutoItemValorPrevisto = idProdutoItem;
     this.itemDescricao = descricaoItem;
+    this.itemTipo = tipoItem;
     this.vendaService.getVendaValorPrevistoByProdIdVendId(idProdutoItem, this.idVenda).subscribe(
       (_VALORPREVISTO: VendaValorPrevisto) => {
+        this.validarValorPrevistoForm();
         if (_VALORPREVISTO) {
           this.valorPrevistoDisabled = true;
           this.valorPrevisto = Object.assign({}, _VALORPREVISTO);
@@ -563,6 +568,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.produtoService.getAllProduto().subscribe(
       (_PRODUTOS: Produto[]) => {
       this.produtos = _PRODUTOS;
+      this.validarValorPrevistoForm();
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar produtos: ${error.error}`);

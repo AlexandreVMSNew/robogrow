@@ -14,7 +14,26 @@
 
               <div *ngIf="cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched"
                 class="invalid-feedback">
-                Descrição é obrigatório.
+                Campo é obrigatório.
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label>Valor Mínimo do Produto:</label>
+              <div class="input-group">
+                <input class="form-control" currencyMask formControlName="valorMinimo"
+                  [options]="{ prefix: '', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroForm.get('valorMinimo').errors && 
+                  cadastroForm.get('valorMinimo').touched}" />
+                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+              </div>
+              <div
+                *ngIf="cadastroForm.get('valorMinimo').hasError('required') && cadastroForm.get('valorMinimo').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+              <div
+                *ngIf="cadastroForm.get('valorMinimo').hasError('min') && cadastroForm.get('valorMinimo').touched"
+                class="invalid-feedback">
+                Valor deve ser maior que 0.
               </div>
             </div>
           </div>
@@ -74,8 +93,8 @@
     </tabset>
   </div>
 </div>
-<button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="salvarAlteracoes()" tooltip="Salvar"
-  class="btn btn-lg btn-primary">
+<button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="salvarAlteracoes()"
+  tooltip="Salvar" class="btn btn-lg btn-primary">
   &nbsp;Salvar Alterações
 </button>
 
@@ -127,8 +146,8 @@
           <div *ngIf="tipoSelecionado == 'DESPESA'" class="row">
             <div class="form-group col-md-8">
               <label>Centro de Despesa:</label>
-              <ng-select  [clearable]="false" [items]="centrosDespesa" bindLabel="descricao" bindValue="id" [(ngModel)]="centroDespesaIdSelecionado"
-                formControlName="centroDespesaId">
+              <ng-select [clearable]="false" [items]="centrosDespesa" bindLabel="descricao" bindValue="id"
+                [(ngModel)]="centroDespesaIdSelecionado" formControlName="centroDespesaId">
               </ng-select>
             </div>
           </div>
@@ -136,8 +155,8 @@
           <div *ngIf="tipoSelecionado == 'RECEITA'" class="row">
             <div class="form-group col-md-8">
               <label>Centro de Receita:</label>
-              <ng-select  [clearable]="false" bindLabel="descricao" bindValue="id" [items]="centrosReceita" [(ngModel)]="centroReceitaIdSelecionado"
-                formControlName="centroReceitaId">
+              <ng-select [clearable]="false" bindLabel="descricao" bindValue="id" [items]="centrosReceita"
+                [(ngModel)]="centroReceitaIdSelecionado" formControlName="centroReceitaId">
               </ng-select>
             </div>
           </div>
@@ -146,24 +165,26 @@
             <div class="form-group col-md-10">
               <label>Plano de Conta:</label>
 
-              <ng-select  *ngIf="tipoSelecionado == 'RECEITA'" style="text-transform: uppercase" [items]="planoContasReceita" bindLabel="descricao" required
-                  bindValue="id" [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId">
-                  <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-                    <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
-                    <small><b>Nível:</b> {{item.nivel}}</small> <br>
-                    <small><b>Tipo:</b> {{item.tipo}}</small> <br>
-                    <small><b>Categoria:</b> {{item.categoria}}</small>
-                  </ng-template>
-                </ng-select>
-                <ng-select  *ngIf="tipoSelecionado != 'RECEITA'" style="text-transform: uppercase" [items]="planoContasDespesa" bindLabel="descricao" required
-                  bindValue="id" [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId">
-                  <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-                    <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
-                    <small><b>Nível:</b> {{item.nivel}}</small> <br>
-                    <small><b>Tipo:</b> {{item.tipo}}</small> <br>
-                    <small><b>Categoria:</b> {{item.categoria}}</small>
-                  </ng-template>
-                </ng-select>
+              <ng-select *ngIf="tipoSelecionado == 'RECEITA'" style="text-transform: uppercase"
+                [items]="planoContasReceita" bindLabel="descricao" required bindValue="id"
+                [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId">
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                  <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
+                  <small><b>Nível:</b> {{item.nivel}}</small> <br>
+                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>
+                  <small><b>Categoria:</b> {{item.categoria}}</small>
+                </ng-template>
+              </ng-select>
+              <ng-select *ngIf="tipoSelecionado != 'RECEITA'" style="text-transform: uppercase"
+                [items]="planoContasDespesa" bindLabel="descricao" required bindValue="id"
+                [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId">
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                  <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
+                  <small><b>Nível:</b> {{item.nivel}}</small> <br>
+                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>
+                  <small><b>Categoria:</b> {{item.categoria}}</small>
+                </ng-template>
+              </ng-select>
               <div
                 *ngIf="cadastroItemForm.get('planoContasId').hasError('required') &&cadastroItemForm.get('planoContasId').touched"
                 class="invalid-feedback">
