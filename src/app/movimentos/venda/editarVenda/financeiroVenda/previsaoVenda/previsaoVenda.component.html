@@ -1,0 +1,59 @@
+{{abrirTemplate(templateValorPrevisto)}}
+<div bsModal #templateValorPrevisto="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
+  class="modal fade bd-example-modal-xl">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Previsão {{(this.produtoItem.descricao) ? this.produtoItem.descricao : ''}}
+        </h4>
+
+        <button type="button" class="close pull-right" (click)="fecharTemplate(templateValorPrevisto)"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="row">
+
+          <div class="form-group col-md-12">
+            <form [formGroup]="cadastroValorPrevistoForm">
+              <div class="input-group">
+                <input class="form-control" currencyMask [(ngModel)]="valorPrevistoPipe" formControlName="valor"
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroValorPrevistoForm.get('valor').errors && 
+                      cadastroValorPrevistoForm.get('valor').touched}" />
+                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+              </div>
+              <div
+                *ngIf="cadastroValorPrevistoForm.get('valor').hasError('required') && cadastroValorPrevistoForm.get('valor').touched"
+                class="invalid-feedback">
+                Campo obrigatório.
+              </div>
+              <div
+                *ngIf="cadastroValorPrevistoForm.get('valor').hasError('min') && cadastroValorPrevistoForm.get('valor').touched"
+                class="invalid-feedback">
+                Valor deve ser maior que {{this.valorMinimoProduto | currency:'BRL':true}}.
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templateValorPrevisto)">
+          Fechar
+        </button>
+        <button *ngIf="!cadastroValorPrevistoForm.valid || valorPrevistoDisabled == true" class="btn btn-primary"
+          (click)="salvarValorPrevisto(templateValorPrevisto)" disabled>
+          Salvar
+        </button>
+        <button *ngIf="cadastroValorPrevistoForm.valid && valorPrevistoDisabled == false" class="btn btn-primary"
+          (click)="salvarValorPrevisto(templateValorPrevisto)">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

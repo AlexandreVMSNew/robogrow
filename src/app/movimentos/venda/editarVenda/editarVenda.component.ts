@@ -6,7 +6,6 @@ import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { ActivatedRoute } from '@angular/router';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
-import { VendaValorPrevisto } from 'src/app/_models/Movimentos/Venda/VendaValorPrevisto';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
@@ -15,7 +14,6 @@ import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
 import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
-import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/recebimento.service';
 import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
 import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
@@ -46,15 +44,12 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   editarValorRealizado = false;
   editarDataNegociacao = false;
   editarStatus = false;
-  visualizarResumo = false;
+  visualizarResultado = false;
   visualizar = false;
   gerarPedido = false;
   autorizadoGerarPedido = false;
 
   cadastroForm: FormGroup;
-  cadastroValorPrevistoForm: FormGroup;
-  cadastroRecebimento: FormGroup;
-  cadastroNovoValor: FormGroup;
 
   pessoas: Pessoa[];
   pessoaIdSelecionado: any;
@@ -79,22 +74,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   planoContasIdSelecionado: any;
 
   idVenda: number;
-  vendaClienteId: any;
-  produtoItem: ProdutoItem;
-
   venda: Venda;
-
-  vendaItensEntrada: ProdutoItem[];
-  vendaItensSaidaComissao: ProdutoItem[];
-  vendaItensSaidaGasto: ProdutoItem[];
-
-  valorPrevistoPipe: any;
-  valorPrevisto: VendaValorPrevisto;
-  valorMinimoProduto = 0;
-  valorPrevistoDisabled = true;
-  idProdutoItemValorPrevisto: number;
-  itemDescricao: string;
-  itemTipo = '';
 
   status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
   statusSelecionado: string;
@@ -102,21 +82,15 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   planosPagamento: PlanoPagamento[];
   planoPagamentoIdSelecionado: any;
 
-  idDetalharRecebimento: number;
-  idProdutoItem: number;
-
   autorizacoes: Autorizacao[];
 
   statusBoxInformacoes = '';
-  statusBoxImplantacao = '';
-  statusBoxConversao = '';
 
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
               private router: ActivatedRoute,
               private vendaService: VendaService,
-              private recebimentoService: RecebimentoService,
               public permissaoService: PermissaoService,
               public dataService: DataService,
               private clienteService: ClienteService,
@@ -142,8 +116,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.getVendedores();
     this.getAutorizacoes();
     this.validarForm();
-    this.validarValorPrevistoForm();
-    this.validarNovoValorForm();
   }
 
   ngAfterViewChecked() {
@@ -165,7 +137,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'STATUS')[0]);
       this.visualizar = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
-      this.visualizarResumo = this.permissaoService
+      this.visualizarResultado = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'RESUMO')[0]);
       this.gerarPedido = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR PEDIDO')[0]);
@@ -178,7 +150,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       }
 
       form.dataFinalizado.disable();
-      (this.editarDataNegociacao && form.status.value === 'EM NEGOCIAÇÃO') ? form.dataNegociacao.enable() : form.dataNegociacao.disable();
+      (this.editarDataNegociacao || form.status.value === 'EM NEGOCIAÇÃO') ? form.dataNegociacao.enable() : form.dataNegociacao.disable();
       (this.editarStatus) ? form.status.enable() : form.status.disable();
       this.carregarVenda();
     });
@@ -204,26 +176,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           this.statusSelecionado = this.venda.status;
 
           this.cadastroForm.patchValue(this.venda);
-          this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
-          this.vendaItensEntrada.forEach(item => {
-            item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
-            item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
-          });
-
-          this.vendaItensSaidaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
-            item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO');
-          this.vendaItensSaidaComissao.forEach(item => {
-            item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
-            item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
-          });
-
-          this.vendaItensSaidaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
-            item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO');
-          this.vendaItensSaidaGasto.forEach(item => {
-            item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
-            item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
-          });
-          this.vendaClienteId = this.venda.clientesId;
+          this.vendaService.atualizarFinanceiroVenda();
         }, error => {
           this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
           console.log(error);
@@ -393,62 +346,14 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
   }
 
-  abrirTemplateRecebimento(produtoItem: ProdutoItem) {
-    this.produtoItem = produtoItem;
-    if (produtoItem.vendaValorRealizado && produtoItem.vendaValorRealizado.length > 0) {
-      if (produtoItem.vendaValorRealizado[0].recebimentos) {
-        this.idDetalharRecebimento = produtoItem.vendaValorRealizado[0].recebimentos.id;
-        this.recebimentoService.setDetalharRecebimentoStatus(true);
-      } else {
-        this.recebimentoService.setTemplateRecebimentoStatus(true);
-      }
-    } else {
-      this.recebimentoService.setTemplateRecebimentoStatus(true);
-    }
-  }
-
-  getPagamentosVenda() {
-    return this.vendaService.getPagamentosVendaStatus();
-  }
-
-  getRecebimentosVenda() {
-    return this.vendaService.getRecebimentosVendaStatus();
-  }
-
-  abrirPagamentosVenda(produtoItem: ProdutoItem) {
-    this.produtoItem = produtoItem;
-    this.vendaService.setPagamentosVendaStatus(true);
-  }
-
-  abrirRecebimentosVenda(produtoItem: ProdutoItem) {
-    this.produtoItem = produtoItem;
-    this.vendaService.setRecebimentosVendaStatus(true);
-  }
-
   alterarStatusBoxInformacoes() {
     (this.statusBoxInformacoes === '') ? this.statusBoxInformacoes = ' collapsed-box' : this.statusBoxInformacoes = '';
   }
-  alterarStatusBoxImplantacao() {
-    (this.statusBoxImplantacao === '') ? this.statusBoxImplantacao = ' collapsed-box' : this.statusBoxImplantacao = '';
-  }
-  alterarStatusBoxConversao() {
-    (this.statusBoxConversao === '') ? this.statusBoxConversao = ' collapsed-box' : this.statusBoxConversao = '';
-  }
 
-  validarValorPrevistoForm() {
-    this.valorMinimoProduto = (this.produtos && this.produtoIdSelecionado && this.itemTipo === 'RECEITA') ?
-     this.produtos.filter(c => c.id === this.produtoIdSelecionado)[0].valorMinimo : 0;
-    this.cadastroValorPrevistoForm = this.fb.group({
-        id: [''],
-        valor: ['', [Validators.required, Validators.min(this.valorMinimoProduto)]]
-    });
-  }
-
-  verificarPrevisto(vendaValorPrevisto: any): boolean {
-    if (vendaValorPrevisto) {
-      return true;
+  verificarStatus() {
+    if (this.cadastroForm.get('status')) {
+      return this.cadastroForm.get('status').value;
     }
-    return false;
   }
 
   verificarValorPrevistoLancados() {
@@ -460,82 +365,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       }
     }
     return true;
-  }
-
-  verificarValorPrevistoMaiorZero(vendaValorPrevisto: any): boolean {
-    if (vendaValorPrevisto) {
-      if (vendaValorPrevisto.valor > 0) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    return false;
-  }
-
-  verificarPagamento(ValorRealizado: any): boolean {
-    if (ValorRealizado) {
-      if (ValorRealizado.length > 0) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    return false;
-  }
-
-  verificarStatus() {
-    if (this.cadastroForm.get('status')) {
-      return this.cadastroForm.get('status').value;
-    }
-  }
-
-  abrirFormValorPrevisto(idProdutoItem: number, descricaoItem: string, tipoItem: string, template: any) {
-    this.idProdutoItemValorPrevisto = idProdutoItem;
-    this.itemDescricao = descricaoItem;
-    this.itemTipo = tipoItem;
-    this.vendaService.getVendaValorPrevistoByProdIdVendId(idProdutoItem, this.idVenda).subscribe(
-      (_VALORPREVISTO: VendaValorPrevisto) => {
-        this.validarValorPrevistoForm();
-        if (_VALORPREVISTO) {
-          this.valorPrevistoDisabled = true;
-          this.valorPrevisto = Object.assign({}, _VALORPREVISTO);
-          this.cadastroValorPrevistoForm.patchValue(this.valorPrevisto);
-        } else {
-          this.valorPrevisto = null;
-          this.valorPrevistoDisabled = false;
-          this.cadastroValorPrevistoForm.patchValue({id: 0, valor: null});
-        }
-
-      }, error => {
-        console.log(error.error);
-      }
-    );
-    template.show();
-  }
-
-  salvarValorPrevisto(template: any) {
-    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    this.valorPrevisto = Object.assign(this.cadastroValorPrevistoForm.value,
-       {id: 0, vendaId: this.idVenda, produtosItensId: this.idProdutoItemValorPrevisto, dataHoraUltAlt: dataAtual});
-    this.vendaService.novoVendaValorPrevisto(this.valorPrevisto).subscribe(
-      () => {
-        this.carregarVenda();
-        this.toastr.success('Salvo com Sucesso!');
-        template.hide();
-      }, error => {
-        console.log(error.error);
-      }
-    );
-  }
-
-  validarNovoValorForm() {
-    this.cadastroNovoValor = this.fb.group({
-        valor: ['', Validators.required],
-        pessoasId:  ['', Validators.required],
-        dataPagamento: [''],
-        descricao:  ['', Validators.required]
-    });
   }
 
   salvarAlteracoes() {
@@ -568,7 +397,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.produtoService.getAllProduto().subscribe(
       (_PRODUTOS: Produto[]) => {
       this.produtos = _PRODUTOS;
-      this.validarValorPrevistoForm();
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar produtos: ${error.error}`);

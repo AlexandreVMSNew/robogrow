@@ -18,13 +18,23 @@ baseURL = InfoAPI.URL + '/api/movimentos/vendas';
 atualizaVenda = new EventEmitter<boolean>();
 atualizaRecebimentos = new EventEmitter<boolean>();
 atualizaPagamentos = new EventEmitter<boolean>();
-atualizaResumoVenda = new EventEmitter<boolean>();
+atualizaResultadoVenda = new EventEmitter<boolean>();
+atualizaFinanceiroVenda = new EventEmitter<boolean>();
 
 pagamentosVenda = false;
+previsaoVenda = false;
 recebimentosVenda = false;
 configVenda = false;
 
 constructor(private http: HttpClient) { }
+
+setPrevisaoVendaStatus(val: boolean) {
+  this.previsaoVenda = val;
+}
+
+getPrevisaoVendaStatus() {
+  return this.previsaoVenda;
+}
 
 getConfigVendaStatus() {
   return this.configVenda;
@@ -71,8 +81,12 @@ atualizarRecebimentos() {
 atualizarPagamentos() {
   this.atualizaPagamentos.emit(true);
 }
-atualizarResumoVenda() {
-  this.atualizaResumoVenda.emit(true);
+atualizarResultadoVenda() {
+  this.atualizaResultadoVenda.emit(true);
+}
+atualizarFinanceiroVenda() {
+
+  this.atualizaFinanceiroVenda.emit(true);
 }
 
 getVendaById(id: number): Observable<Venda> {

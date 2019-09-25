@@ -43,11 +43,14 @@ import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/edit
 import { VendaComponent } from './movimentos/venda/venda.component';
 import { NovoVendaComponent } from './movimentos/venda/novoVenda/novoVenda.component';
 import { EditarVendaComponent } from './movimentos/venda/editarVenda/editarVenda.component';
-import { ResumoVendaComponent } from './movimentos/venda/editarVenda/resumoVenda/resumoVenda.component';
-import { PagamentosVendaComponent } from './movimentos/venda/editarVenda/pagamentosVenda/pagamentosVenda.component';
-import { RecebimentosVendaComponent } from './movimentos/venda/editarVenda/recebimentosVenda/recebimentosVenda.component';
+import { ResultadoVendaComponent } from './movimentos/venda/editarVenda/resultadoVenda/resultadoVenda.component';
+import { PagamentosVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/pagamentosVenda/pagamentosVenda.component';
+import { RecebimentosVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/recebimentosVenda/recebimentosVenda.component';
 import { ConfigVendaComponent } from './movimentos/venda/configVenda/configVenda.component';
 import { RelatorioVendaComponent } from './movimentos/venda/relatorioVenda/relatorioVenda.component';
+import { CheckListVendaComponent } from './movimentos/venda/editarVenda/checkListVenda/checkListVenda.component';
+import { FinanceiroVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/financeiroVenda.component';
+import { PrevisaoVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/previsaoVenda/previsaoVenda.component';
 
 import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { NovoProdutoComponent } from './cadastros/produto/novoProduto/novoProduto.component';
@@ -128,11 +131,14 @@ defineLocale('pt-br', ptBrLocale);
       VendaComponent,
       NovoVendaComponent,
       EditarVendaComponent,
-      ResumoVendaComponent,
+      ResultadoVendaComponent,
       ConfigVendaComponent,
       RelatorioVendaComponent,
       PagamentosVendaComponent,
       RecebimentosVendaComponent,
+      CheckListVendaComponent,
+      FinanceiroVendaComponent,
+      PrevisaoVendaComponent,
       ProdutoComponent,
       NovoProdutoComponent,
       EditarProdutoComponent,

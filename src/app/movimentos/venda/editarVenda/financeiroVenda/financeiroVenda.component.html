@@ -1,0 +1,164 @@
+<hr style="width: 100%">
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <i class="fa fa-share"></i>
+        <h3 class="box-title">Receitas</h3>
+      </div>
+      <div class="box-body">
+
+        <table class="table table-responsive table-bordered ">
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th style="text-align: center;">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of vendaItensEntrada">
+              <td>{{item.descricao}}</td>
+              <td style="white-space: nowrap;text-align: center;">
+                <div class="btn-group">
+                  <a *ngIf="this.editarValorPrevisto == true"
+                    (click)="abrirPrevisaoVenda(item)"
+                    tooltip="Valor Previsto" class="btn btn-sm btn-warning">
+                    <i class="fa fa-usd"></i>
+                  </a>
+
+                  <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
+                    (click)="abrirRecebimentosVenda(item)" tooltip="Valor Realizado" class="btn btn-sm btn-info">
+                    <i class="fa fa-usd"></i>
+                  </a>
+                  <a *ngIf="this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
+                    tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)"
+                    class="btn btn-sm btn-info" disabled>
+                    <i class="fa fa-usd"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<hr style="width: 100%">
+<div class="row">
+  <div class="col-md-6">
+
+    <div class="box box-danger">
+      <div class="box-header with-border">
+        <i class="fa fa-reply"></i>
+        <h3 class="box-title">Despesas(COMISSÕES)</h3>
+      </div>
+      <div class="box-body">
+        <table class="table table-responsive table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th>Descrição</th>
+              <th style="text-align: center;">Status</th>
+              <th style="text-align: center;">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of vendaItensSaidaComissao">
+              <td>{{item.descricao}}</td>
+
+              <td style="white-space: nowrap;text-align: center;">
+                <span style="margin-top:0px;" *ngIf="verificarPrevisto(item.vendaValorPrevisto) == true &&
+                    verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == false"
+                  class="label label-danger">X</span>
+                <span style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == true"
+                  class="label label-success">PAGO</span>
+                <span style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == false &&
+                    verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == true"
+                  class="label label-warning">PENDENTE</span>
+              </td>
+              <td style="white-space: nowrap;text-align: center;">
+                <div class="btn-group">
+                  <a *ngIf="this.editarValorPrevisto == true"
+                    (click)="abrirPrevisaoVenda(item)"
+                    tooltip="Valor Previsto" class="btn btn-sm btn-warning">
+                    <i class="fa fa-usd"></i>
+                  </a>
+
+                  <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
+                    tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)" class="btn btn-sm btn-info">
+                    <i class="fa fa-usd"></i>
+                  </a>
+                  <a *ngIf="this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
+                    tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)"
+                    class="btn btn-sm btn-info" disabled>
+                    <i class="fa fa-usd"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+
+    <div class="box box-danger">
+      <div class="box-header with-border">
+        <i class="fa fa-reply"></i>
+        <h3 class="box-title">Despesas(GASTOS)</h3>
+      </div>
+      <div class="box-body">
+        <table class="table table-responsive table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th>Descrição</th>
+
+              <th style="text-align: center;">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of vendaItensSaidaGasto">
+              <td>{{item.descricao}}</td>
+              <td style="white-space: nowrap;text-align: center;">
+                <div class="btn-group">
+                  <a *ngIf="this.editarValorPrevisto == true"
+                    (click)="abrirPrevisaoVenda(item)"
+                    tooltip="Valor Previsto" class="btn btn-sm btn-warning">
+                    <i class="fa fa-usd"></i>
+                  </a>
+
+                  <a *ngIf="this.editarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
+                    tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)" class="btn btn-sm btn-info">
+                    <i class="fa fa-usd"></i>
+                  </a>
+                  <a *ngIf="this.editarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
+                    tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)"
+                    class="btn btn-sm btn-info" disabled>
+                    <i class="fa fa-usd"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-previsao-venda [produtoItem]="this.produtoItem" [venda]="this.venda" 
+  *ngIf="getPrevisaoVenda() == true && this.produtoItem && this.venda"></app-previsao-venda>
+
+<app-pagamentos-venda [produtoItem]="this.produtoItem" [idVenda]="this.venda.id"
+ *ngIf="getPagamentosVenda() == true && this.produtoItem && this.venda">
+  </app-pagamentos-venda>
+<app-recebimentos-venda [produtoItem]="this.produtoItem" [vendaClienteId]="this.venda.clientesId" [idVenda]="this.venda.id"
+    *ngIf="getRecebimentosVenda() == true && this.produtoItem && this.venda"></app-recebimentos-venda>

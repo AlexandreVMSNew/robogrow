@@ -13,11 +13,11 @@ import { Label } from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
-  selector: 'app-resumo-venda',
-  templateUrl: './resumoVenda.component.html',
-  styleUrls: ['./resumoVenda.component.css']
+  selector: 'app-resultado-venda',
+  templateUrl: './resultadoVenda.component.html',
+  styleUrls: ['./resultadoVenda.component.css']
 })
-export class ResumoVendaComponent implements OnInit, AfterViewChecked {
+export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
 
 
   idVenda: number;
@@ -135,7 +135,7 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
               private pessoaService: PessoaService,
               public dataService: DataService,
               private changeDetectionRef: ChangeDetectorRef) {
-                this.vendaService.atualizaResumoVenda.subscribe(x => {
+                this.vendaService.atualizaResultadoVenda.subscribe(x => {
                   this.carregarVenda();
                 });
               }
@@ -213,8 +213,8 @@ export class ResumoVendaComponent implements OnInit, AfterViewChecked {
     return '';
   }
 
-  atualizarResumoVenda() {
-    this.vendaService.atualizarResumoVenda();
+  atualizarResultadoVenda() {
+    this.vendaService.atualizarResultadoVenda();
   }
 
   carregarVenda() {
