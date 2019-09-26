@@ -157,6 +157,8 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
       quantidadeEmImplantacao: quantidadeVendasEmImplantacao,
       quantidadeFinalizado: quantidadeVendasFinalizado,
       quantidadeTotal: quantidadeVendasEmImplantacao + quantidadeVendasFinalizado,
+      valorBrutoReceitas: valorTotalReceitasVendas,
+      valorBrutoDespesas: valorTotalDespesasVendas,
       valorLiquidoReceitas: valorTotalReceitasVendas - valorTotalDespesasVendas,
       valorMedio: (valorTotalReceitasVendas / (quantidadeVendasEmImplantacao + quantidadeVendasFinalizado)),
     });
