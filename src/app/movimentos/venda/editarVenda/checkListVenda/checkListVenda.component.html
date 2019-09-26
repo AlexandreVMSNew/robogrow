@@ -1,114 +1,27 @@
 <div class="row">
-    <div class="col-md-6">
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">Implantação</h3>
+  <div class="col-md-6">
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                class="fa fa-minus"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-
-          <table class="table table-responsive table-bordered">
-            <thead class="thead-light">
-              <tr>
-                <th>Descrição</th>
-                <th style="text-align: center;">Remoto</th>
-                <th style="text-align: center;">Presencial</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Cadastro de Produto</td>
-                <td style="text-align: center;">
-                    <mat-checkbox color="primary" [checked]= "myModel"></mat-checkbox>
-                </td>
-                <td style="text-align: center;">
-                    <mat-checkbox color="primary" [checked]= "myModel"></mat-checkbox>
-                </td>
-              </tr>
-              <tr>
-                <td>Frente de Loja</td>
-                <td style="text-align: center;">
-                    <mat-checkbox color="primary" [checked]= "myModel"></mat-checkbox>
-                </td>
-                <td style="text-align: center;">
-                    <mat-checkbox color="primary" [checked]= "myModel"></mat-checkbox>
-                </td>
-              </tr>
-              <tr>
-                <td>Financeiro</td>
-                <td style="text-align: center;">
-                    <mat-checkbox color="primary" [checked]= "myModel"></mat-checkbox>
-                </td>
-                <td style="text-align: center;">
-                    <mat-checkbox color="primary" [checked]= "myModel"></mat-checkbox>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <div class="box box-info">
-        <div class="box-header with-border">
-          <h3 class="box-title">Conversão</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                class="fa fa-minus"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-          <div class="row">
-            <div class="form-group col-md-12">
-              <table class="table table-responsive table-bordered">
-                <thead class="thead-light">
-                  <tr>
-                    <th>Cad. Produto</th>
-                    <th>Frente de Loja</th>
-                    <th>Financeiro</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style="white-space: nowrap;">
-                      <mat-radio-group aria-label="Select an option">
-                        <mat-radio-button color="primary" value="1">Sim</mat-radio-button><br />
-                        <mat-radio-button color="primary" value="2">Não</mat-radio-button>
-                      </mat-radio-group>
-                    </td>
-
-                    <td style="white-space: nowrap;">
-                      <mat-radio-group aria-label="Select an option">
-                        <mat-radio-button color="primary" value="1">Sim</mat-radio-button><br />
-                        <mat-radio-button color="primary" value="2">Não</mat-radio-button>
-                      </mat-radio-group>
-                    </td>
-                    <td style="white-space: nowrap;">
-                      <mat-radio-group aria-label="Select an option">
-                        <mat-radio-button color="primary" value="1">Sim</mat-radio-button><br />
-                        <mat-radio-button color="primary" value="2">Não</mat-radio-button>
-                      </mat-radio-group>
-                    </td>
-                    <td style="white-space: nowrap;">
-                      <mat-radio-group aria-label="Select an option">
-                        <mat-radio-button color="primary" value="1">Sim</mat-radio-button><br />
-                        <mat-radio-button color="primary" value="2">Não</mat-radio-button>
-                      </mat-radio-group>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <table *ngFor="let grupo of gruposCheckList" class="table table-responsive table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>{{grupo.descricao}}</th>
+          <th *ngFor="let opcao of grupo.checkListOpcoes" style="text-align: center;">{{opcao.descricao}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let check of grupo.checkList">
+          <td>{{check.descricao}}</td>
+          <td *ngFor="let opcao of grupo.checkListOpcoes" style="text-align: center;">
+            <mat-checkbox color="primary" [value]="opcao.id"
+              [checked]="(check.opcaoSelecionada == opcao.id) ? true : false" (change)="alterarOpcao(grupo, check, opcao)">
+            </mat-checkbox>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>
+<button style="position:relative;margin-bottom: 15px;" (click)="salvarAlteracoes()" tooltip="Salvar"
+  class="btn btn-lg btn-primary">
+  &nbsp;Salvar Alterações
+</button>

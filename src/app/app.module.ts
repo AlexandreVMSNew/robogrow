@@ -55,6 +55,8 @@ import { PrevisaoVendaComponent } from './movimentos/venda/editarVenda/financeir
 import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { NovoProdutoComponent } from './cadastros/produto/novoProduto/novoProduto.component';
 import { EditarProdutoComponent } from './cadastros/produto/editarProduto/editarProduto.component';
+import { CheckListProdutoComponent } from './cadastros/produto/editarProduto/checkListProduto/checkListProduto.component';
+import { TemplateProdutoItensComponent } from './cadastros/produto/editarProduto/templateProdutoItens/templateProdutoItens.component';
 
 import { PlanoContaComponent } from './cadastros/planoConta/planoConta.component';
 
@@ -142,6 +144,8 @@ defineLocale('pt-br', ptBrLocale);
       ProdutoComponent,
       NovoProdutoComponent,
       EditarProdutoComponent,
+      CheckListProdutoComponent,
+      TemplateProdutoItensComponent,
       PessoaComponent,
       NovoPessoaComponent,
       EditarPessoaComponent,

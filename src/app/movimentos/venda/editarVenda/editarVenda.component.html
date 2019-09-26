@@ -112,7 +112,7 @@
       </tab>
 
       <tab heading="Check List" style="margin-top: 10px;">
-        <app-check-list-venda [venda]="this.venda"></app-check-list-venda>
+        <app-check-list-venda *ngIf="this.venda" [venda]="this.venda"></app-check-list-venda>
       </tab>
 
       <tab heading="Financeiro" style="margin-top: 10px;">

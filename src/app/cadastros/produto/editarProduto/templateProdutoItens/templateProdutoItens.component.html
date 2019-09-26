@@ -1,0 +1,127 @@
+{{abrirTemplate(templateProdutoItens)}}
+<div bsModal #templateProdutoItens="bs-modal" [config]="{backdrop: 'static', keyboard: false}" class="modal fade bd-example-modal-xl">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Produto Itens
+        </h4>
+
+        <button type="button" class="close pull-right" (click)="fecharTemplate(templateProdutoItens)"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form [formGroup]="cadastroItemForm">
+              <input type="hidden" class="form-control" formControlName="id" value="0" placeholder="" />
+    
+              <div class="row">
+                <div class="form-group col-md-8">
+                  <label>Tipo:</label>
+                  <ng-select [clearable]="false" [items]="tipos" [(ngModel)]="tipoSelecionado" formControlName="tipoItem">
+                  </ng-select>
+                  <div
+                    *ngIf="cadastroItemForm.get('tipoItem').hasError('required') &&cadastroItemForm.get('tipoItem').touched"
+                    class="invalid-feedback">
+                    Campo obrigatório.
+                  </div>
+                </div>
+              </div>
+    
+              <div *ngIf="tipoSelecionado == 'DESPESA'" class="row">
+                <div class="form-group col-md-8">
+                  <label>SubTipo:</label>
+                  <ng-select [clearable]="false" [items]="subTipos" [(ngModel)]="subTipoSelecionado"
+                    formControlName="subTipoItem">
+                  </ng-select>
+                  <div
+                    *ngIf="cadastroItemForm.get('subTipoItem').hasError('required') &&cadastroItemForm.get('subTipoItem').touched"
+                    class="invalid-feedback">
+                    Campo obrigatório.
+                  </div>
+                </div>
+              </div>
+    
+              <div *ngIf="tipoSelecionado == 'DESPESA'" class="row">
+                <div class="form-group col-md-8">
+                  <label>Centro de Despesa:</label>
+                  <ng-select [clearable]="false" [items]="centrosDespesa" bindLabel="descricao" bindValue="id"
+                    [(ngModel)]="centroDespesaIdSelecionado" formControlName="centroDespesaId">
+                  </ng-select>
+                </div>
+              </div>
+    
+              <div *ngIf="tipoSelecionado == 'RECEITA'" class="row">
+                <div class="form-group col-md-8">
+                  <label>Centro de Receita:</label>
+                  <ng-select [clearable]="false" bindLabel="descricao" bindValue="id" [items]="centrosReceita"
+                    [(ngModel)]="centroReceitaIdSelecionado" formControlName="centroReceitaId">
+                  </ng-select>
+                </div>
+              </div>
+    
+              <div *ngIf="tipoSelecionado == 'RECEITA' || tipoSelecionado == 'DESPESA' " class="row">
+                <div class="form-group col-md-10">
+                  <label>Plano de Conta:</label>
+    
+                  <ng-select *ngIf="tipoSelecionado == 'RECEITA'" style="text-transform: uppercase"
+                    [items]="planoContasReceita" bindLabel="descricao" required bindValue="id"
+                    [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId">
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                      <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
+                      <small><b>Nível:</b> {{item.nivel}}</small> <br>
+                      <small><b>Tipo:</b> {{item.tipo}}</small> <br>
+                      <small><b>Categoria:</b> {{item.categoria}}</small>
+                    </ng-template>
+                  </ng-select>
+                  <ng-select *ngIf="tipoSelecionado != 'RECEITA'" style="text-transform: uppercase"
+                    [items]="planoContasDespesa" bindLabel="descricao" required bindValue="id"
+                    [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId">
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                      <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
+                      <small><b>Nível:</b> {{item.nivel}}</small> <br>
+                      <small><b>Tipo:</b> {{item.tipo}}</small> <br>
+                      <small><b>Categoria:</b> {{item.categoria}}</small>
+                    </ng-template>
+                  </ng-select>
+                  <div
+                    *ngIf="cadastroItemForm.get('planoContasId').hasError('required') &&cadastroItemForm.get('planoContasId').touched"
+                    class="invalid-feedback">
+                    Campo obrigatório.
+                  </div>
+                </div>
+              </div>
+    
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>Descrição:</label>
+                  <input type="text" class="form-control" style="text-transform: uppercase"
+                    oninput="this.value = this.value.toUpperCase()"
+                    [ngClass]="{'is-invalid':cadastroItemForm.get('descricao').errors &&cadastroItemForm.get('descricao').touched}"
+                    formControlName="descricao" />
+                  <div
+                    *ngIf="cadastroItemForm.get('descricao').hasError('required') &&cadastroItemForm.get('descricao').touched"
+                    class="invalid-feedback">
+                    Campo obrigatório.
+                  </div>
+                </div>
+              </div>
+    
+            </form>
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templateProdutoItens)">
+          Fechar
+        </button>
+        <button class="btn btn-primary ml-auto" [disabled]="!cadastroItemForm.valid"
+          (click)="adicionarItem(templateProdutoItens)">
+          Salvar Alterações
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

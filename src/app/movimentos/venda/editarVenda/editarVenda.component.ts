@@ -31,6 +31,9 @@ import { Autorizacao } from 'src/app/_models/Autorizacoes/Autorizacao';
 import { EmailService } from 'src/app/_services/Email/email.service';
 import { Email } from 'src/app/_models/Email/Email';
 import * as jsPDF from 'jspdf';
+import { ProdutoGrupoChecks } from 'src/app/_models/Cadastros/Produtos/produtoGrupoChecks';
+import { ProdutoCheckListOpcoes } from 'src/app/_models/Cadastros/Produtos/ProdutoCheckListOpcoes';
+import { ProdutoCheckList } from 'src/app/_models/Cadastros/Produtos/produtoCheckList';
 
 @Component({
   selector: 'app-editar-venda',
@@ -85,6 +88,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   autorizacoes: Autorizacao[];
 
   statusBoxInformacoes = '';
+
+  gruposCheckList: ProdutoGrupoChecks[] = [];
+  checks: ProdutoCheckList[] = [];
+  checksOpcoes: ProdutoCheckListOpcoes[] = [];
 
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
@@ -177,6 +184,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
           this.cadastroForm.patchValue(this.venda);
           this.vendaService.atualizarFinanceiroVenda();
+          console.log(this.venda);
         }, error => {
           this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
           console.log(error);
@@ -392,6 +400,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         console.log(error);
       });
   }
+
 
   getProdutos() {
     this.produtoService.getAllProduto().subscribe(
