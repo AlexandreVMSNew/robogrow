@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="col-md-6">
+  <div *ngFor="let grupo of gruposCheckList" class="{{this.coluna}}">
 
-    <table *ngFor="let grupo of gruposCheckList" class="table table-responsive table-bordered">
+    <table  class="table {{this.border}}  table-bordered">
       <thead class="thead-light">
         <tr>
           <th>{{grupo.descricao}}</th>
@@ -10,10 +10,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let check of grupo.checkList">
-          <td>{{check.descricao}}</td>
-          <td *ngFor="let opcao of grupo.checkListOpcoes" style="text-align: center;">
-            <mat-checkbox color="primary" [value]="opcao.id"
-              [checked]="(check.opcaoSelecionada == opcao.id) ? true : false" (change)="alterarOpcao(grupo, check, opcao)">
+          <td style=" width:40%;">{{check.descricao}}</td>
+          <td style="text-align: center;"*ngFor="let opcao of grupo.checkListOpcoes">
+            <mat-checkbox color="primary" [value]="opcao.id" [disabled]="this.pedido"
+              [checked]="(check.opcaoSelecionadaId == opcao.id) ? true : false" (change)="marcarOpcao(grupo, check, opcao, $event)">
             </mat-checkbox>
           </td>
         </tr>
@@ -21,7 +21,7 @@
     </table>
   </div>
 </div>
-<button style="position:relative;margin-bottom: 15px;" (click)="salvarAlteracoes()" tooltip="Salvar"
+<button *ngIf="this.pedido == false" style="position:relative;margin-bottom: 15px;" (click)="salvarAlteracoes()" tooltip="Salvar ABA [CHECK LIST]"
   class="btn btn-lg btn-primary">
-  &nbsp;Salvar Alterações
+  &nbsp;Salvar Alterações [CHECK LIST]
 </button>

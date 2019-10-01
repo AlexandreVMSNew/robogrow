@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef, Input } from '@angular/core';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { ToastrService } from 'ngx-toastr';
@@ -19,9 +19,7 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 })
 export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
 
-
-  idVenda: number;
-  venda: Venda;
+  @Input() venda: Venda;
 
   vendaItensReceita: ProdutoItem[];
   vendaItensDespesaComissao: ProdutoItem[];
@@ -141,7 +139,7 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
               }
 
   ngOnInit() {
-    this.idVenda = +this.router.snapshot.paramMap.get('id');
+    this.venda.id = +this.router.snapshot.paramMap.get('id');
     this.carregarVenda();
   }
 
@@ -224,9 +222,7 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
     this.realizadoDespesaComissaoValores = [];
     this.realizadoDespesaGastoValores = [];
 
-    this.vendaService.getVendaById(this.idVenda).subscribe((_VENDA: Venda) => {
-      this.venda = Object.assign({}, _VENDA);
-
+    if (this.venda) {
       this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
       this.vendaItensReceita.map(itemReceita => {
         const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemReceita.id);
@@ -238,7 +234,7 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
           });
           this.verificarSoma = false;
         }
-        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemReceita.id, this.idVenda)
+        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemReceita.id, this.venda.id)
           .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
           if (_VALORPREVISTO) {
             this.previstoReceitaValores.push(_VALORPREVISTO);
@@ -261,7 +257,7 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
           this.verificarSoma = false;
         }
 
-        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemComissao.id, this.idVenda)
+        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemComissao.id, this.venda.id)
           .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
            if (_VALORPREVISTO) {
              this.previstoDespesaComissaoValores.push(_VALORPREVISTO);
@@ -284,7 +280,7 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
           this.verificarSoma = false;
         }
 
-        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemGasto.id, this.idVenda)
+        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemGasto.id, this.venda.id)
           .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
            if (_VALORPREVISTO) {
              this.previstoDespesaGastoValores.push(_VALORPREVISTO);
@@ -293,11 +289,7 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
         });
 
       });
-
-    }, error => {
-      this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
-      console.log(error);
-    });
+    }
   }
 
 }

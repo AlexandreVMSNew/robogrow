@@ -8,6 +8,7 @@ import { VendaValorPrevisto } from 'src/app/_models/Movimentos/Venda/VendaValorP
 import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValorRealizado';
 import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
 import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
+import { VendaCheckList } from 'src/app/_models/Movimentos/Venda/VendaCheckList';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,18 @@ previsaoVenda = false;
 recebimentosVenda = false;
 configVenda = false;
 
+pedidoVenda: any;
+
 constructor(private http: HttpClient) { }
+
+
+setPedidoVendaStatus(val: boolean) {
+  this.pedidoVenda = val;
+}
+
+getPedidoVendaStatus() {
+  return this.pedidoVenda;
+}
 
 setPrevisaoVendaStatus(val: boolean) {
   this.previsaoVenda = val;
@@ -144,6 +156,14 @@ novoVenda(venda: Venda) {
 
 editarVenda(venda: Venda) {
   return this.http.put(`${this.baseURL}/editar/${venda.id}`, venda);
+}
+
+getVendaCheckList(vendaId: number): Observable<VendaCheckList[]> {
+  return this.http.get<VendaCheckList[]>(`${this.baseURL}/${vendaId}/checklist`);
+}
+
+editarVendaCheckList(checkList: VendaCheckList[]) {
+  return this.http.post(`${this.baseURL}/checklist/editar`, checkList);
 }
 
 }

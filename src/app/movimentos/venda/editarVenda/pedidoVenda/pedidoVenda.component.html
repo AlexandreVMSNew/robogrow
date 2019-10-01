@@ -1,0 +1,129 @@
+{{abrirTemplate(templatePedidoVenda)}}
+<div bsModal #templatePedidoVenda="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
+  class="modal fade bd-example-modal-xl">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Pedido de Venda
+        </h4>
+
+        <button type="button" class="close pull-right" (click)="fecharTemplate(templatePedidoVenda)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="pedido" class="modal-body">
+
+        <div class="row">
+          <div style="margin-right: 25px;font-size:15px;text-align: right;" class="pull-right">
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.nomeFantasia}}</label><br />
+            <label style="font-weight: bold;margin-bottom: 0px;">CNPJ:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.cnpjCpf}}</label>&nbsp;&nbsp;&nbsp;
+            <label style="font-weight: bold;margin-bottom: 0px;">IE:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.ie}}</label><br />
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.endereco}}</label>&nbsp;-&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.bairro}}</label><br />
+
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.cidade.nome}}</label>&nbsp;-&nbsp;
+            <label
+              style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.estado.uf}}</label>&nbsp;&nbsp;&nbsp;
+            <label style="font-weight: bold;margin-bottom: 0px;">CEP:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.cep}}</label><br />
+            <label style="font-weight: bold;margin-bottom: 0px;">Telefone:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.telefone}}</label>
+          </div>
+        </div>
+
+        <hr style="margin-top: 5px;margin-bottom: 5px;" width="100%">
+        <div class="row">
+          <div style="margin-left: 25px;font-size:15px;" class="pull-left">
+            <label style="font-weight: bold;">Técnico/Vendedor:</label>&nbsp;
+            <label style="font-weight: normal;">{{venda.vendedor.nome}}</label>
+          </div>
+          <div style="margin-right: 25px;font-size:15px;text-align: right;" class="pull-right">
+            <label style="font-weight: bold;">Data/Hora Emissão:</label>&nbsp;
+            <label style="font-weight: normal;">{{dataHoraEmissao | date:'dd/MM/yyyy HH:mm'}}</label>
+          </div>
+        </div>
+
+        <hr style="margin-top: 5px;margin-bottom: 5px;" width="100%">
+        <div class="row">
+          <div style="margin-left: 25px;font-size:15px;" class="pull-left">
+            <label style="font-weight: bold;font-size:20px;">Informações do Cliente</label><br />
+
+            <label style="font-weight: bold;margin-bottom: 0px;">Nome Fantasia:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.nomeFantasia}}</label>
+            <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">Razão Social:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.razaoSocial}}</label><br />
+            <label style="font-weight: bold;margin-bottom: 0px;">CNPJ:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.cnpjCpf}}</label>
+            <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">IE:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.ie}}</label>
+            <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">Endereço:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.endereco}}</label>
+            <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">Bairro:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.bairro}}</label><br />
+            <label style="font-weight: bold;margin-bottom: 0px;">Cidade:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.cidade.nome}}</label>
+            <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">UF:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.estado.uf}}</label>
+            <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">CEP:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.cep}}</label>
+            <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">Telefone 1:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.telefone}}</label>
+            <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">Telefone 2:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.celular}}</label>
+          </div>
+        </div>
+
+        <hr style="margin-top: 5px;margin-bottom: 50px;" width="100%">
+        
+        <div style="margin-left: 25px;" class="row">
+          <div class="col-md-12">
+
+            <table style="width:95%;margin-left:20px;" class="table table-responsive">
+              <thead>
+                <tr >
+                  <th>Id</th>
+                  <th>Descrição</th>
+                  <th>Plano de Pagamento</th>
+                  <th>Valor Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let vp of venda.vendaProdutos">
+                  <td>{{vp.produtos.id}}</td>
+                  <td>{{vp.produtos.descricao}}</td>
+                  <td>{{this.venda.planoPagamento.descricao}}</td>
+                  <td>{{this.valorTotal | currency:' ':true}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> 
+
+        <hr style="margin-top: 5px;margin-bottom: 30px;" width="100%">
+        <label style="margin-left: 25px;font-weight: bold;font-size:13px;">
+          *** Os campos preenchidos &nbsp;<mat-checkbox color="primary" [disabled]="true"[checked]="true"></mat-checkbox>&nbsp; indicam marcação.</label><br />
+        <app-check-list-venda  [venda]="this.venda" [pedido]="true"></app-check-list-venda>
+
+        <hr style="margin-top: 5px;margin-bottom: 5px;" width="100%">
+        <div class="row ">
+          <div class="form-group col-md-12">
+            <label style="margin-left: 20px;font-weight: bold;font-size:13px;">Observações</label>
+            <textarea class="form-control textarea" [ngModel]="this.venda.observacoes" rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templatePedidoVenda)">
+          Fechar
+        </button>
+        <button class="btn btn-primary" (click)="gerarPedido()">
+          Gerar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

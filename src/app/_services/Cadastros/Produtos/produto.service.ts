@@ -16,7 +16,7 @@ export class ProdutoService {
   baseURL = InfoAPI.URL + '/api/produtos';
 
   atualizaProdutos = new EventEmitter<boolean>();
-  atualizaProdutosGruposCheck = new EventEmitter<boolean>();
+  atualizaProdutosGruposCheck = new EventEmitter<ProdutoGrupoChecks[]>();
 
   retornoPermissao = false;
   checkListProduto = false;
@@ -28,8 +28,8 @@ atualizarProdutos() {
   this.atualizaProdutos.emit(true);
 }
 
-atualizarProdutosGruposCheck() {
-  this.atualizaProdutosGruposCheck.emit(true);
+atualizarProdutosGruposCheck(produtoGrupo: ProdutoGrupoChecks[]) {
+  this.atualizaProdutosGruposCheck.emit(produtoGrupo);
 }
 
 setProdutoItensStatus(val: boolean) {
@@ -91,6 +91,10 @@ excluirProduto(id: number) {
 
 novoProdutoGrupoCheck(produtoGrupoCheck: ProdutoGrupoChecks) {
   return this.http.post(`${this.baseURL}/grupoChecks/novo`, produtoGrupoCheck);
+}
+
+editarProdutoGrupoCheck(produtoGrupoCheck: ProdutoGrupoChecks) {
+  return this.http.put(`${this.baseURL}/grupoChecks/editar/${produtoGrupoCheck.id}`, produtoGrupoCheck);
 }
 
 excluirProdutoGrupoCheck(id: number) {

@@ -60,7 +60,7 @@ export class EditarProdutoComponent implements OnInit {
       this.produtoItens = [];
       this.produtoItens = produto.itens;
       this.produtoGrupoChecks = produto.grupoChecks;
-      this.produtoService.atualizarProdutosGruposCheck();
+      this.produtoService.atualizarProdutosGruposCheck(this.produtoGrupoChecks);
     }, error => {
       this.toastr.error(`Erro ao tentar carregar Produto: ${error.error}`);
       console.log(error);

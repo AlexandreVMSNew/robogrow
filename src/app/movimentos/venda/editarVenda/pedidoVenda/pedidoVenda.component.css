@@ -1,22 +1,33 @@
-table.border {
+.modal-sm {
+    width: 55%;
+    /* New width for large modal */
+}
+
+table {
 	border-width: 1px;
 	border-spacing: 2px;
 	border-style: outset;
 	border-color: black;
 	border-collapse: collapse;
-    background-color: white;
-    margin-left:20px;
+	background-color: white;
+}
+
+textarea {
+	border-width: 1px;
+	border-color: black;
+	background-color: white;
+	margin-left:20px;
     width:95%;
 }
 
-table.border th {
+table th {
 	border-width: 1px;
 	padding: 1px;
 	border-style: inset;
 	border-color: black;
 	background-color: white;
 }
-table.border td {
+table td {
 	border-width: 1px;
 	padding: 1px;
 	border-style: inset;

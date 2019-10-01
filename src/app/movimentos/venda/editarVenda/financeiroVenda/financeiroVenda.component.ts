@@ -41,25 +41,27 @@ export class FinanceiroVendaComponent implements OnInit {
 
   carregarFinanceiro() {
     if (this.venda) {
-      this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
-      this.vendaItensEntrada.forEach(item => {
-        item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
-        item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
-      });
+      if (this.venda.vendaProdutos) {
+        this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
+        this.vendaItensEntrada.forEach(item => {
+          item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
+          item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
+        });
 
-      this.vendaItensSaidaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
-        item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO');
-      this.vendaItensSaidaComissao.forEach(item => {
-        item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
-        item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
-      });
+        this.vendaItensSaidaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
+          item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO');
+        this.vendaItensSaidaComissao.forEach(item => {
+          item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
+          item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
+        });
 
-      this.vendaItensSaidaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
-        item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO');
-      this.vendaItensSaidaGasto.forEach(item => {
-        item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
-        item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
-      });
+        this.vendaItensSaidaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
+          item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO');
+        this.vendaItensSaidaGasto.forEach(item => {
+          item.vendaValorPrevisto = this.venda.vendaValorPrevisto.filter(c => c.produtosItensId === item.id)[0];
+          item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
+        });
+      }
     }
   }
 

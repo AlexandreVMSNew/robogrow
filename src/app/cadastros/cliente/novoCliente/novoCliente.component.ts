@@ -100,7 +100,7 @@ export class NovoClienteComponent implements OnInit {
         telefone: ['', Validators.required],
         celular: [''],
         cnpjCpf: ['', Validators.required],
-        iE: [''],
+        ie: [''],
         estadoId: [0, Validators.required],
         cidadeId: [0, Validators.required],
         cep: ['', Validators.required],

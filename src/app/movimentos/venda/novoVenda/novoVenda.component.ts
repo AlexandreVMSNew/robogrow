@@ -14,6 +14,8 @@ import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.servic
 import { EmpresaService } from 'src/app/_services/Cadastros/Empresas/empresa.service';
 import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
+import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
+import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
 @Component({
   selector: 'app-novo-venda',
   templateUrl: './novoVenda.component.html'
@@ -34,6 +36,9 @@ export class NovoVendaComponent implements OnInit {
   produtos: Produto[];
   produtoIdSelecionado: any;
 
+  planosPagamento: PlanoPagamento[];
+  planoPagamentoIdSelecionado: any;
+
   produtoVenda: VendaProduto[];
   venda: Venda;
   constructor(private fb: FormBuilder,
@@ -43,6 +48,7 @@ export class NovoVendaComponent implements OnInit {
               private produtoService: ProdutoService,
               private pessoaService: PessoaService,
               private empresaService: EmpresaService,
+              private planoPagamentoService: PlanoPagamentoService,
               private vendaService: VendaService) { }
 
   ngOnInit() {
@@ -50,6 +56,7 @@ export class NovoVendaComponent implements OnInit {
     this.getProdutos();
     this.getEmpresas();
     this.getVendedores();
+    this.getPlanoPagamento();
     this.validarForm();
   }
 
@@ -59,7 +66,8 @@ export class NovoVendaComponent implements OnInit {
         clientesId: ['', Validators.required],
         produtoId: ['', Validators.required],
         empresasId: ['', Validators.required],
-        vendedorId: ['', Validators.required]
+        vendedorId: ['', Validators.required],
+        planoPagamentoId: ['', Validators.required]
     });
   }
 
@@ -130,6 +138,16 @@ export class NovoVendaComponent implements OnInit {
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar vendedores: ${error.error}`);
+    });
+  }
+
+  getPlanoPagamento() {
+    this.planoPagamentoService.getAllPlanoPagamento().subscribe(
+      (_PLANOS: PlanoPagamento[]) => {
+      this.planosPagamento = _PLANOS.filter(c => c.status !== 'INATIVO');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar Planos de Pagamento: ${error.error}`);
     });
   }
 }

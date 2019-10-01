@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { ActivatedRoute } from '@angular/router';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
-import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
+import html2canvas from 'html2canvas';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
@@ -34,6 +34,7 @@ import * as jsPDF from 'jspdf';
 import { ProdutoGrupoChecks } from 'src/app/_models/Cadastros/Produtos/produtoGrupoChecks';
 import { ProdutoCheckListOpcoes } from 'src/app/_models/Cadastros/Produtos/ProdutoCheckListOpcoes';
 import { ProdutoCheckList } from 'src/app/_models/Cadastros/Produtos/produtoCheckList';
+import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
 
 @Component({
   selector: 'app-editar-venda',
@@ -108,6 +109,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
               private autorizacaoService: AutorizacaoService,
               private socketService: SocketService,
               private emailService: EmailService,
+              private planoPagamentoService: PlanoPagamentoService,
               private notificacaoService: NotificacaoService,
               private changeDetectionRef: ChangeDetectorRef) {
                 this.vendaService.atualizaVenda.subscribe(x => {
@@ -121,6 +123,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.getProdutos();
     this.getEmpresas();
     this.getVendedores();
+    this.getPlanoPagamento();
     this.getAutorizacoes();
     this.validarForm();
   }
@@ -184,7 +187,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
           this.cadastroForm.patchValue(this.venda);
           this.vendaService.atualizarFinanceiroVenda();
-          console.log(this.venda);
+
         }, error => {
           this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
           console.log(error);
@@ -257,37 +260,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
   }
 
+
   gerarPDF() {
-    const documento: jsPDF = new jsPDF();
-    const empresa: Empresa = this.empresas.filter(c => c.id === this.empresaIdSelecionado)[0];
-    const cliente: Cliente = this.venda.clientes;
-    documento.line(10, 10, 200, 10);
-    documento.setFontSize(10);
-    documento.setFontType('bold');
-    documento.text('Nome Fantasia: ' , 10, 15);
-    documento.setFontType('regular');
-    documento.text(empresa.nomeFantasia, 40, 15);
-    documento.setFontType('bold');
-    documento.text('Razão Social: ' , 10, 20);
-    documento.setFontType('regular');
-    documento.text(empresa.razaoSocial, 34, 20);
-    documento.setFontType('bold');
-    documento.text('CNPJ/CPF: ' , 10, 25);
-    documento.setFontType('regular');
-    documento.text(empresa.cnpjCpf, 30, 25);
-
-    documento.line(10, 30, 200, 30);
-    documento.setFontType('bold');
-    documento.text('Nome Fantasia: ' , 10, 35);
-    documento.setFontType('regular');
-    documento.text(cliente.nomeFantasia, 40, 35);
-    documento.setFontType('bold');
-    documento.text('Razão Social: ' , 10, 40);
-    documento.setFontType('regular');
-    documento.text(cliente.razaoSocial, 34, 40);
-    documento.rect(50, 50, 100, 100);
-
-    documento.output('dataurlnewwindow');
+    this.vendaService.setPedidoVendaStatus(true);
   }
 
   disabledStatus() {
@@ -346,7 +321,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         vendedorId: ['', Validators.required],
         empresasId: ['', Validators.required],
         produtoId: ['', Validators.required],
+        planoPagamentoId: ['', Validators.required],
         status: ['', Validators.required],
+        observacoes: [''],
         dataEmissao: [''],
         dataNegociacao: [''],
         dataFinalizado: [''],
@@ -401,6 +378,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       });
   }
 
+  getPedidoVenda() {
+    return this.vendaService.getPedidoVendaStatus();
+  }
 
   getProdutos() {
     this.produtoService.getAllProduto().subscribe(
@@ -409,6 +389,16 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar produtos: ${error.error}`);
+    });
+  }
+
+  getPlanoPagamento() {
+    this.planoPagamentoService.getAllPlanoPagamento().subscribe(
+      (_PLANOS: PlanoPagamento[]) => {
+      this.planosPagamento = _PLANOS.filter(c => c.status !== 'INATIVO');
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar Planos de Pagamento: ${error.error}`);
     });
   }
 

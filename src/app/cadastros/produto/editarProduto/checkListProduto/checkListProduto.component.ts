@@ -26,11 +26,12 @@ export class CheckListProdutoComponent implements OnInit {
 
   checkList: ProdutoCheckList[] = [];
   checkListOpcoes: ProdutoCheckListOpcoes[] = [];
-
+  produtoGrupoId: number;
   constructor(private produtoService: ProdutoService,
               private fb: FormBuilder,
               private toastr: ToastrService) {
-                this.produtoService.atualizaProdutosGruposCheck.subscribe(x => {
+                this.produtoService.atualizaProdutosGruposCheck.subscribe((produtoGrupos: ProdutoGrupoChecks[]) => {
+                  this.produtoGrupoChecks = produtoGrupos.filter(c => c.id === this.produtoGrupoId)[0];
                   this.carregarGrupoCheck();
                 });
               }
@@ -44,6 +45,7 @@ export class CheckListProdutoComponent implements OnInit {
 
   carregarGrupoCheck() {
     if (this.produtoGrupoChecks) {
+      this.produtoGrupoId = this.produtoGrupoChecks.id;
       this.cadastroGrupoCheckForm.patchValue(this.produtoGrupoChecks);
       this.checkList = this.produtoGrupoChecks.checkList;
       this.checkListOpcoes = this.produtoGrupoChecks.checkListOpcoes;
@@ -83,7 +85,21 @@ export class CheckListProdutoComponent implements OnInit {
     );
   }
 
-  cadastrarCheck(template: any, templateGrupo: any) {
+  salvarGrupoCheck() {
+    this.produtoGrupoChecks = Object.assign(this.cadastroGrupoCheckForm.value, { checkList: null,
+       checkListOpcoes: null, produtosId: this.produto.id});
+    this.produtoService.editarProdutoGrupoCheck(this.produtoGrupoChecks).subscribe(
+      () => {
+        this.produtoService.atualizarProdutos();
+        this.toastr.success('Grupo editado com Sucesso!');
+      }, error => {
+        console.log(error.error);
+      }
+    );
+  }
+
+
+  cadastrarCheck(template: any) {
     const check  = Object.assign(this.cadastroCheckForm.value, {id: 0, produtosGrupoChecksId: this.produtoGrupoChecks.id});
     this.produtoService.novoProdutoCheckList(check).subscribe(
       () => {
@@ -96,7 +112,7 @@ export class CheckListProdutoComponent implements OnInit {
     );
   }
 
-  cadastrarCheckOpcoes(template: any, templateGrupo: any) {
+  cadastrarCheckOpcoes(template: any) {
     const opcao  = Object.assign(this.cadastroCheckOpcoesForm.value, {id: 0, produtosGrupoChecksId: this.produtoGrupoChecks.id});
     this.produtoService.novoProdutoCheckListOpcoes(opcao).subscribe(
       () => {
