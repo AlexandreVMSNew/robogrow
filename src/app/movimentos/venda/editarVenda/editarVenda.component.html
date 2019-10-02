@@ -114,7 +114,7 @@
         </button>
 
         <button *ngIf="this.gerarPedido == true && !this.autorizadoGerarPedido"
-          style="position:relative;margin-bottom: 15px;" (click)="solicitarAutorizacao()"
+          style="position:relative;margin-bottom: 15px;margin-left:15px;" (click)="solicitarAutorizacao()"
           tooltip="Solicitar Autorização" [disabled]="verificarValorPrevistoLancados()" class="btn btn-lg btn-warning">
           &nbsp;Solicitar Autorização
         </button>

@@ -173,9 +173,14 @@ export class TemplateRecebimentoComponent implements OnInit {
       const dataEmissaoPTBR = this.dataService.getDataPTBR(dataEmissaoSQL);
       const dataVencVariavel = moment(dataEmissaoPTBR, 'DD/MM/YYYY').add('days', diasSoma).format('YYYY-MM-DD');
       const dataVencFixoAux = moment(dataEmissaoPTBR, 'DD/MM/YYYY').add('months', mesSoma).format('YYYY-MM-DD');
-      const dataVencFixo = (this.prazoPrimeiraParcela === 0 && i === 0) ? dataEmissaoPTBR :
+      let dataVencFixo = (this.prazoPrimeiraParcela === 0 && i === 0) ? dataEmissaoPTBR :
                             this.dataService.getDataPTBR(this.setarDiaFixo(dataVencFixoAux, diaFixo));
-
+      if (dataVencFixo.toString().substring(0, 5) === '30/02' || dataVencFixo.toString().substring(0, 5) === '29/02') {
+        dataVencFixo = dataVencFixo.replace(dataVencFixo.toString().substring(0, 5), '28/02');
+      }
+      if (dataVencVariavel.toString().substring(5, 10) === '02-30' || dataVencFixo.toString().substring(5, 10) === '02-29') {
+        dataVencFixo = dataVencFixo.replace(dataVencFixo.toString().substring(5, 10), '02-28');
+      }
       const parcela = Object.assign({id: 0, documento: documentoText,
         dataVencimento: (this.diasFixo === true) ? dataVencFixo : this.dataService.getDataPTBR(dataVencVariavel),
         dataRecebimento: (i === 0 && (dataEmissaoSQL === dataVencVariavel || dataEmissaoSQL === dataVencFixo)) ? dataEmissaoSQL : null,
