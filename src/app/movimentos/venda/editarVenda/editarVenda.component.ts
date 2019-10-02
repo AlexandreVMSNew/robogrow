@@ -233,7 +233,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           usuariosIdNotificacao.forEach(idUsuario => {
             this.socketService.sendSocket('AutorizacaoVendaGerarPedido', idUsuario);
           });
-          this.toastr.success('Cadastrado com sucesso!');
+          this.toastr.success('Pedido de Autorização enviado, aguarde a Resposta!');
         });
       });
     });
@@ -252,8 +252,12 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       autorizado: 0,
       visto: 0
     });
-    this.autorizacaoService.novaAutorizacao(autorizacao).subscribe(() => {
-      this.enviarNotificacoesAutorizacao();
+    this.autorizacaoService.novaAutorizacao(autorizacao).subscribe((result: any) => {
+      if (result.retorno === 'OK') {
+        this.enviarNotificacoesAutorizacao();
+      } else if (result.retorno === 'AUTORIZACAO PENDENTE') {
+        this.toastr.warning(`Já existe uma autorização pendente para esta venda, aguarde.`);
+      }
     }, error => {
       this.toastr.error(`Erro ao tentar solicitar autorizacao: ${error.error}`);
       console.log(error);

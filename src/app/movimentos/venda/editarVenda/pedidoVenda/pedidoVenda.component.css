@@ -5,8 +5,8 @@
 
 table {
 	border-width: 1px;
-	border-spacing: 2px;
-	border-style: outset;
+	border-spacing: 1px;
+	border-style: inset;
 	border-color: black;
 	border-collapse: collapse;
 	background-color: white;

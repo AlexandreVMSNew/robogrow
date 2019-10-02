@@ -113,15 +113,15 @@
           &nbsp;Salvar Alterações [GERAL]
         </button>
 
-        <button *ngIf="this.gerarPedido == true && !this.autorizadoGerarPedido"
+        <button *ngIf="this.gerarPedido == true && this.autorizadoGerarPedido == false"
           style="position:relative;margin-bottom: 15px;margin-left:15px;" (click)="solicitarAutorizacao()"
           tooltip="Solicitar Autorização" [disabled]="verificarValorPrevistoLancados()" class="btn btn-lg btn-warning">
           &nbsp;Solicitar Autorização
         </button>
 
-        <button *ngIf="this.gerarPedido == true"
+        <button *ngIf="this.gerarPedido == true && this.autorizadoGerarPedido == true"
           style="position:relative;margin-bottom: 15px;margin-left:15px;" (click)="gerarPDF()"
-          tooltip="Gerar Pedido de Venda" class="btn btn-lg btn-success" [disabled]="!autorizadoGerarPedido">
+          tooltip="Gerar Pedido de Venda" class="btn btn-lg btn-success">
           &nbsp;Gerar Pedido
         </button>
       </tab>
