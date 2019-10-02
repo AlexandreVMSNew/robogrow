@@ -176,10 +176,10 @@ export class TemplateRecebimentoComponent implements OnInit {
       let dataVencFixo = (this.prazoPrimeiraParcela === 0 && i === 0) ? dataEmissaoPTBR :
                             this.dataService.getDataPTBR(this.setarDiaFixo(dataVencFixoAux, diaFixo));
       if (dataVencFixo.toString().substring(0, 5) === '30/02' || dataVencFixo.toString().substring(0, 5) === '29/02') {
-        dataVencFixo = dataVencFixo.replace(dataVencFixo.toString().substring(0, 5), '28/02');
+        dataVencFixo = dataVencFixo.replace(dataVencFixo.toString().substring(0, 5), '01/03');
       }
       if (dataVencVariavel.toString().substring(5, 10) === '02-30' || dataVencFixo.toString().substring(5, 10) === '02-29') {
-        dataVencFixo = dataVencFixo.replace(dataVencFixo.toString().substring(5, 10), '02-28');
+        dataVencFixo = dataVencFixo.replace(dataVencFixo.toString().substring(5, 10), '03-01');
       }
       const parcela = Object.assign({id: 0, documento: documentoText,
         dataVencimento: (this.diasFixo === true) ? dataVencFixo : this.dataService.getDataPTBR(dataVencVariavel),
