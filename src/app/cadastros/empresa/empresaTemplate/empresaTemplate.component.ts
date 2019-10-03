@@ -10,6 +10,7 @@ import { CidadeService } from 'src/app/_services/Cadastros/Uteis/cidade.service'
 import { EstadoService } from 'src/app/_services/Cadastros/Uteis/estado.service';
 import { Cidade } from 'src/app/_models/Cadastros/Uteis/Cidade';
 import { Estado } from 'src/app/_models/Cadastros/Uteis/Estado';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Component({
   selector: 'app-empresa-template',
@@ -41,6 +42,10 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
   valueCelularPipe = '';
   valueTelefonePipe = '';
   valueIePipe = '';
+
+  arquivoLogo: File;
+
+  baseURLLogo = '';
 
   templateEnabled = false;
 
@@ -82,9 +87,10 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
     .subscribe(
     (_EMPRESA: Empresa) => {
       this.empresa = Object.assign(_EMPRESA);
-
+      this.statusSelecionado = this.empresa.status;
+      this.baseURLLogo = InfoAPI.URL + '/api/empresas/' + this.empresa.id + '/logo/' + this.empresa.nomeArquivoLogo;
+      console.log(this.empresa);
       this.cadastroEmpresa.patchValue(this.empresa);
-
     }, error => {
       this.toastr.error(`Erro ao tentar carregar Empresa: ${error.error}`);
       console.log(error);
@@ -104,8 +110,15 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
       cep: ['', Validators.required],
       endereco: ['', Validators.required],
       bairro: ['', Validators.required],
+      nomeArquivoLogo: [''],
       status: ['', Validators.required]
     });
+  }
+
+  alterarNomeArquivoLogo(event) {
+    if (event.target.files && event.target.files.length) {
+      this.arquivoLogo = event.target.files;
+    }
   }
 
   salvarEmpresa(template: any) {
@@ -120,6 +133,9 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
         });
     } else {
       this.empresa = Object.assign(this.cadastroEmpresa.value);
+      const nomeArquivo = this.empresa.nomeArquivoLogo.split('\\', 3);
+      this.empresa.nomeArquivoLogo = nomeArquivo[2];
+      this.empresaService.enviarLogo(this.empresa.id, this.arquivoLogo, nomeArquivo[2]).subscribe();
       this.empresaService.editarEmpresa(this.empresa).subscribe(
         () => {
           this.toastr.success(`Editado com Sucesso!`);

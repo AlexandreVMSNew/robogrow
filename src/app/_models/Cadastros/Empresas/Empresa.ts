@@ -15,5 +15,6 @@ export class Empresa {
     cep: string;
     endereco: string;
     bairro: string;
+    nomeArquivoLogo: string;
     status: string;
 }

@@ -34,6 +34,13 @@ export class EmpresaService {
     return this.http.get<Empresa>(`${this.baseURL}/idultimaempresa`);
   }
 
+  enviarLogo(empresaId: number, arquivo: File, nomeArquivo) {
+    const arquivoUpload = arquivo[0] as File;
+    const formData = new FormData();
+    formData.append('arquivo', arquivoUpload, nomeArquivo);
+    return this.http.post(`${this.baseURL}/uploadlogo/${empresaId}`, formData);
+  }
+
   novaEmpresa(empresa: Empresa) {
     return this.http.post(`${this.baseURL}/novo`, empresa);
   }

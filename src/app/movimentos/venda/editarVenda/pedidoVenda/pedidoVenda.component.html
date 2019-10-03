@@ -15,6 +15,10 @@
       <div id="pedido" class="modal-body">
 
         <div class="row">
+          <div style="margin-left: 25px;text-align: left;" class="pull-left">
+            <img src="{{this.baseURLLogo}}"
+            style="width: 225px;height: 100px;" alt="SEM LOGO">
+          </div>
           <div style="margin-right: 25px;font-size:15px;text-align: right;" class="pull-right">
             <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.nomeFantasia}}</label><br />
             <label style="font-weight: bold;margin-bottom: 0px;">CNPJ:</label>&nbsp;
@@ -37,10 +41,12 @@
         <hr style="margin-top: 5px;margin-bottom: 5px;" width="100%">
         <div class="row">
           <div style="margin-left: 25px;font-size:15px;" class="pull-left">
-            <label style="font-weight: bold;">Técnico/Vendedor:</label>&nbsp;
+            <label style="font-weight: bold;font-size:20px;">Venda:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;font-size:20px;">{{venda.numeroAno}}</label>
+            <label style="font-weight: bold;margin-left:70px;">Técnico/Vendedor:</label>&nbsp;
             <label style="font-weight: normal;">{{venda.vendedor.nome}}</label>
           </div>
-          <div style="margin-right: 25px;font-size:15px;text-align: right;" class="pull-right">
+          <div style="margin-right: 25px;margin-top: 5px;font-size:15px;" class="pull-right">
             <label style="font-weight: bold;">Data/Hora Emissão:</label>&nbsp;
             <label style="font-weight: normal;">{{dataHoraEmissao | date:'dd/MM/yyyy HH:mm'}}</label>
           </div>
@@ -54,7 +60,9 @@
             <label style="font-weight: bold;margin-bottom: 0px;">Nome Fantasia:</label>&nbsp;
             <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.nomeFantasia}}</label>
             <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">Razão Social:</label>&nbsp;
-            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.razaoSocial}}</label><br />
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.razaoSocial}}</label>
+            <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">Contato:</label>&nbsp;
+            <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.contato}}</label><br />
             <label style="font-weight: bold;margin-bottom: 0px;">CNPJ:</label>&nbsp;
             <label style="font-weight: normal;margin-bottom: 0px;">{{venda.clientes.cnpjCpf}}</label>
             <label style="font-weight: bold;margin-left:25px;margin-bottom: 0px;">IE:</label>&nbsp;
@@ -76,10 +84,8 @@
           </div>
         </div>
 
-        <hr style="margin-top: 5px;" width="100%">
+        <hr style="margin-top: 5px;margin-bottom: 50px;" width="100%">
         
-        <label style="font-weight: bold;margin-left:25px;margin-bottom: 50px;font-size:20px;">N° Venda:</label>&nbsp;
-        <label style="font-weight: normal;margin-bottom: 50px;font-size:20px;">{{venda.numeroAno}}</label>
         <div class="row">
           <div class="col-md-12">
 

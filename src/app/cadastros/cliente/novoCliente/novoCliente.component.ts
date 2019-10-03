@@ -96,7 +96,7 @@ export class NovoClienteComponent implements OnInit {
         nomeFantasia: ['', Validators.required],
         grupoId: [0, Validators.required],
         categoria: [''],
-        proprietario: [''],
+        contato: [''],
         telefone: ['', Validators.required],
         celular: [''],
         cnpjCpf: ['', Validators.required],

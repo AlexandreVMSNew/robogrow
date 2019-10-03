@@ -150,6 +150,17 @@
               <ng-select [clearable]="false" [items]="status" [(ngModel)]="statusSelecionado" formControlName="status">
               </ng-select>
             </div>
+            <div class="form-group col-md-3">
+              <label>Logo:</label><br/>
+              <button class="btn btn-success" (click)="file.click()">Selecionar Logo</button>
+              <input  type="file" #file  formControlName="nomeArquivoLogo"
+              style="display: none" (change)="alterarNomeArquivoLogo($event)"/>
+
+            </div>
+            <div *ngIf="this.empresa && this.empresa.nomeArquivoLogo != ''" class="form-group col-md-3">
+              <img src="{{this.baseURLLogo}}"
+              style="width: 150px;height: 50px;" alt="SEM LOGO">
+            </div>
           </div>
 
         </form>

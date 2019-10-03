@@ -11,7 +11,7 @@ export class Cliente {
         nomeFantasia: string;
         grupoId: number;
         categoria: string;
-        proprietario: string;
+        contato: string;
         telefone: string;
         celular: string;
         email: string;

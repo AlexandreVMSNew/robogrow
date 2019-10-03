@@ -151,7 +151,7 @@ export class EditarClienteComponent implements OnInit, AfterViewInit {
         nomeFantasia: ['', Validators.required],
         grupoId: [0],
         categoria: [''],
-        proprietario: [''],
+        contato: [''],
         telefone: ['', Validators.required],
         celular: [''],
         cnpjCpf: ['', Validators.required],

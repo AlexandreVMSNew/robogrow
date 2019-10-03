@@ -6,6 +6,7 @@ import * as jsPDF from 'jspdf';
 import * as moment from 'moment';
 import { VendaValorPrevisto } from 'src/app/_models/Movimentos/Venda/VendaValorPrevisto';
 import { VendaProduto } from 'src/app/_models/Movimentos/Venda/VendaProduto';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 @Component({
   selector: 'app-pedido-venda',
   templateUrl: './pedidoVenda.component.html',
@@ -19,6 +20,7 @@ export class PedidoVendaComponent implements OnInit {
   dataHoraEmissao: any;
   valorTotal = 0;
 
+  baseURLLogo = '';
   constructor(private vendaService: VendaService) { }
 
   ngOnInit() {
@@ -27,6 +29,9 @@ export class PedidoVendaComponent implements OnInit {
   }
 
   carregarValorVenda() {
+    if (this.venda) {
+      this.baseURLLogo = InfoAPI.URL + '/api/empresas/' + this.venda.empresasId + '/logo/' + this.venda.empresas.nomeArquivoLogo;
+    }
     this.venda.vendaValorPrevisto.forEach((valorPrevisto: VendaValorPrevisto) => {
       this.venda.vendaProdutos.forEach((vendaProduto: VendaProduto) => {
         const produtoItem = vendaProduto.produtos.itens.filter(c => c.id === valorPrevisto.produtosItensId);

@@ -30,7 +30,6 @@ import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 import { Autorizacao } from 'src/app/_models/Autorizacoes/Autorizacao';
 import { EmailService } from 'src/app/_services/Email/email.service';
 import { Email } from 'src/app/_models/Email/Email';
-import * as jsPDF from 'jspdf';
 import { ProdutoGrupoChecks } from 'src/app/_models/Cadastros/Produtos/produtoGrupoChecks';
 import { ProdutoCheckListOpcoes } from 'src/app/_models/Cadastros/Produtos/ProdutoCheckListOpcoes';
 import { ProdutoCheckList } from 'src/app/_models/Cadastros/Produtos/produtoCheckList';
