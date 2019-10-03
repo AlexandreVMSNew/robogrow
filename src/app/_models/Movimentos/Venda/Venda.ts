@@ -10,6 +10,7 @@ import { PlanoPagamento } from '../../Cadastros/PlanoPagamento/PlanoPagamento';
 
 export class Venda {
     id: number;
+    numeroAno: string;
     empresasId: number;
     empresas: Empresa;
     vendedorId: number;

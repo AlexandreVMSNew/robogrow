@@ -131,7 +131,6 @@ export class NovoVendaComponent implements OnInit {
   getVendedores() {
     this.pessoaService.getAllPessoa().subscribe(
       (_PESSOAS: Pessoa[]) => {
-      console.log(_PESSOAS);
       this.vendedores = _PESSOAS.filter(pessoa =>
         pessoa.pessoaTipos.filter(c => c.tiposPessoa.descricao === 'VENDEDOR').length > 0
         && pessoa.status !== 'INATIVO');

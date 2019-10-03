@@ -321,6 +321,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   validarForm() {
     this.cadastroForm = this.fb.group({
         id:  [''],
+        numeroAno: [''],
         clientesId: ['', Validators.required],
         vendedorId: ['', Validators.required],
         empresasId: ['', Validators.required],
@@ -380,6 +381,20 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
         console.log(error);
       });
+  }
+
+  converterVenda() {
+    this.vendaService.getAllVenda().subscribe((_VENDAS: Venda[]) => {
+      let numero = 1;
+      const ano = 2019;
+      _VENDAS.forEach((venda: Venda) => {
+        venda = Object.assign(venda, {numero: numero.toString() + '/' + ano.toString()});
+        numero++;
+        this.vendaService.editarVenda(venda).subscribe(() => {
+          console.log('Editada: ' + numero.toString() + '/' + ano.toString());
+        });
+      });
+    });
   }
 
   getPedidoVenda() {

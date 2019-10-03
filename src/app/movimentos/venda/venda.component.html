@@ -16,7 +16,7 @@
     <table style="margin-top: 15px;" class="table table-striped table-bordered mt-4">
         <thead class="thead-light">
           <tr>
-            <th>Id</th>
+            <th>Número</th>
             <th>Cliente</th>
             <th>Data Emissão</th>
             <th style="text-align: center;">Status</th>
@@ -25,7 +25,7 @@
         </thead>
         <tbody *ngIf="vendas && vendas.length">
           <tr *ngFor="let venda of vendas | paginate: { itemsPerPage: 50,currentPage: paginaAtual, totalItems: totalRegistros };">
-            <td>{{ venda.id }}</td>
+            <td>{{ venda.numeroAno }}</td>
             <td style="white-space: nowrap;">{{ venda.clientes.nomeFantasia }}</td>
             <td style="white-space: nowrap;">{{ venda.dataEmissao  | date:'dd/MM/yyyy HH:mm'}}</td>
             <td style="text-align: center;">
