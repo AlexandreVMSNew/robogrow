@@ -247,9 +247,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         }, error => {
           console.log(error.error);
         });
-        const notificacao: Notificacao[] = [];
+        const notificacoes: Notificacao[] = [];
         usuariosIdNotificacao.forEach(idUsuario => {
-          notificacao.push(Object.assign({
+          notificacoes.push(Object.assign({
             id: 0,
             usuarioId: idUsuario,
             dataHora: dataAtual,
@@ -258,10 +258,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
             visto: 0
           }));
         });
-        this.notificacaoService.novasNotificacoes(notificacao).subscribe(
+        this.notificacaoService.novasNotificacoes(notificacoes).subscribe(
           () => {
-          usuariosIdNotificacao.forEach(idUsuario => {
-            this.socketService.sendSocket('AutorizacaoVendaGerarPedido', idUsuario);
+          notificacoes.forEach(notificacao => {
+            this.socketService.sendSocket('AutorizacaoVendaGerarPedido', notificacao);
           });
           this.toastr.success('Pedido de Autorização enviado, aguarde a Resposta!');
         });

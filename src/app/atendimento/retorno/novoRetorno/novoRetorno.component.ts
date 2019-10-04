@@ -26,7 +26,6 @@ export class NovoRetornoComponent implements OnInit {
   retorno: Retorno;
   retornoObservacao: RetornoObservacao;
   _observacao = '';
-  notificacao: Notificacao;
 
   prioridades = ['NORMAL', 'URGENTE'];
   prioridadeSelecionado = 'NORMAL';
@@ -129,7 +128,7 @@ export class NovoRetornoComponent implements OnInit {
             this.retornoService.novoLog(retornoLog).subscribe(
               () => {
                 this.toastr.success(`Retorno Finalizado!`);
-                this.socketService.sendSocket('StatusRetornoAlterado', 'true');
+                this.socketService.sendSocket('StatusRetornoAlterado', null);
               }, error => {
                 this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
                 console.log(error.error);
@@ -137,10 +136,17 @@ export class NovoRetornoComponent implements OnInit {
           });
 
           if (this.retorno.usuarioId !== 0) {
-            this.notificacao = Object.assign({usuarioId: this.retorno.usuarioId, dataHora: dataAtual, tipo: 'Retorno', visto: 0});
-            this.notificacaoService.novaNotificacao(this.notificacao).subscribe(
+            const notificacao = Object.assign({
+              id: 0,
+              usuarioId: this.retorno.usuarioId,
+              dataHora: dataAtual,
+              titulo: 'Retorno Específico!',
+              mensagem: 'Foi adicionado um Novo Retorno específico para você!',
+              visto: 0
+            });
+            this.notificacaoService.novaNotificacao(notificacao).subscribe(
               () => {
-                this.socketService.sendSocket('NotificacaoUsuarioRetorno', this.retorno.usuarioId);
+                this.socketService.sendSocket('NotificacaoUsuarioRetorno', notificacao);
                 this.toastr.success('Cadastrado com sucesso!');
                 this.router.navigate([`/atendimentos/retornos`]);
               });
@@ -149,7 +155,7 @@ export class NovoRetornoComponent implements OnInit {
             this.router.navigate([`/atendimentos/retornos`]);
           }
 
-          this.socketService.sendSocket('NovoRetorno', 'true');
+          this.socketService.sendSocket('NovoRetorno', null);
         }, error => {
           console.log(error.error);
         }

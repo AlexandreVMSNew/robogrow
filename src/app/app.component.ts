@@ -330,35 +330,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   getSocket(evento: string) {
-    this.socketService.getSocket(evento).subscribe((data: any) => {
-      if (data) {
-        if (evento === 'NovaObservacao') {
-          const  notification = new Notification(`Olá, ${this.permissaoService.getUsuario()} !`, {
-            body: `O usuário ${data.usuario} adicionou\numa nova observação no Retorno ${data.retornoId}.`
-          });
-        } else if (evento === 'NotificacaoUsuarioRetorno') {
-          if (Number(data) === Number(this.idUsuario)) {
-            const  notification = new Notification(`Retorno Específico!`, {
-              body: 'Foi adicionado um Novo Retorno específico para você!'
-            });
-            this.getNotificacoes();
-          }
-        } else if (evento === 'AutorizacaoVendaGerarPedido') {
-          if (Number(data) === Number(this.idUsuario)) {
-            const  notification = new Notification(`Autorização Pedido de Venda!`, {
-              body: 'Um novo Pedido de Venda precisa ser Autorizado!'
-            });
-            this.getNotificacoes();
-          }
-        } else if (evento === 'RespAutorizacaoVendaGerarPedido') {
-          if (Number(data.solicitanteId) === Number(this.idUsuario)) {
-            const  notification = new Notification(`Resposta Autorização Pedido de Venda!`, {
-              body: (data.autorizado === 1) ? `Seu pedido de Venda foi autorizado pelo Usuário: ${data.autorizadorNome}.` :
-                                              `Seu pedido de Venda foi negado pelo Usuário: ${data.autorizadorNome}.`
-            });
-            this.getNotificacoes();
-          }
-        }
+    this.socketService.getSocket(evento).subscribe((info: Notificacao) => {
+      if (info) {
+        const  notification = new Notification(info.titulo, {body: info.mensagem});
+        this.getNotificacoes();
       }
     });
   }

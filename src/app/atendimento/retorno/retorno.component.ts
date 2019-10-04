@@ -134,7 +134,7 @@ export class RetornoComponent implements OnInit {
         this.retornoServices.novoLog(retornoLog).subscribe(
           () => {
             this.toastr.success(`Status alterado para: ${newStatus}!`);
-            this.socketService.sendSocket('StatusRetornoAlterado', 'true');
+            this.socketService.sendSocket('StatusRetornoAlterado', null);
           }, error => {
             this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
             console.log(error.error);
@@ -157,7 +157,7 @@ export class RetornoComponent implements OnInit {
         this.retornoServices.novoLog(retornoLog).subscribe(
           () => {
             this.toastr.success(`Retorno Finalizado!`);
-            this.socketService.sendSocket('StatusRetornoAlterado', 'true');
+            this.socketService.sendSocket('StatusRetornoAlterado', null);
           }, error => {
             this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
             console.log(error.error);
@@ -313,8 +313,16 @@ export class RetornoComponent implements OnInit {
         () => {
           this.getRetornoInformacoes(this.observacaoId, this.retornoTelefone, this.retornoSolicitante, null);
           this.toastr.success('Observação cadastrada com sucesso!');
-          const InfoObs = Object.assign({retornoId: this.observacaoId, usuario: this.permissaoService.getUsuario()});
-          this.socketService.sendSocket('NovaObservacao', InfoObs);
+          const notificacao = Object.assign({
+            id: 0,
+            usuarioId: 0,
+            dataHora: dataAtual,
+            titulo: 'Nova Observação!',
+            mensagem: `O Usuário ${this.permissaoService.getUsuario()} adicionou\n
+            uma nova observação no Retorno ${this.observacaoId}.`,
+            visto: 0
+          });
+          this.socketService.sendSocket('NovaObservacao', notificacao);
         }, error => {
           console.log(error.error);
         }

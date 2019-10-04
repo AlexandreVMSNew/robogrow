@@ -133,11 +133,7 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
           mensagem: msg,
           visto: 0
         });
-        const info = {
-          autorizadorNome: nomeAutorizador,
-          solicitanteId: idSolicitante,
-          autorizado: autorizadoValor
-        };
+
         const email: Email = {
           emailRemetente: 'virtualwebsistema@gmail.com',
           nomeRemetente: 'Virtual Web',
@@ -157,7 +153,7 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
         });
         this.notificacaoService.novaNotificacao(notificacao).subscribe(
           () => {
-          this.socketService.sendSocket('RespAutorizacaoVendaGerarPedido', info);
+          this.socketService.sendSocket('RespAutorizacaoVendaGerarPedido', notificacao);
         });
         this.autorizacaoService.atualizarAutorizacoes();
         this.toastr.success(`Editado com Sucesso!`);

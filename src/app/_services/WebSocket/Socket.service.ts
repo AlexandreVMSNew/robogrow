@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Socket } from 'ngx-socket-io';
 import * as io from 'socket.io-client';
+import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 
 export interface Dados {
     info: any;
@@ -17,7 +18,7 @@ export class SocketService {
         this.socket = io(this.url);
     }
 
-    public sendSocket(evento: string, dados: any) {
+    public sendSocket(evento: string, dados: Notificacao) {
         this.socket.emit(evento, dados);
     }
 
