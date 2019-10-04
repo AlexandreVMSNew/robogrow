@@ -85,8 +85,8 @@ export class RetornoComponent implements OnInit {
   }
 
   getSocket(evento: string) {
-    this.socketService.getSocket(evento).subscribe((data: any) => {
-      if (data === 'true') {
+    this.socketService.getSocket(evento).subscribe((info: any) => {
+      if (info === null) {
         this.getRetornosNaoFinalizados();
 
         if (evento === 'NovoRetorno') {
