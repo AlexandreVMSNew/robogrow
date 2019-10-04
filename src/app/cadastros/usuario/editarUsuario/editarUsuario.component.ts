@@ -59,7 +59,7 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
 
   ngAfterViewInit() {
     this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'PRODUTOS'})).subscribe((_PERMISSOES: Permissao[]) => {
+      Object.assign({formulario: 'USUARIOS'})).subscribe((_PERMISSOES: Permissao[]) => {
        this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
        this.visualizarOcorrencia = this.permissaoService.verificarPermissao(_PERMISSOES
           .filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'OCORRENCIA')[0]);

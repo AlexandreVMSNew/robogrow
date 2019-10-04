@@ -1,11 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewChecked, AfterViewInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { ActivatedRoute } from '@angular/router';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
-import html2canvas from 'html2canvas';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
@@ -79,7 +78,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   idVenda: number;
   venda: Venda;
 
-  status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
+  status = [''];
   statusSelecionado: string;
 
   planosPagamento: PlanoPagamento[];
@@ -123,7 +122,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.getEmpresas();
     this.getVendedores();
     this.getPlanoPagamento();
-    this.getAutorizacoes();
     this.validarForm();
   }
 
@@ -151,16 +149,19 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.gerarPedido = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR PEDIDO')[0]);
 
-      const form = this.cadastroForm.controls;
-      if (this.editar) {
-        form.empresasId.enable(); form.vendedorId.enable(); form.clientesId.enable(); form.produtoId.enable();
+      if (this.editar === true) {
+        this.cadastroForm.controls.empresasId.enable(); this.cadastroForm.controls.vendedorId.enable();
+        this.cadastroForm.controls.clientesId.enable(); this.cadastroForm.controls.produtoId.enable();
       } else {
-        form.empresasId.disable(); form.vendedorId.disable(); form.clientesId.disable(); form.produtoId.disable();
+        this.cadastroForm.controls.empresasId.disable(); this.cadastroForm.controls.vendedorId.disable();
+        this.cadastroForm.controls.clientesId.disable(); this.cadastroForm.controls.produtoId.disable();
       }
 
-      form.dataFinalizado.disable();
-      (this.editarDataNegociacao || form.status.value === 'EM NEGOCIAÇÃO') ? form.dataNegociacao.enable() : form.dataNegociacao.disable();
-      (this.editarStatus) ? form.status.enable() : form.status.disable();
+      (this.editarDataNegociacao === true || this.statusSelecionado === 'EM NEGOCIAÇÃO') ?
+       this.cadastroForm.controls.dataNegociacao.enable() : this.cadastroForm.controls.dataNegociacao.disable();
+
+      (this.editarStatus === true) ? this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
+      this.getAutorizacoes();
       this.carregarVenda();
     });
 
@@ -178,6 +179,11 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
             dataFinalizado: this.dataService.getDataPTBR(this.venda.dataFinalizado)
           });
 
+          if (this.venda.status === 'EM NEGOCIAÇÃO' || this.editarStatus === true) {
+            this.status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
+          } else {
+            this.status = ['EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
+          }
           this.produtoIdSelecionado = this.venda.vendaProdutos[0].produtosId;
           this.empresaIdSelecionado = this.venda.empresasId;
           this.vendedorIdSelecionado = this.venda.vendedorId;
@@ -186,12 +192,30 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
           this.cadastroForm.patchValue(this.venda);
           this.vendaService.atualizarFinanceiroVenda();
-
         }, error => {
           this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
           console.log(error);
         });
   }
+
+  validarForm() {
+    this.cadastroForm = this.fb.group({
+        id:  [''],
+        numeroAno: [''],
+        clientesId: ['', Validators.required],
+        vendedorId: ['', Validators.required],
+        empresasId: ['', Validators.required],
+        produtoId: ['', Validators.required],
+        planoPagamentoId: ['', Validators.required],
+        status: ['', Validators.required],
+        observacoes: [''],
+        dataEmissao: [''],
+        dataNegociacao: [''],
+        dataFinalizado: [''],
+        dataHoraUltAlt: ['']
+    });
+  }
+
 
   enviarNotificacoesAutorizacao() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
@@ -225,7 +249,14 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         });
         const notificacao: Notificacao[] = [];
         usuariosIdNotificacao.forEach(idUsuario => {
-          notificacao.push(Object.assign({id: 0, usuarioId: idUsuario, dataHora: dataAtual, tipo: 'Autorização', visto: 0}));
+          notificacao.push(Object.assign({
+            id: 0,
+            usuarioId: idUsuario,
+            dataHora: dataAtual,
+            titulo: 'Autorização de Venda',
+            mensagem: 'Você tem um novo pedido de Autorização',
+            visto: 0
+          }));
         });
         this.notificacaoService.novasNotificacoes(notificacao).subscribe(
           () => {
@@ -245,12 +276,14 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       id: 0,
       solicitanteId: this.permissaoService.getUsuarioId(),
       formularioId: this.idVenda,
+      formularioIdentificacao: this.venda.numeroAno,
       formulario: 'VENDA',
       acao: 'GERAR PEDIDO',
       dataHoraSolicitado: dataAtual,
       autorizado: 0,
       visto: 0
     });
+    console.log(autorizacao);
     this.autorizacaoService.novaAutorizacao(autorizacao).subscribe((result: any) => {
       if (result.retorno === 'OK') {
         this.enviarNotificacoesAutorizacao();
@@ -272,9 +305,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     if (this.venda) {
       if (this.venda.status === 'FINALIZADO') {
         this.cadastroForm.get('status').disable();
-        return true;
-      } else {
-        this.cadastroForm.get('status').enable();
         return true;
       }
     }
@@ -315,24 +345,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       }
     }
     return null;
-  }
-
-  validarForm() {
-    this.cadastroForm = this.fb.group({
-        id:  [''],
-        numeroAno: [''],
-        clientesId: ['', Validators.required],
-        vendedorId: ['', Validators.required],
-        empresasId: ['', Validators.required],
-        produtoId: ['', Validators.required],
-        planoPagamentoId: ['', Validators.required],
-        status: ['', Validators.required],
-        observacoes: [''],
-        dataEmissao: [''],
-        dataNegociacao: [''],
-        dataFinalizado: [''],
-        dataHoraUltAlt: ['']
-    });
   }
 
   alterarStatusBoxInformacoes() {
@@ -427,6 +439,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       if (this.autorizacoes.filter(c => c.autorizado === 1).length > 0) {
         this.autorizadoGerarPedido = true;
       }
+      (this.autorizadoGerarPedido === true) ?
+      this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar autorizacoes: ${error.error}`);

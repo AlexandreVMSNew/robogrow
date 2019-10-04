@@ -93,6 +93,7 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
       solicitanteId: [''],
       autorizadorId: [''],
       formularioId: [''],
+      formularioIdentificacao: [''],
       formulario: [''],
       acao: [''],
       objeto: [''],
@@ -116,7 +117,18 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
       () => {
         const idSolicitante = this.cadastroAutorizacao.get('solicitanteId').value;
         const nomeAutorizador = this.permissaoService.getUsuario();
-        const notificacao = Object.assign({id: 0, usuarioId: idSolicitante, dataHora: dataAtual, tipo: 'Resposta Autorização', visto: 0});
+        const msg = `Sua solicitação para ${this.autorizacao.acao}
+         ${(this.autorizacao.objeto) ? this.autorizacao.objeto : ''} em ${this.autorizacao.formulario}
+        (${this.autorizacao.formularioIdentificacao})
+        foi ${(autorizadoValor === 1) ? 'AUTORIZADO' : 'NEGADO'}.`;
+        const notificacao = Object.assign({
+          id: 0,
+          usuarioId: idSolicitante,
+          dataHora: dataAtual,
+          titulo: 'Resposta Autorização',
+          mensagem: msg,
+          visto: 0
+        });
         const info = {
           autorizadorNome: nomeAutorizador,
           solicitanteId: idSolicitante,

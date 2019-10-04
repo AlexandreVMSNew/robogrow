@@ -7,6 +7,7 @@ export class Autorizacao {
     autorizadorId: number;
     autorizador: Usuario;
     formularioId: number;
+    formularioIdentificacao: string;
     formulario: string;
     acao: string;
     objeto: string;

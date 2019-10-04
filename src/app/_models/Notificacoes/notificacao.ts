@@ -4,7 +4,8 @@ export class Notificacao {
     id: number;
     usuarioId: number;
     usuario: Usuario;
-    tipo: string;
+    titulo: string;
+    mensagem: string;
     dataHora: Date;
     visto: number;
 }
