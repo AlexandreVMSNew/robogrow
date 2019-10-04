@@ -20,7 +20,7 @@
                   <i class="fa fa-bell-o"></i>
                   <span *ngIf="getQtdNotificacoes() > 0" class="label label-warning">{{getQtdNotificacoes()}}</span>
                 </a>
-                <div *dropdownMenu class="dropdown-menu" style="width: 450px;">
+                <div *dropdownMenu class="dropdown-menu" style="width: 400px;">
 
                 <li class="header">Você tem {{getQtdNotificacoes()}} Notificações</li>
                 <li>
@@ -34,7 +34,7 @@
                                 <i class="fa fa-clock-o "></i>
                                 [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
                             </h4>
-                            <p style="margin-left:10px;">{{notificacao.mensagem}}.</p>
+                            <p style="margin-left:10px;">{{notificacao.mensagem}}</p>
                           </a>
                         </li>
                       </div>

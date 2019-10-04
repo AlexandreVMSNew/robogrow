@@ -12,6 +12,8 @@ import * as moment from 'moment';
 import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.service';
 import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
+import { Email } from 'src/app/_models/Email/Email';
+import { EmailService } from 'src/app/_services/Email/email.service';
 @Component({
   selector: 'app-autorizacao-template',
   templateUrl: './autorizacaoTemplate.component.html',
@@ -45,6 +47,7 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
               private changeDetectionRef: ChangeDetectorRef,
               private autorizacaoService: AutorizacaoService,
               private notificacaoService: NotificacaoService,
+              private emailService: EmailService,
               private socketService: SocketService) {
               }
 
@@ -116,6 +119,7 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
     this.autorizacaoService.editarAutorizacao(this.autorizacao).subscribe(
       () => {
         const idSolicitante = this.cadastroAutorizacao.get('solicitanteId').value;
+        const emailSolicitante: any = [this.usuarios.filter(c => c.id === idSolicitante)[0].email];
         const nomeAutorizador = this.permissaoService.getUsuario();
         const msg = `Sua solicitação para ${this.autorizacao.acao}
          ${(this.autorizacao.objeto) ? this.autorizacao.objeto : ''} em ${this.autorizacao.formulario}
@@ -134,6 +138,23 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
           solicitanteId: idSolicitante,
           autorizado: autorizadoValor
         };
+        const email: Email = {
+          emailRemetente: 'virtualwebsistema@gmail.com',
+          nomeRemetente: 'Virtual Web',
+          senhaRemetente: '1379258vms//',
+          emailDestinatario: emailSolicitante,
+          assunto: `Resposta Autorização ${this.autorizacao.acao} ${(this.autorizacao.objeto) ? this.autorizacao.objeto : ''}`,
+          mensagem: `Sua solicitação para ${this.autorizacao.acao}
+                    ${(this.autorizacao.objeto) ? this.autorizacao.objeto : ''} em ${this.autorizacao.formulario}
+                    (${this.autorizacao.formularioIdentificacao})
+         foi ${(autorizadoValor === 1) ? 'AUTORIZADO' : 'NEGADO'}.\n
+         <a href="https://virtualweb.herokuapp.com/movimentos/vendas/editar/${this.autorizacao.formularioId}">
+         CLIQUE AQUI PARA ABRIR A VENDA!</a>`,
+        };
+        this.emailService.enviarEmail(email).subscribe((_RESPOSTA) => {
+        }, error => {
+          console.log(error.error);
+        });
         this.notificacaoService.novaNotificacao(notificacao).subscribe(
           () => {
           this.socketService.sendSocket('RespAutorizacaoVendaGerarPedido', info);
