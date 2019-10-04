@@ -47,6 +47,8 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
 
   baseURLLogo = '';
 
+  nomeArquivoLogo = '';
+
   templateEnabled = false;
 
   constructor(private fb: FormBuilder,
@@ -88,8 +90,9 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
     (_EMPRESA: Empresa) => {
       this.empresa = Object.assign(_EMPRESA);
       this.statusSelecionado = this.empresa.status;
+      this.nomeArquivoLogo = this.empresa.nomeArquivoLogo;
       this.baseURLLogo = InfoAPI.URL + '/api/empresas/' + this.empresa.id + '/logo/' + this.empresa.nomeArquivoLogo;
-      console.log(this.empresa);
+
       this.cadastroEmpresa.patchValue(this.empresa);
     }, error => {
       this.toastr.error(`Erro ao tentar carregar Empresa: ${error.error}`);
@@ -117,10 +120,23 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
 
   alterarNomeArquivoLogo(event) {
     if (event.target.files && event.target.files.length) {
-      this.arquivoLogo = event.target.files;
+      this.arquivoLogo = event.target.files[0];
+      this.nomeArquivoLogo = event.target.value.split('\\', 3)[2];
+      const reader = new FileReader();
+      reader.onload = e => this.baseURLLogo = reader.result.toString();
+      reader.readAsDataURL(this.arquivoLogo);
     }
   }
 
+  editarEmpresa() {
+    this.empresaService.editarEmpresa(this.empresa).subscribe(
+      () => {
+        this.toastr.success(`Editado com Sucesso!`);
+      }, error => {
+        console.log(error.error);
+      }
+    );
+  }
   salvarEmpresa(template: any) {
     if (this.idEmpresa === 0) {
       this.empresa = Object.assign(this.cadastroEmpresa.value, {id: 0});
@@ -132,17 +148,19 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
           console.log(error.error);
         });
     } else {
-      this.empresa = Object.assign(this.cadastroEmpresa.value);
-      const nomeArquivo = this.empresa.nomeArquivoLogo.split('\\', 3);
-      this.empresa.nomeArquivoLogo = nomeArquivo[2];
-      this.empresaService.enviarLogo(this.empresa.id, this.arquivoLogo, nomeArquivo[2]).subscribe();
-      this.empresaService.editarEmpresa(this.empresa).subscribe(
-        () => {
-          this.toastr.success(`Editado com Sucesso!`);
-        }, error => {
-          console.log(error.error);
-        }
-      );
+      this.empresa = Object.assign(this.cadastroEmpresa.value, { nomeArquivoLogo: this.nomeArquivoLogo });
+      if (this.arquivoLogo) {
+        this.empresaService.enviarLogo(this.empresa.id, this.arquivoLogo, this.empresa.nomeArquivoLogo).subscribe((result: any) => {
+          if (result.retorno.toString() === 'EXTENSAO INVALIDA') {
+            this.toastr.error(`Logo não atualizada. Apenas Imagens com extensão (.png | .jpg | .bmp) podem ser usadas!`);
+          } else if (result.retorno.toString() === 'OK') {
+            this.arquivoLogo = null;
+            this.editarEmpresa();
+          }
+        });
+      } else {
+        this.editarEmpresa();
+      }
     }
   }
 

@@ -15,7 +15,12 @@
         <form [formGroup]="cadastroEmpresa">
           <div class="row">
 
-            <div class="form-group col-md-6">
+            <div *ngIf="this.empresa" class="form-group col-md-3">
+              <img src="{{this.baseURLLogo}}"style="width: 230px;height: 140px;border: 1px solid #000000;" alt="SEM LOGO">
+              <button  class="btn btn-success" style="margin-top:5px;"(click)="file.click()">Selecionar Logo</button>
+
+            </div>
+            <div class="form-group col-md-6" [style.marginLeft.px]="(this.idEmpresa != 0) ? 50 : 0">
               <label>Razão Social:(*)</label>
               <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()"
                 class="form-control" type="text" formControlName="razaoSocial" [ngClass]="{ 'is-invalid': cadastroEmpresa.get('razaoSocial').errors && 
@@ -28,7 +33,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" [style.marginLeft.px]="(this.idEmpresa != 0) ? 50 : 0">
               <label>Nome Fantasia:(*)</label>
               <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()"
                 class="form-control" type="text" formControlName="nomeFantasia" [ngClass]="{ 'is-invalid': cadastroEmpresa.get('nomeFantasia').errors && 
@@ -150,17 +155,6 @@
               <ng-select [clearable]="false" [items]="status" [(ngModel)]="statusSelecionado" formControlName="status">
               </ng-select>
             </div>
-            <div class="form-group col-md-3">
-              <label>Logo:</label><br/>
-              <button class="btn btn-success" (click)="file.click()">Selecionar Logo</button>
-              <input  type="file" #file  formControlName="nomeArquivoLogo"
-              style="display: none" (change)="alterarNomeArquivoLogo($event)"/>
-
-            </div>
-            <div *ngIf="this.empresa && this.empresa.nomeArquivoLogo != ''" class="form-group col-md-3">
-              <img src="{{this.baseURLLogo}}"
-              style="width: 150px;height: 50px;" alt="SEM LOGO">
-            </div>
           </div>
 
         </form>
@@ -183,3 +177,5 @@
   </div>
 
 </div>
+
+<input class="form-control" type="file" #file style="display: none;" accept="image/*" (change)="alterarNomeArquivoLogo($event)"/>

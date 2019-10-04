@@ -35,9 +35,8 @@ export class EmpresaService {
   }
 
   enviarLogo(empresaId: number, arquivo: File, nomeArquivo) {
-    const arquivoUpload = arquivo[0] as File;
     const formData = new FormData();
-    formData.append('arquivo', arquivoUpload, nomeArquivo);
+    formData.append('arquivo', arquivo, nomeArquivo);
     return this.http.post(`${this.baseURL}/uploadlogo/${empresaId}`, formData);
   }
 

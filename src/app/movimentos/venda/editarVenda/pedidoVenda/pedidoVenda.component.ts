@@ -46,7 +46,7 @@ export class PedidoVendaComponent implements OnInit {
 
   gerarPedido() {
     const data = document.getElementById('pedido');
-    html2canvas(data).then(canvas => {
+    html2canvas(data, {allowTaint : true, useCORS: true}).then(canvas => {
      const imgHeight = canvas.height * 208 / canvas.width;
      const contentDataURL = canvas.toDataURL('image/jpeg');
      const pdf = new jsPDF();
