@@ -332,8 +332,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   getSocket(evento: string) {
     this.socketService.getSocket(evento).subscribe((info: Notificacao) => {
       if (info) {
-        const  notification = new Notification(info.titulo, {body: info.mensagem});
-        this.getNotificacoes();
+        if (this.permissaoService.getUsuarioId() === info.usuarioId) {
+          const  notification = new Notification(info.titulo, {body: info.mensagem});
+          this.getNotificacoes();
+        } else if (info.usuarioId === 0) {
+          const  notification = new Notification(info.titulo, {body: info.mensagem});
+          this.getNotificacoes();
+        }
       }
     });
   }

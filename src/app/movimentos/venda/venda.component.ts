@@ -1,15 +1,13 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
-import { FormGroup } from '@angular/forms';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
-
 @Component({
   selector: 'app-venda',
-  templateUrl: './venda.component.html'
+  templateUrl: './venda.component.html',
+  styleUrls: ['./venda.component.scss']
 })
 export class VendaComponent implements OnInit, AfterViewInit {
 

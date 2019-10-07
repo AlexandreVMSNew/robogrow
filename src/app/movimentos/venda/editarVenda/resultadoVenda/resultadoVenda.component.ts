@@ -208,16 +208,8 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
     return '';
   }
 
-  atualizarResultadoVenda() {
-    this.vendaService.atualizarResultadoVenda();
-  }
-
   carregarVenda() {
-    this.previstoReceitaValores = [];
-    this.previstoDespesaComissaoValores = [];
-    this.previstoDespesaGastoValores = [];
-    this.realizadoDespesaComissaoValores = [];
-    this.realizadoDespesaGastoValores = [];
+    this.zerarVariaveis();
 
     if (this.venda) {
       this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
@@ -289,4 +281,30 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  zerarVariaveis() {
+    this.previstoReceitaValores = [];
+    this.previstoDespesaComissaoValores = [];
+    this.previstoDespesaGastoValores = [];
+
+    this.realizadoReceitaValores = [];
+    this.realizadoDespesaComissaoValores = [];
+    this.realizadoDespesaGastoValores = [];
+
+    this.valorTotalReceitasPrevisto = 0;
+    this.valorTotalReceitasRealizado = 0;
+
+    this.valorTotalDespesasComissaoPrevisto = 0;
+    this.valorTotalDespesasComissaoRealizado = 0;
+
+    this.valorTotalDespesasGastoPrevisto = 0;
+    this.valorTotalDespesasGastoRealizado = 0;
+
+    this.valorDiferencaReceitas = 0;
+    this.valorDiferencaDespesasComissao = 0;
+    this.valorDiferencaDespesasGasto = 0;
+
+    this.resultadoPrevisto = 0;
+    this.resultadoReal = 0;
+    this.porcentagemPrevistoReal = 0;
+  }
 }

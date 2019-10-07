@@ -1,3 +1,4 @@
+
 <h2>Venda</h2>
 
 <hr width="100%">
@@ -37,7 +38,6 @@
         <tr>
           <th>Número</th>
           <th>Cliente(Nome Fantasia)</th>
-          <th>Cliente(Razão Social)</th>
           <th>Data Emissão</th>
           <th style="text-align: center;">Status</th>
           <th style="text-align: center;">Ações</th>
@@ -47,14 +47,20 @@
         <tr
           *ngFor="let venda of vendasFiltro | paginate: { itemsPerPage: 50,currentPage: paginaAtual, totalItems: totalRegistros };">
           <td>{{ venda.numeroAno }}</td>
-          <td style="white-space: nowrap;">{{ venda.clientes.nomeFantasia }}</td>
-          <td style="white-space: nowrap;">{{ venda.clientes.razaoSocial }}</td>
+          <td style="white-space: nowrap;">
+            <a role="button" placement="top" container="body" containerClass="popoverW" popover-class="popoverW"
+              popover="Razão Social: {{venda.clientes.razaoSocial}}"
+              popoverTitle="Informações do Cliente"
+              triggers="mouseenter:mouseleave" >
+              {{ venda.clientes.nomeFantasia }}
+            </a>    
+          </td>
           <td style="white-space: nowrap;">{{ venda.dataEmissao  | date:'dd/MM/yyyy HH:mm'}}</td>
           <td style="text-align: center;">
 
             <span *ngIf="venda.status == 'EM NEGOCIAÇÃO'" style="background-color:grey;" class="label">
               {{ venda.status }}
-            </span>
+            </span> 
             <span *ngIf="venda.status == 'EM IMPLANTAÇÃO'" class="label label-warning">
               {{ venda.status }}
             </span>
