@@ -14,13 +14,13 @@
         <div
           *ngIf="filtroSelecionado == 'NOME FANTASIA' || filtroSelecionado == 'RAZÃO SOCIAL' || filtroSelecionado == 'COD.SIGA'">
           <label>Filtro:</label>
-          <input type="text" class="form-control" placeholder="..." name="filtro" [(ngModel)]="filtroLista" />
+          <input type="text" style="text-transform: uppercase" class="form-control" placeholder="..." name="filtro" [(ngModel)]="filtroTexto" />
         </div>
 
         <div *ngIf="filtroSelecionado == 'CNPJ/CPF'">
           <label>Filtro:</label>
           <input class="form-control" type="text" maxlength="18" placeholder="..." name="filtro"
-            [ngModel]="filtroLista | cnpjCpfPipePipe" (ngModelChange)="filtroLista=$event" />
+            [ngModel]="filtroTexto | cnpjCpfPipePipe" (ngModelChange)="filtroTexto=$event" />
         </div>
       </div>
 
@@ -34,7 +34,7 @@
       <div *ngIf="filtroSelecionado == 'CIDADE'" class="form-group col-md-3">
         <label>Cidade:(*)</label>
         <ng-select [items]="cidades" style="text-transform: uppercase" bindLabel="nome" (clear)="limparCidade()"
-          bindValue="id" [(ngModel)]="filtroLista" name="cidadeFiltro">
+          bindValue="id" [(ngModel)]="filtroTexto" name="cidadeFiltro">
         </ng-select>
       </div>
 
@@ -65,7 +65,7 @@
       </thead>
       <tbody *ngIf="clientes && clientes.length">
         <tr
-          *ngFor="let cliente of clientesFiltrados | paginate: { itemsPerPage: 30, currentPage: paginaAtual, totalItems: totalRegistros };">
+          *ngFor="let cliente of clientesFiltro | paginate: { itemsPerPage: 30, currentPage: paginaAtual, totalItems: totalRegistros };">
           <td>{{ cliente.id }}</td>
           <td style="white-space: nowrap;">{{ cliente.razaoSocial }}</td>
           <td style="white-space: nowrap;">{{ cliente.nomeFantasia }}</td>

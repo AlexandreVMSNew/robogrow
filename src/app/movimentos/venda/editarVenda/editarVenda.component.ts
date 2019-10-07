@@ -148,23 +148,27 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'RESUMO')[0]);
       this.gerarPedido = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR PEDIDO')[0]);
-
-      if (this.editar === true) {
-        this.cadastroForm.controls.empresasId.enable(); this.cadastroForm.controls.vendedorId.enable();
-        this.cadastroForm.controls.clientesId.enable(); this.cadastroForm.controls.produtoId.enable();
-      } else {
-        this.cadastroForm.controls.empresasId.disable(); this.cadastroForm.controls.vendedorId.disable();
-        this.cadastroForm.controls.clientesId.disable(); this.cadastroForm.controls.produtoId.disable();
-      }
-
-      (this.editarDataNegociacao === true || this.statusSelecionado === 'EM NEGOCIAÇÃO') ?
-       this.cadastroForm.controls.dataNegociacao.enable() : this.cadastroForm.controls.dataNegociacao.disable();
-
-      (this.editarStatus === true) ? this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
-      this.getAutorizacoes();
       this.carregarVenda();
     });
 
+  }
+
+  configurarAlteracoes() {
+    if (this.editar === true || this.statusSelecionado === 'EM NEGOCIAÇÃO') {
+      this.cadastroForm.controls.empresasId.enable(); this.cadastroForm.controls.vendedorId.enable();
+      this.cadastroForm.controls.clientesId.enable(); this.cadastroForm.controls.produtoId.enable();
+      this.cadastroForm.controls.planoPagamentoId.enable();
+    } else {
+      this.cadastroForm.controls.empresasId.disable(); this.cadastroForm.controls.vendedorId.disable();
+      this.cadastroForm.controls.clientesId.disable(); this.cadastroForm.controls.produtoId.disable();
+      this.cadastroForm.controls.planoPagamentoId.disable();
+    }
+
+    (this.editarDataNegociacao === true || this.statusSelecionado === 'EM NEGOCIAÇÃO') ?
+      this.cadastroForm.controls.dataNegociacao.enable() : this.cadastroForm.controls.dataNegociacao.disable();
+
+    (this.editarStatus === true || this.autorizadoGerarPedido === true) ?
+      this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
   }
 
   carregarVenda() {
@@ -191,7 +195,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           this.statusSelecionado = this.venda.status;
 
           this.cadastroForm.patchValue(this.venda);
+          this.getAutorizacoes();
           this.vendaService.atualizarFinanceiroVenda();
+          this.vendaService.atualizarResultadoVenda();
         }, error => {
           this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
           console.log(error);
@@ -439,8 +445,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       if (this.autorizacoes.filter(c => c.autorizado === 1).length > 0) {
         this.autorizadoGerarPedido = true;
       }
-      (this.autorizadoGerarPedido === true) ?
-      this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
+      this.configurarAlteracoes();
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar autorizacoes: ${error.error}`);

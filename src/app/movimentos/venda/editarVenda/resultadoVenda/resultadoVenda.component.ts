@@ -6,7 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
-import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValorRealizado';
 import { VendaValorPrevisto } from 'src/app/_models/Movimentos/Venda/VendaValorPrevisto';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
@@ -127,10 +126,8 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
       borderColor: 'rgba(221,75,57,1)'}
   ];
 
-  constructor(private toastr: ToastrService,
-              private router: ActivatedRoute,
+  constructor(private router: ActivatedRoute,
               private vendaService: VendaService,
-              private pessoaService: PessoaService,
               public dataService: DataService,
               private changeDetectionRef: ChangeDetectorRef) {
                 this.vendaService.atualizaResultadoVenda.subscribe(x => {

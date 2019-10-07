@@ -19,6 +19,15 @@ export class VendaComponent implements OnInit, AfterViewInit {
   visualizar = false;
 
   vendas: Venda[];
+  vendasFiltro: Venda[];
+
+  status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO', 'TODOS'];
+  statusFiltroSelecionado = 'TODOS';
+
+  filtrarPor = ['NOME FANTASIA', 'RAZÃO SOCIAL', 'N° VENDA'];
+  filtroSelecionado = 'NOME FANTASIA';
+
+  filtroTextoAux: string;
 
   paginaAtual = 1;
   totalRegistros = 0; number;
@@ -40,23 +49,65 @@ export class VendaComponent implements OnInit, AfterViewInit {
     });
   }
 
+  get filtroTexto(): string {
+    return this.filtroTextoAux;
+  }
+
+  set filtroTexto(value: string) {
+    this.filtroTextoAux = value;
+    this.vendasFiltro = this.filtrarVendas(this.filtroTextoAux);
+  }
+
+  setFiltroSelecionado(valor: any) {
+    this.filtroSelecionado = valor;
+  }
+
+  setStatusFiltroSelecionado(valor: any) {
+    this.statusFiltroSelecionado = valor;
+    this.vendasFiltro = this.filtrarVendas(this.filtroTexto);
+  }
+
+  filtrarVendas(filtrarPor: string): Venda[] {
+    let filtroRetorno: Venda[] = [];
+    if (this.statusFiltroSelecionado !== 'TODOS') {
+      filtroRetorno = this.vendas.filter(_CLIENTE => _CLIENTE.status === this.statusFiltroSelecionado);
+    } else {
+      filtroRetorno = this.vendas;
+    }
+
+    if (filtrarPor) {
+      if (this.filtroSelecionado === 'N° VENDA') {
+        filtroRetorno = filtroRetorno
+                        .filter(venda => venda.numeroAno.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+      } else if (this.filtroSelecionado === 'RAZÃO SOCIAL') {
+        filtroRetorno = filtroRetorno
+                        .filter(venda => venda.clientes.razaoSocial.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+      } else if (this.filtroSelecionado === 'NOME FANTASIA') {
+        filtroRetorno = filtroRetorno
+                        .filter(venda => venda.clientes.nomeFantasia.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+      }
+    }
+    this.totalRegistros = filtroRetorno.length;
+    return filtroRetorno;
+  }
+
   getVendas() {
     this.vendaService.getAllVenda().subscribe(
-      // tslint:disable-next-line:variable-name
       (_VENDAS: Venda[]) => {
       this.vendas = _VENDAS;
+      this.vendasFiltro = this.filtrarVendas(this.filtroTexto);
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar VendaS: ${error.error}`);
     });
-}
+  }
 
-getVendaConfig() {
-  return this.vendaService.getConfigVendaStatus();
-}
+  getVendaConfig() {
+    return this.vendaService.getConfigVendaStatus();
+  }
 
-abrirVendaConfig() {
-  this.vendaService.setConfigVendaStatus(true);
-}
+  abrirVendaConfig() {
+    this.vendaService.setConfigVendaStatus(true);
+  }
 
 }

@@ -22,7 +22,7 @@ export class ClienteComponent implements OnInit, AfterViewInit {
   excluir = false;
   visualizar = false;
 
-  clientesFiltrados: Cliente[];
+  clientesFiltro: Cliente[];
   cliente: Cliente;
   clientes: Cliente[];
 
@@ -45,9 +45,7 @@ export class ClienteComponent implements OnInit, AfterViewInit {
   estados: Estado[];
   estadoIdSelecionado: any;
 
-  filtroRetorno: any;
-  // tslint:disable-next-line:variable-name
-  _filtroLista: string;
+  filtroTextoAux: string;
 
   valueCnpjCpfPipe = '';
 
@@ -96,13 +94,13 @@ export class ClienteComponent implements OnInit, AfterViewInit {
       });
   }
 
-  get filtroLista(): string {
-    return this._filtroLista;
+  get filtroTexto(): string {
+    return this.filtroTextoAux;
   }
 
-  set filtroLista(value: string) {
-    this._filtroLista = value;
-    this.clientesFiltrados = this.filtrarClientes(this._filtroLista);
+  set filtroTexto(value: string) {
+    this.filtroTextoAux = value;
+    this.clientesFiltro = this.filtrarClientes(this.filtroTextoAux);
   }
 
   setFiltroSelecionado(valor: any) {
@@ -111,43 +109,46 @@ export class ClienteComponent implements OnInit, AfterViewInit {
 
   setStatusFiltroSelecionado(valor: any) {
     this.statusFiltroSelecionado = valor;
-    this.clientesFiltrados = this.filtrarClientes(this.filtroLista);
+    this.clientesFiltro = this.filtrarClientes(this.filtroTexto);
   }
 
-  filtrarClientes(filtrarPor: string): Cliente[] {
+  filtrarClientes(filtro: string): Cliente[] {
+    let filtroRetorno: Cliente[] = [];
+
     if (this.statusFiltroSelecionado !== 'TODOS') {
-      this.filtroRetorno = this.clientes.filter(_CLIENTE => _CLIENTE.status === this.statusFiltroSelecionado);
+      filtroRetorno = this.clientes.filter(_CLIENTE => _CLIENTE.status === this.statusFiltroSelecionado);
     } else {
-      this.filtroRetorno = this.clientes;
+      filtroRetorno = this.clientes;
     }
 
-    if (filtrarPor) {
+    if (filtro) {
       if (this.filtroSelecionado === 'COD.SIGA') {
-        this.filtroRetorno = this.filtroRetorno
-                            .filter(cliente => cliente.codSiga.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+        filtroRetorno = filtroRetorno
+                            .filter(cliente => cliente.codSiga.toLocaleUpperCase().indexOf(filtro.toLocaleUpperCase()) !== -1);
       } else if (this.filtroSelecionado === 'RAZÃO SOCIAL') {
-        this.filtroRetorno = this.filtroRetorno
-                            .filter(cliente => cliente.razaoSocial.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+        filtroRetorno = filtroRetorno
+                            .filter(cliente => cliente.razaoSocial.toLocaleUpperCase().indexOf(filtro.toLocaleUpperCase()) !== -1);
       } else if (this.filtroSelecionado === 'NOME FANTASIA') {
-        this.filtroRetorno = this.filtroRetorno
-                            .filter(cliente => cliente.nomeFantasia.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+        filtroRetorno = filtroRetorno
+                            .filter(cliente => cliente.nomeFantasia.toLocaleUpperCase().indexOf(filtro.toLocaleUpperCase()) !== -1);
       } else if (this.filtroSelecionado === 'CNPJ/CPF') {
-        this.filtroRetorno = this.filtroRetorno
-                            .filter(cliente => cliente.cnpjCpf.toLocaleUpperCase().indexOf(filtrarPor.toLocaleUpperCase()) !== -1);
+        filtroRetorno = filtroRetorno
+                            .filter(cliente => cliente.cnpjCpf.toLocaleUpperCase().indexOf(filtro.toLocaleUpperCase()) !== -1);
       } else if (this.filtroSelecionado === 'CIDADE') {
-        this.filtroRetorno = this.filtroRetorno
-                            .filter(cliente => cliente.cidadeId === filtrarPor);
+        filtroRetorno = filtroRetorno
+                            .filter(cliente => cliente.cidadeId === Number(filtro));
       }
     }
-    this.totalRegistros = this.filtroRetorno.length;
-    return this.filtroRetorno;
+
+    this.totalRegistros = filtroRetorno.length;
+    return filtroRetorno;
   }
 
   getClientes() {
     this.clienteService.getAllCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES;
-      this.clientesFiltrados = this.filtrarClientes(this.filtroLista);
+      this.clientesFiltro = this.filtrarClientes(this.filtroTexto);
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
@@ -177,13 +178,13 @@ export class ClienteComponent implements OnInit, AfterViewInit {
   }
 
   limparCidade() {
-    this.filtroLista = '';
+    this.filtroTexto = '';
   }
 
   limparEstado() {
     this.cidades = [];
     this.estadoIdSelecionado = [];
-    this.filtroLista = '';
+    this.filtroTexto = '';
   }
 
 }
