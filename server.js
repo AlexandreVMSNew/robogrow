@@ -2,7 +2,9 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+var sslRedirect = require('heroku-ssl-redirect');
 
+app.use(sslRedirect());
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/VirtualWeb-App'));
 
