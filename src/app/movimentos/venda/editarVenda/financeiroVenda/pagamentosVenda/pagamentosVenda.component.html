@@ -17,7 +17,7 @@
         <div class="box box-solid">
           <div class="box-header with-border">
             <div class="row">
-              <div style="margin-right: 15px;" class="pull-right">
+              <div style="margin-right: 15px;" class="pull-right" *ngIf="this.venda.status != 'FINALIZADO'">
                 <a (click)="abrirTemplatePagamento()" class="btn btn-success">
                   <i class="fa fa-plus-circle"></i>&nbsp; Novo Pagamento
                 </a>
@@ -75,7 +75,7 @@
 
 </div>
 
-<app-template-pagamento [idVenda]="this.idVenda" [produtoItem]="this.produtoItem" *ngIf="getTemplatePagamento() == true"></app-template-pagamento>
+<app-template-pagamento [idVenda]="this.venda.id" [produtoItem]="this.produtoItem" *ngIf="getTemplatePagamento() == true"></app-template-pagamento>
 
 <app-detalhar-pagamento [idPagamento]="this.idDetalharPagamento" [produtoItem]="this.produtoItem" *ngIf="getDetalharPagamento() == true">
 </app-detalhar-pagamento>

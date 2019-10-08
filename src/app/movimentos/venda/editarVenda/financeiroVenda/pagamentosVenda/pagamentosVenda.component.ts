@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { PagamentoService } from 'src/app/_services/Financeiro/Pagamentos/pagamento.service';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
+import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 
 @Component({
   selector: 'app-pagamentos-venda',
@@ -15,8 +16,7 @@ import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 export class PagamentosVendaComponent implements OnInit {
 
   @Input() produtoItem: ProdutoItem;
-  @Input() idVenda: number;
-  @Input() vendaClienteId: number;
+  @Input() venda: Venda;
 
   pagamentos: Pagamentos[];
 
@@ -26,7 +26,6 @@ export class PagamentosVendaComponent implements OnInit {
 
   constructor(private vendaService: VendaService,
               private toastr: ToastrService,
-              private permissaoService: PermissaoService,
               private pagamentoService: PagamentoService) {
                 this.vendaService.atualizaVenda.subscribe(x => {
                   this.getPagamentos();
@@ -41,7 +40,7 @@ export class PagamentosVendaComponent implements OnInit {
     this.pagamentoService.getAllPagamentos().subscribe(
       // tslint:disable-next-line:variable-name
       (_PAGAMENTOS: Pagamentos[]) => {
-        this.pagamentos = _PAGAMENTOS.filter(c => c.produtosItensId === this.produtoItem.id && c.vendaId === this.idVenda);
+        this.pagamentos = _PAGAMENTOS.filter(c => c.produtosItensId === this.produtoItem.id && c.vendaId === this.venda.id);
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar Pagamentos: ${error.error}`);

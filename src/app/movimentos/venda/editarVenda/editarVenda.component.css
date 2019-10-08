@@ -12,3 +12,10 @@
 width: 60%;
     /* New width for large modal */
 }
+
+:host >>> .popover {
+    max-width: 100% !important;
+}
+:host >>> .popover>.arrow:after {
+    max-width: 100% !important;
+}

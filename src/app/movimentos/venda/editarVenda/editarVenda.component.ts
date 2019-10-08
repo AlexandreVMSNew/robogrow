@@ -33,6 +33,8 @@ import { ProdutoGrupoChecks } from 'src/app/_models/Cadastros/Produtos/produtoGr
 import { ProdutoCheckListOpcoes } from 'src/app/_models/Cadastros/Produtos/ProdutoCheckListOpcoes';
 import { ProdutoCheckList } from 'src/app/_models/Cadastros/Produtos/produtoCheckList';
 import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
+import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/editarCliente.component';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 
 @Component({
   selector: 'app-editar-venda',
@@ -92,8 +94,13 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   checks: ProdutoCheckList[] = [];
   checksOpcoes: ProdutoCheckListOpcoes[] = [];
 
+  editarClienteComponent = EditarClienteComponent;
+  inputs: any;
+  componentModal: any;
+
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
+              private templateModalService: TemplateModalService,
               private toastr: ToastrService,
               private router: ActivatedRoute,
               private vendaService: VendaService,
@@ -184,9 +191,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           });
 
           if (this.venda.status === 'EM NEGOCIAÇÃO' || this.editarStatus === true) {
-            this.status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
+            this.status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
           } else {
-            this.status = ['EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
+            this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
           }
           this.produtoIdSelecionado = this.venda.vendaProdutos[0].produtosId;
           this.empresaIdSelecionado = this.venda.empresasId;
@@ -216,7 +223,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         status: ['', Validators.required],
         observacoes: [''],
         dataEmissao: [''],
-        dataNegociacao: [''],
+        dataNegociacao: ['', Validators.required],
         dataFinalizado: [''],
         dataHoraUltAlt: ['']
     });
@@ -275,7 +282,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
   }
 
-
   solicitarAutorizacao() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const autorizacao = Object.assign({
@@ -301,7 +307,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       console.log(error);
     });
   }
-
 
   gerarPDF() {
     this.vendaService.setPedidoVendaStatus(true);
@@ -374,6 +379,16 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     return true;
   }
 
+  abrirTemplateModal(component, clienteId: number) {
+    this.componentModal = component;
+    this.inputs = Object.assign({idCliente: clienteId});
+    this.templateModalService.setTemplateModalStatus(true);
+  }
+
+  getTemplateModal() {
+    return this.templateModalService.getTemplateModalStatus();
+  }
+
   salvarAlteracoes() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const dataNeg = this.cadastroForm.get('dataNegociacao').value.toLocaleString();
@@ -398,20 +413,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
         console.log(error);
       });
-  }
-
-  converterVenda() {
-    this.vendaService.getAllVenda().subscribe((_VENDAS: Venda[]) => {
-      let numero = 1;
-      const ano = 2019;
-      _VENDAS.forEach((venda: Venda) => {
-        venda = Object.assign(venda, {numero: numero.toString() + '/' + ano.toString()});
-        numero++;
-        this.vendaService.editarVenda(venda).subscribe(() => {
-          console.log('Editada: ' + numero.toString() + '/' + ano.toString());
-        });
-      });
-    });
   }
 
   getPedidoVenda() {

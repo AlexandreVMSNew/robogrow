@@ -48,12 +48,19 @@
           *ngFor="let venda of vendasFiltro | paginate: { itemsPerPage: 50,currentPage: paginaAtual, totalItems: totalRegistros };">
           <td>{{ venda.numeroAno }}</td>
           <td style="white-space: nowrap;">
-            <a role="button" placement="top" container="body" containerClass="popoverW" popover-class="popoverW"
-              popover="Razão Social: {{venda.clientes.razaoSocial}}"
-              popoverTitle="Informações do Cliente"
-              triggers="mouseenter:mouseleave" >
-              {{ venda.clientes.nomeFantasia }}
-            </a>    
+              <ng-template #myPopover >
+                <label>Razão Social: {{venda.clientes.razaoSocial}}</label>
+              </ng-template>
+       
+              <a role="button" [popover]="myPopover"
+                popoverTitle="Informações do Cliente"
+                popoverPlacement="top" 
+                (click)="abrirTemplateModal(editarClienteComponent, venda.clientesId)"
+                triggers="mouseenter:mouseleave">
+                {{ venda.clientes.nomeFantasia }}
+              </a> 
+            
+            <i class="fa fa-info-circle"></i> 
           </td>
           <td style="white-space: nowrap;">{{ venda.dataEmissao  | date:'dd/MM/yyyy HH:mm'}}</td>
           <td style="text-align: center;">
@@ -99,5 +106,8 @@
   </div>
 
 </div>
-
+<app-template-modal *ngIf="this.getTemplateModal() == true" 
+                    [component]="this.componentModal"
+                    [width]="70"
+                    [inputs]="this.inputs"></app-template-modal>
 <app-config-venda *ngIf="getVendaConfig() == true"></app-config-venda>

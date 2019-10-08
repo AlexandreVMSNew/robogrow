@@ -16,6 +16,9 @@ import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
 import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { NovoClienteComponent } from 'src/app/cadastros/cliente/novoCliente/novoCliente.component';
 @Component({
   selector: 'app-novo-venda',
   templateUrl: './novoVenda.component.html'
@@ -41,6 +44,12 @@ export class NovoVendaComponent implements OnInit {
 
   produtoVenda: VendaProduto[];
   venda: Venda;
+
+  novoClienteComponent = NovoClienteComponent;
+
+  componentModal: any;
+
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
               private router: Router,
@@ -49,7 +58,9 @@ export class NovoVendaComponent implements OnInit {
               private pessoaService: PessoaService,
               private empresaService: EmpresaService,
               private planoPagamentoService: PlanoPagamentoService,
-              private vendaService: VendaService) { }
+              private vendaService: VendaService,
+              private templateModalService: TemplateModalService) {
+  }
 
   ngOnInit() {
     this.getClientes();
@@ -63,6 +74,7 @@ export class NovoVendaComponent implements OnInit {
   validarForm() {
     this.cadastroForm = this.fb.group({
         id:  [''],
+        dataNegociacao: ['', Validators.required],
         clientesId: ['', Validators.required],
         produtoId: ['', Validators.required],
         empresasId: ['', Validators.required],
@@ -96,6 +108,15 @@ export class NovoVendaComponent implements OnInit {
         }
       );
     }
+  }
+
+  abrirTemplateModal(component) {
+    this.componentModal = component;
+    this.templateModalService.setTemplateModalStatus(true);
+  }
+
+  getTemplateModal() {
+    return this.templateModalService.getTemplateModalStatus();
   }
 
   getProdutos() {

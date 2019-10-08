@@ -4,14 +4,21 @@
   <div class="box-header with-border">
     <form [formGroup]="cadastroForm" class="mt-3">
       <div class="row">
-        <div class="form-group col-md-5">
-          <label>Empresa:(*)</label>
+
+        <div class="form-group col-md-2">
+          <label>Data Negociação(*)</label>
+          <input type="text" class="form-control" formControlName="dataNegociacao"
+            [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker [bsConfig]="this.bsConfig" />
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Empresa(*)</label>
           <ng-select style="text-transform: uppercase" [items]="empresas" bindLabel="nomeFantasia" bindValue="id"
             [(ngModel)]="empresaIdSelecionado" formControlName="empresasId">
           </ng-select>
         </div>
-        <div class="form-group col-md-5">
-          <label>Vendedor:(*)</label>
+        <div class="form-group col-md-3">
+          <label>Vendedor(*)</label>
           <ng-select style="text-transform: uppercase" [items]="vendedores" bindLabel="nome" bindValue="id"
             [(ngModel)]="vendedorIdSelecionado" formControlName="vendedorId">
           </ng-select>
@@ -19,20 +26,28 @@
       </div>
 
       <div class="row">
-        <div class="form-group col-md-5">
-          <label>Cliente:(*)</label>
-          <ng-select style="text-transform: uppercase" [items]="clientes" bindLabel="nomeFantasia" bindValue="id"
-            [(ngModel)]="clienteIdSelecionado" formControlName="clientesId">
-          </ng-select>
+        <div class="form-group col-md-3">
+          <label>Cliente(*)</label>
+          <div class="input-group">
+
+            <ng-select style="text-transform: uppercase" [items]="clientes" bindLabel="nomeFantasia" bindValue="id"
+              [(ngModel)]="clienteIdSelecionado" formControlName="clientesId">
+            </ng-select>
+            <span class="input-group-btn">
+              <button class="btn btn-success" (click)="abrirTemplateModal(novoClienteComponent)" tooltip="Novo Cliente">
+                <i class="fa fa-plus-circle"> </i></button>
+            </span>
+          </div>
         </div>
-        <div class="form-group col-md-5">
-          <label>Produto:(*)</label>
+
+        <div class="form-group col-md-3">
+          <label>Produto(*)</label>
           <ng-select style="text-transform: uppercase" [items]="produtos" bindLabel="descricao" bindValue="id"
             [(ngModel)]="produtoIdSelecionado" formControlName="produtoId">
           </ng-select>
         </div>
-        <div class="form-group col-md-5">
-          <label style="white-space: nowrap;">Plano de Pagamento:(*)</label>
+        <div class="form-group col-md-3">
+          <label style="white-space: nowrap;">Plano de Pagamento(*)</label>
           <ng-select style="text-transform: uppercase" [items]="planosPagamento" bindLabel="descricao" required
             bindValue="id" [clearable]="false" [(ngModel)]="planoPagamentoIdSelecionado"
             formControlName="planoPagamentoId">
@@ -42,13 +57,15 @@
 
     </form>
 
-    <div *ngIf="!cadastroForm.valid" style="font-size:18px;" class="invalid-feedback d-block">
+    <div *ngIf="!cadastroForm.valid" style="font-size:18px;font-weight: bold;" class="invalid-feedback d-block">
       Preencha todos os campos com (*).
     </div>
   </div>
 </div>
 
-<button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="cadastrarVenda()" tooltip="Novo Venda"
-  class="btn btn-lg btn-primary">
+<button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="cadastrarVenda()"
+  tooltip="Nova Venda" class="btn btn-lg btn-primary">
   &nbsp;Cadastrar
 </button>
+
+<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="70"></app-template-modal>

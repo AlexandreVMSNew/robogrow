@@ -12,7 +12,7 @@
             </div>
 
             <div class="form-group col-md-1">
-              <label>N° Loja:</label>
+              <label style="white-space: nowrap;">N° Loja:</label>
               <input type="text" class="form-control" formControlName="nLoja" />
             </div>
 
@@ -72,13 +72,13 @@
             </div>
 
             <div class="form-group col-md-2">
-              <label>Inscrição Estadual:</label>
+              <label style="white-space: nowrap;">Inscrição Estadual:</label>
               <input class="form-control" type="text" maxlength="16" [ngModel]="valueIePipe | iePipePipe"
-                (ngModelChange)="valueIePipe=$event" formControlName="valueIePipe" />
+                (ngModelChange)="valueIePipe=$event" formControlName="ie" />
             </div>
 
             <div class="form-group col-md-2">
-              <label>Cnpj/Cpf:(*)</label>
+              <label style="white-space: nowrap;">Cnpj/Cpf:(*)</label>
               <input class="form-control" type="text" maxlength="18" formControlName="cnpjCpf" [ngClass]="{ 'is-invalid': cadastroForm.get('cnpjCpf').errors && 
                   cadastroForm.get('cnpjCpf').touched}" [ngModel]="valueCnpjCpfPipe | cnpjCpfPipePipe"
                 (ngModelChange)="valueCnpjCpfPipe=$event" />
@@ -194,7 +194,7 @@
 
         </tab>
 
-        <tab heading="Sistema">
+        <tab heading="Sistema" style="margin-top: 10px;">
           <div class="row mt-4">
             <div class="form-group col-md-2">
               <label>Sistema:(*)</label>
@@ -242,8 +242,7 @@
     </form>
   </div>
 </div>
-<button 
-  style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="cadastrarCliente()"
+<button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="cadastrarCliente()"
   tooltip="Novo Cliente" class="btn btn-lg btn-primary">
   &nbsp;Cadastrar
 </button>

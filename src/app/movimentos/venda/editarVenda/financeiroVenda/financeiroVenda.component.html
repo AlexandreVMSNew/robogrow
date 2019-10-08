@@ -157,8 +157,8 @@
 <app-previsao-venda [produtoItem]="this.produtoItem" [venda]="this.venda" 
   *ngIf="getPrevisaoVenda() == true && this.produtoItem && this.venda"></app-previsao-venda>
 
-<app-pagamentos-venda [produtoItem]="this.produtoItem" [idVenda]="this.venda.id"
+<app-pagamentos-venda [produtoItem]="this.produtoItem" [venda]="this.venda"
  *ngIf="getPagamentosVenda() == true && this.produtoItem && this.venda">
   </app-pagamentos-venda>
-<app-recebimentos-venda [produtoItem]="this.produtoItem" [vendaClienteId]="this.venda.clientesId" [idVenda]="this.venda.id"
+<app-recebimentos-venda [produtoItem]="this.produtoItem" [venda]="this.venda"
     *ngIf="getRecebimentosVenda() == true && this.produtoItem && this.venda"></app-recebimentos-venda>

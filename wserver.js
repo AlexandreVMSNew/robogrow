@@ -1,8 +1,10 @@
 const express = require('express');
 const socketIO = require('socket.io');
+const forceSsl = require('force-ssl-heroku');
 const path = require('path');
 const PORT = process.env.PORT || 3000;
-
+const app = express();
+app.use(forceSsl);
 const server = express()
   .use(express.static(__dirname + '/dist/VirtualWeb-App'))
   .get('/*', function(req, res) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, Input, EventEmitter } from '@angular/core';
 import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -26,6 +26,8 @@ import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
   styleUrls: ['./editarCliente.component.css']
 })
 export class EditarClienteComponent implements OnInit, AfterViewInit {
+
+  @Input() idCliente: number;
 
   editar = false;
   titulo = 'Cadastrar';
@@ -58,7 +60,6 @@ export class EditarClienteComponent implements OnInit, AfterViewInit {
   versoesIdSelecionado: any;
   versoesCliente: ClienteVersoes[];
 
-  idCliente: number;
   valueCnpjCpfPipe = '';
   valueCepPipe = '';
   valueCelularPipe = '';
@@ -85,7 +86,7 @@ export class EditarClienteComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.idCliente = +this.router.snapshot.paramMap.get('id');
+    if (!this.idCliente) { this.idCliente = +this.router.snapshot.paramMap.get('id'); }
     this.getEstados();
     this.getSistemas();
     this.getGrupos();

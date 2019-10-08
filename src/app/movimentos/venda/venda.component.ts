@@ -4,10 +4,19 @@ import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
+import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/editarCliente.component';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 @Component({
   selector: 'app-venda',
   templateUrl: './venda.component.html',
-  styleUrls: ['./venda.component.scss']
+  styles: [
+  `:host >>> .popover {
+      max-width: 100% !important;
+    }
+    :host >>> .popover>.arrow:after {
+      max-width: 100% !important;
+    }`
+  ]
 })
 export class VendaComponent implements OnInit, AfterViewInit {
 
@@ -30,9 +39,14 @@ export class VendaComponent implements OnInit, AfterViewInit {
   paginaAtual = 1;
   totalRegistros = 0; number;
 
+  editarClienteComponent = EditarClienteComponent;
+  inputs: any;
+  componentModal: any;
+
   constructor(private toastr: ToastrService,
-              public permissaoService: PermissaoService,
-              public vendaService: VendaService) { }
+              private permissaoService: PermissaoService,
+              private vendaService: VendaService,
+              private templateModalService: TemplateModalService) { }
 
   ngOnInit() {
     this.getVendas();
@@ -98,6 +112,16 @@ export class VendaComponent implements OnInit, AfterViewInit {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar VendaS: ${error.error}`);
     });
+  }
+
+  abrirTemplateModal(component, clienteId: number) {
+    this.componentModal = component;
+    this.inputs = Object.assign({idCliente: clienteId});
+    this.templateModalService.setTemplateModalStatus(true);
+  }
+
+  getTemplateModal() {
+    return this.templateModalService.getTemplateModalStatus();
   }
 
   getVendaConfig() {

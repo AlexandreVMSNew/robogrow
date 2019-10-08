@@ -4,7 +4,7 @@
   <div class="box-header with-border">
     <div class="row">
       <div class="form-group col-md-2">
-        <label>Filtrar por:</label>
+        <label>Filtrar por</label>
         <ng-select [clearable]="false" [items]="filtrarPor" name="filtrarPor" [(ngModel)]="filtroSelecionado"
           (change)="setFiltroSelecionado($event)">
         </ng-select>
@@ -13,33 +13,33 @@
       <div *ngIf="filtroSelecionado != 'CIDADE'" class="form-group col-md-3">
         <div
           *ngIf="filtroSelecionado == 'NOME FANTASIA' || filtroSelecionado == 'RAZÃO SOCIAL' || filtroSelecionado == 'COD.SIGA'">
-          <label>Filtro:</label>
+          <label>Filtro</label>
           <input type="text" style="text-transform: uppercase" class="form-control" placeholder="..." name="filtro" [(ngModel)]="filtroTexto" />
         </div>
 
         <div *ngIf="filtroSelecionado == 'CNPJ/CPF'">
-          <label>Filtro:</label>
+          <label>Filtro</label>
           <input class="form-control" type="text" maxlength="18" placeholder="..." name="filtro"
             [ngModel]="filtroTexto | cnpjCpfPipePipe" (ngModelChange)="filtroTexto=$event" />
         </div>
       </div>
 
-      <div *ngIf="filtroSelecionado == 'CIDADE'" class="form-group col-md-1">
-        <label>Estado:(*)</label>
+      <div *ngIf="filtroSelecionado == 'CIDADE'" class="form-group col-md-2">
+        <label>Estado</label>
         <ng-select [items]="estados" bindLabel="uf" (clear)="limparEstado()" bindValue="id"
           (change)="getCidades(estadoIdSelecionado)" [(ngModel)]="estadoIdSelecionado" name="estadoFiltro">
         </ng-select>
       </div>
 
       <div *ngIf="filtroSelecionado == 'CIDADE'" class="form-group col-md-3">
-        <label>Cidade:(*)</label>
+        <label>Cidade</label>
         <ng-select [items]="cidades" style="text-transform: uppercase" bindLabel="nome" (clear)="limparCidade()"
           bindValue="id" [(ngModel)]="filtroTexto" name="cidadeFiltro">
         </ng-select>
       </div>
 
       <div class="form-group col-md-2">
-        <label>Status:</label>
+        <label>Status</label>
         <ng-select [clearable]="false" [items]="status" name="statusFiltro" [(ngModel)]="statusFiltroSelecionado"
           (change)="setStatusFiltroSelecionado($event)">
         </ng-select>

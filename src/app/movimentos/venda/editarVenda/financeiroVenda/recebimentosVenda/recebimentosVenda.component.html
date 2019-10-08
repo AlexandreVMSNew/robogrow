@@ -17,7 +17,7 @@
         <div class="box box-solid">
           <div class="box-header with-border">
             <div class="row">
-              <div style="margin-right: 15px;" class="pull-right">
+              <div style="margin-right: 15px;" class="pull-right" *ngIf="this.venda.status != 'FINALIZADO'">
                 <a (click)="abrirTemplateRecebimento()" class="btn btn-success">
                   <i class="fa fa-plus-circle"></i>&nbsp; Novo Recebimento
                 </a>
@@ -77,4 +77,4 @@
 <app-detalhar-recebimento [idRecebimento]="this.idDetalharRecebimento" [produtoItem]="this.produtoItem" *ngIf="getDetalharRecebimento() == true">
 </app-detalhar-recebimento>
 
-<app-template-recebimento [idVenda]="this.idVenda" [vendaClienteId]="this.vendaClienteId" [produtoItem]="this.produtoItem" *ngIf="getTemplateRecebimento() == true"></app-template-recebimento>
+<app-template-recebimento [idVenda]="this.venda.id" [vendaClienteId]="this.venda.clientesId" [produtoItem]="this.produtoItem" *ngIf="getTemplateRecebimento() == true"></app-template-recebimento>

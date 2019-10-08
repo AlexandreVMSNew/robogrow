@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/recebimento.service';
 import { Recebimentos } from 'src/app/_models/Financeiro/Recebimentos/Recebimentos';
+import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 
 @Component({
   selector: 'app-recebimentos-venda',
@@ -14,8 +15,7 @@ import { Recebimentos } from 'src/app/_models/Financeiro/Recebimentos/Recebiment
 export class RecebimentosVendaComponent implements OnInit {
 
   @Input() produtoItem: ProdutoItem;
-  @Input() idVenda: number;
-  @Input() vendaClienteId: number;
+  @Input() venda: Venda;
 
   recebimentos: Recebimentos[];
 
@@ -39,7 +39,7 @@ export class RecebimentosVendaComponent implements OnInit {
     this.recebimentoService.getAllRecebimentos().subscribe(
       // tslint:disable-next-line:variable-name
       (_RECEBIMENTOS: Recebimentos[]) => {
-        this.recebimentos = _RECEBIMENTOS.filter(c => c.produtosItensId === this.produtoItem.id && c.vendaId === this.idVenda);
+        this.recebimentos = _RECEBIMENTOS.filter(c => c.produtosItensId === this.produtoItem.id && c.vendaId === this.venda.id);
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar Recebimentos: ${error.error}`);
