@@ -1,11 +1,18 @@
 const express = require('express');
 const socketIO = require('socket.io');
-var sslRedirect = require('heroku-ssl-redirect');
 const path = require('path');
 const PORT = process.env.PORT || 3000;
 const app = express();
-app.use(sslRedirect());
-const server = express()
+var forceSsl = function (req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  return next();
+};
+
+app.use(forceSsl);
+
+const server = app
   .use(express.static(__dirname + '/dist/VirtualWeb-App'))
   .get('/*', function(req, res) {
     res.sendFile(path.join(__dirname + '/dist/VirtualWeb-App/index.html'));
