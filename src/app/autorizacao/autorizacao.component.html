@@ -41,7 +41,7 @@
                 class="btn btn-sm btn-primary">
                 <i class="fa fa-edit"></i>
               </a>
-              <a *ngIf="autorizacao.formulario == 'VENDA' && autorizacao.acao == 'GERAR PEDIDO'"
+              <a *ngIf="autorizacao.formulario == 'VENDA' && autorizacao.acao == 'GERAR' && autorizacao.objeto == 'PEDIDO'"
               [routerLink]="['/movimentos/vendas','editar', autorizacao.formularioId]" tooltip="Ir para o Formulário"
                 class="btn btn-sm btn-success">
                 <i class="fa fa-shopping-cart"></i>

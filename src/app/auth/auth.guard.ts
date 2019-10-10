@@ -8,7 +8,7 @@ import { NovoClienteComponent } from '../cadastros/cliente/novoCliente/novoClien
 import { EditarUsuarioComponent } from '../cadastros/usuario/editarUsuario/editarUsuario.component';
 import { Permissao } from '../_models/Permissoes/permissao';
 import { EditarClienteComponent } from '../cadastros/cliente/editarCliente/editarCliente.component';
-import { PermissaoComponent } from '../permissao/permissao.component';
+import { PermissaoComponent } from '../configuracoes/permissao/permissao.component';
 import { VendaComponent } from '../movimentos/venda/venda.component';
 import { EditarVendaComponent } from '../movimentos/venda/editarVenda/editarVenda.component';
 import { NovoVendaComponent } from '../movimentos/venda/novoVenda/novoVenda.component';

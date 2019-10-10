@@ -142,9 +142,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
       this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
       this.editarValorPrevisto = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'VALOR PREVISTO')[0]);
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'LANÇAR' && c.objeto === 'VALOR PREVISTO')[0]);
       this.editarValorRealizado = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'VALOR REALIZADO')[0]);
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'LANÇAR' && c.objeto === 'VALOR REALIZADO')[0]);
       this.editarDataNegociacao = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'DATA NEGOCIAÇÃO')[0]);
       this.editarStatus = this.permissaoService
@@ -154,7 +154,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.visualizarResultado = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'RESUMO')[0]);
       this.gerarPedido = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR PEDIDO')[0]);
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR' && c.objeto === 'PEDIDO')[0]);
       this.carregarVenda();
     });
 
@@ -237,7 +237,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.usuarioService.getAllUsuario().subscribe(
       (_USUARIOS: Usuario[]) => {
       this.permissaoService.getPermissoesByFormularioAcaoObjeto(
-        Object.assign({formulario: 'AUTORIZACOES', acao: 'GERAR PEDIDO'})).subscribe((_PERMISSAO: Permissao) => {
+        Object.assign({formulario: 'AUTORIZACOES', acao: 'GERAR', objeto: 'PEDIDO'})).subscribe((_PERMISSAO: Permissao) => {
         _PERMISSAO.permissaoNiveis.forEach((permissao) => {
           _USUARIOS.forEach((usuario: Usuario) => {
             if (usuario.usuarioNivel.filter(c => c.roleId === permissao.nivelId).length > 0) {
@@ -290,7 +290,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       formularioId: this.idVenda,
       formularioIdentificacao: this.venda.numeroAno,
       formulario: 'VENDA',
-      acao: 'GERAR PEDIDO',
+      acao: 'GERAR',
+      objeto: 'PEDIDO',
       dataHoraSolicitado: dataAtual,
       autorizado: 0,
       visto: 0

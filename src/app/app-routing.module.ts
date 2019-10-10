@@ -14,7 +14,7 @@ import { RetornoComponent } from './atendimento/retorno/retorno.component';
 import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoRetorno.component';
 import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
 import { EditarSenhaUsuarioComponent } from './cadastros/usuario/editarSenhaUsuario/editarSenhaUsuario.component';
-import { PermissaoComponent } from './permissao/permissao.component';
+import { PermissaoComponent } from './configuracoes/permissao/permissao.component';
 import { VendaComponent } from './movimentos/venda/venda.component';
 import { NovoVendaComponent } from './movimentos/venda/novoVenda/novoVenda.component';
 import { EditarVendaComponent } from './movimentos/venda/editarVenda/editarVenda.component';

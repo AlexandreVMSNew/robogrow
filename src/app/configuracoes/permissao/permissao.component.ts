@@ -1,12 +1,11 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { UsuarioService } from '../_services/Cadastros/Usuarios/usuario.service';
+import { UsuarioService } from '../../_services/Cadastros/Usuarios/usuario.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder } from '@angular/forms';
-import { Nivel } from '../_models/Cadastros/Usuarios/Nivel';
-import { PermissaoService } from '../_services/Permissoes/permissao.service';
-import { Permissao } from '../_models/Permissoes/permissao';
-import { NiveisPermissao } from '../_models/Permissoes/niveisPermissao';
-import { PermissaoNivel } from '../_models/Permissoes/permissaoNivel';
+import { Nivel } from '../../_models/Cadastros/Usuarios/Nivel';
+import { PermissaoService } from '../../_services/Permissoes/permissao.service';
+import { Permissao } from '../../_models/Permissoes/permissao';
+import { NiveisPermissao } from '../../_models/Permissoes/niveisPermissao';
+import { PermissaoNivel } from '../../_models/Permissoes/permissaoNivel';
 
 @Component({
   selector: 'app-permissao',

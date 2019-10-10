@@ -172,7 +172,7 @@ export class SidebarService {
       icon: 'fa fa-user-o',
       active: false,
       type: 'simple',
-      link: 'usuarios/editar/' + this.idUsuario
+      link: 'usuarios/editar/' + this.permissaoService.getUsuarioId()
     }
   ];
 

@@ -87,7 +87,7 @@ import { RelatorioLancamentoComponent } from './financeiro/lancamento/relatorioL
 import { ChequePreComponent } from './cadastros/chequePre/chequePre.component';
 import { ChequePreTemplateComponent } from './cadastros/chequePre/chequePreTemplate/chequePreTemplate.component';
 
-import { PermissaoComponent } from './permissao/permissao.component';
+import { PermissaoComponent } from './configuracoes/permissao/permissao.component';
 
 import { EmpresaComponent } from './cadastros/empresa/empresa.component';
 import { EmpresaTemplateComponent } from './cadastros/empresa/empresaTemplate/empresaTemplate.component';

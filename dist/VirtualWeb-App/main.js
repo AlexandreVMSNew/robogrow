@@ -10464,7 +10464,8 @@ var EditarVendaComponent = /** @class */ (function () {
             solicitanteId: this.permissaoService.getUsuarioId(),
             formularioId: this.idVenda,
             formulario: 'VENDA',
-            acao: 'GERAR PEDIDO',
+            acao: 'GERAR',
+            objeto: 'PEDIDO',
             dataHoraSolicitado: dataAtual,
             autorizado: 0,
             visto: 0
