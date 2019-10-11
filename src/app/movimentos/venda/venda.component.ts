@@ -28,7 +28,7 @@ export class VendaComponent implements OnInit, AfterViewInit {
   vendas: Venda[];
   vendasFiltro: Venda[];
 
-  status = ['EM NEGOCIAÇÃO', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO', 'TODOS'];
+  status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO', 'TODOS'];
   statusFiltroSelecionado = 'TODOS';
 
   filtrarPor = ['NOME FANTASIA', 'RAZÃO SOCIAL', 'N° VENDA'];

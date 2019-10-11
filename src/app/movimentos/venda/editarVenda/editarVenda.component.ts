@@ -49,6 +49,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   editarDataNegociacao = false;
   editarStatus = false;
   visualizarResultado = false;
+  visualizarFinanceiro = false;
   visualizar = false;
   gerarPedido = false;
   autorizadoGerarPedido = false;
@@ -153,6 +154,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
       this.visualizarResultado = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'RESUMO')[0]);
+      this.visualizarFinanceiro = this.permissaoService
+          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'FINANCEIRO')[0]);
       this.gerarPedido = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR' && c.objeto === 'PEDIDO')[0]);
       this.carregarVenda();

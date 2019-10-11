@@ -23,6 +23,7 @@ let io = socketIO(server);
  
 io.on('connection', (socket) => {
     console.log('user connect');
+
     socket.on('NovoRetorno', (dados) => { io.emit('NovoRetorno', dados); });
 
     socket.on('NovaObservacao', (dados) => { io.emit('NovaObservacao', dados); });

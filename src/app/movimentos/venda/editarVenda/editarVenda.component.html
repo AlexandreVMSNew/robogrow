@@ -160,7 +160,7 @@
         <app-check-list-venda *ngIf="this.venda" [venda]="this.venda" [pedido]="false"></app-check-list-venda>
       </tab>
 
-      <tab heading="Financeiro" style="margin-top: 10px;">
+      <tab *ngIf="this.visualizarFinanceiro == true" heading="Financeiro" style="margin-top: 10px;">
         <app-financeiro-venda *ngIf="this.venda" [venda]="this.venda" [editarValorRealizado]="this.editarValorRealizado"
           [editarValorPrevisto]="this.editarValorPrevisto">
         </app-financeiro-venda>
@@ -174,7 +174,7 @@
   </div>
 </div>
 
-<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="70"
+<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="80"
   [inputs]="this.inputs"></app-template-modal>
 
 <app-pedido-venda *ngIf="getPedidoVenda() == true && this.venda" [venda]="this.venda"></app-pedido-venda>

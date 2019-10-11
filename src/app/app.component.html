@@ -13,8 +13,52 @@
           <a class="sidebar-toggle" (click)="alterarSidebar()" role="button">
             <span class="sr-only"></span>
           </a>
+
           <div class="navbar-custom-menu">
             <ul *ngIf="verificarLogIn()" class="nav navbar-nav">
+
+                <li class="dropdown messages-menu" dropdown>
+                    <a dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-user-friends"></i>
+                      <span *ngIf="getQtdNotificacoes() > 0" class="label label-warning">{{getQtdNotificacoes()}}</span>
+                    </a>
+                    <div *dropdownMenu class="dropdown-menu" style="width: 400px;">
+    
+                    <li class="header">Você tem {{getQtdNotificacoes()}} Notificações</li>
+                    <li>
+                      <ul class="menu">
+                        <div *ngFor="let notificacao of notificacoes">
+                          <div *ngIf="notificacao.visto == 0">
+                            <li (click)="setarVistoNotificacao(notificacao)" style="cursor:pointer;">
+                              <a>
+                                <h4 style="margin-left:5px;">{{notificacao.titulo}}<small style="margin-right:5px;"
+                                    class="pull-right">
+                                    <i class="fa fa-clock-o "></i>
+                                    [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                                </h4>
+                                <p style="margin-left:10px;">{{notificacao.mensagem}}</p>
+                              </a>
+                            </li>
+                          </div>
+                          <div *ngIf="notificacao.visto == 1">
+                            <li class="bg-gray"
+                              style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;">
+                              <a>
+                                <h4 style="margin-left:5px;">{{notificacao.titulo}}
+                                  <small style="margin-right:5px;" class="pull-right"><i class="fa fa-clock-o "></i>
+                                    [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
+                                </h4>
+                                <p style="margin-left:10px;">{{notificacao.mensagem}}</p>
+                              </a>
+                            </li>
+                          </div>
+                        </div>
+                      </ul>
+                    </li>
+                    <li class="footer"><a></a></li>
+                  </div>
+                </li>
+
               <li class="dropdown messages-menu" dropdown>
                 <a dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>

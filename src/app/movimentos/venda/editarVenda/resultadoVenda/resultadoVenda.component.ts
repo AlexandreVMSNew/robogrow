@@ -212,72 +212,74 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
     this.zerarVariaveis();
 
     if (this.venda) {
-      this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
-      this.vendaItensReceita.map(itemReceita => {
-        const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemReceita.id);
-        if (valorRealizadoItem) {
-          valorRealizadoItem.forEach(valorRealizado => {
-            if (valorRealizado.recebimentos) {
-              this.realizadoReceitaValores.push(valorRealizado.recebimentos.valorTotal);
-            }
-          });
-          this.verificarSoma = false;
-        }
-        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemReceita.id, this.venda.id)
-          .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
-          if (_VALORPREVISTO) {
-            this.previstoReceitaValores.push(_VALORPREVISTO);
+      if (this.venda.vendaProdutos) {
+        this.vendaItensReceita = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');
+        this.vendaItensReceita.map(itemReceita => {
+          const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemReceita.id);
+          if (valorRealizadoItem) {
+            valorRealizadoItem.forEach(valorRealizado => {
+              if (valorRealizado.recebimentos) {
+                this.realizadoReceitaValores.push(valorRealizado.recebimentos.valorTotal);
+              }
+            });
             this.verificarSoma = false;
           }
-        });
-      });
-
-      this.vendaItensDespesaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
-        item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO');
-      this.vendaItensDespesaComissao.map(itemComissao => {
-
-        const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemComissao.id);
-        if (valorRealizadoItem) {
-          valorRealizadoItem.forEach(valorRealizado => {
-            if (valorRealizado.pagamentos) {
-              this.realizadoDespesaComissaoValores.push(valorRealizado.pagamentos.valorTotal);
+          this.vendaService.getVendaValorPrevistoByProdIdVendId(itemReceita.id, this.venda.id)
+            .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
+            if (_VALORPREVISTO) {
+              this.previstoReceitaValores.push(_VALORPREVISTO);
+              this.verificarSoma = false;
             }
           });
-          this.verificarSoma = false;
-        }
-
-        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemComissao.id, this.venda.id)
-          .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
-           if (_VALORPREVISTO) {
-             this.previstoDespesaComissaoValores.push(_VALORPREVISTO);
-             this.verificarSoma = false;
-            }
         });
-      });
 
-      this.vendaItensDespesaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
-        item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO');
-      this.vendaItensDespesaGasto.map(itemGasto => {
+        this.vendaItensDespesaComissao = this.venda.vendaProdutos[0].produtos.itens.filter(
+          item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'COMISSÃO');
+        this.vendaItensDespesaComissao.map(itemComissao => {
 
-        const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemGasto.id);
-        if (valorRealizadoItem) {
-          valorRealizadoItem.forEach(valorRealizado => {
-            if (valorRealizado.pagamentos) {
-              this.realizadoDespesaGastoValores.push(valorRealizado.pagamentos.valorTotal);
-            }
-          });
-          this.verificarSoma = false;
-        }
-
-        this.vendaService.getVendaValorPrevistoByProdIdVendId(itemGasto.id, this.venda.id)
-          .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
-           if (_VALORPREVISTO) {
-             this.previstoDespesaGastoValores.push(_VALORPREVISTO);
-             this.verificarSoma = false;
+          const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemComissao.id);
+          if (valorRealizadoItem) {
+            valorRealizadoItem.forEach(valorRealizado => {
+              if (valorRealizado.pagamentos) {
+                this.realizadoDespesaComissaoValores.push(valorRealizado.pagamentos.valorTotal);
+              }
+            });
+            this.verificarSoma = false;
           }
+
+          this.vendaService.getVendaValorPrevistoByProdIdVendId(itemComissao.id, this.venda.id)
+            .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
+            if (_VALORPREVISTO) {
+              this.previstoDespesaComissaoValores.push(_VALORPREVISTO);
+              this.verificarSoma = false;
+              }
+          });
         });
 
-      });
+        this.vendaItensDespesaGasto = this.venda.vendaProdutos[0].produtos.itens.filter(
+          item => item.tipoItem === 'DESPESA' && item.subTipoItem === 'GASTO');
+        this.vendaItensDespesaGasto.map(itemGasto => {
+
+          const valorRealizadoItem = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === itemGasto.id);
+          if (valorRealizadoItem) {
+            valorRealizadoItem.forEach(valorRealizado => {
+              if (valorRealizado.pagamentos) {
+                this.realizadoDespesaGastoValores.push(valorRealizado.pagamentos.valorTotal);
+              }
+            });
+            this.verificarSoma = false;
+          }
+
+          this.vendaService.getVendaValorPrevistoByProdIdVendId(itemGasto.id, this.venda.id)
+            .subscribe((_VALORPREVISTO: VendaValorPrevisto) => {
+            if (_VALORPREVISTO) {
+              this.previstoDespesaGastoValores.push(_VALORPREVISTO);
+              this.verificarSoma = false;
+            }
+          });
+
+        });
+      }
     }
   }
 
