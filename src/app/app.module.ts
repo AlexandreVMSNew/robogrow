@@ -53,6 +53,7 @@ import { CheckListVendaComponent } from './movimentos/venda/editarVenda/checkLis
 import { FinanceiroVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/financeiroVenda.component';
 import { PrevisaoVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/previsaoVenda/previsaoVenda.component';
 import { PedidoVendaComponent } from './movimentos/venda/editarVenda/pedidoVenda/pedidoVenda.component';
+import { PublicacaoVendaComponent } from './movimentos/venda/editarVenda/publicacaoVenda/publicacaoVenda.component';
 
 import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { NovoProdutoComponent } from './cadastros/produto/novoProduto/novoProduto.component';
@@ -112,7 +113,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
-
 const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
@@ -146,6 +146,7 @@ defineLocale('pt-br', ptBrLocale);
       FinanceiroVendaComponent,
       PrevisaoVendaComponent,
       PedidoVendaComponent,
+      PublicacaoVendaComponent,
       ProdutoComponent,
       NovoProdutoComponent,
       EditarProdutoComponent,
