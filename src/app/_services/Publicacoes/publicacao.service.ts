@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
-import { PublicacaoComentario } from 'src/app/_models/Publicacoes/publicacaoComentario';
+import { PublicacaoComentario } from 'src/app/_models/Publicacoes/PublicacaoComentario';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { Usuario } from '../Cadastros/Usuarios/Usuario';
-import { PublicacaoComentario } from './publicacaoComentario';
+import { PublicacaoComentario } from './PublicacaoComentario';
 export class Publicacao {
     id: number;
     usuarioId: number;
