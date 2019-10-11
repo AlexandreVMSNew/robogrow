@@ -1,0 +1,46 @@
+{{abrirTemplate(templatePublicacao)}}
+<div bsModal #templatePublicacao="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Publicação<label></label>
+        </h4>
+
+        <button type="button" class="close pull-right" (click)="fecharTemplate(templatePublicacao)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="cadastroPublicacao">
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label>Texto:</label>
+              <textarea class="form-control"
+                [ngClass]="{'is-invalid':cadastroPublicacao.get('texto').errors &&cadastroPublicacao.get('texto').touched}"
+                formControlName="texto" placeholder="" rows="4"></textarea>
+              <div
+                *ngIf="cadastroPublicacao.get('texto').hasError('required') &&cadastroPublicacao.get('texto').touched"
+                class="invalid-feedback">
+                Campo é obrigatório.
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templatePublicacao)">
+          Fechar
+        </button>
+        <button  [disabled]="!cadastroPublicacao.valid"
+          class="btn btn-primary" (click)="salvarPublicacao(templatePublicacao)">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+

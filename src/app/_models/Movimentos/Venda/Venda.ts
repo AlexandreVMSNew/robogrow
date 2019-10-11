@@ -7,6 +7,7 @@ import { VendaCheckList } from './VendaCheckList';
 import { Empresa } from '../../Cadastros/Empresas/Empresa';
 import { Pessoa } from '../../Cadastros/Pessoas/Pessoa';
 import { PlanoPagamento } from '../../Cadastros/PlanoPagamento/PlanoPagamento';
+import { VendaPublicacao } from './VendaPublicacao';
 
 export class Venda {
     id: number;
@@ -29,4 +30,5 @@ export class Venda {
     vendaCheckList: VendaCheckList[];
     vendaValorPrevisto: VendaValorPrevisto[];
     vendaValorRealizado: VendaValorRealizado[];
+    vendaPublicacoes: VendaPublicacao[];
 }

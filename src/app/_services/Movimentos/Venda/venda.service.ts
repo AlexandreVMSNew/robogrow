@@ -9,6 +9,7 @@ import { VendaValorRealizado } from 'src/app/_models/Movimentos/Venda/VendaValor
 import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
 import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 import { VendaCheckList } from 'src/app/_models/Movimentos/Venda/VendaCheckList';
+import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicacao';
 
 @Injectable({
   providedIn: 'root'
@@ -111,6 +112,10 @@ getVendaConfig(): Observable<VendaConfig> {
 
 novoVendaConfig(vendaConfig: VendaConfig) {
   return this.http.post(`${this.baseURL}/config/novo`, vendaConfig);
+}
+
+novaVendaPublicacao(vendaPublicacao: VendaPublicacao) {
+  return this.http.post(`${this.baseURL}/publicacoes/novo`, vendaPublicacao);
 }
 
 editarVendaConfig(vendaConfig: VendaConfig) {

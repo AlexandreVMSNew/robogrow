@@ -137,6 +137,7 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
       }
     );
   }
+
   salvarEmpresa(template: any) {
     if (this.idEmpresa === 0) {
       this.empresa = Object.assign(this.cadastroEmpresa.value, {id: 0});

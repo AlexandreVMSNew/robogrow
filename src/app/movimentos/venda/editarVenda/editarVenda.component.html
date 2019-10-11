@@ -160,6 +160,10 @@
         <app-check-list-venda *ngIf="this.venda" [venda]="this.venda" [pedido]="false"></app-check-list-venda>
       </tab>
 
+      <tab heading="Atividades" style="margin-top: 10px;">
+        <app-publicacao-venda *ngIf="this.venda" [vendaId]="this.venda.id" [vendaPublicacoes]="this.venda.vendaPublicacoes"></app-publicacao-venda>
+      </tab>
+
       <tab *ngIf="this.visualizarFinanceiro == true" heading="Financeiro" style="margin-top: 10px;">
         <app-financeiro-venda *ngIf="this.venda" [venda]="this.venda" [editarValorRealizado]="this.editarValorRealizado"
           [editarValorPrevisto]="this.editarValorPrevisto">

@@ -1,3 +1,64 @@
-<p>
-  publicacaoVenda works!
-</p>
+<div class="row">
+  <div style="margin-right: 15px;" class="pull-right">
+    <a (click)="abrirTemplatePublicacao()" class="btn btn-success">
+      <i class="fa fa-plus-circle"></i>&nbsp; Nova Publicação
+    </a>
+  </div>
+</div>
+<div *ngIf="vendaPublicacoes && vendaPublicacoes.length">
+  <div *ngFor="let vp of vendaPublicacoes" class="box box-default  box-solid" style="margin-top: 15px;">
+    <div class="box-header with-border">
+      <div class="user-block">
+        <img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image">
+        <span class="username"><a href="#">{{vp.publicacoes.usuario.nomeCompleto}}</a></span>
+        <span class="description">
+          Publicado - {{vp.publicacoes.dataHora | date:'dd/MM/yyyy HH:mm'}} |
+          Última Edição - {{vp.publicacoes.dataHoraAlteracao | date:'dd/MM/yyyy HH:mm'}}</span>
+      </div>
+      <div class="box-tools">
+        <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
+          <i class="fa fa-circle-o"></i></button>
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    <div class="box-body">
+      <p>{{vp.publicacoes.texto}}</p>
+
+      <br />
+
+      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Curtir</button>
+      <span class="pull-right text-muted">{{vp.publicacoes.publicacaoComentarios.length}} comentários.</span>
+    </div>
+
+    <div *ngFor="let comentario of vp.publicacoes.publicacaoComentarios" class="box-footer box-comments">
+      <div class="box-comment">
+        <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+
+        <div style="margin-left: 15px;" class="comment-text">
+          <span class="username">
+            {{comentario.usuario.nomeCompleto}}
+            <span class="text-muted pull-right">
+              {{comentario.dataHora | date:'dd/MM/yyyy HH:mm'}}</span>
+          </span>
+          <p>{{comentario.texto}}</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="box-footer">
+      <form action="#" method="post">
+        <img class="img-responsive img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="Alt Text">
+        
+        <div class="img-push">
+          <input type="text" class="form-control input-sm" [(ngModel)]="textoComentario" name="comentario"
+            (keyup.enter)="cadastrarComentario(vp.publicacoesId)"
+            placeholder="Aperte Enter para publicar o comentário...">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-publicacao-template [vendaId]="vendaId" *ngIf="this.getTemplatePublicacao() == true"></app-publicacao-template>

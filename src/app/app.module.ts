@@ -98,6 +98,9 @@ import { AutorizacaoTemplateComponent } from './autorizacao/autorizacaoTemplate/
 
 import { TemplateModalComponent } from './Uteis/templateModal/templateModal.component';
 
+// tslint:disable-next-line:max-line-length
+import { PublicacaoTemplateComponent } from './movimentos/venda/editarVenda/publicacaoVenda/publicacaoTemplate/publicacaoTemplate.component';
+
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
 import { CepPipe } from './pipes/cep.pipe';
@@ -113,6 +116,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
+
 const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
@@ -176,6 +180,7 @@ defineLocale('pt-br', ptBrLocale);
       AutorizacaoComponent,
       AutorizacaoTemplateComponent,
       TemplateModalComponent,
+      PublicacaoTemplateComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,
