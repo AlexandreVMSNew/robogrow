@@ -7,6 +7,7 @@ export class Usuario {
     password: string;
     nomeCompleto: string;
     dataNascimento: Date;
+    nomeArquivoFotoPerfil: string;
     usuarioOcorrencias: UsuarioOcorrencia[];
     usuarioNivel: UsuarioNivel[];
 }

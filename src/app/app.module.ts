@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ModalModule, TooltipModule, BsDropdownModule, BsDatepickerModule, TabsModule, PopoverModule  } from 'ngx-bootstrap';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxEditorModule } from 'ngx-editor';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -17,7 +18,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {MatDialogModule, MatCheckboxModule, MatRadioModule, MatDividerModule} from '@angular/material';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -196,6 +197,8 @@ defineLocale('pt-br', ptBrLocale);
       NoopAnimationsModule,
       SocketIoModule.forRoot(config),
       BsDropdownModule.forRoot(),
+      NgxEditorModule,
+      AngularEditorModule,
       BsDatepickerModule.forRoot(),
       TooltipModule.forRoot(),
       TabsModule.forRoot(),

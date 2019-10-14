@@ -7,5 +7,6 @@ export class Publicacao {
     texto: string;
     dataHora: Date;
     dataHoraAlteracao: Date;
+    textoComentario: string;
     publicacaoComentarios: PublicacaoComentario[];
 }

@@ -13,18 +13,23 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="cadastroPublicacao">
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label>Texto:</label>
-              <textarea class="form-control"
-                [ngClass]="{'is-invalid':cadastroPublicacao.get('texto').errors &&cadastroPublicacao.get('texto').touched}"
-                formControlName="texto" placeholder="" rows="4"></textarea>
-              <div
-                *ngIf="cadastroPublicacao.get('texto').hasError('required') &&cadastroPublicacao.get('texto').touched"
-                class="invalid-feedback">
-                Campo é obrigatório.
-              </div>
+          <div class="form-group">
+            <label>Texto:</label>
+            <textarea class="form-control"
+              [ngClass]="{'is-invalid':cadastroPublicacao.get('texto').errors &&cadastroPublicacao.get('texto').touched}"
+              formControlName="texto" placeholder="" rows="4"></textarea>
+            <div *ngIf="cadastroPublicacao.get('texto').hasError('required') &&cadastroPublicacao.get('texto').touched"
+              class="invalid-feedback">
+              Campo é obrigatório.
             </div>
+          </div>
+
+          <div class="form-group">
+            <div class="btn btn-default btn-file">
+              <i class="fa fa-paperclip"></i> Attachment
+              <input type="file" name="attachment">
+            </div>
+            <p class="help-block">Max. 32MB</p>
           </div>
 
         </form>
@@ -34,8 +39,8 @@
         <button class="btn btn-secondary" (click)="fecharTemplate(templatePublicacao)">
           Fechar
         </button>
-        <button  [disabled]="!cadastroPublicacao.valid"
-          class="btn btn-primary" (click)="salvarPublicacao(templatePublicacao)">
+        <button [disabled]="!cadastroPublicacao.valid" class="btn btn-primary"
+          (click)="salvarPublicacao(templatePublicacao)">
           Salvar
         </button>
       </div>
@@ -43,4 +48,3 @@
   </div>
 
 </div>
-

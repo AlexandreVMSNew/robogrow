@@ -33,6 +33,11 @@ getIdUltimoUsuario(): Observable<Usuario> {
   return this.http.get<Usuario>(`${this.baseURL}/idultimousuario`);
 }
 
+enviarFotoPerfil(usuarioId: number, arquivo: File, nomeArquivo) {
+  const formData = new FormData();
+  formData.append('arquivo', arquivo, nomeArquivo);
+  return this.http.post(`${this.baseURL}/uploadfotoperfil/${usuarioId}`, formData);
+}
 
 novoUsuario(usuario: Usuario) {
   return this.http.post(`${this.baseURL}/novo`, usuario);

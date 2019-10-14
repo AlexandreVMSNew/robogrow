@@ -9,7 +9,8 @@
   <div *ngFor="let vp of vendaPublicacoes" class="box box-default  box-solid" style="margin-top: 15px;">
     <div class="box-header with-border">
       <div class="user-block">
-        <img class="img-circle" src="https://www.pena.com.br/wp-content/uploads/2017/05/user-icon.jpg" alt="User Image">
+        <img style="border: 1px solid #C0C0C0" class="img-circle" src="{{urlUsuarioFotoPerfil(vp.publicacoes.usuario.id, vp.publicacoes.usuario.nomeArquivoFotoPerfil)}}" 
+        onerror="this.onerror=null;this.src='./../assets/img/user-default.png';" alt="img">
         <span class="username"><a href="#">{{vp.publicacoes.usuario.nomeCompleto}}</a></span>
         <span class="description">
           Publicado - {{vp.publicacoes.dataHora | date:'dd/MM/yyyy HH:mm'}} |
@@ -28,13 +29,13 @@
 
       <br />
 
-      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Curtir</button>
       <span class="pull-right text-muted">{{vp.publicacoes.publicacaoComentarios.length}} comentários.</span>
     </div>
 
-    <div *ngFor="let comentario of vp.publicacoes.publicacaoComentarios" class="box-footer box-comments">
+    <div style="border: 1px solid #C0C0C0" *ngFor="let comentario of vp.publicacoes.publicacaoComentarios" class="box-footer box-comments">
       <div class="box-comment">
-        <img class="img-circle img-sm" src="https://www.pena.com.br/wp-content/uploads/2017/05/user-icon.jpg" alt="User Image">
+        <img style="border: 1px solid #C0C0C0" class="img-circle img-sm" src="{{urlUsuarioFotoPerfil(comentario.usuario.id, comentario.usuario.nomeArquivoFotoPerfil)}}" 
+        onerror="this.onerror=null;this.src='./../assets/img/user-default.png';" alt="img">
 
         <div style="margin-left: 60px;" class="comment-text">
           <span class="username">
@@ -49,11 +50,12 @@
     </div>
     <div class="box-footer">
       <form action="#" method="post">
-        <img class="img-responsive img-circle img-sm" src="https://www.pena.com.br/wp-content/uploads/2017/05/user-icon.jpg" alt="Alt Text">
+        <img style="border: 1px solid #C0C0C0" class="img-responsive img-circle img-sm" src="{{getUrlUsuarioLogadoFotoPerfil()}}" 
+        onerror="this.onerror=null;this.src='./../assets/img/user-default.png';" alt="img">
         
         <div class="img-push">
-          <input type="text" class="form-control input-sm" [(ngModel)]="textoComentario" name="comentario"
-            (keyup.enter)="cadastrarComentario(vp.publicacoesId)"
+          <input type="text" minlength="1" maxlength="255" class="form-control input-sm" [(ngModel)]="vp.publicacoes.textoComentario" name="comentario"
+            (keyup.enter)="cadastrarComentario(vp.publicacoes)"
             placeholder="Aperte Enter para publicar o comentário...">
         </div>
       </form>

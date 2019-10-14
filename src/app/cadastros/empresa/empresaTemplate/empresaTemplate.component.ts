@@ -44,9 +44,7 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
   valueIePipe = '';
 
   arquivoLogo: File;
-
   baseURLLogo = '';
-
   nomeArquivoLogo = '';
 
   templateEnabled = false;

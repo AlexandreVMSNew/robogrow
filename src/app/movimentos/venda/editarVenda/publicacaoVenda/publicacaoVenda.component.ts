@@ -4,6 +4,8 @@ import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicaca
 import * as moment from 'moment';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { ToastrService } from 'ngx-toastr';
+import { Publicacao } from 'src/app/_models/Publicacoes/Publicacao';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Component({
   selector: 'app-publicacao-venda',
@@ -22,7 +24,6 @@ export class PublicacaoVendaComponent implements OnInit {
               private toastr: ToastrService) { }
 
   ngOnInit() {
-    console.log(this.vendaPublicacoes);
   }
 
   getTemplatePublicacao() {
@@ -33,6 +34,18 @@ export class PublicacaoVendaComponent implements OnInit {
     this.publicacaoService.setPublicacaoTemplateStatus(true);
   }
 
+  getUrlUsuarioLogadoFotoPerfil(): string {
+    return this.permissaoService.getUrlUsuarioLogadoFotoPerfil();
+  }
+
+  getUrlUsuarioVisitanteFotoPerfil(): string {
+    return InfoAPI.URL + '/api/usuarios/Visitante/perfil/';
+  }
+
+  urlUsuarioFotoPerfil(usuarioId: number, nomeArquivoFotoPerfil: string): string {
+    return InfoAPI.URL + '/api/usuarios/' + usuarioId + '/perfil/' + nomeArquivoFotoPerfil;
+  }
+
   get textoComentario(): string {
     return this.textoComentarioAux;
   }
@@ -41,14 +54,14 @@ export class PublicacaoVendaComponent implements OnInit {
     this.textoComentarioAux = value;
   }
 
-  cadastrarComentario(publicacaoId: number) {
+  cadastrarComentario(publicacao: Publicacao) {
     console.log(this.textoComentario);
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const comentario = Object.assign({
       id: 0,
-      publicacoesId: publicacaoId,
+      publicacoesId: publicacao.id,
       usuarioId: this.permissaoService.getUsuarioId(),
-      texto: this.textoComentario,
+      texto: publicacao.textoComentario,
       dataHora: dataAtual,
       dataHoraAlteracao: dataAtual,
     });

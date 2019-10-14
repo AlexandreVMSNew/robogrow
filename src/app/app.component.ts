@@ -158,6 +158,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getUrlUsuarioLogadoFotoPerfil(): string {
+    return this.permissaoService.getUrlUsuarioLogadoFotoPerfil();
+  }
   getSideBarState() {
     return this.sidebarService.getSidebarState();
   }

@@ -11,6 +11,7 @@ import { UsuarioNivel } from 'src/app/_models/Cadastros/Usuarios/UsuarioNivel';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editarUsuario.component.html'
@@ -34,6 +35,10 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
   niveisUsuario: UsuarioNivel[];
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   dateFormat = '';
+
+  arquivoFotoPerfil: File;
+  baseURLFotoPerfil = '';
+  nomeArquivoFotoPerfil = '';
 
   constructor(private usuarioService: UsuarioService,
               private router: ActivatedRoute,
@@ -79,6 +84,8 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
         this.usuario = Object.assign(this.usuario, { dataNascimento: this.dataService.getDataPTBR(data) });
         this.cadastroForm.patchValue(this.usuario);
 
+        this.baseURLFotoPerfil = InfoAPI.URL + '/api/usuarios/' + this.usuario.id + '/perfil/' + this.usuario.nomeArquivoFotoPerfil;
+
         this.usuario.usuarioOcorrencias.forEach(ocorrencia => {
           ocorrencia = Object.assign(ocorrencia, { data: this.dataService.getDataPTBR(ocorrencia.data) });
           this.usuarioOcorrencias.push(ocorrencia);
@@ -101,6 +108,7 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
       email: ['', [Validators.required, Validators.email]],
       userName: ['', Validators.required],
       dataNascimento: ['', Validators.required],
+      nomeArquivoFotoPerfil: [''],
       usuarioOcorrencias: this.fb.array([]),
       usuarioNivel: [this.fb.group({
         userId: [''],
@@ -162,11 +170,35 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
     this.usuarioOcorrencias.splice(this.usuarioOcorrencias.indexOf(ocorrencia), 1);
   }
 
+  alterarNomeArquivoFotoPerfil(event) {
+    if (event.target.files && event.target.files.length) {
+      this.arquivoFotoPerfil = event.target.files[0];
+      this.nomeArquivoFotoPerfil = event.target.value.split('\\', 3)[2];
+      const reader = new FileReader();
+      reader.onload = e => this.baseURLFotoPerfil = reader.result.toString();
+      reader.readAsDataURL(this.arquivoFotoPerfil);
+    }
+  }
+
+  editarUsuario() {
+    this.usuarioService.editarUsuario(this.usuario).subscribe(() => {
+      this.toastr.success('Editado com sucesso!');
+      this.carregarUsuario();
+    }, error => {
+      this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
+      console.log(error);
+    });
+  }
+
   salvarAlteracao() {
     const data = this.cadastroForm.get('dataNascimento').value.toLocaleString();
 
-    this.usuario = Object.assign(this.cadastroForm.value, {id: this.usuario.id,
-      dataNascimento: this.dataService.getDataSQL(data)});
+    this.usuario = Object.assign(this.cadastroForm.value, {
+      id: this.usuario.id,
+      dataNascimento: this.dataService.getDataSQL(data),
+      nomeArquivoFotoPerfil: this.nomeArquivoFotoPerfil
+    });
+
     this.usuario.usuarioOcorrencias = [];
     this.usuarioOcorrencias.forEach(ocorrencia => {
       const dataOcorrencia = ocorrencia.data.toLocaleString();
@@ -179,14 +211,19 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
       this.usuario.usuarioNivel.push(niveis);
     });
 
-    this.usuarioService.editarUsuario(this.usuario).subscribe(
-      () => {
-        this.toastr.success('Editado com sucesso!');
-        this.carregarUsuario();
-      }, error => {
-        this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
-        console.log(error);
+    if (this.arquivoFotoPerfil) {
+      this.usuarioService.enviarFotoPerfil(this.usuario.id, this.arquivoFotoPerfil, this.usuario.nomeArquivoFotoPerfil)
+      .subscribe((result: any) => {
+        if (result.retorno.toString() === 'EXTENSAO INVALIDA') {
+          this.toastr.error(`Foto de perfil não atualizada. Apenas Imagens com extensão (.png | .jpg | .bmp) podem ser usadas!`);
+        } else if (result.retorno.toString() === 'OK') {
+          this.arquivoFotoPerfil = null;
+          this.editarUsuario();
+        }
       });
+    } else {
+      this.editarUsuario();
+    }
   }
 
 }

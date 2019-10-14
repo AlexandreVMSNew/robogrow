@@ -52,6 +52,19 @@ export class PermissaoService {
     return (this.decodedToken) ? this.decodedToken.unique_name : '';
   }
 
+  getUsuarioNomeArquivoFotoPerfil() {
+    this.token = localStorage.getItem('token');
+    this.decodedToken = this.jwtHelper.decodeToken(this.token);
+    return (this.decodedToken) ? this.decodedToken.nomeArquivoFotoPerfil : '';
+  }
+
+  getUrlUsuarioLogadoFotoPerfil(): string {
+    this.token = localStorage.getItem('token');
+    this.decodedToken = this.jwtHelper.decodeToken(this.token);
+    return (this.decodedToken) ? InfoAPI.URL + '/api/usuarios/' + this.decodedToken.nameid
+                       + '/Perfil/' + this.decodedToken.nomeArquivoFotoPerfil : '';
+  }
+
   getUsuarioNiveis() {
     this.token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(this.token);
