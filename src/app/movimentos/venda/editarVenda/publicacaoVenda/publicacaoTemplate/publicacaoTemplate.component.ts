@@ -8,7 +8,6 @@ import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicacao';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-publicacao-template',
