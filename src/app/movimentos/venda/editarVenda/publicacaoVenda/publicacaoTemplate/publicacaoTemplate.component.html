@@ -34,12 +34,12 @@
 
           <div *ngIf="arquivosUpload && arquivosUpload.length" class="box-footer">
               <ul class="mailbox-attachments clearfix">
-                <li *ngFor="let arquivo of arquivosUpload">
+                <li style="width: 80px;height: 120px;" *ngFor="let arquivo of arquivosUpload[0]">
                   <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
                   <div class="mailbox-attachment-info">
-                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{arquivo.name}}</a>
                         <span class="mailbox-attachment-size">
-                          1,245 KB
+                            {{arquivo.size}}
                           <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
                         </span>
                   </div>

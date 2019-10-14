@@ -49,6 +49,7 @@ export class PublicacaoTemplateComponent implements OnInit {
   adicionarArquivoUpload(event) {
     if (event.target.files && event.target.files.length) {
       this.arquivosUpload.push(event.target.files);
+      console.log(this.arquivosUpload);
     }
   }
 

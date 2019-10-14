@@ -12,7 +12,6 @@ export class AuthService {
 
   baseURL = InfoAPI.URL + '/api/usuarios/';
   jwtHelper = new JwtHelperService();
-  decodedToken: any;
 
   constructor(private http: HttpClient,
               private router: Router) { }
@@ -23,9 +22,6 @@ export class AuthService {
           const usuario = response;
           if (usuario) {
             localStorage.setItem('token', usuario.token);
-
-            this.decodedToken = this.jwtHelper.decodeToken(usuario.token);
-            console.log( this.decodedToken);
           }
         })
       );
