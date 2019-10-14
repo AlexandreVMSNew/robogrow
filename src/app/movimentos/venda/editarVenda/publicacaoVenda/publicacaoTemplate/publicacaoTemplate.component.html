@@ -26,12 +26,26 @@
 
           <div class="form-group">
             <div class="btn btn-default btn-file">
-              <i class="fa fa-paperclip"></i> Attachment
-              <input type="file" name="attachment">
+              <i class="fa fa-paperclip"></i> Anexar Arquivos
+              <input type="file" name="attachment" (change)="adicionarArquivoUpload($event)" >
             </div>
-            <p class="help-block">Max. 32MB</p>
           </div>
 
+
+          <div *ngIf="arquivosUpload && arquivosUpload.length" class="box-footer">
+              <ul class="mailbox-attachments clearfix">
+                <li *ngFor="let arquivo of arquivosUpload">
+                  <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+                  <div class="mailbox-attachment-info">
+                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                        <span class="mailbox-attachment-size">
+                          1,245 KB
+                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                        </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
         </form>
 
       </div>

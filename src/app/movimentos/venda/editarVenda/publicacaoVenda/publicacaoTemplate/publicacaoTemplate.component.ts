@@ -25,6 +25,9 @@ export class PublicacaoTemplateComponent implements OnInit {
 
   templateEnabled = false;
 
+  arquivosUpload: File[] = [];
+  nomeArquivo = '';
+
   constructor(private publicacaoService: PublicacaoService,
               private fb: FormBuilder,
               private toastr: ToastrService,
@@ -42,6 +45,12 @@ export class PublicacaoTemplateComponent implements OnInit {
       id:  [''],
       texto: ['', Validators.required],
     });
+  }
+
+  adicionarArquivoUpload(event) {
+    if (event.target.files && event.target.files.length) {
+      this.arquivosUpload.push(event.target.files);
+    }
   }
 
   salvarPublicacao(template: any) {
