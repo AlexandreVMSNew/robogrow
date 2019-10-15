@@ -22,6 +22,7 @@ export class AuthService {
           const usuario = response;
           if (usuario) {
             localStorage.setItem('token', usuario.token);
+            localStorage.setItem('nomeArquivoFotoPerfil', usuario.user.nomeArquivoFotoPerfil);
           }
         })
       );

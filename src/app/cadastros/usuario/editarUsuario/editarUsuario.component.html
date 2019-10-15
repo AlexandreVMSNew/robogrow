@@ -5,7 +5,7 @@
     <div class="box box-primary">
       <div class="box-body box-profile">
         <img class="profile-user-img img-responsive img-circle" src="{{this.baseURLFotoPerfil}}"
-          alt="User profile picture">
+        onerror="this.onerror=null;this.src='./../assets/img/user-default.png';" alt="img">
 
         <h3 class="profile-username text-center">{{this.usuario.nomeCompleto}}</h3>
         <div *ngIf="this.usuario.usuarioNivel && this.usuario.usuarioNivel.length">

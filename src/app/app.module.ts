@@ -9,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { NgDatepickerModule } from 'ng2-datepicker';
@@ -17,6 +18,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {MatDialogModule, MatCheckboxModule, MatRadioModule, MatDividerModule} from '@angular/material';
+import {NgxFilesizeModule} from 'ngx-filesize';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -192,6 +194,7 @@ defineLocale('pt-br', ptBrLocale);
       MatCheckboxModule,
       MatRadioModule,
       MatDividerModule,
+      NgOptionHighlightModule,
       NoopAnimationsModule,
       SocketIoModule.forRoot(config),
       BsDropdownModule.forRoot(),
@@ -201,6 +204,7 @@ defineLocale('pt-br', ptBrLocale);
       ModalModule.forRoot(),
       NgxMaskModule.forRoot(),
       PopoverModule.forRoot(),
+      NgxFilesizeModule,
       NgDatepickerModule,
       ChartsModule,
       PerfectScrollbarModule,

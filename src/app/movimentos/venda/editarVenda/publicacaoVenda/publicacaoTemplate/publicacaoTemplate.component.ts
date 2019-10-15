@@ -8,6 +8,9 @@ import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicacao';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
+import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
+import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Component({
   selector: 'app-publicacao-template',
@@ -22,20 +25,25 @@ export class PublicacaoTemplateComponent implements OnInit {
   vendaPublicacao: VendaPublicacao;
   publicacao: Publicacao;
 
+  usuarios: Usuario[];
+  usuariosMarcados = [];
+
   templateEnabled = false;
 
   arquivosUpload: File[] = [];
+  nomeArquivosUpload: any[] = [];
   nomeArquivo = '';
 
   constructor(private publicacaoService: PublicacaoService,
               private fb: FormBuilder,
               private toastr: ToastrService,
-              private dataService: DataService,
+              private usuarioService: UsuarioService,
               private vendaService: VendaService,
               private permissaoService: PermissaoService,
               ) { }
 
   ngOnInit() {
+    this.getUsuarios();
     this.validarPublicacao();
   }
 
@@ -43,35 +51,86 @@ export class PublicacaoTemplateComponent implements OnInit {
     this.cadastroPublicacao = this.fb.group({
       id:  [''],
       texto: ['', Validators.required],
+      usuariosMarcados: [''],
     });
   }
 
   adicionarArquivoUpload(event) {
     if (event.target.files && event.target.files.length) {
-      this.arquivosUpload.push(event.target.files);
-      console.log(this.arquivosUpload);
+      for (let i = 0; i <= event.target.files.length - 1; i++) {
+        this.arquivosUpload.push(event.target.files[i]);
+        this.nomeArquivosUpload.push(event.target.files[i].name);
+      }
     }
   }
 
+  excluirArquivoUpload(index) {
+    this.nomeArquivosUpload.splice(index, 1);
+    this.arquivosUpload.splice(index, 1);
+   }
+
   salvarPublicacao(template: any) {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    const arquivos = [];
+    this.arquivosUpload.forEach((arquivo: File) => {
+      arquivos.push(Object.assign({
+        id: 0,
+        arquivoNome: arquivo.name,
+        arquivoTamanho: arquivo.size
+      }));
+    });
+    const marcacoes = [];
+    this.usuariosMarcados.forEach((id: number) => {
+      marcacoes.push(Object.assign({
+        usuarioId: id
+      }));
+    });
+
     this.publicacao = Object.assign(this.cadastroPublicacao.value, {
       id: 0,
       usuarioId: this.permissaoService.getUsuarioId(),
       dataHora: dataAtual,
       dataHoraAlteracao: dataAtual,
+      publicacaoArquivos: arquivos,
+      publicacaoMarcacoes: marcacoes,
     });
 
     this.vendaPublicacao = Object.assign({
       vendaId: this.vendaId,
       publicacoes: this.publicacao
     });
-    this.vendaService.novaVendaPublicacao(this.vendaPublicacao).subscribe(() => {
-      this.fecharTemplate(template);
-      this.toastr.success(`Cadastrado com Sucesso!`);
+    this.vendaService.novaVendaPublicacao(this.vendaPublicacao).subscribe((publicacao: Publicacao) => {
+      if (this.arquivosUpload.length > 0  && this.nomeArquivosUpload.length) {
+        this.publicacaoService.enviarArquivosPublicacao(publicacao.id, this.arquivosUpload, this.nomeArquivosUpload)
+        .subscribe((result: any) => {
+          if (result.retorno === 'OK') {
+            this.vendaService.atualizarPublicacoesVenda();
+            this.fecharTemplate(template);
+            this.toastr.success(`Cadastrado com Sucesso!`);
+          }
+        }, error => {
+          console.log(error.error);
+        });
+      } else {
+        this.vendaService.atualizarPublicacoesVenda();
+        this.fecharTemplate(template);
+        this.toastr.success(`Cadastrado com Sucesso!`);
+      }
     }, error => {
       console.log(error.error);
     });
+  }
+
+  urlUsuarioFotoPerfil(usuarioId: number, nomeArquivoFotoPerfil: string): string {
+    return InfoAPI.URL + '/api/usuarios/' + usuarioId + '/perfil/' + nomeArquivoFotoPerfil;
+  }
+
+  marcarTodos() {
+    this.usuariosMarcados = this.usuarios.map(c => c.id);
+  }
+
+  desmarcarTodos() {
+    this.usuariosMarcados = [];
   }
 
   abrirTemplate(template: any) {
@@ -86,5 +145,14 @@ export class PublicacaoTemplateComponent implements OnInit {
     this.publicacaoService.setPublicacaoTemplateStatus(false);
     this.templateEnabled = false;
   }
+
+  getUsuarios() {
+    this.usuarioService.getAllUsuario().subscribe(
+      (_USUARIOS: Usuario[]) => {
+      this.usuarios = _USUARIOS;
+    }, error => {
+      this.toastr.error(`Erro ao tentar carregar usuarios: ${error}`);
+    });
+}
 
 }

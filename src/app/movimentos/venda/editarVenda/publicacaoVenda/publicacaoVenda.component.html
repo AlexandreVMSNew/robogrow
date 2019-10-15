@@ -28,7 +28,20 @@
       <p>{{vp.publicacoes.texto}}</p>
 
       <br />
-
+      <div *ngIf="vp.publicacoes.publicacaoArquivos && vp.publicacoes.publicacaoArquivos.length" class="box-footer">
+          <ul class="mailbox-attachments clearfix">
+            <li *ngFor="let arquivo of vp.publicacoes.publicacaoArquivos; let i = index">    
+              <span class="mailbox-attachment-icon"><i class="fa fa-file-o"></i></span>
+              <div class="mailbox-attachment-info">
+                <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{arquivo.arquivoNome}}</a>
+                  <span class="mailbox-attachment-size">
+                      {{(arquivo.arquivoTamanho) | filesize}}
+                    <a (click)="downloadArquivo(arquivo)" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                  </span>
+              </div>
+            </li>
+          </ul>
+        </div>
       <span class="pull-right text-muted">{{vp.publicacoes.publicacaoComentarios.length}} comentários.</span>
     </div>
 
@@ -37,7 +50,7 @@
         <img style="border: 1px solid #C0C0C0" class="img-circle img-sm" src="{{urlUsuarioFotoPerfil(comentario.usuario.id, comentario.usuario.nomeArquivoFotoPerfil)}}" 
         onerror="this.onerror=null;this.src='./../assets/img/user-default.png';" alt="img">
 
-        <div style="margin-left: 60px;" class="comment-text">
+        <div style="margin-left: 40px;" class="comment-text">
           <span class="username">
             {{comentario.usuario.nomeCompleto}}
             <span class="text-muted pull-right">

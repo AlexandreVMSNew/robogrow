@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 import { PublicacaoComentario } from 'src/app/_models/Publicacoes/PublicacaoComentario';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
+import { PublicacaoArquivos } from 'src/app/_models/Publicacoes/PublicacaoArquivos';
+import { saveAs } from 'file-saver';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +13,16 @@ export class PublicacaoService {
 
   baseURL = InfoAPI.URL + '/api/publicacoes';
 
+  atualizaPublicacoes = new EventEmitter<boolean>();
+  atualizaPublicacaoComentarios = new EventEmitter<number>();
+
   publicacaoTemplate = false;
 
   constructor(private http: HttpClient) { }
+
+  atualizarPublicacaoComentarios(publicacaoId: number) {
+    this.atualizaPublicacaoComentarios.emit(publicacaoId);
+  }
 
   getPublicacaoTemplateStatus() {
     return this.publicacaoTemplate;
@@ -24,6 +34,29 @@ export class PublicacaoService {
 
   novoPublicacaoComentario(comentario: PublicacaoComentario) {
     return this.http.post(`${this.baseURL}/comentario/novo`, comentario);
+  }
+
+  getPublicacaoArquivos(publicacaoId: number) {
+    return this.http.get(`${this.baseURL}/${publicacaoId}/arquivos`);
+  }
+
+  getPublicacaoComentarios(publicacaoId: number) {
+    return this.http.get(`${this.baseURL}/${publicacaoId}/comentarios`);
+  }
+
+  downloadArquivoPublicacao(publicacaoId: number, publicacaoArquivo: PublicacaoArquivos): Observable<any> {
+    return this.http.post(`${this.baseURL}/${publicacaoId}/arquivo/download`, publicacaoArquivo, {
+      responseType: 'blob',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
+
+  enviarArquivosPublicacao(publicacaoId: number, arquivos: File[], nomeArquivos: any) {
+    const  formData = new FormData();
+    arquivos.forEach((arquivo: any) => {
+      formData.append('arquivo', arquivo, nomeArquivos[arquivos.indexOf(arquivo, 0)]);
+    });
+    return this.http.post(`${this.baseURL}/${publicacaoId}/upload/arquivos`, formData);
   }
 
 }

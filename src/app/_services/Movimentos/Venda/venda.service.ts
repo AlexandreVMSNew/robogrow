@@ -22,6 +22,7 @@ atualizaRecebimentos = new EventEmitter<boolean>();
 atualizaPagamentos = new EventEmitter<boolean>();
 atualizaResultadoVenda = new EventEmitter<boolean>();
 atualizaFinanceiroVenda = new EventEmitter<boolean>();
+atualizaPublicacoesVenda = new EventEmitter<boolean>();
 
 pagamentosVenda = false;
 previsaoVenda = false;
@@ -98,8 +99,10 @@ atualizarResultadoVenda() {
   this.atualizaResultadoVenda.emit(true);
 }
 atualizarFinanceiroVenda() {
-
   this.atualizaFinanceiroVenda.emit(true);
+}
+atualizarPublicacoesVenda() {
+  this.atualizaPublicacoesVenda.emit(true);
 }
 
 getVendaById(id: number): Observable<Venda> {
@@ -116,6 +119,10 @@ novoVendaConfig(vendaConfig: VendaConfig) {
 
 novaVendaPublicacao(vendaPublicacao: VendaPublicacao) {
   return this.http.post(`${this.baseURL}/publicacoes/novo`, vendaPublicacao);
+}
+
+getVendaPublicacoes(vendaId: number): Observable<VendaPublicacao[]> {
+  return this.http.get<VendaPublicacao[]>(`${this.baseURL}/${vendaId}/publicacoes`);
 }
 
 editarVendaConfig(vendaConfig: VendaConfig) {
@@ -141,7 +148,6 @@ getVendaValoresRealizadosByProdIdVendId(idProdutoItem: number, idVenda: number):
 getVerificaPagamentoByProdIdVendId(idProdutoItem: number, idVenda: number): Observable<boolean> {
   return this.http.get<boolean>(`${this.baseURL}/valorrealizado/pago/${idProdutoItem}/${idVenda}`);
 }
-
 
 novoVendaValorPrevisto(vendaValorPrevisto: VendaValorPrevisto) {
   return this.http.post(`${this.baseURL}/valorprevisto/novo`, vendaValorPrevisto);
