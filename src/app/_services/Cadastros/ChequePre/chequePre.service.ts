@@ -20,7 +20,7 @@ export class ChequePreService {
     this.chequePreTemplate = val;
   }
 
-  getAllChequePre(): Observable<ChequePre[]> {
+  getChequePre(): Observable<ChequePre[]> {
     return this.http.get<ChequePre[]>(this.baseURL);
   }
 

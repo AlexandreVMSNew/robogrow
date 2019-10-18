@@ -6,7 +6,7 @@ import { PermissaoService } from '../_services/Permissoes/permissao.service';
 })
 export class SidebarService {
   toggled = false;
-  idUsuario = '';
+  idUsuario: number;
   menus = [
     {
       title: 'Geral',
@@ -155,6 +155,13 @@ export class SidebarService {
           link: 'movimentos/vendas/relatorios'
         }
       ]
+    },
+    {
+      title: 'Publicações',
+      icon: 'fa fa-handshake',
+      active: false,
+      type: 'simple',
+      link: 'publicacoes'
     },
     {
       title: 'Configurações',

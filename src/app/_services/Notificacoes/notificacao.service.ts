@@ -13,7 +13,7 @@ export class NotificacaoService {
 
   constructor(private http: HttpClient) {}
 
-getAllNotificacoesByUsuarioId(usuarioId: number): Observable<Notificacao[]> {
+getNotificacoesByUsuarioId(usuarioId: number): Observable<Notificacao[]> {
   return this.http.get<Notificacao[]>(`${this.baseURL}/usuario/${usuarioId}`);
 }
 

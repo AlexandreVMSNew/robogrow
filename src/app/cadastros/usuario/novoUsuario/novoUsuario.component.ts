@@ -68,7 +68,7 @@ export class NovoUsuarioComponent implements OnInit {
 
   getNiveis() {
     this.niveis = [];
-    this.usuarioService.getAllNiveis().subscribe(
+    this.usuarioService.getNiveis().subscribe(
       (_NIVEIS: Nivel[]) => {
       this.niveis = _NIVEIS;
     }, error => {

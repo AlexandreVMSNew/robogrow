@@ -143,7 +143,7 @@ export class EditarPessoaComponent implements OnInit, AfterViewChecked, AfterVie
   }
 
   getTipos() {
-    this.pessoaService.getAllTiposPessoa().subscribe(
+    this.pessoaService.getTiposPessoa().subscribe(
       (_TIPOS: TiposPessoa[]) => {
       this.tiposPessoa = _TIPOS;
     }, error => {
@@ -153,7 +153,7 @@ export class EditarPessoaComponent implements OnInit, AfterViewChecked, AfterVie
  }
 
   getEstados() {
-    this.estadoService.getAllEstados().subscribe(
+    this.estadoService.getEstados().subscribe(
       (_ESTADOS: Estado[]) => {
       this.estados = _ESTADOS;
     }, error => {

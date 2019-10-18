@@ -14,23 +14,28 @@ export class UsuarioService {
   retornoPermissao = false;
 constructor(private http: HttpClient) { }
 
-getAllUsuario(): Observable<Usuario[]> {
+getUsuarios(): Observable<Usuario[]> {
   return this.http.get<Usuario[]>(this.baseURL);
 }
 
-getUsuarioByName(name: string): Observable<Usuario[]> {
-  return this.http.get<Usuario[]>(`${this.baseURL}/getByName/${name}`);
-}
 getUsuarioById(id: number): Observable<Usuario> {
   return this.http.get<Usuario>(`${this.baseURL}/${id}`);
 }
 
-getAllNiveis(): Observable<Nivel[]> {
+getNiveis(): Observable<Nivel[]> {
   return this.http.get<Nivel[]>(`${this.baseURL}/niveis`);
 }
 
 getIdUltimoUsuario(): Observable<Usuario> {
   return this.http.get<Usuario>(`${this.baseURL}/idultimousuario`);
+}
+
+getUrlUsuarioFotoPerfil(usuarioId: number, nomeArquivoFotoPerfil: string): string {
+  if (nomeArquivoFotoPerfil !== 'null' && nomeArquivoFotoPerfil) {
+    return InfoAPI.URL + '/api/usuarios/' + usuarioId + '/perfil/' + nomeArquivoFotoPerfil;
+  } else {
+    return './../assets/img/user-default.png';
+  }
 }
 
 enviarFotoPerfil(usuarioId: number, arquivo: File, nomeArquivo) {

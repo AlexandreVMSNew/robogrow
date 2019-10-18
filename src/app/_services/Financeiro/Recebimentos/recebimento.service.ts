@@ -29,7 +29,7 @@ export class RecebimentoService {
     this.templateRecebimento = val;
   }
 
-  getAllRecebimentos(): Observable<Recebimentos[]> {
+  getRecebimentos(): Observable<Recebimentos[]> {
     return this.http.get<Recebimentos[]>(this.baseURL);
   }
   getRecebimentosById(id: number): Observable<Recebimentos> {

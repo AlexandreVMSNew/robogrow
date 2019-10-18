@@ -94,7 +94,7 @@ export class ConfigVendaComponent implements OnInit {
   }
 
   getPlanoContas() {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContas = _PLANOS.filter(c => c.tipo === 'MOVIMENTO' && c.categoria === 'ANALÍTICA');
     }, error => {
@@ -104,7 +104,7 @@ export class ConfigVendaComponent implements OnInit {
   }
 
   getPlanoPagamento() {
-    this.planoPagamentoService.getAllPlanoPagamento().subscribe(
+    this.planoPagamentoService.getPlanoPagamento().subscribe(
       (_PLANOS: PlanoPagamento[]) => {
       this.planosPagamento = _PLANOS.filter(c => c.status !== 'INATIVO');
     }, error => {

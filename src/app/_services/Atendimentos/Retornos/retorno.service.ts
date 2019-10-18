@@ -15,7 +15,7 @@ export class RetornoService {
   baseURL = InfoAPI.URL + '/api/atendimentos/retornos';
   constructor(private http: HttpClient) { }
 
-getAllRetornos(): Observable<Retorno[]> {
+getRetornos(): Observable<Retorno[]> {
   return this.http.get<Retorno[]>(this.baseURL);
 }
 
@@ -31,11 +31,11 @@ getRetornoByClienteId(clienteId: number): Observable<Retorno[]> {
   return this.http.get<Retorno[]>(`${this.baseURL}/cliente/${clienteId}`);
 }
 
-getAllLogsByRetornoId(retornoId: number): Observable<RetornoLog[]> {
+getLogsByRetornoId(retornoId: number): Observable<RetornoLog[]> {
   return this.http.get<RetornoLog[]>(`${this.baseURL}/logs/${retornoId}`);
 }
 
-getAllObservacoesByRetornoId(retornoId: number): Observable<RetornoObservacao[]> {
+getObservacoesByRetornoId(retornoId: number): Observable<RetornoObservacao[]> {
   return this.http.get<RetornoObservacao[]>(`${this.baseURL}/observacoes/${retornoId}`);
 }
 

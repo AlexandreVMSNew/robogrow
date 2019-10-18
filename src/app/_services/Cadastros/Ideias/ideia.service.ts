@@ -13,7 +13,7 @@ export class IdeiaService {
 
   constructor(private http: HttpClient) {}
 
-getAllIdeias(): Observable<Ideia[]> {
+getIdeias(): Observable<Ideia[]> {
   return this.http.get<Ideia[]>(`${this.baseURL}`);
 }
 

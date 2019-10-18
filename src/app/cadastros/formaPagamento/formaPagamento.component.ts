@@ -100,7 +100,7 @@ export class FormaPagamentoComponent implements OnInit, AfterViewChecked, AfterV
   }
 
   getFormaPagamento() {
-    this.formaPagamentoService.getAllFormaPagamento().subscribe(
+    this.formaPagamentoService.getFormaPagamento().subscribe(
       (_FORMAS: FormaPagamento[]) => {
       this.formasPagamento = _FORMAS;
     }, error => {

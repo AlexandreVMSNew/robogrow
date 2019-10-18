@@ -37,6 +37,7 @@ import { RelatorioLancamentoComponent } from './financeiro/lancamento/relatorioL
 import { PagamentoComponent } from './financeiro/pagamento/pagamento.component';
 import { EmpresaComponent } from './cadastros/empresa/empresa.component';
 import { AutorizacaoComponent } from './autorizacao/autorizacao.component';
+import { PublicacaoComponent } from './timeline/publicacao/publicacao.component';
 
 const routes: Routes = [
   { path: 'usuarios', component: UsuarioComponent, canActivate: [AuthGuard]},
@@ -77,6 +78,7 @@ const routes: Routes = [
   { path: 'cheque-pre', component: ChequePreComponent, canActivate: [AuthGuard]},
   { path: 'empresas', component: EmpresaComponent, canActivate: [AuthGuard]},
   { path: 'autorizacoes', component: AutorizacaoComponent, canActivate: [AuthGuard]},
+  { path: 'publicacoes', component: PublicacaoComponent, canActivate: [AuthGuard]},
 
   { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full'}

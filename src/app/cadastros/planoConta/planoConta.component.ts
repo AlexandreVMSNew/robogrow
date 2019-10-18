@@ -174,7 +174,7 @@ export class PlanoContaComponent implements OnInit, AfterViewChecked, AfterViewI
   }
 
   getPlanoContas() {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContas = _PLANOS;
       this.listaContasFiltradas = [];

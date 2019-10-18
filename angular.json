@@ -24,10 +24,15 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "./plugins/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": [
-              "bower_components/Flot/jquery.flot.pie.js"
+              
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/popper.js/dist/popper.min.js",
+              "./plugins/bootstrap/dist/js/bootstrap.js",
+              "./bower_components/Flot/jquery.flot.pie.js"
             ],
             "es5BrowserSupport": true
           },

@@ -19,7 +19,7 @@ export class EmpresaService {
   setEmpresaTemplateStatus(val: boolean) {
     this.empresaTemplate = val;
   }
-  getAllEmpresa(): Observable<Empresa[]> {
+  getEmpresa(): Observable<Empresa[]> {
     return this.http.get<Empresa[]>(this.baseURL);
   }
 

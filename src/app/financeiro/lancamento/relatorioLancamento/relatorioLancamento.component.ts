@@ -87,7 +87,7 @@ export class RelatorioLancamentoComponent implements OnInit {
   }
 
   getLancamentos() {
-    this.lancamentoService.getAllLancamentos().subscribe(
+    this.lancamentoService.getLancamentos().subscribe(
       (_LANCAMENTOS: Lancamentos[]) => {
       this.lancamentos = _LANCAMENTOS;
     }, error => {
@@ -97,7 +97,7 @@ export class RelatorioLancamentoComponent implements OnInit {
   }
 
   getPlanoContasFilhosPorId(idConta: number) {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.listaContas = _PLANOS.filter(c => c.id === idConta)[0];
       this.listaContasFiltradas = [];
@@ -109,7 +109,7 @@ export class RelatorioLancamentoComponent implements OnInit {
   }
 
   getPlanoContas() {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContas = _PLANOS;
       this.setFiltroSelecionado('GERAL');

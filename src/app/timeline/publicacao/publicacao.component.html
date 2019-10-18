@@ -1,0 +1,104 @@
+<h2>Publicações</h2>
+
+<hr width="100%">
+<div class="box box-primary">
+  <div class="box-header with-border">
+      <div style="margin-right: 15px;margin-bottom: 20px;">
+        <a [routerLink]="[]" (click)="abrirTemplatePublicacao()" class="btn btn-success">
+          <i class="fa fa-plus-circle"></i>&nbsp; Nova Publicação
+        </a>
+      </div>
+    <div class="row" *ngIf="publicacoes && publicacoes.length">
+      <div class="form-group col-md-12" *ngFor="let publicacao of publicacoes">
+        <div class="box box-default  box-solid" style="margin-top: 15px;">
+          <div class="box-header with-border">
+            <div class="user-block">
+              <img style="border: 1px solid #C0C0C0" class="img-circle"
+                src="{{getUrlUsuarioFotoPerfil(publicacao.usuario.id, publicacao.usuario.nomeArquivoFotoPerfil)}}"
+                alt="img">
+              <span class="username">
+                <span *ngIf="publicacao.vendaPublicacao.length > 0" class="badge badge-success">
+                  VENDA {{ publicacao.vendaPublicacao[0].venda.numeroAno }}
+                </span>
+                <a>{{publicacao.usuario.nomeCompleto}}</a>
+              </span>
+
+              <span style="margin-top: 2px;" class="description">
+                Publicado - {{publicacao.dataHora | date:'dd/MM/yyyy HH:mm'}} |
+                Última Edição - {{publicacao.dataHoraAlteracao | date:'dd/MM/yyyy HH:mm'}}</span>
+            </div>
+            <div class="box-tools">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+              </button>
+              <ul #dropdown class="dropdown-menu">
+                <li><a href="#">Dropdown link</a></li>
+                <li><a href="#">Dropdown link</a></li>
+              </ul>
+              <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
+                <i class="fa fa-circle-o"></i></button>
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="box-body">
+            <p>{{publicacao.texto}}</p>
+
+            <br />
+            <div *ngIf="publicacao.publicacaoArquivos && publicacao.publicacaoArquivos.length" class="box-footer">
+              <ul class="mailbox-attachments clearfix">
+                <li *ngFor="let arquivo of publicacao.publicacaoArquivos; let i = index">
+                  <span class="mailbox-attachment-icon"><i class="fa fa-file-o"></i></span>
+                  <div class="mailbox-attachment-info">
+                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i>
+                      {{arquivo.arquivoNome}}</a>
+                    <span class="mailbox-attachment-size">
+                      {{(arquivo.arquivoTamanho) | filesize}}
+                      <a (click)="downloadArquivo(arquivo)" class="btn btn-default btn-xs pull-right"><i
+                          class="fa fa-cloud-download"></i></a>
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <span class="pull-right text-muted">{{publicacao.publicacaoComentarios.length}} comentários.</span>
+          </div>
+
+          <div style="border: 1px solid #C0C0C0" *ngFor="let comentario of publicacao.publicacaoComentarios"
+            class="box-footer box-comments">
+            <div class="box-comment">
+              <img style="border: 1px solid #C0C0C0" class="img-circle img-sm"
+                src="{{getUrlUsuarioFotoPerfil(comentario.usuario.id, comentario.usuario.nomeArquivoFotoPerfil)}}"
+                alt="img">
+
+              <div style="margin-left: 40px;" class="comment-text">
+                <span class="username">
+                  {{comentario.usuario.nomeCompleto}}
+                  <span class="text-muted pull-right">
+                    {{comentario.dataHora | date:'dd/MM/yyyy HH:mm'}}</span>
+                </span>
+                <p>{{comentario.texto}}</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="box-footer">
+            <form action="#" method="post">
+              <img style="border: 1px solid #C0C0C0" class="img-responsive img-circle img-sm"
+                src="{{getUrlUsuarioLogadoFotoPerfil()}}" alt="img">
+
+              <div class="img-push">
+                <input type="text" minlength="1" maxlength="255" class="form-control input-sm"
+                  [(ngModel)]="publicacao.textoComentario" name="comentario"
+                  (keyup.enter)="cadastrarComentario(publicacao)"
+                  placeholder="Aperte Enter para publicar o comentário...">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-publicacao-template [vendaId]="(this.vendaId) ? this.vendaId : null" *ngIf="this.getTemplatePublicacao() == true">
+</app-publicacao-template>

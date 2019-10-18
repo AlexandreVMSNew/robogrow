@@ -103,7 +103,7 @@ export class CentroReceitaComponent implements OnInit, AfterViewChecked, AfterVi
   }
 
   getCentroReceita() {
-    this.centroReceitaService.getAllCentroReceita().subscribe(
+    this.centroReceitaService.getCentroReceita().subscribe(
       (_CENTROS: CentroReceita[]) => {
       this.centrosReceita = _CENTROS;
     }, error => {

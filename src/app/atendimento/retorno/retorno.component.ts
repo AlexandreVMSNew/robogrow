@@ -106,7 +106,7 @@ export class RetornoComponent implements OnInit {
   }
 
   getClientes() {
-    this.clienteServices.getAllCliente().subscribe(
+    this.clienteServices.getCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES.filter(cliente => cliente.status === 'ATIVO');
     }, error => {
@@ -180,7 +180,7 @@ export class RetornoComponent implements OnInit {
   }
 
   retornoLog(retornoId: number, template: any) {
-    this.retornoServices.getAllLogsByRetornoId(retornoId).subscribe(
+    this.retornoServices.getLogsByRetornoId(retornoId).subscribe(
       (_LOGS: RetornoLog[]) => {
       this.logRetorno = _LOGS;
     }, error => {
@@ -193,7 +193,7 @@ export class RetornoComponent implements OnInit {
     this.observacaoId = retornoId;
     this.retornoTelefone = telefone;
     this.retornoSolicitante = solicitante;
-    this.retornoServices.getAllObservacoesByRetornoId(retornoId).subscribe(
+    this.retornoServices.getObservacoesByRetornoId(retornoId).subscribe(
       (_OBSERVACOES: RetornoObservacao[]) => {
       this.retornoObservacoes = _OBSERVACOES;
     }, error => {
@@ -230,7 +230,7 @@ export class RetornoComponent implements OnInit {
   setStatusFiltroSelecionado(valor: any) {
     this.statusFiltroSelecionado = valor;
     if (valor !== 'NÃO FINALIZADOS') {
-      this.getAllRetornos();
+      this.getRetornos();
     } else {
       this.getRetornosNaoFinalizados();
     }
@@ -264,8 +264,8 @@ export class RetornoComponent implements OnInit {
     return this.filtroRetorno;
   }
 
-  getAllRetornos() {
-      this.retornoServices.getAllRetornos().subscribe(
+  getRetornos() {
+      this.retornoServices.getRetornos().subscribe(
         (_RETORNOS: Retorno[]) => {
         this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
         this.retornos = _RETORNOS;

@@ -127,7 +127,7 @@ export class DetalharRecebimentoComponent implements OnInit {
   }
 
   getPlanoContas() {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContasReceita = _PLANOS.filter(c => c.tipo === 'RECEITA');
     }, error => {
@@ -137,7 +137,7 @@ export class DetalharRecebimentoComponent implements OnInit {
   }
 
   getCentroReceita() {
-    this.centroReceitaService.getAllCentroReceita().subscribe(
+    this.centroReceitaService.getCentroReceita().subscribe(
       (_CENTROS: CentroReceita[]) => {
       this.centrosReceita = _CENTROS.filter(c => c.status !== 'INATIVO');
     }, error => {
@@ -147,7 +147,7 @@ export class DetalharRecebimentoComponent implements OnInit {
   }
 
   getPlanoPagamento() {
-    this.planoPagamentoService.getAllPlanoPagamento().subscribe(
+    this.planoPagamentoService.getPlanoPagamento().subscribe(
       (_PLANOS: PlanoPagamento[]) => {
       this.planosPagamento = _PLANOS.filter(c => c.status !== 'INATIVO');
     }, error => {
@@ -157,7 +157,7 @@ export class DetalharRecebimentoComponent implements OnInit {
   }
 
   getFormaPagamento() {
-    this.formaPagamentoService.getAllFormaPagamento().subscribe(
+    this.formaPagamentoService.getFormaPagamento().subscribe(
       (_FORMAS: FormaPagamento[]) => {
       this.formasPagamento = _FORMAS.filter(c => c.status !== 'INATIVO');
     }, error => {

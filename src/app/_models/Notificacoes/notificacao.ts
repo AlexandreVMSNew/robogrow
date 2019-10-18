@@ -8,6 +8,7 @@ export class Notificacao {
     formularioIdentificacao: string;
     titulo: string;
     mensagem: string;
+    url: string;
     dataHora: Date;
     visto: number;
 }

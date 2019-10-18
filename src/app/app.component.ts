@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 import { DataService } from './_services/Cadastros/Uteis/data.service';
 import { Permissao } from './_models/Permissoes/permissao';
 import { SidebarService } from './sidebar/sidebar.service';
+import { PublicacaoService } from './_services/Publicacoes/publicacao.service';
+import { VendaService } from './_services/Movimentos/Venda/venda.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -135,7 +137,9 @@ export class AppComponent implements OnInit, AfterViewInit {
               private authService: AuthService,
               private router: Router,
               public dataService: DataService,
-              private sidebarService: SidebarService) {
+              private sidebarService: SidebarService,
+              private publicacaoService: PublicacaoService,
+              private vendaService: VendaService) {
     this.localeService.use('pt-br');
     this.menus = sidebarService.getMenuList();
   }
@@ -154,6 +158,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.getSocket('AutorizacaoVendaGerarPedido');
       this.getSocket('RespAutorizacaoVendaGerarPedido');
       this.getSocket('NovaObservacao');
+      this.getSocket('NovaPublicacao');
+      this.getSocket('NovoComentarioPublicacao');
       this.getNotificacoes();
     }
   }
@@ -161,6 +167,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   getUrlUsuarioLogadoFotoPerfil(): string {
     return this.permissaoService.getUrlUsuarioLogadoFotoPerfil();
   }
+
   getSideBarState() {
     return this.sidebarService.getSidebarState();
   }
@@ -192,7 +199,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     if (this.logou === true) {
-      this.permissaoService.getAllPermissoes().subscribe((_PERMISSOES: Permissao[]) => {
+      this.permissaoService.getPermissoes().subscribe((_PERMISSOES: Permissao[]) => {
         this.filtrarPermissao('Permissões').listar =
         this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PERMISSOES' && c.acao === 'LISTAR')[0]);
 
@@ -323,7 +330,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   getNotificacoes() {
-    this.notificacaoService.getAllNotificacoesByUsuarioId(this.idUsuario).subscribe(
+    this.notificacaoService.getNotificacoesByUsuarioId(this.idUsuario).subscribe(
       (_NOTIFICACOES: Notificacao[]) => {
       this.notificacoes = _NOTIFICACOES;
       this.qtdNotificacoes = _NOTIFICACOES.length;
@@ -333,15 +340,21 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   getSocket(evento: string) {
-    this.socketService.getSocket(evento).subscribe((info: Notificacao) => {
+    this.socketService.getSocket(evento).subscribe((info: any) => {
       if (info) {
-        if (this.permissaoService.getUsuarioId() === info.usuarioId) {
+        if (this.permissaoService.getUsuarioId() === info.usuarioId || info.usuarioId === 0) {
           const  notification = new Notification(info.titulo, {body: info.mensagem});
-          this.getNotificacoes();
-        } else if (info.usuarioId === 0) {
-          const  notification = new Notification(info.titulo, {body: info.mensagem});
-          this.getNotificacoes();
+
+          if (evento === 'NovoComentarioPublicacao') {
+            this.publicacaoService.atualizarPublicacaoComentarios(info.publicacaoId);
+          }
+
+          if (evento === 'NovaPublicacao') {
+            this.publicacaoService.atualizarPublicacoes();
+            this.vendaService.atualizarPublicacoesVenda();
+          }
         }
+        this.getNotificacoes();
       }
     });
   }

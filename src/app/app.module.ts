@@ -54,7 +54,6 @@ import { CheckListVendaComponent } from './movimentos/venda/editarVenda/checkLis
 import { FinanceiroVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/financeiroVenda.component';
 import { PrevisaoVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/previsaoVenda/previsaoVenda.component';
 import { PedidoVendaComponent } from './movimentos/venda/editarVenda/pedidoVenda/pedidoVenda.component';
-import { PublicacaoVendaComponent } from './movimentos/venda/editarVenda/publicacaoVenda/publicacaoVenda.component';
 
 import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { NovoProdutoComponent } from './cadastros/produto/novoProduto/novoProduto.component';
@@ -99,8 +98,9 @@ import { AutorizacaoTemplateComponent } from './autorizacao/autorizacaoTemplate/
 
 import { TemplateModalComponent } from './Uteis/templateModal/templateModal.component';
 
+import { PublicacaoComponent } from './timeline/publicacao/publicacao.component';
 // tslint:disable-next-line:max-line-length
-import { PublicacaoTemplateComponent } from './movimentos/venda/editarVenda/publicacaoVenda/publicacaoTemplate/publicacaoTemplate.component';
+import { PublicacaoTemplateComponent } from './timeline/publicacao/publicacaoTemplate/publicacaoTemplate.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
@@ -118,7 +118,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
 
-const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
+const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + ':3000', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
 
@@ -151,7 +151,6 @@ defineLocale('pt-br', ptBrLocale);
       FinanceiroVendaComponent,
       PrevisaoVendaComponent,
       PedidoVendaComponent,
-      PublicacaoVendaComponent,
       ProdutoComponent,
       NovoProdutoComponent,
       EditarProdutoComponent,
@@ -185,7 +184,8 @@ defineLocale('pt-br', ptBrLocale);
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,
-      IePipe
+      IePipe,
+      PublicacaoComponent
    ],
    imports: [
       BrowserAnimationsModule,

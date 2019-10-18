@@ -178,7 +178,7 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
   }
 
   getUsuarios() {
-    this.usuarioService.getAllUsuario().subscribe(
+    this.usuarioService.getUsuarios().subscribe(
       (_USUAIROS: Usuario[]) => {
       this.usuarios = _USUAIROS;
     }, error => {

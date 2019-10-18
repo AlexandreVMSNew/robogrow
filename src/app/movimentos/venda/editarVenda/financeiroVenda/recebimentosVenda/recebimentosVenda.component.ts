@@ -36,7 +36,7 @@ export class RecebimentosVendaComponent implements OnInit {
   }
 
   getRecebimentos() {
-    this.recebimentoService.getAllRecebimentos().subscribe(
+    this.recebimentoService.getRecebimentos().subscribe(
       // tslint:disable-next-line:variable-name
       (_RECEBIMENTOS: Recebimentos[]) => {
         this.recebimentos = _RECEBIMENTOS.filter(c => c.produtosItensId === this.produtoItem.id && c.vendaId === this.venda.id);

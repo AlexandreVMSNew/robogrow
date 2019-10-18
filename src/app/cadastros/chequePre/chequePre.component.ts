@@ -50,7 +50,7 @@ export class ChequePreComponent implements OnInit, AfterViewInit {
   }
 
   getChequePre() {
-    this.chequePreService.getAllChequePre().subscribe(
+    this.chequePreService.getChequePre().subscribe(
       // tslint:disable-next-line:variable-name
       (_CHEQUES: ChequePre[]) => {
       this.cheques = _CHEQUES;

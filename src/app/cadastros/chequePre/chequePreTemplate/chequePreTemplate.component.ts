@@ -137,7 +137,7 @@ export class ChequePreTemplateComponent implements OnInit, AfterViewInit {
   }
 
   getClientes() {
-    this.clienteService.getAllCliente().subscribe(
+    this.clienteService.getCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES.filter(cliente => cliente.status === 'ATIVO');
     }, error => {

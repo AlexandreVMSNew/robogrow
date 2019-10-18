@@ -26,7 +26,7 @@ export class AutorizacaoService {
   setAutorizacaoTemplateStatus(val: boolean) {
     this.autorizacaoTemplate = val;
   }
-  getAllAutorizacoes(): Observable<Autorizacao[]> {
+  getAutorizacoes(): Observable<Autorizacao[]> {
     return this.http.get<Autorizacao[]>(this.baseURL);
   }
 

@@ -177,7 +177,7 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
   }
 
   getEstados() {
-    this.estadoService.getAllEstados().subscribe(
+    this.estadoService.getEstados().subscribe(
       (_ESTADOS: Estado[]) => {
       this.estados = _ESTADOS;
     }, error => {

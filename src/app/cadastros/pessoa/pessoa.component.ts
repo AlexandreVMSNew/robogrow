@@ -85,7 +85,7 @@ export class PessoaComponent implements OnInit, AfterViewInit {
   }
 
   getTipos() {
-    this.pessoaService.getAllTiposPessoa().subscribe(
+    this.pessoaService.getTiposPessoa().subscribe(
       (_TIPOS: TiposPessoa[]) => {
       this.tiposPessoa = _TIPOS;
     }, error => {
@@ -154,7 +154,7 @@ export class PessoaComponent implements OnInit, AfterViewInit {
   }
 
   getPessoas() {
-    this.pessoaService.getAllPessoa().subscribe(
+    this.pessoaService.getPessoa().subscribe(
       (_PESSOAS: Pessoa[]) => {
       this.pessoas = _PESSOAS;
       this.pessoasFiltrados = this.filtrarPessoas(this.filtroLista);
@@ -165,7 +165,7 @@ export class PessoaComponent implements OnInit, AfterViewInit {
   }
 
   getEstados() {
-    this.estadoService.getAllEstados().subscribe(
+    this.estadoService.getEstados().subscribe(
       (_ESTADOS: Estado[]) => {
       this.estados = _ESTADOS;
     }, error => {

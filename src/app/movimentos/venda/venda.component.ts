@@ -104,7 +104,7 @@ export class VendaComponent implements OnInit, AfterViewInit {
   }
 
   getVendas() {
-    this.vendaService.getAllVenda().subscribe(
+    this.vendaService.getVenda().subscribe(
       (_VENDAS: Venda[]) => {
       this.vendas = _VENDAS;
       this.vendasFiltro = this.filtrarVendas(this.filtroTexto);

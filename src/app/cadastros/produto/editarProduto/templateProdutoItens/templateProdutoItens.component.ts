@@ -127,7 +127,7 @@ export class TemplateProdutoItensComponent implements OnInit {
   }
 
   getPlanoContas() {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContasReceita = _PLANOS.filter(c => c.tipo === 'RECEITA' && c.categoria === 'ANALÍTICA');
       this.planoContasDespesa = _PLANOS.filter(c => c.tipo === 'DESPESA' && c.categoria === 'ANALÍTICA');
@@ -138,7 +138,7 @@ export class TemplateProdutoItensComponent implements OnInit {
   }
 
   getCentroReceita() {
-    this.centroReceitaService.getAllCentroReceita().subscribe(
+    this.centroReceitaService.getCentroReceita().subscribe(
       (_CENTROS: CentroReceita[]) => {
       this.centrosReceita = _CENTROS.filter(c => c.status !== 'INATIVO');
     }, error => {
@@ -148,7 +148,7 @@ export class TemplateProdutoItensComponent implements OnInit {
   }
 
   getCentroDespesa() {
-    this.centroDespesaService.getAllCentroDespesa().subscribe(
+    this.centroDespesaService.getCentroDespesa().subscribe(
       (_CENTROS: CentroDespesa[]) => {
       this.centrosDespesa = _CENTROS.filter(c => c.status !== 'INATIVO');
     }, error => {

@@ -1,6 +1,6 @@
 <h2>Recebimentos</h2>
 <hr width="100%">
-<div class="box box-solid">
+<div class="box box-primary">
   <div class="box-header with-border" >
     <div class="row">
       <div *ngIf="this.novo == true" style="margin-right: 15px;" class="pull-right">
@@ -28,10 +28,10 @@
           <tr *ngFor="let parcela of parcelas | paginate: { itemsPerPage: 50,currentPage: paginaAtual, totalItems: totalRegistros };">
             <td style="text-align: center;">{{ parcela.documento }}</td>
             <td style="text-align: center;">
-              <span style="text-align: center;" *ngIf="parcela.status == 'PENDENTE'"  class="label label-warning">
+              <span style="text-align: center;" *ngIf="parcela.status == 'PENDENTE'"  class="badge badge-warning">
                 {{ parcela.status }}
               </span>
-              <span style="text-align: center;" *ngIf="parcela.status == 'PAGO'" class="label label-success">
+              <span style="text-align: center;" *ngIf="parcela.status == 'PAGO'" class="badge badge-success">
                 {{ parcela.status }}
               </span>
             </td>

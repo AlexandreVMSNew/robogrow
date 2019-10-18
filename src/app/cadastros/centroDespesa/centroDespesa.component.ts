@@ -103,7 +103,7 @@ export class CentroDespesaComponent implements OnInit, AfterViewChecked, AfterVi
   }
 
   getCentroDespesa() {
-    this.centroDespesaService.getAllCentroDespesa().subscribe(
+    this.centroDespesaService.getCentroDespesa().subscribe(
       (_CENTROS: CentroDespesa[]) => {
       this.centrosDespesa = _CENTROS;
     }, error => {

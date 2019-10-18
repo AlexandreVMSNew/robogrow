@@ -86,7 +86,7 @@ export class NovoRetornoComponent implements OnInit {
   }
 
   getUsuarios() {
-    this.usuarioService.getAllUsuario().subscribe(
+    this.usuarioService.getUsuarios().subscribe(
       (_USUARIOS: Usuario[]) => {
       this.usuarios = _USUARIOS;
       this.usuarios.push(Object.assign({ id: 0, userName: 'TODOS'}));
@@ -98,7 +98,7 @@ export class NovoRetornoComponent implements OnInit {
   }
 
   getClientes() {
-    this.clienteService.getAllCliente().subscribe(
+    this.clienteService.getCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES.filter(cliente => cliente.status === 'ATIVO');
     }, error => {

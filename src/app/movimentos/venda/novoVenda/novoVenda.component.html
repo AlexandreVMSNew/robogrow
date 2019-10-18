@@ -1,6 +1,6 @@
 <h2>Novo Venda</h2>
 <hr width="100%">
-<div class="box box-solid">
+<div class="box box-primary">
   <div class="box-header with-border">
     <form [formGroup]="cadastroForm" class="mt-3">
       <div class="row">
@@ -26,17 +26,18 @@
       </div>
 
       <div class="row">
-        <div class="form-group col-md-3">
+
+        <div class="form-group  col-md-3">
           <label>Cliente(*)</label>
           <div class="input-group">
-
-            <ng-select style="text-transform: uppercase" [items]="clientes" bindLabel="nomeFantasia" bindValue="id"
+            <div class="input-group-prepend">
+              <button class="btn btn-success" (click)="abrirTemplateModal(novoClienteComponent)" tooltip="Novo Cliente">
+                <i class="fa fa-plus-circle"> </i>
+              </button>
+            </div>
+            <ng-select style="display: contents;height:41px;text-transform: uppercase" [items]="clientes" bindLabel="nomeFantasia" bindValue="id"
               [(ngModel)]="clienteIdSelecionado" formControlName="clientesId">
             </ng-select>
-            <span class="input-group-btn">
-              <button class="btn btn-success" (click)="abrirTemplateModal(novoClienteComponent)" tooltip="Novo Cliente">
-                <i class="fa fa-plus-circle"> </i></button>
-            </span>
           </div>
         </div>
 
@@ -54,7 +55,6 @@
           </ng-select>
         </div>
       </div>
-
     </form>
 
     <div *ngIf="!cadastroForm.valid" style="font-size:18px;font-weight: bold;" class="invalid-feedback d-block">
@@ -68,4 +68,5 @@
   &nbsp;Cadastrar
 </button>
 
-<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="70"></app-template-modal>
+<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="70">
+</app-template-modal>

@@ -43,7 +43,7 @@ export class RecebimentoComponent implements OnInit, AfterViewInit {
   }
 
   getRecebimentos() {
-    this.recebimentoService.getAllRecebimentos().subscribe(
+    this.recebimentoService.getRecebimentos().subscribe(
       // tslint:disable-next-line:variable-name
       (_RECEBIMENTOS: Recebimentos[]) => {
       this.recebimentos = _RECEBIMENTOS;

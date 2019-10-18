@@ -1,5 +1,6 @@
 import { UsuarioOcorrencia } from 'src/app/_models/Cadastros/Usuarios/UsuarioOcorrencia';
 import { UsuarioNivel } from 'src/app/_models/Cadastros/Usuarios/UsuarioNivel';
+import { PublicacaoMarcacoes } from '../../Publicacoes/PublicacaoMarcacoes';
 export class Usuario {
     id: number;
     userName: string;
@@ -10,4 +11,5 @@ export class Usuario {
     nomeArquivoFotoPerfil: string;
     usuarioOcorrencias: UsuarioOcorrencia[];
     usuarioNivel: UsuarioNivel[];
+    publicacaoMarcacoes: PublicacaoMarcacoes[];
 }

@@ -32,7 +32,7 @@ export class PermissaoService {
     return this.http.post<Permissao[]>(`${this.baseURL}/acao`, permissao);
   }
 
-  getAllPermissoes(): Observable<Permissao[]> {
+  getPermissoes(): Observable<Permissao[]> {
     return this.http.get<Permissao[]>(`${this.baseURL}`);
   }
 
@@ -40,27 +40,25 @@ export class PermissaoService {
     return this.http.put<PermissaoNivel[]>(`${this.baseURL}/editar/${formulario}`, permissaoNivel);
   }
 
-  getUsuarioId() {
+  getUsuarioId(): number {
     this.token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(this.token);
-    return (this.decodedToken) ? this.decodedToken.nameid : '';
+    return (this.decodedToken) ? Number(this.decodedToken.nameid) : null;
   }
 
-  getUsuario() {
+  getUsuario()  {
     this.token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(this.token);
     return (this.decodedToken) ? this.decodedToken.unique_name : '';
   }
 
-  getUsuarioNomeArquivoFotoPerfil() {
-    const nomeArquivoFotoPerfil = localStorage.getItem('nomeArquivoFotoPerfil');
-    return (this.decodedToken) ? nomeArquivoFotoPerfil : '';
-  }
-
   getUrlUsuarioLogadoFotoPerfil(): string {
     const nomeArquivoFotoPerfil = localStorage.getItem('nomeArquivoFotoPerfil');
-    return (nomeArquivoFotoPerfil) ? InfoAPI.URL + '/api/usuarios/' + this.decodedToken.nameid
-                       + '/Perfil/' + nomeArquivoFotoPerfil : '';
+    if (nomeArquivoFotoPerfil !== 'null' && nomeArquivoFotoPerfil) {
+      return InfoAPI.URL + '/api/usuarios/' + this.decodedToken.nameid + '/Perfil/' + nomeArquivoFotoPerfil;
+    } else {
+      return './../assets/img/user-default.png';
+    }
   }
 
   getUsuarioNiveis() {

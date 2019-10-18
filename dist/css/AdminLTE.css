@@ -18,12 +18,6 @@ body {
 .layout-boxed body {
   height: 100%;
 }
-body {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
 /* Layout */
 .wrapper {
   height: 100%;
@@ -365,14 +359,15 @@ a:focus {
   padding: 15px 15px;
 }
 @media (max-width: 991px) {
-  .navbar-custom-menu .navbar-nav > li {
-    float: left;
-  }
-  .navbar-custom-menu .navbar-nav {
+  .navbar-custom-menu .navbar-nav-menu > li {
     margin: 0;
     float: left;
   }
-  .navbar-custom-menu .navbar-nav > li > a {
+  .navbar-custom-menu .navbar-nav-menu {
+    margin: 0;
+    float: left;
+  }
+  .navbar-custom-menu .navbar-nav-menu > li > a {
     padding-top: 15px;
     padding-bottom: 15px;
     line-height: 20px;
@@ -404,6 +399,25 @@ a:focus {
     top: 0;
     right: 40px;
   }
+}
+.nav {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.nav > li {
+  position: relative;
+  display: block;
+}
+.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 15px 15px;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #eeeeee;
 }
 /*
  * Component: Sidebar
@@ -926,22 +940,22 @@ a:focus {
 .dropdown-menu > .divider {
   background-color: #eee;
 }
-.navbar-nav > .notifications-menu > .dropdown-menu,
-.navbar-nav > .messages-menu > .dropdown-menu,
-.navbar-nav > .tasks-menu > .dropdown-menu {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu,
+.navbar-nav-menu > .messages-menu > .dropdown-menu,
+.navbar-nav-menu > .tasks-menu > .dropdown-menu {
   width: 280px;
   padding: 0 0 0 0;
   margin: 0;
   top: 100%;
 }
-.navbar-nav > .notifications-menu > .dropdown-menu > li,
-.navbar-nav > .messages-menu > .dropdown-menu > li,
-.navbar-nav > .tasks-menu > .dropdown-menu > li {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li,
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li,
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li {
   position: relative;
 }
-.navbar-nav > .notifications-menu > .dropdown-menu > li.header,
-.navbar-nav > .messages-menu > .dropdown-menu > li.header,
-.navbar-nav > .tasks-menu > .dropdown-menu > li.header {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li.header,
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li.header,
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li.header {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
@@ -952,9 +966,9 @@ a:focus {
   color: #444444;
   font-size: 14px;
 }
-.navbar-nav > .notifications-menu > .dropdown-menu > li.footer > a,
-.navbar-nav > .messages-menu > .dropdown-menu > li.footer > a,
-.navbar-nav > .tasks-menu > .dropdown-menu > li.footer > a {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li.footer > a,
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li.footer > a,
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li.footer > a {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 4px;
@@ -967,120 +981,120 @@ a:focus {
   text-align: center;
 }
 @media (max-width: 991px) {
-  .navbar-nav > .notifications-menu > .dropdown-menu > li.footer > a,
-  .navbar-nav > .messages-menu > .dropdown-menu > li.footer > a,
-  .navbar-nav > .tasks-menu > .dropdown-menu > li.footer > a {
+  .navbar-nav-menu > .notifications-menu > .dropdown-menu > li.footer > a,
+  .navbar-nav-menu > .messages-menu > .dropdown-menu > li.footer > a,
+  .navbar-nav-menu > .tasks-menu > .dropdown-menu > li.footer > a {
     background: #fff !important;
     color: #444 !important;
   }
 }
-.navbar-nav > .notifications-menu > .dropdown-menu > li.footer > a:hover,
-.navbar-nav > .messages-menu > .dropdown-menu > li.footer > a:hover,
-.navbar-nav > .tasks-menu > .dropdown-menu > li.footer > a:hover {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li.footer > a:hover,
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li.footer > a:hover,
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li.footer > a:hover {
   text-decoration: none;
   font-weight: normal;
 }
-.navbar-nav > .notifications-menu > .dropdown-menu > li .menu,
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu,
-.navbar-nav > .tasks-menu > .dropdown-menu > li .menu {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li .menu,
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu,
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li .menu {
   max-height: 200px;
   margin: 0;
   padding: 0;
   list-style: none;
   overflow-x: hidden;
 }
-.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > a,
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a,
-.navbar-nav > .tasks-menu > .dropdown-menu > li .menu > li > a {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li .menu > li > a,
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a,
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li .menu > li > a {
   display: block;
   white-space: nowrap;
   /* Prevent text from breaking */
   border-bottom: 1px solid #f4f4f4;
 }
-.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > a:hover,
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a:hover,
-.navbar-nav > .tasks-menu > .dropdown-menu > li .menu > li > a:hover {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li .menu > li > a:hover,
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a:hover,
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li .menu > li > a:hover {
   background: #f4f4f4;
   text-decoration: none;
 }
-.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > a {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li .menu > li > a {
   color: #444444;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 10px;
 }
-.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > a > .glyphicon,
-.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > a > .fa,
-.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > a > .ion {
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li .menu > li > a > .glyphicon,
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li .menu > li > a > .fa,
+.navbar-nav-menu > .notifications-menu > .dropdown-menu > li .menu > li > a > .ion {
   width: 20px;
 }
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a {
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a {
   margin: 0;
   padding: 10px 10px;
 }
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > div > img {
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a > div > img {
   margin: auto 10px auto auto;
   width: 40px;
   height: 40px;
 }
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > h4 {
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a > h4 {
   padding: 0;
   margin: 0 0 0 45px;
   color: #444444;
   font-size: 15px;
   position: relative;
 }
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > h4 > small {
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a > h4 > small {
   color: #999999;
   font-size: 10px;
   position: absolute;
   top: 0;
   right: 0;
 }
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > p {
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a > p {
   margin: 0 0 0 45px;
   font-size: 12px;
   color: #888888;
 }
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a:before,
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a:after {
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a:before,
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a:after {
   content: " ";
   display: table;
 }
-.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a:after {
+.navbar-nav-menu > .messages-menu > .dropdown-menu > li .menu > li > a:after {
   clear: both;
 }
-.navbar-nav > .tasks-menu > .dropdown-menu > li .menu > li > a {
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li .menu > li > a {
   padding: 10px;
 }
-.navbar-nav > .tasks-menu > .dropdown-menu > li .menu > li > a > h3 {
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li .menu > li > a > h3 {
   font-size: 14px;
   padding: 0;
   margin: 0 0 10px 0;
   color: #666666;
 }
-.navbar-nav > .tasks-menu > .dropdown-menu > li .menu > li > a > .progress {
+.navbar-nav-menu > .tasks-menu > .dropdown-menu > li .menu > li > a > .progress {
   padding: 0;
   margin: 0;
 }
-.navbar-nav > .user-menu > .dropdown-menu {
+.navbar-nav-menu > .user-menu > .dropdown-menu {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   padding: 1px 0 0 0;
   border-top-width: 0;
   width: 280px;
 }
-.navbar-nav > .user-menu > .dropdown-menu,
-.navbar-nav > .user-menu > .dropdown-menu > .user-body {
+.navbar-nav-menu > .user-menu > .dropdown-menu,
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-body {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
 }
-.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+.navbar-nav-menu > .user-menu > .dropdown-menu > li.user-header {
   height: 175px;
   padding: 10px;
   text-align: center;
 }
-.navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
+.navbar-nav-menu > .user-menu > .dropdown-menu > li.user-header > img {
   z-index: 5;
   height: 90px;
   width: 90px;
@@ -1088,60 +1102,60 @@ a:focus {
   border-color: transparent;
   border-color: rgba(255, 255, 255, 0.2);
 }
-.navbar-nav > .user-menu > .dropdown-menu > li.user-header > p {
+.navbar-nav-menu > .user-menu > .dropdown-menu > li.user-header > p {
   z-index: 5;
   color: #fff;
   color: rgba(255, 255, 255, 0.8);
   font-size: 17px;
   margin-top: 10px;
 }
-.navbar-nav > .user-menu > .dropdown-menu > li.user-header > p > small {
+.navbar-nav-menu > .user-menu > .dropdown-menu > li.user-header > p > small {
   display: block;
   font-size: 12px;
 }
-.navbar-nav > .user-menu > .dropdown-menu > .user-body {
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-body {
   padding: 15px;
   border-bottom: 1px solid #f4f4f4;
   border-top: 1px solid #dddddd;
 }
-.navbar-nav > .user-menu > .dropdown-menu > .user-body:before,
-.navbar-nav > .user-menu > .dropdown-menu > .user-body:after {
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-body:before,
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-body:after {
   content: " ";
   display: table;
 }
-.navbar-nav > .user-menu > .dropdown-menu > .user-body:after {
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-body:after {
   clear: both;
 }
-.navbar-nav > .user-menu > .dropdown-menu > .user-body a {
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-body a {
   color: #444 !important;
 }
 @media (max-width: 991px) {
-  .navbar-nav > .user-menu > .dropdown-menu > .user-body a {
+  .navbar-nav-menu > .user-menu > .dropdown-menu > .user-body a {
     background: #fff !important;
     color: #444 !important;
   }
 }
-.navbar-nav > .user-menu > .dropdown-menu > .user-footer {
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-footer {
   background-color: #f9f9f9;
   padding: 10px;
 }
-.navbar-nav > .user-menu > .dropdown-menu > .user-footer:before,
-.navbar-nav > .user-menu > .dropdown-menu > .user-footer:after {
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-footer:before,
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-footer:after {
   content: " ";
   display: table;
 }
-.navbar-nav > .user-menu > .dropdown-menu > .user-footer:after {
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-footer:after {
   clear: both;
 }
-.navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default {
+.navbar-nav-menu > .user-menu > .dropdown-menu > .user-footer .btn-default {
   color: #666666;
 }
 @media (max-width: 991px) {
-  .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default:hover {
+  .navbar-nav-menu > .user-menu > .dropdown-menu > .user-footer .btn-default:hover {
     background-color: #f9f9f9;
   }
 }
-.navbar-nav > .user-menu .user-image {
+.navbar-nav-menu > .user-menu .user-image {
   float: left;
   width: 25px;
   height: 25px;
@@ -1150,7 +1164,7 @@ a:focus {
   margin-top: -2px;
 }
 @media (max-width: 767px) {
-  .navbar-nav > .user-menu .user-image {
+  .navbar-nav-menu > .user-menu .user-image {
     float: none;
     margin-right: 0;
     margin-top: -8px;
@@ -1208,25 +1222,24 @@ a:focus {
   }
 }
 /* Fix dropdown menu in navbars */
-.navbar-custom-menu > .navbar-nav > li {
+.navbar-custom-menu > .navbar-nav-menu > li {
   position: relative;
 }
-.navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+.navbar-custom-menu > .navbar-nav-menu > li > .dropdown-menu {
   position: absolute;
-  right: 0;
-  left: auto;
-}
+  right: 10px !important;
+  left: auto !important;
+  margin-top: -2px;
+} 
 @media (max-width: 991px) {
-  .navbar-custom-menu > .navbar-nav {
+  .navbar-custom-menu > .navbar-nav-menu {
     float: right;
   }
-  .navbar-custom-menu > .navbar-nav > li {
+  .navbar-custom-menu > .navbar-nav-menu > li {
     position: static;
   }
-  .navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+  .navbar-custom-menu > .navbar-nav-menu > li > .dropdown-menu {
     position: absolute;
-    right: 5%;
-    left: auto;
     border: 1px solid #ddd;
     background: #fff;
   }

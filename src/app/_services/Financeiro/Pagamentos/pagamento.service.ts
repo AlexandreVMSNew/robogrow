@@ -30,7 +30,7 @@ export class PagamentoService {
     this.templatePagamento = val;
   }
 
-  getAllPagamentos(): Observable<Pagamentos[]> {
+  getPagamentos(): Observable<Pagamentos[]> {
     return this.http.get<Pagamentos[]>(this.baseURL);
   }
   getPagamentosById(id: number): Observable<Pagamentos> {

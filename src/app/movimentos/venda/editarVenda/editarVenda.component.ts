@@ -35,6 +35,8 @@ import { ProdutoCheckList } from 'src/app/_models/Cadastros/Produtos/produtoChec
 import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
 import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/editarCliente.component';
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicacao';
+import { Publicacao } from 'src/app/_models/Publicacoes/Publicacao';
 
 @Component({
   selector: 'app-editar-venda',
@@ -99,6 +101,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   inputs: any;
   componentModal: any;
 
+  publicacoes: Publicacao[];
+
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
               private templateModalService: TemplateModalService,
@@ -120,6 +124,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
               private changeDetectionRef: ChangeDetectorRef) {
                 this.vendaService.atualizaVenda.subscribe(x => {
                   this.carregarVenda();
+                });
+                this.vendaService.atualizaPublicacoesVenda.subscribe(x => {
+                  this.carregarVendaPublicacoes();
                 });
               }
 
@@ -182,36 +189,48 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   carregarVenda() {
-    this.venda = null;
-    this.vendaService.getVendaById(this.idVenda)
-      .subscribe(
-        (_VENDA: Venda) => {
-          this.venda = Object.assign({}, _VENDA);
+    this.vendaService.getVendaById(this.idVenda).subscribe((_VENDA: Venda) => {
+      this.venda = null;
+      this.venda = Object.assign({}, _VENDA);
 
-          this.venda = Object.assign(this.venda, {
-            dataNegociacao: this.dataService.getDataPTBR(this.venda.dataNegociacao),
-            dataFinalizado: this.dataService.getDataPTBR(this.venda.dataFinalizado)
-          });
+      this.venda = Object.assign(this.venda, {
+        dataNegociacao: this.dataService.getDataPTBR(this.venda.dataNegociacao),
+        dataFinalizado: this.dataService.getDataPTBR(this.venda.dataFinalizado)
+      });
 
-          if (this.venda.status === 'EM NEGOCIAÇÃO' || this.editarStatus === true) {
-            this.status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
-          } else {
-            this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
-          }
-          this.produtoIdSelecionado = this.venda.vendaProdutos[0].produtosId;
-          this.empresaIdSelecionado = this.venda.empresasId;
-          this.vendedorIdSelecionado = this.venda.vendedorId;
-          this.clienteIdSelecionado = this.venda.clientesId;
-          this.statusSelecionado = this.venda.status;
+      if (this.venda.status === 'EM NEGOCIAÇÃO' || this.editarStatus === true) {
+        this.status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
+      } else {
+        this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
+      }
+      this.produtoIdSelecionado = this.venda.vendaProdutos[0].produtosId;
+      this.empresaIdSelecionado = this.venda.empresasId;
+      this.vendedorIdSelecionado = this.venda.vendedorId;
+      this.clienteIdSelecionado = this.venda.clientesId;
+      this.statusSelecionado = this.venda.status;
 
-          this.cadastroForm.patchValue(this.venda);
-          this.getAutorizacoes();
-          this.vendaService.atualizarFinanceiroVenda();
-          this.vendaService.atualizarResultadoVenda();
-        }, error => {
-          this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
-          console.log(error);
-        });
+      this.cadastroForm.patchValue(this.venda);
+      this.getAutorizacoes();
+      this.carregarVendaPublicacoes();
+      this.vendaService.atualizarFinanceiroVenda();
+      this.vendaService.atualizarResultadoVenda();
+    }, error => {
+      this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
+      console.log(error);
+    });
+  }
+
+  carregarVendaPublicacoes() {
+    const usuarioLogadoId = this.permissaoService.getUsuarioId();
+    this.vendaService.getVendaPublicacoes(this.venda.id, usuarioLogadoId)
+      .subscribe((vendaPublicacoes: VendaPublicacao[]) => {
+      this.publicacoes = [];
+      vendaPublicacoes.forEach((vp: VendaPublicacao) => {
+        this.publicacoes.push(vp.publicacoes);
+      });
+    }, error => {
+      console.log(error);
+    });
   }
 
   validarForm() {
@@ -232,55 +251,64 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
   }
 
-
-  enviarNotificacoesAutorizacao() {
+  enviarNotificacoes(usuariosIdNotificacao) {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    const notificacoes: Notificacao[] = [];
+    usuariosIdNotificacao.forEach(idUsuario => {
+      notificacoes.push(Object.assign({
+        id: 0,
+        usuarioId: idUsuario,
+        dataHora: dataAtual,
+        titulo: 'Autorização de Venda',
+        mensagem: 'Você tem um novo pedido de Autorização',
+        visto: 0
+      }));
+    });
+    this.notificacaoService.novasNotificacoes(notificacoes).subscribe(
+      () => {
+      notificacoes.forEach(notificacao => {
+        this.socketService.sendSocket('AutorizacaoVendaGerarPedido', notificacao);
+      });
+      this.toastr.success('Pedido de Autorização enviado, aguarde a Resposta!');
+    });
+  }
+
+  enviarEmail(usuariosEmailNotificacao) {
+    const email: Email = {
+      emailRemetente: 'virtualwebsistema@gmail.com',
+      nomeRemetente: 'Virtual Web',
+      senhaRemetente: '1379258vms//',
+      emailDestinatario: usuariosEmailNotificacao,
+      assunto: 'Autorização PEDIDO DE VENDA',
+      mensagem: 'Você tem uma autorização de Pedido de Venda pendente. <br/>' +
+      'Para analisar a Venda: ' +
+      '<a href="https://virtualweb.herokuapp.com/movimentos/vendas/editar/' + this.idVenda + '">CLIQUE AQUI!</a>',
+    };
+    this.emailService.enviarEmail(email).subscribe((_RESPOSTA) => {
+    }, error => {
+      console.log(error.error);
+    });
+  }
+
+  notificarUsuariosAutorizacao() {
     const usuariosIdNotificacao = [];
     const usuariosEmailNotificacao: any = [];
-    this.usuarioService.getAllUsuario().subscribe(
+    this.usuarioService.getUsuarios().subscribe(
       (_USUARIOS: Usuario[]) => {
       this.permissaoService.getPermissoesByFormularioAcaoObjeto(
         Object.assign({formulario: 'AUTORIZACOES', acao: 'GERAR', objeto: 'PEDIDO'})).subscribe((_PERMISSAO: Permissao) => {
-        _PERMISSAO.permissaoNiveis.forEach((permissao) => {
-          _USUARIOS.forEach((usuario: Usuario) => {
-            if (usuario.usuarioNivel.filter(c => c.roleId === permissao.nivelId).length > 0) {
-              usuariosIdNotificacao.push(usuario.id);
-              usuariosEmailNotificacao.push(usuario.email);
-            }
+
+          _PERMISSAO.permissaoNiveis.forEach((permissao) => {
+            _USUARIOS.forEach((usuario: Usuario) => {
+              if (usuario.usuarioNivel.filter(c => c.roleId === permissao.nivelId).length > 0) {
+                usuariosIdNotificacao.push(usuario.id);
+                usuariosEmailNotificacao.push(usuario.email);
+              }
+            });
           });
-        });
-        const email: Email = {
-          emailRemetente: 'virtualwebsistema@gmail.com',
-          nomeRemetente: 'Virtual Web',
-          senhaRemetente: '1379258vms//',
-          emailDestinatario: usuariosEmailNotificacao,
-          assunto: 'Autorização PEDIDO DE VENDA',
-          mensagem: 'Você tem uma autorização de Pedido de Venda pendente. <br/>' +
-          'Para analisar a Venda: ' +
-          '<a href="https://virtualweb.herokuapp.com/movimentos/vendas/editar/' + this.idVenda + '">CLIQUE AQUI!</a>',
-        };
-        this.emailService.enviarEmail(email).subscribe((_RESPOSTA) => {
-        }, error => {
-          console.log(error.error);
-        });
-        const notificacoes: Notificacao[] = [];
-        usuariosIdNotificacao.forEach(idUsuario => {
-          notificacoes.push(Object.assign({
-            id: 0,
-            usuarioId: idUsuario,
-            dataHora: dataAtual,
-            titulo: 'Autorização de Venda',
-            mensagem: 'Você tem um novo pedido de Autorização',
-            visto: 0
-          }));
-        });
-        this.notificacaoService.novasNotificacoes(notificacoes).subscribe(
-          () => {
-          notificacoes.forEach(notificacao => {
-            this.socketService.sendSocket('AutorizacaoVendaGerarPedido', notificacao);
-          });
-          this.toastr.success('Pedido de Autorização enviado, aguarde a Resposta!');
-        });
+
+          this.enviarNotificacoes(usuariosIdNotificacao);
+          this.enviarEmail(usuariosEmailNotificacao);
       });
     });
   }
@@ -299,10 +327,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       autorizado: 0,
       visto: 0
     });
-    console.log(autorizacao);
+
     this.autorizacaoService.novaAutorizacao(autorizacao).subscribe((result: any) => {
       if (result.retorno === 'OK') {
-        this.enviarNotificacoesAutorizacao();
+        this.notificarUsuariosAutorizacao();
       } else if (result.retorno === 'AUTORIZACAO PENDENTE') {
         this.toastr.warning(`Já existe uma autorização pendente para esta venda, aguarde.`);
       }
@@ -424,7 +452,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   getProdutos() {
-    this.produtoService.getAllProduto().subscribe(
+    this.produtoService.getProduto().subscribe(
       (_PRODUTOS: Produto[]) => {
       this.produtos = _PRODUTOS;
     }, error => {
@@ -434,7 +462,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   getPlanoPagamento() {
-    this.planoPagamentoService.getAllPlanoPagamento().subscribe(
+    this.planoPagamentoService.getPlanoPagamento().subscribe(
       (_PLANOS: PlanoPagamento[]) => {
       this.planosPagamento = _PLANOS.filter(c => c.status !== 'INATIVO');
     }, error => {
@@ -458,7 +486,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   getClientes() {
-    this.clienteService.getAllCliente().subscribe(
+    this.clienteService.getCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES;
     }, error => {
@@ -468,7 +496,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   getEmpresas() {
-    this.empresaService.getAllEmpresa().subscribe(
+    this.empresaService.getEmpresa().subscribe(
       (_EMPRESAS: Empresa[]) => {
       this.empresas = _EMPRESAS.filter(cliente => cliente.status !== 'INATIVO');
     }, error => {
@@ -478,7 +506,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   getVendedores() {
-    this.pessoaService.getAllPessoa().subscribe(
+    this.pessoaService.getPessoa().subscribe(
       (_PESSOAS: Pessoa[]) => {
       this.vendedores = _PESSOAS.filter(pessoa =>
         pessoa.pessoaTipos.filter(c => c.tiposPessoa.descricao === 'VENDEDOR').length > 0

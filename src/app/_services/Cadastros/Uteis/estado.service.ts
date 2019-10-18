@@ -10,7 +10,7 @@ export class EstadoService {
   baseURL = InfoAPI.URL + '/api/estados';
 constructor(private http: HttpClient) { }
 
-getAllEstados(): Observable<Estado[]> {
+getEstados(): Observable<Estado[]> {
   return this.http.get<Estado[]>(this.baseURL);
 }
 

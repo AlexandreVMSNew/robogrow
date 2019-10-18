@@ -145,7 +145,7 @@ export class ClienteComponent implements OnInit, AfterViewInit {
   }
 
   getClientes() {
-    this.clienteService.getAllCliente().subscribe(
+    this.clienteService.getCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES;
       this.clientesFiltro = this.filtrarClientes(this.filtroTexto);
@@ -156,7 +156,7 @@ export class ClienteComponent implements OnInit, AfterViewInit {
   }
 
   getEstados() {
-    this.estadoService.getAllEstados().subscribe(
+    this.estadoService.getEstados().subscribe(
       (_ESTADOS: Estado[]) => {
       this.estados = _ESTADOS;
     }, error => {

@@ -11,7 +11,7 @@ export class CidadeService {
   baseURL = InfoAPI.URL + '/api/cidades';
 constructor(private http: HttpClient) { }
 
-getAllCidades(): Observable<Cidade[]> {
+getCidades(): Observable<Cidade[]> {
   return this.http.get<Cidade[]>(this.baseURL);
 }
 

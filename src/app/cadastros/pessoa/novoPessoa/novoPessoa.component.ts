@@ -91,7 +91,7 @@ export class NovoPessoaComponent implements OnInit, AfterViewChecked {
   }
 
   getTipos() {
-    this.pessoaService.getAllTiposPessoa().subscribe(
+    this.pessoaService.getTiposPessoa().subscribe(
       (_TIPOS: TiposPessoa[]) => {
       this.tiposPessoa = _TIPOS;
     }, error => {
@@ -101,7 +101,7 @@ export class NovoPessoaComponent implements OnInit, AfterViewChecked {
 }
 
   getEstados() {
-    this.estadoService.getAllEstados().subscribe(
+    this.estadoService.getEstados().subscribe(
       (_ESTADOS: Estado[]) => {
       this.estados = _ESTADOS;
     }, error => {

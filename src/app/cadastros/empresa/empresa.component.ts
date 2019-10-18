@@ -63,7 +63,7 @@ export class EmpresaComponent implements OnInit, AfterViewInit {
 
 
   getEmpresas() {
-    this.empresaService.getAllEmpresa().subscribe(
+    this.empresaService.getEmpresa().subscribe(
       (_EMPRESAS: Empresa[]) => {
       this.empresas = _EMPRESAS;
     }, error => {

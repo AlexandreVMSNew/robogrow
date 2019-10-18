@@ -44,7 +44,7 @@ export class PagamentoComponent implements OnInit, AfterViewInit {
   }
 
   getPagamentos() {
-    this.pagamentoService.getAllPagamentos().subscribe(
+    this.pagamentoService.getPagamentos().subscribe(
       // tslint:disable-next-line:variable-name
       (_PAGAMENTOS: Pagamentos[]) => {
       this.pagamentos = _PAGAMENTOS;

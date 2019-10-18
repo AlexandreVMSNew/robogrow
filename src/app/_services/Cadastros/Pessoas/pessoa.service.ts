@@ -12,11 +12,11 @@ export class PessoaService {
   baseURL = InfoAPI.URL + '/api/pessoas';
   constructor(private http: HttpClient) { }
 
-  getAllPessoa(): Observable<Pessoa[]> {
+  getPessoa(): Observable<Pessoa[]> {
     return this.http.get<Pessoa[]>(this.baseURL);
   }
 
-  getAllTiposPessoa(): Observable<TiposPessoa[]> {
+  getTiposPessoa(): Observable<TiposPessoa[]> {
     return this.http.get<TiposPessoa[]>(`${this.baseURL}/tipos`);
   }
 

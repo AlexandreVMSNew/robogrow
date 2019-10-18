@@ -97,7 +97,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   }
 
   getUsuarios() {
-      this.usuarioService.getAllUsuario().subscribe(
+      this.usuarioService.getUsuarios().subscribe(
         (_USUARIOS: Usuario[]) => {
         this.usuarios = _USUARIOS;
         this.usuariosFiltrados = this.filtrarUsuarios(this.filtroLista);

@@ -12,7 +12,7 @@ export class CentroReceitaService {
   baseURL = InfoAPI.URL + '/api/centroreceita';
   constructor(private http: HttpClient) { }
 
-  getAllCentroReceita(): Observable<CentroReceita[]> {
+  getCentroReceita(): Observable<CentroReceita[]> {
     return this.http.get<CentroReceita[]>(this.baseURL);
   }
 

@@ -127,7 +127,7 @@ export class PlanoPagamentoComponent implements OnInit, AfterViewChecked, AfterV
   }
 
   getPlanoPagamento() {
-    this.planoPagamentoService.getAllPlanoPagamento().subscribe(
+    this.planoPagamentoService.getPlanoPagamento().subscribe(
       (_FORMAS: PlanoPagamento[]) => {
       this.planosPagamento = _FORMAS;
     }, error => {
@@ -137,7 +137,7 @@ export class PlanoPagamentoComponent implements OnInit, AfterViewChecked, AfterV
   }
 
   getFormaPagamento() {
-    this.formaPagamentoService.getAllFormaPagamento().subscribe(
+    this.formaPagamentoService.getFormaPagamento().subscribe(
       (_FORMAS: FormaPagamento[]) => {
       this.formasPagamento = _FORMAS;
     }, error => {
@@ -147,7 +147,7 @@ export class PlanoPagamentoComponent implements OnInit, AfterViewChecked, AfterV
   }
 
   getPlanoContas() {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContas = _PLANOS.filter(c => c.tipo === 'MOVIMENTO' && c.categoria === 'ANALÍTICA');
     }, error => {

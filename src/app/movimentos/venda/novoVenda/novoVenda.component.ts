@@ -120,7 +120,7 @@ export class NovoVendaComponent implements OnInit {
   }
 
   getProdutos() {
-    this.produtoService.getAllProduto().subscribe(
+    this.produtoService.getProduto().subscribe(
       (_PRODUTOS: Produto[]) => {
       this.produtos = _PRODUTOS;
     }, error => {
@@ -130,7 +130,7 @@ export class NovoVendaComponent implements OnInit {
   }
 
   getClientes() {
-    this.clienteService.getAllCliente().subscribe(
+    this.clienteService.getCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES.filter(cliente => cliente.status !== 'INATIVO');
     }, error => {
@@ -140,7 +140,7 @@ export class NovoVendaComponent implements OnInit {
   }
 
   getEmpresas() {
-    this.empresaService.getAllEmpresa().subscribe(
+    this.empresaService.getEmpresa().subscribe(
       (_EMPRESAS: Empresa[]) => {
       this.empresas = _EMPRESAS.filter(cliente => cliente.status !== 'INATIVO');
     }, error => {
@@ -150,7 +150,7 @@ export class NovoVendaComponent implements OnInit {
   }
 
   getVendedores() {
-    this.pessoaService.getAllPessoa().subscribe(
+    this.pessoaService.getPessoa().subscribe(
       (_PESSOAS: Pessoa[]) => {
       this.vendedores = _PESSOAS.filter(pessoa =>
         pessoa.pessoaTipos.filter(c => c.tiposPessoa.descricao === 'VENDEDOR').length > 0
@@ -162,7 +162,7 @@ export class NovoVendaComponent implements OnInit {
   }
 
   getPlanoPagamento() {
-    this.planoPagamentoService.getAllPlanoPagamento().subscribe(
+    this.planoPagamentoService.getPlanoPagamento().subscribe(
       (_PLANOS: PlanoPagamento[]) => {
       this.planosPagamento = _PLANOS.filter(c => c.status !== 'INATIVO');
     }, error => {

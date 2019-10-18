@@ -5,6 +5,7 @@ import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { PublicacaoArquivos } from 'src/app/_models/Publicacoes/PublicacaoArquivos';
 import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
+import { Publicacao } from 'src/app/_models/Publicacoes/Publicacao';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class PublicacaoService {
 
   constructor(private http: HttpClient) { }
 
+  atualizarPublicacoes() {
+    this.atualizaPublicacoes.emit(true);
+  }
+
   atualizarPublicacaoComentarios(publicacaoId: number) {
     this.atualizaPublicacaoComentarios.emit(publicacaoId);
   }
@@ -32,12 +37,29 @@ export class PublicacaoService {
     this.publicacaoTemplate = val;
   }
 
+  novaPublicacao(publicacao: Publicacao): Observable<Publicacao>  {
+    return this.http.post<Publicacao>(`${this.baseURL}/novo`, publicacao);
+  }
+
   novoPublicacaoComentario(comentario: PublicacaoComentario) {
     return this.http.post(`${this.baseURL}/comentario/novo`, comentario);
   }
 
   getPublicacaoArquivos(publicacaoId: number) {
     return this.http.get(`${this.baseURL}/${publicacaoId}/arquivos`);
+  }
+
+  getPublicacoesUsuarioMarcado(usuarioId: number) {
+    return this.http.get(`${this.baseURL}/usuario/${usuarioId}`);
+  }
+
+
+  getPublicacoes() {
+    return this.http.get(`${this.baseURL}/`);
+  }
+
+  getPublicacao(publicacaoId: number) {
+    return this.http.get(`${this.baseURL}/${publicacaoId}`);
   }
 
   getPublicacaoComentarios(publicacaoId: number) {

@@ -9,7 +9,7 @@
       </div>
       <div class="box-body">
 
-        <table class="table table-responsive table-bordered ">
+        <table class="table table-bordered ">
           <thead>
             <tr>
               <th>Descrição</th>
@@ -58,7 +58,7 @@
         <h3 class="box-title">Despesas(COMISSÕES)</h3>
       </div>
       <div class="box-body">
-        <table class="table table-responsive table-bordered">
+        <table class="table table-bordered">
           <thead class="thead-light">
             <tr>
               <th>Descrição</th>
@@ -73,12 +73,12 @@
               <td style="white-space: nowrap;text-align: center;">
                 <span style="margin-top:0px;" *ngIf="verificarPrevisto(item.vendaValorPrevisto) == true &&
                     verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == false"
-                  class="label label-danger">X</span>
+                  class="badge badge-danger">X</span>
                 <span style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == true"
-                  class="label label-success">PAGO</span>
+                  class="badge badge-success">PAGO</span>
                 <span style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == false &&
                     verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == true"
-                  class="label label-warning">PENDENTE</span>
+                  class="badge badge-warning">PENDENTE</span>
               </td>
               <td style="white-space: nowrap;text-align: center;">
                 <div class="btn-group">
@@ -115,7 +115,7 @@
         <h3 class="box-title">Despesas(GASTOS)</h3>
       </div>
       <div class="box-body">
-        <table class="table table-responsive table-bordered">
+        <table class="table table-bordered">
           <thead class="thead-light">
             <tr>
               <th>Descrição</th>

@@ -315,7 +315,7 @@ export class TemplateRecebimentoComponent implements OnInit {
   }
 
   getPlanoContas() {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContasReceita = _PLANOS.filter(c => c.tipo === 'RECEITA');
     }, error => {
@@ -325,7 +325,7 @@ export class TemplateRecebimentoComponent implements OnInit {
   }
 
   getClientes() {
-    this.clienteService.getAllCliente().subscribe(
+    this.clienteService.getCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES.filter(cliente => cliente.status !== 'INATIVO');
     }, error => {
@@ -335,7 +335,7 @@ export class TemplateRecebimentoComponent implements OnInit {
   }
 
   getCentroReceita() {
-    this.centroReceitaService.getAllCentroReceita().subscribe(
+    this.centroReceitaService.getCentroReceita().subscribe(
       (_CENTROS: CentroReceita[]) => {
       this.centrosReceita = _CENTROS.filter(c => c.status !== 'INATIVO');
     }, error => {
@@ -345,7 +345,7 @@ export class TemplateRecebimentoComponent implements OnInit {
   }
 
   getPlanoPagamento() {
-    this.planoPagamentoService.getAllPlanoPagamento().subscribe(
+    this.planoPagamentoService.getPlanoPagamento().subscribe(
       (_PLANOS: PlanoPagamento[]) => {
       this.planosPagamento = _PLANOS.filter(c => c.status !== 'INATIVO');
     }, error => {
@@ -355,7 +355,7 @@ export class TemplateRecebimentoComponent implements OnInit {
   }
 
   getFormaPagamento() {
-    this.formaPagamentoService.getAllFormaPagamento().subscribe(
+    this.formaPagamentoService.getFormaPagamento().subscribe(
       (_FORMAS: FormaPagamento[]) => {
       this.formasPagamento = _FORMAS.filter(c => c.status !== 'INATIVO');
     }, error => {

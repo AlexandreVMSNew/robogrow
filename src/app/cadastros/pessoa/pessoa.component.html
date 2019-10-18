@@ -1,6 +1,6 @@
 <h2>Pessoas</h2>
 <hr width="100%">
-<div class="box box-solid">
+<div class="box box-primary">
   <div class="box-header with-border">
     <div class="row">
       <div class="form-group col-md-2">
@@ -76,7 +76,7 @@
           <td>{{ pessoa.id }}</td>
           <td style="white-space: nowrap;">{{ pessoa.nome }}</td>
           <td style="white-space: nowrap;">
-            <span style="margin-right:5px;" class="label label-primary" *ngFor="let pTipos of pessoa.pessoaTipos">
+            <span style="margin-right:5px;" class="badge badge-primary" *ngFor="let pTipos of pessoa.pessoaTipos">
               {{ pTipos.tiposPessoa.descricao }}
             </span>&nbsp;
           </td>

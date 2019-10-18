@@ -12,7 +12,7 @@ export class PlanoPagamentoService {
 baseURL = InfoAPI.URL + '/api/planopagamento';
 constructor(private http: HttpClient) { }
 
-getAllPlanoPagamento(): Observable<PlanoPagamento[]> {
+getPlanoPagamento(): Observable<PlanoPagamento[]> {
   return this.http.get<PlanoPagamento[]>(this.baseURL);
 }
 

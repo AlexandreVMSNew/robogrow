@@ -19,7 +19,7 @@ export class LancamentoService {
     this.lancamentoTemplate = val;
   }
 
-  getAllLancamentos(): Observable<Lancamentos[]> {
+  getLancamentos(): Observable<Lancamentos[]> {
     return this.http.get<Lancamentos[]>(this.baseURL);
   }
 

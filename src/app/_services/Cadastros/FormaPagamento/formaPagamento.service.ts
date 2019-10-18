@@ -12,7 +12,7 @@ export class FormaPagamentoService {
   baseURL = InfoAPI.URL + '/api/formapagamento';
   constructor(private http: HttpClient) { }
 
-  getAllFormaPagamento(): Observable<FormaPagamento[]> {
+  getFormaPagamento(): Observable<FormaPagamento[]> {
     return this.http.get<FormaPagamento[]>(this.baseURL);
   }
 

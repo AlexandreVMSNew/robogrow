@@ -14,7 +14,7 @@
 </div>
 <hr width="100%">
 
-<div class="box box-solid">
+<div class="box box-primary">
   <div class="box-header with-border">
     <tabset>
 
@@ -161,7 +161,8 @@
       </tab>
 
       <tab heading="Atividades" style="margin-top: 10px;">
-        <app-publicacao-venda *ngIf="this.venda" [vendaId]="this.venda.id" [vendaPublicacoes]="this.venda.vendaPublicacoes"></app-publicacao-venda>
+        <app-publicacao *ngIf="this.venda && this.publicacoes" [vendaId]="this.venda.id" [publicacoes]="this.publicacoes">
+        </app-publicacao>
       </tab>
 
       <tab *ngIf="this.visualizarFinanceiro == true" heading="Financeiro" style="margin-top: 10px;">

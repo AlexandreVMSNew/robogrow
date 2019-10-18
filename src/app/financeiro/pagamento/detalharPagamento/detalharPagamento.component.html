@@ -112,10 +112,10 @@
                   <td style="text-align: center;">{{parcela.formaPagamento.descricao}}</td>
                   <td style="text-align: center;">{{parcela.valor | currency:' ':false}}</td>
                   <td style="text-align: center;">
-                    <span style="text-align: center;" *ngIf="parcela.status == 'PENDENTE'" class="label label-warning">
+                    <span style="text-align: center;" *ngIf="parcela.status == 'PENDENTE'" class="badge badge-warning">
                       {{ parcela.status }}
                     </span>
-                    <span style="text-align: center;" *ngIf="parcela.status == 'PAGO'" class="label label-success">
+                    <span style="text-align: center;" *ngIf="parcela.status == 'PAGO'" class="badge badge-success">
                       {{ parcela.status }}
                     </span>
                   </td>

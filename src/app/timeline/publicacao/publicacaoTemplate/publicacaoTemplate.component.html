@@ -1,0 +1,81 @@
+{{abrirTemplate(templatePublicacao)}}
+<div bsModal #templatePublicacao="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Publicação<label></label>
+        </h4>
+
+        <button type="button" class="close pull-right" (click)="fecharTemplate(templatePublicacao)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="cadastroPublicacao">
+          <div class="form-group">
+            <label>Texto</label>
+            <textarea class="form-control"
+              [ngClass]="{'is-invalid':cadastroPublicacao.get('texto').errors &&cadastroPublicacao.get('texto').touched}"
+              formControlName="texto" placeholder="" rows="4"></textarea>
+            <div *ngIf="cadastroPublicacao.get('texto').hasError('required') &&cadastroPublicacao.get('texto').touched"
+              class="invalid-feedback">
+              Campo é obrigatório.
+            </div>
+          </div>
+
+          <div class="form-group">
+            
+              <label>Usuários</label>
+            <ng-select appendTo="body" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
+             [dropdownPosition]="'bottom'" [clearable]="false" [items]="usuarios" bindLabel="nomeCompleto"
+              bindValue="id" formControlName="usuariosMarcados" [(ngModel)]="usuariosMarcados">
+              <ng-template ng-header-tmp>
+                  <button (click)="marcarTodos()" class="btn btn-sm btn-primary">Marcar Todos</button>
+                  <button (click)="desmarcarTodos()" class="btn btn-sm btn-primary" style="margin-left: 10px;">Desmarcar Todos</button>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index">
+                  <img height="40" width="40" style="border: 1px solid #C0C0C0" 
+                  [src]="getUrlUsuarioFotoPerfil(item.id, item.nomeArquivoFotoPerfil)" alt="img"/>
+                  <b style="margin-left: 5px;">{{item.nomeCompleto}}</b>
+              </ng-template>
+            </ng-select>
+          </div>
+
+          <div class="form-group">
+            <div class="btn btn-outline-secondary btn-file">
+              <i class="fa fa-paperclip"></i> Anexar Arquivos
+              <input type="file" multiple name="attachment" (change)="adicionarArquivoUpload($event)" >
+            </div>
+          </div>
+
+          <div *ngIf="arquivosUpload && arquivosUpload.length" class="box-footer">
+              <ul class="mailbox-attachments clearfix">
+                <li *ngFor="let arquivo of arquivosUpload; let i = index">    
+                  <button type="button" class="btn btn-default pull-right" tooltip="Excluir" (click)="excluirArquivoUpload(i)"><i class="fa fa-times"></i></button>
+                  <span class="mailbox-attachment-icon"><i class="fa fa-file-o"></i></span>
+                  <div class="mailbox-attachment-info">
+                    <a class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{arquivo.name}}</a>
+                      <span class="mailbox-attachment-size">
+                          {{(arquivo.size) | filesize}}
+                      </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+        </form>
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fecharTemplate(templatePublicacao)">
+          Fechar
+        </button>
+        <button [disabled]="!cadastroPublicacao.valid" class="btn btn-primary"
+          (click)="cadastrarPublicacao(templatePublicacao)">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

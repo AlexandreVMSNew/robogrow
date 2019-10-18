@@ -1,6 +1,6 @@
 <h2>Autorizacões</h2>
 <hr width="100%">
-<div class="box box-solid">
+<div class="box box-primary">
   <div class="box-header with-border">
 
     <table class="container-fluid table table-striped table-bordered mt-4">
@@ -31,11 +31,11 @@
           <td style="white-space: nowrap;">{{ autorizacao.dataHoraAutorizado | date:'dd/MM/yyyy HH:mm'}}</td>
           <td style="white-space: nowrap;text-align: center;">
               <span style="margin-top:0px;" *ngIf="autorizacao.autorizador && autorizacao.autorizado == 0"
-                class="label label-danger">NÃO</span>
+                class="badge badge-danger">NÃO</span>
               <span style="margin-top:0px;" *ngIf="autorizacao.autorizador && autorizacao.autorizado == 1"
-                class="label label-success">SIM</span>
+                class="badge badge-success">SIM</span>
               <span style="margin-top:0px;" *ngIf="!autorizacao.autorizador && autorizacao.autorizado == 0"
-                class="label label-warning">PENDENTE</span>
+                class="badge badge-warning">PENDENTE</span>
             </td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">

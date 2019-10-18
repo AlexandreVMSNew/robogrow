@@ -12,7 +12,7 @@ export class GrupoClienteService {
 
   baseURL = InfoAPI.URL + '/api/grupocliente';
 constructor(private http: HttpClient) { }
-  getAllGrupos(): Observable<ClienteGrupos[]> {
+  getGrupos(): Observable<ClienteGrupos[]> {
     return this.http.get<ClienteGrupos[]>(`${this.baseURL}/grupos`);
   }
 

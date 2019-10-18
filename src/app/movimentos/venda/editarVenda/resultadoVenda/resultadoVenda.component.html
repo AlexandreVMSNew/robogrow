@@ -1,4 +1,4 @@
-<div class="col-md-5">
+<div class="col-5">
   {{somar()}}
   <div class="box box-info">
     <table class="table  table-bordered" style="table-layout:fixed;">
@@ -72,7 +72,7 @@
     </div>
   </div>
 </div>
-<div class="col-md-7">
+<div class="col-7">
 
   <div class="md-2">
     <div class="box box-info">
@@ -81,23 +81,23 @@
           <tr>
             <th style=" font-size:30px;text-align: center;">
               <span *ngIf="resultadoPrevisto >= 0"
-                class="label label-success">RESULTADO PREVISTO
+                class="badge badge-success">RESULTADO PREVISTO
               </span>
               <span *ngIf="0 > resultadoPrevisto"
-                class="label label-danger">RESULTADO PREVISTO
+                class="badge badge-danger">RESULTADO PREVISTO
               </span>
             </th>
             <th style=" font-size:30px;text-align: center;">
               <span *ngIf="resultadoReal >= 0"
-                class="label label-success">RESULTADO REAL
+                class="badge badge-success">RESULTADO REAL
               </span>
               <span *ngIf="0 > resultadoReal"
-                class="label label-danger">RESULTADO REAL
+                class="badge badge-danger">RESULTADO REAL
               </span>
             </th>
             <th style=" font-size:30px;text-align: center;">
               <span 
-                class="label label-primary">%
+                class="badge badge-primary">%
               </span>
             </th>
           </tr>
@@ -120,17 +120,13 @@
   </div>
 
 </div>
-<div class="col-md-3">
   <div class="chart" style="width: 400px;height: 200px;">
     <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
       [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
     </canvas>
   </div>
-</div>
-<div class="col-md-4">
   <div class="chart" style="width: 350px;margin-left:55px;margin-top: 20px;height: 200px;">
     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
       [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
     </canvas>
   </div>
-</div>

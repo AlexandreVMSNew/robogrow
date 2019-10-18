@@ -1,6 +1,6 @@
 <h2>Produto</h2>
 <hr width="100%">
-<div class="box box-solid">
+<div class="box box-primary">
   <div class="box-header with-border">
     <tabset>
       <tab heading="Geral" style="margin-top: 10px;">
@@ -99,14 +99,14 @@
               <td>{{ Item.id }}</td>
               <td style="white-space: nowrap;">{{ Item.descricao }}</td>
               <td style="white-space: nowrap;text-align: center;">
-                <span style="margin-top:0px;" *ngIf="Item.tipoItem == 'RECEITA'" class="label label-info">
+                <span style="margin-top:0px;" *ngIf="Item.tipoItem == 'RECEITA'" class="badge badge-info">
                   {{ Item.tipoItem }}
                 </span>
-                <span style="margin-top:0px;" *ngIf="Item.tipoItem != 'RECEITA'" class="label label-danger">
+                <span style="margin-top:0px;" *ngIf="Item.tipoItem != 'RECEITA'" class="badge badge-danger">
                   {{ Item.tipoItem }}
                 </span>
                 <span style="margin-left: 5px;margin-top:0px;" *ngIf="Item.tipoItem != 'RECEITA'"
-                  class="label label-warning">
+                  class="badge badge-warning">
                   {{ Item.subTipoItem }}
                 </span>
               </td>

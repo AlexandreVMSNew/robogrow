@@ -119,7 +119,7 @@ export class DetalharPagamentoComponent implements OnInit {
   }
 
   getPessoas() {
-    this.pessoaService.getAllPessoa().subscribe(
+    this.pessoaService.getPessoa().subscribe(
       // tslint:disable-next-line:variable-name
       (_PESSOAS: Pessoa[]) => {
       this.pessoas = _PESSOAS;
@@ -130,7 +130,7 @@ export class DetalharPagamentoComponent implements OnInit {
   }
 
   getPlanoContas() {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContasDespesa = _PLANOS.filter(c => c.tipo === 'DESPESA');
     }, error => {
@@ -140,7 +140,7 @@ export class DetalharPagamentoComponent implements OnInit {
   }
 
   getCentroDespesa() {
-    this.centroDespesaService.getAllCentroDespesa().subscribe(
+    this.centroDespesaService.getCentroDespesa().subscribe(
       (_CENTROS: CentroDespesa[]) => {
       this.centrosDespesa = _CENTROS.filter(c => c.status !== 'INATIVO');
     }, error => {
@@ -150,7 +150,7 @@ export class DetalharPagamentoComponent implements OnInit {
   }
 
   getPlanoPagamento() {
-    this.planoPagamentoService.getAllPlanoPagamento().subscribe(
+    this.planoPagamentoService.getPlanoPagamento().subscribe(
       (_PLANOS: PlanoPagamento[]) => {
       this.planosPagamento = _PLANOS.filter(c => c.status !== 'INATIVO');
     }, error => {
@@ -160,7 +160,7 @@ export class DetalharPagamentoComponent implements OnInit {
   }
 
   getFormaPagamento() {
-    this.formaPagamentoService.getAllFormaPagamento().subscribe(
+    this.formaPagamentoService.getFormaPagamento().subscribe(
       (_FORMAS: FormaPagamento[]) => {
       this.formasPagamento = _FORMAS.filter(c => c.status !== 'INATIVO');
     }, error => {

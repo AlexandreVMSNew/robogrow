@@ -11,7 +11,7 @@ export class ClienteService {
   baseURL = InfoAPI.URL + '/api/clientes';
 constructor(private http: HttpClient) { }
 
-getAllCliente(): Observable<Cliente[]> {
+getCliente(): Observable<Cliente[]> {
   return this.http.get<Cliente[]>(this.baseURL);
 }
 

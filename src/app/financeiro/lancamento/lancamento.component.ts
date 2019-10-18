@@ -50,7 +50,7 @@ export class LancamentoComponent implements OnInit, AfterViewInit {
   }
 
   getLancamentos() {
-    this.lancamentoService.getAllLancamentos().subscribe(
+    this.lancamentoService.getLancamentos().subscribe(
       // tslint:disable-next-line:variable-name
       (_LANCAMENTOS: Lancamentos[]) => {
       this.lancamentos = _LANCAMENTOS;

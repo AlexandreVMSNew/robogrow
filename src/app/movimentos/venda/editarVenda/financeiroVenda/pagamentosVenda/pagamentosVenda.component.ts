@@ -37,7 +37,7 @@ export class PagamentosVendaComponent implements OnInit {
   }
 
   getPagamentos() {
-    this.pagamentoService.getAllPagamentos().subscribe(
+    this.pagamentoService.getPagamentos().subscribe(
       // tslint:disable-next-line:variable-name
       (_PAGAMENTOS: Pagamentos[]) => {
         this.pagamentos = _PAGAMENTOS.filter(c => c.produtosItensId === this.produtoItem.id && c.vendaId === this.venda.id);

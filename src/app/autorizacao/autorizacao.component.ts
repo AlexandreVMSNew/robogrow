@@ -64,7 +64,7 @@ export class AutorizacaoComponent implements OnInit, AfterViewInit {
 
 
   getAutorizacoes() {
-    this.autorizacaoService.getAllAutorizacoes().subscribe(
+    this.autorizacaoService.getAutorizacoes().subscribe(
       (_EMPRESAS: Autorizacao[]) => {
       this.autorizacoes = _EMPRESAS;
     }, error => {

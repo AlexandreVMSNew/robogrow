@@ -74,11 +74,11 @@ setRecebimentosVendaStatus(val: boolean) {
   this.recebimentosVenda = val;
 }
 
-getAllVenda(): Observable<Venda[]> {
+getVenda(): Observable<Venda[]> {
   return this.http.get<Venda[]>(this.baseURL);
 }
 
-getAllVendaRelatorio(datas: DataPeriodo): Observable<Venda[]> {
+getVendaRelatorio(datas: DataPeriodo): Observable<Venda[]> {
   return this.http.post<Venda[]>(`${this.baseURL}/relatorios`, datas);
 }
 
@@ -121,8 +121,8 @@ novaVendaPublicacao(vendaPublicacao: VendaPublicacao) {
   return this.http.post(`${this.baseURL}/publicacoes/novo`, vendaPublicacao);
 }
 
-getVendaPublicacoes(vendaId: number): Observable<VendaPublicacao[]> {
-  return this.http.get<VendaPublicacao[]>(`${this.baseURL}/${vendaId}/publicacoes`);
+getVendaPublicacoes(vendaId: number, usuarioId: number): Observable<VendaPublicacao[]> {
+  return this.http.get<VendaPublicacao[]>(`${this.baseURL}/${vendaId}/publicacoes/usuario/${usuarioId}`);
 }
 
 editarVendaConfig(vendaConfig: VendaConfig) {

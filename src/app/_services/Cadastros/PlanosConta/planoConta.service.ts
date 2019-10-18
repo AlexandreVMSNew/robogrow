@@ -12,7 +12,7 @@ export class PlanoContaService {
   baseURL = InfoAPI.URL + '/api/planoconta';
   constructor(private http: HttpClient) { }
 
-  getAllPlanosConta(): Observable<PlanoContas[]> {
+  getPlanosConta(): Observable<PlanoContas[]> {
     return this.http.get<PlanoContas[]>(this.baseURL);
   }
 

@@ -3,6 +3,7 @@ const socketIO = require('socket.io');
 const path = require('path');
 const PORT = process.env.PORT || 3000;
 const app = express();
+
 var forceSsl = function (req, res, next) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
       return res.redirect(['https://', req.get('Host'), req.url].join(''));
@@ -35,4 +36,8 @@ io.on('connection', (socket) => {
     socket.on('RespAutorizacaoVendaGerarPedido', (dados) => { io.emit('RespAutorizacaoVendaGerarPedido', dados); });
 
     socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
+    
+    socket.on('NovoComentarioPublicacao', (dados) => { io.emit('NovoComentarioPublicacao', dados); });
+    
+    socket.on('NovaPublicacao', (dados) => { io.emit('NovaPublicacao', dados); });
 });

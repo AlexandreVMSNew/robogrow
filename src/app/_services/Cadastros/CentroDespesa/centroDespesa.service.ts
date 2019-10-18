@@ -12,7 +12,7 @@ export class CentroDespesaService {
   baseURL = InfoAPI.URL + '/api/centrodespesa';
   constructor(private http: HttpClient) { }
 
-  getAllCentroDespesa(): Observable<CentroDespesa[]> {
+  getCentroDespesa(): Observable<CentroDespesa[]> {
     return this.http.get<CentroDespesa[]>(this.baseURL);
   }
 

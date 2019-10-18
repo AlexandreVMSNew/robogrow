@@ -132,7 +132,7 @@ export class LancamentoTemplateComponent implements OnInit, AfterViewInit {
   }
 
   getPlanoContas() {
-    this.planoContaService.getAllPlanosConta().subscribe(
+    this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
       this.planoContas = _PLANOS.filter(c => c.categoria === 'ANALÍTICA');
     }, error => {

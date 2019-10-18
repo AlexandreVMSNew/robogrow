@@ -49,7 +49,7 @@ getCheckListProdutoStatus() {
   return this.checkListProduto;
 }
 
-getAllProduto(): Observable<Produto[]> {
+getProduto(): Observable<Produto[]> {
   return this.http.get<Produto[]>(this.baseURL);
 }
 

@@ -133,7 +133,7 @@ export class NovoClienteComponent implements OnInit {
   }
 
   getGrupos() {
-    this.clienteGruposService.getAllGrupos().subscribe(
+    this.clienteGruposService.getGrupos().subscribe(
       (_GRUPOS: ClienteGrupos[]) => {
       this.grupos = _GRUPOS;
     }, error => {
@@ -143,7 +143,7 @@ export class NovoClienteComponent implements OnInit {
   }
 
   getEstados() {
-    this.estadoService.getAllEstados().subscribe(
+    this.estadoService.getEstados().subscribe(
       (_ESTADOS: Estado[]) => {
       this.estados = _ESTADOS;
     }, error => {
@@ -165,7 +165,7 @@ export class NovoClienteComponent implements OnInit {
   }
 
   getSistemas() {
-    this.sistemaClienteService.getAllSistema().subscribe(
+    this.sistemaClienteService.getSistema().subscribe(
       (_SISTEMAS: Sistema[]) => {
       this.sistemas = _SISTEMAS;
     }, error => {
@@ -178,7 +178,7 @@ export class NovoClienteComponent implements OnInit {
       if (SistemaId != null) {
       this.geracaoIdSelecionado = [];
       this.versoesIdSelecionado = [];
-      this.sistemaClienteService.getAllGeracao(SistemaId).subscribe(
+      this.sistemaClienteService.getGeracao(SistemaId).subscribe(
         (_GERACOES: Geracao[]) => {
         this.geracoes = _GERACOES;
       }, error => {
@@ -190,7 +190,7 @@ export class NovoClienteComponent implements OnInit {
 
   getVersoesGeracao(GeracaoId: number) {
     if (GeracaoId != null) {
-      this.sistemaClienteService.getAllGeracaoVersoes(GeracaoId).subscribe(
+      this.sistemaClienteService.getGeracaoVersoes(GeracaoId).subscribe(
         (_VERSOES: Versao[]) => {
         this.versoes = _VERSOES;
       }, error => {
