@@ -158,7 +158,7 @@ export class SidebarService {
     },
     {
       title: 'Publicações',
-      icon: 'fa fa-handshake',
+      icon: 'far fa-newspaper',
       active: false,
       type: 'simple',
       link: 'publicacoes'
@@ -176,7 +176,7 @@ export class SidebarService {
     },
     {
       title: 'Meu Perfil',
-      icon: 'fa fa-user-o',
+      icon: 'fas fa-user-edit',
       active: false,
       type: 'simple',
       link: 'usuarios/editar/' + this.permissaoService.getUsuarioId()

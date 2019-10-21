@@ -7721,10 +7721,12 @@ button.bg-dark:focus {
 
 .float-left {
   float: left !important;
+  margin-right: auto !important;
 }
 
 .float-right {
   float: right !important;
+  margin-left: auto !important;
 }
 
 .float-none {

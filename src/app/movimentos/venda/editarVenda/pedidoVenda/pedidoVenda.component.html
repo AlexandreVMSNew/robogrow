@@ -1,25 +1,25 @@
 {{abrirTemplate(templatePedidoVenda)}}
 <div bsModal #templatePedidoVenda="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
   class="modal fade bd-example-modal-xl">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+        <h4 id="dialog-sizes-name1" class="modal-title float-left">
           Pedido de Venda
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplate(templatePedidoVenda)" aria-label="Close">
+        <button type="button" class="close float-right" (click)="fecharTemplate(templatePedidoVenda)" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div id="pedido" class="modal-body">
 
-        <div class="row">
-          <div style="margin-left: 25px;text-align: left;margin-top: 5px;" class="pull-left">
+        <div class="row" >
+          <div style="margin-left: 25px;text-align: left;margin-top: 5px;" class="float-left">
             <img src="{{this.baseURLLogo}}"
             style="width: 200px;height: 110px;" alt="SEM LOGO">
           </div>
-          <div style="margin-right: 25px;font-size:17px;text-align: right;" class="pull-right">
+          <div style="margin-right: 25px;font-size:17px;text-align: right;" class="float-right">
             <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.nomeFantasia}}</label><br />
             <label style="font-weight: bold;margin-bottom: 0px;">CNPJ:</label>&nbsp;
             <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.cnpjCpf}}</label>&nbsp;&nbsp;&nbsp;
@@ -39,22 +39,22 @@
         </div>
 
         <hr style="margin-top: 5px;margin-bottom: 5px;" width="100%">
-        <div class="row">
-          <div style="margin-left: 25px;font-size:15px;" class="pull-left">
+        <div class="row" >
+          <div style="margin-left: 25px;font-size:15px;" class="float-left">
             <label style="font-weight: bold;font-size:20px;">Venda:</label>&nbsp;
             <label style="font-weight: normal;margin-bottom: 0px;font-size:20px;">{{venda.numeroAno}}</label>
             <label style="font-weight: bold;margin-left:70px;">Técnico/Vendedor:</label>&nbsp;
             <label style="font-weight: normal;">{{venda.vendedor.nome}}</label>
           </div>
-          <div style="margin-right: 25px;margin-top: 5px;font-size:15px;" class="pull-right">
+          <div style="margin-right: 25px;margin-top: 5px;font-size:15px;" class="float-right">
             <label style="font-weight: bold;">Data/Hora Emissão:</label>&nbsp;
             <label style="font-weight: normal;">{{dataHoraEmissao | date:'dd/MM/yyyy HH:mm'}}</label>
           </div>
         </div>
 
         <hr style="margin-top: 5px;margin-bottom: 5px;" width="100%">
-        <div class="row">
-          <div style="margin-left: 25px;font-size:15px;" class="pull-left">
+        <div class="row" >
+          <div style="margin-left: 25px;font-size:15px;" class="float-left">
             <label style="font-weight: bold;font-size:20px;">Informações do Cliente</label><br />
 
             <label style="font-weight: bold;margin-bottom: 0px;">Nome Fantasia:</label>&nbsp;
@@ -86,10 +86,10 @@
 
         <hr style="margin-top: 5px;margin-bottom: 50px;" width="100%">
         
-        <div class="row">
+        <div class="row" >
           <div class="col-md-12">
 
-            <table style="width:95%;margin-left:20px;" class="table table-responsive">
+            <table style="width:95%;margin-left:20px;" class="table table-bordered">
               <thead>
                 <tr >
                   <th>Id</th>
@@ -124,7 +124,7 @@
         </div>
 
         <div class="row ">
-          <hr style="margin-top: 20px;margin-bottom: 5px;border: 1px solid black;" width="60%">
+          <hr style="margin-top: 20px;margin-bottom: 5px;border: 1px solid black;" width="60%"><br/>
           <div style="text-align:center;">
             <label style="font-weight: bold;font-size:18px;">É VEDADA A AUTENTICAÇÃO DESTE DOCUMENTO</label>
           </div>

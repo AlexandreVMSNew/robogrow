@@ -31,7 +31,7 @@
                         <li (click)="setarVistoNotificacao(notificacao)" style="cursor:pointer;">
                           <a>
                             <h4 style="margin-left:5px;">{{notificacao.titulo}}<small style="margin-right:5px;"
-                                class="pull-right">
+                                class="float-right">
                                 <i class="fa fa-clock-o "></i>
                                 [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
                             </h4>
@@ -44,7 +44,7 @@
                           style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;">
                           <a>
                             <h4 style="margin-left:5px;">{{notificacao.titulo}}
-                              <small style="margin-right:5px;" class="pull-right"><i class="fa fa-clock-o "></i>
+                              <small style="margin-right:5px;" class="float-right"><i class="fa fa-clock-o "></i>
                                 [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
                             </h4>
                             <p style="margin-left:10px;">{{notificacao.mensagem}}</p>
@@ -58,15 +58,15 @@
             </li>
 
             <li class="dropdown user user-menu" dropdown>
+              
               <a dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
-                <img src="{{getUrlUsuarioLogadoFotoPerfil()}}" onerror="this.onerror=null;this.src='./../assets/img/user-default.png';"
-                class="user-image" alt="img">
+                <img src="{{getUrlUsuarioLogadoFotoPerfil()}}"
+                class="rounded-circle" style="max-width: 18px;height: auto;" alt="img">&nbsp;
                 <span class="hidden-xs">{{usuarioNome()}} </span>
               </a>
               <div *dropdownMenu class="dropdown-menu">
                 <li class="user-header">
-                  <img src="{{getUrlUsuarioLogadoFotoPerfil()}}" onerror="this.onerror=null;this.src='./../assets/img/user-default.png';"
-                  class="img-circle" alt="img">
+                  <img src="{{getUrlUsuarioLogadoFotoPerfil()}}" class="rounded-circle" alt="img">
 
                   <p>
                     {{usuarioNome()}}
@@ -92,13 +92,13 @@
         <nav id="sidebar" class="sidebar {{this.sidebar}}">
           <div class="sidebar-content">
             <div class="user-panel">
-              <div class="pull-left image">
-                <img src="{{getUrlUsuarioLogadoFotoPerfil()}}" onerror="this.onerror=null;this.src='./../assets/img/user-default.png';"
-                 class="img-circle" alt="img">
+              <div class="float-left rounded-circle">
+                <img style="max-width: 50px;" src="{{getUrlUsuarioLogadoFotoPerfil()}}"
+                 class="rounded-circle" alt="img">
               </div>
-              <div class="pull-left info">
+              <div class="float-left info">
                 <p>{{usuarioNome()}}</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <a><i class="fa fa-circle text-success"></i> Online</a>
               </div>
             </div>
             <perfect-scrollbar>
@@ -143,7 +143,7 @@
       </div>
 
       <footer class="main-footer">
-        <div class="pull-right hidden-xs">
+        <div class="float-right hidden-xs">
           <b>Versão</b> BETA
         </div>
         <strong>Copyright &copy; 2019 <a>VMS Ltda</a>.</strong>
@@ -161,10 +161,10 @@ tooltip="Novas ideias!" (click)="templateIdeia.show()" class="btn btn-warning bt
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+        <h4 id="dialog-sizes-name1" class="modal-title float-left">
           Novo Grupo
         </h4>
-        <button type="button" class="close pull-right" (click)="templateIdeia.hide()" aria-label="Close">
+        <button type="button" class="close float-right" (click)="templateIdeia.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

@@ -41,6 +41,14 @@ export class PublicacaoService {
     return this.http.post<Publicacao>(`${this.baseURL}/novo`, publicacao);
   }
 
+  editarPublicacao(publicacao: Publicacao): Observable<Publicacao>  {
+    return this.http.put<Publicacao>(`${this.baseURL}/editar/${publicacao.id}`, publicacao);
+  }
+
+  excluirPublicacao(publicacaoId: number): Observable<Publicacao>  {
+    return this.http.delete<Publicacao>(`${this.baseURL}/excluir/${publicacaoId}`);
+  }
+
   novoPublicacaoComentario(comentario: PublicacaoComentario) {
     return this.http.post(`${this.baseURL}/comentario/novo`, comentario);
   }

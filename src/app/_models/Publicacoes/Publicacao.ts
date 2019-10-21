@@ -8,6 +8,7 @@ export class Publicacao {
     usuarioId: number;
     usuario: Usuario;
     texto: string;
+    compartilharTodos: boolean;
     dataHora: Date;
     dataHoraAlteracao: Date;
     textoComentario: string;

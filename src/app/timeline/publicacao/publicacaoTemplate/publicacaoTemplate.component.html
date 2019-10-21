@@ -25,19 +25,30 @@
           </div>
 
           <div class="form-group">
-            
-              <label>Usuários</label>
+            <label>Compartilhar com</label>
+            <ng-select appendTo="body" [dropdownPosition]="'bottom'" [clearable]="false" bindLabel="label" required
+              bindValue="value" [items]="itensCompartilharTodos" formControlName="compartilharTodos">
+            </ng-select>
+            <div *ngIf="cadastroPublicacao.get('compartilharTodos').hasError('required') &&cadastroPublicacao.get('compartilharTodos').touched"
+              class="invalid-feedback d-block ng-invalid ng-touched">
+              Campo é obrigatório.
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="this.cadastroPublicacao.get('compartilharTodos').value === false">
+            <label>Usuários específicos</label>
             <ng-select appendTo="body" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
-             [dropdownPosition]="'bottom'" [clearable]="false" [items]="usuarios" bindLabel="nomeCompleto"
+              [dropdownPosition]="'bottom'" [clearable]="false" [items]="usuarios" bindLabel="nomeCompleto"
               bindValue="id" formControlName="usuariosMarcados" [(ngModel)]="usuariosMarcados">
               <ng-template ng-header-tmp>
-                  <button (click)="marcarTodos()" class="btn btn-sm btn-primary">Marcar Todos</button>
-                  <button (click)="desmarcarTodos()" class="btn btn-sm btn-primary" style="margin-left: 10px;">Desmarcar Todos</button>
+                <button (click)="marcarTodos()" class="btn btn-sm btn-primary">Marcar Todos</button>
+                <button (click)="desmarcarTodos()" class="btn btn-sm btn-primary" style="margin-left: 10px;">Desmarcar
+                  Todos</button>
               </ng-template>
               <ng-template ng-option-tmp let-item="item" let-index="index">
-                  <img height="40" width="40" style="border: 1px solid #C0C0C0" 
-                  [src]="getUrlUsuarioFotoPerfil(item.id, item.nomeArquivoFotoPerfil)" alt="img"/>
-                  <b style="margin-left: 5px;">{{item.nomeCompleto}}</b>
+                <img height="40" width="40" style="border: 1px solid #C0C0C0"
+                  [src]="getUrlUsuarioFotoPerfil(item.id, item.nomeArquivoFotoPerfil)" alt="img" />
+                <b style="margin-left: 5px;">{{item.nomeCompleto}}</b>
               </ng-template>
             </ng-select>
           </div>
@@ -45,24 +56,25 @@
           <div class="form-group">
             <div class="btn btn-outline-secondary btn-file">
               <i class="fa fa-paperclip"></i> Anexar Arquivos
-              <input type="file" multiple name="attachment" (change)="adicionarArquivoUpload($event)" >
+              <input type="file" multiple name="attachment" (change)="adicionarArquivoUpload($event)">
             </div>
           </div>
 
-          <div *ngIf="arquivosUpload && arquivosUpload.length" class="box-footer">
-              <ul class="mailbox-attachments clearfix">
-                <li *ngFor="let arquivo of arquivosUpload; let i = index">    
-                  <button type="button" class="btn btn-default pull-right" tooltip="Excluir" (click)="excluirArquivoUpload(i)"><i class="fa fa-times"></i></button>
-                  <span class="mailbox-attachment-icon"><i class="fa fa-file-o"></i></span>
-                  <div class="mailbox-attachment-info">
-                    <a class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{arquivo.name}}</a>
-                      <span class="mailbox-attachment-size">
-                          {{(arquivo.size) | filesize}}
-                      </span>
-                  </div>
-                </li>
-              </ul>
-            </div>
+          <div *ngIf="publicacaoArquivos && publicacaoArquivos.length" class="box-footer">
+            <ul class="mailbox-attachments">
+              <li *ngFor="let arquivo of publicacaoArquivos; let i = index">
+                <button type="button" class="btn btn-default pull-right" tooltip="Excluir"
+                  (click)="excluirArquivoUpload(i)"><i class="fa fa-times"></i></button>
+                <span class="mailbox-attachment-icon"><i class="fa fa-file-o"></i></span>
+                <div class="mailbox-attachment-info">
+                  <a class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{arquivo.arquivoNome}}</a>
+                  <span class="mailbox-attachment-size">
+                    {{(arquivo.arquivoTamanho) | filesize}}
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
         </form>
 
       </div>

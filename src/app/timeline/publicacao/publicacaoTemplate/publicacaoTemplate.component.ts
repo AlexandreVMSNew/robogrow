@@ -16,6 +16,7 @@ import { Email } from 'src/app/_models/Email/Email';
 import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.service';
 import { EmailService } from 'src/app/_services/Email/email.service';
+import { PublicacaoArquivos } from 'src/app/_models/Publicacoes/PublicacaoArquivos';
 
 @Component({
   selector: 'app-publicacao-template',
@@ -25,18 +26,33 @@ import { EmailService } from 'src/app/_services/Email/email.service';
 export class PublicacaoTemplateComponent implements OnInit {
 
   @Input() vendaId: number;
+  @Input() publicacao: Publicacao = null;
 
   cadastroPublicacao: FormGroup;
-  @Input() publicacao: Publicacao;
 
   usuarios: Usuario[];
+  usuarioLogado: Usuario;
   usuariosMarcados = [];
 
   templateEnabled = false;
 
-  arquivosUpload: File[] = [];
-  nomeArquivosUpload: any[] = [];
+  publicacaoArquivos: PublicacaoArquivos[] = [];
+  novoArquivosUpload: File[] = [];
+  novoNomeArquivosUpload: any[] = [];
   nomeArquivo = '';
+
+  modoSalvar = '';
+
+  itensCompartilharTodos = [
+    {
+      label: 'TODOS',
+      value: true
+    },
+    {
+      label: 'MARCAR USUÁRIOS ESPECÍFICOS',
+      value: false
+    }
+  ];
 
   constructor(private publicacaoService: PublicacaoService,
               private fb: FormBuilder,
@@ -52,12 +68,26 @@ export class PublicacaoTemplateComponent implements OnInit {
   ngOnInit() {
     this.getUsuarios();
     this.validarPublicacao();
+    this.modoSalvar = 'NOVO';
+    if (this.publicacao !== null) {
+      this.modoSalvar = 'EDITAR';
+      this.cadastroPublicacao.patchValue(this.publicacao);
+
+      this.publicacaoArquivos = this.publicacao.publicacaoArquivos;
+
+      if (this.publicacao.compartilharTodos === false) {
+        this.publicacao.publicacaoMarcacoes.forEach(marcacao => {
+          this.usuariosMarcados.push(marcacao.usuarioId);
+        });
+      }
+    }
   }
 
   validarPublicacao() {
     this.cadastroPublicacao = this.fb.group({
       id:  [''],
       texto: ['', Validators.required],
+      compartilharTodos: ['', Validators.required],
       usuariosMarcados: [''],
     });
   }
@@ -65,20 +95,28 @@ export class PublicacaoTemplateComponent implements OnInit {
   adicionarArquivoUpload(event) {
     if (event.target.files && event.target.files.length) {
       for (let i = 0; i <= event.target.files.length - 1; i++) {
-        this.arquivosUpload.push(event.target.files[i]);
-        this.nomeArquivosUpload.push(event.target.files[i].name);
+        this.novoArquivosUpload.push(event.target.files[i]);
+        this.publicacaoArquivos.push(Object.assign({
+          id: 0,
+          arquivoNome: event.target.files[i].name,
+          arquivoTamanho: event.target.files[i].size
+        }));
+        this.novoNomeArquivosUpload.push(event.target.files[i].name);
       }
+      console.log(this.publicacaoArquivos);
     }
   }
 
   excluirArquivoUpload(index) {
-    this.nomeArquivosUpload.splice(index, 1);
-    this.arquivosUpload.splice(index, 1);
+    this.publicacaoArquivos.splice(index, 1);
+    this.novoArquivosUpload.splice(index, 1);
+    this.novoNomeArquivosUpload.splice(index, 1);
+    console.log(this.publicacaoArquivos);
   }
 
-  enviarNotificacoes(usuariosIdNotificacao, usuarioComentario: Usuario, publicacao: Publicacao) {
+  enviarNotificacoes(usuariosIdNotificacao, publicacao: Publicacao) {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    const msg = `${usuarioComentario.nomeCompleto} marcou você em uma nova publicação!`;
+    const msg = `${this.usuarioLogado.nomeCompleto} marcou você em uma nova publicação!`;
     const link =  `${location.protocol}//${location.hostname}/publicacoes/${publicacao.id}`;
     const notificacoes: Notificacao[] = [];
     usuariosIdNotificacao.forEach(idUsuario => {
@@ -100,9 +138,9 @@ export class PublicacaoTemplateComponent implements OnInit {
     });
   }
 
-  enviarEmail(usuariosEmailNotificacao, usuarioComentario: Usuario, publicacao: Publicacao) {
-    const ass = `${usuarioComentario.nomeCompleto} marcou você em uma nova publicação!`;
-    const msg = `Para ir até a publicação feita pelo usuário ${usuarioComentario.nomeCompleto} <br/>
+  enviarEmail(usuariosEmailNotificacao, publicacao: Publicacao) {
+    const ass = `${this.usuarioLogado.nomeCompleto} marcou você em uma nova publicação!`;
+    const msg = `Para ir até a publicação feita pelo usuário ${this.usuarioLogado.nomeCompleto} <br/>
                 <a href="${location.protocol}//${location.hostname}/publicacoes/${publicacao.id}">CLIQUE AQUI.</a>`;
     const email: Email = {
       emailRemetente: 'virtualwebsistema@gmail.com',
@@ -118,24 +156,32 @@ export class PublicacaoTemplateComponent implements OnInit {
     });
   }
 
-  notificarUsuariosNovaPublicacao(publicacao: Publicacao, usuarioIdPublicacao: number) {
+  notificarUsuariosNovaPublicacao(publicacao: Publicacao) {
     const usuariosIdNotificacao = [];
     const usuariosEmailNotificacao: any = [];
-    this.usuarioService.getUsuarios().subscribe(
-      (_USUARIOS: Usuario[]) => {
-        const usuarioPublicacao = _USUARIOS.filter(c => c.id === usuarioIdPublicacao)[0];
-        publicacao.publicacaoMarcacoes.forEach((marcacao) => {
-          usuariosIdNotificacao.push(marcacao.usuarioId);
-          usuariosEmailNotificacao.push(_USUARIOS.filter(c => c.id === marcacao.usuarioId)[0].email);
-        });
-        this.enviarNotificacoes(usuariosIdNotificacao, usuarioPublicacao, publicacao);
-        this.enviarEmail(usuariosEmailNotificacao, usuarioPublicacao, publicacao);
-    });
+    if (publicacao.compartilharTodos === false) {
+
+      publicacao.publicacaoMarcacoes.forEach((marcacao) => {
+        usuariosIdNotificacao.push(marcacao.usuarioId);
+        usuariosEmailNotificacao.push(this.usuarios.filter(c => c.id === marcacao.usuarioId)[0].email);
+      });
+
+    } else if (publicacao.compartilharTodos === true) {
+
+      this.usuarios.forEach((usuario: Usuario) => {
+        usuariosIdNotificacao.push(usuario.id);
+        usuariosEmailNotificacao.push(usuario.email);
+      });
+
+    }
+
+    this.enviarNotificacoes(usuariosIdNotificacao, publicacao);
+    this.enviarEmail(usuariosEmailNotificacao, publicacao);
   }
 
   uploadArquivosPublicacao(template, publicacao) {
-    if (this.arquivosUpload.length > 0  && this.nomeArquivosUpload.length) {
-      this.publicacaoService.enviarArquivosPublicacao(publicacao.id, this.arquivosUpload, this.nomeArquivosUpload)
+    if (this.novoArquivosUpload.length > 0  && this.novoNomeArquivosUpload.length > 0) {
+      this.publicacaoService.enviarArquivosPublicacao(publicacao.id, this.novoArquivosUpload, this.novoNomeArquivosUpload)
       .subscribe((result: any) => {
         if (result.retorno === 'OK') {
           this.toastr.success(`Upload realizado com Sucesso!`);
@@ -145,12 +191,16 @@ export class PublicacaoTemplateComponent implements OnInit {
         console.log(error.error);
       });
     }
+
     if (this.vendaId) {
       this.vendaService.atualizarPublicacoesVenda();
     } else {
       this.publicacaoService.atualizarPublicacoes();
     }
-    this.notificarUsuariosNovaPublicacao(publicacao, publicacao.usuarioId);
+
+    if ( this.modoSalvar === 'NOVO') {
+      this.notificarUsuariosNovaPublicacao(publicacao);
+    }
     this.fecharTemplate(template);
     this.toastr.success(`Publicado com Sucesso!`);
   }
@@ -165,29 +215,22 @@ export class PublicacaoTemplateComponent implements OnInit {
 
   cadastrarPublicacao(template: any) {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    const arquivos = [];
-
-    this.arquivosUpload.forEach((arquivo: File) => {
-      arquivos.push(Object.assign({
-        id: 0,
-        arquivoNome: arquivo.name,
-        arquivoTamanho: arquivo.size
-      }));
-    });
 
     const marcacoes = [];
-    this.usuariosMarcados.forEach((id: number) => {
-      marcacoes.push(Object.assign({
-        usuarioId: id
-      }));
-    });
+    if (this.cadastroPublicacao.get('compartilharTodos').value === false) {
+      this.usuariosMarcados.forEach((id: number) => {
+        marcacoes.push(Object.assign({
+          usuarioId: id
+        }));
+      });
+    }
 
     this.publicacao = Object.assign(this.cadastroPublicacao.value, {
-      id: 0,
+      id: (this.publicacao) ? this.publicacao.id : 0,
       usuarioId: this.permissaoService.getUsuarioId(),
-      dataHora: dataAtual,
+      dataHora: (this.publicacao) ? this.publicacao.dataHora : dataAtual,
       dataHoraAlteracao: dataAtual,
-      publicacaoArquivos: arquivos,
+      publicacaoArquivos: this.publicacaoArquivos,
       publicacaoMarcacoes: marcacoes,
     });
 
@@ -198,11 +241,19 @@ export class PublicacaoTemplateComponent implements OnInit {
       });
       this.cadastrarVendaPublicacao(template, vendaPublicacao);
     } else {
-      this.publicacaoService.novaPublicacao(this.publicacao).subscribe((publicacao: Publicacao) => {
-        this.uploadArquivosPublicacao(template, publicacao);
-      }, error => {
-        console.log(error.error);
-      });
+      if (this.modoSalvar === 'NOVO') {
+        this.publicacaoService.novaPublicacao(this.publicacao).subscribe((publicacao: Publicacao) => {
+          this.uploadArquivosPublicacao(template, publicacao);
+        }, error => {
+          console.log(error.error);
+        });
+      } else if (this.modoSalvar === 'EDITAR') {
+        this.publicacaoService.editarPublicacao(this.publicacao).subscribe((publicacao: Publicacao) => {
+          this.uploadArquivosPublicacao(template, publicacao);
+        }, error => {
+          console.log(error.error);
+        });
+      }
     }
   }
 
@@ -231,10 +282,15 @@ export class PublicacaoTemplateComponent implements OnInit {
     return this.usuarioService.getUrlUsuarioFotoPerfil(usuarioId, nomeArquivoFotoPerfil);
   }
 
+  typeOf(value) {
+    return typeof value;
+  }
+
   getUsuarios() {
     this.usuarioService.getUsuarios().subscribe(
       (_USUARIOS: Usuario[]) => {
-      this.usuarios = _USUARIOS;
+      this.usuarioLogado = _USUARIOS.filter(c => c.id === this.permissaoService.getUsuarioId())[0];
+      this.usuarios = _USUARIOS.filter(c => c.id !== this.permissaoService.getUsuarioId());
     }, error => {
       this.toastr.error(`Erro ao tentar carregar usuarios: ${error}`);
     });

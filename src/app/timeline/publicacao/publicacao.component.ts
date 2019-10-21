@@ -25,8 +25,11 @@ export class PublicacaoComponent implements OnInit {
   @Input() vendaId: number;
   @Input() publicacoes: Publicacao[];
 
-  usuarioLogadoId: number;
+  usuarios: Usuario[];
+  usuarioLogado: Usuario;
   textoComentarioAux = '';
+
+  publicacao: Publicacao;
 
   constructor(private publicacaoService: PublicacaoService,
               private permissaoService: PermissaoService,
@@ -46,7 +49,7 @@ export class PublicacaoComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.usuarioLogadoId = this.permissaoService.getUsuarioId();
+    this.getUsuarios();
     if (!this.publicacoes && !this.vendaId) {
       this.carregarPublicacoesUsuarioMarcado();
     }
@@ -54,7 +57,7 @@ export class PublicacaoComponent implements OnInit {
 
   carregarPublicacoesUsuarioMarcado() {
     this.publicacoes = [];
-    this.publicacaoService.getPublicacoesUsuarioMarcado(this.usuarioLogadoId)
+    this.publicacaoService.getPublicacoesUsuarioMarcado(this.permissaoService.getUsuarioId())
     .subscribe((publicacoes: Publicacao[]) => {
       this.publicacoes = publicacoes;
     }, error => {
@@ -71,9 +74,9 @@ export class PublicacaoComponent implements OnInit {
     });
   }
 
-  enviarNotificacoes(usuariosIdNotificacao, usuarioComentario: Usuario, publicacao: Publicacao) {
+  enviarNotificacoes(usuariosIdNotificacao, publicacao: Publicacao) {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    const msg = `${usuarioComentario.nomeCompleto} adicionou um novo comentário em uma publicação que você foi marcado(a).`;
+    const msg = `${this.usuarioLogado.nomeCompleto} adicionou um novo comentário em uma publicação que você foi marcado(a).`;
     const link =  `${location.protocol}//${location.hostname}/publicacoes`;
     const notificacoes: Notificacao[] = [];
     usuariosIdNotificacao.forEach(idUsuario => {
@@ -96,9 +99,9 @@ export class PublicacaoComponent implements OnInit {
     });
   }
 
-  enviarEmail(usuariosEmailNotificacao, usuarioComentario: Usuario, publicacao: Publicacao) {
-    const ass = `${usuarioComentario.nomeCompleto} adicionou um novo comentário em uma publicação que você foi marcado(a).`;
-    const msg = `Para ir até o comentário publicado pelo usuário ${usuarioComentario.nomeCompleto} <br/>
+  enviarEmail(usuariosEmailNotificacao, publicacao: Publicacao) {
+    const ass = `${this.usuarioLogado.nomeCompleto} adicionou um novo comentário em uma publicação que você foi marcado(a).`;
+    const msg = `Para ir até o comentário publicado pelo usuário ${this.usuarioLogado.nomeCompleto} <br/>
                 <a href="${location.protocol}//${location.hostname}/publicacoes">CLIQUE AQUI.</a>`;
     const email: Email = {
       emailRemetente: 'virtualwebsistema@gmail.com',
@@ -114,28 +117,31 @@ export class PublicacaoComponent implements OnInit {
     });
   }
 
-  notificarUsuariosNovoComentario(publicacao: Publicacao, usuarioIdComentario: number) {
+  notificarUsuariosNovoComentario(publicacao: Publicacao) {
     const usuariosIdNotificacao = [];
     const usuariosEmailNotificacao: any = [];
-    this.usuarioService.getUsuarios().subscribe(
-      (_USUARIOS: Usuario[]) => {
-        const usuarioComentario = _USUARIOS.filter(c => c.id === usuarioIdComentario)[0];
 
-        if (publicacao.usuarioId !== usuarioIdComentario) {
-          usuariosIdNotificacao.push(publicacao.usuarioId);
-          usuariosEmailNotificacao.push(_USUARIOS.filter(c => c.id === publicacao.usuarioId)[0].email);
+
+    if (publicacao.compartilharTodos === false) {
+
+      publicacao.publicacaoMarcacoes.forEach((marcacao) => {
+        if (marcacao.usuarioId !== this.usuarioLogado.id) {
+          usuariosIdNotificacao.push(marcacao.usuarioId);
+          usuariosEmailNotificacao.push(this.usuarios.filter(c => c.id === marcacao.usuarioId)[0].email);
         }
+      });
 
-        publicacao.publicacaoMarcacoes.forEach((marcacao) => {
-          if (marcacao.usuarioId !== usuarioIdComentario) {
-            usuariosIdNotificacao.push(marcacao.usuarioId);
-            usuariosEmailNotificacao.push(_USUARIOS.filter(c => c.id === marcacao.usuarioId)[0].email);
-          }
-        });
+    } else if (publicacao.compartilharTodos === true) {
 
-        this.enviarNotificacoes(usuariosIdNotificacao, usuarioComentario, publicacao);
-        this.enviarEmail(usuariosEmailNotificacao, usuarioComentario, publicacao);
-    });
+      this.usuarios.forEach((usuario: Usuario) => {
+        usuariosIdNotificacao.push(usuario.id);
+        usuariosEmailNotificacao.push(usuario.email);
+      });
+
+    }
+
+    this.enviarNotificacoes(usuariosIdNotificacao, publicacao);
+    this.enviarEmail(usuariosEmailNotificacao,  publicacao);
   }
 
   cadastrarComentario(publicacao: Publicacao) {
@@ -150,10 +156,19 @@ export class PublicacaoComponent implements OnInit {
       dataHoraAlteracao: dataAtual,
     });
     this.publicacaoService.novoPublicacaoComentario(comentario).subscribe(() => {
-      this.notificarUsuariosNovoComentario(publicacao, usuarioIdComentario);
+      this.notificarUsuariosNovoComentario(publicacao);
       publicacao.textoComentario = '';
       this.publicacaoService.atualizarPublicacaoComentarios(publicacao.id);
       this.toastr.success(`Comentário publicado!`);
+    }, error => {
+      console.log(error.error);
+    });
+  }
+
+  excluirPublicacao(publicacaoId: number) {
+    this.publicacaoService.excluirPublicacao(publicacaoId).subscribe(() => {
+      this.toastr.success(`Publicação excluída!`);
+      this.publicacaoService.atualizarPublicacoes();
     }, error => {
       console.log(error.error);
     });
@@ -163,7 +178,8 @@ export class PublicacaoComponent implements OnInit {
     return this.publicacaoService.getPublicacaoTemplateStatus();
   }
 
-  abrirTemplatePublicacao() {
+  abrirTemplatePublicacao(publicacao: Publicacao) {
+    this.publicacao = publicacao;
     this.publicacaoService.setPublicacaoTemplateStatus(true);
   }
 
@@ -189,6 +205,16 @@ export class PublicacaoComponent implements OnInit {
 
   set textoComentario(value: string) {
     this.textoComentarioAux = value;
+  }
+
+  getUsuarios() {
+    this.usuarioService.getUsuarios().subscribe(
+      (_USUARIOS: Usuario[]) => {
+      this.usuarioLogado = _USUARIOS.filter(c => c.id === this.permissaoService.getUsuarioId())[0];
+      this.usuarios = _USUARIOS.filter(c => c.id !== this.permissaoService.getUsuarioId());
+    }, error => {
+      this.toastr.error(`Erro ao tentar carregar usuarios: ${error}`);
+    });
   }
 
 }
