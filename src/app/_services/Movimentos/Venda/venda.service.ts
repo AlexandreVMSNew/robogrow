@@ -20,8 +20,8 @@ baseURL = InfoAPI.URL + '/api/movimentos/vendas';
 atualizaVenda = new EventEmitter<boolean>();
 atualizaRecebimentos = new EventEmitter<boolean>();
 atualizaPagamentos = new EventEmitter<boolean>();
-atualizaResultadoVenda = new EventEmitter<boolean>();
-atualizaFinanceiroVenda = new EventEmitter<boolean>();
+atualizaResultadoVenda = new EventEmitter<Venda>();
+atualizaFinanceiroVenda = new EventEmitter<Venda>();
 atualizaPublicacoesVenda = new EventEmitter<boolean>();
 
 pagamentosVenda = false;
@@ -95,11 +95,11 @@ atualizarRecebimentos() {
 atualizarPagamentos() {
   this.atualizaPagamentos.emit(true);
 }
-atualizarResultadoVenda() {
-  this.atualizaResultadoVenda.emit(true);
+atualizarResultadoVenda(venda: Venda) {
+  this.atualizaResultadoVenda.emit(venda);
 }
-atualizarFinanceiroVenda() {
-  this.atualizaFinanceiroVenda.emit(true);
+atualizarFinanceiroVenda(venda: Venda) {
+  this.atualizaFinanceiroVenda.emit(venda);
 }
 atualizarPublicacoesVenda() {
   this.atualizaPublicacoesVenda.emit(true);

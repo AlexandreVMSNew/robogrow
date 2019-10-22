@@ -30,7 +30,8 @@ export class FinanceiroVendaComponent implements OnInit {
 
   constructor(private vendaService: VendaService,
               private recebimentoService: RecebimentoService) {
-                this.vendaService.atualizaFinanceiroVenda.subscribe(x => {
+                this.vendaService.atualizaFinanceiroVenda.subscribe((venda: Venda) => {
+                  this.venda = venda;
                   this.carregarFinanceiro();
                 });
                }

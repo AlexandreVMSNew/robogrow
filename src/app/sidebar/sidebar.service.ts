@@ -28,10 +28,6 @@ export class SidebarService {
       icon: 'fa fa-gavel',
       active: false,
       type: 'simple',
-      badge: {
-        text: '0',
-        class: 'badge-warning'
-      },
       link: 'autorizacoes'
     },
     {
@@ -179,7 +175,7 @@ export class SidebarService {
       icon: 'fas fa-user-edit',
       active: false,
       type: 'simple',
-      link: 'usuarios/editar/' + this.permissaoService.getUsuarioId()
+      link: 'usuarios/editar/' + this.idUsuario
     }
   ];
 

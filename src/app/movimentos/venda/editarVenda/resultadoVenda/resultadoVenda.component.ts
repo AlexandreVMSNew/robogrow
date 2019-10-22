@@ -130,7 +130,8 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
               private vendaService: VendaService,
               public dataService: DataService,
               private changeDetectionRef: ChangeDetectorRef) {
-                this.vendaService.atualizaResultadoVenda.subscribe(x => {
+                this.vendaService.atualizaResultadoVenda.subscribe((venda: Venda) => {
+                  this.venda = venda;
                   this.carregarVenda();
                 });
               }

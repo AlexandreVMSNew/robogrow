@@ -76,13 +76,12 @@ export class PrevisaoVendaComponent implements OnInit {
       () => {
         this.vendaService.atualizarVenda();
         this.toastr.success('Salvo com Sucesso!');
-        template.hide();
+        this.fecharTemplate(template);
       }, error => {
         console.log(error.error);
       }
     );
   }
-
 
   abrirTemplate(template: any) {
     if (this.templateEnabled === false) {

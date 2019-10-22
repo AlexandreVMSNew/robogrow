@@ -1,55 +1,8 @@
-<div class="col-5">
-  {{somar()}}
-  <div class="box box-info">
-    <table class="table  table-bordered" style="table-layout:fixed;">
-      <thead class="thead-light">
-        <tr>
-          <th>Descrição</th>
-          <th>Previsto</th>
-          <th>Realizado</th>
-          <th>Diferença</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="font-size:20px;max-width:60px;">Receitas</td>
-          <td style="vertical-align: middle;">{{valorTotalReceitasPrevisto | currency:'BRL':true}}</td>
-          <td style="vertical-align: middle;">{{valorTotalReceitasRealizado | currency:'BRL':true}}</td>
-          <td style="vertical-align: middle;">
-            {{valorDiferencaReceitas | currency:'BRL':true}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
-  <hr style="width: 100%;">
-
-  <div class="box box-danger">
-    <table class="table  table-bordered " style="table-layout:fixed;">
-      <thead class="thead-light">
-        <tr>
-          <th>Descrição</th>
-          <th>Previsto</th>
-          <th>Realizado</th>
-          <th>Diferença</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="font-size:20px;">Comissões</td>
-          <td style="vertical-align: middle;">{{valorTotalDespesasComissaoPrevisto | currency:'BRL':true}}</td>
-          <td style="vertical-align: middle;">{{valorTotalDespesasComissaoRealizado | currency:'BRL':true}}</td>
-          <td style="vertical-align: middle;">
-            {{valorDiferencaDespesasComissao | currency:'BRL':true}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <hr style="width: 100%;">
-    <div class="box box-danger">
-      <table class="table table-bordered">
+<div class="row">
+  <div class="col-5">
+    {{somar()}}
+    <div class="box box-info">
+      <table class="table  table-bordered">
         <thead class="thead-light">
           <tr>
             <th>Descrição</th>
@@ -59,74 +12,121 @@
           </tr>
         </thead>
         <tbody>
-          <tr style="vertical-align: middle;">
-            <td style="font-size:20px;">Gastos</td>
-            <td style="vertical-align: middle;">{{valorTotalDespesasGastoPrevisto | currency:'BRL':true}}</td>
-            <td style="vertical-align: middle;">{{valorTotalDespesasGastoRealizado | currency:'BRL':true}}</td>
+          <tr>
+            <td style="font-size:20px;max-width:60px;">Receitas</td>
+            <td style="vertical-align: middle;">{{valorTotalReceitasPrevisto | currency:'BRL':true}}</td>
+            <td style="vertical-align: middle;">{{valorTotalReceitasRealizado | currency:'BRL':true}}</td>
             <td style="vertical-align: middle;">
-              {{valorDiferencaDespesasGasto | currency:'BRL':true}}
+              {{valorDiferencaReceitas | currency:'BRL':true}}
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-</div>
-<div class="col-7">
 
-  <div class="md-2">
-    <div class="box box-info">
-      <table class="table  table-bordered">
+    </div>
+    <hr style="width: 100%;">
+
+    <div class="box box-danger">
+      <table class="table  table-bordered ">
         <thead class="thead-light">
           <tr>
-            <th style=" font-size:30px;text-align: center;">
-              <span *ngIf="resultadoPrevisto >= 0"
-                class="badge badge-success">RESULTADO PREVISTO
-              </span>
-              <span *ngIf="0 > resultadoPrevisto"
-                class="badge badge-danger">RESULTADO PREVISTO
-              </span>
-            </th>
-            <th style=" font-size:30px;text-align: center;">
-              <span *ngIf="resultadoReal >= 0"
-                class="badge badge-success">RESULTADO REAL
-              </span>
-              <span *ngIf="0 > resultadoReal"
-                class="badge badge-danger">RESULTADO REAL
-              </span>
-            </th>
-            <th style=" font-size:30px;text-align: center;">
-              <span 
-                class="badge badge-primary">%
-              </span>
-            </th>
+            <th>Descrição</th>
+            <th>Previsto</th>
+            <th>Realizado</th>
+            <th>Diferença</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="vertical-align: middle;">
-            <td style="text-align: center;font-size:30px;">
-              {{resultadoPrevisto | currency:'BRL':true}}
-            </td>
-            <td style="text-align: center;font-size:30px;">
-              {{resultadoReal | currency:'BRL':true}}
-            </td>
-            <td style="text-align: center;font-size:30px;">
-              {{porcentagemPrevistoReal | currency:' ':false}}
+          <tr>
+            <td style="font-size:20px;">Comissões</td>
+            <td style="vertical-align: middle;">{{valorTotalDespesasComissaoPrevisto | currency:'BRL':true}}</td>
+            <td style="vertical-align: middle;">{{valorTotalDespesasComissaoRealizado | currency:'BRL':true}}</td>
+            <td style="vertical-align: middle;">
+              {{valorDiferencaDespesasComissao | currency:'BRL':true}}
             </td>
           </tr>
         </tbody>
       </table>
+
+      <hr style="width: 100%;">
+      <div class="box box-danger">
+        <table class="table table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th>Descrição</th>
+              <th>Previsto</th>
+              <th>Realizado</th>
+              <th>Diferença</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="vertical-align: middle;">
+              <td style="font-size:20px;">Gastos</td>
+              <td style="vertical-align: middle;">{{valorTotalDespesasGastoPrevisto | currency:'BRL':true}}</td>
+              <td style="vertical-align: middle;">{{valorTotalDespesasGastoRealizado | currency:'BRL':true}}</td>
+              <td style="vertical-align: middle;">
+                {{valorDiferencaDespesasGasto | currency:'BRL':true}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-7">
+
+    <div class="md-2">
+      <div class="box box-info">
+        <table class="table  table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th style=" font-size:30px;text-align: center;">
+                <span *ngIf="resultadoPrevisto >= 0" class="badge badge-success">RESULTADO PREVISTO
+                </span>
+                <span *ngIf="0 > resultadoPrevisto" class="badge badge-danger">RESULTADO PREVISTO
+                </span>
+              </th>
+              <th style=" font-size:30px;text-align: center;">
+                <span *ngIf="resultadoReal >= 0" class="badge badge-success">RESULTADO REAL
+                </span>
+                <span *ngIf="0 > resultadoReal" class="badge badge-danger">RESULTADO REAL
+                </span>
+              </th>
+              <th style=" font-size:30px;text-align: center;">
+                <span class="badge badge-primary">%
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="vertical-align: middle;">
+              <td style="text-align: center;font-size:30px;">
+                {{resultadoPrevisto | currency:'BRL':true}}
+              </td>
+              <td style="text-align: center;font-size:30px;">
+                {{resultadoReal | currency:'BRL':true}}
+              </td>
+              <td style="text-align: center;font-size:30px;">
+                {{porcentagemPrevistoReal | currency:' ':false}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:flex;">
+      <div class="chart" style="width: 400px;height: 200px;">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+          [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
+        </canvas>
+      </div>
+      <div class="chart" style="width: 350px;margin-top: 20px;height: 200px;">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+        </canvas>
+      </div>
     </div>
   </div>
 
 </div>
-  <div class="chart" style="width: 400px;height: 200px;">
-    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
-      [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
-    </canvas>
-  </div>
-  <div class="chart" style="width: 350px;margin-left:55px;margin-top: 20px;height: 200px;">
-    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-      [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-    </canvas>
-  </div>

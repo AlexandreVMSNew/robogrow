@@ -79,6 +79,7 @@ const routes: Routes = [
   { path: 'empresas', component: EmpresaComponent, canActivate: [AuthGuard]},
   { path: 'autorizacoes', component: AutorizacaoComponent, canActivate: [AuthGuard]},
   { path: 'publicacoes', component: PublicacaoComponent, canActivate: [AuthGuard]},
+  { path: 'publicacoes/:id', component: PublicacaoComponent, canActivate: [AuthGuard]},
 
   { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full'}

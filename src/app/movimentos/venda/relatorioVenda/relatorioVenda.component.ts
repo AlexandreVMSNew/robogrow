@@ -174,6 +174,7 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
   }
 
   getVendas(dataPeriodo: DataPeriodo) {
+    console.log(dataPeriodo);
     this.vendaService.getVendaRelatorio(dataPeriodo).subscribe(
       // tslint:disable-next-line:variable-name
       (_VENDAS: Venda[]) => {

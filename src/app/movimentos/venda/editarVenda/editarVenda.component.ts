@@ -198,6 +198,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         dataFinalizado: this.dataService.getDataPTBR(this.venda.dataFinalizado)
       });
 
+      this.vendaService.atualizarFinanceiroVenda(this.venda);
+      this.vendaService.atualizarResultadoVenda(this.venda);
+
       if (this.venda.status === 'EM NEGOCIAÇÃO' || this.editarStatus === true) {
         this.status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
       } else {
@@ -212,8 +215,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.cadastroForm.patchValue(this.venda);
       this.getAutorizacoes();
       this.carregarVendaPublicacoes();
-      this.vendaService.atualizarFinanceiroVenda();
-      this.vendaService.atualizarResultadoVenda();
     }, error => {
       this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
       console.log(error);
