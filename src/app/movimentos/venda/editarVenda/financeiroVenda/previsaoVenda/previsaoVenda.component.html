@@ -18,26 +18,30 @@
 
         <div class="row">
 
-          <div class="form-group col-md-12">
-            <form [formGroup]="cadastroValorPrevistoForm">
+
+          <form [formGroup]="cadastroValorPrevistoForm">
+            <div class="form-group col-md-12">
               <div class="input-group">
+
                 <input class="form-control" currencyMask [(ngModel)]="valorPrevistoPipe" formControlName="valor"
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroValorPrevistoForm.get('valor').errors && 
+                  [options]="{ prefix: ' ', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroValorPrevistoForm.get('valor').errors && 
                       cadastroValorPrevistoForm.get('valor').touched}" />
-                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                <div class="input-group-addon"><button class="btn btn-default" style="border: 1px solid #ced4da;">
+                    <i class="fa fa-dollar"> </i>
+                  </button></div>
+                <div
+                  *ngIf="cadastroValorPrevistoForm.get('valor').hasError('required') && cadastroValorPrevistoForm.get('valor').touched"
+                  class="invalid-feedback">
+                  Campo obrigatório.
+                </div>
+                <div
+                  *ngIf="cadastroValorPrevistoForm.get('valor').hasError('min') && cadastroValorPrevistoForm.get('valor').touched"
+                  class="invalid-feedback">
+                  Valor deve ser maior que {{this.valorMinimoProduto | currency:'BRL':true}}.
+                </div>
               </div>
-              <div
-                *ngIf="cadastroValorPrevistoForm.get('valor').hasError('required') && cadastroValorPrevistoForm.get('valor').touched"
-                class="invalid-feedback">
-                Campo obrigatório.
-              </div>
-              <div
-                *ngIf="cadastroValorPrevistoForm.get('valor').hasError('min') && cadastroValorPrevistoForm.get('valor').touched"
-                class="invalid-feedback">
-                Valor deve ser maior que {{this.valorMinimoProduto | currency:'BRL':true}}.
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
 

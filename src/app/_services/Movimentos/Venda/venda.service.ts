@@ -10,6 +10,7 @@ import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
 import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 import { VendaCheckList } from 'src/app/_models/Movimentos/Venda/VendaCheckList';
 import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicacao';
+import { RelatorioVendas } from 'src/app/_models/Movimentos/RelatorioVendas/RelatorioVendas';
 
 @Injectable({
   providedIn: 'root'
@@ -78,8 +79,8 @@ getVenda(): Observable<Venda[]> {
   return this.http.get<Venda[]>(this.baseURL);
 }
 
-getVendaRelatorio(datas: DataPeriodo): Observable<Venda[]> {
-  return this.http.post<Venda[]>(`${this.baseURL}/relatorios`, datas);
+getVendaRelatorio(datas: DataPeriodo): Observable<RelatorioVendas> {
+  return this.http.post<RelatorioVendas>(`${this.baseURL}/relatorios`, datas);
 }
 
 getVendaByClienteId(clienteId: number): Observable<Venda[]> {

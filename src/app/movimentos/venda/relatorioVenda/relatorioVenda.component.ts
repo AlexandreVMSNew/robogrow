@@ -11,6 +11,8 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
 import * as moment from 'moment';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
+import { RelatorioVendas } from 'src/app/_models/Movimentos/RelatorioVendas/RelatorioVendas';
+import { RelatorioGraficoResultadoPorMes } from 'src/app/_models/Movimentos/RelatorioVendas/RelatorioGraficoResultadoPorMes';
 
 @Component({
   selector: 'app-relatorio-venda',
@@ -20,13 +22,11 @@ import { Permissao } from 'src/app/_models/Permissoes/permissao';
 
 export class RelatorioVendaComponent implements OnInit, AfterViewInit {
 
-  vendas: Venda[];
-
   visualizarRelatorio = false;
 
   dataPeriodo: DataPeriodo;
 
-  informacoes = Object.assign({});
+  relatorioVendas: RelatorioVendas;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -51,8 +51,7 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
       }
     }
   };
-  public barChartLabels: Label[] = ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO',
-   'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'];
+  public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
@@ -75,7 +74,9 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
     this.dataPeriodo = Object.assign(
       {
         dataInicial: this.dataService.getDataSQL('01/01/2019') + 'T00:00:00',
-        dataFinal: this.dataService.getDataSQL('31/12/2019') + 'T23:59:00'
+        dataInicialPTBR: '01/01/2019',
+        dataFinal: this.dataService.getDataSQL('31/12/2019') + 'T23:59:00',
+        dataFinalPTBR: '31/12/2019',
       }
     );
     this.getVendas(this.dataPeriodo);
@@ -86,99 +87,37 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
   }
 
   carregarInformacoes() {
-    let valorTotalReceitasVendas = 0;
-    let valorTotalDespesasVendas = 0;
     this.barChartData[0].data = [];
     this.barChartData[1].data = [];
-    const quantidadeVendasEmNegociacao = this.vendas.filter(c => c.status === 'EM NEGOCIAÇÃO').length;
-    const quantidadeVendasEmImplantacao = this.vendas.filter(c => c.status === 'EM IMPLANTAÇÃO').length;
-    const quantidadeVendasFinalizado = this.vendas.filter(c => c.status === 'FINALIZADO').length;
-
-    this.vendas.forEach((venda) => {
-      if (venda.vendaValorRealizado && venda.status !== 'EM NEGOCIAÇÃO') {
-        const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
-        if (valorRealizadoReceitas.length > 0) {
-          valorRealizadoReceitas.forEach((receita) => {
-            if (receita.recebimentos) {
-              valorTotalReceitasVendas += receita.recebimentos.valorTotal;
-            }
-          });
-        }
-
-        const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.pagamentosId !== null);
-        if (valorRealizadoDespesas.length > 0) {
-          valorRealizadoDespesas.forEach((despesa) => {
-            if (despesa.pagamentos) {
-              valorTotalDespesasVendas += despesa.pagamentos.valorTotal;
-            }
-          });
-        }
-      }
-
-    });
+    this.barChartLabels = [];
     const barChartArrayReceitas = [];
     const barChartArrayDespesas = [];
-    for (let index = 0; index <= 11; index++) {
 
-      let valorTotalReceitasMes = 0;
-      let valorTotalDespesasMes = 0;
-      const vendas = this.vendas.filter(c => moment(c.dataNegociacao, 'YYYY-MM-DD').month() === index);
+    this.relatorioVendas.graficoResultadoPorMes.forEach((resultadoMes: RelatorioGraficoResultadoPorMes) => {
+      this.barChartLabels.push(resultadoMes.mes);
+      barChartArrayReceitas.push(resultadoMes.valorReceitas);
+      barChartArrayDespesas.push(resultadoMes.valorDespesas);
+    });
 
-      vendas.forEach((venda) => {
-        if (venda.vendaValorRealizado && venda.status !== 'EM NEGOCIAÇÃO') {
-          const valorRealizadoReceitas = venda.vendaValorRealizado.filter(c => c.recebimentosId !== null);
-          if (valorRealizadoReceitas.length > 0) {
-            valorRealizadoReceitas.forEach((receita) => {
-              if (receita.recebimentos) {
-                valorTotalReceitasMes += receita.recebimentos.valorTotal;
-              }
-            });
-          }
-
-          const valorRealizadoDespesas = venda.vendaValorRealizado.filter(c => c.pagamentosId !== null);
-          if (valorRealizadoDespesas.length > 0) {
-            valorRealizadoDespesas.forEach((despesa) => {
-              if (despesa.pagamentos) {
-                valorTotalDespesasMes += despesa.pagamentos.valorTotal;
-              }
-            });
-          }
-        }
-      });
-
-      barChartArrayReceitas.push(valorTotalReceitasMes);
-      barChartArrayDespesas.push(valorTotalDespesasMes);
-    }
     this.barChartData[0].data = barChartArrayReceitas;
     this.barChartData[1].data = barChartArrayDespesas;
-
-    this.informacoes = Object.assign({
-      quantidadeEmNegociacao: quantidadeVendasEmNegociacao,
-      quantidadeEmImplantacao: quantidadeVendasEmImplantacao,
-      quantidadeFinalizado: quantidadeVendasFinalizado,
-      quantidadeTotal: quantidadeVendasEmImplantacao + quantidadeVendasFinalizado,
-      valorBrutoReceitas: valorTotalReceitasVendas,
-      valorBrutoDespesas: valorTotalDespesasVendas,
-      valorLiquidoReceitas: valorTotalReceitasVendas - valorTotalDespesasVendas,
-      valorMedio: (valorTotalReceitasVendas / (quantidadeVendasEmImplantacao + quantidadeVendasFinalizado)),
-    });
   }
 
   setDataFiltro(valor: Date[]) {
     this.dataPeriodo = Object.assign(
       {
         dataInicial: this.dataService.getDataSQL(valor[0].toLocaleString()) + 'T00:00:00',
-        dataFinal: this.dataService.getDataSQL(valor[1].toLocaleString()) + 'T23:59:00'
+        dataInicialPTBR: valor[0].toLocaleString(),
+        dataFinal: this.dataService.getDataSQL(valor[1].toLocaleString()) + 'T23:59:00',
+        dataFinalPTBR: valor[1].toLocaleString()
       }
     );
   }
 
   getVendas(dataPeriodo: DataPeriodo) {
-    console.log(dataPeriodo);
     this.vendaService.getVendaRelatorio(dataPeriodo).subscribe(
-      // tslint:disable-next-line:variable-name
-      (_VENDAS: Venda[]) => {
-      this.vendas = _VENDAS;
+      (relatorioVendas: RelatorioVendas) => {
+      this.relatorioVendas = relatorioVendas;
       this.carregarInformacoes();
     }, error => {
       console.log(error.error);

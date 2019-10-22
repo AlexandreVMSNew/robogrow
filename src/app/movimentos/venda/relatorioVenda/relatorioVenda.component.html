@@ -2,6 +2,20 @@
 <hr width="100%">
 <div class="box box-primary">
   <div class="box-header with-border">
+    <div class="row">
+
+      <div class="form-group col-md-3">
+        <label>Selecione a Data:</label>
+        <input type="text" class="form-control" name="dataFiltro" (bsValueChange)="setDataFiltro($event)"
+          [bsConfig]="this.bsConfig" bsDaterangepicker />
+      </div>
+
+      <div style="margin-right: 15px; margin-top: 24px;">
+        <a [routerLink]="" (click)="getVendas(this.dataPeriodo)" class="btn btn-primary">
+          <i class="fa fa-search"></i>&nbsp; Gerar Relatório
+        </a>
+      </div>
+    </div>
     <tabset>
       <tab heading="Geral" style="margin-top: 10px;">
 
@@ -13,7 +27,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">EM NEGOCIAÇÃO</span>
-                <span class="info-box-number" style="font-size:40px;">{{this.informacoes.quantidadeEmNegociacao}}</span>
+                <span class="info-box-number" style="font-size:40px;">{{this.relatorioVendas.qtdEmNegociacao}}</span>
               </div>
             </div>
           </div>
@@ -23,8 +37,7 @@
               <span class="info-box-icon bg-warning"><i class="fa fa-download"></i></span>
               <div class="info-box-content">
                 <span class="info-box-text">A IMPLANTAR</span>
-                <span class="info-box-number"
-                  style="font-size:40px;">{{this.informacoes.quantidadeEmImplantacao}}</span>
+                <span class="info-box-number" style="font-size:40px;">{{this.relatorioVendas.qtdAImplantar}}</span>
               </div>
             </div>
           </div>
@@ -34,8 +47,7 @@
               <span class="info-box-icon bg-info"><i class="fa fa-download"></i></span>
               <div class="info-box-content">
                 <span class="info-box-text">EM IMPLANTAÇÃO</span>
-                <span class="info-box-number"
-                  style="font-size:40px;">{{this.informacoes.quantidadeEmImplantacao}}</span>
+                <span class="info-box-number" style="font-size:40px;">{{this.relatorioVendas.qtdEmImplantacao}}</span>
               </div>
             </div>
           </div>
@@ -46,54 +58,40 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">FINALIZADO</span>
-                <span class="info-box-number" style="font-size:40px;">{{this.informacoes.quantidadeFinalizado}}</span>
+                <span class="info-box-number" style="font-size:40px;">{{this.relatorioVendas.qtdFinalizado}}</span>
               </div>
             </div>
           </div>
 
-        </div>
-
-        <div class="row">
-          <div class="col-sm-10 col-xs-12">
+          <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
               <span class="info-box-icon"><i class="fa fa-handshake"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Total de Vendas Negociadas</span>
-                <span class="info-box-number" style="font-size:35px;">{{this.informacoes.quantidadeTotal}}</span>
+                <span class="info-box-number" style="font-size:35px;">{{this.relatorioVendas.qtdTotal}}</span>
               </div>
             </div>
           </div>
         </div>
 
-        
+
       </tab>
 
       <tab heading="Resultado" style="margin-top: 10px;">
-        <div class="row">
 
-          <div class="form-group col-md-3">
-            <label>Selecione a Data:</label>
-            <input type="text" class="form-control" name="dataFiltro" (bsValueChange)="setDataFiltro($event)"
-              [bsConfig]="this.bsConfig" bsDaterangepicker />
+
+
+        <div class="box">
+          <div class="box-header with-border">
+            <h3 class="box-title">Grafico Geral</h3>
           </div>
-
-          <div style="margin-right: 15px; margin-top: 24px;">
-            <a (click)="getVendas(this.dataPeriodo)" class="btn btn-primary">
-              <i class="fa fa-search"></i>&nbsp; Gerar Relatório
-            </a>
-          </div>
-        </div>
-
-        <div class="row" style="height: 300px;">
-          <div class="col-md-8">
-            <div class="box">
-              <div class="box-header with-border">
-                <h3 class="box-title">Grafico Geral</h3>
-              </div>
-              <div class="box-body">
+          <div class="box-body">
+            <div class="form-inline">
+              <div class="col-md-8">
                 <p class="text-center">
-                  <strong>Vendas: 01/01/2019 - 31/12/2019</strong>
+                  <strong>Vendas Negociadas entre: {{this.dataPeriodo.dataInicialPTBR}} -
+                    {{this.dataPeriodo.dataFinalPTBR}}</strong>
                 </p>
                 <div class="chart">
                   <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
@@ -101,64 +99,76 @@
                   </canvas>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            
-            <div class="clearfix visible-sm-block"></div>
-            <div class="row">
-              <div class="col-sm-10 col-xs-12">
-                <div class="info-box">
-                  <span class="info-box-icon"><i class="fa fa-dollar"></i></span>
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-10 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon"><i class="fa fa-dollar"></i></span>
 
-                  <div class="info-box-content">
-                    <span class="info-box-text">Valor Bruto de Receitas</span>
-                    <span class="info-box-number"
-                      style="font-size:35px;">{{this.informacoes.valorBrutoReceitas | currency:'BRL':true}}</span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">Valor Bruto de Receitas</span>
+                        <span class="info-box-number"
+                          style="font-size:35px;">{{this.relatorioVendas.valorBrutoReceitas | currency:'BRL':true}}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="clearfix visible-sm-block"></div>
-            <div class="row">
-              <div class="col-sm-10 col-xs-12">
-                <div class="info-box">
-                  <span class="info-box-icon"><i class="fa fa-dollar"></i></span>
+                <div class="row">
+                  <div class="col-sm-10 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon"><i class="fa fa-dollar"></i></span>
 
-                  <div class="info-box-content">
-                    <span class="info-box-text">Valor Bruto de Despesas</span>
-                    <span class="info-box-number"
-                      style="font-size:35px;">{{this.informacoes.valorBrutoDespesas | currency:'BRL':true}}</span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">Valor Bruto de Despesas</span>
+                        <span class="info-box-number"
+                          style="font-size:35px;">{{this.relatorioVendas.valorBrutoDespesas | currency:'BRL':true}}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="clearfix visible-sm-block"></div>
-            <div class="row">
-              <div class="col-sm-10 col-xs-12">
-                <div class="info-box">
-                  <span class="info-box-icon"><i class="fa fa-dollar"></i></span>
 
-                  <div class="info-box-content">
-                    <span class="info-box-text">Valor Líquido de Vendas</span>
-                    <span class="info-box-number"
-                      style="font-size:35px;">{{this.informacoes.valorLiquidoReceitas | currency:'BRL':true}}</span>
+                <div class="row">
+                  <div class="col-sm-10 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon"><i class="fa fa-dollar"></i></span>
+
+                      <div class="info-box-content">
+                        <span class="info-box-text">Valor Líquido de Vendas</span>
+                        <span class="info-box-number"
+                          style="font-size:35px;">{{this.relatorioVendas.valorLiquidoResultado | currency:'BRL':true}}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="clearfix visible-sm-block"></div>
-            <div class="row">
-              <div class="col-sm-10 col-xs-12">
-                <div class="info-box">
-                  <span class="info-box-icon"><i class="fa fa-dollar"></i></span>
 
-                  <div class="info-box-content">
-                    <span class="info-box-text">Valor Médio</span>
-                    <span class="info-box-number"
-                      style="font-size:35px;">{{this.informacoes.valorMedio | currency:'BRL':true}}</span>
+                <div class="row">
+                  <div class="col-sm-10 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon"><i class="fa fa-dollar"></i></span>
+
+                      <div class="info-box-content">
+                        <span class="info-box-text">Valor Médio</span>
+                        <span class="info-box-number"
+                          style="font-size:35px;">{{this.relatorioVendas.valorMedio | currency:'BRL':true}}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="col-sm-10 col-xs-12">
+                    <div class="info-box">
+                      <span class="info-box-icon"><i class="fa fa-dollar"></i></span>
+
+                      <div class="info-box-content">
+                        <span class="info-box-text">Valor Top</span>
+                        <span class="info-box-number"
+                          style="font-size:35px;">{{this.relatorioVendas.valorTop | currency:'BRL':true}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
