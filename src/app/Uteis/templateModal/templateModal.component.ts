@@ -10,15 +10,14 @@ import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/temp
 export class TemplateModalComponent implements OnInit {
 
   @Input() inputs: any;
-  @Input() component;
+  @Input() component: any;
+  @Input() templateModalService = new TemplateModalService();
   @Input() width: number;
 
   @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
 
   templateEnabled = false;
-
-  constructor(private templateModalService: TemplateModalService,
-              private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.component);

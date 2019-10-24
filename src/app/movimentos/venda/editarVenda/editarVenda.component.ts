@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewChecked, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewChecked, AfterViewInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
@@ -38,6 +38,7 @@ import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/temp
 import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicacao';
 import { Publicacao } from 'src/app/_models/Publicacoes/Publicacao';
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-venda',
@@ -45,6 +46,8 @@ import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service'
   styleUrls: ['./editarVenda.component.css']
 })
 export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterViewInit {
+
+  @Input() idVenda: number = null;
 
   editar = false;
   editarValorPrevisto = false;
@@ -81,7 +84,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   planoContasDespesa: PlanoContas[];
   planoContasIdSelecionado: any;
 
-  idVenda: number;
   venda: Venda;
 
   status = [''];
@@ -97,7 +99,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   gruposCheckList: ProdutoGrupoChecks[] = [];
   checks: ProdutoCheckList[] = [];
   checksOpcoes: ProdutoCheckListOpcoes[] = [];
-
+  
+  templateModalClienteService = new TemplateModalService();
   editarClienteComponent = EditarClienteComponent;
   inputs: any;
   componentModal: any;
@@ -107,7 +110,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
               private spinnerService: SpinnerService,
-              private templateModalService: TemplateModalService,
               private toastr: ToastrService,
               private router: ActivatedRoute,
               private vendaService: VendaService,
@@ -133,7 +135,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
               }
 
   ngOnInit() {
-    this.idVenda = +this.router.snapshot.paramMap.get('id');
+    if (this.idVenda === null) { this.idVenda = +this.router.snapshot.paramMap.get('id'); }
     this.getClientes();
     this.getProdutos();
     this.getEmpresas();
@@ -202,6 +204,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.vendaService.getVendaById(this.idVenda).subscribe((_VENDA: Venda) => {
       this.venda = null;
       this.venda = Object.assign({}, _VENDA);
+
+      console.log(this.venda);
 
       this.venda = Object.assign(this.venda, {
         dataNegociacao: this.dataService.getDataPTBR(this.venda.dataNegociacao),
@@ -442,14 +446,14 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     return true;
   }
 
-  abrirTemplateModal(component, clienteId: number) {
+  abrirTemplateModalCliente(component, clienteId: number) {
     this.componentModal = component;
     this.inputs = Object.assign({idCliente: clienteId});
-    this.templateModalService.setTemplateModalStatus(true);
+    this.templateModalClienteService.setTemplateModalStatus(true);
   }
 
-  getTemplateModal() {
-    return this.templateModalService.getTemplateModalStatus();
+  getTemplateModalCliente() {
+    return this.templateModalClienteService.getTemplateModalStatus();
   }
 
   salvarAlteracoes() {

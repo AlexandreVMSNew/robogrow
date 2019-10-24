@@ -12,6 +12,7 @@ import { Label } from 'ng2-charts';
 import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/editarCliente.component';
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
+import { EditarVendaComponent } from '../editarVenda/editarVenda.component';
 
 @Component({
   selector: 'app-relatorio-venda',
@@ -30,7 +31,10 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
   barChartData: ChartDataSets[];
   barChartLabels: Label[];
 
+  templateModalClienteService = new TemplateModalService();
   editarClienteComponent = EditarClienteComponent;
+  templateModalVendaService = new TemplateModalService();
+  editarVendaComponent = EditarVendaComponent;
   inputs: any;
   componentModal: any;
 
@@ -38,7 +42,6 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
               private spinnerService: SpinnerService,
               public permissaoService: PermissaoService,
               private dataService: DataService,
-              private templateModalService: TemplateModalService,
               public vendaService: VendaService) { }
 
   ngOnInit() {
@@ -80,14 +83,23 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
     this.spinnerService.alterarSpinnerStatus(false);
   }
 
-  abrirTemplateModal(component, clienteId: number) {
+  abrirTemplateClienteModal(component, clienteId: number) {
     this.componentModal = component;
     this.inputs = Object.assign({idCliente: clienteId});
-    this.templateModalService.setTemplateModalStatus(true);
+    this.templateModalClienteService.setTemplateModalStatus(true);
   }
 
-  getTemplateModal() {
-    return this.templateModalService.getTemplateModalStatus();
+  abrirTemplateVendaModal(component, vendaId: number) {
+    this.componentModal = component;
+    this.inputs = Object.assign({idVenda: vendaId});
+    this.templateModalVendaService.setTemplateModalStatus(true);
+  }
+
+  getTemplateModalCliente() {
+    return this.templateModalClienteService.getTemplateModalStatus();
+  }
+  getTemplateModalVenda() {
+    return this.templateModalVendaService.getTemplateModalStatus();
   }
 
   setDataFiltro(valor: any) {

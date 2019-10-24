@@ -40,6 +40,7 @@ export class VendaComponent implements OnInit, AfterViewInit {
   paginaAtual = 1;
   totalRegistros = 0; number;
 
+  templateModalService = new TemplateModalService();
   editarClienteComponent = EditarClienteComponent;
   inputs: any;
   componentModal: any;
@@ -47,8 +48,7 @@ export class VendaComponent implements OnInit, AfterViewInit {
   constructor(private toastr: ToastrService,
               private spinnerService: SpinnerService,
               private permissaoService: PermissaoService,
-              private vendaService: VendaService,
-              private templateModalService: TemplateModalService) { }
+              private vendaService: VendaService) { }
 
   ngOnInit() {
     this.getVendas();

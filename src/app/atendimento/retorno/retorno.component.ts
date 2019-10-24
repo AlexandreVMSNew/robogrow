@@ -65,6 +65,7 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
 
   horaUltimaAtt: any;
 
+  templateModalService = new TemplateModalService();
   editarClienteComponent = EditarClienteComponent;
   inputs: any;
   componentModal: any;
@@ -78,7 +79,6 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
               private socketService: SocketService,
               public permissaoService: PermissaoService,
               private changeDetectionRef: ChangeDetectorRef,
-              private templateModalService: TemplateModalService,
               private dataService: DataService) {
       this.localeService.use('pt-br');
     }

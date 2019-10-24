@@ -4,3 +4,15 @@
 :host >>> .popover>.arrow:after {
     max-width: 100% !important;
 }
+.celulaVermelha {
+    background-color: rgba(240, 0, 0, 0.1);
+}
+
+.celulaVerde {
+    background-color: rgba(133, 240, 133, 0.1);
+}
+
+.celulaAzul {
+    background-color: rgba(31, 136, 255, 0.1);
+}
+

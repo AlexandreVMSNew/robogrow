@@ -6,7 +6,7 @@
 
   <a role="button"  [routerLink]="" style="font-weight: normal;font-size:20px;" [popover]="myPopover"
     popoverTitle="Informações do Cliente" popoverPlacement="rigth"
-    (click)="abrirTemplateModal(editarClienteComponent, venda.clientesId)" triggers="mouseenter:mouseleave">
+    (click)="abrirTemplateModalCliente(editarClienteComponent, venda.clientesId)" triggers="mouseenter:mouseleave">
     {{(getCliente()) ? getCliente().nomeFantasia : ''}}
   </a>
 </div>
@@ -177,7 +177,8 @@
   </div>
 </div>
 
-<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="80"
-  [inputs]="this.inputs"></app-template-modal>
+<app-template-modal id="cliente" *ngIf="this.getTemplateModalCliente() == true" [templateModalService]="this.templateModalClienteService"
+ [component]="this.componentModal" [width]="80"
+ [inputs]="this.inputs"></app-template-modal>
 
 <app-pedido-venda *ngIf="getPedidoVenda() == true && this.venda" [venda]="this.venda"></app-pedido-venda>

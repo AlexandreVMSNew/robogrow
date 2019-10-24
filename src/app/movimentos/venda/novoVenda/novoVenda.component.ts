@@ -45,6 +45,7 @@ export class NovoVendaComponent implements OnInit {
   produtoVenda: VendaProduto[];
   venda: Venda;
 
+  templateModalService = new TemplateModalService();
   novoClienteComponent = NovoClienteComponent;
 
   componentModal: any;
@@ -58,8 +59,7 @@ export class NovoVendaComponent implements OnInit {
               private pessoaService: PessoaService,
               private empresaService: EmpresaService,
               private planoPagamentoService: PlanoPagamentoService,
-              private vendaService: VendaService,
-              private templateModalService: TemplateModalService) {
+              private vendaService: VendaService) {
   }
 
   ngOnInit() {

@@ -104,7 +104,7 @@
                 </ng-template>
     
                 <a role="button" [routerLink]="" [popover]="myPopover" popoverTitle="Informações do Cliente" popoverPlacement="top"
-                  (click)="abrirTemplateModal(editarClienteComponent, vendaDetalhada.clientesId)" triggers="mouseenter:mouseleave">
+                  (click)="abrirTemplateClienteModal(editarClienteComponent, vendaDetalhada.clientesId)" triggers="mouseenter:mouseleave">
                   {{ vendaDetalhada.clientes.nomeFantasia }}
                 </a>
               </td>
@@ -127,21 +127,21 @@
                   {{ vendaDetalhada.status }}
                 </span>
               </td>
-              <td style="text-align: center;font-size:20px;">
+              <td [ngClass]="(vendaDetalhada.valorBrutoReceitas > 0) ? 'celulaVerde' : 'celulaAzul'" style=" text-align: center;font-size:20px;">
                 {{vendaDetalhada.valorBrutoReceitas | currency:' ':true}}
               </td>
-              <td style="text-align: center;font-size:20px;">
+              <td [ngClass]="(vendaDetalhada.valorBrutoDespesasGastos > 0) ? 'celulaVermelha' : 'celulaAzul'" style="text-align: center;font-size:20px;">
                 {{vendaDetalhada.valorBrutoDespesasGastos | currency:' ':true}}
               </td>
-              <td style="text-align: center;font-size:20px;">
+              <td [ngClass]="(vendaDetalhada.valorBrutoDespesasComissao > 0) ? 'celulaVermelha' : 'celulaAzul'" style="text-align: center;font-size:20px;">
                 {{vendaDetalhada.valorBrutoDespesasComissao | currency:' ':false}}
               </td>
-              <td style="text-align: center;font-size:20px;">
+              <td [ngClass]="(vendaDetalhada.valorLiquidoResultado > 0) ? 'celulaVerde' : ((vendaDetalhada.valorLiquidoResultado == 0) ? 'celulaAzul' : 'celulaVermelha')" style="text-align: center;font-size:20px;">
                 {{vendaDetalhada.valorLiquidoResultado | currency:' ':false}}
               </td>
               <td style="text-align: center;white-space: nowrap;">
                 <div  class="btn-group">
-                  <a [routerLink]="['/movimentos/vendas','editar', vendaDetalhada.id]" tooltip="Ir para Venda"
+                  <a [routerLink]=""  (click)="abrirTemplateVendaModal(editarVendaComponent, vendaDetalhada.id)" tooltip="Ir para Venda"
                     class="btn btn-sm btn-primary">
                     <i class="fa fa-edit"></i>
                   </a>
@@ -290,5 +290,9 @@
   </div>
 </div>
 
-<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="80"
+<app-template-modal  id="venda" *ngIf="this.getTemplateModalVenda() == true" [templateModalService]="this.templateModalVendaService"
+[component]="this.componentModal" [width]="80"
+[inputs]="this.inputs"></app-template-modal>
+<app-template-modal  id="cliente" *ngIf="this.getTemplateModalCliente() == true" [templateModalService]="this.templateModalClienteService"
+[component]="this.componentModal" [width]="80"
   [inputs]="this.inputs"></app-template-modal>
