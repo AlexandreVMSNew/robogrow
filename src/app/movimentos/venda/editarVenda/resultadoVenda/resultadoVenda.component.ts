@@ -56,75 +56,17 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
   porcentagemPrevistoReal = 0;
 
   verificarSoma = false;
-  public pieChartOptions: ChartOptions = {
-    tooltips: {
-      callbacks: {
-        label: (value, ctx) => {
-          const texto = ctx.labels[value.index];
-          return texto;
-        },
-        afterLabel: (value, ctx) => {
-          const texto = Number(ctx.datasets[0].data[value.index]).toFixed(2).replace('.', ',');
-          return 'R$ ' +  texto;
-        },
-      }
-    },
-    responsive: true,
-    legend: {
-      position: 'top',
-    },
-    plugins: {
-      datalabels: {
-        formatter: (value, ctx) => {
-          return '';
-        },
-      },
-    }
-  };
-  public pieChartLabels: Label[] = ['RECEITAS', 'COMISSÕES', 'GASTOS'];
-  public pieChartData: number[] = [0, 0, 0];
-  public pieChartType: ChartType = 'pie';
-  public pieChartLegend = true;
-  public pieChartPlugins = [pluginDataLabels];
-  public pieChartColors = [
+
+  pieChartLabels: Label[] = ['RECEITAS', 'COMISSÕES', 'GASTOS'];
+  pieChartData: number[] = [];
+  pieChartColors = [
     {
       backgroundColor: ['rgba(0,192,239,1)', 'rgba(221,75,57,0.5)', 'rgba(221,75,57,1)'],
     },
   ];
 
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    tooltips: {
-      callbacks: {
-        label: (item, ctx) => {
-          const texto = Number(item.value).toFixed(2).replace('.', ',');
-          return '' +  texto;
-        }
-      },
-    },
-    scales: { xAxes: [{}], yAxes: [{ticks: {max: 5000, min: 0, stepSize: 1000}}] },
-    plugins: {
-      datalabels: {
-        formatter: (value, ctx) => {
-          const label = value.toFixed(2).replace('.', ',');
-          return 'R$' + label;
-        },
-        anchor: 'end',
-        align: 'end',
-      }
-    }
-  };
-  public barChartLabels: Label[] = ['RESULTADO'];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [pluginDataLabels];
-
-  public barChartData: ChartDataSets[] = [
-    { data: [0], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)',
-      borderColor: 'rgba(0,192,239,1)'},
-    { data: [0], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)',
-      borderColor: 'rgba(221,75,57,1)'}
-  ];
+  barChartData: ChartDataSets[];
+  barChartLabels: Label[] = ['RESULTADO'];
 
   constructor(private router: ActivatedRoute,
               private vendaService: VendaService,
@@ -200,10 +142,17 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
         this.valorTotalDespesasGastoRealizado;
       this.porcentagemPrevistoReal = this.calcularPorcentagemPrevistoReal();
 
+      this.barChartData =  [
+        { data: [this.valorTotalReceitasRealizado], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)',
+          hoverBackgroundColor: 'rgba(0,192,239,1)',
+          borderColor: 'rgba(0,192,239,1)'},
+        { data: [this.valorTotalDespesasComissaoRealizado + this.valorTotalDespesasGastoRealizado], label: 'Despesas',
+          backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)',
+          borderColor: 'rgba(221,75,57,1)'}
+      ];
+
       this.pieChartData = [this.valorTotalReceitasRealizado, this.valorTotalDespesasComissaoRealizado,
-        this.valorTotalDespesasGastoRealizado];
-      this.barChartData[0].data = [this.valorTotalReceitasRealizado];
-      this.barChartData[1].data = [this.valorTotalDespesasComissaoRealizado + this.valorTotalDespesasGastoRealizado];
+                           this.valorTotalDespesasGastoRealizado];
       this.verificarSoma = true;
     }
     return '';

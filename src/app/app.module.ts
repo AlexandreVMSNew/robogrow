@@ -107,6 +107,7 @@ import { PublicacaoTemplateComponent } from './timeline/publicacao/publicacaoTem
 import { DateInputComponent } from './_services/Uteis/DateInput/DateInput.component';
 
 import { GraficoBarChartComponent } from './Uteis/graficoBarChart/graficoBarChart.component';
+import { GraficoPieChartComponent } from './Uteis/graficoPieChart/graficoPieChart.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
@@ -123,7 +124,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
-
 const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
@@ -189,6 +189,7 @@ defineLocale('pt-br', ptBrLocale);
       PublicacaoTemplateComponent,
       DateInputComponent,
       GraficoBarChartComponent,
+      GraficoPieChartComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,

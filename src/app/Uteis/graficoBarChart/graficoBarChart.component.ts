@@ -13,29 +13,11 @@ export class GraficoBarChartComponent implements OnInit {
 
   @Input() barChartLabels: Label[] = [];
   @Input() barChartData: ChartDataSets[] = [];
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    tooltips: {
-      callbacks: {
-        label: (item, ctx) => {
-          const texto = Number(item.value).toFixed(2).replace('.', ',');
-          return 'R$ ' +  texto;
-        }
-      }
-    },
-    // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{ticks: {max: 26000, min: 0, stepSize: 2000}}] },
-    plugins: {
-      datalabels: {
-        formatter: (value, ctx) => {
-          const label = value.toFixed(2).replace('.', ',');
-          return '';
-        },
-        anchor: 'end',
-        align: 'end',
-      }
-    }
-  };
+  @Input() maxValor: number;
+  @Input() minValor: number;
+  @Input() frequencia: number;
+
+  public barChartOptions: ChartOptions = null;
 
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
@@ -44,6 +26,29 @@ export class GraficoBarChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.barChartOptions = {
+      responsive: true,
+      tooltips: {
+        callbacks: {
+          label: (item, ctx) => {
+            const texto = Number(item.value).toFixed(2).replace('.', ',');
+            return 'R$ ' +  texto;
+          }
+        }
+      },
+      // We use these empty structures as placeholders for dynamic theming.
+      scales: { xAxes: [{}], yAxes: [{ticks: {max: this.maxValor, min: this.minValor, stepSize: this.frequencia}}] },
+      plugins: {
+        datalabels: {
+          formatter: (value, ctx) => {
+            const label = value.toFixed(2).replace('.', ',');
+            return '';
+          },
+          anchor: 'end',
+          align: 'end',
+        }
+      }
+    };
   }
 
 }

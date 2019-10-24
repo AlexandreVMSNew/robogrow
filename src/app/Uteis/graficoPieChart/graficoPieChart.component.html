@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-7">
+    <div class="chart-responsive">
+      <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+        [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
+      </canvas>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <ul *ngIf="pieChartLabels && pieChartLabels.length > 0" class="chart-legend clearfix"
+      style="display: block;font-size: 17px;">
+      <li *ngFor="let legenda of pieChartLabels; let i = index" style="height: 25px;">
+        <a href="" [routerLink]="">
+          <span class="badge" [ngStyle]="{'color': 'white', 'background-color': pieChartColors[0].backgroundColor[i]}">
+            {{ legenda }}
+          </span>
+          <span class="float-right" style="color: black;font-weight: bold;">
+            {{ pieChartData[i] }}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

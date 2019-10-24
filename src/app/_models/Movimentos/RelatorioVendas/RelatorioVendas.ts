@@ -5,6 +5,7 @@ export class RelatorioVendas {
     qtdEmNegociacao: number;
     qtdAImplantar: number;
     qtdEmImplantacao: number;
+    qtdImplantado: number;
     qtdFinalizado: number;
     qtdDistratado: number;
     qtdTotal: number;

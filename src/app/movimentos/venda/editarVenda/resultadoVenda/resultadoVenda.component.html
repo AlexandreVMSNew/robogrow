@@ -117,14 +117,15 @@
 
     <div style="display:flex;">
       <div class="chart" style="width: 400px;height: 200px;">
-        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
-          [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
-        </canvas>
+        <app-grafico-pie-chart *ngIf="this.pieChartData && this.pieChartLabels" [pieChartData]="this.pieChartData"
+          [pieChartLabels]="this.pieChartLabels" [pieChartColors]="pieChartColors">
+        </app-grafico-pie-chart>
       </div>
       <div class="chart" style="width: 350px;margin-top: 20px;height: 200px;">
-        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-          [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-        </canvas>
+        <app-grafico-bar-chart *ngIf="this.barChartData && this.barChartLabels"
+          [maxValor]="6000" [minValor]="0" [frequencia]="1000"
+         [barChartData]="this.barChartData"[barChartLabels]="this.barChartLabels">
+        </app-grafico-bar-chart>
       </div>
     </div>
   </div>

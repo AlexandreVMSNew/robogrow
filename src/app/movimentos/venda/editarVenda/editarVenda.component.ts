@@ -99,7 +99,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   gruposCheckList: ProdutoGrupoChecks[] = [];
   checks: ProdutoCheckList[] = [];
   checksOpcoes: ProdutoCheckListOpcoes[] = [];
-  
+
   templateModalClienteService = new TemplateModalService();
   editarClienteComponent = EditarClienteComponent;
   inputs: any;
@@ -216,9 +216,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.vendaService.atualizarResultadoVenda(this.venda);
 
       if (this.venda.status === 'EM NEGOCIAÇÃO' || this.editarStatus === true) {
-        this.status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
+        this.status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
       } else {
-        this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
+        this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
       }
 
       this.produtoIdSelecionado = this.venda.vendaProdutos[0].produtosId;
@@ -462,7 +462,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     const dataNeg = this.cadastroForm.get('dataNegociacao').value.toLocaleString();
     const dataFin = this.cadastroForm.get('dataFinalizado').value.toLocaleString();
 
-    this.venda = Object.assign(this.cadastroForm.value, {id: this.venda.id,
+    this.venda = Object.assign(this.cadastroForm.value, {
+      id: this.idVenda,
       dataNegociacao: this.dataService.getDataSQL(dataNeg),
       dataFinalizado: this.dataService.getDataSQL(dataFin),
       dataHoraUltAlt: dataAtual,

@@ -28,13 +28,23 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
 
   relatorioVendas: RelatorioVendas = null;
 
+  pieChartLabels: Label[] = [];
+  pieChartData: number[] = [];
+  pieChartColors = [
+    {
+      backgroundColor: [],
+    },
+  ];
+
   barChartData: ChartDataSets[];
   barChartLabels: Label[];
 
   templateModalClienteService = new TemplateModalService();
   editarClienteComponent = EditarClienteComponent;
+
   templateModalVendaService = new TemplateModalService();
   editarVendaComponent = EditarVendaComponent;
+
   inputs: any;
   componentModal: any;
 
@@ -61,10 +71,25 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
   }
 
   carregarInformacoes() {
+
+    this.pieChartData = [];
+    this.pieChartLabels = [];
+    this.pieChartColors[0].backgroundColor = [];
     this.barChartData = [];
     this.barChartLabels = [];
     const barChartArrayReceitas = [];
     const barChartArrayDespesas = [];
+
+    this.pieChartColors[0].backgroundColor = ['#6c757d', ' #ffc107', '#17a2b8', '#007bff', '#00a65a', '#dc3545'];
+    this.pieChartLabels = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
+    this.pieChartData = [
+      this.relatorioVendas.qtdEmNegociacao,
+      this.relatorioVendas.qtdAImplantar,
+      this.relatorioVendas.qtdEmImplantacao,
+      this.relatorioVendas.qtdImplantado,
+      this.relatorioVendas.qtdFinalizado,
+      this.relatorioVendas.qtdDistratado
+    ];
 
     if (this.relatorioVendas.graficoResultadoPorMes) {
       this.relatorioVendas.graficoResultadoPorMes.forEach((resultadoMes: RelatorioGraficoResultadoPorMes) => {
