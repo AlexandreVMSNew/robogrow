@@ -62,7 +62,16 @@
         <tr
           *ngFor="let retorno of retornosFiltrados | paginate: { itemsPerPage: 25, currentPage: paginaAtual, totalItems: totalRegistros };">
           <td>{{ retorno.id }}</td>
-          <td style="white-space: nowrap;">({{retorno.cliente.codSiga}}) - {{ retorno.cliente.nomeFantasia }}</td>
+          <td style="white-space: nowrap;">
+            <ng-template #myPopover>
+              <label>Razão Social: {{retorno.cliente.razaoSocial}}</label>
+            </ng-template>
+
+            <a role="button" [routerLink]=""  [popover]="myPopover" popoverTitle="Informações do Cliente" popoverPlacement="top"
+              (click)="abrirTemplateModal(editarClienteComponent, retorno.clienteId)" triggers="mouseenter:mouseleave">
+              ({{retorno.cliente.codSiga}}) - {{ retorno.cliente.nomeFantasia }}
+            </a>
+          </td>
           <td style="text-align: center;">
             <button *ngIf="retorno.prioridade == 'NORMAL'" type="button" disabled class="btn btn-dark btn-sm"><i
                 class="fa fa-history"></i></button>
@@ -76,7 +85,7 @@
             <span *ngIf="retorno.status == 'FINALIZADO'" class="badge badge-danger">
               {{ retorno.status }}
             </span>
-            <span *ngIf="retorno.status == 'EM ANDAMENTO'" class="badge badge-danger">
+            <span *ngIf="retorno.status == 'EM ANDAMENTO'" class="badge badge-info">
               {{ retorno.status }}
             </span>
           </td>
@@ -184,6 +193,9 @@
       </div>
     </div>
   </div>
+
+<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="80"
+[inputs]="this.inputs"></app-template-modal>
 
   <div bsModal #templateInformacoes="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
     <div class="modal-dialog  modal-lg">

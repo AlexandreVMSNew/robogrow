@@ -216,12 +216,13 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       } else {
         this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
       }
-      console.log(this.venda);
+
       this.produtoIdSelecionado = this.venda.vendaProdutos[0].produtosId;
       this.empresaIdSelecionado = this.venda.empresasId;
       this.vendedorIdSelecionado = this.venda.vendedorId;
       this.clienteIdSelecionado = this.venda.clientesId;
       this.statusSelecionado = this.venda.status;
+      this.planoPagamentoIdSelecionado = this.venda.planoPagamentoId;
 
       this.cadastroForm.patchValue(this.venda);
       this.spinnerService.alterarSpinnerStatus(false);

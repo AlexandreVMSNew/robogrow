@@ -14,10 +14,19 @@ import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
+import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/editarCliente.component';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 
 @Component({
   selector: 'app-retorno',
-  templateUrl: './retorno.component.html'
+  templateUrl: './retorno.component.html',
+  styles: [`
+    :host >>> .popover {
+      max-width: 100% !important;
+    }
+    :host >>> .popover>.arrow:after {
+        max-width: 100% !important;
+  }`]
 })
 export class RetornoComponent implements OnInit, AfterViewChecked {
 
@@ -56,7 +65,10 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
 
   horaUltimaAtt: any;
 
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
+  editarClienteComponent = EditarClienteComponent;
+  inputs: any;
+  componentModal: any;
+
   constructor(public fb: FormBuilder,
               private clienteService: ClienteService,
               private retornoService: RetornoService,
@@ -66,6 +78,7 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
               private socketService: SocketService,
               public permissaoService: PermissaoService,
               private changeDetectionRef: ChangeDetectorRef,
+              private templateModalService: TemplateModalService,
               private dataService: DataService) {
       this.localeService.use('pt-br');
     }
@@ -295,6 +308,16 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
         }
       );
     }
+  }
+
+  abrirTemplateModal(component, clienteId: number) {
+    this.componentModal = component;
+    this.inputs = Object.assign({idCliente: clienteId});
+    this.templateModalService.setTemplateModalStatus(true);
+  }
+
+  getTemplateModal() {
+    return this.templateModalService.getTemplateModalStatus();
   }
 
   getClientes() {
