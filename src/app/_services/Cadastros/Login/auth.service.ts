@@ -28,14 +28,19 @@ export class AuthService {
       );
   }
 
+  logout() {
+    if (this.router.url !== '/usuarios/login') {
+      localStorage.clear();
+      this.router.navigate(['/usuarios/login']);
+    }
+  }
+
   loggerIn() {
     const token = localStorage.getItem('token');
     if (token !== null && !this.jwtHelper.isTokenExpired(token)) {
       return true;
     } else {
-      if (this.router.url !== '/usuarios/login') {
-        this.router.navigate(['/usuarios/login']);
-      }
+      this.logout();
       return false;
     }
   }

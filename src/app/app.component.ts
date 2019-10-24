@@ -165,7 +165,7 @@ export class AppComponent implements OnInit {
     }
     this.validation();
     this.idUsuario = this.permissaoService.getUsuarioId();
-    if (this.idUsuario && this.verificarLogIn()) {
+    if (this.idUsuario && this.idUsuario !== null && this.verificarLogIn()) {
       this.getSocket('NotificacaoUsuarioRetorno');
       this.getSocket('AutorizacaoVendaGerarPedido');
       this.getSocket('RespAutorizacaoVendaGerarPedido');
@@ -173,6 +173,8 @@ export class AppComponent implements OnInit {
       this.getSocket('NovaPublicacao');
       this.getSocket('NovoComentarioPublicacao');
       this.getNotificacoes();
+    } else {
+      this.logout();
     }
   }
 
@@ -310,9 +312,8 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.authService.logout();
     this.toastr.show('Log Out.');
-    this.router.navigate(['/usuarios/login']);
   }
 
   usuarioNome() {

@@ -8,7 +8,7 @@
         <i class="fa fa-plus-circle"></i>&nbsp; Nova Publicação
       </a>
     </div>
-    <div class="row" *ngIf="publicacoes && publicacoes.length">
+    <div class="row" *ngIf="publicacoes && publicacoes.length && this.usuarioLogado">
       <div class="form-group col-md-12" *ngFor="let publicacao of publicacoes">
         <div class="box box-default  box-solid" style="margin-top: 15px;">
           <div class="box-header with-border">
@@ -17,10 +17,12 @@
                 src="{{getUrlUsuarioFotoPerfil(publicacao.usuario.id, publicacao.usuario.nomeArquivoFotoPerfil)}}"
                 alt="img">
               <span class="username">
-                <span *ngIf="publicacao.vendaPublicacao.length > 0" style="margin-right: 7px;"
-                  class="badge badge-success">
-                  VENDA {{ publicacao.vendaPublicacao[0].venda.numeroAno }}
-                </span>
+                <div *ngIf="publicacao.vendaPublicacao">
+                  <span *ngIf="publicacao.vendaPublicacao.length > 0" style="margin-right: 7px;"
+                    class="badge badge-success">
+                    VENDA {{ publicacao.vendaPublicacao[0].venda.numeroAno }}
+                  </span>
+                </div>
                 <a>{{publicacao.usuario.nomeCompleto}}</a>
               </span>
 

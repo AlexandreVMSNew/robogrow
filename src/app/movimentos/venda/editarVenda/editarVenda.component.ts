@@ -216,6 +216,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       } else {
         this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO'];
       }
+      console.log(this.venda);
       this.produtoIdSelecionado = this.venda.vendaProdutos[0].produtosId;
       this.empresaIdSelecionado = this.venda.empresasId;
       this.vendedorIdSelecionado = this.venda.vendedorId;
@@ -464,14 +465,17 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       clientesId: this.clienteIdSelecionado,
       produtoId: this.produtoIdSelecionado,
       vendedorId: this.vendedorIdSelecionado,
+      planoPagamentoId: this.planoPagamentoIdSelecionado,
       status: this.statusSelecionado,
     });
 
     this.vendaService.editarVenda(this.venda).subscribe(
       () => {
+        this.spinnerService.alterarSpinnerStatus(false);
         this.toastr.success('Editado com sucesso!');
         this.carregarVenda();
       }, error => {
+        this.spinnerService.alterarSpinnerStatus(false);
         this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
         console.log(error);
       });

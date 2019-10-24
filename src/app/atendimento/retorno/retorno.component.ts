@@ -100,6 +100,7 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
             body: 'Novo retorno!'
           });
         }
+        this.pesquisarRetorno(this.dataPeriodo);
       }
     });
   }
@@ -126,22 +127,21 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
     const retornoLog = Object.assign({ id: 0, retornoId: retorno.id,
        usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: newStatus});
 
-    this.retornoService.editarRetorno(this.retorno).subscribe(
-      () => {
-        this.retornoService.novoLog(retornoLog).subscribe(
-          () => {
-            this.spinnerService.alterarSpinnerStatus(false);
-            this.toastr.success(`Status alterado para: ${newStatus}!`);
-            this.socketService.sendSocket('StatusRetornoAlterado', null);
-          }, error => {
-            this.spinnerService.alterarSpinnerStatus(false);
-            this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
-            console.log(error.error);
-          });
-      }, error => {
-        this.spinnerService.alterarSpinnerStatus(false);
-        this.toastr.error(`Erro ao tentar alterar status: ${error.error}`);
-      });
+    this.retornoService.editarRetorno(this.retorno).subscribe(() => {
+      this.retornoService.novoLog(retornoLog).subscribe(
+        () => {
+          this.spinnerService.alterarSpinnerStatus(false);
+          this.toastr.success(`Status alterado para: ${newStatus}!`);
+          this.socketService.sendSocket('StatusRetornoAlterado', null);
+        }, error => {
+          this.spinnerService.alterarSpinnerStatus(false);
+          this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
+          console.log(error.error);
+        });
+    }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
+      this.toastr.error(`Erro ao tentar alterar status: ${error.error}`);
+    });
   }
 
   finalizarRetorno(retorno: any) {
