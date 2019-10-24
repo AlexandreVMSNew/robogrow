@@ -17,8 +17,9 @@ import { Permissao } from './_models/Permissoes/permissao';
 import { SidebarService } from './sidebar/sidebar.service';
 import { PublicacaoService } from './_services/Publicacoes/publicacao.service';
 import { VendaService } from './_services/Movimentos/Venda/venda.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'plugins/ngx-spinner';
 import { SpinnerService } from './_services/Uteis/Spinner/spinner.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
