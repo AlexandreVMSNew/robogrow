@@ -20,7 +20,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {MatDialogModule, MatCheckboxModule, MatRadioModule, MatDividerModule} from '@angular/material';
 import {NgxFilesizeModule} from 'ngx-filesize';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule } from 'plugins/ngx-spinner';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
