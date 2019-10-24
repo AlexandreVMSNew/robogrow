@@ -1,18 +1,17 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { BsLocaleService, BsDatepickerConfig } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
-import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
-import { ChartType, ChartDataSets, ChartOptions } from 'chart.js';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label } from 'ng2-charts';
 import * as moment from 'moment';
-import { Permissao } from 'src/app/_models/Permissoes/permissao';
 import { RelatorioVendas } from 'src/app/_models/Movimentos/RelatorioVendas/RelatorioVendas';
 import { RelatorioGraficoResultadoPorMes } from 'src/app/_models/Movimentos/RelatorioVendas/RelatorioGraficoResultadoPorMes';
+import { ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
+import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/editarCliente.component';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 
 @Component({
   selector: 'app-relatorio-venda',
@@ -26,57 +25,29 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
 
   dataPeriodo: DataPeriodo;
 
-  relatorioVendas: RelatorioVendas;
+  relatorioVendas: RelatorioVendas = null;
 
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    tooltips: {
-      callbacks: {
-        label: (item, ctx) => {
-          const texto = Number(item.value).toFixed(2).replace('.', ',');
-          return 'R$ ' +  texto;
-        }
-      }
-    },
-    // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{ticks: {max: 26000, min: 0, stepSize: 2000}}] },
-    plugins: {
-      datalabels: {
-        formatter: (value, ctx) => {
-          const label = value.toFixed(2).replace('.', ',');
-          return '';
-        },
-        anchor: 'end',
-        align: 'end',
-      }
-    }
-  };
-  public barChartLabels: Label[] = [];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [pluginDataLabels];
+  barChartData: ChartDataSets[];
+  barChartLabels: Label[];
 
-  public barChartData: ChartDataSets[] = [
-    { data: [0], label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)',
-      borderColor: 'rgba(0,192,239,1)'},
-    { data: [0], label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)',
-      borderColor: 'rgba(221,75,57,1)'}
-  ];
+  editarClienteComponent = EditarClienteComponent;
+  inputs: any;
+  componentModal: any;
 
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
-  constructor(private localeService: BsLocaleService,
-              private toastr: ToastrService,
+  constructor(private toastr: ToastrService,
+              private spinnerService: SpinnerService,
               public permissaoService: PermissaoService,
               private dataService: DataService,
+              private templateModalService: TemplateModalService,
               public vendaService: VendaService) { }
 
   ngOnInit() {
     this.dataPeriodo = Object.assign(
       {
-        dataInicial: this.dataService.getDataSQL('01/01/2019') + 'T00:00:00',
-        dataInicialPTBR: '01/01/2019',
-        dataFinal: this.dataService.getDataSQL('31/12/2019') + 'T23:59:00',
-        dataFinalPTBR: '31/12/2019',
+        dataInicial: this.dataService.getDataSQL('01/01/' + new Date().getFullYear().toString()) + 'T00:00:00',
+        startDate: '01/01/' + new Date().getFullYear().toString(),
+        dataFinal: this.dataService.getDataSQL('31/12/' + new Date().getFullYear().toString()) + 'T23:59:00',
+        endDate: '31/12/' + new Date().getFullYear().toString(),
       }
     );
     this.getVendas(this.dataPeriodo);
@@ -87,39 +58,57 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
   }
 
   carregarInformacoes() {
-    this.barChartData[0].data = [];
-    this.barChartData[1].data = [];
+    this.barChartData = [];
     this.barChartLabels = [];
     const barChartArrayReceitas = [];
     const barChartArrayDespesas = [];
 
-    this.relatorioVendas.graficoResultadoPorMes.forEach((resultadoMes: RelatorioGraficoResultadoPorMes) => {
-      this.barChartLabels.push(resultadoMes.mes);
-      barChartArrayReceitas.push(resultadoMes.valorReceitas);
-      barChartArrayDespesas.push(resultadoMes.valorDespesas);
-    });
+    if (this.relatorioVendas.graficoResultadoPorMes) {
+      this.relatorioVendas.graficoResultadoPorMes.forEach((resultadoMes: RelatorioGraficoResultadoPorMes) => {
+        this.barChartLabels.push(resultadoMes.mes);
+        barChartArrayReceitas.push(resultadoMes.valorReceitas);
+        barChartArrayDespesas.push(resultadoMes.valorDespesas);
+      });
+    }
 
-    this.barChartData[0].data = barChartArrayReceitas;
-    this.barChartData[1].data = barChartArrayDespesas;
+    this.barChartData =  [
+      { data: barChartArrayReceitas, label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)',
+        borderColor: 'rgba(0,192,239,1)'},
+      { data: barChartArrayDespesas, label: 'Despesas', backgroundColor: 'rgba(221,75,57,1)', hoverBackgroundColor: 'rgba(221,75,57,1)',
+        borderColor: 'rgba(221,75,57,1)'}
+    ];
+    this.spinnerService.alterarSpinnerStatus(false);
   }
 
-  setDataFiltro(valor: Date[]) {
+  abrirTemplateModal(component, clienteId: number) {
+    this.componentModal = component;
+    this.inputs = Object.assign({idCliente: clienteId});
+    this.templateModalService.setTemplateModalStatus(true);
+  }
+
+  getTemplateModal() {
+    return this.templateModalService.getTemplateModalStatus();
+  }
+
+  setDataFiltro(valor: any) {
+    const dataStart = (valor.dataInicial) ? valor.dataInicial : valor.dataInicial;
+    const dataEnd = (valor.dataFinal) ? valor.dataFinal : valor.dataFinal;
     this.dataPeriodo = Object.assign(
       {
-        dataInicial: this.dataService.getDataSQL(valor[0].toLocaleString()) + 'T00:00:00',
-        dataInicialPTBR: valor[0].toLocaleString(),
-        dataFinal: this.dataService.getDataSQL(valor[1].toLocaleString()) + 'T23:59:00',
-        dataFinalPTBR: valor[1].toLocaleString()
+        dataInicial: dataStart,
+        dataFinal: dataEnd
       }
     );
   }
 
   getVendas(dataPeriodo: DataPeriodo) {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.vendaService.getVendaRelatorio(dataPeriodo).subscribe(
       (relatorioVendas: RelatorioVendas) => {
       this.relatorioVendas = relatorioVendas;
       this.carregarInformacoes();
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar VendaS: ${error.error}`);
     });

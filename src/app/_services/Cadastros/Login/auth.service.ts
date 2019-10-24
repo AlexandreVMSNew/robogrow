@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  baseURL = InfoAPI.URL + '/api/usuarios/';
+  baseURL = InfoAPI.URL + '/usuarios/';
   jwtHelper = new JwtHelperService();
 
   constructor(private http: HttpClient,

@@ -14,7 +14,7 @@ export class PermissaoService {
   private jwtHelper = new JwtHelperService();
   private token = localStorage.getItem('token');
   private decodedToken = this.jwtHelper.decodeToken(this.token);
-  baseURL = InfoAPI.URL + '/api/permissoes';
+  baseURL = InfoAPI.URL + '/permissoes';
 
   retornoAutorizacao: any;
   constructor(private http: HttpClient) {
@@ -55,7 +55,7 @@ export class PermissaoService {
   getUrlUsuarioLogadoFotoPerfil(): string {
     const nomeArquivoFotoPerfil = localStorage.getItem('nomeArquivoFotoPerfil');
     if (nomeArquivoFotoPerfil !== 'null' && nomeArquivoFotoPerfil) {
-      return InfoAPI.URL + '/api/usuarios/' + this.decodedToken.nameid + '/Perfil/' + nomeArquivoFotoPerfil;
+      return InfoAPI.URL + '/usuarios/' + this.decodedToken.nameid + '/Perfil/' + nomeArquivoFotoPerfil;
     } else {
       return './../assets/img/user-default.png';
     }

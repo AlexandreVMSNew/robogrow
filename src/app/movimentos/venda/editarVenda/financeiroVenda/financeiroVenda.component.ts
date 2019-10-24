@@ -16,12 +16,11 @@ export class FinanceiroVendaComponent implements OnInit {
   @Input() editarValorPrevisto: boolean;
 
   idDetalharRecebimento: number;
-  idProdutoItem: number;
   produtoItem: ProdutoItem;
 
-  vendaItensEntrada: ProdutoItem[];
-  vendaItensSaidaComissao: ProdutoItem[];
-  vendaItensSaidaGasto: ProdutoItem[];
+  vendaItensEntrada: ProdutoItem[] = [];
+  vendaItensSaidaComissao: ProdutoItem[] = [];
+  vendaItensSaidaGasto: ProdutoItem[] = [];
 
   valorPrevistoDisabled = true;
   idProdutoItemValorPrevisto: number;
@@ -41,6 +40,9 @@ export class FinanceiroVendaComponent implements OnInit {
   }
 
   carregarFinanceiro() {
+    this.vendaItensEntrada = [];
+    this.vendaItensSaidaComissao = [];
+    this.vendaItensSaidaGasto = [];
     if (this.venda) {
       if (this.venda.vendaProdutos) {
         this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');

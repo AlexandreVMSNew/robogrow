@@ -37,6 +37,7 @@ import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicacao';
 import { Publicacao } from 'src/app/_models/Publicacoes/Publicacao';
+import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 
 @Component({
   selector: 'app-editar-venda',
@@ -105,6 +106,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
+              private spinnerService: SpinnerService,
               private templateModalService: TemplateModalService,
               private toastr: ToastrService,
               private router: ActivatedRoute,
@@ -145,6 +147,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   ngAfterViewInit() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.permissaoService.getPermissoesByFormulario(
       Object.assign({formulario: 'VENDA'})).subscribe((_PERMISSOES: Permissao[]) => {
 
@@ -165,7 +168,11 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'FINANCEIRO')[0]);
       this.gerarPedido = this.permissaoService
           .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR' && c.objeto === 'PEDIDO')[0]);
+      this.spinnerService.alterarSpinnerStatus(false);
       this.carregarVenda();
+    }, error => {
+      console.log(error.error);
+      this.spinnerService.alterarSpinnerStatus(false);
     });
 
   }
@@ -186,9 +193,12 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
     (this.editarStatus === true || this.autorizadoGerarPedido === true) ?
       this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
+
+    this.spinnerService.alterarSpinnerStatus(false);
   }
 
   carregarVenda() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.vendaService.getVendaById(this.idVenda).subscribe((_VENDA: Venda) => {
       this.venda = null;
       this.venda = Object.assign({}, _VENDA);
@@ -213,15 +223,18 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.statusSelecionado = this.venda.status;
 
       this.cadastroForm.patchValue(this.venda);
+      this.spinnerService.alterarSpinnerStatus(false);
       this.getAutorizacoes();
       this.carregarVendaPublicacoes();
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
       console.log(error);
     });
   }
 
   carregarVendaPublicacoes() {
+    this.spinnerService.alterarSpinnerStatus(true);
     const usuarioLogadoId = this.permissaoService.getUsuarioId();
     this.vendaService.getVendaPublicacoes(this.venda.id, usuarioLogadoId)
       .subscribe((vendaPublicacoes: VendaPublicacao[]) => {
@@ -229,7 +242,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       vendaPublicacoes.forEach((vp: VendaPublicacao) => {
         this.publicacoes.push(vp.publicacoes);
       });
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error);
     });
   }
@@ -253,6 +268,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   enviarNotificacoes(usuariosIdNotificacao) {
+    this.spinnerService.alterarSpinnerStatus(true);
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const notificacoes: Notificacao[] = [];
     usuariosIdNotificacao.forEach(idUsuario => {
@@ -271,10 +287,15 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         this.socketService.sendSocket('AutorizacaoVendaGerarPedido', notificacao);
       });
       this.toastr.success('Pedido de Autorização enviado, aguarde a Resposta!');
+      this.spinnerService.alterarSpinnerStatus(false);
+    }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
+      console.log(error.error);
     });
   }
 
   enviarEmail(usuariosEmailNotificacao) {
+    this.spinnerService.alterarSpinnerStatus(true);
     const email: Email = {
       emailRemetente: 'virtualwebsistema@gmail.com',
       nomeRemetente: 'Virtual Web',
@@ -286,12 +307,15 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       '<a href="https://virtualweb.herokuapp.com/movimentos/vendas/editar/' + this.idVenda + '">CLIQUE AQUI!</a>',
     };
     this.emailService.enviarEmail(email).subscribe((_RESPOSTA) => {
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
     });
   }
 
   notificarUsuariosAutorizacao() {
+    this.spinnerService.alterarSpinnerStatus(true);
     const usuariosIdNotificacao = [];
     const usuariosEmailNotificacao: any = [];
     this.usuarioService.getUsuarios().subscribe(
@@ -307,7 +331,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
               }
             });
           });
-
+          this.spinnerService.alterarSpinnerStatus(false);
           this.enviarNotificacoes(usuariosIdNotificacao);
           this.enviarEmail(usuariosEmailNotificacao);
       });
@@ -315,6 +339,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   solicitarAutorizacao() {
+    this.spinnerService.alterarSpinnerStatus(true);
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const autorizacao = Object.assign({
       id: 0,
@@ -331,11 +356,14 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
     this.autorizacaoService.novaAutorizacao(autorizacao).subscribe((result: any) => {
       if (result.retorno === 'OK') {
+        this.spinnerService.alterarSpinnerStatus(false);
         this.notificarUsuariosAutorizacao();
       } else if (result.retorno === 'AUTORIZACAO PENDENTE') {
+        this.spinnerService.alterarSpinnerStatus(false);
         this.toastr.warning(`Já existe uma autorização pendente para esta venda, aguarde.`);
       }
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       this.toastr.error(`Erro ao tentar solicitar autorizacao: ${error.error}`);
       console.log(error);
     });
@@ -423,6 +451,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   salvarAlteracoes() {
+    this.spinnerService.alterarSpinnerStatus(true);
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const dataNeg = this.cadastroForm.get('dataNegociacao').value.toLocaleString();
     const dataFin = this.cadastroForm.get('dataFinalizado').value.toLocaleString();
@@ -453,26 +482,33 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   getProdutos() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.produtoService.getProduto().subscribe(
       (_PRODUTOS: Produto[]) => {
       this.produtos = _PRODUTOS;
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar produtos: ${error.error}`);
     });
   }
 
   getPlanoPagamento() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.planoPagamentoService.getPlanoPagamento().subscribe(
       (_PLANOS: PlanoPagamento[]) => {
       this.planosPagamento = _PLANOS.filter(c => c.status !== 'INATIVO');
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar Planos de Pagamento: ${error.error}`);
     });
   }
 
   getAutorizacoes() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.autorizacaoService.getAutorizacaoFormularioById(this.idVenda).subscribe(
       (_AUTORIZACOES: Autorizacao[]) => {
       this.autorizacoes = _AUTORIZACOES;
@@ -481,38 +517,48 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       }
       this.configurarAlteracoes();
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar autorizacoes: ${error.error}`);
     });
   }
 
   getClientes() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.clienteService.getCliente().subscribe(
       (_CLIENTES: Cliente[]) => {
       this.clientes = _CLIENTES;
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
     });
   }
 
   getEmpresas() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.empresaService.getEmpresa().subscribe(
       (_EMPRESAS: Empresa[]) => {
       this.empresas = _EMPRESAS.filter(cliente => cliente.status !== 'INATIVO');
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar empresas: ${error.error}`);
     });
   }
 
   getVendedores() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.pessoaService.getPessoa().subscribe(
       (_PESSOAS: Pessoa[]) => {
       this.vendedores = _PESSOAS.filter(pessoa =>
         pessoa.pessoaTipos.filter(c => c.tiposPessoa.descricao === 'VENDEDOR').length > 0
         && pessoa.status !== 'INATIVO');
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar vendedores: ${error.error}`);
     });

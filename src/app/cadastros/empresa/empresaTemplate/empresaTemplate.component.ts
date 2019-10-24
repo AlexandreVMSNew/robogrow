@@ -89,7 +89,7 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
       this.empresa = Object.assign(_EMPRESA);
       this.statusSelecionado = this.empresa.status;
       this.nomeArquivoLogo = this.empresa.nomeArquivoLogo;
-      this.baseURLLogo = InfoAPI.URL + '/api/empresas/' + this.empresa.id + '/logo/' + this.empresa.nomeArquivoLogo;
+      this.baseURLLogo = InfoAPI.URL + '/empresas/' + this.empresa.id + '/logo/' + this.empresa.nomeArquivoLogo;
 
       this.cadastroEmpresa.patchValue(this.empresa);
     }, error => {

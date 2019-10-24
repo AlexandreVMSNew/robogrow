@@ -9,7 +9,7 @@ import { Ideia } from 'src/app/_models/Cadastros/Ideias/ideia';
 })
 export class IdeiaService {
 
-  baseURL = InfoAPI.URL + '/api/ideias';
+  baseURL = InfoAPI.URL + '/ideias';
 
   constructor(private http: HttpClient) {}
 

@@ -285,6 +285,10 @@ export class ResultadoVendaComponent implements OnInit, AfterViewChecked {
   }
 
   zerarVariaveis() {
+
+    this.vendaItensReceita = [];
+    this.vendaItensDespesaComissao = [];
+    this.vendaItensDespesaGasto = [];
     this.previstoReceitaValores = [];
     this.previstoDespesaComissaoValores = [];
     this.previstoDespesaGastoValores = [];

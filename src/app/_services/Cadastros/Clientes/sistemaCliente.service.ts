@@ -11,7 +11,7 @@ import { Sistema } from 'src/app/_models/Cadastros/Sistemas/Sistema';
   providedIn: 'root'
 })
 export class SistemaClienteService {
-  baseURL = InfoAPI.URL + '/api/sistemacliente';
+  baseURL = InfoAPI.URL + '/sistemacliente';
   constructor(private http: HttpClient) { }
 
   getSistema(): Observable<Sistema[]> {

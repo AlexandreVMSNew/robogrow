@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class FormaPagamentoService {
 
-  baseURL = InfoAPI.URL + '/api/formapagamento';
+  baseURL = InfoAPI.URL + '/formapagamento';
   constructor(private http: HttpClient) { }
 
   getFormaPagamento(): Observable<FormaPagamento[]> {

@@ -17,7 +17,7 @@ import { RelatorioVendas } from 'src/app/_models/Movimentos/RelatorioVendas/Rela
 })
 export class VendaService {
 
-baseURL = InfoAPI.URL + '/api/movimentos/vendas';
+baseURL = InfoAPI.URL + '/movimentos/vendas';
 atualizaVenda = new EventEmitter<boolean>();
 atualizaRecebimentos = new EventEmitter<boolean>();
 atualizaPagamentos = new EventEmitter<boolean>();

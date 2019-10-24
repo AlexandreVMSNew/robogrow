@@ -10,7 +10,7 @@ import { RecebimentoParcelas } from 'src/app/_models/Financeiro/Recebimentos/Rec
 })
 export class RecebimentoService {
 
-  baseURL = InfoAPI.URL + '/api/recebimentos';
+  baseURL = InfoAPI.URL + '/recebimentos';
   detalharRecebimento = false;
   templateRecebimento = false;
   constructor(private http: HttpClient) { }

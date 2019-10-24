@@ -1,4 +1,5 @@
 import { RelatorioGraficoResultadoPorMes } from './RelatorioGraficoResultadoPorMes';
+import { RelatorioVendasDetalhadas } from './RelatorioVendasDetalhadas';
 
 export class RelatorioVendas {
     qtdEmNegociacao: number;
@@ -13,4 +14,5 @@ export class RelatorioVendas {
     valorMedio: number;
     valorTop: number;
     graficoResultadoPorMes: RelatorioGraficoResultadoPorMes[];
+    vendasDetalhadas: RelatorioVendasDetalhadas[];
 }

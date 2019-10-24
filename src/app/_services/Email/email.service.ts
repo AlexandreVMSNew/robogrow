@@ -8,7 +8,7 @@ import { Email } from 'src/app/_models/Email/Email';
 })
 export class EmailService {
 
-  baseURL = InfoAPI.URL + '/api/email';
+  baseURL = InfoAPI.URL + '/email';
 
 
   constructor(private http: HttpClient) { }

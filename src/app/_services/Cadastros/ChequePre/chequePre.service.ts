@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class ChequePreService {
 
-  baseURL = InfoAPI.URL + '/api/chequepre';
+  baseURL = InfoAPI.URL + '/chequepre';
   chequePreTemplate = false;
   constructor(private http: HttpClient) { }
 

@@ -1,0 +1,11 @@
+
+<input type="text" class="form-control" ngxDaterangepickerMd 
+[ranges]="ranges"
+[locale]="locale"
+startKey="startDate"
+endKey="endDate"
+name="daterange"
+[ngModel]="datas"
+alwaysShowCalendars="true"
+showCustomRangeLabel="true"
+(change)="setData($event)">

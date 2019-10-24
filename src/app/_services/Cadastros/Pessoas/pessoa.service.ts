@@ -9,7 +9,7 @@ import { TiposPessoa } from 'src/app/_models/Cadastros/Pessoas/TiposPessoa';
   providedIn: 'root'
 })
 export class PessoaService {
-  baseURL = InfoAPI.URL + '/api/pessoas';
+  baseURL = InfoAPI.URL + '/pessoas';
   constructor(private http: HttpClient) { }
 
   getPessoa(): Observable<Pessoa[]> {

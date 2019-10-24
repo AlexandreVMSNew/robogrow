@@ -9,7 +9,7 @@ import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 })
 export class NotificacaoService {
 
-  baseURL = InfoAPI.URL + '/api/notificacoes';
+  baseURL = InfoAPI.URL + '/notificacoes';
 
   constructor(private http: HttpClient) {}
 

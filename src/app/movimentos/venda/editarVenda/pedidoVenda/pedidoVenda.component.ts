@@ -30,7 +30,7 @@ export class PedidoVendaComponent implements OnInit {
 
   carregarValorVenda() {
     if (this.venda) {
-      this.baseURLLogo = InfoAPI.URL + '/api/empresas/' + this.venda.empresasId + '/logo/' + this.venda.empresas.nomeArquivoLogo;
+      this.baseURLLogo = InfoAPI.URL + '/empresas/' + this.venda.empresasId + '/logo/' + this.venda.empresas.nomeArquivoLogo;
     }
     this.venda.vendaValorPrevisto.forEach((valorPrevisto: VendaValorPrevisto) => {
       this.venda.vendaProdutos.forEach((vendaProduto: VendaProduto) => {

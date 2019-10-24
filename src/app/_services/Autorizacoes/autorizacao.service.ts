@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AutorizacaoService {
 
-  baseURL = InfoAPI.URL + '/api/autorizacoes';
+  baseURL = InfoAPI.URL + '/autorizacoes';
   autorizacaoTemplate = false;
 
   atualizaAutorizacoes = new EventEmitter<boolean>();

@@ -12,7 +12,7 @@ import { Publicacao } from 'src/app/_models/Publicacoes/Publicacao';
 })
 export class PublicacaoService {
 
-  baseURL = InfoAPI.URL + '/api/publicacoes';
+  baseURL = InfoAPI.URL + '/publicacoes';
 
   atualizaPublicacoes = new EventEmitter<boolean>();
   atualizaPublicacaoComentarios = new EventEmitter<number>();

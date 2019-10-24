@@ -10,7 +10,7 @@ import { InfoAPI } from './../../../_models/Info/infoAPI';
 })
 export class GrupoClienteService {
 
-  baseURL = InfoAPI.URL + '/api/grupocliente';
+  baseURL = InfoAPI.URL + '/grupocliente';
 constructor(private http: HttpClient) { }
   getGrupos(): Observable<ClienteGrupos[]> {
     return this.http.get<ClienteGrupos[]>(`${this.baseURL}/grupos`);

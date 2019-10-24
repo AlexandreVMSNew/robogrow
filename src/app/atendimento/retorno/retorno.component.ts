@@ -1,34 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { Retorno } from 'src/app/_models/Atendimentos/Retornos/retorno';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
-import { BsLocaleService, ModalDirective } from 'ngx-bootstrap';
+import { BsLocaleService, ModalDirective, BsDatepickerConfig } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { RetornoService } from 'src/app/_services/Atendimentos/Retornos/retorno.service';
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { RetornoLog } from 'src/app/_models/Atendimentos/Retornos/retornoLog';
 import * as moment from 'moment';
-import { Subscription, interval } from 'rxjs';
 import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
-import { Time } from '@angular/common';
 import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
+import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 
 @Component({
   selector: 'app-retorno',
   templateUrl: './retorno.component.html'
 })
-export class RetornoComponent implements OnInit {
+export class RetornoComponent implements OnInit, AfterViewChecked {
 
   cadastroObservacaoForm: FormGroup;
   observacao: RetornoObservacao;
-  observacaoId: number;
+  retornoId: number;
 
-  retornosFiltrados: Retorno[];
+  retornosFiltrados: Retorno[] = [];
   retornos: Retorno[];
-  retornosNaoFinalizados: Retorno[];
   retorno: Retorno;
   logRetorno: RetornoLog[];
   retornoObservacoes: RetornoObservacao[];
@@ -44,42 +42,51 @@ export class RetornoComponent implements OnInit {
   paginaAtual = 1;
   totalRegistros = 0; number;
 
-  filtrarPor = ['CLIENTE', 'DATA', 'PRIORIDADE'];
-  filtroSelecionado = 'DATA';
+  dataValue: any;
 
-  dataFiltro: any;
-  valueDataFiltro: any;
+  prioridades = ['NORMAL', 'URGENTE', 'TODOS'];
+  prioridadesSelecionado = 'TODOS';
 
-  prioridades = ['NORMAL', 'URGENTE'];
-
-  status = ['AGUARDANDO', 'EM ANDAMENTO', 'FINALIZADO', 'NÃO FINALIZADOS', 'TODOS'];
-
-  statusFiltroSelecionado = 'NÃO FINALIZADOS';
-  filtroRetorno: any;
-  // tslint:disable-next-line:variable-name
-  _filtroLista: string;
+  status = ['AGUARDANDO', 'EM ANDAMENTO', 'FINALIZADO', 'NÃO FINALIZADO', 'TODOS'];
+  statusSelecionado = 'NÃO FINALIZADO';
 
   countRetornos: number;
 
   dataPeriodo: DataPeriodo;
 
   horaUltimaAtt: any;
+
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(public fb: FormBuilder,
-              private clienteServices: ClienteService,
-              private retornoServices: RetornoService,
+              private clienteService: ClienteService,
+              private retornoService: RetornoService,
+              private spinnerService: SpinnerService,
               private localeService: BsLocaleService,
               private toastr: ToastrService,
               private socketService: SocketService,
               public permissaoService: PermissaoService,
+              private changeDetectionRef: ChangeDetectorRef,
               private dataService: DataService) {
       this.localeService.use('pt-br');
     }
 
+    ngAfterViewChecked() {
+      this.changeDetectionRef.detectChanges();
+    }
+
   ngOnInit() {
     this.getClientes();
-    this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
-    this.getRetornosNaoFinalizados();
-    this.validationObservacao();
+    this.validarObservacao();
+    this.dataPeriodo = Object.assign(
+      {
+        dataInicial: this.dataService.getDataSQL(moment(new Date(), 'DD/MM/YYYY').format('DD/MM/YYYY')) + 'T00:00:00',
+        startDate: moment(new Date(), 'DD/MM/YYYY').format('DD/MM/YYYY'),
+        dataFinal: this.dataService.getDataSQL(moment(new Date(), 'DD/MM/YYYY').format('DD/MM/YYYY')) + 'T23:59:00',
+        endDate: moment(new Date(), 'DD/MM/YYYY').format('DD/MM/YYYY'),
+      }
+    );
+    this.pesquisarRetorno(this.dataPeriodo);
+
     this.getSocket('NovoRetorno');
     this.getSocket('StatusRetornoAlterado');
   }
@@ -87,7 +94,6 @@ export class RetornoComponent implements OnInit {
   getSocket(evento: string) {
     this.socketService.getSocket(evento).subscribe((info: any) => {
       if (info === null) {
-        this.getRetornosNaoFinalizados();
 
         if (evento === 'NovoRetorno') {
           const  notification = new Notification(`Olá, ${this.permissaoService.getUsuario()} !`, {
@@ -98,24 +104,15 @@ export class RetornoComponent implements OnInit {
     });
   }
 
-  validationObservacao() {
+  validarObservacao() {
     this.cadastroObservacaoForm = this.fb.group({
         id: [''],
         observacao: ['', Validators.required]
     });
   }
 
-  getClientes() {
-    this.clienteServices.getCliente().subscribe(
-      (_CLIENTES: Cliente[]) => {
-      this.clientes = _CLIENTES.filter(cliente => cliente.status === 'ATIVO');
-    }, error => {
-      console.log(error.error);
-      this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
-    });
-  }
-
   alterarStatus(retorno: any) {
+    this.spinnerService.alterarSpinnerStatus(true);
     let newStatus;
     if (retorno.status === 'AGUARDANDO') {
       newStatus = 'EM ANDAMENTO';
@@ -129,22 +126,26 @@ export class RetornoComponent implements OnInit {
     const retornoLog = Object.assign({ id: 0, retornoId: retorno.id,
        usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: newStatus});
 
-    this.retornoServices.editarRetorno(this.retorno).subscribe(
+    this.retornoService.editarRetorno(this.retorno).subscribe(
       () => {
-        this.retornoServices.novoLog(retornoLog).subscribe(
+        this.retornoService.novoLog(retornoLog).subscribe(
           () => {
+            this.spinnerService.alterarSpinnerStatus(false);
             this.toastr.success(`Status alterado para: ${newStatus}!`);
             this.socketService.sendSocket('StatusRetornoAlterado', null);
           }, error => {
+            this.spinnerService.alterarSpinnerStatus(false);
             this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
             console.log(error.error);
           });
       }, error => {
+        this.spinnerService.alterarSpinnerStatus(false);
         this.toastr.error(`Erro ao tentar alterar status: ${error.error}`);
       });
   }
 
   finalizarRetorno(retorno: any) {
+    this.spinnerService.alterarSpinnerStatus(true);
     const newStatus = 'FINALIZADO';
     this.retorno = Object.assign(retorno, { status: newStatus});
 
@@ -152,181 +153,161 @@ export class RetornoComponent implements OnInit {
 
     const retornoLog = Object.assign({ id: 0, retornoId: retorno.id,
        usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: newStatus});
-    this.retornoServices.editarRetorno(this.retorno).subscribe(
+    this.retornoService.editarRetorno(this.retorno).subscribe(
       () => {
-        this.retornoServices.novoLog(retornoLog).subscribe(
+        this.retornoService.novoLog(retornoLog).subscribe(
           () => {
+            this.spinnerService.alterarSpinnerStatus(false);
             this.toastr.success(`Retorno Finalizado!`);
             this.socketService.sendSocket('StatusRetornoAlterado', null);
           }, error => {
+            this.spinnerService.alterarSpinnerStatus(false);
             this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
             console.log(error.error);
           });
       }, error => {
+        this.spinnerService.alterarSpinnerStatus(false);
         this.toastr.error(`Erro ao tentar alterar status: ${error.error}`);
         console.log(error.error);
       });
   }
 
-  getCountLogsAguardando(retornoId: number) {
-    this.retornoServices.getCountLogsAguardandoByRetornoId(retornoId).subscribe(
-      (_COUNT: number) => {
-        if (_COUNT > 0) {
-          return `(${_COUNT})`;
-        } else {
-          return '';
-        }
-    });
-  }
-
   retornoLog(retornoId: number, template: any) {
-    this.retornoServices.getLogsByRetornoId(retornoId).subscribe(
+    this.spinnerService.alterarSpinnerStatus(true);
+    this.retornoService.getLogsByRetornoId(retornoId).subscribe(
       (_LOGS: RetornoLog[]) => {
       this.logRetorno = _LOGS;
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
       this.toastr.error(`Erro ao tentar carregar retornoLog: ${error.error}`);
+      this.spinnerService.alterarSpinnerStatus(false);
     });
     template.show();
   }
 
   getRetornoInformacoes(retornoId: number, telefone: string, solicitante: string, template: any) {
-    this.observacaoId = retornoId;
+    this.spinnerService.alterarSpinnerStatus(true);
+    this.retornoObservacoes = [];
+    this.validarObservacao();
+    this.retornoId = retornoId;
     this.retornoTelefone = telefone;
     this.retornoSolicitante = solicitante;
-    this.retornoServices.getObservacoesByRetornoId(retornoId).subscribe(
+
+    this.retornoService.getObservacoesByRetornoId(retornoId).subscribe(
       (_OBSERVACOES: RetornoObservacao[]) => {
       this.retornoObservacoes = _OBSERVACOES;
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
       this.toastr.error(`Erro ao tentar carregar observacoes: ${error.error}`);
+      this.spinnerService.alterarSpinnerStatus(false);
     });
     if (template !== null) {
       template.show();
     }
   }
 
-  get filtroLista() {
-    return this._filtroLista;
-  }
-
-  set filtroLista(value: string) {
-    this._filtroLista = value;
-    this.retornosFiltrados = this.filtroLista ? this.filtrarRetornos(this.filtroLista) : this.retornos;
-  }
-
-  setFiltroSelecionado(valor: any) {
-    this.filtroSelecionado = valor;
-  }
-
-  setDataFiltro(valor: Date[]) {
+  setDataFiltro(valor: any) {
+    const dataStart = (valor.dataInicial) ? valor.dataInicial : valor.dataInicial;
+    const dataEnd = (valor.dataFinal) ? valor.dataFinal : valor.dataFinal;
     this.dataPeriodo = Object.assign(
       {
-        dataInicial: this.dataService.getDataSQL(valor[0].toLocaleString()) + 'T00:00:00',
-        dataFinal: this.dataService.getDataSQL(valor[1].toLocaleString()) + 'T23:59:00'
+        dataInicial: dataStart,
+        dataFinal: dataEnd
       }
     );
-    this.getRetornosByPeriodo(this.dataPeriodo);
-  }
-
-  setStatusFiltroSelecionado(valor: any) {
-    this.statusFiltroSelecionado = valor;
-    if (valor !== 'NÃO FINALIZADOS') {
-      this.getRetornos();
-    } else {
-      this.getRetornosNaoFinalizados();
-    }
-    this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
   }
 
   compararNumeros(a, b) {
     return a - b;
   }
 
-  filtrarRetornos(filtrarPor: any): Retorno[] {
-    if (this.statusFiltroSelecionado !== 'TODOS' && this.statusFiltroSelecionado !== 'NÃO FINALIZADOS') {
-      this.filtroRetorno = this.retornos.filter(_RETORNO => _RETORNO.status === this.statusFiltroSelecionado);
-    } else {
-      this.filtroRetorno = this.retornos;
+  filtrarRetornos() {
+    this.retornosFiltrados = this.retornos;
+    if (this.statusSelecionado !== 'TODOS' && this.statusSelecionado !== 'NÃO FINALIZADO' ) {
+      this.retornosFiltrados = this.retornosFiltrados.filter(_RETORNO => _RETORNO.status === this.statusSelecionado);
+    } else if (this.statusSelecionado === 'NÃO FINALIZADO') {
+      this.retornosFiltrados = this.retornosFiltrados.filter(_RETORNO => _RETORNO.status !== 'FINALIZADO');
     }
 
-    if (this.statusFiltroSelecionado === 'FINALIZADOS') {
-      this.filtroRetorno = this.filtroRetorno.sort(this.compararNumeros);
+    if (this.statusSelecionado === 'FINALIZADO') {
+      this.retornosFiltrados = this.retornosFiltrados.sort(this.compararNumeros);
     }
 
-    if (this.filtroSelecionado === 'CLIENTE') {
-      this.filtroRetorno = this.retornos.filter(_RETORNO => _RETORNO.clienteId === filtrarPor);
+    if (this.prioridadesSelecionado !== 'TODOS') {
+      this.retornosFiltrados = this.retornosFiltrados.filter(_RETORNO => _RETORNO.prioridade === this.prioridadesSelecionado);
     }
 
-    if (this.filtroSelecionado === 'PRIORIDADE') {
-      this.filtroRetorno = this.retornos.filter(_RETORNO => _RETORNO.prioridade === filtrarPor);
+    if (this.clienteIdSelecionado) {
+      this.retornosFiltrados = this.retornosFiltrados.filter(_RETORNO => _RETORNO.clienteId === this.clienteIdSelecionado);
     }
 
-    this.totalRegistros = this.filtroRetorno.length;
-    return this.filtroRetorno;
+    this.totalRegistros = this.retornosFiltrados.length;
+    this.spinnerService.alterarSpinnerStatus(false);
   }
 
-  getRetornos() {
-      this.retornoServices.getRetornos().subscribe(
-        (_RETORNOS: Retorno[]) => {
-        this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
-        this.retornos = _RETORNOS;
-        this.countRetornos = _RETORNOS.length;
-        this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
-      }, error => {
-        console.log(error.error);
-        this.toastr.error(`Erro ao tentar carregar retornos: ${error.error}`);
-      });
+  pesquisarRetorno(datas: DataPeriodo) {
+    this.getRetornosByPeriodo(datas);
   }
 
   getRetornosByPeriodo(datas: DataPeriodo) {
-    this.retornoServices.getRetornosByPeriodo(datas).subscribe(
+    this.retornos = [];
+    this.retornosFiltrados = [];
+    this.spinnerService.alterarSpinnerStatus(true);
+    this.retornoService.getRetornosByPeriodo(datas).subscribe(
       (_RETORNOS: any) => {
       this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
       this.retornos = _RETORNOS;
       this.countRetornos = _RETORNOS.length;
-      this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
+      this.filtrarRetornos();
     }, error => {
       console.log(error.error);
+      this.spinnerService.alterarSpinnerStatus(false);
       this.toastr.error(`Erro ao tentar carregar retornos: ${error.error}`);
     });
-}
-
-  getRetornosNaoFinalizados() {
-    this.retornoServices.getRetornosNaoFinalizados().subscribe(
-      (_RETORNOS: Retorno[]) => {
-      this.horaUltimaAtt = moment(new Date(), 'HH:mm:ss').format('HH:mm:ss');
-      this.retornos = _RETORNOS;
-      this.countRetornos = _RETORNOS.length;
-      this.retornosFiltrados = this.filtrarRetornos(this.filtroLista);
-    }, error => {
-      console.log(error.error);
-      this.toastr.error(`Erro ao tentar carregar retornos: ${error.error}`);
-    });
-}
+  }
 
   novaObservacao() {
+    this.spinnerService.alterarSpinnerStatus(true);
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     if (this.cadastroObservacaoForm.valid) {
-      this.observacao = Object.assign(this.cadastroObservacaoForm.value, {id: 0, retornoId: this.observacaoId,
+      this.observacao = Object.assign(this.cadastroObservacaoForm.value, {id: 0, retornoId: this.retornoId,
       usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual});
 
-      this.retornoServices.novaObservacao(this.observacao).subscribe(
+      this.retornoService.novaObservacao(this.observacao).subscribe(
         () => {
-          this.getRetornoInformacoes(this.observacaoId, this.retornoTelefone, this.retornoSolicitante, null);
+          this.getRetornoInformacoes(this.retornoId, this.retornoTelefone, this.retornoSolicitante, null);
           this.toastr.success('Observação cadastrada com sucesso!');
+
           const notificacao = Object.assign({
             id: 0,
             usuarioId: 0,
             dataHora: dataAtual,
             titulo: 'Nova Observação!',
             mensagem: `O Usuário ${this.permissaoService.getUsuario()} adicionou\n
-            uma nova observação no Retorno ${this.observacaoId}.`,
+            uma nova observação no Retorno ${this.retornoId}.`,
             visto: 0
           });
           this.socketService.sendSocket('NovaObservacao', notificacao);
+          this.spinnerService.alterarSpinnerStatus(false);
         }, error => {
+          this.spinnerService.alterarSpinnerStatus(false);
           console.log(error.error);
         }
       );
     }
   }
+
+  getClientes() {
+    this.spinnerService.alterarSpinnerStatus(true);
+    this.clienteService.getCliente().subscribe(
+      (_CLIENTES: Cliente[]) => {
+      this.clientes = _CLIENTES.filter(cliente => cliente.status === 'ATIVO');
+      this.spinnerService.alterarSpinnerStatus(false);
+    }, error => {
+      console.log(error.error);
+      this.spinnerService.alterarSpinnerStatus(false);
+      this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
+    });
+  }
+
 }

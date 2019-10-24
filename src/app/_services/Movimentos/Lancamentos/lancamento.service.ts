@@ -8,7 +8,7 @@ import { Lancamentos } from 'src/app/_models/Movimentos/Lancamentos/Lancamentos'
   providedIn: 'root'
 })
 export class LancamentoService {
-  baseURL = InfoAPI.URL + '/api/movimentos/lancamentos';
+  baseURL = InfoAPI.URL + '/movimentos/lancamentos';
   lancamentoTemplate = false;
   constructor(private http: HttpClient) { }
 

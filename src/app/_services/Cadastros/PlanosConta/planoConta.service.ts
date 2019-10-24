@@ -9,7 +9,7 @@ import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
 })
 export class PlanoContaService {
 
-  baseURL = InfoAPI.URL + '/api/planoconta';
+  baseURL = InfoAPI.URL + '/planoconta';
   constructor(private http: HttpClient) { }
 
   getPlanosConta(): Observable<PlanoContas[]> {

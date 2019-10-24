@@ -8,11 +8,15 @@ import { InfoAPI } from './../../../_models/Info/infoAPI';
   providedIn: 'root'
 })
 export class ClienteService {
-  baseURL = InfoAPI.URL + '/api/clientes';
+  baseURL = InfoAPI.URL + '/clientes';
 constructor(private http: HttpClient) { }
 
 getCliente(): Observable<Cliente[]> {
   return this.http.get<Cliente[]>(this.baseURL);
+}
+
+getClientesSelect(): Observable<Cliente[]> {
+  return this.http.get<Cliente[]>(`${this.baseURL}/select`);
 }
 
 getClienteByName(name: string): Observable<Cliente[]> {

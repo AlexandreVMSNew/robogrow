@@ -12,7 +12,7 @@ import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 })
 export class RetornoService {
 
-  baseURL = InfoAPI.URL + '/api/atendimentos/retornos';
+  baseURL = InfoAPI.URL + '/atendimentos/retornos';
   constructor(private http: HttpClient) { }
 
 getRetornos(): Observable<Retorno[]> {
@@ -27,20 +27,12 @@ getRetornosByPeriodo(datas: DataPeriodo): Observable<Retorno[]> {
   return this.http.post<Retorno[]>(`${this.baseURL}/Periodo`, datas);
 }
 
-getRetornoByClienteId(clienteId: number): Observable<Retorno[]> {
-  return this.http.get<Retorno[]>(`${this.baseURL}/cliente/${clienteId}`);
-}
-
 getLogsByRetornoId(retornoId: number): Observable<RetornoLog[]> {
   return this.http.get<RetornoLog[]>(`${this.baseURL}/logs/${retornoId}`);
 }
 
 getObservacoesByRetornoId(retornoId: number): Observable<RetornoObservacao[]> {
   return this.http.get<RetornoObservacao[]>(`${this.baseURL}/observacoes/${retornoId}`);
-}
-
-getCountRetornos(): Observable<number> {
-  return this.http.get<number>(`${this.baseURL}/count`);
 }
 
 getIdUltimoRetorno(): Observable<number> {

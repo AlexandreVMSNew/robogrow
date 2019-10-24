@@ -8,7 +8,7 @@ import { InfoAPI } from './../../../_models/Info/infoAPI';
   providedIn: 'root'
 })
 export class CidadeService {
-  baseURL = InfoAPI.URL + '/api/cidades';
+  baseURL = InfoAPI.URL + '/cidades';
 constructor(private http: HttpClient) { }
 
 getCidades(): Observable<Cidade[]> {

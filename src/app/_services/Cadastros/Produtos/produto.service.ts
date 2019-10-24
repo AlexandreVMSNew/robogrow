@@ -13,7 +13,7 @@ import { ProdutoCheckListOpcoes } from 'src/app/_models/Cadastros/Produtos/Produ
 })
 export class ProdutoService {
 
-  baseURL = InfoAPI.URL + '/api/produtos';
+  baseURL = InfoAPI.URL + '/produtos';
 
   atualizaProdutos = new EventEmitter<boolean>();
   atualizaProdutosGruposCheck = new EventEmitter<ProdutoGrupoChecks[]>();

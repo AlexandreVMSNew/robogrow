@@ -19,6 +19,8 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {MatDialogModule, MatCheckboxModule, MatRadioModule, MatDividerModule} from '@angular/material';
 import {NgxFilesizeModule} from 'ngx-filesize';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { NgxSpinnerModule } from 'ngx-spinner';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -102,6 +104,10 @@ import { PublicacaoComponent } from './timeline/publicacao/publicacao.component'
 // tslint:disable-next-line:max-line-length
 import { PublicacaoTemplateComponent } from './timeline/publicacao/publicacaoTemplate/publicacaoTemplate.component';
 
+import { DateInputComponent } from './_services/Uteis/DateInput/DateInput.component';
+
+import { GraficoBarChartComponent } from './Uteis/graficoBarChart/graficoBarChart.component';
+
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
 import { CepPipe } from './pipes/cep.pipe';
@@ -181,6 +187,8 @@ defineLocale('pt-br', ptBrLocale);
       AutorizacaoTemplateComponent,
       TemplateModalComponent,
       PublicacaoTemplateComponent,
+      DateInputComponent,
+      GraficoBarChartComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,
@@ -196,9 +204,11 @@ defineLocale('pt-br', ptBrLocale);
       MatDividerModule,
       NgOptionHighlightModule,
       NoopAnimationsModule,
+      NgxSpinnerModule,
       SocketIoModule.forRoot(config),
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      NgxDaterangepickerMd.forRoot(),
       TooltipModule.forRoot(),
       TabsModule.forRoot(),
       ModalModule.forRoot(),

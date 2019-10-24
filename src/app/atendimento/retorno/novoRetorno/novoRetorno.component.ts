@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 import { RetornoObservacao } from 'src/app/_models/Atendimentos/Retornos/retornoObservacao';
 import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
+import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 
 @Component({
   selector: 'app-novo-retorno',
@@ -25,7 +26,7 @@ export class NovoRetornoComponent implements OnInit {
   cadastroForm: FormGroup;
   retorno: Retorno;
   retornoObservacao: RetornoObservacao;
-  _observacao = '';
+  observacaoTextAux = '';
 
   prioridades = ['NORMAL', 'URGENTE'];
   prioridadeSelecionado = 'NORMAL';
@@ -43,12 +44,12 @@ export class NovoRetornoComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
+              private spinnerService: SpinnerService,
               private clienteService: ClienteService,
               private usuarioService: UsuarioService,
               private retornoService: RetornoService,
               private notificacaoService: NotificacaoService,
               private router: Router,
-              private changeDetectionRef: ChangeDetectorRef,
               private socketService: SocketService,
               public permissaoService: PermissaoService) { }
 
@@ -58,17 +59,12 @@ export class NovoRetornoComponent implements OnInit {
     this.validarForm();
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngAfterViewChecked() {
-    this.changeDetectionRef.detectChanges();
-  }
-
   get observacaoTexto(): string {
-    return this._observacao;
+    return this.observacaoTextAux;
   }
 
   set observacaoTexto(value: string) {
-    this._observacao = value;
+    this.observacaoTextAux = value;
   }
 
   validarForm() {
@@ -86,23 +82,29 @@ export class NovoRetornoComponent implements OnInit {
   }
 
   getUsuarios() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.usuarioService.getUsuarios().subscribe(
       (_USUARIOS: Usuario[]) => {
       this.usuarios = _USUARIOS;
       this.usuarios.push(Object.assign({ id: 0, userName: 'TODOS'}));
       this.usuarioIdSelecionado = 0;
+      this.spinnerService.alterarSpinnerStatus(false);
       }, error => {
         console.log(error.error);
+        this.spinnerService.alterarSpinnerStatus(false);
         this.toastr.error(`Erro ao tentar carregar usuarios: ${error.error}`);
     });
   }
 
   getClientes() {
-    this.clienteService.getCliente().subscribe(
+    this.spinnerService.alterarSpinnerStatus(true);
+    this.clienteService.getClientesSelect().subscribe(
       (_CLIENTES: Cliente[]) => {
-      this.clientes = _CLIENTES.filter(cliente => cliente.status === 'ATIVO');
+      this.clientes = _CLIENTES;
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
       console.log(error.error);
+      this.spinnerService.alterarSpinnerStatus(false);
       this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
     });
   }
@@ -111,14 +113,14 @@ export class NovoRetornoComponent implements OnInit {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     if (this.cadastroForm.valid) {
       this.retorno = Object.assign(this.cadastroForm.value, {id: 0, status: 'AGUARDANDO', dataHora: dataAtual});
-
+      this.spinnerService.alterarSpinnerStatus(true);
       this.retornoService.novoRetorno(this.retorno).subscribe(
         () => {
 
           this.retornoService.getIdUltimoRetorno().subscribe((ultimoId: number) => {
-            if (this._observacao !== '') {
+            if (this.observacaoTextAux !== '') {
               this.retornoObservacao = Object.assign({id: 0, retornoId: ultimoId,
-              usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, observacao: this._observacao});
+              usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, observacao: this.observacaoTextAux});
               this.retornoService.novaObservacao(this.retornoObservacao).subscribe();
             }
 
@@ -147,16 +149,19 @@ export class NovoRetornoComponent implements OnInit {
             this.notificacaoService.novaNotificacao(notificacao).subscribe(
               () => {
                 this.socketService.sendSocket('NotificacaoUsuarioRetorno', notificacao);
+                this.spinnerService.alterarSpinnerStatus(false);
                 this.toastr.success('Cadastrado com sucesso!');
                 this.router.navigate([`/atendimentos/retornos`]);
               });
           } else {
+            this.spinnerService.alterarSpinnerStatus(false);
             this.toastr.success('Cadastrado com sucesso!');
             this.router.navigate([`/atendimentos/retornos`]);
           }
 
           this.socketService.sendSocket('NovoRetorno', null);
         }, error => {
+          this.spinnerService.alterarSpinnerStatus(false);
           console.log(error.error);
         }
       );

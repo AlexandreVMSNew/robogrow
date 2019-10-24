@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class CentroDespesaService {
 
-  baseURL = InfoAPI.URL + '/api/centrodespesa';
+  baseURL = InfoAPI.URL + '/centrodespesa';
   constructor(private http: HttpClient) { }
 
   getCentroDespesa(): Observable<CentroDespesa[]> {

@@ -84,7 +84,7 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
         this.usuario = Object.assign(this.usuario, { dataNascimento: this.dataService.getDataPTBR(data) });
         this.cadastroForm.patchValue(this.usuario);
 
-        this.baseURLFotoPerfil = InfoAPI.URL + '/api/usuarios/' + this.usuario.id + '/perfil/' + this.usuario.nomeArquivoFotoPerfil;
+        this.baseURLFotoPerfil = InfoAPI.URL + '/usuarios/' + this.usuario.id + '/perfil/' + this.usuario.nomeArquivoFotoPerfil;
 
         this.usuario.usuarioOcorrencias.forEach(ocorrencia => {
           ocorrencia = Object.assign(ocorrencia, { data: this.dataService.getDataPTBR(ocorrencia.data) });

@@ -10,7 +10,7 @@ import { UsuarioSenha } from 'src/app/_models/Cadastros/Usuarios/UsuarioSenha';
   providedIn: 'root'
 })
 export class UsuarioService {
-  baseURL = InfoAPI.URL + '/api/usuarios';
+  baseURL = InfoAPI.URL + '/usuarios';
   retornoPermissao = false;
 constructor(private http: HttpClient) { }
 
@@ -32,7 +32,7 @@ getIdUltimoUsuario(): Observable<Usuario> {
 
 getUrlUsuarioFotoPerfil(usuarioId: number, nomeArquivoFotoPerfil: string): string {
   if (nomeArquivoFotoPerfil !== 'null' && nomeArquivoFotoPerfil) {
-    return InfoAPI.URL + '/api/usuarios/' + usuarioId + '/perfil/' + nomeArquivoFotoPerfil;
+    return InfoAPI.URL + '/usuarios/' + usuarioId + '/perfil/' + nomeArquivoFotoPerfil;
   } else {
     return './../assets/img/user-default.png';
   }

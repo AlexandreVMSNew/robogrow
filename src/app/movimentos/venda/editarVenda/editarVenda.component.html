@@ -4,13 +4,11 @@
     <label>Razão Social: {{(getCliente()) ? getCliente().razaoSocial : ''}}</label>
   </ng-template>
 
-  <a role="button" style="font-weight: normal;font-size:20px;" [popover]="myPopover"
+  <a role="button"  [routerLink]="" style="font-weight: normal;font-size:20px;" [popover]="myPopover"
     popoverTitle="Informações do Cliente" popoverPlacement="rigth"
     (click)="abrirTemplateModal(editarClienteComponent, venda.clientesId)" triggers="mouseenter:mouseleave">
     {{(getCliente()) ? getCliente().nomeFantasia : ''}}
   </a>
-
-  <i class="fa fa-info-circle"></i>
 </div>
 <hr width="100%">
 

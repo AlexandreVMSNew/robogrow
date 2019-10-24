@@ -6,6 +6,7 @@ import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
 import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/editarCliente.component';
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 @Component({
   selector: 'app-venda',
   templateUrl: './venda.component.html',
@@ -44,6 +45,7 @@ export class VendaComponent implements OnInit, AfterViewInit {
   componentModal: any;
 
   constructor(private toastr: ToastrService,
+              private spinnerService: SpinnerService,
               private permissaoService: PermissaoService,
               private vendaService: VendaService,
               private templateModalService: TemplateModalService) { }
@@ -53,11 +55,16 @@ export class VendaComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.permissaoService.getPermissoesByFormulario(
       Object.assign({formulario: 'VENDA'})).subscribe((_PERMISSOES: Permissao[]) => {
       this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
       this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
       this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
+      this.spinnerService.alterarSpinnerStatus(false);
+    }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
+      console.log(error.error);
     });
   }
 
@@ -104,11 +111,14 @@ export class VendaComponent implements OnInit, AfterViewInit {
   }
 
   getVendas() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.vendaService.getVenda().subscribe(
       (_VENDAS: Venda[]) => {
       this.vendas = _VENDAS;
       this.vendasFiltro = this.filtrarVendas(this.filtroTexto);
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar VendaS: ${error.error}`);
     });

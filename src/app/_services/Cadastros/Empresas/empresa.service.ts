@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class EmpresaService {
 
-  baseURL = InfoAPI.URL + '/api/empresas';
+  baseURL = InfoAPI.URL + '/empresas';
   empresaTemplate = false;
   constructor(private http: HttpClient) { }
 

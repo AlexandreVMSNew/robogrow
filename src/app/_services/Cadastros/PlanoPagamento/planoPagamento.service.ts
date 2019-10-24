@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class PlanoPagamentoService {
 
-baseURL = InfoAPI.URL + '/api/planopagamento';
+baseURL = InfoAPI.URL + '/planopagamento';
 constructor(private http: HttpClient) { }
 
 getPlanoPagamento(): Observable<PlanoPagamento[]> {

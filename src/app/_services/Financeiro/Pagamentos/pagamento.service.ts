@@ -10,7 +10,7 @@ import { PagamentoParcelas } from 'src/app/_models/Financeiro/Pagamentos/Pagamen
 })
 export class PagamentoService {
 
-  baseURL = InfoAPI.URL + '/api/pagamentos';
+  baseURL = InfoAPI.URL + '/pagamentos';
   detalharPagamento = false;
   templatePagamento = false;
 

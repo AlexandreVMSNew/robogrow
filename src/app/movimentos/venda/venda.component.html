@@ -52,7 +52,7 @@
               <label>Razão Social: {{venda.clientes.razaoSocial}}</label>
             </ng-template>
 
-            <a role="button" [popover]="myPopover" popoverTitle="Informações do Cliente" popoverPlacement="top"
+            <a role="button" [routerLink]=""  [popover]="myPopover" popoverTitle="Informações do Cliente" popoverPlacement="top"
               (click)="abrirTemplateModal(editarClienteComponent, venda.clientesId)" triggers="mouseenter:mouseleave">
               {{ venda.clientes.nomeFantasia }}
             </a>

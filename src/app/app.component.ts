@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IdeiaService } from './_services/Cadastros/Ideias/ideia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -17,6 +17,8 @@ import { Permissao } from './_models/Permissoes/permissao';
 import { SidebarService } from './sidebar/sidebar.service';
 import { PublicacaoService } from './_services/Publicacoes/publicacao.service';
 import { VendaService } from './_services/Movimentos/Venda/venda.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerService } from './_services/Uteis/Spinner/spinner.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,7 +31,7 @@ import { VendaService } from './_services/Movimentos/Venda/venda.service';
     ])
   ]
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
 
   title = 'VirtualWeb';
   ideia: Ideia;
@@ -129,6 +131,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(private ideiaService: IdeiaService,
               private fb: FormBuilder,
+              private spinner: NgxSpinnerService,
+              private spinnerService: SpinnerService,
               private localeService: BsLocaleService,
               private toastr: ToastrService,
               private socketService: SocketService,
@@ -140,6 +144,13 @@ export class AppComponent implements OnInit, AfterViewInit {
               private sidebarService: SidebarService,
               private publicacaoService: PublicacaoService,
               private vendaService: VendaService) {
+    this.spinnerService.spinnerStatus.subscribe((status: boolean) => {
+      if (status === true) {
+        this.spinner.show();
+      } else {
+        this.spinner.hide();
+      }
+    });
     this.localeService.use('pt-br');
     this.menus = sidebarService.getMenuList();
   }
@@ -197,8 +208,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     return this.permissoes.filter(c => c.component === component)[0];
   }
 
-  ngAfterViewInit() {
+  carregarPermissoes() {
     if (this.logou === true) {
+      this.spinnerService.alterarSpinnerStatus(true);
       this.permissaoService.getPermissoes().subscribe((_PERMISSOES: Permissao[]) => {
         this.filtrarPermissao('Permissões').listar =
         this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PERMISSOES' && c.acao === 'LISTAR')[0]);
@@ -260,7 +272,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
         this.filtrarPermissao('Relatórios Venda').listar =
         this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'RELATÓRIOS VENDA' && c.acao === 'LISTAR')[0]);
-
+        this.spinnerService.alterarSpinnerStatus(false);
+      }, error => {
+        this.spinnerService.alterarSpinnerStatus(false);
+        console.log(error.error);
       });
     }
   }
@@ -283,7 +298,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (this.logou === false) {
         this.logou = true;
         this.sidebar = 'sidebar-open';
-        this.ngAfterViewInit();
+        this.carregarPermissoes();
       }
       return true;
     } else {
@@ -330,11 +345,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   getNotificacoes() {
+    this.spinnerService.alterarSpinnerStatus(true);
     this.notificacaoService.getNotificacoesByUsuarioId(this.idUsuario).subscribe(
       (_NOTIFICACOES: Notificacao[]) => {
       this.notificacoes = _NOTIFICACOES;
       this.qtdNotificacoes = _NOTIFICACOES.length;
+      this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
+      this.spinnerService.alterarSpinnerStatus(false);
       this.toastr.error(`Erro ao tentar carregar notificacoes: ${error}`);
     });
   }
