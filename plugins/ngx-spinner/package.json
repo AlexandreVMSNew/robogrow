@@ -3,7 +3,7 @@
   "_id": "ngx-spinner@8.0.3",
   "_inBundle": false,
   "_integrity": "sha512-2yiNDqY8jMSjRgYZEb6ubeOpvE2vzRndoPXj0FRINVjfuBioy501t+VwA99SKNbSHwVDa2plEuY7X3o4dbG1cQ==",
-  "_location": "/ngx-spinner",
+  "_location": "plugins/ngx-spinner",
   "_phantomChildren": {},
   "_requested": {
     "type": "tag",
