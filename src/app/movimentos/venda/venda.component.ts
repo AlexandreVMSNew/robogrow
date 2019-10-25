@@ -40,7 +40,7 @@ export class VendaComponent implements OnInit, AfterViewInit {
   paginaAtual = 1;
   totalRegistros = 0; number;
 
-  templateModalService = new TemplateModalService();
+  templateModalClienteService = new TemplateModalService();
   editarClienteComponent = EditarClienteComponent;
   inputs: any;
   componentModal: any;
@@ -124,14 +124,14 @@ export class VendaComponent implements OnInit, AfterViewInit {
     });
   }
 
-  abrirTemplateModal(component, clienteId: number) {
+  abrirTemplateModalCliente(component, clienteId: number) {
     this.componentModal = component;
     this.inputs = Object.assign({idCliente: clienteId});
-    this.templateModalService.setTemplateModalStatus(true);
+    this.templateModalClienteService.setTemplateModalStatus(true);
   }
 
-  getTemplateModal() {
-    return this.templateModalService.getTemplateModalStatus();
+  getTemplateModalCliente() {
+    return this.templateModalClienteService.getTemplateModalStatus();
   }
 
   getVendaConfig() {

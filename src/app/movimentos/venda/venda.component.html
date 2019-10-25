@@ -53,7 +53,7 @@
             </ng-template>
 
             <a role="button" [routerLink]=""  [popover]="myPopover" popoverTitle="Informações do Cliente" popoverPlacement="top"
-              (click)="abrirTemplateModal(editarClienteComponent, venda.clientesId)" triggers="mouseenter:mouseleave">
+              (click)="abrirTemplateModalCliente(editarClienteComponent, venda.clientesId)" triggers="mouseenter:mouseleave">
               {{ venda.clientes.nomeFantasia }}
             </a>
           </td>
@@ -104,6 +104,7 @@
   </div>
 
 </div>
-<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="80"
+<app-template-modal *ngIf="this.getTemplateModalCliente() == true" [templateModalService]="templateModalClienteService"
+  [component]="this.componentModal" [width]="80"
   [inputs]="this.inputs"></app-template-modal>
 <app-config-venda *ngIf="getVendaConfig() == true"></app-config-venda>
