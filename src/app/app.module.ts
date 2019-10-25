@@ -108,6 +108,7 @@ import { DateInputComponent } from './_services/Uteis/DateInput/DateInput.compon
 
 import { GraficoBarChartComponent } from './Uteis/graficoBarChart/graficoBarChart.component';
 import { GraficoPieChartComponent } from './Uteis/graficoPieChart/graficoPieChart.component';
+import { GraficoLineChartComponent } from './Uteis/graficoLineChart/graficoLineChart.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
@@ -190,6 +191,7 @@ defineLocale('pt-br', ptBrLocale);
       DateInputComponent,
       GraficoBarChartComponent,
       GraficoPieChartComponent,
+      GraficoLineChartComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,

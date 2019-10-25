@@ -13,6 +13,7 @@ import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 import { EditarVendaComponent } from '../editarVenda/editarVenda.component';
+import { RelatorioVendasDetalhadas } from 'src/app/_models/Movimentos/RelatorioVendas/RelatorioVendasDetalhadas';
 
 @Component({
   selector: 'app-relatorio-venda',
@@ -35,6 +36,9 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
       backgroundColor: [],
     },
   ];
+
+  lineChartData: ChartDataSets[];
+  lineChartLabels: Label[];
 
   barChartData: ChartDataSets[];
   barChartLabels: Label[];
@@ -72,6 +76,9 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
 
   carregarInformacoes() {
 
+    this.lineChartData = [];
+    this.lineChartLabels = [];
+
     this.pieChartData = [];
     this.pieChartLabels = [];
     this.pieChartColors[0].backgroundColor = [];
@@ -79,6 +86,14 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
     this.barChartLabels = [];
     const barChartArrayReceitas = [];
     const barChartArrayDespesas = [];
+    const lineChartArrayReceitas = [];
+    const lineChartArrayDespesas = [];
+
+    this.relatorioVendas.vendasDetalhadas.reverse().forEach((vendaDetalhada: RelatorioVendasDetalhadas) => {
+      lineChartArrayReceitas.push(vendaDetalhada.valorBrutoReceitas);
+      lineChartArrayDespesas.push((vendaDetalhada.valorBrutoDespesasComissao + vendaDetalhada.valorBrutoDespesasGastos));
+      this.lineChartLabels.push(vendaDetalhada.numeroAno);
+    });
 
     this.pieChartColors[0].backgroundColor = ['#6c757d', ' #ffc107', '#17a2b8', '#007bff', '#00a65a', '#dc3545'];
     this.pieChartLabels = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
@@ -99,6 +114,10 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
       });
     }
 
+    this.lineChartData = [
+      { data: lineChartArrayReceitas, label: 'Receitas' },
+      { data: lineChartArrayDespesas, label: 'Despesas' }
+    ];
     this.barChartData =  [
       { data: barChartArrayReceitas, label: 'Receitas', backgroundColor: 'rgba(0,192,239,1)', hoverBackgroundColor: 'rgba(0,192,239,1)',
         borderColor: 'rgba(0,192,239,1)'},

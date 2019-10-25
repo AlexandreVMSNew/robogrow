@@ -50,6 +50,13 @@
 
       </tab>
       <tab heading="Detalhado" style="margin-top: 10px;">
+        <div class="row" *ngIf="this.lineChartData && this.lineChartLabels">
+            <div class="col-md-12">
+              <app-grafico-line-chart 
+              [lineChartData]="this.lineChartData" [lineChartLabels]="this.lineChartLabels">
+              </app-grafico-line-chart>
+          </div>
+        </div>
         <table style="margin-top: 15px;" class="table table-striped table-bordered mt-4">
           <thead class="thead-light">
             <tr>
