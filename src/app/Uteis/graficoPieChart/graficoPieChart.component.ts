@@ -50,7 +50,6 @@ export class GraficoPieChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.pieChartLabels);
   }
 
 }

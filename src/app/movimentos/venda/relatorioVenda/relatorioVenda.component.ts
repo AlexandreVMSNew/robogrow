@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
@@ -21,7 +21,7 @@ import { RelatorioVendasDetalhadas } from 'src/app/_models/Movimentos/RelatorioV
   styleUrls: ['./relatorioVenda.component.css']
 })
 
-export class RelatorioVendaComponent implements OnInit, AfterViewInit {
+export class RelatorioVendaComponent implements OnInit, AfterViewChecked {
 
   visualizarRelatorio = false;
 
@@ -56,7 +56,8 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
               private spinnerService: SpinnerService,
               public permissaoService: PermissaoService,
               private dataService: DataService,
-              public vendaService: VendaService) { }
+              public vendaService: VendaService,
+              private changeDetectionRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.dataPeriodo = Object.assign(
@@ -70,9 +71,10 @@ export class RelatorioVendaComponent implements OnInit, AfterViewInit {
     this.getVendas(this.dataPeriodo);
   }
 
-  ngAfterViewInit() {
-
+  ngAfterViewChecked() {
+    this.changeDetectionRef.detectChanges();
   }
+
 
   carregarInformacoes() {
 

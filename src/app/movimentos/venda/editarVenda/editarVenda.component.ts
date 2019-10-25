@@ -205,8 +205,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.venda = null;
       this.venda = Object.assign({}, _VENDA);
 
-      console.log(this.venda);
-
       this.venda = Object.assign(this.venda, {
         dataNegociacao: this.dataService.getDataPTBR(this.venda.dataNegociacao),
         dataFinalizado: this.dataService.getDataPTBR(this.venda.dataFinalizado)
