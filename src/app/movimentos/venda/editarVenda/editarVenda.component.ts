@@ -61,6 +61,13 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   cadastrarValorRealizado = false;
   editarCampoDataNegociacao = false;
   editarCampoStatus = false;
+  editarCampoEmpresa = false;
+  editarCampoVendedor = false;
+  editarCampoCliente = false;
+  editarCampoProduto = false;
+  editarCampoPlanoPagamento = false;
+  editarCampoObservacoes = false;
+  editarCampoDataFinalizado = false;
   visualizarAbaResultado = false;
   visualizarAbaFinanceiro = false;
   gerarPedido = false;
@@ -171,11 +178,32 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       const permissaoValorRealizado = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'VALOR REALIZADO');
       this.cadastrarValorRealizado = (permissaoValorRealizado !== null ) ? permissaoValorRealizado.cadastrar : false;
 
+      const permissaoCampoStatus = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO STATUS');
+      this.editarCampoStatus = (permissaoCampoStatus !== null ) ? permissaoCampoStatus.editar : false;
+
       const permissaoCampoDataNegociacao = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO DATA NEGOCIAÇÃO');
       this.editarCampoDataNegociacao = (permissaoCampoDataNegociacao !== null ) ? permissaoCampoDataNegociacao.editar : false;
 
-      const permissaoCampoStatus = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO STATUS');
-      this.editarCampoStatus = (permissaoCampoStatus !== null ) ? permissaoCampoStatus.editar : false;
+      const permissaoCampoEmpresa = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO EMPRESA');
+      this.editarCampoEmpresa = (permissaoCampoEmpresa !== null ) ? permissaoCampoEmpresa.editar : false;
+
+      const permissaoCampoVendedor = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO VENDEDOR');
+      this.editarCampoVendedor = (permissaoCampoVendedor !== null ) ? permissaoCampoVendedor.editar : false;
+
+      const permissaoCampoCliente = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO CLIENTE');
+      this.editarCampoCliente = (permissaoCampoCliente !== null ) ? permissaoCampoCliente.editar : false;
+
+      const permissaoCampoProduto = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO PRODUTO');
+      this.editarCampoProduto = (permissaoCampoProduto !== null ) ? permissaoCampoProduto.editar : false;
+
+      const permissaoCampoPlanoPagamento = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO PLANO DE PAGAMENTO');
+      this.editarCampoPlanoPagamento = (permissaoCampoPlanoPagamento !== null ) ? permissaoCampoPlanoPagamento.editar : false;
+
+      const permissaoCampoObservacoes = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO OBSERVAÇÕES');
+      this.editarCampoObservacoes = (permissaoCampoObservacoes !== null ) ? permissaoCampoObservacoes.editar : false;
+
+      const permissaoCampoDataFinalizado = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO DATA FINALIZADO');
+      this.editarCampoDataFinalizado = (permissaoCampoDataFinalizado !== null ) ? permissaoCampoDataFinalizado.editar : false;
 
       const permissaoAbaResultado = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'ABA RESULTADO');
       this.visualizarAbaResultado = (permissaoAbaResultado !== null ) ? permissaoAbaResultado.visualizar : false;
@@ -195,7 +223,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   configurarAlteracoes() {
-    if (this.editar === true || this.statusSelecionado === 'EM NEGOCIAÇÃO') {
+
+    if (this.editar === true && this.statusSelecionado === 'EM NEGOCIAÇÃO') {
       this.cadastroForm.controls.empresasId.enable(); this.cadastroForm.controls.vendedorId.enable();
       this.cadastroForm.controls.clientesId.enable(); this.cadastroForm.controls.produtoId.enable();
       this.cadastroForm.controls.planoPagamentoId.enable();
@@ -205,11 +234,32 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.cadastroForm.controls.planoPagamentoId.disable();
     }
 
-    (this.editarCampoDataNegociacao === true || this.statusSelecionado === 'EM NEGOCIAÇÃO') ?
-      this.cadastroForm.controls.dataNegociacao.enable() : this.cadastroForm.controls.dataNegociacao.disable();
-
     (this.editarCampoStatus === true || this.autorizadoGerarPedido === true) ?
-      this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
+    this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
+
+    (this.editarCampoDataNegociacao === true && this.statusSelecionado === 'EM NEGOCIAÇÃO') ?
+    this.cadastroForm.controls.dataNegociacao.enable() : this.cadastroForm.controls.dataNegociacao.disable();
+
+    (this.editarCampoEmpresa === true) ?
+    this.cadastroForm.controls.empresasId.enable() : this.cadastroForm.controls.empresasId.disable();
+
+    (this.editarCampoVendedor === true) ?
+    this.cadastroForm.controls.vendedorId.enable() : this.cadastroForm.controls.vendedorId.disable();
+
+    (this.editarCampoCliente === true) ?
+    this.cadastroForm.controls.clientesId.enable() : this.cadastroForm.controls.clientesId.disable();
+
+    (this.editarCampoProduto === true) ?
+    this.cadastroForm.controls.produtoId.enable() : this.cadastroForm.controls.produtoId.disable();
+
+    (this.editarCampoPlanoPagamento === true) ?
+    this.cadastroForm.controls.planoPagamentoId.enable() : this.cadastroForm.controls.planoPagamentoId.disable();
+
+    (this.editarCampoObservacoes === true) ?
+    this.cadastroForm.controls.observacoes.enable() : this.cadastroForm.controls.observacoes.disable();
+
+    (this.editarCampoDataFinalizado === true) ?
+    this.cadastroForm.controls.dataFinalizado.enable() : this.cadastroForm.controls.dataFinalizado.disable();
 
     this.spinnerService.alterarSpinnerStatus(false);
   }
