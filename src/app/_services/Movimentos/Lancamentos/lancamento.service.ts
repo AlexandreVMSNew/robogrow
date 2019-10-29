@@ -31,12 +31,12 @@ export class LancamentoService {
     return this.http.get<Lancamentos>(`${this.baseURL}/idUltimoLancamento`);
   }
 
-  novoLancamento(lancamento: Lancamentos) {
-    return this.http.post(`${this.baseURL}/novo`, lancamento);
+  cadastrarLancamento(lancamento: Lancamentos) {
+    return this.http.post(`${this.baseURL}/cadastrar`, lancamento);
   }
 
-  novosLancamentos(lancamento: Lancamentos[]) {
-    return this.http.post(`${this.baseURL}/novos`, lancamento);
+  cadastrarsLancamentos(lancamento: Lancamentos[]) {
+    return this.http.post(`${this.baseURL}/cadastrars`, lancamento);
   }
 
 

@@ -7,7 +7,7 @@
           Pagamentos da Venda ({{produtoItem.descricao}})
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplate(templatePagamentosVenda)"
+        <button type="button" class="close float-right" (click)="fecharTemplate(templatePagamentosVenda)"
           aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -17,9 +17,9 @@
         <div class="box box-primary">
           <div class="box-header with-border">
             <div class="row">
-              <div style="margin-right: 15px;" class="pull-right" *ngIf="this.venda.status != 'FINALIZADO'">
+              <div style="margin-right: 15px;" class="float-right" *ngIf="this.venda.status != 'FINALIZADO'">
                 <a (click)="abrirTemplatePagamento()" class="btn btn-success">
-                  <i class="fa fa-plus-circle"></i>&nbsp; Novo Pagamento
+                  <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Pagamento
                 </a>
               </div>
             </div>

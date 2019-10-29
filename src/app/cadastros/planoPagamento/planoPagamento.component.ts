@@ -9,6 +9,7 @@ import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
 import { PlanoContaService } from 'src/app/_services/Cadastros/PlanosConta/planoConta.service';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-plano-pagamento',
@@ -17,9 +18,12 @@ import { Permissao } from 'src/app/_models/Permissoes/permissao';
 })
 export class PlanoPagamentoComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
-  novo = true;
-  editar = true;
-  visualizar = true;
+  formularioComponent = 'PLANOS DE PAGAMENTO';
+  cadastrar = false;
+  editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
 
   cadastroForm: FormGroup;
 
@@ -56,13 +60,19 @@ export class PlanoPagamentoComponent implements OnInit, AfterViewChecked, AfterV
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'PLANO DE PAGAMENTO'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
     });
   }
+
 
   ngAfterViewChecked() {
     this.changeDetectionRef.detectChanges();
@@ -90,7 +100,7 @@ export class PlanoPagamentoComponent implements OnInit, AfterViewChecked, AfterV
 
   abrirTemplatePlanoPagamento(modo: string, planoPagamento: PlanoPagamento, template: any) {
     this.modo = modo;
-    if (modo === 'NOVO') {
+    if (modo === 'CADASTRAR') {
       this.cadastroForm.reset();
     } else if (modo === 'EDITAR') {
       this.carregarPlanoPagamento(planoPagamento);
@@ -103,7 +113,7 @@ export class PlanoPagamentoComponent implements OnInit, AfterViewChecked, AfterV
        formaPagamentoId: this.formaPagamentoIdSelecionado,
        planoContasId: this.planoContasIdSelecionado
       });
-    this.planoPagamentoService.novoPlanoPagamento(this.planoPagamento).subscribe(
+    this.planoPagamentoService.cadastrarPlanoPagamento(this.planoPagamento).subscribe(
       () => {
         this.getPlanoPagamento();
         template.hide();

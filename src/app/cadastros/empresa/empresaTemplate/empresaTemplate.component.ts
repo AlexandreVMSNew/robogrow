@@ -11,6 +11,7 @@ import { EstadoService } from 'src/app/_services/Cadastros/Uteis/estado.service'
 import { Cidade } from 'src/app/_models/Cadastros/Uteis/Cidade';
 import { Estado } from 'src/app/_models/Cadastros/Uteis/Estado';
 import { InfoAPI } from 'src/app/_models/Info/infoAPI';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-empresa-template',
@@ -22,8 +23,13 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
   @Input() idEmpresa: number;
   @ViewChild('templateEmpresa') templateEmpresa: any;
 
-  novo = false;
+  formularioComponent = 'EMPRESAS';
+  cadastrar = false;
   editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
+
 
   cadastroEmpresa: FormGroup;
   empresa: Empresa;
@@ -74,10 +80,16 @@ export class EmpresaTemplateComponent implements OnInit, AfterViewInit, AfterVie
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'EMPRESAS'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
     });
   }
 

@@ -19,8 +19,8 @@ getPlanoPagamento(): Observable<PlanoPagamento[]> {
 getPlanoPagamentoById(id: number): Observable<PlanoPagamento> {
   return this.http.get<PlanoPagamento>(`${this.baseURL}/${id}`);
 }
-novoPlanoPagamento(planoPagamento: PlanoPagamento) {
-  return this.http.post(`${this.baseURL}/novo`, planoPagamento);
+cadastrarPlanoPagamento(planoPagamento: PlanoPagamento) {
+  return this.http.post(`${this.baseURL}/cadastrar`, planoPagamento);
 }
 
 editarPlanoPagamento(planoPagamento: PlanoPagamento) {

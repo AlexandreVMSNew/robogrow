@@ -22,7 +22,7 @@ getIdeiasByUsuarioId(usuarioId: number): Observable<Ideia[]> {
 }
 
 novaIdeia(ideia: Ideia) {
-  return this.http.post(`${this.baseURL}/novo`, ideia);
+  return this.http.post(`${this.baseURL}/cadastrar`, ideia);
 }
 
 

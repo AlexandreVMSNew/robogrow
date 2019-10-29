@@ -39,7 +39,7 @@
             </td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">
-              <a *ngIf="this.editar == true || this.visualizar == true" (click)="abrirTemplateAutorizacao(autorizacao.id)" tooltip="Editar/Perfil"
+              <a [routerLink]="" *ngIf="this.editar == true || this.visualizar == true" (click)="abrirTemplateAutorizacao(autorizacao.id)" tooltip="Editar/Perfil"
                 class="btn btn-sm btn-primary">
                 <i class="fa fa-edit"></i>
               </a>

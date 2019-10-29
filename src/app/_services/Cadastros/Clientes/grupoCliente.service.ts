@@ -20,7 +20,7 @@ constructor(private http: HttpClient) { }
     return this.http.get<Cliente[]>(`${this.baseURL}/clientes/grupo/${GrupoId}`);
   }
 
-  novoGrupo(grupo: ClienteGrupos) {
-    return this.http.post(`${this.baseURL}/novo`, grupo);
+  cadastrarGrupo(grupo: ClienteGrupos) {
+    return this.http.post(`${this.baseURL}/cadastrar`, grupo);
   }
 }

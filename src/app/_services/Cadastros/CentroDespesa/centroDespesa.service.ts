@@ -19,8 +19,8 @@ export class CentroDespesaService {
   getCentroDespesaById(id: number): Observable<CentroDespesa> {
     return this.http.get<CentroDespesa>(`${this.baseURL}/${id}`);
   }
-  novoCentroDespesa(centroDespesa: CentroDespesa) {
-    return this.http.post(`${this.baseURL}/novo`, centroDespesa);
+  cadastrarCentroDespesa(centroDespesa: CentroDespesa) {
+    return this.http.post(`${this.baseURL}/cadastrar`, centroDespesa);
   }
 
   editarCentroDespesa(centroDespesa: CentroDespesa) {

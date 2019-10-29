@@ -36,14 +36,14 @@ export class PagamentoService {
   getPagamentosById(id: number): Observable<Pagamentos> {
     return this.http.get<Pagamentos>(`${this.baseURL}/${id}`);
   }
-  novoPagamento(pagamento: Pagamentos) {
-    return this.http.post(`${this.baseURL}/novo`, pagamento);
+  cadastrarPagamento(pagamento: Pagamentos) {
+    return this.http.post(`${this.baseURL}/cadastrar`, pagamento);
   }
   editarPagamento(pagamento: Pagamentos) {
     return this.http.put(`${this.baseURL}/editar/${pagamento.id}`, pagamento);
   }
-  novoPagamentoParcelas(pagamentoParcelas: PagamentoParcelas[]) {
-    return this.http.post(`${this.baseURL}/parcelas/novo`, pagamentoParcelas);
+  cadastrarPagamentoParcelas(pagamentoParcelas: PagamentoParcelas[]) {
+    return this.http.post(`${this.baseURL}/parcelas/cadastrar`, pagamentoParcelas);
   }
 
   editarPagamentoParcelas(pagamentoParcelas: PagamentoParcelas[]) {

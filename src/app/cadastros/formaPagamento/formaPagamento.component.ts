@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FormaPagamentoService } from 'src/app/_services/Cadastros/FormaPagamento/formaPagamento.service';
 import { FormaPagamento } from 'src/app/_models/Cadastros/FormaPagamento/FormaPagamento';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
-import { Permissao } from 'src/app/_models/Permissoes/permissao';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-forma-pagamento',
@@ -12,9 +12,13 @@ import { Permissao } from 'src/app/_models/Permissoes/permissao';
 })
 export class FormaPagamentoComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
-  novo = true;
-  editar = true;
-  visualizar = true;
+  formularioComponent = 'FORMAS DE PAGAMENTO';
+  cadastrar = false;
+  editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
+
 
   cadastroForm: FormGroup;
 
@@ -39,11 +43,16 @@ export class FormaPagamentoComponent implements OnInit, AfterViewChecked, AfterV
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'FORMA DE PAGAMENTO'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
     });
   }
 
@@ -66,7 +75,7 @@ export class FormaPagamentoComponent implements OnInit, AfterViewChecked, AfterV
 
   abrirTemplateFormaPagamento(modo: string, formaPagamento: FormaPagamento, template: any) {
     this.modo = modo;
-    if (modo === 'NOVO') {
+    if (modo === 'CADASTRAR') {
       this.cadastroForm.reset();
     } else if (modo === 'EDITAR') {
       this.carregarFormaPagamento(formaPagamento);
@@ -76,7 +85,7 @@ export class FormaPagamentoComponent implements OnInit, AfterViewChecked, AfterV
 
   cadastrarFormaPagamento(template: any) {
     this.formaPagamento = Object.assign(this.cadastroForm.value, {id: 0});
-    this.formaPagamentoService.novoFormaPagamento(this.formaPagamento).subscribe(
+    this.formaPagamentoService.cadastrarFormaPagamento(this.formaPagamento).subscribe(
       () => {
         this.getFormaPagamento();
         template.hide();

@@ -100,7 +100,7 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
     );
     this.pesquisarRetorno(this.dataPeriodo);
 
-    this.getSocket('NovoRetorno');
+    this.getSocket('CadastrarRetorno');
     this.getSocket('StatusRetornoAlterado');
   }
 
@@ -108,9 +108,9 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
     this.socketService.getSocket(evento).subscribe((info: any) => {
       if (info === null) {
 
-        if (evento === 'NovoRetorno') {
+        if (evento === 'CadastrarRetorno') {
           const  notification = new Notification(`Olá, ${this.permissaoService.getUsuario()} !`, {
-            body: 'Novo retorno!'
+            body: 'Cadastrar retorno!'
           });
         }
         this.pesquisarRetorno(this.dataPeriodo);
@@ -141,7 +141,7 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
        usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: newStatus});
 
     this.retornoService.editarRetorno(this.retorno).subscribe(() => {
-      this.retornoService.novoLog(retornoLog).subscribe(
+      this.retornoService.cadastrarLog(retornoLog).subscribe(
         () => {
           this.spinnerService.alterarSpinnerStatus(false);
           this.toastr.success(`Status alterado para: ${newStatus}!`);
@@ -168,7 +168,7 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
        usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: newStatus});
     this.retornoService.editarRetorno(this.retorno).subscribe(
       () => {
-        this.retornoService.novoLog(retornoLog).subscribe(
+        this.retornoService.cadastrarLog(retornoLog).subscribe(
           () => {
             this.spinnerService.alterarSpinnerStatus(false);
             this.toastr.success(`Retorno Finalizado!`);

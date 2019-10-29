@@ -1,6 +1,6 @@
 <h2>Pessoa</h2>
 <hr width="100%">
-<div class="box box-primary">
+<div class="box box-primary" *ngIf="this.editar == true || this.visualizar == true">
   <div class="box-header with-border">
     <form [formGroup]="cadastroForm">
       <tabset>
@@ -170,9 +170,13 @@
       </tabset>
     </form>
   </div>
-</div>
-<button *ngIf="this.editar == true"
+  
+  <button *ngIf="this.editar == true"
   style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="salvarAlteracoes()"
   tooltip="Salvar" class="btn btn-lg btn-primary">
   &nbsp;Salvar Alterações
-</button>
+  </button>
+</div>
+<div *ngIf="this.editar == false && this.visualizar">
+  Você não tem permissão.
+</div>

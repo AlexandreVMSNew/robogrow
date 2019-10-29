@@ -30,22 +30,22 @@ import { AppComponent } from './app.component';
 import { UsuarioComponent } from './cadastros/usuario/usuario.component';
 import { LoginComponent } from './cadastros/usuario/login/login.component';
 import { EditarUsuarioComponent } from './cadastros/usuario/editarUsuario/editarUsuario.component';
-import { NovoUsuarioComponent } from './cadastros/usuario/novoUsuario/novoUsuario.component';
+import { CadastrarUsuarioComponent } from './cadastros/usuario/cadastrarUsuario/cadastrarUsuario.component';
 import { EditarSenhaUsuarioComponent } from './cadastros/usuario/editarSenhaUsuario/editarSenhaUsuario.component';
 
 import { ClienteComponent } from './cadastros/cliente/cliente.component';
-import { NovoClienteComponent } from './cadastros/cliente/novoCliente/novoCliente.component';
+import { CadastrarClienteComponent } from './cadastros/cliente/cadastrarCliente/cadastrarCliente.component';
 import { EditarClienteComponent } from './cadastros/cliente/editarCliente/editarCliente.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AtendimentoComponent } from './atendimento/atendimento.component';
 import { RetornoComponent } from './atendimento/retorno/retorno.component';
-import { NovoRetornoComponent } from './atendimento/retorno/novoRetorno/novoRetorno.component';
+import { CadastrarRetornoComponent } from './atendimento/retorno/cadastrarRetorno/cadastrarRetorno.component';
 import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
 
 import { VendaComponent } from './movimentos/venda/venda.component';
-import { NovoVendaComponent } from './movimentos/venda/novoVenda/novoVenda.component';
+import { CadastrarVendaComponent } from './movimentos/venda/cadastrarVenda/cadastrarVenda.component';
 import { EditarVendaComponent } from './movimentos/venda/editarVenda/editarVenda.component';
 import { ResultadoVendaComponent } from './movimentos/venda/editarVenda/resultadoVenda/resultadoVenda.component';
 import { PagamentosVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/pagamentosVenda/pagamentosVenda.component';
@@ -58,7 +58,7 @@ import { PrevisaoVendaComponent } from './movimentos/venda/editarVenda/financeir
 import { PedidoVendaComponent } from './movimentos/venda/editarVenda/pedidoVenda/pedidoVenda.component';
 
 import { ProdutoComponent } from './cadastros/produto/produto.component';
-import { NovoProdutoComponent } from './cadastros/produto/novoProduto/novoProduto.component';
+import { CadastrarProdutoComponent } from './cadastros/produto/cadastrarProduto/cadastrarProduto.component';
 import { EditarProdutoComponent } from './cadastros/produto/editarProduto/editarProduto.component';
 import { CheckListProdutoComponent } from './cadastros/produto/editarProduto/checkListProduto/checkListProduto.component';
 import { TemplateProdutoItensComponent } from './cadastros/produto/editarProduto/templateProdutoItens/templateProdutoItens.component';
@@ -72,7 +72,7 @@ import { FormaPagamentoComponent } from './cadastros/formaPagamento/formaPagamen
 import { PlanoPagamentoComponent } from './cadastros/planoPagamento/planoPagamento.component';
 
 import { PessoaComponent } from './cadastros/pessoa/pessoa.component';
-import { NovoPessoaComponent } from './cadastros/pessoa/novoPessoa/novoPessoa.component';
+import { CadastrarPessoaComponent } from './cadastros/pessoa/cadastrarPessoa/cadastrarPessoa.component';
 import { EditarPessoaComponent } from './cadastros/pessoa/editarPessoa/editarPessoa.component';
 
 import { RecebimentoComponent } from './financeiro/recebimento/recebimento.component';
@@ -91,6 +91,9 @@ import { ChequePreComponent } from './cadastros/chequePre/chequePre.component';
 import { ChequePreTemplateComponent } from './cadastros/chequePre/chequePreTemplate/chequePreTemplate.component';
 
 import { PermissaoComponent } from './configuracoes/permissao/permissao.component';
+import { EditarPermissaoComponent } from './configuracoes/permissao/editarPermissao/editarPermissao.component';
+// tslint:disable-next-line:max-line-length
+import { TemplatePermissaoObjetoComponent } from './configuracoes/permissao/editarPermissao/templatePermissaoObjeto/templatePermissaoObjeto.component';
 
 import { EmpresaComponent } from './cadastros/empresa/empresa.component';
 import { EmpresaTemplateComponent } from './cadastros/empresa/empresaTemplate/empresaTemplate.component';
@@ -125,29 +128,34 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
+
 const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
+   entryComponents: [
+      EditarPermissaoComponent,
+      TemplatePermissaoObjetoComponent,
+   ],
    declarations: [
       AppComponent,
       UsuarioComponent,
       LoginComponent,
-      NovoUsuarioComponent,
+      CadastrarUsuarioComponent,
       EditarUsuarioComponent,
       EditarSenhaUsuarioComponent,
       DashboardComponent,
       ClienteComponent,
-      NovoClienteComponent,
+      CadastrarClienteComponent,
       EditarClienteComponent,
       AtendimentoComponent,
       RetornoComponent,
-      NovoRetornoComponent,
+      CadastrarRetornoComponent,
       EditarRetornoComponent,
       PermissaoComponent,
       VendaComponent,
-      NovoVendaComponent,
+      CadastrarVendaComponent,
       EditarVendaComponent,
       ResultadoVendaComponent,
       ConfigVendaComponent,
@@ -159,12 +167,12 @@ defineLocale('pt-br', ptBrLocale);
       PrevisaoVendaComponent,
       PedidoVendaComponent,
       ProdutoComponent,
-      NovoProdutoComponent,
+      CadastrarProdutoComponent,
       EditarProdutoComponent,
       CheckListProdutoComponent,
       TemplateProdutoItensComponent,
       PessoaComponent,
-      NovoPessoaComponent,
+      CadastrarPessoaComponent,
       EditarPessoaComponent,
       PlanoContaComponent,
       CentroDespesaComponent,
@@ -192,6 +200,8 @@ defineLocale('pt-br', ptBrLocale);
       GraficoBarChartComponent,
       GraficoPieChartComponent,
       GraficoLineChartComponent,
+      EditarPermissaoComponent,
+      TemplatePermissaoObjetoComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,

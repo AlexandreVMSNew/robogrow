@@ -24,8 +24,8 @@ export class PlanoContaService {
     return this.http.get<PlanoContas>(`${this.baseURL}/${id}/filhos`);
   }
 
-  novoPlanoConta(planoConta: PlanoContas) {
-    return this.http.post(`${this.baseURL}/novo`, planoConta);
+  cadastrarPlanoConta(planoConta: PlanoContas) {
+    return this.http.post(`${this.baseURL}/cadastrar`, planoConta);
   }
 
   editarPlanoConta(planoConta: PlanoContas) {

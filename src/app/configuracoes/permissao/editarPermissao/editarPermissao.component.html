@@ -1,0 +1,83 @@
+<div *ngIf="this.editar == true || this.visualizar == true">
+  <div class="form-group">
+    <div class="col-md-6">
+      <label>Nível</label>
+      <ng-select [items]="niveis" bindLabel="name" bindValue="id" required (change)="carregarObjetos()"
+        [(ngModel)]="nivelIdSelecionado">
+      </ng-select>
+    </div>
+    <div style="margin-bottom: 10px;" class="float-right">
+      <a [routerLink]="" *ngIf="this.cadastrarObjeto == true"(click)="abrirTemplateModalObjeto(templateObjetoComponent, null)" class="btn btn-success">
+        <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Objeto
+      </a>
+    </div>
+  </div>
+  <table style="margin-top: 15px;" class="table table-striped table-bordered mt-4">
+    <thead class="thead-light">
+      <tr>
+        <th>Objeto</th>
+        <th style="text-align: center;white-space: nowrap;">Cadastrar</th>
+        <th style="text-align: center;white-space: nowrap;">Editar</th>
+        <th style="text-align: center;white-space: nowrap;">Listar</th>
+        <th style="text-align: center;white-space: nowrap;">Visualizar</th>
+        <th style="text-align: center;white-space: nowrap;">Excluir</th>
+        <th style="text-align: center;white-space: nowrap;">Ações</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="permissaoObjetos && permissaoObjetos.length">
+      <tr
+        *ngFor="let po of permissaoObjetos | paginate: { itemsPerPage: 50,currentPage: paginaAtual, totalItems: totalRegistros };">
+        <td>{{ po.objeto }}</td>
+        <td style="text-align: center;white-space: nowrap;">
+          <mat-checkbox color="primary" [value]="po.id" [checked]="po.permissaoAcoes[0].cadastrar"
+            (change)="alterarPermissao(po.id, {cadastrar: $event.checked})">
+          </mat-checkbox>
+        </td>
+        <td style="text-align: center;white-space: nowrap;">
+          <mat-checkbox color="primary" [value]="po.id" [checked]="po.permissaoAcoes[0].editar"
+            (change)="alterarPermissao(po.id, {editar: $event.checked})">
+          </mat-checkbox>
+        </td>
+        <td style="text-align: center;white-space: nowrap;">
+          <mat-checkbox color="primary" [value]="po.id" [checked]="po.permissaoAcoes[0].listar"
+            (change)="alterarPermissao(po.id, {listar: $event.checked})">
+          </mat-checkbox>
+        </td>
+        <td style="text-align: center;white-space: nowrap;">
+          <mat-checkbox color="primary" [value]="po.id" [checked]="po.permissaoAcoes[0].visualizar"
+            (change)="alterarPermissao(po.id, {visualizar: $event.checked})">
+          </mat-checkbox>
+        </td>
+        <td style="text-align: center;white-space: nowrap;">
+          <mat-checkbox color="primary" [value]="po.id" [checked]="po.permissaoAcoes[0].excluir"
+            (change)="alterarPermissao(po.id, {excluir: $event.checked})">
+          </mat-checkbox>
+        </td>
+        <td style="text-align: center;white-space: nowrap;">
+          <a [routerLink]="" *ngIf="this.editarObjeto == true"(click)="abrirTemplateModalObjeto(templateObjetoComponent, po)" class="btn btn-primary"
+            tooltip="Editar/Detalhes" class="btn btn-sm btn-primary">
+            <i class="fa fa-edit"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!permissaoObjetos">
+      <tr colspan="7" class="text-center"></tr>
+      <h4>
+        Nenhum objeto encontrado!
+      </h4>
+    </tfoot>
+  </table>
+
+  <button *ngIf="this.editar == true" style="position:relative;margin-bottom: 15px;" (click)="salvarAlteracoes()" tooltip="Salvar Permissões"
+    class="btn btn-lg btn-primary float-right">
+    &nbsp; Salvar Alterações
+  </button>
+
+</div>
+<div *ngIf="this.editar == false && this.visualizar == false">
+  Você não tem permissão.
+</div>
+<app-template-modal *ngIf="this.getTemplateModalObjeto() == true" [templateModalService]="templateModalObjetoService"
+  [component]="this.componentModal" [width]="35" [inputs]="this.inputs">
+</app-template-modal>

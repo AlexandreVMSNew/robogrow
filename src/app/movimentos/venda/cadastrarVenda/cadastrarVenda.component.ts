@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { ToastrService } from 'ngx-toastr';
@@ -18,12 +18,21 @@ import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPa
 import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
-import { NovoClienteComponent } from 'src/app/cadastros/cliente/novoCliente/novoCliente.component';
+import { CadastrarClienteComponent } from 'src/app/cadastros/cliente/cadastrarCliente/cadastrarCliente.component';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 @Component({
-  selector: 'app-novo-venda',
-  templateUrl: './novoVenda.component.html'
+  selector: 'app-cadastrar-venda',
+  templateUrl: './cadastrarVenda.component.html'
 })
-export class NovoVendaComponent implements OnInit {
+export class CadastrarVendaComponent implements OnInit, AfterViewInit {
+
+  formularioComponent = 'VENDAS';
+  cadastrar = false;
+  editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
 
   cadastroForm: FormGroup;
 
@@ -46,12 +55,13 @@ export class NovoVendaComponent implements OnInit {
   venda: Venda;
 
   templateModalService = new TemplateModalService();
-  novoClienteComponent = NovoClienteComponent;
+  cadastrarClienteComponent = CadastrarClienteComponent;
 
   componentModal: any;
 
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
+              private permissaoService: PermissaoService,
               private toastr: ToastrService,
               private router: Router,
               private clienteService: ClienteService,
@@ -69,6 +79,20 @@ export class NovoVendaComponent implements OnInit {
     this.getVendedores();
     this.getPlanoPagamento();
     this.validarForm();
+  }
+
+  ngAfterViewInit() {
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
+    });
   }
 
   validarForm() {
@@ -89,7 +113,7 @@ export class NovoVendaComponent implements OnInit {
       this.venda = Object.assign(this.cadastroForm.value, {id: 0, status: 'EM NEGOCIAÇÃO',
        dataEmissao: dataAtual, dataHoraUltAlt: dataAtual});
 
-      this.vendaService.novoVenda(this.venda).subscribe(
+      this.vendaService.cadastrarVenda(this.venda).subscribe(
         () => {
           this.vendaService.getIdUltimaVenda().subscribe(
             (_VENDA: Venda) => {
@@ -98,7 +122,7 @@ export class NovoVendaComponent implements OnInit {
               this.produtoVenda = [];
               this.produtoVenda.push(Object.assign({vendaId: IdUltimaVenda, produtosId: this.produtoIdSelecionado}));
 
-              this.vendaService.novoProdutoVenda(this.produtoVenda).subscribe(() => {
+              this.vendaService.cadastrarProdutoVenda(this.produtoVenda).subscribe(() => {
                 this.toastr.success('Cadastrado com sucesso!');
                 this.router.navigate([`/movimentos/vendas/editar/${IdUltimaVenda}`]);
               });

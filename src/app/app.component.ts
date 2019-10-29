@@ -19,6 +19,8 @@ import { PublicacaoService } from './_services/Publicacoes/publicacao.service';
 import { VendaService } from './_services/Movimentos/Venda/venda.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerService } from './_services/Uteis/Spinner/spinner.service';
+import { PermissaoAcoes } from './_models/Permissoes/permissaoAcoes';
+import { PermissaoObjetos } from './_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-root',
@@ -58,7 +60,7 @@ export class AppComponent implements OnInit {
     },
     {
       component: 'Permissões',
-      listar: false
+      listar: true
     },
     {
       component: 'Venda',
@@ -171,7 +173,7 @@ export class AppComponent implements OnInit {
       this.getSocket('RespAutorizacaoVendaGerarPedido');
       this.getSocket('NovaObservacao');
       this.getSocket('NovaPublicacao');
-      this.getSocket('NovoComentarioPublicacao');
+      this.getSocket('CadastrarComentarioPublicacao');
       this.getNotificacoes();
     } else {
       this.logout();
@@ -214,67 +216,67 @@ export class AppComponent implements OnInit {
   carregarPermissoes() {
     if (this.logou === true) {
       this.spinnerService.alterarSpinnerStatus(true);
-      this.permissaoService.getPermissoes().subscribe((_PERMISSOES: Permissao[]) => {
-        this.filtrarPermissao('Permissões').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PERMISSOES' && c.acao === 'LISTAR')[0]);
+      this.permissaoService.getPermissaoFormulariosByNivelId().subscribe((permissoes: Permissao[]) => {
 
-        this.filtrarPermissao('Pessoas').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PESSOAS' && c.acao === 'LISTAR')[0]);
+        let permissaoObjetos = permissoes.filter(f => f.formulario === 'PERMISSÕES')[0].permissaoObjetos;
+        let permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Permissões').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Clientes').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'CLIENTES' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'PESSOAS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Pessoas').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Produtos').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PRODUTOS' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'CLIENTES')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Clientes').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Plano de Contas').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PLANO DE CONTAS' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'PRODUTOS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Produtos').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Centro de Receita').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'CENTRO DE RECEITA' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'PLANO DE CONTAS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Plano de Contas').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Centro de Despesa').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'CENTRO DE DESPESA' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'CENTRO DE RECEITAS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Centro de Receita').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Plano de Pagamento').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PLANO DE PAGAMENTO' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'CENTRO DE DESPESAS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Centro de Despesa').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Forma de Pagamento').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'FORMA DE PAGAMENTO' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'PLANOS DE PAGAMENTO')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Plano de Pagamento').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Recebimentos').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'RECEBIMENTOS' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'FORMAS DE PAGAMENTO')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Forma de Pagamento').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Pagamentos').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'PAGAMENTOS' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'CHEQUES PRÉ-DATADO')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Cheques Pré-Datado').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Lançamentos').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'LANÇAMENTOS' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'EMPRESAS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Minhas Empresas').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Relatórios Lançamentos').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'RELATÓRIOS LANÇAMENTOS'
-        && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'AUTORIZAÇÕES')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Autorizações').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Cheques Pré-Datado').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'CHEQUES PRE-DATADO' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'VENDAS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Venda').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
-        this.filtrarPermissao('Financeiro').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'FINANCEIRO' && c.acao === 'LISTAR')[0]);
-
-        this.filtrarPermissao('Minhas Empresas').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'EMPRESAS' && c.acao === 'LISTAR')[0]);
-
-        this.filtrarPermissao('Autorizações').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'AUTORIZACOES' && c.acao === 'LISTAR')[0]);
-
-        this.filtrarPermissao('Venda').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'VENDA' && c.acao === 'LISTAR')[0]);
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'RELATÓRIOS VENDAS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Relatórios Venda').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
         this.filtrarPermissao('Movimentos').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'VENDA' && c.acao === 'LISTAR')[0]);
+        (this.filtrarPermissao('Venda').listar === true || this.filtrarPermissao('Relatórios Venda').listar === true) ? true : false;
 
-        this.filtrarPermissao('Relatórios Venda').listar =
-        this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.formulario === 'RELATÓRIOS VENDA' && c.acao === 'LISTAR')[0]);
         this.spinnerService.alterarSpinnerStatus(false);
       }, error => {
         this.spinnerService.alterarSpinnerStatus(false);
@@ -283,7 +285,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  verificarPermissao(component: string) {
+  verificarPermissaoPorObjetos(component: string) {
     if (this.permissoes.filter(c => c.component === component).length > 0) {
       return this.permissoes.filter(c => c.component === component)[0].listar;
     } else {
@@ -365,7 +367,7 @@ export class AppComponent implements OnInit {
         if (this.permissaoService.getUsuarioId() === info.usuarioId || info.usuarioId === 0) {
           const  notification = new Notification(info.titulo, {body: info.mensagem});
 
-          if (evento === 'NovoComentarioPublicacao') {
+          if (evento === 'CadastrarComentarioPublicacao') {
             this.publicacaoService.atualizarPublicacaoComentarios(info.publicacaoId);
           }
 

@@ -10,6 +10,7 @@ import { CidadeService } from '../../_services/Cadastros/Uteis/cidade.service';
 import { EstadoService } from '../../_services/Cadastros/Uteis/estado.service';
 import { PermissaoService } from '../../_services/Permissoes/permissao.service';
 import { Permissao } from '../../_models/Permissoes/permissao';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-cliente',
@@ -17,10 +18,12 @@ import { Permissao } from '../../_models/Permissoes/permissao';
 })
 export class ClienteComponent implements OnInit, AfterViewInit {
 
-  novo = false;
+  formularioComponent = 'CLIENTES';
+  cadastrar = false;
   editar = false;
-  excluir = false;
+  listar = false;
   visualizar = false;
+  excluir = false;
 
   clientesFiltro: Cliente[];
   cliente: Cliente;
@@ -68,12 +71,16 @@ export class ClienteComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'CLIENTES'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
-      this.excluir = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EXCLUIR')[0]);
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
     });
   }
 

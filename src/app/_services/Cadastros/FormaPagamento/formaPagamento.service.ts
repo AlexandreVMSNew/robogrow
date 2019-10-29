@@ -19,8 +19,8 @@ export class FormaPagamentoService {
   getFormaPagamentoById(id: number): Observable<FormaPagamento> {
     return this.http.get<FormaPagamento>(`${this.baseURL}/${id}`);
   }
-  novoFormaPagamento(formaPagamento: FormaPagamento) {
-    return this.http.post(`${this.baseURL}/novo`, formaPagamento);
+  cadastrarFormaPagamento(formaPagamento: FormaPagamento) {
+    return this.http.post(`${this.baseURL}/cadastrar`, formaPagamento);
   }
 
   editarFormaPagamento(formaPagamento: FormaPagamento) {

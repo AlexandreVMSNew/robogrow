@@ -40,7 +40,7 @@ export class TemplateProdutoItensComponent implements OnInit {
   planoContasDespesa: PlanoContas[];
   planoContasIdSelecionado: number;
 
-  novosItem: ProdutoItem[] = [];
+  cadastrarsItem: ProdutoItem[] = [];
 
 
   templateEnabled = false;
@@ -79,16 +79,16 @@ export class TemplateProdutoItensComponent implements OnInit {
       this.cadastroItemForm.get('subTipoItem').setValue(null);
     }
 
-    if (this.modoSalvar === 'novo') {
-      this.novosItem.push(Object.assign(this.cadastroItemForm.value, {id: 0, produtosId: this.produto.id}));
-      if (this.novosItem.length > 0) {
-        this.produtoService.novoItem(this.novosItem).subscribe(() => {
+    if (this.modoSalvar === 'cadastrar') {
+      this.cadastrarsItem.push(Object.assign(this.cadastroItemForm.value, {id: 0, produtosId: this.produto.id}));
+      if (this.cadastrarsItem.length > 0) {
+        this.produtoService.cadastrarItem(this.cadastrarsItem).subscribe(() => {
           this.cadastroItemForm.reset();
           this.produtoService.atualizarProdutos();
           this.toastr.success('Item Cadastrado com sucesso!');
         });
       }
-      this.novosItem = [];
+      this.cadastrarsItem = [];
     } else {
       const item = Object.assign(this.cadastroItemForm.value);
 

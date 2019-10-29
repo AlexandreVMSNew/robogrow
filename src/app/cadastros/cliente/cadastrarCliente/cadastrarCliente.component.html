@@ -1,6 +1,6 @@
 <h2>Cliente</h2>
 <hr width="100%">
-<div class="box box-primary">
+<div class="box box-primary" *ngIf="this.cadastrar == true">
   <div class="box-header with-border">
     <form [formGroup]="cadastroForm">
       <tabset>
@@ -51,7 +51,7 @@
               <div class="input-group">
 
                 <div class="input-group-prepend">
-                  <button class="btn btn-success" (click)="abrirModalNovoGrupo(templateGrupo)" tooltip="Novo Grupo">
+                  <button class="btn btn-success" (click)="abrirModalCadastrarGrupo(templateGrupo)" tooltip="Cadastrar Grupo">
                     <i class="fa fa-plus-circle"> </i></button>
                 </div>
                 <ng-select style="display: contents;text-transform: uppercase" [items]="grupos" bindLabel="nome"
@@ -60,12 +60,12 @@
               </div>
             </div>
 
-            <div class="form-group col-md-2">
+            <ng-select class="form-group col-md-2">
               <label>Categoria:</label>
               <ng-select [clearable]="false" [items]="categorias" [(ngModel)]="categoriaSelecionado"
                 formControlName="categoria">
               </ng-select>
-            </div>
+            </ng-select>
 
             <div class="form-group col-md-3">
               <label>Contato:</label>
@@ -244,11 +244,14 @@
     </form>
   </div>
 </div>
-<button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="cadastrarCliente()"
-  tooltip="Novo Cliente" class="btn btn-lg btn-primary">
+<button style="position:relative;margin-bottom: 15px;" *ngIf="this.cadastrar == true" [disabled]="!cadastroForm.valid" (click)="cadastrarCliente()"
+  tooltip="Cadastrar Cliente" class="btn btn-lg btn-primary">
   &nbsp;Cadastrar
 </button>
 
+<div *ngIf="this.cadastrar == false">
+  Você não tem permissão.
+</div>
 
 
 <div bsModal #templateGrupo="bs-modal" class="modal fade" tabindex="-1" role="dialog"
@@ -257,9 +260,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 id="dialog-sizes-name1" class="modal-title pull-left">
-          Novo Grupo
+          Cadastrar Grupo
         </h4>
-        <button type="button" class="close pull-right" (click)="templateGrupo.hide()" aria-label="Close">
+        <button type="button" class="close float-right" (click)="templateGrupo.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

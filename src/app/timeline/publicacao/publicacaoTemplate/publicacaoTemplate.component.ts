@@ -37,8 +37,8 @@ export class PublicacaoTemplateComponent implements OnInit {
   templateEnabled = false;
 
   publicacaoArquivos: PublicacaoArquivos[] = [];
-  novoArquivosUpload: File[] = [];
-  novoNomeArquivosUpload: any[] = [];
+  cadastrarArquivosUpload: File[] = [];
+  cadastrarNomeArquivosUpload: any[] = [];
   nomeArquivo = '';
 
   modoSalvar = '';
@@ -68,7 +68,7 @@ export class PublicacaoTemplateComponent implements OnInit {
   ngOnInit() {
     this.getUsuarios();
     this.validarPublicacao();
-    this.modoSalvar = 'NOVO';
+    this.modoSalvar = 'CADASTRAR';
     if (this.publicacao !== null) {
       this.modoSalvar = 'EDITAR';
       this.cadastroPublicacao.patchValue(this.publicacao);
@@ -95,13 +95,13 @@ export class PublicacaoTemplateComponent implements OnInit {
   adicionarArquivoUpload(event) {
     if (event.target.files && event.target.files.length) {
       for (let i = 0; i <= event.target.files.length - 1; i++) {
-        this.novoArquivosUpload.push(event.target.files[i]);
+        this.cadastrarArquivosUpload.push(event.target.files[i]);
         this.publicacaoArquivos.push(Object.assign({
           id: 0,
           arquivoNome: event.target.files[i].name,
           arquivoTamanho: event.target.files[i].size
         }));
-        this.novoNomeArquivosUpload.push(event.target.files[i].name);
+        this.cadastrarNomeArquivosUpload.push(event.target.files[i].name);
       }
       console.log(this.publicacaoArquivos);
     }
@@ -109,8 +109,8 @@ export class PublicacaoTemplateComponent implements OnInit {
 
   excluirArquivoUpload(index) {
     this.publicacaoArquivos.splice(index, 1);
-    this.novoArquivosUpload.splice(index, 1);
-    this.novoNomeArquivosUpload.splice(index, 1);
+    this.cadastrarArquivosUpload.splice(index, 1);
+    this.cadastrarNomeArquivosUpload.splice(index, 1);
     console.log(this.publicacaoArquivos);
   }
 
@@ -180,8 +180,8 @@ export class PublicacaoTemplateComponent implements OnInit {
   }
 
   uploadArquivosPublicacao(template, publicacao) {
-    if (this.novoArquivosUpload.length > 0  && this.novoNomeArquivosUpload.length > 0) {
-      this.publicacaoService.enviarArquivosPublicacao(publicacao.id, this.novoArquivosUpload, this.novoNomeArquivosUpload)
+    if (this.cadastrarArquivosUpload.length > 0  && this.cadastrarNomeArquivosUpload.length > 0) {
+      this.publicacaoService.enviarArquivosPublicacao(publicacao.id, this.cadastrarArquivosUpload, this.cadastrarNomeArquivosUpload)
       .subscribe((result: any) => {
         if (result.retorno === 'OK') {
           this.toastr.success(`Upload realizado com Sucesso!`);
@@ -198,7 +198,7 @@ export class PublicacaoTemplateComponent implements OnInit {
       this.publicacaoService.atualizarPublicacoes();
     }
 
-    if ( this.modoSalvar === 'NOVO') {
+    if ( this.modoSalvar === 'CADASTRAR') {
       this.notificarUsuariosNovaPublicacao(publicacao);
     }
     this.fecharTemplate(template);
@@ -241,7 +241,7 @@ export class PublicacaoTemplateComponent implements OnInit {
       });
       this.cadastrarVendaPublicacao(template, vendaPublicacao);
     } else {
-      if (this.modoSalvar === 'NOVO') {
+      if (this.modoSalvar === 'CADASTRAR') {
         this.publicacaoService.novaPublicacao(this.publicacao).subscribe((publicacao: Publicacao) => {
           this.uploadArquivosPublicacao(template, publicacao);
         }, error => {

@@ -39,6 +39,7 @@ import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicaca
 import { Publicacao } from 'src/app/_models/Publicacoes/Publicacao';
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 import { HttpClient } from '@angular/common/http';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-editar-venda',
@@ -49,14 +50,19 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   @Input() idVenda: number = null;
 
+  formularioComponent = 'VENDAS';
+  cadastrar = false;
   editar = false;
-  editarValorPrevisto = false;
-  editarValorRealizado = false;
-  editarDataNegociacao = false;
-  editarStatus = false;
-  visualizarResultado = false;
-  visualizarFinanceiro = false;
+  listar = false;
   visualizar = false;
+  excluir = false;
+
+  cadastrarValorPrevisto = false;
+  cadastrarValorRealizado = false;
+  editarCampoDataNegociacao = false;
+  editarCampoStatus = false;
+  visualizarAbaResultado = false;
+  visualizarAbaFinanceiro = false;
   gerarPedido = false;
   autorizadoGerarPedido = false;
 
@@ -150,33 +156,42 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   ngAfterViewInit() {
     this.spinnerService.alterarSpinnerStatus(true);
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'VENDA'})).subscribe((_PERMISSOES: Permissao[]) => {
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
 
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
-      this.editarValorPrevisto = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'LANÇAR' && c.objeto === 'VALOR PREVISTO')[0]);
-      this.editarValorRealizado = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'LANÇAR' && c.objeto === 'VALOR REALIZADO')[0]);
-      this.editarDataNegociacao = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'DATA NEGOCIAÇÃO')[0]);
-      this.editarStatus = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR' && c.objeto === 'STATUS')[0]);
-      this.visualizar = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
-      this.visualizarResultado = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'RESUMO')[0]);
-      this.visualizarFinanceiro = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR' && c.objeto === 'FINANCEIRO')[0]);
-      this.gerarPedido = this.permissaoService
-          .verificarPermissao(_PERMISSOES.filter(c => c.acao === 'GERAR' && c.objeto === 'PEDIDO')[0]);
+      const permissaoValorPrevisto = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'VALOR PREVISTO');
+      this.cadastrarValorPrevisto = (permissaoValorPrevisto !== null ) ? permissaoValorPrevisto.cadastrar : false;
+
+      const permissaoValorRealizado = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'VALOR REALIZADO');
+      this.cadastrarValorRealizado = (permissaoValorRealizado !== null ) ? permissaoValorRealizado.cadastrar : false;
+
+      const permissaoCampoDataNegociacao = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO DATA NEGOCIAÇÃO');
+      this.editarCampoDataNegociacao = (permissaoCampoDataNegociacao !== null ) ? permissaoCampoDataNegociacao.editar : false;
+
+      const permissaoCampoStatus = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO STATUS');
+      this.editarCampoStatus = (permissaoCampoStatus !== null ) ? permissaoCampoStatus.editar : false;
+
+      const permissaoAbaResultado = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'ABA RESULTADO');
+      this.visualizarAbaResultado = (permissaoAbaResultado !== null ) ? permissaoAbaResultado.visualizar : false;
+
+      const permissaoAbaFinanceiro = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'ABA FINANCEIRO');
+      this.visualizarAbaFinanceiro = (permissaoAbaFinanceiro !== null ) ? permissaoAbaFinanceiro.visualizar : false;
+
+      const permissaoPedido = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'GERAR PEDIDO');
+      this.gerarPedido = (permissaoPedido !== null ) ? permissaoPedido.visualizar : false;
+
       this.spinnerService.alterarSpinnerStatus(false);
       this.carregarVenda();
     }, error => {
-      console.log(error.error);
       this.spinnerService.alterarSpinnerStatus(false);
+      console.log(error.error);
     });
-
   }
 
   configurarAlteracoes() {
@@ -190,10 +205,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.cadastroForm.controls.planoPagamentoId.disable();
     }
 
-    (this.editarDataNegociacao === true || this.statusSelecionado === 'EM NEGOCIAÇÃO') ?
+    (this.editarCampoDataNegociacao === true || this.statusSelecionado === 'EM NEGOCIAÇÃO') ?
       this.cadastroForm.controls.dataNegociacao.enable() : this.cadastroForm.controls.dataNegociacao.disable();
 
-    (this.editarStatus === true || this.autorizadoGerarPedido === true) ?
+    (this.editarCampoStatus === true || this.autorizadoGerarPedido === true) ?
       this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
 
     this.spinnerService.alterarSpinnerStatus(false);
@@ -213,7 +228,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.vendaService.atualizarFinanceiroVenda(this.venda);
       this.vendaService.atualizarResultadoVenda(this.venda);
 
-      if (this.venda.status === 'EM NEGOCIAÇÃO' || this.editarStatus === true) {
+      if (this.venda.status === 'EM NEGOCIAÇÃO' || this.editarCampoStatus === true) {
         this.status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
       } else {
         this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
@@ -281,7 +296,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         usuarioId: idUsuario,
         dataHora: dataAtual,
         titulo: 'Autorização de Venda',
-        mensagem: 'Você tem um novo pedido de Autorização',
+        mensagem: 'Você tem um cadastrar pedido de Autorização',
         visto: 0
       }));
     });
@@ -324,10 +339,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     const usuariosEmailNotificacao: any = [];
     this.usuarioService.getUsuarios().subscribe(
       (_USUARIOS: Usuario[]) => {
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+      /*this.permissaoService.getPermissoesByFormularioAcaoObjeto(
         Object.assign({formulario: 'AUTORIZACOES', acao: 'GERAR', objeto: 'PEDIDO'})).subscribe((_PERMISSAO: Permissao) => {
 
-          _PERMISSAO.permissaoNiveis.forEach((permissao) => {
+         _PERMISSAO.permissaoNiveis.forEach((permissao) => {
             _USUARIOS.forEach((usuario: Usuario) => {
               if (usuario.usuarioNivel.filter(c => c.roleId === permissao.nivelId).length > 0) {
                 usuariosIdNotificacao.push(usuario.id);
@@ -338,7 +353,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
           this.spinnerService.alterarSpinnerStatus(false);
           this.enviarNotificacoes(usuariosIdNotificacao);
           this.enviarEmail(usuariosEmailNotificacao);
-      });
+      });*/
     });
   }
 

@@ -209,7 +209,7 @@ export class TemplatePagamentoComponent implements OnInit {
         dataLancamento: this.dataService.getDataSQL(parcela.dataLancamento)
       }));
     });
-    this.lancamentoService.novosLancamentos(lancamentos).subscribe(() => {
+    this.lancamentoService.cadastrarsLancamentos(lancamentos).subscribe(() => {
       console.log('Lançamentos Efetuados.');
     }, error => {
       console.log(error.error);
@@ -232,7 +232,7 @@ export class TemplatePagamentoComponent implements OnInit {
       planoPagamentoId: this.planoPagamentoIdSelecionado,
       parcelas: []
     });
-    this.pagamentoService.novoPagamento(this.pagamento).subscribe((_ID) => {
+    this.pagamentoService.cadastrarPagamento(this.pagamento).subscribe((_ID) => {
       const pagamentoParcelas: PagamentoParcelas[] = [];
       this.parcelas.forEach((parcela) => {
         const parc = Object.assign(parcela, {
@@ -244,7 +244,7 @@ export class TemplatePagamentoComponent implements OnInit {
         });
         pagamentoParcelas.push(parc);
       });
-      this.pagamentoService.novoPagamentoParcelas(pagamentoParcelas).subscribe(() => {
+      this.pagamentoService.cadastrarPagamentoParcelas(pagamentoParcelas).subscribe(() => {
         this.valorRealizado = Object.assign({
           id: 0,
           vendaId: this.idVenda,
@@ -253,7 +253,7 @@ export class TemplatePagamentoComponent implements OnInit {
           pagamentos: null,
           pagamentosId: _ID,
         });
-        this.vendaService.novoVendaValorRealizado(this.valorRealizado).subscribe(() => {
+        this.vendaService.cadastrarVendaValorRealizado(this.valorRealizado).subscribe(() => {
           this.toastr.success('Salvo com Sucesso!');
           this.efetuarLancamentos();
           this.vendaService.atualizarVenda();
@@ -261,15 +261,15 @@ export class TemplatePagamentoComponent implements OnInit {
           this.fecharTemplate(this.templatePagamentos);
         }, error => {
           console.log(error.error);
-          this.toastr.error(`Erro ao tentar inserir novo Valor Realizado : ${error.error}`);
+          this.toastr.error(`Erro ao tentar inserir cadastrar Valor Realizado : ${error.error}`);
         });
       }, error => {
         console.log(error.error);
-        this.toastr.error(`Erro ao tentar inserir novo Pagamento Parcelas : ${error.error}`);
+        this.toastr.error(`Erro ao tentar inserir cadastrar Pagamento Parcelas : ${error.error}`);
       });
     }, error => {
       console.log(error.error);
-      this.toastr.error(`Erro ao tentar inserir novo Pagamento: ${error.error}`);
+      this.toastr.error(`Erro ao tentar inserir cadastrar Pagamento: ${error.error}`);
     });
   }
 

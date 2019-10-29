@@ -31,8 +31,8 @@ export class PessoaService {
     return this.http.get<Pessoa>(`${this.baseURL}/idUltimaPessoa`);
   }
 
-  novoPessoa(pessoa: Pessoa) {
-    return this.http.post(`${this.baseURL}/novo`, pessoa);
+  cadastrarPessoa(pessoa: Pessoa) {
+    return this.http.post(`${this.baseURL}/cadastrar`, pessoa);
   }
 
   editarPessoa(pessoa: Pessoa) {

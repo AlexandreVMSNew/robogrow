@@ -7,6 +7,7 @@ import { Permissao } from 'src/app/_models/Permissoes/permissao';
 import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/editarCliente.component';
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 @Component({
   selector: 'app-venda',
   templateUrl: './venda.component.html',
@@ -21,10 +22,15 @@ import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service'
 })
 export class VendaComponent implements OnInit, AfterViewInit {
 
-  novo = false;
+  formularioComponent = 'VENDAS';
+  cadastrar = false;
   editar = false;
-  excluir = false;
+  listar = false;
   visualizar = false;
+  excluir = false;
+
+  editarConfig = false;
+  visualizarConfig = false;
 
   vendas: Venda[];
   vendasFiltro: Venda[];
@@ -56,11 +62,18 @@ export class VendaComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.spinnerService.alterarSpinnerStatus(true);
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'VENDA'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+
+      const permissaoConfig = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CONFIGURAÇÕES');
+      this.editarConfig = (permissaoConfig !== null ) ? permissaoConfig.editar : false;
+      this.visualizarConfig = (permissaoConfig !== null ) ? permissaoConfig.visualizar : false;
       this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
       this.spinnerService.alterarSpinnerStatus(false);

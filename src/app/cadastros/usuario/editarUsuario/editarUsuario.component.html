@@ -1,15 +1,15 @@
 <h2>Usuário</h2>
 <hr width="100%">
-<div class="row">
+<div class="row" *ngIf="this.editar == true || this.visualizar == true || this.idUsuario == this.idUsuarioLogado">
   <div class="col-md-3">
     <div class="box box-primary">
       <div class="box-body box-profile">
-        <img class="profile-user-img rounded-circle float-center" src="{{this.baseURLFotoPerfil}}"alt="img">
+        <img class="profile-user-img rounded-circle" style="display:block;" src="{{this.baseURLFotoPerfil}}"alt="img">
 
         <h3 class="profile-username text-center">{{this.usuario.nomeCompleto}}</h3>
         <div *ngIf="this.usuario.usuarioNivel && this.usuario.usuarioNivel.length">
           <div *ngFor="let un of this.usuario.usuarioNivel">
-            <p class="text-muted text-center">{{un.nivel.name}}</p><br />
+            <p class="text-muted text-center">{{(un.nivel) ? un.nivel.name : ''}}</p><br />
           </div>
         </div>
         <a class="btn btn-success btn-block" [routerLink]="" (click)="file.click()"><b>Selecionar Nova Foto de Perfil</b></a>
@@ -69,9 +69,9 @@
                     [ngModel]="cadastroForm.get('dataNascimento').value" bsDatepicker [bsConfig]="this.bsConfig" />
                 </div>
 
-                <div *ngIf="this.visualizarNivel" class="form-group col-md-6">
+                <div *ngIf="this.visualizarCampoNivel == true" class="form-group col-md-6">
                   <label>Nível:(*)</label>
-                  <ng-select [items]="niveis" bindLabel="name" bindValue="id" required [multiple]="true"
+                  <ng-select [items]="niveis" bindLabel="name" bindValue="id" required [clearable]="false"
                     (change)="adicionarUsuarioNivel(niveisIdSelecionado)" [(ngModel)]="niveisIdSelecionado"
                     formControlName="usuarioNivel">
                   </ng-select>
@@ -88,7 +88,7 @@
           </tab>
 
           <tab *ngIf="this.visualizarOcorrencia" heading="Ocorrências" style="margin-top: 10px;">
-            <div class="pull-right">
+            <div class="float-right">
               <button (click)="novaOcorrencia(templateOcorrencia)" class="btn btn-success">
                 <i class="fa fa-plus-circle"></i>&nbsp; Nova Ocorrência
               </button>
@@ -132,7 +132,7 @@
           </tab>
 
         </tabset>
-        <button *ngIf="this.editar || this.idUsuario == usuario.id" style="position:relative;margin-bottom: 15px;"
+        <button *ngIf="this.editar || this.idUsuario == this.idUsuarioLogado" style="position:relative;margin-bottom: 15px;"
           [disabled]="!cadastroForm.valid" (click)="salvarAlteracao()" tooltip="Salvar" class="btn btn-lg btn-primary">
           &nbsp;Salvar Alterações
         </button>
@@ -140,8 +140,9 @@
     </div>
   </div>
 </div>
-
-
+<div  *ngIf="this.editar == false && this.visualizar == false && this.idUsuario != this.idUsuarioLogado">
+  Você não tem permissão
+</div>
 
 <div bsModal #templateOcorrencia="bs-modal" class="modal fade" tabindex="-1" role="dialog"
   aria-labelledby="dialog-sizes-name1">
@@ -151,7 +152,7 @@
         <h4 id="dialog-sizes-name1" class="modal-title pull-left">
           Ocorrência
         </h4>
-        <button type="button" class="close pull-right" (click)="templateOcorrencia.hide()" aria-label="Close">
+        <button type="button" class="close float-right" (click)="templateOcorrencia.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

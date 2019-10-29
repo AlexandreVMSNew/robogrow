@@ -30,8 +30,8 @@ getIdUltimoCliente(): Observable<Cliente> {
   return this.http.get<Cliente>(`${this.baseURL}/idultimocliente`);
 }
 
-novoCliente(cliente: Cliente) {
-  return this.http.post(`${this.baseURL}/novo`, cliente);
+cadastrarCliente(cliente: Cliente) {
+  return this.http.post(`${this.baseURL}/cadastrar`, cliente);
 }
 
 editarCliente(cliente: Cliente) {

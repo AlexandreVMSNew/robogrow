@@ -17,11 +17,11 @@ import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 
 @Component({
-  selector: 'app-novo-retorno',
-  templateUrl: './novoRetorno.component.html'
+  selector: 'app-cadastrar-retorno',
+  templateUrl: './cadastrarRetorno.component.html'
 
 })
-export class NovoRetornoComponent implements OnInit {
+export class CadastrarRetornoComponent implements OnInit {
 
   cadastroForm: FormGroup;
   retorno: Retorno;
@@ -114,7 +114,7 @@ export class NovoRetornoComponent implements OnInit {
     if (this.cadastroForm.valid) {
       this.retorno = Object.assign(this.cadastroForm.value, {id: 0, status: 'AGUARDANDO', dataHora: dataAtual});
       this.spinnerService.alterarSpinnerStatus(true);
-      this.retornoService.novoRetorno(this.retorno).subscribe(
+      this.retornoService.cadastrarRetorno(this.retorno).subscribe(
         () => {
 
           this.retornoService.getIdUltimoRetorno().subscribe((ultimoId: number) => {
@@ -127,7 +127,7 @@ export class NovoRetornoComponent implements OnInit {
             const retornoLog = Object.assign({ id: 0, retornoId: ultimoId,
               usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: 'AGUARDANDO'});
 
-            this.retornoService.novoLog(retornoLog).subscribe(
+            this.retornoService.cadastrarLog(retornoLog).subscribe(
               () => {
                 this.toastr.success(`Retorno Finalizado!`);
                 this.socketService.sendSocket('StatusRetornoAlterado', null);
@@ -143,7 +143,7 @@ export class NovoRetornoComponent implements OnInit {
               usuarioId: this.retorno.usuarioId,
               dataHora: dataAtual,
               titulo: 'Retorno Específico!',
-              mensagem: 'Foi adicionado um Novo Retorno específico para você!',
+              mensagem: 'Foi adicionado um Cadastrar Retorno específico para você!',
               visto: 0
             });
             this.notificacaoService.novaNotificacao(notificacao).subscribe(
@@ -159,7 +159,7 @@ export class NovoRetornoComponent implements OnInit {
             this.router.navigate([`/atendimentos/retornos`]);
           }
 
-          this.socketService.sendSocket('NovoRetorno', null);
+          this.socketService.sendSocket('CadastrarRetorno', null);
         }, error => {
           this.spinnerService.alterarSpinnerStatus(false);
           console.log(error.error);

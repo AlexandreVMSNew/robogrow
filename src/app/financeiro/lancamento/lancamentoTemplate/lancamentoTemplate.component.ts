@@ -19,7 +19,7 @@ import { Permissao } from 'src/app/_models/Permissoes/permissao';
 export class LancamentoTemplateComponent implements OnInit, AfterViewInit {
   @Input() idLancamento: number;
 
-  novo = false;
+  cadastrar = false;
   editar = false;
 
   cadastroLancamento: FormGroup;
@@ -51,11 +51,7 @@ export class LancamentoTemplateComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'LANÇAMENTO'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
-    });
+    
   }
 
   carregarLancamento() {
@@ -99,7 +95,7 @@ export class LancamentoTemplateComponent implements OnInit, AfterViewInit {
       this.lancamento = Object.assign(this.cadastroLancamento.value, {id: 0, dataHora: dataAtual,
         dataLancamento: dataLanc,
         usuarioId: this.idUsuario});
-      this.lancamentoService.novoLancamento(this.lancamento).subscribe(
+      this.lancamentoService.cadastrarLancamento(this.lancamento).subscribe(
         () => {
           this.fecharTemplate(template);
           this.toastr.success(`Cadastrado com Sucesso!`);

@@ -39,7 +39,7 @@ export class AutorizacaoService {
   }
 
   novaAutorizacao(autorizacao: Autorizacao) {
-    return this.http.post(`${this.baseURL}/novo`, autorizacao);
+    return this.http.post(`${this.baseURL}/cadastrar`, autorizacao);
   }
 
   editarAutorizacao(autorizacao: Autorizacao) {

@@ -44,8 +44,8 @@ enviarFotoPerfil(usuarioId: number, arquivo: File, nomeArquivo) {
   return this.http.post(`${this.baseURL}/uploadfotoperfil/${usuarioId}`, formData);
 }
 
-novoUsuario(usuario: Usuario) {
-  return this.http.post(`${this.baseURL}/novo`, usuario);
+cadastrarUsuario(usuario: Usuario) {
+  return this.http.post(`${this.baseURL}/cadastrar`, usuario);
 }
 
 editarUsuario(usuario: Usuario) {

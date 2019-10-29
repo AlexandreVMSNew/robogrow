@@ -13,7 +13,7 @@ import { RecebimentoParcelas } from 'src/app/_models/Financeiro/Recebimentos/Rec
 })
 export class RecebimentoComponent implements OnInit, AfterViewInit {
 
-  novo = false;
+  cadastrar = false;
   visualizar = false;
 
   recebimentos: Recebimentos[];
@@ -35,11 +35,7 @@ export class RecebimentoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'RECEBIMENTOS'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
-    });
+    
   }
 
   getRecebimentos() {

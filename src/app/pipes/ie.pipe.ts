@@ -13,7 +13,6 @@ export class IePipe implements PipeTransform {
     if (!value) {
       return '';
     }
-    
     return vanillaMasker.toPattern(value, iePattern);
   }
 

@@ -7,7 +7,7 @@
           Recebimento {{(produtoItem) ?  '(' + produtoItem.descricao + ')'  : ''}}
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplate(templateRecebimentos)"
+        <button type="button" class="close float-right" (click)="fecharTemplate(templateRecebimentos)"
           aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -117,9 +117,9 @@
             </div>
           </div>
           <div class="row">
-            <div class=" form-group col-md-2 pull-right" style="margin-right: 35px;">
-              <button  class="btn btn-success" (click)="abrirTemplateChequePre()" tooltip="Novo Cheque Pre">
-                <i class="fa fa-plus-circle"> </i>&nbsp;Novo Cheque Pre</button>
+            <div class=" form-group col-md-2 float-right" style="margin-right: 35px;">
+              <button  class="btn btn-success" (click)="abrirTemplateChequePre()" tooltip="Cadastrar Cheque Pre">
+                <i class="fa fa-plus-circle"> </i>&nbsp;Cadastrar Cheque Pre</button>
             </div>
           </div>
         </form>

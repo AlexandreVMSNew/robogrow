@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, Input, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, Input, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { Autorizacao } from 'src/app/_models/Autorizacoes/Autorizacao';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
 import { AutorizacaoService } from 'src/app/_services/Autorizacoes/autorizacao.service';
@@ -14,12 +14,13 @@ import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.s
 import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 import { Email } from 'src/app/_models/Email/Email';
 import { EmailService } from 'src/app/_services/Email/email.service';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 @Component({
   selector: 'app-autorizacao-template',
   templateUrl: './autorizacaoTemplate.component.html',
   styleUrls: ['./autorizacaoTemplate.component.css']
 })
-export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
+export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
   @Input() idAutorizacao: number;
   @Input() formulario: string;
@@ -27,6 +28,7 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
   @Input() objeto: string;
   @ViewChild('templateAutorizacao') templateAutorizacao: any;
 
+  formularioComponent = 'AUTORIZAÇÕES';
   editar = false;
 
   cadastroAutorizacao: FormGroup;
@@ -59,6 +61,17 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  ngAfterViewInit() {
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+    }, error => {
+      console.log(error.error);
+    });
+  }
+
+
   ngAfterViewChecked() {
     this.changeDetectionRef.detectChanges();
   }
@@ -79,11 +92,11 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
       }
       this.cadastroAutorizacao.patchValue(this.autorizacao);
       this.cadastroAutorizacao.controls.autorizado.setValue(autorizado);
-      this.permissaoService.getPermissoesByFormularioAcaoObjeto(
+      /*this.permissaoService.getPermissoesByFormularioAcaoObjeto(
         Object.assign({formulario: 'AUTORIZACOES', acao: this.autorizacao.acao})).subscribe(
         (_PERMISSAO: Permissao) => {
-        this.editar = this.permissaoService.verificarPermissao(_PERMISSAO);
-      });
+        this.editar = this.permissaoService.verificarPermissaoPorObjetos(_PERMISSAO);
+      });*/
     }, error => {
       this.toastr.error(`Erro ao tentar carregar Autorizacao: ${error.error}`);
       console.log(error);

@@ -35,11 +35,11 @@ export class RecebimentoService {
   getRecebimentosById(id: number): Observable<Recebimentos> {
     return this.http.get<Recebimentos>(`${this.baseURL}/${id}`);
   }
-  novoRecebimentos(recebimentos: Recebimentos) {
-    return this.http.post(`${this.baseURL}/novo`, recebimentos);
+  cadastrarRecebimentos(recebimentos: Recebimentos) {
+    return this.http.post(`${this.baseURL}/cadastrar`, recebimentos);
   }
-  novoRecebimentoParcelas(recebimentoParcelas: RecebimentoParcelas[]) {
-    return this.http.post(`${this.baseURL}/parcelas/novo`, recebimentoParcelas);
+  cadastrarRecebimentoParcelas(recebimentoParcelas: RecebimentoParcelas[]) {
+    return this.http.post(`${this.baseURL}/parcelas/cadastrar`, recebimentoParcelas);
   }
   editarRecebimentos(recebimentos: Recebimentos) {
     return this.http.put(`${this.baseURL}/editar/${recebimentos.id}`, recebimentos);

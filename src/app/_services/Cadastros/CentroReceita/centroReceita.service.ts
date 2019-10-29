@@ -19,8 +19,8 @@ export class CentroReceitaService {
   getCentroReceitaById(id: number): Observable<CentroReceita> {
     return this.http.get<CentroReceita>(`${this.baseURL}/${id}`);
   }
-  novoCentroReceita(centroReceita: CentroReceita) {
-    return this.http.post(`${this.baseURL}/novo`, centroReceita);
+  cadastrarCentroReceita(centroReceita: CentroReceita) {
+    return this.http.post(`${this.baseURL}/cadastrar`, centroReceita);
   }
 
   editarCentroReceita(centroReceita: CentroReceita) {

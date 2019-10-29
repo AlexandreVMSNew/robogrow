@@ -1,12 +1,7 @@
-import { Nivel } from '../Cadastros/Usuarios/Nivel';
-import { PermissaoNivel } from './permissaoNivel';
+import { PermissaoObjetos } from './permissaoObjetos';
 
 export class Permissao {
     id: number;
     formulario: string;
-    acao: string;
-    objeto: string;
-    nivelId: number;
-    nivel: Nivel;
-    permissaoNiveis: PermissaoNivel[];
+    permissaoObjetos: PermissaoObjetos[];
 }

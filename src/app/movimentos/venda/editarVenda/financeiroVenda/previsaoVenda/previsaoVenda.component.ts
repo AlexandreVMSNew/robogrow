@@ -72,7 +72,7 @@ export class PrevisaoVendaComponent implements OnInit {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     this.valorPrevisto = Object.assign(this.cadastroValorPrevistoForm.value,
        {id: 0, vendaId: this.venda.id, produtosItensId: this.produtoItem.id, dataHoraUltAlt: dataAtual});
-    this.vendaService.novoVendaValorPrevisto(this.valorPrevisto).subscribe(
+    this.vendaService.cadastrarVendaValorPrevisto(this.valorPrevisto).subscribe(
       () => {
         this.vendaService.atualizarVenda();
         this.toastr.success('Salvo com Sucesso!');

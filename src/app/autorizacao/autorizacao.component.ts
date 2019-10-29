@@ -6,6 +6,7 @@ import { BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from '../_services/Permissoes/permissao.service';
 import { Permissao } from '../_models/Permissoes/permissao';
+import { PermissaoObjetos } from '../_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-autorizacao',
@@ -14,6 +15,7 @@ import { Permissao } from '../_models/Permissoes/permissao';
 })
 export class AutorizacaoComponent implements OnInit, AfterViewInit {
 
+  formularioComponent = 'AUTORIZAÇÕES';
   editar = false;
   visualizar = false;
 
@@ -47,9 +49,13 @@ export class AutorizacaoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(Object.assign({formulario: 'AUTORIZACOES'})).subscribe((_PERMISSAO: Permissao[]) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSAO.filter(c => c.acao === 'EDITAR')[0]);
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSAO.filter(c => c.acao === 'VISUALIZAR')[0]);
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+    }, error => {
+      console.log(error.error);
     });
   }
 

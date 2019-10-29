@@ -7,7 +7,7 @@
           Publicação<label></label>
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplate(templatePublicacao)" aria-label="Close">
+        <button type="button" class="close float-right" (click)="fecharTemplate(templatePublicacao)" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -63,7 +63,7 @@
           <div *ngIf="publicacaoArquivos && publicacaoArquivos.length" class="box-footer">
             <ul class="mailbox-attachments">
               <li *ngFor="let arquivo of publicacaoArquivos; let i = index">
-                <button type="button" class="btn btn-default pull-right" tooltip="Excluir"
+                <button type="button" class="btn btn-default float-right" tooltip="Excluir"
                   (click)="excluirArquivoUpload(i)"><i class="fa fa-times"></i></button>
                 <span class="mailbox-attachment-icon"><i class="fa fa-file-o"></i></span>
                 <div class="mailbox-attachment-info">

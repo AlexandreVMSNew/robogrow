@@ -12,8 +12,8 @@ import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/re
 export class FinanceiroVendaComponent implements OnInit {
 
   @Input() venda: Venda;
-  @Input() editarValorRealizado: boolean;
-  @Input() editarValorPrevisto: boolean;
+  @Input() cadastrarValorRealizado = false;
+  @Input() cadastrarValorPrevisto = false;
 
   idDetalharRecebimento: number;
   produtoItem: ProdutoItem;
@@ -29,11 +29,11 @@ export class FinanceiroVendaComponent implements OnInit {
 
   constructor(private vendaService: VendaService,
               private recebimentoService: RecebimentoService) {
-                this.vendaService.atualizaFinanceiroVenda.subscribe((venda: Venda) => {
-                  this.venda = venda;
-                  this.carregarFinanceiro();
-                });
-               }
+    this.vendaService.atualizaFinanceiroVenda.subscribe((venda: Venda) => {
+      this.venda = venda;
+      this.carregarFinanceiro();
+    });
+  }
 
   ngOnInit() {
     this.carregarFinanceiro();

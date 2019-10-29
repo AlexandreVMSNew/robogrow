@@ -27,8 +27,8 @@ export class ChequePreService {
   getChequePreById(id: number): Observable<ChequePre> {
     return this.http.get<ChequePre>(`${this.baseURL}/${id}`);
   }
-  novoChequePre(chequepre: ChequePre) {
-    return this.http.post(`${this.baseURL}/novo`, chequepre);
+  cadastrarChequePre(chequepre: ChequePre) {
+    return this.http.post(`${this.baseURL}/cadastrar`, chequepre);
   }
 
   editarChequePre(chequepre: ChequePre) {

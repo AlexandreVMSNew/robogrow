@@ -6,6 +6,7 @@ import { BsModalService, BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from '../../_services/Permissoes/permissao.service';
 import { Permissao } from '../../_models/Permissoes/permissao';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-usuario',
@@ -13,8 +14,11 @@ import { Permissao } from '../../_models/Permissoes/permissao';
 })
 export class UsuarioComponent implements OnInit, AfterViewInit {
 
-  novo = false;
+  formularioComponent = 'USUÁRIOS';
+  cadastrar = false;
   editar = false;
+  listar = false;
+  visualizar = false;
   excluir = false;
 
   usuariosFiltrados: Usuario[];
@@ -33,28 +37,31 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   paginaAtual = 1;
   totalRegistros = 0; number;
 
-  constructor(
-    private usuarioService: UsuarioService,
-    private localeService: BsLocaleService,
-    private toastr: ToastrService,
-    private permissaoService: PermissaoService
-    ) {
-      this.localeService.use('pt-br');
-    }
+  constructor(private usuarioService: UsuarioService,
+              private localeService: BsLocaleService,
+              private toastr: ToastrService,
+              private permissaoService: PermissaoService) {
+    this.localeService.use('pt-br');
+  }
 
-    ngOnInit() {
-      this.getUsuarios();
-    }
+  ngOnInit() {
+    this.getUsuarios();
+  }
 
-    ngAfterViewInit() {
-      this.permissaoService.getPermissoesByFormulario(
-        Object.assign({formulario: 'USUARIOS'})).subscribe((_PERMISSOES: Permissao[]) => {
-        this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-        this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
-        this.excluir = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EXCLUIR')[0]);
-      });
-      this.usuarioId = this.permissaoService.getUsuarioId();
-    }
+  ngAfterViewInit() {
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
+    });
+    this.usuarioId = this.permissaoService.getUsuarioId();
+  }
 
   get filtroLista() {
     return this._filtroLista;

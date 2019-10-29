@@ -114,12 +114,12 @@ getVendaConfig(): Observable<VendaConfig> {
   return this.http.get<VendaConfig>(`${this.baseURL}/config`);
 }
 
-novoVendaConfig(vendaConfig: VendaConfig) {
-  return this.http.post(`${this.baseURL}/config/novo`, vendaConfig);
+cadastrarVendaConfig(vendaConfig: VendaConfig) {
+  return this.http.post(`${this.baseURL}/config/cadastrar`, vendaConfig);
 }
 
 novaVendaPublicacao(vendaPublicacao: VendaPublicacao) {
-  return this.http.post(`${this.baseURL}/publicacoes/novo`, vendaPublicacao);
+  return this.http.post(`${this.baseURL}/publicacoes/cadastrar`, vendaPublicacao);
 }
 
 getVendaPublicacoes(vendaId: number, usuarioId: number): Observable<VendaPublicacao[]> {
@@ -134,8 +134,8 @@ getIdUltimaVenda(): Observable<Venda> {
   return this.http.get<Venda>(`${this.baseURL}/idUltimaVenda`);
 }
 
-novoProdutoVenda(produtos: VendaProduto[]) {
-  return this.http.post(`${this.baseURL}/produtos/novo`, produtos);
+cadastrarProdutoVenda(produtos: VendaProduto[]) {
+  return this.http.post(`${this.baseURL}/produtos/cadastrar`, produtos);
 }
 
 getVendaValorPrevistoByProdIdVendId(idProdutoItem: number, idVenda: number): Observable<VendaValorPrevisto> {
@@ -150,20 +150,20 @@ getVerificaPagamentoByProdIdVendId(idProdutoItem: number, idVenda: number): Obse
   return this.http.get<boolean>(`${this.baseURL}/valorrealizado/pago/${idProdutoItem}/${idVenda}`);
 }
 
-novoVendaValorPrevisto(vendaValorPrevisto: VendaValorPrevisto) {
-  return this.http.post(`${this.baseURL}/valorprevisto/novo`, vendaValorPrevisto);
+cadastrarVendaValorPrevisto(vendaValorPrevisto: VendaValorPrevisto) {
+  return this.http.post(`${this.baseURL}/valorprevisto/cadastrar`, vendaValorPrevisto);
 }
 
-novoVendaValorRealizado(vendaValorRealizado: VendaValorRealizado) {
-  return this.http.post(`${this.baseURL}/valorrealizado/novo`, vendaValorRealizado);
+cadastrarVendaValorRealizado(vendaValorRealizado: VendaValorRealizado) {
+  return this.http.post(`${this.baseURL}/valorrealizado/cadastrar`, vendaValorRealizado);
 }
 
 getIdUltimoValorRealizado(): Observable<VendaValorRealizado> {
   return this.http.get<VendaValorRealizado>(`${this.baseURL}/valorrealizado/idUltimo`);
 }
 
-novoVenda(venda: Venda) {
-  return this.http.post(`${this.baseURL}/novo`, venda);
+cadastrarVenda(venda: Venda) {
+  return this.http.post(`${this.baseURL}/cadastrar`, venda);
 }
 
 editarVenda(venda: Venda) {

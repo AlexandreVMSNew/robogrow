@@ -13,6 +13,7 @@ export class TemplateModalComponent implements OnInit {
   @Input() component: any;
   @Input() templateModalService = new TemplateModalService();
   @Input() width: number;
+  @Input() titulo = '';
 
   @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
 

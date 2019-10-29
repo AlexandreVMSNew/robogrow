@@ -2,8 +2,8 @@
 <hr width="100%">
 <div class="row">
 <div style="margin-right: 15px;margin-bottom:10px;" class="float-right">
-  <a [routerLink]="['novo']" class="btn btn-success">
-    <i class="fa fa-plus-circle"></i>&nbsp; Novo Retorno
+  <a [routerLink]="['cadastrar']" class="btn btn-success">
+    <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Retorno
   </a>
 </div>
 </div>
@@ -144,7 +144,7 @@
             <h4 id="dialog-sizes-name1" class="modal-title pull-left">
               Log(s) do Retorno
             </h4>
-            <button type="button" class="close pull-right" (click)="templateLog.hide()" aria-label="Close">
+            <button type="button" class="close float-right" (click)="templateLog.hide()" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -204,7 +204,7 @@
           <h4 id="dialog-sizes-name1" class="modal-title pull-left">
             Observações do Retorno
           </h4>
-          <button type="button" class="close pull-right" (click)="templateInformacoes.hide()" aria-label="Close">
+          <button type="button" class="close float-right" (click)="templateInformacoes.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>

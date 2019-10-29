@@ -12,7 +12,7 @@ import { Permissao } from 'src/app/_models/Permissoes/permissao';
 })
 export class LancamentoComponent implements OnInit, AfterViewInit {
 
-  novo = false;
+  cadastrar = false;
   editar = false;
   visualizar = false;
 
@@ -32,12 +32,7 @@ export class LancamentoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'LANÇAMENTOS'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
-    });
+    
   }
 
   getLancamentoTemplate() {

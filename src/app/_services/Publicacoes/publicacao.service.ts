@@ -38,7 +38,7 @@ export class PublicacaoService {
   }
 
   novaPublicacao(publicacao: Publicacao): Observable<Publicacao>  {
-    return this.http.post<Publicacao>(`${this.baseURL}/novo`, publicacao);
+    return this.http.post<Publicacao>(`${this.baseURL}/cadastrar`, publicacao);
   }
 
   editarPublicacao(publicacao: Publicacao): Observable<Publicacao>  {
@@ -49,8 +49,8 @@ export class PublicacaoService {
     return this.http.delete<Publicacao>(`${this.baseURL}/excluir/${publicacaoId}`);
   }
 
-  novoPublicacaoComentario(comentario: PublicacaoComentario) {
-    return this.http.post(`${this.baseURL}/comentario/novo`, comentario);
+  cadastrarPublicacaoComentario(comentario: PublicacaoComentario) {
+    return this.http.post(`${this.baseURL}/comentario/cadastrar`, comentario);
   }
 
   getPublicacaoArquivos(publicacaoId: number) {

@@ -60,7 +60,7 @@
               <ul class="mailbox-attachments clearfix">
                 <li *ngFor="let arquivo of publicacao.publicacaoArquivos; let i = index">
                   
-                <button type="button" class="btn btn-default pull-right" tooltip="Baixar Arquivo"
+                <button type="button" class="btn btn-default float-right" tooltip="Baixar Arquivo"
                 (click)="downloadArquivo(arquivo)"><i class="fa fa-cloud-download"></i></button>
                   <span class="mailbox-attachment-icon"><i class="fa fa-file-o"></i></span>
                   <div class="mailbox-attachment-info">
@@ -72,7 +72,7 @@
                 </li>
               </ul>
             </div>
-            <span class="pull-right text-muted">{{publicacao.publicacaoComentarios.length}} comentários.</span>
+            <span class="float-right text-muted">{{publicacao.publicacaoComentarios.length}} comentários.</span>
           </div>
 
           <div style="border: 1px solid #C0C0C0" *ngFor="let comentario of publicacao.publicacaoComentarios"
@@ -85,7 +85,7 @@
               <div style="margin-left: 40px;" class="comment-text">
                 <span class="username">
                   {{comentario.usuario.nomeCompleto}}
-                  <span class="text-muted pull-right">
+                  <span class="text-muted float-right">
                     {{comentario.dataHora | date:'dd/MM/yyyy HH:mm'}}</span>
                 </span>
                 <p>{{comentario.texto}}</p>

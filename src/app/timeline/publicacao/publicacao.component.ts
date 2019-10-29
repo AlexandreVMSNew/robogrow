@@ -76,7 +76,7 @@ export class PublicacaoComponent implements OnInit {
 
   enviarNotificacoes(usuariosIdNotificacao, publicacao: Publicacao) {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    const msg = `${this.usuarioLogado.nomeCompleto} adicionou um novo comentário em uma publicação que você foi marcado(a).`;
+    const msg = `${this.usuarioLogado.nomeCompleto} adicionou um cadastrar comentário em uma publicação que você foi marcado(a).`;
     const link =  `${location.protocol}//${location.hostname}/publicacoes`;
     const notificacoes: Notificacao[] = [];
     usuariosIdNotificacao.forEach(idUsuario => {
@@ -84,7 +84,7 @@ export class PublicacaoComponent implements OnInit {
         id: 0,
         usuarioId: idUsuario,
         dataHora: dataAtual,
-        titulo: 'Novo Comentário!',
+        titulo: 'Cadastrar Comentário!',
         mensagem: msg,
         url: link,
         publicacaoId: publicacao.id,
@@ -94,13 +94,13 @@ export class PublicacaoComponent implements OnInit {
     this.notificacaoService.novasNotificacoes(notificacoes).subscribe(
       () => {
       notificacoes.forEach(notificacao => {
-        this.socketService.sendSocket('NovoComentarioPublicacao', notificacao);
+        this.socketService.sendSocket('CadastrarComentarioPublicacao', notificacao);
       });
     });
   }
 
   enviarEmail(usuariosEmailNotificacao, publicacao: Publicacao) {
-    const ass = `${this.usuarioLogado.nomeCompleto} adicionou um novo comentário em uma publicação que você foi marcado(a).`;
+    const ass = `${this.usuarioLogado.nomeCompleto} adicionou um cadastrar comentário em uma publicação que você foi marcado(a).`;
     const msg = `Para ir até o comentário publicado pelo usuário ${this.usuarioLogado.nomeCompleto} <br/>
                 <a href="${location.protocol}//${location.hostname}/publicacoes">CLIQUE AQUI.</a>`;
     const email: Email = {
@@ -117,7 +117,7 @@ export class PublicacaoComponent implements OnInit {
     });
   }
 
-  notificarUsuariosNovoComentario(publicacao: Publicacao) {
+  notificarUsuariosCadastrarComentario(publicacao: Publicacao) {
     const usuariosIdNotificacao = [];
     const usuariosEmailNotificacao: any = [];
 
@@ -155,8 +155,8 @@ export class PublicacaoComponent implements OnInit {
       dataHora: dataAtual,
       dataHoraAlteracao: dataAtual,
     });
-    this.publicacaoService.novoPublicacaoComentario(comentario).subscribe(() => {
-      this.notificarUsuariosNovoComentario(publicacao);
+    this.publicacaoService.cadastrarPublicacaoComentario(comentario).subscribe(() => {
+      this.notificarUsuariosCadastrarComentario(publicacao);
       publicacao.textoComentario = '';
       this.publicacaoService.atualizarPublicacaoComentarios(publicacao.id);
       this.toastr.success(`Comentário publicado!`);

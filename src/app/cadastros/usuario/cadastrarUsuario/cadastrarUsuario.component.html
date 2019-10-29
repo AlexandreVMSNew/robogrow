@@ -1,6 +1,6 @@
 <h2>Usuário</h2>
 <hr width="100%">
-<div class="box box-primary">
+<div class="box box-primary" *ngIf="this.cadastrar == true">
   <div class="box-header with-border">
     <form [formGroup]="cadastroForm" style="margin-top: 10px;">
       <tabset>
@@ -106,8 +106,12 @@
       </tabset>
     </form>
   </div>
+  
+  <button *ngIf="this.cadastrar == true" style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid"
+    (click)="cadastrarUsuario()" tooltip="Cadastrar Usuário" class="btn btn-lg btn-primary">
+    &nbsp;Cadastrar
+  </button>
 </div>
-<button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="cadastrarUsuario()"
-  tooltip="Novo Usuário" class="btn btn-lg btn-primary">
-  &nbsp;Cadastrar
-</button>
+<div *ngIf="this.cadastrar == false">
+  Você não tem permissão
+</div>

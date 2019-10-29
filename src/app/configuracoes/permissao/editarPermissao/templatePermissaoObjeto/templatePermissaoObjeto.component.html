@@ -1,0 +1,21 @@
+<form [formGroup]="cadastroObjetoForm">
+  <div class="form-group col-md-12">
+    <input class="form-control" formControlName="objeto" style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" 
+      [ngClass]="{ 'is-invalid': cadastroObjetoForm.get('objeto').errors &&  cadastroObjetoForm.get('objeto').touched}" />
+    <div *ngIf="cadastroObjetoForm.get('objeto').hasError('required') && cadastroObjetoForm.get('objeto').touched"
+      class="invalid-feedback">
+      Campo obrigatório.
+    </div>
+  </div>
+</form>
+
+<button *ngIf="this.objeto == null && this.cadastrarObjetoVar == true" style="position:relative;margin-bottom: 15px;" 
+  [disabled]="!cadastroObjetoForm.valid" (click)="cadastrarObjeto()"
+  tooltip="Cadastrar Objeto" class="btn btn-lg btn-primary float-right">
+  &nbsp; Cadastrar
+</button>
+
+<button *ngIf="this.objeto != null && this.editarObjeto == true" style="position:relative;margin-bottom: 15px;" 
+  [disabled]="!cadastroObjetoForm.valid" (click)="salvarAlteracoes()" tooltip="Editar Objeto" class="btn btn-lg btn-primary float-right">
+  &nbsp; Salvar Alterações
+</button>

@@ -41,7 +41,7 @@ export class EmpresaService {
   }
 
   novaEmpresa(empresa: Empresa) {
-    return this.http.post(`${this.baseURL}/novo`, empresa);
+    return this.http.post(`${this.baseURL}/cadastrar`, empresa);
   }
 
   editarEmpresa(empresa: Empresa) {

@@ -217,7 +217,7 @@ export class TemplateRecebimentoComponent implements OnInit {
         dataLancamento: this.dataService.getDataSQL(parcela.dataLancamento)
       }));
     });
-    this.lancamentoService.novosLancamentos(lancamentos).subscribe(() => {
+    this.lancamentoService.cadastrarsLancamentos(lancamentos).subscribe(() => {
       console.log('Lançamentos Efetuados.');
     }, error => {
       console.log(error.error);
@@ -240,7 +240,7 @@ export class TemplateRecebimentoComponent implements OnInit {
       parcelas: []
     });
 
-    this.recebimentoService.novoRecebimentos(this.recebimento).subscribe((_ID) => {
+    this.recebimentoService.cadastrarRecebimentos(this.recebimento).subscribe((_ID) => {
       const recebimentoParcelas: RecebimentoParcelas[] = [];
       this.parcelas.forEach((parcela) => {
         const parc = Object.assign(parcela, {
@@ -253,7 +253,7 @@ export class TemplateRecebimentoComponent implements OnInit {
         recebimentoParcelas.push(parc);
       });
 
-      this.recebimentoService.novoRecebimentoParcelas(recebimentoParcelas).subscribe(() => {
+      this.recebimentoService.cadastrarRecebimentoParcelas(recebimentoParcelas).subscribe(() => {
         this.valorRealizado = Object.assign({
           id: 0,
           vendaId: this.idVenda,
@@ -262,7 +262,7 @@ export class TemplateRecebimentoComponent implements OnInit {
           recebimentos: null,
           recebimentosId: _ID,
         });
-        this.vendaService.novoVendaValorRealizado(this.valorRealizado).subscribe(() => {
+        this.vendaService.cadastrarVendaValorRealizado(this.valorRealizado).subscribe(() => {
           this.toastr.success('Salvo com Sucesso!');
           this.efetuarLancamentos();
           this.vendaService.atualizarVenda();
@@ -270,15 +270,15 @@ export class TemplateRecebimentoComponent implements OnInit {
           this.fecharTemplate(this.templateRecebimentos);
         }, error => {
           console.log(error.error);
-          this.toastr.error(`Erro ao tentar inserir novo Valor Realizado : ${error.error}`);
+          this.toastr.error(`Erro ao tentar inserir cadastrar Valor Realizado : ${error.error}`);
         });
       }, error => {
         console.log(error.error);
-        this.toastr.error(`Erro ao tentar inserir novo Recebimento Parcelas : ${error.error}`);
+        this.toastr.error(`Erro ao tentar inserir cadastrar Recebimento Parcelas : ${error.error}`);
       });
     }, error => {
       console.log(error.error);
-      this.toastr.error(`Erro ao tentar inserir novo Recebimento: ${error.error}`);
+      this.toastr.error(`Erro ao tentar inserir cadastrar Recebimento: ${error.error}`);
     });
   }
 

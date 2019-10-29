@@ -58,9 +58,9 @@ export class CheckListVendaComponent implements OnInit {
           this.vendaCheckList.filter(c => c.checkId === check.id)[0] = Object.assign(vendaCheck[0],
               {opcaoSelecionadaId: (check.opcaoSelecionadaId) ? check.opcaoSelecionadaId : null});
         } else if (vendaCheck.length === 0) {
-          const novoCheck = Object.assign({id: 0, vendaId: this.venda.id, checkId: check.id,
+          const cadastrarCheck = Object.assign({id: 0, vendaId: this.venda.id, checkId: check.id,
               opcaoSelecionadaId: (check.opcaoSelecionadaId) ? check.opcaoSelecionadaId : null});
-          this.vendaCheckList.push(novoCheck);
+          this.vendaCheckList.push(cadastrarCheck);
         }
       });
     });

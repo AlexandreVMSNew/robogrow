@@ -23,8 +23,6 @@ import { RelatorioVendasDetalhadas } from 'src/app/_models/Movimentos/RelatorioV
 
 export class RelatorioVendaComponent implements OnInit, AfterViewChecked {
 
-  visualizarRelatorio = false;
-
   dataPeriodo: DataPeriodo;
 
   relatorioVendas: RelatorioVendas = null;
@@ -74,7 +72,6 @@ export class RelatorioVendaComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.changeDetectionRef.detectChanges();
   }
-
 
   carregarInformacoes() {
 

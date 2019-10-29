@@ -47,11 +47,11 @@ getCountLogsAguardandoByRetornoId(retornoId: number): Observable<number> {
   return this.http.get<number>(`${this.baseURL}/logs/count/${retornoId}`);
 }
 
-novoRetorno(retorno: Retorno) {
-  return this.http.post(`${this.baseURL}/novo`, retorno);
+cadastrarRetorno(retorno: Retorno) {
+  return this.http.post(`${this.baseURL}/cadastrar`, retorno);
 }
 
-novoLog(retornoLog: RetornoLog) {
+cadastrarLog(retornoLog: RetornoLog) {
   return this.http.post(`${this.baseURL}/logs`, retornoLog);
 }
 

@@ -69,12 +69,12 @@ getIdUltimoProduto(): Observable<Produto> {
   return this.http.get<Produto>(`${this.baseURL}/idUltimoProduto`);
 }
 
-novoProduto(produto: Produto) {
-  return this.http.post(`${this.baseURL}/novo`, produto);
+cadastrarProduto(produto: Produto) {
+  return this.http.post(`${this.baseURL}/cadastrar`, produto);
 }
 
-novoItem(Item: ProdutoItem[]) {
-  return this.http.post(`${this.baseURL}/item/novo`, Item);
+cadastrarItem(Item: ProdutoItem[]) {
+  return this.http.post(`${this.baseURL}/item/cadastrar`, Item);
 }
 
 editarItem(Item: ProdutoItem[], id: number) {
@@ -89,8 +89,8 @@ excluirProduto(id: number) {
   return this.http.delete(`${this.baseURL}/excluir/${id}`);
 }
 
-novoProdutoGrupoCheck(produtoGrupoCheck: ProdutoGrupoChecks) {
-  return this.http.post(`${this.baseURL}/grupoChecks/novo`, produtoGrupoCheck);
+cadastrarProdutoGrupoCheck(produtoGrupoCheck: ProdutoGrupoChecks) {
+  return this.http.post(`${this.baseURL}/grupoChecks/cadastrar`, produtoGrupoCheck);
 }
 
 editarProdutoGrupoCheck(produtoGrupoCheck: ProdutoGrupoChecks) {
@@ -101,12 +101,12 @@ excluirProdutoGrupoCheck(id: number) {
   return this.http.delete(`${this.baseURL}/grupoChecks/excluir/${id}`);
 }
 
-novoProdutoCheckList(produtoCheckList: ProdutoCheckList) {
-  return this.http.post(`${this.baseURL}/grupoChecks/check/novo`, produtoCheckList);
+cadastrarProdutoCheckList(produtoCheckList: ProdutoCheckList) {
+  return this.http.post(`${this.baseURL}/grupoChecks/check/cadastrar`, produtoCheckList);
 }
 
-novoProdutoCheckListOpcoes(produtoCheckListOpcoes: ProdutoCheckListOpcoes) {
-  return this.http.post(`${this.baseURL}/grupoChecks/opcao/novo`, produtoCheckListOpcoes);
+cadastrarProdutoCheckListOpcoes(produtoCheckListOpcoes: ProdutoCheckListOpcoes) {
+  return this.http.post(`${this.baseURL}/grupoChecks/opcao/cadastrar`, produtoCheckListOpcoes);
 }
 getProdutoGrupoCheckByProdutoId(produtoId: number): Observable<ProdutoGrupoChecks[]> {
   return this.http.get<ProdutoGrupoChecks[]>(`${this.baseURL}/grupoChecks/produto/${produtoId}`);

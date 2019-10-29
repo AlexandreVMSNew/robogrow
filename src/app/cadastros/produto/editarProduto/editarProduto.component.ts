@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProdutoService } from 'src/app/_services/Cadastros/Produtos/produto.service';
@@ -6,16 +6,21 @@ import { ActivatedRoute } from '@angular/router';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
-import { CentroReceitaService } from 'src/app/_services/Cadastros/CentroReceita/centroReceita.service';
-import { PlanoContaService } from 'src/app/_services/Cadastros/PlanosConta/planoConta.service';
-import { CentroDespesaService } from 'src/app/_services/Cadastros/CentroDespesa/centroDespesa.service';
 import { ProdutoGrupoChecks } from 'src/app/_models/Cadastros/Produtos/produtoGrupoChecks';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-editar-produto',
   templateUrl: './editarProduto.component.html'
 })
-export class EditarProdutoComponent implements OnInit {
+export class EditarProdutoComponent implements OnInit, AfterViewInit {
+
+  formularioComponent = 'PRODUTOS';
+  cadastrar = false;
+  editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
 
   cadastroForm: FormGroup;
 
@@ -49,6 +54,20 @@ export class EditarProdutoComponent implements OnInit {
     this.idProduto = +this.router.snapshot.paramMap.get('id');
     this.validarForm();
     this.carregarProduto();
+  }
+
+  ngAfterViewInit() {
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
+    });
   }
 
   carregarProduto() {

@@ -1,6 +1,6 @@
 <h2>Produto</h2>
 <hr width="100%">
-<div class="box box-primary">
+<div class="box box-primary" *ngIf="this.editar == true || this.visualizar == true">
   <div class="box-header with-border">
     <tabset>
       <tab heading="Geral" style="margin-top: 10px;">
@@ -41,9 +41,9 @@
       </tab>
 
       <tab heading="Check List" style="margin-top: 20px;">
-          <div style="margin-right: 15px;margin-bottom: 10px;" class="pull-right">
-              <a tooltip="Novo Grupo" (click)="abrirCheckListProduto('novo', null)" class="btn btn-success">
-                <i class="fa fa-plus-circle"></i>&nbsp; Novo Grupo
+          <div style="margin-right: 15px;margin-bottom: 10px;" class="float-right">
+              <a tooltip="Cadastrar Grupo" (click)="abrirCheckListProduto('cadastrar', null)" class="btn btn-success">
+                <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Grupo
               </a>
             </div>
     
@@ -79,9 +79,9 @@
       </tab>
   
       <tab heading="Produto Itens" style="margin-top: 20px;">
-        <div style="margin-right: 15px;margin-bottom: 10px;" class="pull-right">
-          <a (click)="abrirProdutoItens('novo', null)" tooltip="Novo Item" class="btn btn-success">
-            <i class="fa fa-plus-circle"></i>&nbsp; Novo Item
+        <div style="margin-right: 15px;margin-bottom: 10px;" class="float-right">
+          <a (click)="abrirProdutoItens('cadastrar', null)" tooltip="Cadastrar Item" class="btn btn-success">
+            <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Item
           </a>
         </div>
 
@@ -130,11 +130,14 @@
       </tab>
     </tabset>
   </div>
-</div>
-<button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="salvarAlteracoes()"
+  <button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="salvarAlteracoes()"
   tooltip="Salvar" class="btn btn-lg btn-primary">
   &nbsp;Salvar Alterações
-</button> 
+  </button> 
+</div>
+<div *ngIf="this.editar == false && this.visualizar == false">
+  Você não tem permissão.
+</div>
 
 <app-template-produto-itens [produto]="this.produto" [produtoItem]="this.produtoItem" [modoSalvar]="this.modoSalvar"
 *ngIf="getProdutoItens() == true"></app-template-produto-itens>

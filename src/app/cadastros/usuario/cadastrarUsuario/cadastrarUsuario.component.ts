@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -6,12 +6,21 @@ import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
 import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
 import { Nivel } from 'src/app/_models/Cadastros/Usuarios/Nivel';
 import { UsuarioNivel } from 'src/app/_models/Cadastros/Usuarios/UsuarioNivel';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 
 @Component({
-  selector: 'app-novo-usuario',
-  templateUrl: './novoUsuario.component.html'
+  selector: 'app-cadastrar-usuario',
+  templateUrl: './cadastrarUsuario.component.html'
 })
-export class NovoUsuarioComponent implements OnInit {
+export class CadastrarUsuarioComponent implements OnInit, AfterViewInit {
+
+  formularioComponent = 'USUÁRIOS';
+  cadastrar = false;
+  editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
 
   titulo = 'Cadastrar';
   cadastroForm: FormGroup;
@@ -23,12 +32,27 @@ export class NovoUsuarioComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
               private toastr: ToastrService,
+              private permissaoService: PermissaoService,
               private usuarioService: UsuarioService,
               public router: Router) { }
 
   ngOnInit() {
     this.getNiveis();
     this.validation();
+  }
+
+  ngAfterViewInit() {
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
+    });
   }
 
   validation() {
@@ -81,7 +105,7 @@ export class NovoUsuarioComponent implements OnInit {
     if (this.cadastroForm.valid) {
       this.usuario = Object.assign(this.cadastroForm.value,
          {password: this.cadastroForm.get('passwords.password').value, usuarioNivel: null});
-      this.usuarioService.novoUsuario(this.usuario).subscribe(
+      this.usuarioService.cadastrarUsuario(this.usuario).subscribe(
         () => {
           this.usuarioService.getIdUltimoUsuario().subscribe(
             (_USUARIO: Usuario) => {

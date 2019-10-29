@@ -74,7 +74,7 @@ export class CheckListProdutoComponent implements OnInit {
 
   cadastrarGrupoCheck(template: any) {
     this.produtoGrupoChecks = Object.assign(this.cadastroGrupoCheckForm.value, {id: 0, produtosId: this.produto.id});
-    this.produtoService.novoProdutoGrupoCheck(this.produtoGrupoChecks).subscribe(
+    this.produtoService.cadastrarProdutoGrupoCheck(this.produtoGrupoChecks).subscribe(
       () => {
         this.produtoService.atualizarProdutos();
         this.toastr.success('Grupo Cadastrado com Sucesso!');
@@ -101,7 +101,7 @@ export class CheckListProdutoComponent implements OnInit {
 
   cadastrarCheck(template: any) {
     const check  = Object.assign(this.cadastroCheckForm.value, {id: 0, produtosGrupoChecksId: this.produtoGrupoChecks.id});
-    this.produtoService.novoProdutoCheckList(check).subscribe(
+    this.produtoService.cadastrarProdutoCheckList(check).subscribe(
       () => {
         this.produtoService.atualizarProdutos();
         this.toastr.success('Check Cadastrado com Sucesso!');
@@ -114,7 +114,7 @@ export class CheckListProdutoComponent implements OnInit {
 
   cadastrarCheckOpcoes(template: any) {
     const opcao  = Object.assign(this.cadastroCheckOpcoesForm.value, {id: 0, produtosGrupoChecksId: this.produtoGrupoChecks.id});
-    this.produtoService.novoProdutoCheckListOpcoes(opcao).subscribe(
+    this.produtoService.cadastrarProdutoCheckListOpcoes(opcao).subscribe(
       () => {
         this.produtoService.atualizarProdutos();
         this.toastr.success('Opção Cadastrada com Sucesso!');

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
 import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
 import { PlanoContaService } from 'src/app/_services/Cadastros/PlanosConta/planoConta.service';
@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-config-venda',
@@ -14,7 +16,11 @@ import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
   styleUrls: ['./configVenda.component.css']
 })
 
-export class ConfigVendaComponent implements OnInit {
+export class ConfigVendaComponent implements OnInit, AfterViewInit {
+
+  formularioComponent = 'VENDAS';
+  editarConfig = false;
+  visualizarConfig = false;
 
   cadastroVendaConfig: FormGroup;
 
@@ -32,6 +38,7 @@ export class ConfigVendaComponent implements OnInit {
 
   constructor(private planoPagamentoService: PlanoPagamentoService,
               private planoContaService: PlanoContaService,
+              private permissaoService: PermissaoService,
               private vendaService: VendaService,
               private toastr: ToastrService,
               private fb: FormBuilder) { }
@@ -41,6 +48,17 @@ export class ConfigVendaComponent implements OnInit {
     this.getPlanoPagamento();
     this.validarRecebimentos();
     this.carregarConfigVenda();
+  }
+
+  ngAfterViewInit() {
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoConfig = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CONFIGURAÇÕES');
+      this.editarConfig = (permissaoConfig !== null ) ? permissaoConfig.editar : false;
+      this.visualizarConfig = (permissaoConfig !== null ) ? permissaoConfig.visualizar : false;
+    }, error => {
+      console.log(error.error);
+    });
   }
 
   carregarConfigVenda() {
@@ -73,7 +91,7 @@ export class ConfigVendaComponent implements OnInit {
   salvarAlteracao() {
     if (this.idVendaConfig === 0) {
       const vendaConfig = Object.assign(this.cadastroVendaConfig.value, {id: 0});
-      this.vendaService.novoVendaConfig(vendaConfig).subscribe((_CONFIG: VendaConfig[]) => {
+      this.vendaService.cadastrarVendaConfig(vendaConfig).subscribe((_CONFIG: VendaConfig[]) => {
           this.vendaConfig = Object.assign({}, _CONFIG[0]);
           this.toastr.success('Salvo com Sucesso!');
       }, error => {

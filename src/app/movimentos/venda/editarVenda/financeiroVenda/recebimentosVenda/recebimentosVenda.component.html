@@ -7,7 +7,7 @@
           Recebimentos da Venda ({{produtoItem.descricao}})
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplate(templateRecebimentosVenda)"
+        <button type="button" class="close float-right" (click)="fecharTemplate(templateRecebimentosVenda)"
           aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -17,9 +17,9 @@
         <div class="box box-primary">
           <div class="box-header with-border">
             <div class="row">
-              <div style="margin-right: 15px;" class="pull-right" *ngIf="this.venda.status != 'FINALIZADO'">
+              <div style="margin-right: 15px;" class="float-right" *ngIf="this.venda.status != 'FINALIZADO'">
                 <a (click)="abrirTemplateRecebimento()" class="btn btn-success">
-                  <i class="fa fa-plus-circle"></i>&nbsp; Novo Recebimento
+                  <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Recebimento
                 </a>
               </div>
             </div>

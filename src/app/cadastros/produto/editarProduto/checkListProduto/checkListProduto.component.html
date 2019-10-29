@@ -8,7 +8,7 @@
           Check List
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplate(templateCheckListProduto)"
+        <button type="button" class="close float-right" (click)="fecharTemplate(templateCheckListProduto)"
           aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -38,9 +38,9 @@
           </tab>
 
           <tab heading="Checks" *ngIf="this.modoSalvar == 'editar'" style="margin-top: 10px;">
-            <div style="margin-right: 15px;margin-bottom: 10px;" class="pull-right">
-              <a tooltip="Novo Check"  (click)="abrirTemplateCheck(templateCheck)" class="btn btn-success">
-                <i class="fa fa-plus-circle"></i>&nbsp; Novo Check
+            <div style="margin-right: 15px;margin-bottom: 10px;" class="float-right">
+              <a tooltip="Cadastrar Check"  (click)="abrirTemplateCheck(templateCheck)" class="btn btn-success">
+                <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Check
               </a>
             </div>
             <table class="table table-striped table-bordered mt-3">
@@ -67,7 +67,7 @@
           </tab>
 
           <tab heading="Opções" *ngIf="this.modoSalvar == 'editar'" style="margin-top: 10px;">
-            <div style="margin-right: 15px;margin-bottom: 10px;" class="pull-right">
+            <div style="margin-right: 15px;margin-bottom: 10px;" class="float-right">
               <a tooltip="Nova Opção" (click)="abrirTemplateCheckOpcoes(templateCheckOpcoes)" class="btn btn-success">
                 <i class="fa fa-plus-circle"></i>&nbsp; Nova Opção
               </a>
@@ -105,7 +105,7 @@
           [disabled]="!cadastroGrupoCheckForm.valid" (click)="salvarGrupoCheck(templateCheckListProduto)">
           Salvar Alterações
         </button>
-        <button class="btn btn-primary ml-auto" *ngIf="this.modoSalvar == 'novo'"
+        <button class="btn btn-primary ml-auto" *ngIf="this.modoSalvar == 'cadastrar'"
           [disabled]="!cadastroGrupoCheckForm.valid" (click)="cadastrarGrupoCheck(templateCheckListProduto)">
           Cadastrar
         </button>
@@ -125,7 +125,7 @@
           Check List
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplateCheck(templateCheck)"
+        <button type="button" class="close float-right" (click)="fecharTemplateCheck(templateCheck)"
           aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -176,7 +176,7 @@
           Opcões
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplateCheck(templateCheckOpcoes)"
+        <button type="button" class="close float-right" (click)="fecharTemplateCheck(templateCheckOpcoes)"
           aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

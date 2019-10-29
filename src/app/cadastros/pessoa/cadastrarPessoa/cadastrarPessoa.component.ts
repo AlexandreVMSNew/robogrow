@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 import { Cidade } from 'src/app/_models/Cadastros/Uteis/Cidade';
@@ -11,12 +11,20 @@ import { ToastrService } from 'ngx-toastr';
 import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
 import { Router } from '@angular/router';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
-  selector: 'app-novo-pessoa',
-  templateUrl: './novoPessoa.component.html'
+  selector: 'app-cadastrar-pessoa',
+  templateUrl: './cadastrarPessoa.component.html'
 })
-export class NovoPessoaComponent implements OnInit, AfterViewChecked {
+export class CadastrarPessoaComponent implements OnInit, AfterViewChecked, AfterViewInit {
+
+  formularioComponent = 'PESSOAS';
+  cadastrar = false;
+  editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
 
   cadastroForm: FormGroup;
   pessoa: Pessoa;
@@ -53,6 +61,20 @@ export class NovoPessoaComponent implements OnInit, AfterViewChecked {
     this.getTipos();
     this.getEstados();
     this.validarForm();
+  }
+
+  ngAfterViewInit() {
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
+    });
   }
 
   ngAfterViewChecked() {
@@ -139,7 +161,7 @@ export class NovoPessoaComponent implements OnInit, AfterViewChecked {
   cadastrarPessoa() {
     if (this.cadastroForm.valid) {
       this.pessoa = Object.assign(this.cadastroForm.value, {id: 0, pessoaTipos: null});
-      this.pessoaService.novoPessoa(this.pessoa).subscribe(
+      this.pessoaService.cadastrarPessoa(this.pessoa).subscribe(
         () => {
 
           this.pessoaService.getIdUltimaPessoa().subscribe(

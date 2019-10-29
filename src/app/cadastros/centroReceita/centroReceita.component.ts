@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CentroReceitaService } from 'src/app/_services/Cadastros/CentroReceita/centroReceita.service';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-centro-receita',
@@ -13,9 +14,12 @@ import { Permissao } from 'src/app/_models/Permissoes/permissao';
 })
 export class CentroReceitaComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
-  novo = true;
-  editar = true;
-  visualizar = true;
+  formularioComponent = 'CENTRO DE RECEITAS';
+  cadastrar = false;
+  editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
 
   cadastroForm: FormGroup;
 
@@ -30,7 +34,6 @@ export class CentroReceitaComponent implements OnInit, AfterViewChecked, AfterVi
 
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
-              private router: Router,
               private centroReceitaService: CentroReceitaService,
               private permissaoService: PermissaoService,
               private changeDetectionRef: ChangeDetectorRef) { }
@@ -41,11 +44,16 @@ export class CentroReceitaComponent implements OnInit, AfterViewChecked, AfterVi
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'CENTRO DE RECEITA'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
-      this.visualizar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'VISUALIZAR')[0]);
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
     });
   }
 
@@ -68,7 +76,7 @@ export class CentroReceitaComponent implements OnInit, AfterViewChecked, AfterVi
 
   abrirTemplateCentroReceita(modo: string, centroReceita: CentroReceita, template: any) {
     this.modo = modo;
-    if (modo === 'NOVO') {
+    if (modo === 'CADASTRAR') {
       this.cadastroForm.reset();
     } else if (modo === 'EDITAR') {
       this.carregarCentroReceita(centroReceita);
@@ -79,7 +87,7 @@ export class CentroReceitaComponent implements OnInit, AfterViewChecked, AfterVi
   cadastrarCentroReceita(template: any) {
     this.centroReceita = Object.assign(this.cadastroForm.value, {id: 0});
     console.log(this.centroReceita);
-    this.centroReceitaService.novoCentroReceita(this.centroReceita).subscribe(
+    this.centroReceitaService.cadastrarCentroReceita(this.centroReceita).subscribe(
       () => {
         this.getCentroReceita();
         template.hide();

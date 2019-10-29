@@ -10,6 +10,7 @@ import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.ser
 import * as moment from 'moment';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-cheque-pre-template',
@@ -21,8 +22,12 @@ export class ChequePreTemplateComponent implements OnInit, AfterViewInit {
   @Input() idChequePre: number;
   @ViewChild('templateChequePre') templateChequePre: any;
 
-  novo = false;
+  formularioComponent = 'CHEQUE PRÉ-DATADO';
+  cadastrar = false;
   editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
 
   cadastroCheque: FormGroup;
   cheque: ChequePre;
@@ -50,10 +55,16 @@ export class ChequePreTemplateComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'CHEQUES PRE-DATADO'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.novo = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'NOVO')[0]);
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
     });
   }
 
@@ -101,7 +112,7 @@ export class ChequePreTemplateComponent implements OnInit, AfterViewInit {
       this.cheque = Object.assign(this.cadastroCheque.value, {id: 0,
           dataPreDatado: this.dataService.getDataSQL(this.cadastroCheque.get('dataPreDatado').value.toLocaleString()),
           dataLancamento: dataAtual});
-      this.chequePreService.novoChequePre(this.cheque).subscribe(
+      this.chequePreService.cadastrarChequePre(this.cheque).subscribe(
         () => {
           this.fecharTemplate(template);
           this.toastr.success(`Cadastrado com Sucesso!`);

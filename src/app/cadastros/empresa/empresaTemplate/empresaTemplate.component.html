@@ -7,7 +7,7 @@
           Empresa<label></label>
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplate(templateEmpresa)" aria-label="Close">
+        <button type="button" class="close float-right" (click)="fecharTemplate(templateEmpresa)" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -168,7 +168,7 @@
           class="btn btn-primary" (click)="salvarEmpresa(templateEmpresa)">
           Salvar
         </button>
-        <button *ngIf="this.idEmpresa == 0 && this.novo == true" [disabled]="!cadastroEmpresa.valid"
+        <button *ngIf="this.idEmpresa == 0 && this.cadastrar == true" [disabled]="!cadastroEmpresa.valid"
           class="btn btn-primary" (click)="salvarEmpresa(templateEmpresa)">
           Cadastrar
         </button>

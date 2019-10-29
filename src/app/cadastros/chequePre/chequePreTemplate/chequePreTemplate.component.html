@@ -7,7 +7,7 @@
           Cheque Pré-Datado<label></label>
         </h4>
 
-        <button type="button" class="close pull-right" (click)="fecharTemplate(templateChequePre)" aria-label="Close">
+        <button type="button" class="close float-right" (click)="fecharTemplate(templateChequePre)" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -114,7 +114,7 @@
           (click)="salvarChequePre(templateChequePre)">
           Salvar
         </button>
-        <button *ngIf="this.idChequePre == 0 && this.novo == true" [disabled]="!cadastroCheque.valid" class="btn btn-primary"
+        <button *ngIf="this.idChequePre == 0 && this.cadastrar == true" [disabled]="!cadastroCheque.valid" class="btn btn-primary"
           (click)="salvarChequePre(templateChequePre)">
           Cadastrar
         </button>

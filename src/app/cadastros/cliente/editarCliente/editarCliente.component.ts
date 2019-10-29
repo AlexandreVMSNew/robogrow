@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, Input, EventEmitter, AfterViewChecked } from '@angular/core';
 import { ClienteService } from 'src/app/_services/Cadastros/Clientes/cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,19 +17,25 @@ import { ClienteVersoes } from 'src/app/_models/Cadastros/Clientes/ClienteVersoe
 import { ClienteGrupos } from 'src/app/_models/Cadastros/Clientes/ClienteGrupos';
 import { GrupoClienteService } from 'src/app/_services/Cadastros/Clientes/grupoCliente.service';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
-import { Permissao } from 'src/app/_models/Permissoes/permissao';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-editar-cliente',
   templateUrl: './editarCliente.component.html',
   styleUrls: ['./editarCliente.component.css']
 })
-export class EditarClienteComponent implements OnInit, AfterViewInit {
+export class EditarClienteComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   @Input() idCliente: number;
 
+  formularioComponent = 'CLIENTES';
+  cadastrar = false;
   editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
+
   titulo = 'Cadastrar';
   cadastroForm: FormGroup;
   cadastroGrupoForm: FormGroup;
@@ -95,52 +101,61 @@ export class EditarClienteComponent implements OnInit, AfterViewInit {
     this.carregarCliente();
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewChecked() {
     this.changeDetectionRef.detectChanges();
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissoesByFormulario(
-      Object.assign({formulario: 'CLIENTES'})).subscribe((_PERMISSOES: Permissao[]) => {
-      this.editar = this.permissaoService.verificarPermissao(_PERMISSOES.filter(c => c.acao === 'EDITAR')[0]);
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
     });
   }
 
   carregarCliente() {
-    this.clienteService.getClienteById(this.idCliente)
-      .subscribe(
-        (cliente: Cliente) => {
-          this.cliente = Object.assign({}, cliente);
-          this.dataCadProd = this.dataService.getDataPTBR(this.cliente.dataImpCadProd);
-          this.dataFrenteLoja = this.dataService.getDataPTBR(this.cliente.dataImpFrenteLoja);
-          this.dataFinanceiro = this.dataService.getDataPTBR(this.cliente.dataImpFinanceiro);
-          this.cliente = Object.assign(this.cliente, {
-            dataImpCadProd: this.dataCadProd,
-            dataImpFrenteLoja: this.dataFrenteLoja,
-            dataImpFinanceiro: this.dataFinanceiro
-          });
+    this.clienteService.getClienteById(this.idCliente).subscribe((cliente: Cliente) => {
+      this.cliente = Object.assign({}, cliente);
 
-          this.cadastroForm.patchValue(this.cliente);
+      this.dataCadProd = this.dataService.getDataPTBR(this.cliente.dataImpCadProd);
+      this.dataFrenteLoja = this.dataService.getDataPTBR(this.cliente.dataImpFrenteLoja);
+      this.dataFinanceiro = this.dataService.getDataPTBR(this.cliente.dataImpFinanceiro);
+      this.cliente = Object.assign(this.cliente, {
+        dataImpCadProd: this.dataCadProd,
+        dataImpFrenteLoja: this.dataFrenteLoja,
+        dataImpFinanceiro: this.dataFinanceiro
+      });
 
-          this.estadoIdSelecionado = this.cliente.estadoId;
-          this.getCidades(this.estadoIdSelecionado);
-          this.cidadeIdSelecionado = this.cliente.cidadeId;
+      this.cadastroForm.patchValue(this.cliente);
 
-          this.sistemaIdSelecionado = this.cliente.sistemaId;
-          this.getGeracoes(this.sistemaIdSelecionado);
-          this.geracaoIdSelecionado = this.cliente.geracaoId;
-          this.getVersoesGeracao(this.geracaoIdSelecionado);
-          this.versoesIdSelecionado = [];
-          this.versoesCliente = [];
-          this.cliente.clienteVersoes.forEach(versoes => {
-            this.versoesCliente.push(versoes);
-            this.versoesIdSelecionado.push(versoes.versaoId);
-          });
-        }, error => {
-          this.toastr.error(`Erro ao tentar carregar Cliente: ${error.error}`);
-          console.log(error);
-        });
+      this.grupoIdSelecionado = this.cliente.grupoId;
+      this.categoriaSelecionado = this.cliente.categoria;
+
+      this.estadoIdSelecionado = this.cliente.estadoId;
+      this.getCidades(this.estadoIdSelecionado);
+      this.cidadeIdSelecionado = this.cliente.cidadeId;
+
+      this.sistemaIdSelecionado = this.cliente.sistemaId;
+      this.getGeracoes(this.sistemaIdSelecionado);
+      this.geracaoIdSelecionado = this.cliente.geracaoId;
+      this.getVersoesGeracao(this.geracaoIdSelecionado);
+      this.versoesIdSelecionado = [];
+      this.versoesCliente = [];
+      this.cliente.clienteVersoes.forEach(versoes => {
+        this.versoesCliente.push(versoes);
+        this.versoesIdSelecionado.push(versoes.versaoId);
+      });
+
+    }, error => {
+      this.toastr.error(`Erro ao tentar carregar Cliente: ${error.error}`);
+      console.log(error);
+    });
   }
 
   validation() {
@@ -174,6 +189,40 @@ export class EditarClienteComponent implements OnInit, AfterViewInit {
         }), Validators.required],
         status: ['']
     });
+  }
+
+  salvarAlteracao() {
+    this.dataCadProd = null;
+    this.dataFrenteLoja = null;
+    this.dataFinanceiro = null;
+    if (this.cadastroForm.get('dataImpCadProd').value !== null) {
+      this.dataCadProd = this.cadastroForm.get('dataImpCadProd').value.toLocaleString();
+    }
+    if (this.cadastroForm.get('dataImpFrenteLoja').value !== null) {
+      this.dataFrenteLoja = this.cadastroForm.get('dataImpFrenteLoja').value.toLocaleString();
+    }
+    if (this.cadastroForm.get('dataImpFinanceiro').value !== null) {
+      this.dataFinanceiro = this.cadastroForm.get('dataImpFinanceiro').value.toLocaleString();
+    }
+
+    this.cliente = Object.assign(this.cadastroForm.value, { id: this.cliente.id,
+      dataImpCadProd: this.dataService.getDataSQL(this.dataCadProd),
+      dataImpFrenteLoja: this.dataService.getDataSQL(this.dataFrenteLoja),
+      dataImpFinanceiro: this.dataService.getDataSQL(this.dataFinanceiro) });
+
+    this.cliente.clienteVersoes = [];
+    this.versoesCliente.forEach(versoes => {
+      this.cliente.clienteVersoes.push(versoes);
+    });
+
+    console.log(this.cliente);
+    /*this.clienteService.editarCliente(this.cliente).subscribe(() => {
+      this.toastr.success('Editado com sucesso!');
+      this.carregarCliente();
+    }, error => {
+      this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
+      console.log(error.error);
+    });*/
   }
 
   adicionarClienteVersoes(versoesSelecionadas: any) {
@@ -304,7 +353,7 @@ export class EditarClienteComponent implements OnInit, AfterViewInit {
     });
   }
 
-  abrirModalNovoGrupo(template: any) {
+  abrirModalCadastrarGrupo(template: any) {
     this.cadastroGrupoForm.reset();
     template.show();
   }
@@ -312,7 +361,7 @@ export class EditarClienteComponent implements OnInit, AfterViewInit {
   cadastrarGrupo(template: any) {
     if (this.cadastroGrupoForm.valid) {
       this.grupo = Object.assign(this.cadastroGrupoForm.value, {id: 0});
-      this.clienteGruposService.novoGrupo(this.grupo).subscribe(
+      this.clienteGruposService.cadastrarGrupo(this.grupo).subscribe(
         () => {
           this.getGrupos();
           this.toastr.success('Grupo Cadastrado com Sucesso!');
@@ -322,38 +371,5 @@ export class EditarClienteComponent implements OnInit, AfterViewInit {
         }
       );
     }
-  }
-
-  salvarAlteracao() {
-    this.dataCadProd = null;
-    this.dataFrenteLoja = null;
-    this.dataFinanceiro = null;
-    if (this.cadastroForm.get('dataImpCadProd').value !== null) {
-      this.dataCadProd = this.cadastroForm.get('dataImpCadProd').value.toLocaleString();
-    }
-    if (this.cadastroForm.get('dataImpFrenteLoja').value !== null) {
-      this.dataFrenteLoja = this.cadastroForm.get('dataImpFrenteLoja').value.toLocaleString();
-    }
-    if (this.cadastroForm.get('dataImpFinanceiro').value !== null) {
-      this.dataFinanceiro = this.cadastroForm.get('dataImpFinanceiro').value.toLocaleString();
-    }
-
-    this.cliente = Object.assign(this.cadastroForm.value, { id: this.cliente.id,
-      dataImpCadProd: this.dataService.getDataSQL(this.dataCadProd),
-      dataImpFrenteLoja: this.dataService.getDataSQL(this.dataFrenteLoja),
-      dataImpFinanceiro: this.dataService.getDataSQL(this.dataFinanceiro) });
-
-    this.cliente.clienteVersoes = [];
-    this.versoesCliente.forEach(versoes => {
-      this.cliente.clienteVersoes.push(versoes);
-    });
-    this.clienteService.editarCliente(this.cliente).subscribe(
-      () => {
-        this.toastr.success('Editado com sucesso!');
-        this.carregarCliente();
-      }, error => {
-        this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
-        console.log(error.error);
-      });
   }
 }

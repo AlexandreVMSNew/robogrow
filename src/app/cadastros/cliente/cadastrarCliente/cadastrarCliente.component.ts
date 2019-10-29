@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { ToastrService } from 'ngx-toastr';
@@ -16,14 +16,22 @@ import { Versao } from 'src/app/_models/Cadastros/Sistemas/Versao';
 import { ClienteVersoes } from 'src/app/_models/Cadastros/Clientes/ClienteVersoes';
 import { SistemaClienteService } from 'src/app/_services/Cadastros/Clientes/sistemaCliente.service';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
+import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
-  selector: 'app-novo-cliente',
-  templateUrl: './novoCliente.component.html',
-  styleUrls: ['./novoCliente.component.css']
+  selector: 'app-cadastrar-cliente',
+  templateUrl: './cadastrarCliente.component.html',
+  styleUrls: ['./cadastrarCliente.component.css']
 })
 
-export class NovoClienteComponent implements OnInit {
+export class CadastrarClienteComponent implements OnInit, AfterViewInit, AfterViewChecked {
+
+  formularioComponent = 'CLIENTES';
+  cadastrar = false;
+  editar = false;
+  listar = false;
+  visualizar = false;
+  excluir = false;
 
   titulo = 'Cadastrar';
   cadastroForm: FormGroup;
@@ -82,7 +90,20 @@ export class NovoClienteComponent implements OnInit {
     this.validationGrupo();
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
+  ngAfterViewInit() {
+    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
+      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+    }, error => {
+      console.log(error.error);
+    });
+  }
+
   ngAfterViewChecked() {
     this.changeDetectionRef.detectChanges();
   }
@@ -243,7 +264,7 @@ export class NovoClienteComponent implements OnInit {
     });
   }
 
-  abrirModalNovoGrupo(template: any) {
+  abrirModalCadastrarGrupo(template: any) {
     this.cadastroGrupoForm.reset();
     template.show();
   }
@@ -251,7 +272,7 @@ export class NovoClienteComponent implements OnInit {
   cadastrarGrupo(template: any) {
     if (this.cadastroGrupoForm.valid) {
       this.grupo = Object.assign(this.cadastroGrupoForm.value, {id: 0});
-      this.clienteGruposService.novoGrupo(this.grupo).subscribe(
+      this.clienteGruposService.cadastrarGrupo(this.grupo).subscribe(
         () => {
           this.getGrupos();
           this.toastr.success('Grupo Cadastrado com Sucesso!');
@@ -266,7 +287,7 @@ export class NovoClienteComponent implements OnInit {
   cadastrarCliente() {
     if (this.cadastroForm.valid) {
       this.cliente = Object.assign(this.cadastroForm.value, {id: 0, clienteVersoes: null});
-      this.clienteService.novoCliente(this.cliente).subscribe(
+      this.clienteService.cadastrarCliente(this.cliente).subscribe(
         () => {
 
           this.clienteService.getIdUltimoCliente().subscribe(

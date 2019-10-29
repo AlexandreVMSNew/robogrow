@@ -1,7 +1,7 @@
 <h2>Venda</h2>
 
 <hr width="100%">
-<div class="box box-primary">
+<div class="box box-primary" *ngIf="this.listar == true">
   <div class="box-header with-border">
     <div class="row">
       <div class="form-group col-md-2">
@@ -25,11 +25,11 @@
       </div>
       
     </div>
-    <div *ngIf="this.novo == true" style="margin-bottom: 10px;"class="float-right">
-        <a [routerLink]="['novo']" class="btn btn-success">
+    <div  style="margin-bottom: 10px;"class="float-right">
+        <a *ngIf="this.cadastrar == true" [routerLink]="['cadastrar']" class="btn btn-success">
           <i class="fa fa-plus-circle"></i>&nbsp; Nova Venda
         </a>
-        <a [routerLink]="[]" (click)="abrirVendaConfig()" style="margin-left:5px;" class="btn btn-primary">
+        <a *ngIf="this.editarConfig == true || this.visualizarConfig == true" [routerLink]="[]" (click)="abrirVendaConfig()" style="margin-left:5px;" class="btn btn-primary">
           <i class="fa fa-gear"></i>
         </a>
       </div>
@@ -79,7 +79,7 @@
               {{ venda.status }}
             </span></td>
           <td style="text-align: center;white-space: nowrap;">
-            <div *ngIf="this.visualizar == true" class="btn-group">
+            <div *ngIf="this.visualizar == true || this.editar == true" class="btn-group">
               <a [routerLink]="['/movimentos/vendas','editar', venda.id]" tooltip="Editar/Detalhes"
                 class="btn btn-sm btn-primary">
                 <i class="fa fa-edit"></i>
@@ -103,6 +103,10 @@
     </div>
   </div>
 
+</div>
+
+<div  *ngIf="this.listar == false">
+  Você não tem permissão.
 </div>
 <app-template-modal *ngIf="this.getTemplateModalCliente() == true" [templateModalService]="templateModalClienteService"
   [component]="this.componentModal" [width]="80"
