@@ -80,7 +80,7 @@
         bindValue="id" [clearable]="false" [(ngModel)]="planoPagamentoIdSelecionado" formControlName="planoPagamentoId">
       </ng-select>
     </div>
-    <div *ngIf="!idVenda" class="form-check form-group col-md-2" style="margin-top: 30px;">
+    <div *ngIf="!this.venda" class="form-check form-group col-md-2" style="margin-top: 30px;">
       <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" [(ngModel)]="diasFixo" formControlName="diasfixoCheck">
         <label class="custom-control-label" for="customCheck">&nbsp;Dias Fixo</label>
