@@ -3,6 +3,10 @@ import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 import { VendaService } from 'src/app/_services/Movimentos/Venda/venda.service';
 import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/recebimento.service';
+import { PrevisaoVendaComponent } from './previsaoVenda/previsaoVenda.component';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { RecebimentosVendaComponent } from './recebimentosVenda/recebimentosVenda.component';
+import { PagamentosVendaComponent } from './pagamentosVenda/pagamentosVenda.component';
 
 @Component({
   selector: 'app-financeiro-venda',
@@ -26,6 +30,18 @@ export class FinanceiroVendaComponent implements OnInit {
   idProdutoItemValorPrevisto: number;
   itemDescricao: string;
   itemTipo = '';
+
+  templateModalPrevisaoService = new TemplateModalService();
+  previsaoVendaComponent = PrevisaoVendaComponent;
+
+  templateModalRecebimentosService = new TemplateModalService();
+  recebimentosVendaComponent = RecebimentosVendaComponent;
+
+  templateModalPagamentosService = new TemplateModalService();
+  pagamentosVendaComponent = PagamentosVendaComponent;
+  inputs: any;
+  tituloModal = '';
+  componentModal: any;
 
   constructor(private vendaService: VendaService,
               private recebimentoService: RecebimentoService) {
@@ -111,31 +127,38 @@ export class FinanceiroVendaComponent implements OnInit {
     return false;
   }
 
-  getPagamentosVenda() {
-    return this.vendaService.getPagamentosVendaStatus();
+  abrirPagamentosVenda(produtoItemInput: ProdutoItem) {
+    this.tituloModal =  `Previsão - ${produtoItemInput.descricao}`;
+    this.componentModal = this.pagamentosVendaComponent;
+    this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
+    this.templateModalPagamentosService.setTemplateModalStatus(true);
   }
 
-  getRecebimentosVenda() {
-    return this.vendaService.getRecebimentosVendaStatus();
+  abrirRecebimentosVenda(produtoItemInput: ProdutoItem) {
+    console.log(produtoItemInput);
+    this.tituloModal =  `Recebimentos - ${produtoItemInput.descricao}`;
+    this.componentModal = this.recebimentosVendaComponent;
+    this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
+    this.templateModalRecebimentosService.setTemplateModalStatus(true);
   }
 
-  abrirPagamentosVenda(produtoItem: ProdutoItem) {
-    this.produtoItem = produtoItem;
-    this.vendaService.setPagamentosVendaStatus(true);
+  abrirPrevisaoVenda(produtoItemInput: ProdutoItem) {
+    this.tituloModal =  `Pagamentos - ${produtoItemInput.descricao}`;
+    this.componentModal = this.previsaoVendaComponent;
+    this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
+    this.templateModalPrevisaoService.setTemplateModalStatus(true);
   }
 
-  abrirRecebimentosVenda(produtoItem: ProdutoItem) {
-    this.produtoItem = produtoItem;
-    this.vendaService.setRecebimentosVendaStatus(true);
+  getTemplateModalPagamentosVenda() {
+    return this.templateModalPagamentosService.getTemplateModalStatus();
   }
 
-  abrirPrevisaoVenda(produtoItem: ProdutoItem) {
-    this.produtoItem = produtoItem;
-    this.vendaService.setPrevisaoVendaStatus(true);
+  getTemplateModalRecebimentosVenda() {
+    return this.templateModalRecebimentosService.getTemplateModalStatus();
   }
 
-  getPrevisaoVenda() {
-    return this.vendaService.getPrevisaoVendaStatus();
+  getTemplateModalPrevisaoVenda() {
+    return this.templateModalPrevisaoService.getTemplateModalStatus();
   }
 
 }

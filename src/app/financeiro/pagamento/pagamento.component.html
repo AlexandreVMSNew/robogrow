@@ -4,12 +4,12 @@
   <div class="box-header with-border" >
     <div class="row">
       <div *ngIf="this.cadastrar == true" style="margin-right: 15px;" class="float-right">
-        <a  (click)="abrirTemplatePagamento()" class="btn btn-success">
+        <a  (click)="abrirTemplateModalPagamento()" class="btn btn-success">
           <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Pagamento
         </a>
       </div>
     </div>
-    <table style="margin-top: 15px;" class="table table-striped table-bordered mt-4">
+    <table  style="border-collapse:inherit;" style="margin-top: 15px;" class="table table-striped table-bordered mt-4">
         <thead class="thead-light">
           <tr>
             <th style="text-align: center;">N° Doc</th>
@@ -44,7 +44,7 @@
             <td style="text-align: center;">{{parcela.valorRestante | currency:' ':false}}</td>
             <td style="text-align: center;white-space: nowrap;">
               <div class="btn-group">
-                <a *ngIf="this.visualizar == true" (click)="abrirTemplateDetalharPagamento(parcela.pagamentosId)" tooltip="Editar/Detalhes" class="btn btn-sm btn-primary">
+                <a *ngIf="this.visualizar == true" (click)="abrirTemplateModalDetalharPagamento(parcela.pagamentos)" tooltip="Editar/Detalhes" class="btn btn-sm btn-primary">
                   <i class="fa fa-edit"></i>
                 </a>
               </div>
@@ -67,6 +67,10 @@
   </div>
 
 </div>
-<app-template-pagamento  *ngIf="getTemplatePagamento() == true"></app-template-pagamento>
+<app-template-modal id="pagamento" *ngIf="this.getTemplateModalPagamento() == true" [titulo]="this.tituloModal"
+[templateModalService]="this.templateModalPagamentoService" [component]="this.componentModal" [width]="80"
+[inputs]="this.inputs"></app-template-modal>
 
-<app-detalhar-pagamento [idPagamento]="this.idDetalharPagamento" *ngIf="getDetalharPagamento() == true"></app-detalhar-pagamento>
+<app-template-modal id="detalharPagamento" *ngIf="this.getTemplateModalDetalharPagamento() == true" [titulo]="this.tituloModal"
+[templateModalService]="this.templateModalDetalharPagamentoService" [component]="this.componentModal" [width]="80"
+[inputs]="this.inputs"></app-template-modal>

@@ -46,14 +46,14 @@ export class LancamentoComponent implements OnInit, AfterViewInit {
 
   getLancamentos() {
     this.lancamentoService.getLancamentos().subscribe(
-      // tslint:disable-next-line:variable-name
       (_LANCAMENTOS: Lancamentos[]) => {
-      this.lancamentos = _LANCAMENTOS;
+        console.log(_LANCAMENTOS);
+        this.lancamentos = _LANCAMENTOS;
     }, error => {
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar VendaS: ${error.error}`);
-  });
-}
+    });
+  }
 
 
 }

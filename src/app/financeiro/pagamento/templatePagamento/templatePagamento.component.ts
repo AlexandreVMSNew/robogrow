@@ -107,6 +107,7 @@ export class TemplatePagamentoComponent implements OnInit {
     this.cadastroPagamento = this.fb.group({
         id:  [''],
         pessoasId: ['', Validators.required],
+        descricao: [''],
         dataEmissao: ['', Validators.required],
         dataCompetencia: [''],
         qtdParcelas: ['', Validators.required],

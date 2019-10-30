@@ -5,6 +5,10 @@ import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { PagamentoService } from 'src/app/_services/Financeiro/Pagamentos/pagamento.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { DetalharPagamentoComponent } from './detalharPagamento/detalharPagamento.component';
+import { TemplatePagamentoComponent } from './templatePagamento/templatePagamento.component';
+import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 
 @Component({
   selector: 'app-pagamento',
@@ -24,6 +28,15 @@ export class PagamentoComponent implements OnInit, AfterViewInit {
   parcelas: PagamentoParcelas[] = [];
 
   idDetalharPagamento: number;
+
+  templateModalDetalharPagamentoService = new TemplateModalService();
+  detalharPagamentoComponent = DetalharPagamentoComponent;
+
+  templateModalPagamentoService = new TemplateModalService();
+  templatePagamentoComponent = TemplatePagamentoComponent;
+  inputs: any;
+  tituloModal = '';
+  componentModal: any;
 
   constructor(private toastr: ToastrService,
               private permissaoService: PermissaoService,
@@ -66,20 +79,27 @@ export class PagamentoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getDetalharPagamento() {
-    return this.pagamentoService.getDetalharPagamentoStatus();
+  getTemplateModalDetalharPagamento() {
+    return this.templateModalDetalharPagamentoService.getTemplateModalStatus();
   }
 
-  abrirTemplateDetalharPagamento(idPagamento: number) {
-    this.idDetalharPagamento = idPagamento;
-    this.pagamentoService.setDetalharPagamentoStatus(true);
+  abrirTemplateModalDetalharPagamento(recebimentoInput: Pagamentos) {
+    this.tituloModal =  `Pagamento - ${recebimentoInput.produtosItens.descricao}`;
+    this.componentModal = this.detalharPagamentoComponent;
+    this.inputs = Object.assign({recebimento: recebimentoInput});
+    this.templateModalDetalharPagamentoService.setTemplateModalStatus(true);
   }
 
-  getTemplatePagamento() {
-    return this.pagamentoService.getTemplatePagamentoStatus();
+  getTemplateModalPagamento() {
+    return this.templateModalPagamentoService.getTemplateModalStatus();
   }
 
-  abrirTemplatePagamento() {
-    this.pagamentoService.setTemplatePagamentoStatus(true);
+  abrirTemplateModalPagamento() {
+    this.tituloModal =  `Pagamento`;
+    this.componentModal = this.templatePagamentoComponent;
+    this.inputs = Object.assign({});
+    this.templateModalPagamentoService.setTemplateModalStatus(true);
   }
+
+
 }

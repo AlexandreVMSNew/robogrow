@@ -65,7 +65,7 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
 
   horaUltimaAtt: any;
 
-  templateModalService = new TemplateModalService();
+  templateModalClienteService = new TemplateModalService();
   editarClienteComponent = EditarClienteComponent;
   inputs: any;
   componentModal: any;
@@ -313,11 +313,11 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
   abrirTemplateModal(component, clienteId: number) {
     this.componentModal = component;
     this.inputs = Object.assign({idCliente: clienteId});
-    this.templateModalService.setTemplateModalStatus(true);
+    this.templateModalClienteService.setTemplateModalStatus(true);
   }
 
   getTemplateModal() {
-    return this.templateModalService.getTemplateModalStatus();
+    return this.templateModalClienteService.getTemplateModalStatus();
   }
 
   getClientes() {

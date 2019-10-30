@@ -76,14 +76,14 @@
             <div class="form-group col-md-2">
               <label>Inscrição Estadual:</label>
               <input class="form-control" type="text" maxlength="16" formControlName="ie"
-                [ngModel]="valueIePipe | iePipePipe" (ngModelChange)="valueIePipe=$event" />
+                [ngModel]="cadastroForm.get('ie').value | iePipePipe" (ngModelChange)="cadastroForm.get('ie').value=$event" />
             </div>
 
             <div class="form-group col-md-2">
               <label>Cnpj/Cpf:(*)</label>
               <input class="form-control" type="text" maxlength="18" formControlName="cnpjCpf" 
-              [ngClass]="{ 'is-invalid': cadastroForm.get('cnpjCpf').errors && cadastroForm.get('cnpjCpf').touched}" [ngModel]="valueCnpjCpfPipe | cnpjCpfPipePipe"
-                (ngModelChange)="valueCnpjCpfPipe=$event" />
+              [ngClass]="{ 'is-invalid': cadastroForm.get('cnpjCpf').errors && cadastroForm.get('cnpjCpf').touched}" [ngModel]="cadastroForm.get('cnpjCpf').value | cnpjCpfPipePipe"
+                (ngModelChange)="cadastroForm.get('cnpjCpf').value=$event" />
 
               <div *ngIf="cadastroForm.get('cnpjCpf').hasError('required') &&cadastroForm.get('cnpjCpf').touched"
                 class="invalid-feedback">
@@ -97,8 +97,8 @@
             <div class="form-group col-md-2">
               <label>Cep:(*)</label>
               <input class="form-control" type="text" maxlength="9" formControlName="cep" [ngClass]="{ 'is-invalid': cadastroForm.get('cep').errors && 
-                  cadastroForm.get('cep').touched}" [ngModel]="valueCepPipe | cepPipePipe"
-                (ngModelChange)="valueCepPipe=$event" />
+                  cadastroForm.get('cep').touched}" [ngModel]="cadastroForm.get('cep').value | cepPipePipe"
+                (ngModelChange)="cadastroForm.get('cep').value=$event" />
 
               <div *ngIf="cadastroForm.get('cep').hasError('required') &&cadastroForm.get('cep').touched"
                 class="invalid-feedback">
@@ -172,8 +172,8 @@
             <div class="form-group col-md-2">
               <label>Telefone:(*)</label>
               <input class="form-control" type="text" maxlength="14" formControlName="telefone" [ngClass]="{ 'is-invalid': cadastroForm.get('telefone').errors && 
-                      cadastroForm.get('telefone').touched}" [ngModel]="valueTelefonePipe | celularPipePipe"
-                (ngModelChange)="valueTelefonePipe=$event" />
+                      cadastroForm.get('telefone').touched}" [ngModel]="cadastroForm.get('telefone').value | celularPipePipe"
+                (ngModelChange)="cadastroForm.get('telefone').value=$event" />
 
               <div *ngIf="cadastroForm.get('telefone').hasError('required') &&cadastroForm.get('telefone').touched"
                 class="invalid-feedback">
@@ -183,8 +183,8 @@
 
             <div class="form-group col-md-2">
               <label>Celular:</label>
-              <input telefoneMask class="form-control" maxlength="14" [ngModel]="valueCelularPipe | celularPipePipe"
-                (ngModelChange)="valueCelularPipe=$event" type="tel" formControlName="celular" />
+              <input telefoneMask class="form-control" maxlength="14" [ngModel]="cadastroForm.get('celular').value | celularPipePipe"
+                (ngModelChange)="cadastroForm.get('celular').value=$event" type="tel" formControlName="celular" />
             </div>
 
             <div class="form-group col-md-2">
@@ -280,7 +280,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+        <h4 id="dialog-sizes-name1" class="modal-title float-left">
           Cadastrar Grupo
         </h4>
         <button type="button" class="close float-right" (click)="templateGrupo.hide()" aria-label="Close">

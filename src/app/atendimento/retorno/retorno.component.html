@@ -141,7 +141,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+            <h4 id="dialog-sizes-name1" class="modal-title float-left">
               Log(s) do Retorno
             </h4>
             <button type="button" class="close float-right" (click)="templateLog.hide()" aria-label="Close">
@@ -194,14 +194,14 @@
     </div>
   </div>
 
-<app-template-modal *ngIf="this.getTemplateModal() == true" [component]="this.componentModal" [width]="80"
+<app-template-modal *ngIf="this.getTemplateModal() == true" [templateModalService]="templateModalClienteService" [component]="this.componentModal" [width]="80"
 [inputs]="this.inputs"></app-template-modal>
 
   <div bsModal #templateInformacoes="bs-modal" class="modal fade" [config]="{backdrop: 'static', keyboard: false}">
     <div class="modal-dialog  modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          <h4 id="dialog-sizes-name1" class="modal-title float-left">
             Observações do Retorno
           </h4>
           <button type="button" class="close float-right" (click)="templateInformacoes.hide()" aria-label="Close">

@@ -26,7 +26,7 @@ import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 })
 export class DetalharRecebimentoComponent implements OnInit {
 
-  @Input() idRecebimento: number;
+  @Input() recebimento: Recebimentos;
   @Input() produtoItem: ProdutoItem;
 
   cadastroRecebimento: FormGroup;
@@ -43,7 +43,6 @@ export class DetalharRecebimentoComponent implements OnInit {
   idVenda: number;
   venda: Venda;
 
-  recebimento: Recebimentos;
   parcelas: any = [];
 
   planosPagamento: PlanoPagamento[];
@@ -74,29 +73,23 @@ export class DetalharRecebimentoComponent implements OnInit {
   }
 
   carregarRecebimento() {
-    this.recebimento = null;
-    this.recebimentoService.getRecebimentosById(this.idRecebimento)
-      .subscribe(
-        (_RECEBIMENTO: Recebimentos) => {
-          this.recebimento = Object.assign(_RECEBIMENTO, {
-            dataEmissao: this.dataService.getDataPTBR(_RECEBIMENTO.dataEmissao)
-          });
-          (!this.produtoItem) ? this.produtoItem = this.recebimento.produtosItens : this.produtoItem = this.produtoItem;
+    if (this.recebimento ) {
+      this.recebimento = Object.assign(this.recebimento , {
+        dataEmissao: this.dataService.getDataPTBR(this.recebimento .dataEmissao)
+      });
 
-          this.cadastroRecebimento.patchValue(this.recebimento);
-          this.cadastroRecebimento.disable();
-          this.parcelas = this.recebimento.parcelas;
+      (!this.produtoItem) ? this.produtoItem = this.recebimento.produtosItens : this.produtoItem = this.produtoItem;
 
-          this.parcelas.forEach((parcela) => {
-            parcela.dataVencimento = this.dataService.getDataPTBR(parcela.dataVencimento);
-          });
+      this.cadastroRecebimento.patchValue(this.recebimento);
+      this.cadastroRecebimento.disable();
+      this.parcelas = this.recebimento.parcelas;
 
-          this.recebimentoClientesId = this.recebimento.clientesId;
+      this.parcelas.forEach((parcela) => {
+        parcela.dataVencimento = this.dataService.getDataPTBR(parcela.dataVencimento);
+      });
 
-        }, error => {
-          this.toastr.error(`Erro ao tentar carregar Recebimento: ${error.error}`);
-          console.log(error);
-        });
+      this.recebimentoClientesId = this.recebimento.clientesId;
+    }
   }
 
   validarRecebimentos() {
@@ -111,19 +104,6 @@ export class DetalharRecebimentoComponent implements OnInit {
         centroReceitaId: [{value: '', disabled: true}, Validators.required],
         planoContasId: [{value: '', disabled: true}, Validators.required],
     });
-  }
-
-  abrirTemplate(template: any) {
-    if (this.templateEnabled === false) {
-      template.show();
-      this.templateEnabled = true;
-    }
-  }
-
-  fecharTemplate(template: any) {
-    template.hide();
-    this.recebimentoService.setDetalharRecebimentoStatus(false);
-    this.templateEnabled = false;
   }
 
   getPlanoContas() {

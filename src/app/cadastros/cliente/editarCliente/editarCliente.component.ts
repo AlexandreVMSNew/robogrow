@@ -66,12 +66,6 @@ export class EditarClienteComponent implements OnInit, AfterViewInit, AfterViewC
   versoesIdSelecionado: any;
   versoesCliente: ClienteVersoes[];
 
-  valueCnpjCpfPipe = '';
-  valueCepPipe = '';
-  valueCelularPipe = '';
-  valueTelefonePipe = '';
-  valueIePipe = '';
-
   dataCadProd: any;
   dataFrenteLoja: any;
   dataFinanceiro: any;
@@ -214,15 +208,13 @@ export class EditarClienteComponent implements OnInit, AfterViewInit, AfterViewC
     this.versoesCliente.forEach(versoes => {
       this.cliente.clienteVersoes.push(versoes);
     });
-
-    console.log(this.cliente);
-    /*this.clienteService.editarCliente(this.cliente).subscribe(() => {
+    this.clienteService.editarCliente(this.cliente).subscribe(() => {
       this.toastr.success('Editado com sucesso!');
       this.carregarCliente();
     }, error => {
       this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
       console.log(error.error);
-    });*/
+    });
   }
 
   adicionarClienteVersoes(versoesSelecionadas: any) {

@@ -4,7 +4,7 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+        <h4 id="dialog-sizes-name1" class="modal-title float-left">
           Pagamento {{(produtoItem) ? '(' + produtoItem.descricao + ')' : ''}}
         </h4>
 
@@ -17,7 +17,7 @@
 
           <div class="row">
 
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
               <label style="white-space: nowrap;">Data Emissão</label>
               <input type="text" class="form-control" formControlName="dataEmissao"
                 [ngModel]="cadastroPagamento.get('dataEmissao').value" bsDatepicker [bsConfig]="this.bsConfig"
@@ -30,7 +30,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-3">
               <label>Pessoa/Fornecedor:</label>
               <ng-select style="text-transform: uppercase" [items]="pessoas" bindLabel="nome" bindValue="id"
                 [(ngModel)]="pessoaIdSelecionado" formControlName="pessoasId">
@@ -38,25 +38,35 @@
             </div>
 
 
-            <div class="form-group col-md-3">
-              <label>Valor do Pagamento:</label>
-              <div class="input-group">
-                <input class="form-control" currencyMask formControlName="valorTotal"
-                  [options]="{ prefix: '', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroPagamento.get('valorTotal').errors && 
-                  cadastroPagamento.get('valorTotal').touched}" />
-                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+            <div class="form-group col-md-5">
+                <label>Descrição</label>
+                <input class="form-control" maxlength="50" formControlName="descricao" style="text-transform: uppercase"
+                  oninput="this.value = this.value.toUpperCase()" />
               </div>
-              <div
-                *ngIf="cadastroPagamento.get('valorTotal').hasError('required') && cadastroPagamento.get('valorTotal').touched"
-                class="invalid-feedback">
-                Campo obrigatório.
+  
+              <div class="form-group col-md-2">
+                <label>Valor da Venda</label>
+                <div class="input-group">
+  
+                    <input class="form-control" currencyMask formControlName="valorTotal"
+                    [options]="{ prefix: '', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroPagamento.get('valorTotal').errors && 
+                    cadastroPagamento.get('valorTotal').touched}" />
+                    <div class="input-group-addon"><button class="btn btn-default" style="border: 1px solid #ced4da;">
+                        <i class="fa fa-dollar"> </i>
+                      </button>
+                      </div>
+                </div>
+                <div
+                  *ngIf="cadastroPagamento.get('valorTotal').hasError('required') && cadastroPagamento.get('valorTotal').touched"
+                  class="invalid-feedback">
+                  Campo obrigatório.
+                </div>
+                <div
+                  *ngIf="cadastroPagamento.get('valorTotal').hasError('min') && cadastroPagamento.get('valorTotal').touched"
+                  class="invalid-feedback">
+                  Valor deve ser maior que 0.
+                </div>
               </div>
-              <div
-                *ngIf="cadastroPagamento.get('valorTotal').hasError('min') && cadastroPagamento.get('valorTotal').touched"
-                class="invalid-feedback">
-                Valor deve ser maior que 0.
-              </div>
-            </div>
           </div>
           <div class="row">
             <div class="form-group col-md-3">
@@ -125,7 +135,7 @@
 
         <div *ngIf="parcelas && parcelas.length > 0" class="box box-success">
           <div class="box-body">
-            <table class="table table-responsive table-bordered">
+            <table  style="border-collapse:inherit;" class="table table-responsive table-bordered">
               <thead class="thead-light">
                 <tr>
                   <th style="white-space: nowrap;text-align: center;">Documento</th>

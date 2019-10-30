@@ -6,6 +6,9 @@ import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service
 import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/recebimento.service';
 import { Recebimentos } from 'src/app/_models/Financeiro/Recebimentos/Recebimentos';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { TemplateRecebimentoComponent } from 'src/app/financeiro/recebimento/templateRecebimento/templateRecebimento.component';
+import { DetalharRecebimentoComponent } from 'src/app/financeiro/recebimento/detalharRecebimento/detalharRecebimento.component';
 
 @Component({
   selector: 'app-recebimentos-venda',
@@ -22,6 +25,15 @@ export class RecebimentosVendaComponent implements OnInit {
   idDetalharRecebimento: number;
 
   templateEnabled = false;
+
+  templateModalDetalharRecebimentoService = new TemplateModalService();
+  detalharRecebimentoComponent = DetalharRecebimentoComponent;
+
+  templateModalRecebimentoService = new TemplateModalService();
+  templateRecebimentoComponent = TemplateRecebimentoComponent;
+  inputs: any;
+  tituloModal = '';
+  componentModal: any;
 
   constructor(private vendaService: VendaService,
               private toastr: ToastrService,
@@ -46,34 +58,26 @@ export class RecebimentosVendaComponent implements OnInit {
     });
   }
 
-  abrirTemplate(template: any) {
-    if (this.templateEnabled === false) {
-      this.templateEnabled = true;
-      template.show();
-    }
+  getTemplateModalDetalharRecebimento() {
+    return this.templateModalDetalharRecebimentoService.getTemplateModalStatus();
   }
 
-  fecharTemplate(template: any) {
-    template.hide();
-    this.vendaService.setRecebimentosVendaStatus(false);
-    this.templateEnabled = false;
+  abrirTemplateModalDetalharRecebimento(recebimentoInput: Recebimentos, produtoItemInput: ProdutoItem) {
+    this.tituloModal =  `Recebimento - ${produtoItemInput.descricao}`;
+    this.componentModal = this.detalharRecebimentoComponent;
+    this.inputs = Object.assign({produtoItem: produtoItemInput, recebimento: recebimentoInput});
+    this.templateModalDetalharRecebimentoService.setTemplateModalStatus(true);
   }
 
-  getDetalharRecebimento() {
-    return this.recebimentoService.getDetalharRecebimentoStatus();
+  getTemplateModalRecebimento() {
+    return this.templateModalRecebimentoService.getTemplateModalStatus();
   }
 
-  abrirTemplateDetalharRecebimento(idRecebimento: number) {
-    this.idDetalharRecebimento = idRecebimento;
-    this.recebimentoService.setDetalharRecebimentoStatus(true);
-  }
-
-  getTemplateRecebimento() {
-    return this.recebimentoService.getTemplateRecebimentoStatus();
-  }
-
-  abrirTemplateRecebimento() {
-    this.recebimentoService.setTemplateRecebimentoStatus(true);
+  abrirTemplateModalRecebimento(produtoItemInput: ProdutoItem) {
+    this.tituloModal =  `Recebimento - ${produtoItemInput.descricao}`;
+    this.componentModal = this.templateRecebimentoComponent;
+    this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
+    this.templateModalRecebimentoService.setTemplateModalStatus(true);
   }
 
 }

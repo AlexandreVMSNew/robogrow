@@ -135,8 +135,16 @@ defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
    entryComponents: [
+      TemplateModalComponent,
+      PrevisaoVendaComponent,
+      RecebimentosVendaComponent,
+      PagamentosVendaComponent,
       EditarPermissaoComponent,
       TemplatePermissaoObjetoComponent,
+      DetalharRecebimentoComponent,
+      TemplateRecebimentoComponent,
+      DetalharPagamentoComponent,
+      TemplatePagamentoComponent
    ],
    declarations: [
       AppComponent,

@@ -1,4 +1,4 @@
-.modal-sm {
-    width: 40%;
+.modal-sd {
+    width: 40% !important;
     /* New width for large modal */
 }

@@ -9,7 +9,7 @@
       </div>
       <div class="box-body">
 
-        <table class="table table-bordered ">
+        <table style="border-collapse:inherit;"class="table table-bordered ">
           <thead>
             <tr>
               <th>Descrição</th>
@@ -21,17 +21,16 @@
               <td>{{item.descricao}}</td>
               <td style="white-space: nowrap;text-align: center;">
                 <div class="btn-group">
-                  <a *ngIf="this.cadastrarValorPrevisto == true"
-                    (click)="abrirPrevisaoVenda(item)"
+                  <button  *ngIf="this.cadastrarValorPrevisto == true" (click)="abrirPrevisaoVenda(item)"
                     tooltip="Valor Previsto" class="btn btn-sm btn-warning">
                     <i class="fa fa-usd"></i>
-                  </a>
+                  </button>
 
-                  <a *ngIf="this.cadastrarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
+                  <a  [routerLink]="" *ngIf="this.cadastrarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
                     (click)="abrirRecebimentosVenda(item)" tooltip="Valor Realizado" class="btn btn-sm btn-info">
                     <i class="fa fa-usd"></i>
                   </a>
-                  <a *ngIf="this.cadastrarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
+                  <a  [routerLink]="" *ngIf="this.cadastrarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
                     tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)"
                     class="btn btn-sm btn-info" disabled>
                     <i class="fa fa-usd"></i>
@@ -58,7 +57,7 @@
         <h3 class="box-title">Despesas(COMISSÕES)</h3>
       </div>
       <div class="box-body">
-        <table class="table table-bordered">
+        <table style="border-collapse:inherit;"class="table table-bordered">
           <thead class="thead-light">
             <tr>
               <th>Descrição</th>
@@ -71,28 +70,27 @@
               <td>{{item.descricao}}</td>
 
               <td style="white-space: nowrap;text-align: center;">
-                <span style="margin-top:0px;" *ngIf="verificarPrevisto(item.vendaValorPrevisto) == true &&
+                <span  [routerLink]="" style="margin-top:0px;" *ngIf="verificarPrevisto(item.vendaValorPrevisto) == true &&
                     verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == false"
                   class="badge badge-danger">X</span>
-                <span style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == true"
+                <span  [routerLink]="" style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == true"
                   class="badge badge-success">PAGO</span>
-                <span style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == false &&
+                <span  [routerLink]="" style="margin-top:0px;" *ngIf="verificarPagamento(item.vendaValorRealizado) == false &&
                     verificarValorPrevistoMaiorZero(item.vendaValorPrevisto) == true"
                   class="badge badge-warning">PENDENTE</span>
               </td>
               <td style="white-space: nowrap;text-align: center;">
                 <div class="btn-group">
-                  <a *ngIf="this.cadastrarValorPrevisto == true"
-                    (click)="abrirPrevisaoVenda(item)"
+                  <a  [routerLink]=""  *ngIf="this.cadastrarValorPrevisto == true" (click)="abrirPrevisaoVenda(item)"
                     tooltip="Valor Previsto" class="btn btn-sm btn-warning">
                     <i class="fa fa-usd"></i>
                   </a>
 
-                  <a *ngIf="this.cadastrarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
+                  <a  [routerLink]="" *ngIf="this.cadastrarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
                     tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)" class="btn btn-sm btn-info">
                     <i class="fa fa-usd"></i>
                   </a>
-                  <a *ngIf="this.cadastrarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
+                  <a  [routerLink]="" *ngIf="this.cadastrarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
                     tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)"
                     class="btn btn-sm btn-danger" disabled>
                     <i class="fa fa-usd"></i>
@@ -115,7 +113,7 @@
         <h3 class="box-title">Despesas(GASTOS)</h3>
       </div>
       <div class="box-body">
-        <table class="table table-bordered">
+        <table style="border-collapse:inherit;"class="table table-bordered">
           <thead class="thead-light">
             <tr>
               <th>Descrição</th>
@@ -128,17 +126,16 @@
               <td>{{item.descricao}}</td>
               <td style="white-space: nowrap;text-align: center;">
                 <div class="btn-group">
-                  <a *ngIf="this.cadastrarValorPrevisto == true"
-                    (click)="abrirPrevisaoVenda(item)"
+                  <a  [routerLink]="" *ngIf="this.cadastrarValorPrevisto == true" (click)="abrirPrevisaoVenda(item)"
                     tooltip="Valor Previsto" class="btn btn-sm btn-warning">
                     <i class="fa fa-usd"></i>
                   </a>
 
-                  <a *ngIf="this.cadastrarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
+                  <a [routerLink]="" *ngIf="this.cadastrarValorRealizado == true && verificarPrevisto(item.vendaValorPrevisto)"
                     tooltip="Valores Realizado" (click)="abrirPagamentosVenda(item)" class="btn btn-sm btn-info">
                     <i class="fa fa-usd"></i>
                   </a>
-                  <a *ngIf="this.cadastrarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
+                  <a [routerLink]="" *ngIf="this.cadastrarValorRealizado == true && !verificarPrevisto(item.vendaValorPrevisto)"
                     tooltip="Valores Realizado(Previsão deve ser lançada antes do Valor Realizado)"
                     class="btn btn-sm btn-danger" disabled>
                     <i class="fa fa-usd"></i>
@@ -154,11 +151,15 @@
   </div>
 </div>
 
-<app-previsao-venda [produtoItem]="this.produtoItem" [venda]="this.venda" 
-  *ngIf="getPrevisaoVenda() == true && this.produtoItem && this.venda"></app-previsao-venda>
 
-<app-pagamentos-venda [produtoItem]="this.produtoItem" [venda]="this.venda"
- *ngIf="getPagamentosVenda() == true && this.produtoItem && this.venda">
-  </app-pagamentos-venda>
-<app-recebimentos-venda [produtoItem]="this.produtoItem" [venda]="this.venda"
-    *ngIf="getRecebimentosVenda() == true && this.produtoItem && this.venda"></app-recebimentos-venda>
+<app-template-modal id="previsao" *ngIf="this.getTemplateModalPrevisaoVenda() == true"
+  [templateModalService]="this.templateModalPrevisaoService" [component]="this.componentModal" [width]="40" [titulo]="this.tituloModal"
+  [inputs]="this.inputs"></app-template-modal>
+  
+<app-template-modal id="pagamentos" *ngIf="this.getTemplateModalPagamentosVenda() == true"
+[templateModalService]="this.templateModalPagamentosService" [component]="this.componentModal" [width]="80" [titulo]="this.tituloModal"
+[inputs]="this.inputs"></app-template-modal>
+
+<app-template-modal id="recebimentos" *ngIf="this.getTemplateModalRecebimentosVenda() == true" [titulo]="this.tituloModal"
+  [templateModalService]="this.templateModalRecebimentosService" [component]="this.componentModal" [width]="80"
+  [inputs]="this.inputs"></app-template-modal>

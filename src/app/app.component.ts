@@ -274,8 +274,28 @@ export class AppComponent implements OnInit {
         permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
         this.filtrarPermissao('Relatórios Venda').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
 
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'RECEBIMENTOS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Recebimentos').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'PAGAMENTOS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Pagamentos').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'LANÇAMENTOS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Lançamentos').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+
+        permissaoObjetos = permissoes.filter(f => f.formulario === 'RELATÓRIOS LANÇAMENTOS')[0].permissaoObjetos;
+        permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Relatórios Lançamentos').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+
         this.filtrarPermissao('Movimentos').listar =
         (this.filtrarPermissao('Venda').listar === true || this.filtrarPermissao('Relatórios Venda').listar === true) ? true : false;
+
+        this.filtrarPermissao('Financeiro').listar =
+        (this.filtrarPermissao('Relatórios Lançamentos').listar === true || this.filtrarPermissao('Pagamentos').listar === true ||
+         this.filtrarPermissao('Recebimentos').listar === true || this.filtrarPermissao('Lançamentos').listar === true) ? true : false;
 
         this.spinnerService.alterarSpinnerStatus(false);
       }, error => {

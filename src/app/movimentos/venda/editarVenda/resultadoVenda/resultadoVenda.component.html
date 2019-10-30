@@ -2,7 +2,7 @@
   <div class="col-5">
     {{somar()}}
     <div class="box box-info">
-      <table class="table  table-bordered">
+      <table style="border-collapse:inherit;"class="table  table-bordered">
         <thead class="thead-light">
           <tr>
             <th>Descrição</th>
@@ -27,7 +27,7 @@
     <hr style="width: 100%;">
 
     <div class="box box-danger">
-      <table class="table  table-bordered ">
+      <table style="border-collapse:inherit;"class="table  table-bordered ">
         <thead class="thead-light">
           <tr>
             <th>Descrição</th>
@@ -50,7 +50,7 @@
 
       <hr style="width: 100%;">
       <div class="box box-danger">
-        <table class="table table-bordered">
+        <table style="border-collapse:inherit;"class="table table-bordered">
           <thead class="thead-light">
             <tr>
               <th>Descrição</th>
@@ -77,7 +77,7 @@
 
     <div class="md-2">
       <div class="box box-info">
-        <table class="table  table-bordered">
+        <table style="border-collapse:inherit;"class="table  table-bordered">
           <thead class="thead-light">
             <tr>
               <th style=" font-size:30px;text-align: center;">
@@ -116,12 +116,12 @@
     </div>
 
     <div style="display:flex;">
-      <div class="chart" style="width: 400px;height: 200px;">
+      <div class="chart" style="margin-left:0px;">
         <app-grafico-pie-chart *ngIf="this.pieChartData && this.pieChartLabels" [pieChartData]="this.pieChartData"
           [pieChartLabels]="this.pieChartLabels" [pieChartColors]="pieChartColors">
         </app-grafico-pie-chart>
       </div>
-      <div class="chart" style="width: 350px;margin-top: 20px;height: 200px;">
+      <div class="chart" style="margin-top: 20px;">
         <app-grafico-bar-chart *ngIf="this.barChartData && this.barChartLabels"
           [maxValor]="6000" [minValor]="0" [frequencia]="1000"
          [barChartData]="this.barChartData"[barChartLabels]="this.barChartLabels">

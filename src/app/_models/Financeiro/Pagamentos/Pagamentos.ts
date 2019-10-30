@@ -8,6 +8,7 @@ export class Pagamentos {
     vendaId: number;
     pessoasId: number;
     pessoas: Pessoa;
+    descricao: string;
     dataEmissao: Date;
     dataCompetencia: Date;
     qtdParcelas: number;

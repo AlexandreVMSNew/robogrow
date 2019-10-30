@@ -8,6 +8,7 @@ export class Recebimentos {
     vendaId: number;
     clientesId: number;
     clientes: Cliente;
+    descricao: string;
     dataEmissao: Date;
     dataCompetencia: Date;
     qtdParcelas: number;

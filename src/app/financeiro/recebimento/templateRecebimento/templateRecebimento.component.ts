@@ -25,6 +25,7 @@ import { Lancamentos } from 'src/app/_models/Movimentos/Lancamentos/Lancamentos'
 import { LancamentoService } from 'src/app/_services/Movimentos/Lancamentos/lancamento.service';
 import { ChequePreService } from 'src/app/_services/Cadastros/ChequePre/chequePre.service';
 import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
+import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 
 @Component({
   selector: 'app-template-recebimento',
@@ -34,8 +35,7 @@ import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
 export class TemplateRecebimentoComponent implements OnInit {
 
   @Input() produtoItem: ProdutoItem;
-  @Input() idVenda: number;
-  @Input() vendaClienteId: number;
+  @Input() venda: Venda;
   @ViewChild('templateRecebimentos') templateRecebimentos: any;
 
   cadastroRecebimento: FormGroup;
@@ -92,7 +92,7 @@ export class TemplateRecebimentoComponent implements OnInit {
     this.getPlanoContas();
     this.getVendaConfig();
     this.validarRecebimentos();
-    if (this.idVenda !== 0) {
+    if (this.venda) {
       this.carregarRecebimentoVenda(this.produtoItem);
     }
   }
@@ -107,6 +107,7 @@ export class TemplateRecebimentoComponent implements OnInit {
     this.cadastroRecebimento = this.fb.group({
         id:  [''],
         clientesId: ['', Validators.required],
+        descricao: [''],
         dataEmissao: ['', Validators.required],
         dataCompetencia: [''],
         qtdParcelas: ['', Validators.required],
@@ -230,8 +231,8 @@ export class TemplateRecebimentoComponent implements OnInit {
     const dataEmissao = this.cadastroRecebimento.get('dataEmissao').value.toLocaleString();
     this.recebimento = Object.assign(this.cadastroRecebimento.value, {
       id: 0,
-      vendaId: this.idVenda,
-      clientesId: this.vendaClienteId,
+      vendaId: this.venda.id,
+      clientesId: this.venda.clientesId,
       qtdParcelas: this.qtdParcelas,
       dataEmissao: this.dataService.getDataSQL(dataEmissao),
       produtosItensId: this.produtoItem.id,
@@ -256,7 +257,7 @@ export class TemplateRecebimentoComponent implements OnInit {
       this.recebimentoService.cadastrarRecebimentoParcelas(recebimentoParcelas).subscribe(() => {
         this.valorRealizado = Object.assign({
           id: 0,
-          vendaId: this.idVenda,
+          vendaId: this.venda.id,
           produtosItensId: this.idProdutoItemValorRealizado,
           dataHoraUltAlt: dataAtual,
           recebimentos: null,
@@ -267,7 +268,6 @@ export class TemplateRecebimentoComponent implements OnInit {
           this.efetuarLancamentos();
           this.vendaService.atualizarVenda();
           this.vendaService.atualizarRecebimentos();
-          this.fecharTemplate(this.templateRecebimentos);
         }, error => {
           console.log(error.error);
           this.toastr.error(`Erro ao tentar inserir cadastrar Valor Realizado : ${error.error}`);
@@ -288,12 +288,6 @@ export class TemplateRecebimentoComponent implements OnInit {
       template.show();
       this.templateEnabled = true;
     }
-  }
-
-  fecharTemplate(template: any) {
-    template.hide();
-    this.recebimentoService.setTemplateRecebimentoStatus(false);
-    this.templateEnabled = false;
   }
 
   getTemplateChequePre() {

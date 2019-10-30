@@ -1,10 +1,9 @@
 {{abrirTemplate(templateModal)}}
-<div bsModal #templateModal="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
-  class="modal fade bd-example-modal-xl">
+<div bsModal #templateModal="bs-modal" [config]="{backdrop: 'static', keyboard: false}" class="modal">
   <div class="modal-dialog modal-xl" [style.width.%]="this.width">
     <div class="modal-content">
       <div class="modal-header">
-          <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          <h4 id="dialog-sizes-name1" class="modal-title float-left">
             {{this.titulo}}
           </h4>
         <button type="button" class="close float-right" (click)="fecharTemplate(templateModal)"

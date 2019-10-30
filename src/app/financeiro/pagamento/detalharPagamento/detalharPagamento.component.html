@@ -4,7 +4,7 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+        <h4 id="dialog-sizes-name1" class="modal-title float-left">
           Pagamento {{(produtoItem) ? '(' + produtoItem.descricao + ')' : ''}}
         </h4>
 
@@ -94,7 +94,7 @@
 
         <div *ngIf="parcelas && parcelas.length > 0" class="box box-success">
           <div class="box-body">
-            <table class="table table-responsive table-bordered">
+            <table  style="border-collapse:inherit;" class="table table-bordered">
               <thead class="thead-light">
                 <tr>
                   <th style="white-space: nowrap;text-align: center;">Documento</th>

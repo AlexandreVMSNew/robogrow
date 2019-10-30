@@ -68,7 +68,7 @@ export class PrevisaoVendaComponent implements OnInit {
     });
   }
 
-  salvarValorPrevisto(template: any) {
+  salvarValorPrevisto() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     this.valorPrevisto = Object.assign(this.cadastroValorPrevistoForm.value,
        {id: 0, vendaId: this.venda.id, produtosItensId: this.produtoItem.id, dataHoraUltAlt: dataAtual});
@@ -76,24 +76,10 @@ export class PrevisaoVendaComponent implements OnInit {
       () => {
         this.vendaService.atualizarVenda();
         this.toastr.success('Salvo com Sucesso!');
-        this.fecharTemplate(template);
       }, error => {
         console.log(error.error);
       }
     );
-  }
-
-  abrirTemplate(template: any) {
-    if (this.templateEnabled === false) {
-      this.templateEnabled = true;
-      template.show();
-    }
-  }
-
-  fecharTemplate(template: any) {
-    template.hide();
-    this.templateEnabled = false;
-    this.vendaService.setPrevisaoVendaStatus(false);
   }
 
 }

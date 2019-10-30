@@ -6,6 +6,10 @@ import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service
 import { RecebimentoService } from 'src/app/_services/Financeiro/Recebimentos/recebimento.service';
 import { Permissao } from 'src/app/_models/Permissoes/permissao';
 import { RecebimentoParcelas } from 'src/app/_models/Financeiro/Recebimentos/RecebimentoParcelas';
+import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { DetalharRecebimentoComponent } from './detalharRecebimento/detalharRecebimento.component';
+import { TemplateRecebimentoComponent } from './templateRecebimento/templateRecebimento.component';
 
 @Component({
   selector: 'app-recebimento',
@@ -23,7 +27,14 @@ export class RecebimentoComponent implements OnInit, AfterViewInit {
 
   parcelas: RecebimentoParcelas[] = [];
 
-  idDetalharRecebimento: number;
+  templateModalDetalharRecebimentoService = new TemplateModalService();
+  detalharRecebimentoComponent = DetalharRecebimentoComponent;
+
+  templateModalRecebimentoService = new TemplateModalService();
+  templateRecebimentoComponent = TemplateRecebimentoComponent;
+  inputs: any;
+  tituloModal = '';
+  componentModal: any;
 
   constructor(private toastr: ToastrService,
               private permissaoService: PermissaoService,
@@ -66,23 +77,27 @@ export class RecebimentoComponent implements OnInit, AfterViewInit {
     });
   }
 
-getDetalharRecebimento() {
-  return this.recebimentoService.getDetalharRecebimentoStatus();
-}
+  getTemplateModalDetalharRecebimento() {
+    return this.templateModalDetalharRecebimentoService.getTemplateModalStatus();
+  }
 
-abrirTemplateDetalharRecebimento(idRecebimento: number) {
-  this.idDetalharRecebimento = idRecebimento;
-  this.recebimentoService.setDetalharRecebimentoStatus(true);
-}
+  abrirTemplateModalDetalharRecebimento(recebimentoInput: Recebimentos) {
+    this.tituloModal =  `Pagamento - ${recebimentoInput.produtosItens.descricao}`;
+    this.componentModal = this.detalharRecebimentoComponent;
+    this.inputs = Object.assign({recebimento: recebimentoInput});
+    this.templateModalDetalharRecebimentoService.setTemplateModalStatus(true);
+  }
 
-getTemplateRecebimento() {
-  return this.recebimentoService.getTemplateRecebimentoStatus();
-}
+  getTemplateModalRecebimento() {
+    return this.templateModalRecebimentoService.getTemplateModalStatus();
+  }
 
-abrirTemplateRecebimento() {
-  this.recebimentoService.setTemplateRecebimentoStatus(true);
-
-}
+  abrirTemplateModalRecebimento() {
+    this.tituloModal =  `Recebimento`;
+    this.componentModal = this.templateRecebimentoComponent;
+    this.inputs = Object.assign({});
+    this.templateModalRecebimentoService.setTemplateModalStatus(true);
+  }
 
 
 }
