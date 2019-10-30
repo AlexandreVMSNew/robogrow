@@ -34,7 +34,7 @@ import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 export class TemplatePagamentoComponent implements OnInit {
 
   @Input() produtoItem: ProdutoItem;
-  @Input() idVenda: number;
+  @Input() venda: Venda;
   @ViewChild('templatePagamentos') templatePagamentos: any;
 
   cadastroPagamento: FormGroup;
@@ -223,7 +223,7 @@ export class TemplatePagamentoComponent implements OnInit {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     this.pagamento = Object.assign(this.cadastroPagamento.value, {
       id: 0,
-      vendaId: this.idVenda,
+      vendaId: this.venda.id,
       qtdParcelas: this.qtdParcelas,
       dataEmissao: this.dataService.getDataSQL(dataEmissao),
       centroDespesaId: this.centroDespesaIdSelecionado,
@@ -248,7 +248,7 @@ export class TemplatePagamentoComponent implements OnInit {
       this.pagamentoService.cadastrarPagamentoParcelas(pagamentoParcelas).subscribe(() => {
         this.valorRealizado = Object.assign({
           id: 0,
-          vendaId: this.idVenda,
+          vendaId: this.venda.id,
           produtosItensId: this.idProdutoItemValorRealizado,
           dataHoraUltAlt: dataAtual,
           pagamentos: null,
@@ -289,7 +289,7 @@ export class TemplatePagamentoComponent implements OnInit {
     this.vendaService.getVendaConfig().subscribe(
       (_CONFIG: VendaConfig) => {
       this.vendaConfig = _CONFIG;
-      if (this.idVenda !== 0) {
+      if (!this.venda) {
         this.planoPagamentoIdSelecionado = this.vendaConfig.planoPagamentoSaidasId;
         this.cadastroPagamento.get('planoPagamentoId').disable();
       }

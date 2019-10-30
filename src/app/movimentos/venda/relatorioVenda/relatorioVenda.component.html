@@ -75,7 +75,7 @@
 
                 <a role="button" [routerLink]="" [popover]="myPopover" popoverTitle="Informações do Cliente"
                   popoverPlacement="top"
-                  (click)="abrirTemplateClienteModal(editarClienteComponent, vendaDetalhada.clientesId)"
+                  (click)="abrirTemplateClienteModal(vendaDetalhada.clientesId)"
                   triggers="mouseenter:mouseleave">
                   {{ vendaDetalhada.clientes.nomeFantasia }}
                 </a>
@@ -121,7 +121,7 @@
               </td>
               <td style="text-align: center;white-space: nowrap;">
                 <div class="btn-group">
-                  <a [routerLink]="" (click)="abrirTemplateVendaModal(editarVendaComponent, vendaDetalhada.id)"
+                  <a [routerLink]="" (click)="abrirTemplateVendaModal(vendaDetalhada.id)"
                     tooltip="Ir para Venda" class="btn btn-sm btn-primary">
                     <i class="fa fa-edit"></i>
                   </a>

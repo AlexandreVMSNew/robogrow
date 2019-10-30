@@ -19,7 +19,6 @@ export class FinanceiroVendaComponent implements OnInit {
   @Input() cadastrarValorRealizado = false;
   @Input() cadastrarValorPrevisto = false;
 
-  idDetalharRecebimento: number;
   produtoItem: ProdutoItem;
 
   vendaItensEntrada: ProdutoItem[] = [];
@@ -27,9 +26,6 @@ export class FinanceiroVendaComponent implements OnInit {
   vendaItensSaidaGasto: ProdutoItem[] = [];
 
   valorPrevistoDisabled = true;
-  idProdutoItemValorPrevisto: number;
-  itemDescricao: string;
-  itemTipo = '';
 
   templateModalPrevisaoService = new TemplateModalService();
   previsaoVendaComponent = PrevisaoVendaComponent;
@@ -43,6 +39,8 @@ export class FinanceiroVendaComponent implements OnInit {
   tituloModal = '';
   componentModal: any;
 
+  idVenda: number;
+
   constructor(private vendaService: VendaService,
               private recebimentoService: RecebimentoService) {
     this.vendaService.atualizaFinanceiroVenda.subscribe((venda: Venda) => {
@@ -52,6 +50,7 @@ export class FinanceiroVendaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.idVenda = this.venda.id;
     this.carregarFinanceiro();
   }
 
@@ -81,20 +80,6 @@ export class FinanceiroVendaComponent implements OnInit {
           item.vendaValorRealizado = this.venda.vendaValorRealizado.filter(c => c.produtosItensId === item.id);
         });
       }
-    }
-  }
-
-  abrirTemplateRecebimento(produtoItem: ProdutoItem) {
-    this.produtoItem = produtoItem;
-    if (produtoItem.vendaValorRealizado && produtoItem.vendaValorRealizado.length > 0) {
-      if (produtoItem.vendaValorRealizado[0].recebimentos) {
-        this.idDetalharRecebimento = produtoItem.vendaValorRealizado[0].recebimentos.id;
-        this.recebimentoService.setDetalharRecebimentoStatus(true);
-      } else {
-        this.recebimentoService.setTemplateRecebimentoStatus(true);
-      }
-    } else {
-      this.recebimentoService.setTemplateRecebimentoStatus(true);
     }
   }
 
@@ -130,14 +115,15 @@ export class FinanceiroVendaComponent implements OnInit {
   abrirPagamentosVenda(produtoItemInput: ProdutoItem) {
     this.tituloModal =  `Previsão - ${produtoItemInput.descricao}`;
     this.componentModal = this.pagamentosVendaComponent;
+    this.venda = Object.assign(this.venda, {id: this.idVenda });
     this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
     this.templateModalPagamentosService.setTemplateModalStatus(true);
   }
 
   abrirRecebimentosVenda(produtoItemInput: ProdutoItem) {
-    console.log(produtoItemInput);
     this.tituloModal =  `Recebimentos - ${produtoItemInput.descricao}`;
     this.componentModal = this.recebimentosVendaComponent;
+    this.venda = Object.assign(this.venda, {id: this.idVenda });
     this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
     this.templateModalRecebimentosService.setTemplateModalStatus(true);
   }
@@ -145,6 +131,7 @@ export class FinanceiroVendaComponent implements OnInit {
   abrirPrevisaoVenda(produtoItemInput: ProdutoItem) {
     this.tituloModal =  `Pagamentos - ${produtoItemInput.descricao}`;
     this.componentModal = this.previsaoVendaComponent;
+    this.venda = Object.assign(this.venda, {id: this.idVenda });
     this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
     this.templateModalPrevisaoService.setTemplateModalStatus(true);
   }

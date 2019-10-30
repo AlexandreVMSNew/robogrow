@@ -126,14 +126,15 @@ export class RelatorioVendaComponent implements OnInit, AfterViewChecked {
     this.spinnerService.alterarSpinnerStatus(false);
   }
 
-  abrirTemplateClienteModal(component, clienteId: number) {
-    this.componentModal = component;
+  abrirTemplateClienteModal( clienteId: number) {
+    this.componentModal = EditarClienteComponent;
     this.inputs = Object.assign({idCliente: clienteId});
     this.templateModalClienteService.setTemplateModalStatus(true);
   }
 
-  abrirTemplateVendaModal(component, vendaId: number) {
-    this.componentModal = component;
+  abrirTemplateVendaModal( vendaId: number) {
+    this.componentModal = EditarVendaComponent;
+    console.log(vendaId);
     this.inputs = Object.assign({idVenda: vendaId});
     this.templateModalVendaService.setTemplateModalStatus(true);
   }
