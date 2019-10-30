@@ -25,6 +25,7 @@ import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.servic
 import * as moment from 'moment';
 import { Lancamentos } from 'src/app/_models/Movimentos/Lancamentos/Lancamentos';
 import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
+import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 @Component({
   selector: 'app-template-pagamento',
   templateUrl: './templatePagamento.component.html',
@@ -34,7 +35,6 @@ export class TemplatePagamentoComponent implements OnInit {
 
   @Input() produtoItem: ProdutoItem;
   @Input() idVenda: number;
-  @Input() vendaClienteId: number;
   @ViewChild('templatePagamentos') templatePagamentos: any;
 
   cadastroPagamento: FormGroup;

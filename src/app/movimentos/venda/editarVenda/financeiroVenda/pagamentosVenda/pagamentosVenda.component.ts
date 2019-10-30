@@ -76,7 +76,7 @@ export class PagamentosVendaComponent implements OnInit {
   abrirTemplateModalPagamento(produtoItemInput: ProdutoItem) {
     this.tituloModal =  `Pagamento - ${produtoItemInput.descricao}`;
     this.componentModal = this.templatePagamentoComponent;
-    this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
+    this.inputs = Object.assign({produtoItem: produtoItemInput, idVenda: this.venda.id});
     this.templateModalPagamentoService.setTemplateModalStatus(true);
   }
 
