@@ -28,7 +28,7 @@
           <td style="white-space: nowrap;text-align: center;">{{ recebimento.valorTotal | currency:' ':false}}</td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">
-              <button (click)="abrirTemplateModalDetalharRecebimento(recebimento, this.produtoItem)"
+              <button (click)="abrirTemplateModalDetalharRecebimento(recebimento.id, this.produtoItem)"
                 tooltip="Detalhar Recebimento" class="btn btn-sm btn-primary">
                 <i class="fa fa-edit"></i>
               </button>
@@ -48,10 +48,10 @@
 
 </div>
 
-<app-template-modal id="pagamentos" *ngIf="this.getTemplateModalRecebimento() == true"
+<app-template-modal id="pagamentos" *ngIf="this.getTemplateModalRecebimento() == true" [titulo]="this.tituloModal"
 [templateModalService]="this.templateModalRecebimentoService" [component]="this.componentModal" [width]="80"
 [inputs]="this.inputs"></app-template-modal>
 
-<app-template-modal id="detalharRecebimento" *ngIf="this.getTemplateModalDetalharRecebimento() == true"
+<app-template-modal id="detalharRecebimento" *ngIf="this.getTemplateModalDetalharRecebimento() == true" [titulo]="this.tituloModal"
 [templateModalService]="this.templateModalDetalharRecebimentoService" [component]="this.componentModal" [width]="80"
 [inputs]="this.inputs"></app-template-modal>

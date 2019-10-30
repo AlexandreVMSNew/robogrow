@@ -1,196 +1,166 @@
-{{abrirTemplate(templatePagamentos)}}
-<div bsModal #templatePagamentos="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
-  class="modal fade bd-example-modal-xl">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title float-left">
-          Pagamento {{(produtoItem) ? '(' + produtoItem.descricao + ')' : ''}}
-        </h4>
+<form [formGroup]="cadastroPagamento">
 
-        <button type="button" class="close float-right" (click)="fecharTemplate(templatePagamentos)" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="cadastroPagamento">
+  <div class="row">
 
-          <div class="row">
-
-            <div class="form-group col-md-2">
-              <label style="white-space: nowrap;">Data Emissão</label>
-              <input type="text" class="form-control" formControlName="dataEmissao"
-                [ngModel]="cadastroPagamento.get('dataEmissao').value" bsDatepicker [bsConfig]="this.bsConfig"
-                [ngClass]="{ 'is-invalid': cadastroPagamento.get('dataEmissao').errors && 
+    <div class="form-group col-md-2">
+      <label style="white-space: nowrap;">Data Emissão</label>
+      <input type="text" class="form-control" formControlName="dataEmissao"
+        [ngModel]="cadastroPagamento.get('dataEmissao').value" bsDatepicker [bsConfig]="this.bsConfig" [ngClass]="{ 'is-invalid': cadastroPagamento.get('dataEmissao').errors && 
                 cadastroPagamento.get('dataEmissao').touched}" />
-              <div
-                *ngIf="cadastroPagamento.get('dataEmissao').hasError('required') &&cadastroPagamento.get('dataEmissao').touched"
-                class="invalid-feedback">
-                Campo obrigatório.
-              </div>
-            </div>
-
-            <div class="form-group col-md-3">
-              <label>Pessoa/Fornecedor:</label>
-              <ng-select style="text-transform: uppercase" [items]="pessoas" bindLabel="nome" bindValue="id"
-                [(ngModel)]="pessoaIdSelecionado" formControlName="pessoasId">
-              </ng-select>
-            </div>
-
-
-            <div class="form-group col-md-5">
-                <label>Descrição</label>
-                <input class="form-control" maxlength="50" formControlName="descricao" style="text-transform: uppercase"
-                  oninput="this.value = this.value.toUpperCase()" />
-              </div>
-  
-              <div class="form-group col-md-2">
-                <label>Valor da Venda</label>
-                <div class="input-group">
-  
-                    <input class="form-control" currencyMask formControlName="valorTotal"
-                    [options]="{ prefix: '', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroPagamento.get('valorTotal').errors && 
-                    cadastroPagamento.get('valorTotal').touched}" />
-                    <div class="input-group-addon"><button class="btn btn-default" style="border: 1px solid #ced4da;">
-                        <i class="fa fa-dollar"> </i>
-                      </button>
-                      </div>
-                </div>
-                <div
-                  *ngIf="cadastroPagamento.get('valorTotal').hasError('required') && cadastroPagamento.get('valorTotal').touched"
-                  class="invalid-feedback">
-                  Campo obrigatório.
-                </div>
-                <div
-                  *ngIf="cadastroPagamento.get('valorTotal').hasError('min') && cadastroPagamento.get('valorTotal').touched"
-                  class="invalid-feedback">
-                  Valor deve ser maior que 0.
-                </div>
-              </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-3">
-              <label style="white-space: nowrap;">Centro de Despesa:</label>
-              <ng-select style="text-transform: uppercase" [items]="centrosDespesa" bindLabel="descricao" required
-                bindValue="id" [clearable]="false" [(ngModel)]="centroDespesaIdSelecionado"
-                formControlName="centroDespesaId" [disabled]="true">
-              </ng-select>
-            </div>
-
-            <div class="form-group col-md-5">
-              <label style="white-space: nowrap;">Plano de Conta:</label>
-              <ng-select style="text-transform: uppercase" [items]="planoContasDespesa" bindLabel="descricao" required
-                bindValue="id" [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId" disabled>
-                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-                  <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
-                  <small><b>Tipo:</b> {{item.tipo}}</small> <br>
-                </ng-template>
-              </ng-select>
-            </div>
-
-          </div>
-          <div class="row">
-            <hr style="width: 100%">
-            <div class="form-group col-md-5">
-              <label style="white-space: nowrap;">Plano de Pagamento: </label>
-              <ng-select style="text-transform: uppercase" [items]="planosPagamento" bindLabel="descricao" required
-                bindValue="id" [clearable]="false" [(ngModel)]="planoPagamentoIdSelecionado"
-                formControlName="planoPagamentoId">
-              </ng-select>
-            </div>
-            <div  *ngIf="!idVenda" class="form-check form-group col-md-2" style="margin-top: 30px;">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" [(ngModel)]="diasFixo"
-                  formControlName="diasfixoCheck">
-                <label class="custom-control-label" for="customCheck">&nbsp;Dias Fixo</label>
-              </div>
-            </div>
-            <div class="form-group col-md-2" style="margin-left: -10px;" *ngIf="this.diasFixo == true">
-              <label>Dia:</label>
-              <input class="form-control" currencyMask formControlName="diasFixo"
-                [options]="{ prefix: '', thousands: '.', decimal: ',', precision: 0 }" v
-                [ngClass]="{ 'is-invalid': cadastroPagamento.get('diasFixo').errors && cadastroPagamento.get('diasFixo').touched}" />
-              <div
-                *ngIf="cadastroPagamento.get('diasFixo').hasError('required') && cadastroPagamento.get('diasFixo').touched"
-                class="invalid-feedback">
-                Campo obrigatório.
-              </div>
-              <div
-                *ngIf="cadastroPagamento.get('diasFixo').hasError('min') && cadastroPagamento.get('diasFixo').touched"
-                class="invalid-feedback">
-                Valor deve ser maior que 0.
-              </div>
-            </div>
-
-            <div class=" form-group col-md-2">
-              <button style="position:relative;margin-bottom: 15px;margin-top: 24px;" [disabled]="cadastroPagamento.get('dataEmissao').hasError('required') == true ||
-                   cadastroPagamento.get('valorTotal').hasError('required') == true || 
-                   cadastroPagamento.get('valorTotal').hasError('min') == true" tooltip="Gerar Parcelas" (click)="gerarParcelas()"
-                class="btn btn-primary">
-                &nbsp;Gerar Parcelas
-              </button>
-            </div>
-          </div>
-        </form>
-
-        <div *ngIf="parcelas && parcelas.length > 0" class="box box-success">
-          <div class="box-body">
-            <table  style="border-collapse:inherit;" class="table table-responsive table-bordered">
-              <thead class="thead-light">
-                <tr>
-                  <th style="white-space: nowrap;text-align: center;">Documento</th>
-                  <th style="white-space: nowrap;text-align: center;">Data de Vencimento</th>
-                  <th style="white-space: nowrap;text-align: center;">Forma de Pagamento</th>
-                  <th style="white-space: nowrap;text-align: center;">Valor da Parcela</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let parcela of parcelas">
-                  <td style="text-align: center;">{{parcela.documento}}</td>
-                  <td style="text-align: center;">
-                    <div class="col-md-12">
-                      <input type="text" class="form-control" name="dataVencimento"
-                        [ngModel]="this.dataService.getDataPTBR(parcela.dataVencimento)" (ngModel)="parcela.dataVencimento"  bsDatepicker
-                        [bsConfig]="this.bsConfig" />
-                    </div>
-                  </td>
-                  <td style="text-align: center;">
-                    <div class="col-md-12">
-                      <ng-select style="text-transform: uppercase" [items]="formasPagamento" bindLabel="descricao"
-                        required bindValue="id" [clearable]="false" [(ngModel)]="parcela.formaPagamentoId"
-                        name="formaPagamentoId" disabled>
-                      </ng-select>
-                    </div>
-                  </td>
-                  <td style="text-align: center;">
-                    <div class="col-md-12">
-                      <div class="input-group">
-                        <input class="form-control" currencyMask name="valor" [(ngModel)]="parcela.valor"
-                          [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
-                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-
+      <div
+        *ngIf="cadastroPagamento.get('dataEmissao').hasError('required') &&cadastroPagamento.get('dataEmissao').touched"
+        class="invalid-feedback">
+        Campo obrigatório.
       </div>
-      <div class="modal-footer d-flex">
-        <button class="btn btn-secondary" (click)="fecharTemplate(templatePagamentos)">
-          Fechar
-        </button>
+    </div>
 
-        <button class="btn btn-primary" [disabled]="cadastroPagamento.get('dataEmissao').hasError('required') == true ||
-        cadastroPagamento.get('valorTotal').hasError('required') == true || 
-        cadastroPagamento.get('valorTotal').hasError('min') == true || parcelas.length == 0 || !parcelas" (click)="lancarPagamento()">
-          Cadastrar Pagamento
-        </button>
+    <div class="form-group col-md-3">
+      <label>Pessoa/Fornecedor:</label>
+      <ng-select style="text-transform: uppercase" [items]="pessoas" bindLabel="nome" bindValue="id"
+        [(ngModel)]="pessoaIdSelecionado" formControlName="pessoasId">
+      </ng-select>
+    </div>
+
+
+    <div class="form-group col-md-5">
+      <label>Descrição</label>
+      <input class="form-control" maxlength="50" formControlName="descricao" style="text-transform: uppercase"
+        oninput="this.value = this.value.toUpperCase()" />
+    </div>
+
+    <div class="form-group col-md-2">
+      <label>Valor da Venda</label>
+      <div class="input-group">
+
+        <input class="form-control" currencyMask formControlName="valorTotal"
+          [options]="{ prefix: '', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroPagamento.get('valorTotal').errors && 
+                    cadastroPagamento.get('valorTotal').touched}" />
+        <div class="input-group-addon"><button class="btn btn-default" style="border: 1px solid #ced4da;">
+            <i class="fa fa-dollar"> </i>
+          </button>
+        </div>
+      </div>
+      <div
+        *ngIf="cadastroPagamento.get('valorTotal').hasError('required') && cadastroPagamento.get('valorTotal').touched"
+        class="invalid-feedback">
+        Campo obrigatório.
+      </div>
+      <div *ngIf="cadastroPagamento.get('valorTotal').hasError('min') && cadastroPagamento.get('valorTotal').touched"
+        class="invalid-feedback">
+        Valor deve ser maior que 0.
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="form-group col-md-3">
+      <label style="white-space: nowrap;">Centro de Despesa:</label>
+      <ng-select style="text-transform: uppercase" [items]="centrosDespesa" bindLabel="descricao" required
+        bindValue="id" [clearable]="false" [(ngModel)]="centroDespesaIdSelecionado" formControlName="centroDespesaId"
+        [disabled]="true">
+      </ng-select>
+    </div>
 
+    <div class="form-group col-md-5">
+      <label style="white-space: nowrap;">Plano de Conta:</label>
+      <ng-select style="text-transform: uppercase" [items]="planoContasDespesa" bindLabel="descricao" required
+        bindValue="id" [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId" disabled>
+        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+          <div><span></span><span [ngOptionHighlight]="search">{{item.descricao}}</span></div>
+          <small><b>Tipo:</b> {{item.tipo}}</small> <br>
+        </ng-template>
+      </ng-select>
+    </div>
+
+  </div>
+  <div class="row">
+    <hr style="width: 100%">
+    <div class="form-group col-md-5">
+      <label style="white-space: nowrap;">Plano de Pagamento: </label>
+      <ng-select style="text-transform: uppercase" [items]="planosPagamento" bindLabel="descricao" required
+        bindValue="id" [clearable]="false" [(ngModel)]="planoPagamentoIdSelecionado" formControlName="planoPagamentoId">
+      </ng-select>
+    </div>
+    <div *ngIf="!idVenda" class="form-check form-group col-md-2" style="margin-top: 30px;">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" [(ngModel)]="diasFixo" formControlName="diasfixoCheck">
+        <label class="custom-control-label" for="customCheck">&nbsp;Dias Fixo</label>
+      </div>
+    </div>
+    <div class="form-group col-md-2" style="margin-left: -10px;" *ngIf="this.diasFixo == true">
+      <label>Dia:</label>
+      <input class="form-control" currencyMask formControlName="diasFixo"
+        [options]="{ prefix: '', thousands: '.', decimal: ',', precision: 0 }" v
+        [ngClass]="{ 'is-invalid': cadastroPagamento.get('diasFixo').errors && cadastroPagamento.get('diasFixo').touched}" />
+      <div *ngIf="cadastroPagamento.get('diasFixo').hasError('required') && cadastroPagamento.get('diasFixo').touched"
+        class="invalid-feedback">
+        Campo obrigatório.
+      </div>
+      <div *ngIf="cadastroPagamento.get('diasFixo').hasError('min') && cadastroPagamento.get('diasFixo').touched"
+        class="invalid-feedback">
+        Valor deve ser maior que 0.
+      </div>
+    </div>
+
+    <div class=" form-group col-md-2">
+      <button style="position:relative;margin-bottom: 15px;margin-top: 24px;" [disabled]="cadastroPagamento.get('dataEmissao').hasError('required') == true ||
+                   cadastroPagamento.get('valorTotal').hasError('required') == true || 
+                   cadastroPagamento.get('valorTotal').hasError('min') == true" tooltip="Gerar Parcelas"
+        (click)="gerarParcelas()" class="btn btn-primary">
+        &nbsp;Gerar Parcelas
+      </button>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="parcelas && parcelas.length > 0" class="box box-success">
+  <div class="box-body">
+    <table style="border-collapse:inherit;" class="table table-responsive table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th style="white-space: nowrap;text-align: center;">Documento</th>
+          <th style="white-space: nowrap;text-align: center;">Data de Vencimento</th>
+          <th style="white-space: nowrap;text-align: center;">Forma de Pagamento</th>
+          <th style="white-space: nowrap;text-align: center;">Valor da Parcela</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let parcela of parcelas">
+          <td style="text-align: center;">{{parcela.documento}}</td>
+          <td style="text-align: center;">
+            <div class="col-md-12">
+              <input type="text" class="form-control" name="dataVencimento"
+                [ngModel]="this.dataService.getDataPTBR(parcela.dataVencimento)" (ngModel)="parcela.dataVencimento"
+                bsDatepicker [bsConfig]="this.bsConfig" />
+            </div>
+          </td>
+          <td style="text-align: center;">
+            <div class="col-md-12">
+              <ng-select style="text-transform: uppercase" [items]="formasPagamento" bindLabel="descricao" required
+                bindValue="id" [clearable]="false" [(ngModel)]="parcela.formaPagamentoId" name="formaPagamentoId"
+                disabled>
+              </ng-select>
+            </div>
+          </td>
+          <td style="text-align: center;">
+            <div class="col-md-12">
+              <div class="input-group">
+                <input class="form-control" currencyMask name="valor" [(ngModel)]="parcela.valor"
+                  [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
 </div>
+
+
+<button class="btn btn-primary" [disabled]="cadastroPagamento.get('dataEmissao').hasError('required') == true ||
+        cadastroPagamento.get('valorTotal').hasError('required') == true || 
+        cadastroPagamento.get('valorTotal').hasError('min') == true || parcelas.length == 0 || !parcelas"
+  (click)="lancarPagamento()">
+  Cadastrar Pagamento
+</button>

@@ -77,31 +77,28 @@ export class DetalharPagamentoComponent implements OnInit {
 
   carregarPagamento() {
     this.pagamento = null;
-    this.pagamentoService.getPagamentosById(this.idPagamento)
-      .subscribe(
-        (_PAGAMENTO: Pagamentos) => {
-          this.pagamento = Object.assign(_PAGAMENTO, {
-            dataEmissao: this.dataService.getDataPTBR(_PAGAMENTO.dataEmissao)
-          });
+    this.pagamentoService.getPagamentosById(this.idPagamento).subscribe((_PAGAMENTO: Pagamentos) => {
 
-          (!this.produtoItem) ? this.produtoItem = this.pagamento.produtosItens : this.produtoItem = this.produtoItem;
+      this.pagamento = Object.assign(_PAGAMENTO, {
+        dataEmissao: this.dataService.getDataPTBR(_PAGAMENTO.dataEmissao)
+      });
 
-          this.pessoaIdSelecionado = this.pagamento.pessoasId;
-          this.centroDespesaIdSelecionado = this.pagamento.centroDespesaId;
-          this.planoPagamentoIdSelecionado = this.pagamento.planoPagamentoId;
+      (!this.produtoItem) ? this.produtoItem = this.pagamento.produtosItens : this.produtoItem = this.produtoItem;
 
-          this.cadastroPagamento.patchValue(this.pagamento);
-          this.cadastroPagamento.disable();
-          this.parcelas = this.pagamento.parcelas;
+      this.pessoaIdSelecionado = this.pagamento.pessoasId;
+      this.centroDespesaIdSelecionado = this.pagamento.centroDespesaId;
+      this.planoPagamentoIdSelecionado = this.pagamento.planoPagamentoId;
 
-          this.parcelas.forEach((parcela) => {
-            parcela.dataVencimento = this.dataService.getDataPTBR(parcela.dataVencimento);
-          });
+      this.cadastroPagamento.patchValue(this.pagamento);
+      this.cadastroPagamento.disable();
+      this.parcelas = this.pagamento.parcelas;
 
-        }, error => {
-          this.toastr.error(`Erro ao tentar carregar Pagamento: ${error.error}`);
-          console.log(error);
-        });
+      this.parcelas.forEach((parcela) => {
+        parcela.dataVencimento = this.dataService.getDataPTBR(parcela.dataVencimento);
+      });
+    }, error => {
+      console.log(error.error);
+    });
   }
 
   validarPagamentos() {

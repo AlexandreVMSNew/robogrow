@@ -6,6 +6,9 @@ import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service
 import { PagamentoService } from 'src/app/_services/Financeiro/Pagamentos/pagamento.service';
 import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { DetalharPagamentoComponent } from 'src/app/financeiro/pagamento/detalharPagamento/detalharPagamento.component';
+import { TemplatePagamentoComponent } from 'src/app/financeiro/pagamento/templatePagamento/templatePagamento.component';
 
 @Component({
   selector: 'app-pagamentos-venda',
@@ -20,9 +23,17 @@ export class PagamentosVendaComponent implements OnInit {
 
   pagamentos: Pagamentos[];
 
-  idDetalharPagamento: number;
 
   templateEnabled = false;
+
+  templateModalDetalharPagamentoService = new TemplateModalService();
+  detalharPagamentoComponent = DetalharPagamentoComponent;
+
+  templateModalPagamentoService = new TemplateModalService();
+  templatePagamentoComponent = TemplatePagamentoComponent;
+  inputs: any;
+  tituloModal = '';
+  componentModal: any;
 
   constructor(private vendaService: VendaService,
               private toastr: ToastrService,
@@ -38,7 +49,6 @@ export class PagamentosVendaComponent implements OnInit {
 
   getPagamentos() {
     this.pagamentoService.getPagamentos().subscribe(
-      // tslint:disable-next-line:variable-name
       (_PAGAMENTOS: Pagamentos[]) => {
         this.pagamentos = _PAGAMENTOS.filter(c => c.produtosItensId === this.produtoItem.id && c.vendaId === this.venda.id);
     }, error => {
@@ -47,34 +57,27 @@ export class PagamentosVendaComponent implements OnInit {
     });
   }
 
-  abrirTemplate(template: any) {
-    if (this.templateEnabled === false) {
-      this.templateEnabled = true;
-      template.show();
-    }
+
+  getTemplateModalDetalharPagamento() {
+    return this.templateModalDetalharPagamentoService.getTemplateModalStatus();
   }
 
-  fecharTemplate(template: any) {
-    template.hide();
-    this.vendaService.setPagamentosVendaStatus(false);
-    this.templateEnabled = false;
+  abrirTemplateModalDetalharPagamento(idPagamentoInput: number, produtoItemInput: ProdutoItem) {
+    this.tituloModal =  `Pagamento - ${produtoItemInput.descricao}`;
+    this.componentModal = this.detalharPagamentoComponent;
+    this.inputs = Object.assign({produtoItem: produtoItemInput, idPagamento: idPagamentoInput});
+    this.templateModalDetalharPagamentoService.setTemplateModalStatus(true);
   }
 
-  getDetalharPagamento() {
-    return this.pagamentoService.getDetalharPagamentoStatus();
+  getTemplateModalPagamento() {
+    return this.templateModalPagamentoService.getTemplateModalStatus();
   }
 
-  abrirTemplateDetalharPagamento(idPagamento: number) {
-    this.idDetalharPagamento = idPagamento;
-    this.pagamentoService.setDetalharPagamentoStatus(true);
-  }
-
-  getTemplatePagamento() {
-    return this.pagamentoService.getTemplatePagamentoStatus();
-  }
-
-  abrirTemplatePagamento() {
-    this.pagamentoService.setTemplatePagamentoStatus(true);
+  abrirTemplateModalPagamento(produtoItemInput: ProdutoItem) {
+    this.tituloModal =  `Pagamento - ${produtoItemInput.descricao}`;
+    this.componentModal = this.templatePagamentoComponent;
+    this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
+    this.templateModalPagamentoService.setTemplateModalStatus(true);
   }
 
 }

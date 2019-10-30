@@ -2,7 +2,7 @@
 
   <div class="row">
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
       <label style="white-space: nowrap;">Data Emissão</label>
       <input type="text" class="form-control" formControlName="dataEmissao"
         [ngModel]="cadastroRecebimento.get('dataEmissao').value" bsDatepicker [bsConfig]="this.bsConfig" [ngClass]="{ 'is-invalid': cadastroRecebimento.get('dataEmissao').errors && 
@@ -14,14 +14,15 @@
       </div>
     </div>
 
-
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
       <label>Valor da Venda:</label>
       <div class="input-group">
         <input class="form-control" currencyMask formControlName="valorTotal"
           [options]="{ prefix: '', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroRecebimento.get('valorTotal').errors && 
                   cadastroRecebimento.get('valorTotal').touched}" />
-        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+        <div class="input-group-addon"><button class="btn btn-default" style="border: 1px solid #ced4da;">
+            <i class="fa fa-dollar"> </i>
+          </button></div>
       </div>
       <div
         *ngIf="cadastroRecebimento.get('valorTotal').hasError('required') && cadastroRecebimento.get('valorTotal').touched"
@@ -43,7 +44,7 @@
       </ng-select>
     </div>
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-4">
       <label style="white-space: nowrap;">Plano de Conta:</label>
       <ng-select style="text-transform: uppercase" [items]="planoContasReceita" bindLabel="descricao" required
         bindValue="id" [(ngModel)]="planoContasIdSelecionado" formControlName="planoContasId" disabled>
@@ -57,7 +58,7 @@
   </div>
   <div class="row">
     <hr style="width: 100%">
-    <div class="form-group col-md-5">
+    <div class="form-group col-md-4">
       <label style="white-space: nowrap;">Plano de Pagamento:(*)</label>
       <ng-select style="text-transform: uppercase" [items]="planosPagamento" bindLabel="descricao" required
         bindValue="id" [clearable]="false" [(ngModel)]="planoPagamentoIdSelecionado" formControlName="planoPagamentoId">

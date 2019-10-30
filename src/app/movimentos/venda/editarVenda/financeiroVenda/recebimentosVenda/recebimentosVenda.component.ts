@@ -62,10 +62,10 @@ export class RecebimentosVendaComponent implements OnInit {
     return this.templateModalDetalharRecebimentoService.getTemplateModalStatus();
   }
 
-  abrirTemplateModalDetalharRecebimento(recebimentoInput: Recebimentos, produtoItemInput: ProdutoItem) {
+  abrirTemplateModalDetalharRecebimento(idRecebimentoInput: number, produtoItemInput: ProdutoItem) {
     this.tituloModal =  `Recebimento - ${produtoItemInput.descricao}`;
     this.componentModal = this.detalharRecebimentoComponent;
-    this.inputs = Object.assign({produtoItem: produtoItemInput, recebimento: recebimentoInput});
+    this.inputs = Object.assign({produtoItem: produtoItemInput, idRecebimento: idRecebimentoInput});
     this.templateModalDetalharRecebimentoService.setTemplateModalStatus(true);
   }
 

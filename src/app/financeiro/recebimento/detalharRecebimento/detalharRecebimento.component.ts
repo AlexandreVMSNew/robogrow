@@ -26,7 +26,7 @@ import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
 })
 export class DetalharRecebimentoComponent implements OnInit {
 
-  @Input() recebimento: Recebimentos;
+  @Input() idRecebimento: number;
   @Input() produtoItem: ProdutoItem;
 
   cadastroRecebimento: FormGroup;
@@ -43,6 +43,7 @@ export class DetalharRecebimentoComponent implements OnInit {
   idVenda: number;
   venda: Venda;
 
+  recebimento: Recebimentos;
   parcelas: any = [];
 
   planosPagamento: PlanoPagamento[];
@@ -73,12 +74,18 @@ export class DetalharRecebimentoComponent implements OnInit {
   }
 
   carregarRecebimento() {
-    if (this.recebimento ) {
-      this.recebimento = Object.assign(this.recebimento , {
-        dataEmissao: this.dataService.getDataPTBR(this.recebimento .dataEmissao)
+    this.recebimento = null;
+    this.recebimentoService.getRecebimentosById(this.idRecebimento).subscribe((_RECEBIMENTO: Recebimentos) => {
+
+      this.recebimento = Object.assign(_RECEBIMENTO, {
+        dataEmissao: this.dataService.getDataPTBR(_RECEBIMENTO.dataEmissao)
       });
 
       (!this.produtoItem) ? this.produtoItem = this.recebimento.produtosItens : this.produtoItem = this.produtoItem;
+
+      this.centroReceitaIdSelecionado = this.recebimento.centroReceitaId;
+      this.planoContasIdSelecionado = this.recebimento.planoContasId;
+      this.planoPagamentoIdSelecionado = this.recebimento.planoPagamentoId;
 
       this.cadastroRecebimento.patchValue(this.recebimento);
       this.cadastroRecebimento.disable();
@@ -89,7 +96,9 @@ export class DetalharRecebimentoComponent implements OnInit {
       });
 
       this.recebimentoClientesId = this.recebimento.clientesId;
-    }
+    }, error => {
+      console.log(error.error);
+    });
   }
 
   validarRecebimentos() {
