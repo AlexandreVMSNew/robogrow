@@ -13,7 +13,7 @@
                                         cadastroForm.get('descricao').touched}" />
 
               <div *ngIf="cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>
@@ -27,12 +27,12 @@
                 </div>
                 <div
                   *ngIf="cadastroForm.get('valorMinimo').hasError('required') && cadastroForm.get('valorMinimo').touched"
-                  class="invalid-feedback">
+                  class="invalid-feedback d-block">
                   Campo obrigatório.
                 </div>
                 <div
                   *ngIf="cadastroForm.get('valorMinimo').hasError('min') && cadastroForm.get('valorMinimo').touched"
-                  class="invalid-feedback">
+                  class="invalid-feedback d-block">
                   Valor deve ser maior que 0.
                 </div>
               </div>

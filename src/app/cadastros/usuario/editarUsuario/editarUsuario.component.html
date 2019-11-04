@@ -30,7 +30,7 @@
                                                     cadastroForm.get('nomeCompleto').touched }"
                     style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
                   <div *ngIf="cadastroForm.get('nomeCompleto').hasError('required') &&
-                                      cadastroForm.get('nomeCompleto').touched" class="invalid-feedback">
+                                      cadastroForm.get('nomeCompleto').touched" class="invalid-feedback d-block">
                     Nome Completo é obrigatório.
                   </div>
                 </div>
@@ -40,11 +40,11 @@
                   <input class="form-control" type="text" formControlName="email" [ngClass]="{ 'is-invalid': cadastroForm.get('email').errors && 
                                                       cadastroForm.get('email').touched}" />
                   <div *ngIf="cadastroForm.get('email').hasError('required') &&cadastroForm.get('email').touched"
-                    class="invalid-feedback">
+                    class="invalid-feedback d-block">
                     E-mail é obrigatório.
                   </div>
                   <div *ngIf="cadastroForm.get('email').hasError('email') &&cadastroForm.get('email').touched"
-                    class="invalid-feedback">
+                    class="invalid-feedback d-block">
                     E-mail inválido.
                   </div>
                 </div>
@@ -56,7 +56,7 @@
                     style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
 
                   <div *ngIf="cadastroForm.get('userName').hasError('required') &&
-                                      cadastroForm.get('userName').touched" class="invalid-feedback">
+                                      cadastroForm.get('userName').touched" class="invalid-feedback d-block">
                     Usuário é obrigatório.
                   </div>
                 </div>
@@ -78,7 +78,7 @@
 
                   <div
                     *ngIf="cadastroForm.get('usuarioNivel').hasError('required') && cadastroForm.get('usuarioNivel').touched"
-                    class="invalid-feedback d-block ng-invalid ng-touched">
+                    class="invalid-feedback d-block d-block ng-invalid ng-touched">
                     Campo Obrigatório.
                   </div>
                 </div>
@@ -168,7 +168,7 @@
 
               <div
                 *ngIf="cadastroOcorrenciaForm.get('data').hasError('required') && cadastroOcorrenciaForm.get('data').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Data é obrigatório.
               </div>
             </div>
@@ -182,17 +182,17 @@
                 formControlName="descricao" placeholder="" />
               <div
                 *ngIf="cadastroOcorrenciaForm.get('descricao').hasError('required') &&cadastroOcorrenciaForm.get('descricao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Descrição é obrigatória.
               </div>
               <div
                 *ngIf="cadastroOcorrenciaForm.get('descricao').hasError('minlength') &&cadastroOcorrenciaForm.get('descricao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Descrição deve ter no mínimo 10 Caracteres.
               </div>
               <div
                 *ngIf="cadastroOcorrenciaForm.get('descricao').hasError('maxlength') &&cadastroOcorrenciaForm.get('descricao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Descrição deve ter no máximo 50 Caracteres.
               </div>
             </div>
@@ -205,17 +205,17 @@
                 formControlName="observacao" placeholder="" rows="4"></textarea>
               <div
                 *ngIf="cadastroOcorrenciaForm.get('observacao').hasError('required') &&cadastroOcorrenciaForm.get('observacao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Observação é obrigatória.
               </div>
               <div
                 *ngIf="cadastroOcorrenciaForm.get('observacao').hasError('minlength') &&cadastroOcorrenciaForm.get('observacao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Observação deve ter no mínimo 10 Caracteres.
               </div>
               <div
                 *ngIf="cadastroOcorrenciaForm.get('observacao').hasError('maxlength') &&cadastroOcorrenciaForm.get('observacao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Observação deve ter no máximo 100 Caracteres.
               </div>
             </div>

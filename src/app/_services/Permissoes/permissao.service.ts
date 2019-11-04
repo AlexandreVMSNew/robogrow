@@ -38,6 +38,10 @@ export class PermissaoService {
     return this.http.get<Permissao[]>(`${this.baseURL}/formularios/${usuarioNivelId}`);
   }
 
+  getPermissaoAcoesByFormularioAndObjeto(permissao: Permissao): Observable<PermissaoAcoes[]> {
+    return this.http.post<PermissaoAcoes[]>(`${this.baseURL}/acoes`, permissao);
+  }
+
   getPermissaoObjetosByFormularioAndNivelId(permissao: Permissao, nivelId = null): Observable<PermissaoObjetos[]> {
     const usuarioNivelId = (nivelId === null) ? this.getUsuarioNiveis()[1] : nivelId;
     return this.http.post<PermissaoObjetos[]>(`${this.baseURL}/objetos/${usuarioNivelId}`, permissao);

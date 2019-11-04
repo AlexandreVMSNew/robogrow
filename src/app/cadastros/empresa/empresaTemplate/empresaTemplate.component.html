@@ -28,7 +28,7 @@
 
               <div
                 *ngIf="cadastroEmpresa.get('razaoSocial').hasError('required') &&cadastroEmpresa.get('razaoSocial').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -41,7 +41,7 @@
 
               <div
                 *ngIf="cadastroEmpresa.get('nomeFantasia').hasError('required') &&cadastroEmpresa.get('nomeFantasia').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -63,7 +63,7 @@
                 (ngModelChange)="valueCnpjCpfPipe=$event" />
 
               <div *ngIf="cadastroEmpresa.get('cnpjCpf').hasError('required') &&cadastroEmpresa.get('cnpjCpf').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -75,7 +75,7 @@
                 (ngModelChange)="valueCepPipe=$event" />
 
               <div *ngIf="cadastroEmpresa.get('cep').hasError('required') &&cadastroEmpresa.get('cep').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -87,7 +87,7 @@
               </ng-select>
               <div
                 *ngIf="cadastroEmpresa.get('estadoId').hasError('required') && cadastroEmpresa.get('estadoId').touched"
-                class="invalid-feedback d-block ng-invalid ng-touched">
+                class="invalid-feedback d-block d-block ng-invalid ng-touched">
                 Campo Obrigatório.
               </div>
             </div>
@@ -103,7 +103,7 @@
               </ng-select>
               <div
                 *ngIf="cadastroEmpresa.get('cidadeId').hasError('required') && cadastroEmpresa.get('cidadeId').touched"
-                class="invalid-feedback d-block ng-invalid ng-touched">
+                class="invalid-feedback d-block d-block ng-invalid ng-touched">
                 Campo Obrigatório.
               </div>
             </div>
@@ -116,7 +116,7 @@
 
               <div
                 *ngIf="cadastroEmpresa.get('endereco').hasError('required') &&cadastroEmpresa.get('endereco').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -130,7 +130,7 @@
                 [ngClass]="{ 'is-invalid': cadastroEmpresa.get('bairro').errors && cadastroEmpresa.get('bairro').touched}" />
 
               <div *ngIf="cadastroEmpresa.get('bairro').hasError('required') &&cadastroEmpresa.get('bairro').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -145,7 +145,7 @@
 
               <div
                 *ngIf="cadastroEmpresa.get('telefone').hasError('required') &&cadastroEmpresa.get('telefone').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>

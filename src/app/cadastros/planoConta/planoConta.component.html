@@ -80,7 +80,7 @@
                 class="form-control" formControlName="descricao" [ngClass]="{ 'is-invalid': cadastroForm.get('descricao').errors && 
                 cadastroForm.get('descricao').touched}" />
               <div *ngIf="cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>
@@ -105,7 +105,7 @@
                 [clearable]="false" [ngModel]="cadastroForm.get('tipo').value" formControlName="tipo"
                 [ngClass]="{ 'is-invalid': cadastroForm.get('tipo').errors && cadastroForm.get('tipo').touched}">
                 <div *ngIf="cadastroForm.get('tipo').hasError('required') &&cadastroForm.get('tipo').touched"
-                  class="invalid-feedback">
+                  class="invalid-feedback d-block">
                   Campo obrigatório.
                 </div>
               </ng-select>
@@ -117,7 +117,7 @@
                 [ngModel]="cadastroForm.get('categoria').value" formControlName="categoria" [ngClass]="{ 'is-invalid': cadastroForm.get('categoria').errors && 
                 cadastroForm.get('categoria').touched}">
                 <div *ngIf="cadastroForm.get('categoria').hasError('required') &&cadastroForm.get('categoria').touched"
-                  class="invalid-feedback">
+                  class="invalid-feedback d-block">
                   Campo obrigatório.
                 </div>
               </ng-select>
@@ -130,7 +130,7 @@
                 [ngClass]="{ 'is-invalid': cadastroForm.get('status').errors && cadastroForm.get('status').touched}">
               </ng-select>
               <div *ngIf="cadastroForm.get('status').hasError('required') &&cadastroForm.get('status').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>

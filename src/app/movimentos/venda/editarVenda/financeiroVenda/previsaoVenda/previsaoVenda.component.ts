@@ -9,8 +9,7 @@ import * as moment from 'moment';
 
 @Component({
   selector: 'app-previsao-venda',
-  templateUrl: './previsaoVenda.component.html',
-  styleUrls: ['./previsaoVenda.component.css']
+  templateUrl: './previsaoVenda.component.html'
 })
 export class PrevisaoVendaComponent implements OnInit {
 

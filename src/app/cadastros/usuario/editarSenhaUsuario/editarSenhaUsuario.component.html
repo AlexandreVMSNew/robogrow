@@ -12,11 +12,11 @@
                                                              cadastroForm.get('senhaAtual').touched}"
               placeholder="Digite sua Senha atual" />
             <div *ngIf="cadastroForm.get('senhaAtual').hasError('minlength') &&
-                                  cadastroForm.get('senhaAtual').touched" class="invalid-feedback">
+                                  cadastroForm.get('senhaAtual').touched" class="invalid-feedback d-block">
               Deve conter no mínimo 4 caracters.
             </div>
             <div *ngIf="cadastroForm.get('senhaAtual').hasError('required') &&
-                                            cadastroForm.get('senhaAtual').touched" class="invalid-feedback">
+                                            cadastroForm.get('senhaAtual').touched" class="invalid-feedback d-block">
               Senha Atual é obrigatório.
             </div>
           </div>
@@ -30,11 +30,11 @@
                                                              cadastroForm.get('passwords.password').touched}"
                 placeholder="Digite uma Senha" />
               <div *ngIf="cadastroForm.get('passwords.password').hasError('minlength') &&
-                                  cadastroForm.get('passwords.password').touched" class="invalid-feedback">
+                                  cadastroForm.get('passwords.password').touched" class="invalid-feedback d-block">
                 Deve conter no mínimo 4 caracters.
               </div>
               <div *ngIf="cadastroForm.get('passwords.password').hasError('required') &&
-                                            cadastroForm.get('passwords.password').touched" class="invalid-feedback">
+                                            cadastroForm.get('passwords.password').touched" class="invalid-feedback d-block">
                 Senha é obrigatório.
               </div>
             </div>
@@ -48,12 +48,12 @@
                 placeholder="Confirme a Senha" />
               <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('required') &&
                                             cadastroForm.get('passwords.confirmPassword').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Confirme a senha.
               </div>
               <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('mismatch') 
                                             && cadastroForm.get('passwords.confirmPassword').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Senhas diferentes!
               </div>
             </div>

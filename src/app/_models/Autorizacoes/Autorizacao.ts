@@ -11,6 +11,7 @@ export class Autorizacao {
     formulario: string;
     acao: string;
     objeto: string;
+    observacoes: string;
     dataHoraSolicitado: number;
     dataHoraAutorizado: string;
     autorizado: number;

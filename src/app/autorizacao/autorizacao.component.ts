@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { PermissaoService } from '../_services/Permissoes/permissao.service';
 import { Permissao } from '../_models/Permissoes/permissao';
 import { PermissaoObjetos } from '../_models/Permissoes/permissaoObjetos';
+import { TemplateModalService } from '../_services/Uteis/TemplateModal/templateModal.service';
+import { AutorizacaoTemplateComponent } from './autorizacaoTemplate/autorizacaoTemplate.component';
 
 @Component({
   selector: 'app-autorizacao',
@@ -31,6 +33,12 @@ export class AutorizacaoComponent implements OnInit, AfterViewInit {
   valueCnpjCpfPipe = '';
 
   idAutorizacao: number;
+
+  templateModalAutorizacaoService = new TemplateModalService();
+  templateAutorizacaoComponent = AutorizacaoTemplateComponent;
+  inputs: any;
+  componentModal: any;
+  tituloModal: string;
 
   constructor(
     private autorizacaoService: AutorizacaoService,
@@ -59,15 +67,18 @@ export class AutorizacaoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getTemplateAutorizacao() {
-    return this.autorizacaoService.getAutorizacaoTemplateStatus();
+  abrirTemplateModalAutorizacao(component, idAutorizacaoInput: number, objetoAutorizacao: string) {
+    this.componentModal = component;
+    this.tituloModal = `AUTORIZAÇÃO - ${objetoAutorizacao}`;
+    this.inputs = Object.assign({
+      idAutorizacao: idAutorizacaoInput,
+    });
+    this.templateModalAutorizacaoService.setTemplateModalStatus(true);
   }
 
-  abrirTemplateAutorizacao(idAutorizacao: number) {
-    this.idAutorizacao = idAutorizacao;
-    this.autorizacaoService.setAutorizacaoTemplateStatus(true);
+  getTemplateModalAutorizacao() {
+    return this.templateModalAutorizacaoService.getTemplateModalStatus();
   }
-
 
   getAutorizacoes() {
     this.autorizacaoService.getAutorizacoes().subscribe(

@@ -12,7 +12,7 @@
                 oninput="this.value = this.value.toUpperCase()" formControlName="nomeCompleto" [ngClass]="{'is-invalid': cadastroForm.get('nomeCompleto').errors &&
                                               cadastroForm.get('nomeCompleto').touched }" />
               <div *ngIf="cadastroForm.get('nomeCompleto').hasError('required') &&
-                                cadastroForm.get('nomeCompleto').touched" class="invalid-feedback">
+                                cadastroForm.get('nomeCompleto').touched" class="invalid-feedback d-block">
                 Nome Completo é obrigatório.
               </div>
             </div>
@@ -22,11 +22,11 @@
               <input class="form-control" type="text" formControlName="email" [ngClass]="{ 'is-invalid': cadastroForm.get('email').errors && 
                                                 cadastroForm.get('email').touched}" />
               <div *ngIf="cadastroForm.get('email').hasError('required') &&cadastroForm.get('email').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 E-mail é obrigatório.
               </div>
               <div *ngIf="cadastroForm.get('email').hasError('email') &&cadastroForm.get('email').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 E-mail inválido.
               </div>
             </div>
@@ -38,7 +38,7 @@
                 style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
 
               <div *ngIf="cadastroForm.get('userName').hasError('required') &&
-                                cadastroForm.get('userName').touched" class="invalid-feedback">
+                                cadastroForm.get('userName').touched" class="invalid-feedback d-block">
                 Usuário é obrigatório.
               </div>
             </div>
@@ -60,7 +60,7 @@
 
               <div
                 *ngIf="cadastroForm.get('usuarioNivel').hasError('required') && cadastroForm.get('usuarioNivel').touched"
-                class="invalid-feedback d-block ng-invalid ng-touched">
+                class="invalid-feedback d-block d-block ng-invalid ng-touched">
                 Campo Obrigatório.
               </div>
             </div>
@@ -73,11 +73,11 @@
                 <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.password').errors &&
                                                              cadastroForm.get('passwords.password').touched}" />
                 <div *ngIf="cadastroForm.get('passwords.password').hasError('minlength') &&
-                                  cadastroForm.get('passwords.password').touched" class="invalid-feedback">
+                                  cadastroForm.get('passwords.password').touched" class="invalid-feedback d-block">
                   Deve conter no mínimo 4 caracters
                 </div>
                 <div *ngIf="cadastroForm.get('passwords.password').hasError('required') &&
-                                            cadastroForm.get('passwords.password').touched" class="invalid-feedback">
+                                            cadastroForm.get('passwords.password').touched" class="invalid-feedback d-block">
                   Senha é obrigatório.
                 </div>
               </div>
@@ -90,12 +90,12 @@
                                                && cadastroForm.get('passwords.confirmPassword').touched }" />
                 <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('required') &&
                                             cadastroForm.get('passwords.confirmPassword').touched"
-                  class="invalid-feedback">
+                  class="invalid-feedback d-block">
                   Confirme a senha.
                 </div>
                 <div *ngIf="cadastroForm.get('passwords.confirmPassword').hasError('mismatch') 
                                             && cadastroForm.get('passwords.confirmPassword').touched"
-                  class="invalid-feedback">
+                  class="invalid-feedback d-block">
                   Senhas diferentes!
                 </div>
               </div>

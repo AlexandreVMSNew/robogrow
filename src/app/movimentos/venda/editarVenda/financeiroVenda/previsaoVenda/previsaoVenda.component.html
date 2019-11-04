@@ -1,38 +1,36 @@
 
-        <div class="row">
 
+  <form [formGroup]="cadastroValorPrevistoForm">
+    <div class="form-group col-md-12">
+      <div class="input-group">
 
-          <form [formGroup]="cadastroValorPrevistoForm">
-            <div class="form-group col-md-12">
-              <div class="input-group">
-
-                <input class="form-control" currencyMask [(ngModel)]="valorPrevistoPipe" formControlName="valor"
-                  [options]="{ prefix: ' ', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroValorPrevistoForm.get('valor').errors && 
+        <input class="form-control" currencyMask [(ngModel)]="valorPrevistoPipe" formControlName="valor"
+          [options]="{ prefix: ' ', thousands: '.', decimal: ',' }" [ngClass]="{ 'is-invalid': cadastroValorPrevistoForm.get('valor').errors && 
                       cadastroValorPrevistoForm.get('valor').touched}" />
-                <div class="input-group-addon"><button class="btn btn-default" style="border: 1px solid #ced4da;">
-                    <i class="fa fa-dollar"> </i>
-                  </button>
-                </div>
-                <div
-                  *ngIf="cadastroValorPrevistoForm.get('valor').hasError('required') && cadastroValorPrevistoForm.get('valor').touched"
-                  class="invalid-feedback">
-                  Campo obrigatório.
-                </div>
-                <div
-                  *ngIf="cadastroValorPrevistoForm.get('valor').hasError('min') && cadastroValorPrevistoForm.get('valor').touched"
-                  class="invalid-feedback">
-                  Valor deve ser maior que {{this.valorMinimoProduto | currency:'BRL':true}}.
-                </div>
-              </div>
-            </div>
-          </form>
-            <button *ngIf="!cadastroValorPrevistoForm.valid || valorPrevistoDisabled == true" class="btn btn-primary"
-            (click)="salvarValorPrevisto()" disabled>
-            Salvar
+        <div class="input-group-addon"><button class="btn btn-default" style="border: 1px solid #ced4da;">
+            <i class="fa fa-dollar"> </i>
           </button>
-          <button *ngIf="cadastroValorPrevistoForm.valid && valorPrevistoDisabled == false" class="btn btn-primary"
-            (click)="salvarValorPrevisto()">
-            Salvar
-          </button>
-
         </div>
+        
+      </div>
+      <div
+          *ngIf="cadastroValorPrevistoForm.get('valor').hasError('required') && cadastroValorPrevistoForm.get('valor').touched"
+          class="invalid-feedback d-block">
+          Campo obrigatório.
+        </div>
+        <div
+          *ngIf="cadastroValorPrevistoForm.get('valor').hasError('min') && cadastroValorPrevistoForm.get('valor').touched"
+          class="invalid-feedback d-block">
+          Valor deve ser maior que {{this.valorMinimoProduto | currency:'BRL':true}}.
+        </div>
+    </div>
+  </form>
+
+  <button *ngIf="!cadastroValorPrevistoForm.valid || valorPrevistoDisabled == true" class="btn btn-primary"
+    (click)="salvarValorPrevisto()" disabled>
+    Salvar
+  </button>
+  <button *ngIf="cadastroValorPrevistoForm.valid && valorPrevistoDisabled == false" class="btn btn-primary"
+    (click)="salvarValorPrevisto()">
+    Salvar
+  </button>

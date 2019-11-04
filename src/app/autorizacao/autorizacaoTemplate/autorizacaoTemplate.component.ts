@@ -14,18 +14,16 @@ import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.s
 import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 import { Email } from 'src/app/_models/Email/Email';
 import { EmailService } from 'src/app/_services/Email/email.service';
-import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
+import { PermissaoAcoes } from 'src/app/_models/Permissoes/permissaoAcoes';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 @Component({
   selector: 'app-autorizacao-template',
   templateUrl: './autorizacaoTemplate.component.html',
   styleUrls: ['./autorizacaoTemplate.component.css']
 })
-export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked, AfterViewInit {
+export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
 
   @Input() idAutorizacao: number;
-  @Input() formulario: string;
-  @Input() acao: string;
-  @Input() objeto: string;
   @ViewChild('templateAutorizacao') templateAutorizacao: any;
 
   formularioComponent = 'AUTORIZAÇÕES';
@@ -61,21 +59,23 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked, A
     }
   }
 
-  ngAfterViewInit() {
-    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
-    .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
-      const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
-      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
-    }, error => {
-      console.log(error.error);
+  configurarPermissao(objetoAutorizacao) {
+    const usuarioNiveisLogado = this.permissaoService.getUsuarioNiveis();
+    this.permissaoService.getPermissaoAcoesByFormularioAndObjeto(
+      Object.assign({formulario: 'AUTORIZAÇÕES', permissaoObjetos: [{objeto: objetoAutorizacao}]}))
+      .subscribe((_ACOES: PermissaoAcoes[]) => {
+      _ACOES.forEach((acao) => {
+        if (acao.editar === true && usuarioNiveisLogado.indexOf(acao.nivelId.toString(), 0) > -1) {
+          this.editar = true;
+          console.log(true);
+        }
+      });
     });
   }
-
 
   ngAfterViewChecked() {
     this.changeDetectionRef.detectChanges();
   }
-
 
   carregarAutorizacao() {
     this.autorizacao = null;
@@ -90,13 +90,10 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked, A
       } else if (this.autorizacao.autorizado === 1 && this.autorizacao.autorizador) {
         autorizado = 'SIM';
       }
+
       this.cadastroAutorizacao.patchValue(this.autorizacao);
       this.cadastroAutorizacao.controls.autorizado.setValue(autorizado);
-      /*this.permissaoService.getPermissoesByFormularioAcaoObjeto(
-        Object.assign({formulario: 'AUTORIZACOES', acao: this.autorizacao.acao})).subscribe(
-        (_PERMISSAO: Permissao) => {
-        this.editar = this.permissaoService.verificarPermissaoPorObjetos(_PERMISSAO);
-      });*/
+      this.configurarPermissao(this.autorizacao.objeto);
     }, error => {
       this.toastr.error(`Erro ao tentar carregar Autorizacao: ${error.error}`);
       console.log(error);
@@ -113,6 +110,7 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked, A
       formulario: [''],
       acao: [''],
       objeto: [''],
+      observacoes: [''],
       dataHoraSolicitado: [''],
       dataHoraAutorizado: [''],
       autorizado: ['', Validators.required],
@@ -170,24 +168,10 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked, A
         });
         this.autorizacaoService.atualizarAutorizacoes();
         this.toastr.success(`Editado com Sucesso!`);
-        this.fecharTemplate(this.templateAutorizacao);
       }, error => {
         console.log(error.error);
       }
     );
-  }
-
-  abrirTemplate(template: any) {
-    if (this.templateEnabled === false) {
-      template.show();
-      this.templateEnabled = true;
-    }
-  }
-
-  fecharTemplate(template: any) {
-    template.hide();
-    this.autorizacaoService.setAutorizacaoTemplateStatus(false);
-    this.templateEnabled = false;
   }
 
   getUsuarios() {

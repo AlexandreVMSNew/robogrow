@@ -40,6 +40,7 @@ import { Publicacao } from 'src/app/_models/Publicacoes/Publicacao';
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 import { HttpClient } from '@angular/common/http';
 import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
+import { PermissaoAcoes } from 'src/app/_models/Permissoes/permissaoAcoes';
 
 @Component({
   selector: 'app-editar-venda',
@@ -212,7 +213,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       const permissaoAbaFinanceiro = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'ABA FINANCEIRO');
       this.visualizarAbaFinanceiro = (permissaoAbaFinanceiro !== null ) ? permissaoAbaFinanceiro.visualizar : false;
 
-      const permissaoPedido = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'GERAR PEDIDO');
+      const permissaoPedido = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'BOTÃO GERAR PEDIDO');
       this.gerarPedido = (permissaoPedido !== null ) ? permissaoPedido.visualizar : false;
 
       this.spinnerService.alterarSpinnerStatus(false);
@@ -224,16 +225,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   configurarAlteracoes() {
-
-    if (this.editar === true && this.statusSelecionado === 'EM NEGOCIAÇÃO') {
-      this.cadastroForm.controls.empresasId.enable(); this.cadastroForm.controls.vendedorId.enable();
-      this.cadastroForm.controls.clientesId.enable(); this.cadastroForm.controls.produtoId.enable();
-      this.cadastroForm.controls.planoPagamentoId.enable();
-    } else {
-      this.cadastroForm.controls.empresasId.disable(); this.cadastroForm.controls.vendedorId.disable();
-      this.cadastroForm.controls.clientesId.disable(); this.cadastroForm.controls.produtoId.disable();
-      this.cadastroForm.controls.planoPagamentoId.disable();
-    }
 
     (this.editarCampoStatus === true || this.autorizadoGerarPedido === true) ?
     this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
@@ -261,6 +252,16 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
     (this.editarCampoDataFinalizado === true) ?
     this.cadastroForm.controls.dataFinalizado.enable() : this.cadastroForm.controls.dataFinalizado.disable();
+
+    if (this.editar === true && this.statusSelecionado === 'EM NEGOCIAÇÃO') {
+      this.cadastroForm.controls.empresasId.enable(); this.cadastroForm.controls.vendedorId.enable();
+      this.cadastroForm.controls.clientesId.enable(); this.cadastroForm.controls.produtoId.enable();
+      this.cadastroForm.controls.planoPagamentoId.enable();
+    } else {
+      this.cadastroForm.controls.empresasId.disable(); this.cadastroForm.controls.vendedorId.disable();
+      this.cadastroForm.controls.clientesId.disable(); this.cadastroForm.controls.produtoId.disable();
+      this.cadastroForm.controls.planoPagamentoId.disable();
+    }
 
     this.spinnerService.alterarSpinnerStatus(false);
   }
@@ -391,21 +392,26 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     const usuariosEmailNotificacao: any = [];
     this.usuarioService.getUsuarios().subscribe(
       (_USUARIOS: Usuario[]) => {
-      /*this.permissaoService.getPermissoesByFormularioAcaoObjeto(
-        Object.assign({formulario: 'AUTORIZACOES', acao: 'GERAR', objeto: 'PEDIDO'})).subscribe((_PERMISSAO: Permissao) => {
+      this.permissaoService.getPermissaoAcoesByFormularioAndObjeto(
+        Object.assign({formulario: 'AUTORIZAÇÕES', permissaoObjetos: [{objeto: 'PEDIDO DE VENDA'}]}))
+        .subscribe((_ACOES: PermissaoAcoes[]) => {
 
-         _PERMISSAO.permissaoNiveis.forEach((permissao) => {
-            _USUARIOS.forEach((usuario: Usuario) => {
-              if (usuario.usuarioNivel.filter(c => c.roleId === permissao.nivelId).length > 0) {
-                usuariosIdNotificacao.push(usuario.id);
-                usuariosEmailNotificacao.push(usuario.email);
-              }
-            });
+          _ACOES.forEach((acao) => {
+            if (acao.editar === true) {
+              _USUARIOS.forEach((usuario: Usuario) => {
+                if (usuario.usuarioNivel.filter(c => c.roleId === acao.nivelId).length > 0) {
+                  usuariosIdNotificacao.push(usuario.id);
+                  usuariosEmailNotificacao.push(usuario.email);
+                }
+              });
+            }
           });
           this.spinnerService.alterarSpinnerStatus(false);
           this.enviarNotificacoes(usuariosIdNotificacao);
           this.enviarEmail(usuariosEmailNotificacao);
-      });*/
+      }, error => {
+        console.log(error.error);
+      });
     });
   }
 
@@ -419,7 +425,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       formularioIdentificacao: this.venda.numeroAno,
       formulario: 'VENDA',
       acao: 'GERAR',
-      objeto: 'PEDIDO',
+      objeto: 'PEDIDO DE VENDA',
       dataHoraSolicitado: dataAtual,
       autorizado: 0,
       visto: 0

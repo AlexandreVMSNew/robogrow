@@ -41,7 +41,7 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
 
   niveis: Nivel[];
   niveisIdSelecionado: any;
-  niveisUsuario: UsuarioNivel[];
+  niveisUsuario: UsuarioNivel[] = [];
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   dateFormat = '';
 
@@ -114,6 +114,7 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
       this.baseURLFotoPerfil = this.permissaoService.getUrlUsuarioLogadoFotoPerfil(this.usuario.id, nomeArquivo);
 
       this.niveisIdSelecionado = this.usuario.usuarioNivel[0].roleId;
+      this.niveisUsuario.push(Object.assign({ userId: this.idUsuario, roleId: this.niveisIdSelecionado}));
       this.cadastroForm.controls.usuarioNivel.setValue(this.niveisIdSelecionado);
 
       this.configurarAlteracoes();

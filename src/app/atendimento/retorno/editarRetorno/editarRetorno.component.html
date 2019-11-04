@@ -21,7 +21,7 @@
                                           cadastroForm.get('contatoNome').touched}" />
 
           <div *ngIf="cadastroForm.get('contatoNome').hasError('required') &&cadastroForm.get('contatoNome').touched"
-            class="invalid-feedback">
+            class="invalid-feedback d-block">
             Campo Obrigatório.
           </div>
         </div>
@@ -33,7 +33,7 @@
               (ngModelChange)="valueTelefonePipe=$event" />
   
             <div *ngIf="cadastroForm.get('telefone').hasError('required') &&cadastroForm.get('telefone').touched"
-              class="invalid-feedback">
+              class="invalid-feedback d-block">
               Campo é obrigatório.
             </div>
           </div>
@@ -46,7 +46,7 @@
         </div>
       </div>
 
-    <div *ngIf="!cadastroForm.valid" style="font-size:18px;" class="invalid-feedback d-block">
+    <div *ngIf="!cadastroForm.valid" style="font-size:18px;" class="invalid-feedback d-block d-block">
       Preencha todos os campos com (*).
     </div>
   </div>

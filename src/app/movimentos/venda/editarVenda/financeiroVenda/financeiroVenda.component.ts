@@ -114,7 +114,7 @@ export class FinanceiroVendaComponent implements OnInit {
   }
 
   abrirPagamentosVenda(produtoItemInput: ProdutoItem) {
-    this.tituloModal =  `Previsão - ${produtoItemInput.descricao}`;
+    this.tituloModal =  `Pagamentos - ${produtoItemInput.descricao}`;
     this.componentModal = this.pagamentosVendaComponent;
     this.venda = Object.assign(this.venda, {id: this.idVenda });
     this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
@@ -130,7 +130,7 @@ export class FinanceiroVendaComponent implements OnInit {
   }
 
   abrirPrevisaoVenda(produtoItemInput: ProdutoItem) {
-    this.tituloModal =  `Pagamentos - ${produtoItemInput.descricao}`;
+    this.tituloModal =  `Previsão - ${produtoItemInput.descricao}`;
     this.componentModal = this.previsaoVendaComponent;
     this.venda = Object.assign(this.venda, {id: this.idVenda });
     this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});

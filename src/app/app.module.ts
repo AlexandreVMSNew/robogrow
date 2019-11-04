@@ -146,6 +146,7 @@ defineLocale('pt-br', ptBrLocale);
       DetalharPagamentoComponent,
       TemplatePagamentoComponent,
       LogsStatusVendaComponent,
+      AutorizacaoTemplateComponent,
    ],
    declarations: [
       AppComponent,

@@ -28,7 +28,7 @@
                     formControlName="descricao" />
                   <div
                     *ngIf="cadastroGrupoCheckForm.get('descricao').hasError('required') &&cadastroGrupoCheckForm.get('descricao').touched"
-                    class="invalid-feedback">
+                    class="invalid-feedback d-block">
                     Campo é obrigatório.
                   </div>
                 </div>
@@ -143,7 +143,7 @@
                 formControlName="descricao" />
               <div
                 *ngIf="cadastroCheckForm.get('descricao').hasError('required') &&cadastroCheckForm.get('descricao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo é obrigatório.
               </div>
             </div>
@@ -194,7 +194,7 @@
                 formControlName="descricao" />
               <div
                 *ngIf="cadastroCheckOpcoesForm.get('descricao').hasError('required') &&cadastroCheckOpcoesForm.get('descricao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo é obrigatório.
               </div>
             </div>

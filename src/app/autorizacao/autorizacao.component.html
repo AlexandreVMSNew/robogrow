@@ -39,11 +39,11 @@
             </td>
           <td style="text-align: center;white-space: nowrap;">
             <div class="btn-group">
-              <a [routerLink]="" *ngIf="this.editar == true || this.visualizar == true" (click)="abrirTemplateAutorizacao(autorizacao.id)" tooltip="Editar/Perfil"
-                class="btn btn-sm btn-primary">
+              <a [routerLink]="" *ngIf="this.editar == true || this.visualizar == true"  tooltip="Editar/Perfil"
+                (click)="abrirTemplateModalAutorizacao(templateAutorizacaoComponent, autorizacao.id, autorizacao.objeto)" class="btn btn-sm btn-primary">
                 <i class="fa fa-edit"></i>
               </a>
-              <a *ngIf="autorizacao.formulario == 'VENDA' && autorizacao.acao == 'GERAR' && autorizacao.objeto == 'PEDIDO'"
+              <a *ngIf="autorizacao.formulario == 'VENDA' && autorizacao.acao == 'GERAR' && autorizacao.objeto == 'PEDIDO DE VENDA'"
               [routerLink]="['/movimentos/vendas','editar', autorizacao.formularioId]" tooltip="Ir para o Formulário"
                 class="btn btn-sm btn-success">
                 <i class="fa fa-shopping-cart"></i>
@@ -67,4 +67,7 @@
   </div>
 </div>
 
-<app-autorizacao-template [idAutorizacao]="this.idAutorizacao" *ngIf="getTemplateAutorizacao() == true"></app-autorizacao-template>
+
+<app-template-modal *ngIf="this.getTemplateModalAutorizacao() == true" [templateModalService]="templateModalAutorizacaoService"
+  [component]="this.componentModal" [width]="35" [inputs]="this.inputs" [titulo]="this.tituloModal">
+</app-template-modal>

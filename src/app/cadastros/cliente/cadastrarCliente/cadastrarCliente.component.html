@@ -24,7 +24,7 @@
 
               <div
                 *ngIf="cadastroForm.get('razaoSocial').hasError('required') &&cadastroForm.get('razaoSocial').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Razão Social é obrigatório.
               </div>
             </div>
@@ -37,7 +37,7 @@
 
               <div
                 *ngIf="cadastroForm.get('nomeFantasia').hasError('required') &&cadastroForm.get('nomeFantasia').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Nome Fantasia é obrigatório.
               </div>
             </div>
@@ -86,7 +86,7 @@
                 (ngModelChange)="valueCnpjCpfPipe=$event" />
 
               <div *ngIf="cadastroForm.get('cnpjCpf').hasError('required') &&cadastroForm.get('cnpjCpf').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Obrigatório o preenchimento.
               </div>
             </div>
@@ -101,7 +101,7 @@
                 (ngModelChange)="valueCepPipe=$event" />
 
               <div *ngIf="cadastroForm.get('cep').hasError('required') &&cadastroForm.get('cep').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -111,7 +111,7 @@
                 (change)="getCidades(estadoIdSelecionado)" [(ngModel)]="estadoIdSelecionado" formControlName="estadoId">
               </ng-select>
               <div *ngIf="cadastroForm.get('estadoId').hasError('required') && cadastroForm.get('estadoId').touched"
-                class="invalid-feedback d-block ng-invalid ng-touched">
+                class="invalid-feedback d-block d-block ng-invalid ng-touched">
                 Campo Obrigatório.
               </div>
             </div>
@@ -122,7 +122,7 @@
                 bindValue="id" [(ngModel)]="cidadeIdSelecionado" formControlName="cidadeId">
               </ng-select>
               <div *ngIf="cadastroForm.get('cidadeId').hasError('required') && cadastroForm.get('cidadeId').touched"
-                class="invalid-feedback d-block ng-invalid ng-touched">
+                class="invalid-feedback d-block d-block ng-invalid ng-touched">
                 Campo Obrigatório.
               </div>
             </div>
@@ -134,7 +134,7 @@
                                                                     cadastroForm.get('endereco').touched}" />
 
               <div *ngIf="cadastroForm.get('endereco').hasError('required') &&cadastroForm.get('endereco').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -150,7 +150,7 @@
                 [ngClass]="{ 'is-invalid': cadastroForm.get('bairro').errors && cadastroForm.get('bairro').touched}" />
 
               <div *ngIf="cadastroForm.get('bairro').hasError('required') &&cadastroForm.get('bairro').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -160,11 +160,11 @@
               <input class="form-control" type="text" formControlName="email" [ngClass]="{ 'is-invalid': cadastroForm.get('email').errors && 
                                                                 cadastroForm.get('email').touched}" />
               <div *ngIf="cadastroForm.get('email').hasError('required') &&cadastroForm.get('email').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
               <div *ngIf="cadastroForm.get('email').hasError('email') &&cadastroForm.get('email').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 E-mail inválido.
               </div>
             </div>
@@ -176,7 +176,7 @@
                 (ngModelChange)="valueTelefonePipe=$event" />
 
               <div *ngIf="cadastroForm.get('telefone').hasError('required') &&cadastroForm.get('telefone').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -205,7 +205,7 @@
                 formControlName="sistemaId">
               </ng-select>
               <div *ngIf="cadastroForm.get('sistemaId').hasError('required') && cadastroForm.get('sistemaId').touched"
-                class="invalid-feedback d-block ng-invalid ng-touched">
+                class="invalid-feedback d-block d-block ng-invalid ng-touched">
                 Sistema é Obrigatório.
               </div>
             </div>
@@ -217,7 +217,7 @@
                 formControlName="geracaoId">
               </ng-select>
               <div *ngIf="cadastroForm.get('geracaoId').hasError('required') && cadastroForm.get('geracaoId').touched"
-                class="invalid-feedback d-block ng-invalid ng-touched">
+                class="invalid-feedback d-block d-block ng-invalid ng-touched">
                 Geração é Obrigatório.
               </div>
             </div>
@@ -233,7 +233,7 @@
 
               <div
                 *ngIf="cadastroForm.get('clienteVersoes').hasError('required') && cadastroForm.get('clienteVersoes').touched"
-                class="invalid-feedback d-block ng-invalid ng-touched">
+                class="invalid-feedback d-block d-block ng-invalid ng-touched">
                 Versão(ões) é Obrigatório.
               </div>
             </div>
@@ -278,7 +278,7 @@
                 [ngClass]="{'is-invalid':cadastroGrupoForm.get('nome').errors &&cadastroGrupoForm.get('nome').touched}"
                 formControlName="nome" />
               <div *ngIf="cadastroGrupoForm.get('nome').hasError('required') &&cadastroGrupoForm.get('nome').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Nome é obrigatório.
               </div>
             </div>

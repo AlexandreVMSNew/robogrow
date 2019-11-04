@@ -184,7 +184,7 @@ tooltip="Novas ideias!" (click)="templateIdeia.show()" class="btn btn-warning bt
                   formControlName="ideia" rows="4"></textarea>
                 <div
                   *ngIf="cadastroIdeiaForm.get('ideia').hasError('required') &&cadastroIdeiaForm.get('ideia').touched"
-                  class="invalid-feedback">
+                  class="invalid-feedback d-block">
                   Campo é obrigatório.
                 </div>
               </div>

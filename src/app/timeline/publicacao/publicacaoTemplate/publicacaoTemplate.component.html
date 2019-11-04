@@ -19,7 +19,7 @@
               [ngClass]="{'is-invalid':cadastroPublicacao.get('texto').errors &&cadastroPublicacao.get('texto').touched}"
               formControlName="texto" placeholder="" rows="4"></textarea>
             <div *ngIf="cadastroPublicacao.get('texto').hasError('required') &&cadastroPublicacao.get('texto').touched"
-              class="invalid-feedback">
+              class="invalid-feedback d-block">
               Campo é obrigatório.
             </div>
           </div>
@@ -30,7 +30,7 @@
               bindValue="value" [items]="itensCompartilharTodos" formControlName="compartilharTodos">
             </ng-select>
             <div *ngIf="cadastroPublicacao.get('compartilharTodos').hasError('required') &&cadastroPublicacao.get('compartilharTodos').touched"
-              class="invalid-feedback d-block ng-invalid ng-touched">
+              class="invalid-feedback d-block d-block ng-invalid ng-touched">
               Campo é obrigatório.
             </div>
           </div>

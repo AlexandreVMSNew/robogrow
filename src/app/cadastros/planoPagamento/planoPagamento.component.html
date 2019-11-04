@@ -75,7 +75,7 @@
               </ng-select>
               <div
                 *ngIf="cadastroForm.get('formaPagamentoId').hasError('required') &&cadastroForm.get('formaPagamentoId').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -89,7 +89,7 @@
               </ng-select>
               <div
                 *ngIf="cadastroForm.get('qtdParcelas').hasError('required') &&cadastroForm.get('qtdParcelas').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -101,12 +101,12 @@
                 [ngClass]="{ 'is-invalid': cadastroForm.get('prazoPrimeiraParcela').errors &&  cadastroForm.get('prazoPrimeiraParcela').touched}" />
               <div
                 *ngIf="cadastroForm.get('prazoPrimeiraParcela').hasError('required') &&cadastroForm.get('prazoPrimeiraParcela').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
               <div
                 *ngIf="cadastroForm.get('prazoPrimeiraParcela').hasError('max') || cadastroForm.get('prazoPrimeiraParcela').hasError('min') && cadastroForm.get('prazoPrimeiraParcela').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Valor deve ser maior que 0 e menor que 120.
               </div>
             </div>
@@ -118,12 +118,12 @@
                 [ngClass]="{ 'is-invalid': cadastroForm.get('intervaloParcelas').errors &&  cadastroForm.get('intervaloParcelas').touched}" />
               <div
                 *ngIf="cadastroForm.get('intervaloParcelas').hasError('required') &&cadastroForm.get('intervaloParcelas').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
               <div
                 *ngIf="cadastroForm.get('intervaloParcelas').hasError('max') || cadastroForm.get('intervaloParcelas').hasError('min') && cadastroForm.get('intervaloParcelas').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Valor deve ser maior que 0 e menor que 365.
               </div>
             </div>
@@ -140,12 +140,12 @@
                 <span class="input-group-addon"><i class="fa fa-percent"></i></span>
               </div>
               <div *ngIf="cadastroForm.get('juros').hasError('required') &&cadastroForm.get('juros').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
               <div
                 *ngIf="cadastroForm.get('juros').hasError('max') || cadastroForm.get('juros').hasError('min') && cadastroForm.get('juros').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Valor deve ser maior que 0 e menor que 100.
               </div>
             </div>
@@ -159,12 +159,12 @@
                 <span class="input-group-addon"><i class="fa fa-percent"></i></span>
               </div>
               <div *ngIf="cadastroForm.get('desconto').hasError('required') && cadastroForm.get('desconto').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
               <div
                 *ngIf="cadastroForm.get('desconto').hasError('max') || cadastroForm.get('desconto').hasError('min') && cadastroForm.get('desconto').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Valor deve ser maior que 0 e menor que 100.
               </div>
 
@@ -178,7 +178,7 @@
               </ng-select>
               <div
                 *ngIf="cadastroForm.get('planoContasId').hasError('required') &&cadastroForm.get('planoContasId').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -193,7 +193,7 @@
                 class="form-control" formControlName="descricao"
                 [ngClass]="{ 'is-invalid': cadastroForm.get('descricao').errors &&  cadastroForm.get('descricao').touched}" />
               <div *ngIf="cadastroForm.get('descricao').hasError('required') &&cadastroForm.get('descricao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -204,7 +204,7 @@
                 [ngClass]="{ 'is-invalid': cadastroForm.get('status').errors && cadastroForm.get('status').touched}">
               </ng-select>
               <div *ngIf="cadastroForm.get('status').hasError('required') &&cadastroForm.get('status').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>

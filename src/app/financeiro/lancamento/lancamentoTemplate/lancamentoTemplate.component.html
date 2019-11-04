@@ -24,7 +24,7 @@
                 [ngClass]="{ 'is-invalid': cadastroLancamento.get('descricao').errors && cadastroLancamento.get('descricao').touched}" />
               <div
                 *ngIf="cadastroLancamento.get('descricao').hasError('required') &&cadastroLancamento.get('descricao').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>
@@ -36,7 +36,7 @@
                 cadastroLancamento.get('dataLancamento').touched}" />
               <div
                 *ngIf="cadastroLancamento.get('dataLancamento').hasError('required') &&cadastroLancamento.get('dataLancamento').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>
@@ -52,11 +52,11 @@
               </div>
               <div
                 *ngIf="cadastroLancamento.get('valor').hasError('required') && cadastroLancamento.get('valor').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
               <div *ngIf="cadastroLancamento.get('valor').hasError('min') && cadastroLancamento.get('valor').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Valor deve ser maior que 0.
               </div>
             </div>
@@ -75,7 +75,7 @@
               </ng-select>
               <div
                 *ngIf="cadastroLancamento.get('planoDebitoId').hasError('required') && cadastroLancamento.get('planoDebitoId').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>
@@ -92,7 +92,7 @@
               </ng-select>
               <div
                 *ngIf="cadastroLancamento.get('planoCreditoId').hasError('required') && cadastroLancamento.get('planoCreditoId').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>

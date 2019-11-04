@@ -9,7 +9,7 @@
                 cadastroRecebimento.get('dataEmissao').touched}" />
       <div
         *ngIf="cadastroRecebimento.get('dataEmissao').hasError('required') &&cadastroRecebimento.get('dataEmissao').touched"
-        class="invalid-feedback">
+        class="invalid-feedback d-block">
         Campo obrigatório.
       </div>
     </div>
@@ -34,12 +34,12 @@
       </div>
       <div
         *ngIf="cadastroRecebimento.get('valorTotal').hasError('required') && cadastroRecebimento.get('valorTotal').touched"
-        class="invalid-feedback">
+        class="invalid-feedback d-block">
         Campo obrigatório.
       </div>
       <div
         *ngIf="cadastroRecebimento.get('valorTotal').hasError('min') && cadastroRecebimento.get('valorTotal').touched"
-        class="invalid-feedback">
+        class="invalid-feedback d-block">
         Valor deve ser maior que 0.
       </div>
     </div>
@@ -90,11 +90,11 @@
         [ngClass]="{ 'is-invalid': cadastroRecebimento.get('diasFixo').errors && cadastroRecebimento.get('diasFixo').touched}" />
       <div
         *ngIf="cadastroRecebimento.get('diasFixo').hasError('required') && cadastroRecebimento.get('diasFixo').touched"
-        class="invalid-feedback">
+        class="invalid-feedback d-block">
         Campo obrigatório.
       </div>
       <div *ngIf="cadastroRecebimento.get('diasFixo').hasError('min') && cadastroRecebimento.get('diasFixo').touched"
-        class="invalid-feedback">
+        class="invalid-feedback d-block">
         Valor deve ser maior que 0.
       </div>
     </div>

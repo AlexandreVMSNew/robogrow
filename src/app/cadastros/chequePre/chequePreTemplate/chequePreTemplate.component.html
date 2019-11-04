@@ -23,7 +23,7 @@
               </ng-select>
               <div
                 *ngIf="cadastroCheque.get('clientesId').hasError('required') &&cadastroCheque.get('clientesId').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo Obrigatório.
               </div>
             </div>
@@ -35,7 +35,7 @@
                 cadastroCheque.get('dataPreDatado').touched}" />
               <div
                 *ngIf="cadastroCheque.get('dataPreDatado').hasError('required') &&cadastroCheque.get('dataPreDatado').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>
@@ -50,11 +50,11 @@
                 <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
               </div>
               <div *ngIf="cadastroCheque.get('valor').hasError('required') && cadastroCheque.get('valor').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
               <div *ngIf="cadastroCheque.get('valor').hasError('min') && cadastroCheque.get('valor').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Valor deve ser maior que 0.
               </div>
             </div>
@@ -64,7 +64,7 @@
               <input class="form-control" type="text" formControlName="banco"
                 [ngClass]="{ 'is-invalid': cadastroCheque.get('banco').errors && cadastroCheque.get('banco').touched}" />
               <div *ngIf="cadastroCheque.get('banco').hasError('required') && cadastroCheque.get('banco').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>
@@ -77,7 +77,7 @@
               <input class="form-control" type="text" formControlName="agencia"
                 [ngClass]="{ 'is-invalid': cadastroCheque.get('agencia').errors && cadastroCheque.get('agencia').touched}" />
               <div *ngIf="cadastroCheque.get('agencia').hasError('required') && cadastroCheque.get('agencia').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>
@@ -87,7 +87,7 @@
               <input class="form-control" type="text" formControlName="conta"
                 [ngClass]="{ 'is-invalid': cadastroCheque.get('conta').errors && cadastroCheque.get('conta').touched}" />
               <div *ngIf="cadastroCheque.get('conta').hasError('required') && cadastroCheque.get('conta').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>
@@ -97,7 +97,7 @@
               <input class="form-control" type="text" formControlName="numero"
                 [ngClass]="{ 'is-invalid': cadastroCheque.get('numero').errors && cadastroCheque.get('numero').touched}" />
               <div *ngIf="cadastroCheque.get('numero').hasError('required') && cadastroCheque.get('numero').touched"
-                class="invalid-feedback">
+                class="invalid-feedback d-block">
                 Campo obrigatório.
               </div>
             </div>

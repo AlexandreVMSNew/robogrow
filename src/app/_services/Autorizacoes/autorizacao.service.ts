@@ -10,7 +10,6 @@ import { HttpClient } from '@angular/common/http';
 export class AutorizacaoService {
 
   baseURL = InfoAPI.URL + '/autorizacoes';
-  autorizacaoTemplate = false;
 
   atualizaAutorizacoes = new EventEmitter<boolean>();
 
@@ -20,12 +19,6 @@ export class AutorizacaoService {
     this.atualizaAutorizacoes.emit(true);
   }
 
-  getAutorizacaoTemplateStatus() {
-    return this.autorizacaoTemplate;
-  }
-  setAutorizacaoTemplateStatus(val: boolean) {
-    this.autorizacaoTemplate = val;
-  }
   getAutorizacoes(): Observable<Autorizacao[]> {
     return this.http.get<Autorizacao[]>(this.baseURL);
   }

@@ -9,7 +9,7 @@
                 cadastroPagamento.get('dataEmissao').touched}" />
       <div
         *ngIf="cadastroPagamento.get('dataEmissao').hasError('required') &&cadastroPagamento.get('dataEmissao').touched"
-        class="invalid-feedback">
+        class="invalid-feedback d-block">
         Campo obrigatório.
       </div>
     </div>
@@ -34,11 +34,11 @@
       </div>
       <div
         *ngIf="cadastroPagamento.get('valorTotal').hasError('required') && cadastroPagamento.get('valorTotal').touched"
-        class="invalid-feedback">
+        class="invalid-feedback d-block">
         Campo obrigatório.
       </div>
       <div *ngIf="cadastroPagamento.get('valorTotal').hasError('min') && cadastroPagamento.get('valorTotal').touched"
-        class="invalid-feedback">
+        class="invalid-feedback d-block">
         Valor deve ser maior que 0.
       </div>
     </div>
