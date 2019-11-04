@@ -157,6 +157,10 @@
           </div>
         </tab>
 
+        <tab heading="Logs Status" style="margin-top: 10px;">
+          <app-logs-status-venda *ngIf="this.venda" [logs]="this.venda.vendaLogsStatus" ></app-logs-status-venda>
+        </tab>
+
         <tab heading="Check List" style="margin-top: 10px;">
           <app-check-list-venda *ngIf="this.venda" [venda]="this.venda" [pedido]="false"></app-check-list-venda>
         </tab>

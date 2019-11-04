@@ -100,6 +100,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   venda: Venda;
 
   status = [''];
+  statusInicialSelecionado: string;
   statusSelecionado: string;
 
   planosPagamento: PlanoPagamento[];
@@ -289,6 +290,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.vendedorIdSelecionado = this.venda.vendedorId;
       this.clienteIdSelecionado = this.venda.clientesId;
       this.statusSelecionado = this.venda.status;
+      this.statusInicialSelecionado = this.venda.status;
       this.planoPagamentoIdSelecionado = this.venda.planoPagamentoId;
 
       this.cadastroForm.patchValue(this.venda);
@@ -444,7 +446,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   disabledStatus() {
     if (this.venda) {
-      if (this.venda.status === 'FINALIZADO') {
+      if (this.venda.status === 'FINALIZADO' && this.editarCampoStatus !== true) {
         this.cadastroForm.get('status').disable();
         return true;
       }
@@ -524,6 +526,16 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const dataNeg = this.cadastroForm.get('dataNegociacao').value.toLocaleString();
     const dataFin = this.cadastroForm.get('dataFinalizado').value.toLocaleString();
+    const logsStatus = this.venda.vendaLogsStatus;
+    if (this.statusSelecionado !== this.statusInicialSelecionado) {
+      logsStatus.push(Object.assign({
+        id: 0,
+        vendaId: this.venda.id,
+        usuarioId: this.permissaoService.getUsuarioId(),
+        dataHora: dataAtual,
+        status: this.statusSelecionado
+      }));
+    }
 
     this.venda = Object.assign(this.cadastroForm.value, {
       id: this.idVenda,
@@ -536,6 +548,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       vendedorId: this.vendedorIdSelecionado,
       planoPagamentoId: this.planoPagamentoIdSelecionado,
       status: this.statusSelecionado,
+      vendaLogsStatus: logsStatus,
     });
 
     this.vendaService.editarVenda(this.venda).subscribe(

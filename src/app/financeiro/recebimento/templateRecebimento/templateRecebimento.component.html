@@ -86,7 +86,7 @@
     <div class="form-group col-md-2" style="margin-left: -10px;" *ngIf="this.diasFixo == true">
       <label>Dia:</label>
       <input class="form-control" currencyMask formControlName="diasFixo"
-        [options]="{ prefix: '', thousands: '.', decimal: ',', precision: 0 }" v
+        [options]="{ prefix: '', thousands: '.', decimal: ',', precision: 0 }" 
         [ngClass]="{ 'is-invalid': cadastroRecebimento.get('diasFixo').errors && cadastroRecebimento.get('diasFixo').touched}" />
       <div
         *ngIf="cadastroRecebimento.get('diasFixo').hasError('required') && cadastroRecebimento.get('diasFixo').touched"

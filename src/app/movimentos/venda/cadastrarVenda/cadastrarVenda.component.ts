@@ -110,8 +110,20 @@ export class CadastrarVendaComponent implements OnInit, AfterViewInit {
   cadastrarVenda() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     if (this.cadastroForm.valid) {
-      this.venda = Object.assign(this.cadastroForm.value, {id: 0, status: 'EM NEGOCIAÇÃO',
-       dataEmissao: dataAtual, dataHoraUltAlt: dataAtual});
+      const logsStatus = [{
+        id: 0,
+        usuarioId: this.permissaoService.getUsuarioId(),
+        dataHora: dataAtual,
+        status: 'EM NEGOCIAÇÃO'
+      }];
+
+      this.venda = Object.assign(this.cadastroForm.value, {
+        id: 0,
+        status: 'EM NEGOCIAÇÃO',
+        dataEmissao: dataAtual,
+        dataHoraUltAlt: dataAtual,
+        vendaLogsStatus: logsStatus,
+      });
 
       this.vendaService.cadastrarVenda(this.venda).subscribe(
         () => {

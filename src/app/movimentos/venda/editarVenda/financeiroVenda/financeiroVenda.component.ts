@@ -58,6 +58,7 @@ export class FinanceiroVendaComponent implements OnInit {
     this.vendaItensEntrada = [];
     this.vendaItensSaidaComissao = [];
     this.vendaItensSaidaGasto = [];
+
     if (this.venda) {
       if (this.venda.vendaProdutos) {
         this.vendaItensEntrada = this.venda.vendaProdutos[0].produtos.itens.filter(item => item.tipoItem === 'RECEITA');

@@ -56,6 +56,7 @@ import { CheckListVendaComponent } from './movimentos/venda/editarVenda/checkLis
 import { FinanceiroVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/financeiroVenda.component';
 import { PrevisaoVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/previsaoVenda/previsaoVenda.component';
 import { PedidoVendaComponent } from './movimentos/venda/editarVenda/pedidoVenda/pedidoVenda.component';
+import { LogsStatusVendaComponent } from './movimentos/venda/editarVenda/logsStatusVenda/logsStatusVenda.component';
 
 import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { CadastrarProdutoComponent } from './cadastros/produto/cadastrarProduto/cadastrarProduto.component';
@@ -128,7 +129,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
-
 const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
@@ -144,7 +144,8 @@ defineLocale('pt-br', ptBrLocale);
       DetalharRecebimentoComponent,
       TemplateRecebimentoComponent,
       DetalharPagamentoComponent,
-      TemplatePagamentoComponent
+      TemplatePagamentoComponent,
+      LogsStatusVendaComponent,
    ],
    declarations: [
       AppComponent,
@@ -210,6 +211,7 @@ defineLocale('pt-br', ptBrLocale);
       GraficoLineChartComponent,
       EditarPermissaoComponent,
       TemplatePermissaoObjetoComponent,
+      LogsStatusVendaComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,
