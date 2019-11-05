@@ -55,6 +55,7 @@ export class CadastrarRetornoComponent implements OnInit {
                 moment.locale('pt-BR');
                 console.log(moment.locale());
                 console.log(moment);
+                console.log('teste');
                }
 
   ngOnInit() {
