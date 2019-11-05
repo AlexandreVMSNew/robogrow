@@ -21,7 +21,7 @@
 
             </div>
             <div class="form-group col-md-6" [style.marginLeft.px]="(this.idEmpresa != 0) ? 50 : 0">
-              <label>Razão Social:(*)</label>
+              <label>Razão Social</label>
               <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()"
                 class="form-control" type="text" formControlName="razaoSocial" [ngClass]="{ 'is-invalid': cadastroEmpresa.get('razaoSocial').errors && 
                                             cadastroEmpresa.get('razaoSocial').touched}" />
@@ -34,7 +34,7 @@
             </div>
 
             <div class="form-group col-md-6" [style.marginLeft.px]="(this.idEmpresa != 0) ? 50 : 0">
-              <label>Nome Fantasia:(*)</label>
+              <label>Nome Fantasia</label>
               <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()"
                 class="form-control" type="text" formControlName="nomeFantasia" [ngClass]="{ 'is-invalid': cadastroEmpresa.get('nomeFantasia').errors && 
                                                           cadastroEmpresa.get('nomeFantasia').touched}" />
@@ -57,7 +57,7 @@
             </div>
 
             <div class="form-group col-md-3">
-              <label>Cnpj/Cpf:(*)</label>
+              <label>Cnpj/Cpf</label>
               <input class="form-control" type="text" maxlength="18" formControlName="cnpjCpf" [ngClass]="{ 'is-invalid': cadastroEmpresa.get('cnpjCpf').errors && 
                       cadastroEmpresa.get('cnpjCpf').touched}" [ngModel]="valueCnpjCpfPipe | cnpjCpfPipePipe"
                 (ngModelChange)="valueCnpjCpfPipe=$event" />
@@ -69,7 +69,7 @@
             </div>
 
             <div class="form-group col-md-3">
-              <label>Cep:(*)</label>
+              <label>Cep</label>
               <input class="form-control" type="text" maxlength="9" formControlName="cep" [ngClass]="{ 'is-invalid': cadastroEmpresa.get('cep').errors && 
                   cadastroEmpresa.get('cep').touched}" [ngModel]="valueCepPipe | cepPipePipe"
                 (ngModelChange)="valueCepPipe=$event" />
@@ -81,7 +81,7 @@
             </div>
 
             <div class="form-group col-md-2">
-              <label>Estado:(*)</label>
+              <label>Estado</label>
               <ng-select [items]="estados" bindLabel="uf" required (clear)="limparEstado()" bindValue="id"
                 (change)="getCidades(estadoIdSelecionado)" [(ngModel)]="estadoIdSelecionado" formControlName="estadoId">
               </ng-select>
@@ -97,7 +97,7 @@
 
           <div class="row">
             <div class="form-group col-md-3">
-              <label>Cidade:(*)</label>
+              <label>Cidade</label>
               <ng-select [items]="cidades" style="text-transform: uppercase" bindLabel="nome" bindValue="id"
                 [(ngModel)]="cidadeIdSelecionado" formControlName="cidadeId">
               </ng-select>
@@ -109,7 +109,7 @@
             </div>
 
             <div class="form-group col-md-4">
-              <label>Endereço:(*)</label>
+              <label>Endereço</label>
               <input class="form-control" style="text-transform: uppercase"
                 oninput="this.value = this.value.toUpperCase()" type="text" formControlName="endereco" [ngClass]="{ 'is-invalid': cadastroEmpresa.get('endereco').errors && 
                                                                         cadastroEmpresa.get('endereco').touched}" />
@@ -124,7 +124,7 @@
 
 
             <div class="form-group col-md-4">
-              <label>Bairro:(*)</label>
+              <label>Bairro</label>
               <input class="form-control" style="text-transform: uppercase"
                 oninput="this.value = this.value.toUpperCase()" type="text" formControlName="bairro"
                 [ngClass]="{ 'is-invalid': cadastroEmpresa.get('bairro').errors && cadastroEmpresa.get('bairro').touched}" />
@@ -138,7 +138,7 @@
 
           <div class="row">
             <div class="form-group col-md-3">
-              <label>Telefone:(*)</label>
+              <label>Telefone</label>
               <input class="form-control" type="text" maxlength="14" formControlName="telefone" [ngClass]="{ 'is-invalid': cadastroEmpresa.get('telefone').errors && 
                       cadastroEmpresa.get('telefone').touched}" [ngModel]="valueTelefonePipe | celularPipePipe"
                 (ngModelChange)="valueTelefonePipe=$event" />

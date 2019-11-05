@@ -9,7 +9,7 @@ import { Permissao } from '../_models/Permissoes/permissao';
 import { PermissaoObjetos } from '../_models/Permissoes/permissaoObjetos';
 import { TemplateModalService } from '../_services/Uteis/TemplateModal/templateModal.service';
 import { AutorizacaoTemplateComponent } from './autorizacaoTemplate/autorizacaoTemplate.component';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-autorizacao',
   templateUrl: './autorizacao.component.html',
@@ -49,7 +49,8 @@ export class AutorizacaoComponent implements OnInit, AfterViewInit {
       this.autorizacaoService.atualizaAutorizacoes.subscribe(x => {
         this.getAutorizacoes();
       });
-      this.localeService.use('pt-br');
+      const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss');
+      console.log(dataAtual); // pt-BR
     }
 
   ngOnInit() {

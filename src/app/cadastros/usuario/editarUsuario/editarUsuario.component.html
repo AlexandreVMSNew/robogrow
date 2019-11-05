@@ -1,4 +1,4 @@
-<h2>Usuário</h2>
+<h2>Perfil do Usuário</h2>
 <hr width="100%">
 <div class="row" *ngIf="this.editar == true || this.visualizar == true || this.idUsuario == this.idUsuarioLogado">
   <div class="col-md-3">
@@ -25,7 +25,7 @@
             <form [formGroup]="cadastroForm" class="mr-8">
               <div class="row">
                 <div class="form-group col-md-4">
-                  <label>Nome Completo:</label>
+                  <label>Nome Completo</label>
                   <input type="text" class="form-control" formControlName="nomeCompleto" [ngClass]="{'is-invalid': cadastroForm.get('nomeCompleto').errors &&
                                                     cadastroForm.get('nomeCompleto').touched }"
                     style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="form-group col-md-4">
-                  <label>Email:</label>
+                  <label>Email</label>
                   <input class="form-control" type="text" formControlName="email" [ngClass]="{ 'is-invalid': cadastroForm.get('email').errors && 
                                                       cadastroForm.get('email').touched}" />
                   <div *ngIf="cadastroForm.get('email').hasError('required') &&cadastroForm.get('email').touched"
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="form-group col-md-4">
-                  <label>Usuario:</label>
+                  <label>Usuario</label>
                   <input class="form-control" type="text" formControlName="userName" [ngClass]="{'is-invalid': cadastroForm.get('userName').errors &&
                                                       cadastroForm.get('userName').touched}"
                     style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
@@ -64,13 +64,13 @@
 
               <div class="row">
                 <div class="form-group col-md-3">
-                  <label>Data de Nascimento:(*)</label>
+                  <label>Data de Nascimento</label>
                   <input type="text" class="form-control" formControlName="dataNascimento"
                     [ngModel]="cadastroForm.get('dataNascimento').value" bsDatepicker [bsConfig]="this.bsConfig" />
                 </div>
 
                 <div *ngIf="this.visualizarCampoNivel == true" class="form-group col-md-6">
-                  <label>Nível:(*)</label>
+                  <label>Nível</label>
                   <ng-select [items]="niveis" bindLabel="name" bindValue="id" required [clearable]="false"
                     (change)="adicionarUsuarioNivel(niveisIdSelecionado)" [(ngModel)]="niveisIdSelecionado"
                     formControlName="usuarioNivel">

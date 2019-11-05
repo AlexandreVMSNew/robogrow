@@ -68,7 +68,7 @@
         <form [formGroup]="cadastroForm" class="mt-3">
           <div class="row">
             <div class="form-group col-md-6">
-              <label style="white-space: nowrap;">Descrição:(*)</label>
+              <label style="white-space: nowrap;">Descrição</label>
               <input type="text" style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()"
                 class="form-control" formControlName="descricao"
                 [ngClass]="{ 'is-invalid': cadastroForm.get('descricao').errors &&  cadastroForm.get('descricao').touched}" />

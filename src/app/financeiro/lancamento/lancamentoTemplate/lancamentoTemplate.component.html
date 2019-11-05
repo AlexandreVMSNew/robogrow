@@ -18,7 +18,7 @@
           <div class="row">
 
             <div class="form-group col-md-5">
-              <label>Descrição(*)</label>
+              <label>Descrição</label>
               <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()"
                 class="form-control" type="text" formControlName="descricao"
                 [ngClass]="{ 'is-invalid': cadastroLancamento.get('descricao').errors && cadastroLancamento.get('descricao').touched}" />

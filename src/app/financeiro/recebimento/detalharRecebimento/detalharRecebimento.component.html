@@ -37,7 +37,7 @@
     </div>
 
     <div class="form-group col-md-3">
-      <label style="white-space: nowrap;">Centro de Receita:(*)</label>
+      <label style="white-space: nowrap;">Centro de Receita</label>
       <ng-select style="text-transform: uppercase" [items]="centrosReceita" bindLabel="descricao" required
         bindValue="id" [clearable]="false" [(ngModel)]="centroReceitaIdSelecionado" formControlName="centroReceitaId"
         [disabled]="true">
@@ -59,7 +59,7 @@
   <div class="row">
     <hr style="width: 100%">
     <div class="form-group col-md-4">
-      <label style="white-space: nowrap;">Plano de Pagamento:(*)</label>
+      <label style="white-space: nowrap;">Plano de Pagamento</label>
       <ng-select style="text-transform: uppercase" [items]="planosPagamento" bindLabel="descricao" required
         bindValue="id" [clearable]="false" [(ngModel)]="planoPagamentoIdSelecionado" formControlName="planoPagamentoId">
       </ng-select>

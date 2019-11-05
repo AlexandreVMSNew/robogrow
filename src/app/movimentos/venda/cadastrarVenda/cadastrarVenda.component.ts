@@ -54,7 +54,7 @@ export class CadastrarVendaComponent implements OnInit, AfterViewInit {
   produtoVenda: VendaProduto[];
   venda: Venda;
 
-  templateModalService = new TemplateModalService();
+  templateModalCadastrarClienteService = new TemplateModalService();
   cadastrarClienteComponent = CadastrarClienteComponent;
 
   componentModal: any;
@@ -148,11 +148,11 @@ export class CadastrarVendaComponent implements OnInit, AfterViewInit {
 
   abrirTemplateModal(component) {
     this.componentModal = component;
-    this.templateModalService.setTemplateModalStatus(true);
+    this.templateModalCadastrarClienteService.setTemplateModalStatus(true);
   }
 
   getTemplateModal() {
-    return this.templateModalService.getTemplateModalStatus();
+    return this.templateModalCadastrarClienteService.getTemplateModalStatus();
   }
 
   getProdutos() {

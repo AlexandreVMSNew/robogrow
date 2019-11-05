@@ -9,14 +9,14 @@
       <div class="form-row mt-4">
 
           <div class="form-group col-md-3">
-              <label>Cliente:(*)</label>
+              <label>Cliente</label>
               <ng-select [items]="clientes" bindLabel="codSiga - nomeFantasia" bindValue="id"
                 [(ngModel)]="clienteIdSelecionado" formControlName="clienteId">
               </ng-select>
           </div>
 
         <div class="form-group col-md-5">
-          <label>Nome do Solicitante:(*)</label>
+          <label>Nome do Solicitante</label>
           <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control" type="text" formControlName="contatoNome" [ngClass]="{ 'is-invalid': cadastroForm.get('contatoNome').errors && 
                                           cadastroForm.get('contatoNome').touched}" />
 
@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group col-md-2">
-            <label>Telefone:(*)</label>
+            <label>Telefone</label>
             <input class="form-control" type="text" maxlength="14" formControlName="telefone" [ngClass]="{ 'is-invalid': cadastroForm.get('telefone').errors && 
                      cadastroForm.get('telefone').touched}" [ngModel]="valueTelefonePipe | celularPipePipe"
               (ngModelChange)="valueTelefonePipe=$event" />
@@ -47,7 +47,7 @@
       </div>
 
     <div *ngIf="!cadastroForm.valid" style="font-size:18px;" class="invalid-feedback d-block d-block">
-      Preencha todos os campos com (*).
+      Preencha todos os campos com .
     </div>
   </div>
 </form>

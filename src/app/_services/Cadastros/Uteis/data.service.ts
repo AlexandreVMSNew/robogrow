@@ -6,7 +6,8 @@ import * as moment from 'moment';
 export class DataService {
 
   novaData: any;
-constructor() { }
+constructor() {
+ }
 
   getDataPTBR(data: any) {
     if (data && data !== null && data.toString().length > 0) {

@@ -51,7 +51,11 @@ export class CadastrarRetornoComponent implements OnInit {
               private notificacaoService: NotificacaoService,
               private router: Router,
               private socketService: SocketService,
-              public permissaoService: PermissaoService) { }
+              public permissaoService: PermissaoService) {
+                moment.locale('pt-BR');
+                console.log(moment.locale());
+                console.log(moment);
+               }
 
   ngOnInit() {
     this.getClientes();

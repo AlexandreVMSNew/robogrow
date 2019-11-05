@@ -125,6 +125,8 @@ import { ptBrLocale } from 'ngx-bootstrap/locale';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 
+import { Moment } from 'moment';
+
 import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
