@@ -15,6 +15,8 @@ import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 import { ToastrService } from 'ngx-toastr';
 import { Email } from 'src/app/_models/Email/Email';
 import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { EditarVendaComponent } from 'src/app/movimentos/venda/editarVenda/editarVenda.component';
 
 @Component({
   selector: 'app-publicacao',
@@ -30,6 +32,12 @@ export class PublicacaoComponent implements OnInit {
   textoComentarioAux = '';
 
   publicacao: Publicacao;
+
+  templateModalVendaService = new TemplateModalService();
+  editarVendaComponent = EditarVendaComponent;
+
+  inputs: any;
+  componentModal: any;
 
   constructor(private publicacaoService: PublicacaoService,
               private permissaoService: PermissaoService,
@@ -76,7 +84,7 @@ export class PublicacaoComponent implements OnInit {
 
   enviarNotificacoes(usuariosIdNotificacao, publicacao: Publicacao) {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    const msg = `${this.usuarioLogado.nomeCompleto} adicionou um cadastrar comentário em uma publicação que você foi marcado(a).`;
+    const msg = `${this.usuarioLogado.nomeCompleto} adicionou um novo comentário em uma publicação que você foi marcado(a).`;
     const link =  `${location.protocol}//${location.hostname}/publicacoes`;
     const notificacoes: Notificacao[] = [];
     usuariosIdNotificacao.forEach(idUsuario => {
@@ -100,7 +108,7 @@ export class PublicacaoComponent implements OnInit {
   }
 
   enviarEmail(usuariosEmailNotificacao, publicacao: Publicacao) {
-    const ass = `${this.usuarioLogado.nomeCompleto} adicionou um cadastrar comentário em uma publicação que você foi marcado(a).`;
+    const ass = `${this.usuarioLogado.nomeCompleto} adicionou um novo comentário em uma publicação que você foi marcado(a).`;
     const msg = `Para ir até o comentário publicado pelo usuário ${this.usuarioLogado.nomeCompleto} <br/>
                 <a href="${location.protocol}//${location.hostname}/publicacoes">CLIQUE AQUI.</a>`;
     const email: Email = {
@@ -197,6 +205,16 @@ export class PublicacaoComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  abrirTemplateVendaModal( vendaId: number) {
+    this.componentModal = EditarVendaComponent;
+    this.inputs = Object.assign({idVenda: vendaId});
+    this.templateModalVendaService.setTemplateModalStatus(true);
+  }
+
+  getTemplateModalVenda() {
+    return this.templateModalVendaService.getTemplateModalStatus();
   }
 
   get textoComentario(): string {

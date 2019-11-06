@@ -42,7 +42,7 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
   niveis: Nivel[];
   niveisIdSelecionado: any;
   niveisUsuario: UsuarioNivel[] = [];
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
+  
   dateFormat = '';
 
   arquivoFotoPerfil: File;

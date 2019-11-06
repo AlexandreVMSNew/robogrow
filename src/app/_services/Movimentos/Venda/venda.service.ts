@@ -154,6 +154,10 @@ cadastrarVendaValorPrevisto(vendaValorPrevisto: VendaValorPrevisto) {
   return this.http.post(`${this.baseURL}/valorprevisto/cadastrar`, vendaValorPrevisto);
 }
 
+editarVendaValorPrevisto(vendaValorPrevisto: VendaValorPrevisto) {
+  return this.http.put(`${this.baseURL}/valorprevisto/editar/${vendaValorPrevisto.id}`, vendaValorPrevisto);
+}
+
 cadastrarVendaValorRealizado(vendaValorRealizado: VendaValorRealizado) {
   return this.http.post(`${this.baseURL}/valorrealizado/cadastrar`, vendaValorRealizado);
 }

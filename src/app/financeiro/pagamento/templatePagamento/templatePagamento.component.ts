@@ -71,7 +71,7 @@ export class TemplatePagamentoComponent implements OnInit {
 
   templateEnabled = false;
   diasFixo = false;
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
+  
 
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,

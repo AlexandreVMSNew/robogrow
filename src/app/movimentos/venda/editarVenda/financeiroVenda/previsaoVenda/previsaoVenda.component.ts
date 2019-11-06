@@ -26,6 +26,7 @@ export class PrevisaoVendaComponent implements OnInit {
   valorMinimoProduto = 0;
   valorPrevistoDisabled = false;
 
+  modoSalvar = '';
   constructor(private vendaService: VendaService,
               private fb: FormBuilder,
               private toastr: ToastrService) { }
@@ -45,12 +46,13 @@ export class PrevisaoVendaComponent implements OnInit {
       (_VALORPREVISTO: VendaValorPrevisto) => {
         this.validarValorPrevistoForm();
         if (_VALORPREVISTO) {
-          this.valorPrevistoDisabled = true;
+          (this.venda.status === 'EM NEGOCIAÇÃO') ? this.valorPrevistoDisabled = true : this.valorPrevistoDisabled = false;
+          this.modoSalvar = 'EDITAR';
           this.valorPrevisto = Object.assign({}, _VALORPREVISTO);
           this.cadastroValorPrevistoForm.patchValue(this.valorPrevisto);
         } else {
+          this.modoSalvar = 'CADASTRAR';
           this.valorPrevisto = null;
-          this.valorPrevistoDisabled = false;
           this.cadastroValorPrevistoForm.patchValue({id: 0, valor: null});
         }
 
@@ -63,18 +65,37 @@ export class PrevisaoVendaComponent implements OnInit {
   validarValorPrevistoForm() {
     this.cadastroValorPrevistoForm = this.fb.group({
         id: [''],
+        vendaId: [''],
+        produtosItensId: [''],
         valor: ['', [Validators.required, Validators.min(this.valorMinimoProduto)]]
     });
   }
 
-  salvarValorPrevisto() {
+  cadastrarValorPrevisto() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     this.valorPrevisto = Object.assign(this.cadastroValorPrevistoForm.value,
        {id: 0, vendaId: this.venda.id, produtosItensId: this.produtoItem.id, dataHoraUltAlt: dataAtual});
     this.vendaService.cadastrarVendaValorPrevisto(this.valorPrevisto).subscribe(
       () => {
+        this.carregarPrevisao();
         this.vendaService.atualizarVenda();
-        this.toastr.success('Salvo com Sucesso!');
+        this.toastr.success('Cadastrado com Sucesso!');
+      }, error => {
+        console.log(error.error);
+      }
+    );
+  }
+
+  editarValorPrevisto() {
+    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    this.valorPrevisto = Object.assign(this.cadastroValorPrevistoForm.value,
+       {dataHoraUltAlt: dataAtual});
+       console.log(this.valorPrevisto);
+    this.vendaService.editarVendaValorPrevisto(this.valorPrevisto).subscribe(
+      () => {
+        this.carregarPrevisao();
+        this.vendaService.atualizarVenda();
+        this.toastr.success('Editado com Sucesso!');
       }, error => {
         console.log(error.error);
       }

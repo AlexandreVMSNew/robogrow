@@ -7,8 +7,8 @@
 
         <div class="form-group col-md-2">
           <label>Data Negociação</label>
-          <input type="text" class="form-control" formControlName="dataNegociacao"
-            [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker [bsConfig]="this.bsConfig" />
+          <input type="text" class="form-control" formControlName="dataNegociacao" 
+            [ngModel]="cadastroForm.get('dataNegociacao').value" bsDatepicker #dp="bsDatepicker" />
         </div>
 
         <div class="form-group col-md-3">

@@ -31,7 +31,7 @@
             <div class="form-group col-md-2">
               <label style="white-space: nowrap;">Data Pre-Datado</label>
               <input type="text" class="form-control" formControlName="dataPreDatado"
-                [ngModel]="cadastroCheque.get('dataPreDatado').value" bsDatepicker [bsConfig]="this.bsConfig" [ngClass]="{ 'is-invalid': cadastroCheque.get('dataPreDatado').errors && 
+                [ngModel]="cadastroCheque.get('dataPreDatado').value" bsDatepicker #dp="bsDatepicker" [ngClass]="{ 'is-invalid': cadastroCheque.get('dataPreDatado').errors && 
                 cadastroCheque.get('dataPreDatado').touched}" />
               <div
                 *ngIf="cadastroCheque.get('dataPreDatado').hasError('required') &&cadastroCheque.get('dataPreDatado').touched"

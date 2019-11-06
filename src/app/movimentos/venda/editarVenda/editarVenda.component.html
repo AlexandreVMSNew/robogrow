@@ -43,11 +43,11 @@
                         <label>Data Negociação </label>
                         <input *ngIf="disabledDataNegociacao() == true" type="text" class="form-control"
                           formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value"
-                          bsDatepicker [bsConfig]="this.bsConfig" />
+                          bsDatepicker #dp="bsDatepicker" />
 
                         <input *ngIf="disabledDataNegociacao() == false" type="text" class="form-control"
                           formControlName="dataNegociacao" [ngModel]="cadastroForm.get('dataNegociacao').value"
-                          bsDatepicker [bsConfig]="this.bsConfig" />
+                          bsDatepicker #dp="bsDatepicker" />
 
                         <div
                           *ngIf="cadastroForm.get('dataNegociacao').hasError('required') &&cadastroForm.get('dataNegociacao').touched"
@@ -60,7 +60,7 @@
                         <label>Data Finalizado </label>
                         <input type="text" class="form-control" formControlName="dataFinalizado"
                           [ngModel]="cadastroForm.get('dataFinalizado').value" bsDatepicker
-                          [bsConfig]="this.bsConfig" />
+                          #dp="bsDatepicker" />
                       </div>
 
                       <div class="form-group col-md-3">
@@ -165,7 +165,7 @@
           <app-check-list-venda *ngIf="this.venda" [venda]="this.venda" [pedido]="false"></app-check-list-venda>
         </tab>
 
-        <tab heading="Atividades" style="margin-top: 10px;">
+        <tab heading="Ações" style="margin-top: 10px;">
           <app-publicacao *ngIf="this.venda && this.publicacoes" [vendaId]="this.venda.id"
             [publicacoes]="this.publicacoes">
           </app-publicacao>

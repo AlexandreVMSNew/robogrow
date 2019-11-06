@@ -1,5 +1,6 @@
 <h2>Publicações</h2>
 
+
 <hr width="100%">
 <div class="box box-primary">
   <div class="box-header with-border">
@@ -16,14 +17,22 @@
               <img style="border: 1px solid #C0C0C0" class="rounded-circle"
                 src="{{getUrlUsuarioFotoPerfil(publicacao.usuario.id, publicacao.usuario.nomeArquivoFotoPerfil)}}"
                 alt="img">
-              <span class="username">
+              <span class="username" style="display:flex;">
                 <div *ngIf="publicacao.vendaPublicacao">
-                  <span *ngIf="publicacao.vendaPublicacao.length > 0" style="margin-right: 7px;"
-                    class="badge badge-success">
+                  <ng-template #myPopover>
+                    <label>Nome Fantasia: {{publicacao.vendaPublicacao[0].venda.clientes.nomeFantasia}}</label>
+                    <br/>
+                    <label>Razão Social: {{publicacao.vendaPublicacao[0].venda.clientes.razaoSocial}}</label>
+                  </ng-template>
+
+                  <a role="button" class="badge badge-success" [routerLink]="" [popover]="myPopover"
+                    popoverTitle="Informações da Venda" popoverPlacement="top" *ngIf="publicacao.vendaPublicacao.length > 0"
+                    (click)="abrirTemplateVendaModal(publicacao.vendaPublicacao[0].venda.id)" style="margin-right: 7px;"
+                    triggers="mouseenter:mouseleave">
                     VENDA {{ publicacao.vendaPublicacao[0].venda.numeroAno }}
-                  </span>
+                  </a>
                 </div>
-                <a>{{publicacao.usuario.nomeCompleto}}</a>
+                <a [routerLink]="">{{publicacao.usuario.nomeCompleto}}</a>
               </span>
 
               <span style="margin-top: 2px;" class="description">
@@ -59,12 +68,12 @@
             <div *ngIf="publicacao.publicacaoArquivos && publicacao.publicacaoArquivos.length" class="box-footer">
               <ul class="mailbox-attachments clearfix">
                 <li *ngFor="let arquivo of publicacao.publicacaoArquivos; let i = index">
-                  
-                <button type="button" class="btn btn-default float-right" tooltip="Baixar Arquivo"
-                (click)="downloadArquivo(arquivo)"><i class="fa fa-cloud-download"></i></button>
+
+                  <button type="button" class="btn btn-default float-right" tooltip="Baixar Arquivo"
+                    (click)="downloadArquivo(arquivo)"><i class="fa fa-cloud-download"></i></button>
                   <span class="mailbox-attachment-icon"><i class="fa fa-file-o"></i></span>
                   <div class="mailbox-attachment-info">
-                    <a class="mailbox-attachment-name"><i class="fa fa-paperclip"></i>  {{arquivo.arquivoNome}}</a>
+                    <a class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{arquivo.arquivoNome}}</a>
                     <span class="mailbox-attachment-size">
                       {{(arquivo.arquivoTamanho) | filesize}}
                     </span>
@@ -111,6 +120,11 @@
     </div>
   </div>
 </div>
+
+<app-template-modal id="venda" *ngIf="this.getTemplateModalVenda() == true"
+  [templateModalService]="this.templateModalVendaService" [component]="this.componentModal" [width]="80"
+  [inputs]="this.inputs"></app-template-modal>
+
 <app-publicacao-template [publicacao]="this.publicacao" [vendaId]="(this.vendaId) ? this.vendaId : null"
   *ngIf="this.getTemplatePublicacao() == true">
 </app-publicacao-template>

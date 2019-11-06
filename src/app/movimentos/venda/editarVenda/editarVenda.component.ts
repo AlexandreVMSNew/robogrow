@@ -122,7 +122,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   publicacoes: Publicacao[];
 
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
   constructor(private fb: FormBuilder,
               private spinnerService: SpinnerService,
               private toastr: ToastrService,
@@ -226,7 +225,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   configurarAlteracoes() {
 
-    (this.editarCampoStatus === true || this.autorizadoGerarPedido === true) ?
+    (this.editarCampoStatus === true) ?
     this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
 
     (this.editarCampoDataNegociacao === true && this.statusSelecionado === 'EM NEGOCIAÇÃO') ?
@@ -263,6 +262,10 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.cadastroForm.controls.planoPagamentoId.disable();
     }
 
+    if (this.statusSelecionado === 'EM NEGOCIAÇÃO' && this.autorizadoGerarPedido === false) {
+      this.cadastroForm.controls.status.disable();
+    }
+
     this.spinnerService.alterarSpinnerStatus(false);
   }
 
@@ -280,7 +283,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.vendaService.atualizarFinanceiroVenda(this.venda);
       this.vendaService.atualizarResultadoVenda(this.venda);
 
-      if (this.venda.status === 'EM NEGOCIAÇÃO' || this.editarCampoStatus === true) {
+      if (this.venda.status === 'EM NEGOCIAÇÃO') {
         this.status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
       } else {
         this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];

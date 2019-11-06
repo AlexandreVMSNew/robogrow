@@ -33,7 +33,7 @@ export class LancamentoTemplateComponent implements OnInit, AfterViewInit {
   templateEnabled = false;
   idUsuario: number;
 
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
+  
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
               private planoContaService: PlanoContaService,

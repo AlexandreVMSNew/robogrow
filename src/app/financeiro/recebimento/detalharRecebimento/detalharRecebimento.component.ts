@@ -54,7 +54,7 @@ export class DetalharRecebimentoComponent implements OnInit {
 
   templateEnabled = false;
 
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
+  
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
               private recebimentoService: RecebimentoService,

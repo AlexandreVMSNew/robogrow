@@ -1,0 +1,6 @@
+:host >>> .popover {
+    max-width: 100% !important;
+}
+:host >>> .popover>.arrow:after {
+    max-width: 100% !important;
+}

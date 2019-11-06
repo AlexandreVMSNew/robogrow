@@ -53,9 +53,6 @@ export class CadastrarRetornoComponent implements OnInit {
               private socketService: SocketService,
               public permissaoService: PermissaoService) {
                 moment.locale('pt-BR');
-                console.log(moment.locale());
-                console.log(moment);
-                console.log('teste');
                }
 
   ngOnInit() {
@@ -148,7 +145,7 @@ export class CadastrarRetornoComponent implements OnInit {
               usuarioId: this.retorno.usuarioId,
               dataHora: dataAtual,
               titulo: 'Retorno Específico!',
-              mensagem: 'Foi adicionado um Cadastrar Retorno específico para você!',
+              mensagem: 'Foi adicionado um Novo Retorno específico para você!',
               visto: 0
             });
             this.notificacaoService.novaNotificacao(notificacao).subscribe(

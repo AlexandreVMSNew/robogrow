@@ -16,11 +16,11 @@ import { Empresa } from 'src/app/_models/Cadastros/Empresas/Empresa';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 import { PlanoPagamento } from 'src/app/_models/Cadastros/PlanoPagamento/PlanoPagamento';
 import { PlanoPagamentoService } from 'src/app/_services/Cadastros/PlanoPagamento/planoPagamento.service';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 import { CadastrarClienteComponent } from 'src/app/cadastros/cliente/cadastrarCliente/cadastrarCliente.component';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 @Component({
   selector: 'app-cadastrar-venda',
   templateUrl: './cadastrarVenda.component.html'
@@ -59,7 +59,7 @@ export class CadastrarVendaComponent implements OnInit, AfterViewInit {
 
   componentModal: any;
 
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
+  
   constructor(private fb: FormBuilder,
               private permissaoService: PermissaoService,
               private toastr: ToastrService,

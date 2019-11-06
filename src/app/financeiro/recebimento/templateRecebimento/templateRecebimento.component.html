@@ -5,7 +5,7 @@
     <div class="form-group col-md-2">
       <label style="white-space: nowrap;">Data Emissão</label>
       <input type="text" class="form-control" formControlName="dataEmissao"
-        [ngModel]="cadastroRecebimento.get('dataEmissao').value" bsDatepicker [bsConfig]="this.bsConfig" [ngClass]="{ 'is-invalid': cadastroRecebimento.get('dataEmissao').errors && 
+        [ngModel]="cadastroRecebimento.get('dataEmissao').value" bsDatepicker #dp="bsDatepicker" [ngClass]="{ 'is-invalid': cadastroRecebimento.get('dataEmissao').errors && 
                 cadastroRecebimento.get('dataEmissao').touched}" />
       <div
         *ngIf="cadastroRecebimento.get('dataEmissao').hasError('required') &&cadastroRecebimento.get('dataEmissao').touched"
@@ -136,7 +136,7 @@
             <div class="col-md-12">
               <input type="text" class="form-control" name="dataVencimento"
                 [ngModel]="this.dataService.getDataPTBR(parcela.dataVencimento)" (ngModel)="parcela.dataVencimento"
-                bsDatepicker [bsConfig]="this.bsConfig" />
+                bsDatepicker #dp="bsDatepicker" />
             </div>
           </td>
           <td style="text-align: center;">

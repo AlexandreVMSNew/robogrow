@@ -37,7 +37,7 @@ export class ChequePreTemplateComponent implements OnInit, AfterViewInit {
   clientes: Cliente[];
   clienteIdSelecionado: any;
 
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-dark-blue' });
+  
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
               public dataService: DataService,

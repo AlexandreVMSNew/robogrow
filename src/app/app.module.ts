@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { ModalModule, TooltipModule, BsDropdownModule, BsDatepickerModule, TabsModule, PopoverModule  } from 'ngx-bootstrap';
+import { ModalModule, TooltipModule, BsDropdownModule, BsDatepickerModule, TabsModule, PopoverModule, BsDatepickerConfig  } from 'ngx-bootstrap';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
@@ -125,12 +125,16 @@ import { ptBrLocale } from 'ngx-bootstrap/locale';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 
-import { Moment } from 'moment';
-
 import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
+export function getDatepickerConfig(): BsDatepickerConfig {
+   return Object.assign(new BsDatepickerConfig(), {
+      containerClass: 'theme-dark-blue',
+      maxDate: new Date()
+   });
+ }
 const config: SocketIoConfig = { url: location.protocol + '//' + location.hostname + '', options: {}  };
 registerLocaleData(localePt, LOCALE_ID);
 defineLocale('pt-br', ptBrLocale);
@@ -254,6 +258,10 @@ defineLocale('pt-br', ptBrLocale);
       ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
    ],
    providers: [
+      {
+         provide: BsDatepickerConfig,
+         useFactory: getDatepickerConfig
+      },
       {
          provide: LOCALE_ID,
          useValue: 'pt-BR'

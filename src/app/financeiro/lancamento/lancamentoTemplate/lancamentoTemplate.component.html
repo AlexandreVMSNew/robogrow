@@ -32,7 +32,7 @@
             <div class="form-group col-md-3">
               <label style="white-space: nowrap;">Data Lançamento</label>
               <input type="text" class="form-control" formControlName="dataLancamento"
-                [ngModel]="cadastroLancamento.get('dataLancamento').value" bsDatepicker [bsConfig]="this.bsConfig" [ngClass]="{ 'is-invalid': cadastroLancamento.get('dataLancamento').errors && 
+                [ngModel]="cadastroLancamento.get('dataLancamento').value" bsDatepicker #dp="bsDatepicker" [ngClass]="{ 'is-invalid': cadastroLancamento.get('dataLancamento').errors && 
                 cadastroLancamento.get('dataLancamento').touched}" />
               <div
                 *ngIf="cadastroLancamento.get('dataLancamento').hasError('required') &&cadastroLancamento.get('dataLancamento').touched"

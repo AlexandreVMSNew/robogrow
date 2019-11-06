@@ -66,7 +66,7 @@
                 <div class="form-group col-md-3">
                   <label>Data de Nascimento</label>
                   <input type="text" class="form-control" formControlName="dataNascimento"
-                    [ngModel]="cadastroForm.get('dataNascimento').value" bsDatepicker [bsConfig]="this.bsConfig" />
+                    [ngModel]="cadastroForm.get('dataNascimento').value" bsDatepicker #dp="bsDatepicker" />
                 </div>
 
                 <div *ngIf="this.visualizarCampoNivel == true" class="form-group col-md-6">

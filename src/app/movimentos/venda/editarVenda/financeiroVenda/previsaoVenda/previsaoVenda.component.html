@@ -25,12 +25,22 @@
         </div>
     </div>
   </form>
+<div style="margin-left: 15px;">
+  <button *ngIf="!cadastroValorPrevistoForm.valid && this.modoSalvar == 'CADASTRAR'" class="btn btn-primary"
+    (click)="cadastrarValorPrevisto()" disabled>
+    Cadastrar
+  </button>
+  <button *ngIf="cadastroValorPrevistoForm.valid && this.modoSalvar == 'CADASTRAR'" class="btn btn-primary"
+    (click)="cadastrarValorPrevisto()" >
+    Cadastrar
+  </button>
 
-  <button *ngIf="!cadastroValorPrevistoForm.valid || valorPrevistoDisabled == true" class="btn btn-primary"
-    (click)="salvarValorPrevisto()" disabled>
-    Salvar
+  <button *ngIf="(!cadastroValorPrevistoForm.valid || valorPrevistoDisabled == false) && this.modoSalvar == 'EDITAR'" class="btn btn-primary"
+    (click)="editarValorPrevisto()" disabled>
+    Salvar Alterações
   </button>
-  <button *ngIf="cadastroValorPrevistoForm.valid && valorPrevistoDisabled == false" class="btn btn-primary"
-    (click)="salvarValorPrevisto()">
-    Salvar
+  <button *ngIf="cadastroValorPrevistoForm.valid && valorPrevistoDisabled == true && this.modoSalvar == 'EDITAR'" class="btn btn-primary"
+    (click)="editarValorPrevisto()">
+    Salvar Alterações
   </button>
+</div>
