@@ -71,7 +71,6 @@ export class TemplatePagamentoComponent implements OnInit {
 
   templateEnabled = false;
   diasFixo = false;
-  
 
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
@@ -95,6 +94,7 @@ export class TemplatePagamentoComponent implements OnInit {
     this.getVendaConfig();
     this.validarPagamentos();
     this.carregarPagamentoVenda(this.produtoItem);
+    console.log(this.venda);
   }
 
   carregarPagamentoVenda(produtoItem: ProdutoItem) {
@@ -105,7 +105,7 @@ export class TemplatePagamentoComponent implements OnInit {
 
   validarPagamentos() {
     this.cadastroPagamento = this.fb.group({
-        id:  [''],
+        id: [''],
         pessoasId: ['', Validators.required],
         descricao: [''],
         dataEmissao: ['', Validators.required],

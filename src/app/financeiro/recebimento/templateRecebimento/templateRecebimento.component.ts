@@ -69,8 +69,6 @@ export class TemplateRecebimentoComponent implements OnInit {
 
   templateEnabled = false;
   diasFixo = false;
-  
-
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
               private recebimentoService: RecebimentoService,
