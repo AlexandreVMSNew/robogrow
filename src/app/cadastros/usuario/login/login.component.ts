@@ -45,9 +45,7 @@ export class LoginComponent implements OnInit, AfterViewChecked {
           },
           error => {
             this.spinnerService.alterarSpinnerStatus(false);
-            this.toastr.error(`Usuário ou senha incorreto(s).`, '', {
-              positionClass: 'toast-bottom-right',
-            });
+            setTimeout(() => { this.toastr.error(`Usuário ou senha incorreto(s).`); });
           }
         );
   }

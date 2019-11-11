@@ -22,6 +22,8 @@ import {MatDialogModule, MatCheckboxModule, MatRadioModule, MatDividerModule} fr
 import {NgxFilesizeModule} from 'ngx-filesize';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { RouterModule } from '@angular/router';
+import { FileSaverModule } from 'ngx-filesaver';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -132,7 +134,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
-import { RouterModule } from '@angular/router';
 
 export function getDatepickerConfig(): BsDatepickerConfig {
    return Object.assign(new BsDatepickerConfig(), {
@@ -244,6 +245,7 @@ defineLocale('pt-br', ptBrLocale);
       NgOptionHighlightModule,
       NoopAnimationsModule,
       NgxSpinnerModule,
+      FileSaverModule,
       SocketIoModule.forRoot(config),
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),

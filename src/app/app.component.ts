@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { IdeiaService } from './_services/Cadastros/Ideias/ideia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -34,7 +34,7 @@ import { PermissaoObjetos } from './_models/Permissoes/permissaoObjetos';
     ])
   ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
 
   title = 'VirtualWeb';
   ideia: Ideia;
@@ -146,7 +146,8 @@ export class AppComponent implements OnInit {
               public dataService: DataService,
               private sidebarService: SidebarService,
               private publicacaoService: PublicacaoService,
-              private vendaService: VendaService) {
+              private vendaService: VendaService,
+              private changeDetectionRef: ChangeDetectorRef) {
     this.spinnerService.spinnerStatus.subscribe((status: boolean) => {
       if (status === true) {
         this.spinner.show();
@@ -178,6 +179,10 @@ export class AppComponent implements OnInit {
     } else {
       this.logout();
     }
+  }
+
+  ngAfterViewChecked() {
+    this.changeDetectionRef.detectChanges();
   }
 
   getUrlUsuarioLogadoFotoPerfil(): string {
@@ -335,7 +340,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.toastr.show('Log Out.');
+    setTimeout(() => { this.toastr.show('Log Out.'); });
   }
 
   usuarioNome() {
