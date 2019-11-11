@@ -1,8 +1,9 @@
 import { Usuario } from '../Cadastros/Usuarios/Usuario';
 import { PublicacaoComentario } from './PublicacaoComentario';
 import { PublicacaoArquivos } from './PublicacaoArquivos';
-import { PublicacaoMarcacoes } from './PublicacaoMarcacoes';
+import { PublicacaoUsuarioMarcacoes } from './PublicacaoUsuarioMarcacoes';
 import { VendaPublicacao } from '../Movimentos/Venda/VendaPublicacao';
+import { PublicacaoNivelMarcacoes } from './PublicacaoNivelMarcacoes';
 export class Publicacao {
     id: number;
     usuarioId: number;
@@ -15,5 +16,6 @@ export class Publicacao {
     vendaPublicacao: VendaPublicacao[];
     publicacaoComentarios: PublicacaoComentario[];
     publicacaoArquivos: PublicacaoArquivos[];
-    publicacaoMarcacoes: PublicacaoMarcacoes[];
+    publicacaoUsuarioMarcacoes: PublicacaoUsuarioMarcacoes[];
+    publicacaoNivelMarcacoes: PublicacaoNivelMarcacoes[];
 }

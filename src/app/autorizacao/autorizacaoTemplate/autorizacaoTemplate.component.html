@@ -25,6 +25,6 @@
 </form>
 
 <button *ngIf="this.idAutorizacao != 0 && this.editar == true" [disabled]="!cadastroAutorizacao.valid"
-  class="btn btn-primary" (click)="salvarAutorizacao(templateAutorizacao)">
+  class="btn btn-primary" (click)="salvarAutorizacao()">
   Salvar
 </button>

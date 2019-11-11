@@ -122,6 +122,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   publicacoes: Publicacao[];
 
+  usuarioLogadoId: number;
+
   constructor(private fb: FormBuilder,
               private spinnerService: SpinnerService,
               private toastr: ToastrService,
@@ -149,6 +151,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
               }
 
   ngOnInit() {
+    this.usuarioLogadoId = this.permissaoService.getUsuarioId();
     if (this.idVenda === null) { this.idVenda = +this.router.snapshot.paramMap.get('id'); }
     this.getClientes();
     this.getProdutos();
@@ -315,7 +318,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       .subscribe((vendaPublicacoes: VendaPublicacao[]) => {
       this.publicacoes = [];
       vendaPublicacoes.forEach((vp: VendaPublicacao) => {
-        this.publicacoes.push(vp.publicacoes);
+        this.publicacoes.push(vp.publicacao);
       });
       this.spinnerService.alterarSpinnerStatus(false);
     }, error => {
@@ -342,23 +345,31 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
   }
 
-  enviarNotificacoes(usuariosIdNotificacao) {
+  enviarNotificacoes(usuariosIdNotificacao, autorizacao: Autorizacao) {
     this.spinnerService.alterarSpinnerStatus(true);
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    const notificacoes: Notificacao[] = [];
+    const notificacoes = [];
+
     usuariosIdNotificacao.forEach(idUsuario => {
       notificacoes.push(Object.assign({
         id: 0,
-        usuarioId: idUsuario,
+        notificanteId: this.usuarioLogadoId,
+        notificadoId: idUsuario,
         dataHora: dataAtual,
-        titulo: 'Autorização de Venda',
-        mensagem: 'Você tem um cadastrar pedido de Autorização',
-        visto: 0
+        tipo: 'AUTORIZAÇÃO - SOLICITAÇÃO - PEDIDO DE VENDA',
+        acao: `${this.usuarioLogadoId} solicitou uma autorização para gerar um PEDIDO DE VENDA.`,
+        toolTip: 'Ir para a autorização.',
+        componentIdentificacao: `autorizacao/${autorizacao.id}`,
+        icone: 'fa fa-gavel',
+        toolTipIcone: 'Autorização',
+        corIcone: '#FF8C00',
+        visto: 0,
+        compartilharTodos: false,
       }));
     });
-    this.notificacaoService.novasNotificacoes(notificacoes).subscribe(
-      () => {
-      notificacoes.forEach(notificacao => {
+
+    this.notificacaoService.cadastrarNotificacoes(notificacoes).subscribe(() => {
+      notificacoes.forEach((notificacao) => {
         this.socketService.sendSocket('AutorizacaoVendaGerarPedido', notificacao);
       });
       this.toastr.success('Pedido de Autorização enviado, aguarde a Resposta!');
@@ -389,7 +400,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
   }
 
-  notificarUsuariosAutorizacao() {
+  notificarUsuariosAutorizacao(autorizacao: Autorizacao) {
     this.spinnerService.alterarSpinnerStatus(true);
     const usuariosIdNotificacao = [];
     const usuariosEmailNotificacao: any = [];
@@ -410,7 +421,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
             }
           });
           this.spinnerService.alterarSpinnerStatus(false);
-          this.enviarNotificacoes(usuariosIdNotificacao);
+          this.enviarNotificacoes(usuariosIdNotificacao, autorizacao);
           this.enviarEmail(usuariosEmailNotificacao);
       }, error => {
         console.log(error.error);
@@ -435,9 +446,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     });
 
     this.autorizacaoService.novaAutorizacao(autorizacao).subscribe((result: any) => {
-      if (result.retorno === 'OK') {
+      if (!result.retorno) {
         this.spinnerService.alterarSpinnerStatus(false);
-        this.notificarUsuariosAutorizacao();
+        this.notificarUsuariosAutorizacao(result);
       } else if (result.retorno === 'AUTORIZACAO PENDENTE') {
         this.spinnerService.alterarSpinnerStatus(false);
         this.toastr.warning(`Já existe uma autorização pendente para esta venda, aguarde.`);

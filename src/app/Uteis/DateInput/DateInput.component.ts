@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
-import { DataService } from '../../Cadastros/Uteis/data.service';
+import { DataService } from '../../_services/Cadastros/Uteis/data.service';
 
 @Component({
   selector: 'app-date-input',

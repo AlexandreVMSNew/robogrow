@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   notificacoes: Notificacao[];
   qtdNotificacoes: number;
   statusLogIn = false;
-  idUsuario: number;
+  usuarioLogadoId: number;
   paginaNotificacaoAtual = 1;
   logou = false;
   sidebar = 'sidebar-collapse sidebar-closed';
@@ -166,14 +166,14 @@ export class AppComponent implements OnInit {
       Notification.requestPermission();
     }
     this.validation();
-    this.idUsuario = this.permissaoService.getUsuarioId();
-    if (this.idUsuario && this.idUsuario !== null && this.verificarLogIn()) {
+    this.usuarioLogadoId = this.permissaoService.getUsuarioId();
+    if (this.usuarioLogadoId && this.usuarioLogadoId !== null && this.verificarLogIn()) {
       this.getSocket('NotificacaoUsuarioRetorno');
       this.getSocket('AutorizacaoVendaGerarPedido');
       this.getSocket('RespAutorizacaoVendaGerarPedido');
       this.getSocket('NovaObservacao');
       this.getSocket('NovaPublicacao');
-      this.getSocket('CadastrarComentarioPublicacao');
+      this.getSocket('NovoComentarioPublicacao');
       this.getNotificacoes();
     } else {
       this.logout();
@@ -369,8 +369,8 @@ export class AppComponent implements OnInit {
   }
 
   getNotificacoes() {
-    this.spinnerService.alterarSpinnerStatus(true);
-    this.notificacaoService.getNotificacoesByUsuarioId(this.idUsuario).subscribe(
+    /*this.spinnerService.alterarSpinnerStatus(true);
+    this.notificacaoService.getNotificacoesByUsuarioId(this.usuarioLogadoId).subscribe(
       (_NOTIFICACOES: Notificacao[]) => {
       this.notificacoes = _NOTIFICACOES;
       this.qtdNotificacoes = _NOTIFICACOES.length;
@@ -378,26 +378,27 @@ export class AppComponent implements OnInit {
     }, error => {
       this.spinnerService.alterarSpinnerStatus(false);
       this.toastr.error(`Erro ao tentar carregar notificacoes: ${error}`);
-    });
+    });*/
   }
 
   getSocket(evento: string) {
     this.socketService.getSocket(evento).subscribe((info: any) => {
       if (info) {
-        if (this.permissaoService.getUsuarioId() === info.usuarioId || info.usuarioId === 0) {
-          const  notification = new Notification(info.titulo, {body: info.mensagem});
-
-          if (evento === 'CadastrarComentarioPublicacao') {
-            this.publicacaoService.atualizarPublicacaoComentarios(info.publicacaoId);
-          }
-
-          if (evento === 'NovaPublicacao') {
-            this.publicacaoService.atualizarPublicacoes();
-            this.vendaService.atualizarPublicacoesVenda();
-          }
+        if (info.notificadoId === this.usuarioLogadoId || info.notificadoId === 0) {
+          const  notification = new Notification('', {body: info.acao});
         }
-        this.getNotificacoes();
+
+        if (evento === 'NovoComentarioPublicacao') {
+          this.notificacaoService.atualizarNotificacoes();
+          this.publicacaoService.atualizarPublicacaoComentarios(info.publicacaoId);
+        }
+
+        if (evento === 'NovaPublicacao') {
+          this.notificacaoService.atualizarNotificacoes();
+          this.vendaService.atualizarPublicacoesVenda();
+        }
       }
+      this.getNotificacoes();
     });
   }
 

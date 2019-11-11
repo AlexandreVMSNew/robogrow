@@ -42,6 +42,9 @@ export class CadastrarRetornoComponent implements OnInit {
 
   dataHoraAtual = new Date();
 
+  usuarioLogadoId: number;
+  usuarioLogado: Usuario;
+
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
               private spinnerService: SpinnerService,
@@ -56,6 +59,7 @@ export class CadastrarRetornoComponent implements OnInit {
                }
 
   ngOnInit() {
+    this.usuarioLogadoId = this.permissaoService.getUsuarioId();
     this.getClientes();
     this.getUsuarios();
     this.validarForm();
@@ -83,11 +87,78 @@ export class CadastrarRetornoComponent implements OnInit {
     });
   }
 
+  cadastrarRetorno() {
+    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    if (this.cadastroForm.valid) {
+      this.retorno = Object.assign(this.cadastroForm.value, {id: 0, status: 'AGUARDANDO', dataHora: dataAtual});
+      this.spinnerService.alterarSpinnerStatus(true);
+      this.retornoService.cadastrarRetorno(this.retorno).subscribe(
+        () => {
+
+          this.retornoService.getIdUltimoRetorno().subscribe((ultimoId: number) => {
+            if (this.observacaoTextAux !== '') {
+              this.retornoObservacao = Object.assign({id: 0, retornoId: ultimoId,
+              usuarioId: this.usuarioLogadoId, dataHora: dataAtual, observacao: this.observacaoTextAux});
+              this.retornoService.novaObservacao(this.retornoObservacao).subscribe();
+            }
+
+            const retornoLog = Object.assign({ id: 0, retornoId: ultimoId,
+              usuarioId: this.usuarioLogadoId, dataHora: dataAtual, status: 'AGUARDANDO'});
+
+            this.retornoService.cadastrarLog(retornoLog).subscribe(
+              () => {
+                this.toastr.success(`Retorno Finalizado!`);
+                this.socketService.sendSocket('StatusRetornoAlterado', null);
+              }, error => {
+                this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
+                console.log(error.error);
+              });
+          });
+
+          if (this.retorno.usuarioId !== 0) {
+            const notificacao = Object.assign({
+              id: 0,
+              notificanteId: this.usuarioLogadoId,
+              notificadoId: this.retorno.usuarioId ,
+              dataHora: dataAtual,
+              tipo: 'NOVO RETORNO ESPECÍFICO',
+              acao: `${this.usuarioLogado.userName} cadastrou um novo retorno específico para você.`,
+              toolTip: 'Ir para o Retorno.',
+              componentIdentificacao: `retorno/${this.retorno.id}`,
+              icone: 'fa fa-phone',
+              toolTipIcone: 'Novo Retorno Específico!',
+              corIcone: '#B22222',
+              compartilharTodos: false,
+              visto: 0,
+            });
+
+            this.notificacaoService.cadastrarNotificacao(notificacao).subscribe(() => {
+              this.socketService.sendSocket('NotificacaoUsuarioRetorno', notificacao);
+              this.spinnerService.alterarSpinnerStatus(false);
+              this.toastr.success('Cadastrado com sucesso!');
+              this.router.navigate([`/atendimentos/retornos`]);
+            });
+          } else {
+            this.spinnerService.alterarSpinnerStatus(false);
+            this.socketService.sendSocket('NovoRetorno', null);
+            this.toastr.success('Cadastrado com sucesso!');
+            this.router.navigate([`/atendimentos/retornos`]);
+          }
+
+        }, error => {
+          this.spinnerService.alterarSpinnerStatus(false);
+          console.log(error.error);
+        }
+      );
+    }
+  }
+
   getUsuarios() {
     this.spinnerService.alterarSpinnerStatus(true);
     this.usuarioService.getUsuarios().subscribe(
       (_USUARIOS: Usuario[]) => {
       this.usuarios = _USUARIOS;
+      this.usuarioLogado = _USUARIOS.filter(c => c.id === this.usuarioLogadoId)[0];
       this.usuarios.push(Object.assign({ id: 0, userName: 'TODOS'}));
       this.usuarioIdSelecionado = 0;
       this.spinnerService.alterarSpinnerStatus(false);
@@ -110,65 +181,5 @@ export class CadastrarRetornoComponent implements OnInit {
       this.toastr.error(`Erro ao tentar carregar clientes: ${error.error}`);
     });
   }
-
-  cadastrarRetorno() {
-    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    if (this.cadastroForm.valid) {
-      this.retorno = Object.assign(this.cadastroForm.value, {id: 0, status: 'AGUARDANDO', dataHora: dataAtual});
-      this.spinnerService.alterarSpinnerStatus(true);
-      this.retornoService.cadastrarRetorno(this.retorno).subscribe(
-        () => {
-
-          this.retornoService.getIdUltimoRetorno().subscribe((ultimoId: number) => {
-            if (this.observacaoTextAux !== '') {
-              this.retornoObservacao = Object.assign({id: 0, retornoId: ultimoId,
-              usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, observacao: this.observacaoTextAux});
-              this.retornoService.novaObservacao(this.retornoObservacao).subscribe();
-            }
-
-            const retornoLog = Object.assign({ id: 0, retornoId: ultimoId,
-              usuarioId: this.permissaoService.getUsuarioId(), dataHora: dataAtual, status: 'AGUARDANDO'});
-
-            this.retornoService.cadastrarLog(retornoLog).subscribe(
-              () => {
-                this.toastr.success(`Retorno Finalizado!`);
-                this.socketService.sendSocket('StatusRetornoAlterado', null);
-              }, error => {
-                this.toastr.error(`Erro ao tentar criar log: ${error.error}`);
-                console.log(error.error);
-              });
-          });
-
-          if (this.retorno.usuarioId !== 0) {
-            const notificacao = Object.assign({
-              id: 0,
-              usuarioId: this.retorno.usuarioId,
-              dataHora: dataAtual,
-              titulo: 'Retorno Específico!',
-              mensagem: 'Foi adicionado um Novo Retorno específico para você!',
-              visto: 0
-            });
-            this.notificacaoService.novaNotificacao(notificacao).subscribe(
-              () => {
-                this.socketService.sendSocket('NotificacaoUsuarioRetorno', notificacao);
-                this.spinnerService.alterarSpinnerStatus(false);
-                this.toastr.success('Cadastrado com sucesso!');
-                this.router.navigate([`/atendimentos/retornos`]);
-              });
-          } else {
-            this.spinnerService.alterarSpinnerStatus(false);
-            this.toastr.success('Cadastrado com sucesso!');
-            this.router.navigate([`/atendimentos/retornos`]);
-          }
-
-          this.socketService.sendSocket('CadastrarRetorno', null);
-        }, error => {
-          this.spinnerService.alterarSpinnerStatus(false);
-          console.log(error.error);
-        }
-      );
-    }
-  }
-
 
 }

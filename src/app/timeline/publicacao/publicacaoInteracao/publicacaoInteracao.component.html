@@ -1,0 +1,113 @@
+<div class="box box-default  box-solid" style="margin-top: 15px;" *ngIf="this.publicacao">
+  <div class="box-header with-border">
+    <div class="user-block">
+      <img style="border: 1px solid #C0C0C0" class="rounded-circle"
+        src="{{getUrlUsuarioFotoPerfil(publicacao.usuario.id, publicacao.usuario.nomeArquivoFotoPerfil)}}"
+        alt="img">
+      <span class="username" style="display:flex;">
+        <div *ngIf="publicacao.vendaPublicacao">
+          <ng-template #myPopover>
+            <label>Nome Fantasia: {{publicacao.vendaPublicacao[0].venda.clientes.nomeFantasia}}</label>
+            <br/>
+            <label>Razão Social: {{publicacao.vendaPublicacao[0].venda.clientes.razaoSocial}}</label>
+          </ng-template>
+
+          <a role="button" class="badge badge-success" [routerLink]="" [popover]="myPopover"
+            popoverTitle="Informações da Venda" popoverPlacement="top" *ngIf="publicacao.vendaPublicacao.length > 0"
+            (click)="abrirTemplateVendaModal(publicacao.vendaPublicacao[0].venda.id)" style="margin-right: 7px;"
+            triggers="mouseenter:mouseleave">
+            VENDA {{ publicacao.vendaPublicacao[0].venda.numeroAno }}
+          </a>
+        </div>
+        <a [routerLink]="">{{publicacao.usuario.nomeCompleto}}</a>
+      </span>
+
+      <span style="margin-top: 2px;" class="description">
+        Publicado - {{publicacao.dataHora | date:'dd/MM/yyyy HH:mm'}} |
+        Última Edição - {{publicacao.dataHoraAlteracao | date:'dd/MM/yyyy HH:mm'}}</span>
+    </div>
+
+    <div class="box-tools" *ngIf="publicacao.usuarioId == this.usuarioLogadoId">
+      <nav class="navbar navbar-static-top">
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav-menu">
+            <li class="dropdown" dropdown>
+              <button dropdownToggle role="button" type="button" class="btn dropdown" data-toggle="dropdown">
+                <i class="fa fa-ellipsis-v"></i>
+              </button>
+
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li><a (click)="abrirTemplateModalPublicacaoTemplate(publicacao)">Editar</a></li>
+                <li><a (click)="excluirPublicacao(publicacao.id)">Excluir</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="box-body">
+    <p>{{publicacao.texto}}</p>
+
+    <br />
+
+    <div *ngIf="publicacao.publicacaoArquivos && publicacao.publicacaoArquivos.length" class="box-footer">
+      <ul class="mailbox-attachments clearfix">
+        <li *ngFor="let arquivo of publicacao.publicacaoArquivos; let i = index">
+
+          <button type="button" class="btn btn-default float-right" tooltip="Baixar Arquivo"
+            (click)="downloadArquivo(arquivo)"><i class="fa fa-cloud-download"></i></button>
+          <span class="mailbox-attachment-icon"><i class="fa fa-file-o"></i></span>
+          <div class="mailbox-attachment-info">
+            <a class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{arquivo.arquivoNome}}</a>
+            <span class="mailbox-attachment-size">
+              {{(arquivo.arquivoTamanho) | filesize}}
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <span class="float-right text-muted">{{(publicacao.publicacaoComentarios) ? publicacao.publicacaoComentarios.length : 0}} comentários.</span>
+  </div>
+
+  <div style="border: 1px solid #C0C0C0" *ngFor="let comentario of publicacao.publicacaoComentarios"
+    class="box-footer box-comments">
+    <div class="box-comment">
+      <img style="border: 1px solid #C0C0C0" class="rounded-circle img-sm"
+        src="{{getUrlUsuarioFotoPerfil(comentario.usuario.id, comentario.usuario.nomeArquivoFotoPerfil)}}"
+        alt="img">
+
+      <div style="margin-left: 40px;" class="comment-text">
+        <span class="username">
+          {{comentario.usuario.nomeCompleto}}
+          <span class="text-muted float-right">
+            {{comentario.dataHora | date:'dd/MM/yyyy HH:mm'}}</span>
+        </span>
+        <p>{{comentario.texto}}</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="box-footer">
+    <form action="#" method="post">
+      <img style="border: 1px solid #C0C0C0" class="img-responsive rounded-circle img-sm"
+        src="{{getUrlUsuarioLogadoFotoPerfil()}}" alt="img">
+
+      <div class="img-push">
+        <input type="text" minlength="1" maxlength="255" class="form-control input-sm"
+          [(ngModel)]="publicacao.textoComentario" name="comentario"
+          (keyup.enter)="cadastrarComentario(publicacao)"
+          placeholder="Aperte Enter para publicar o comentário...">
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-template-modal id="publicacaoTemplate" *ngIf="this.getTemplateModalPublicacaoTemplate() == true"
+  [templateModalService]="this.templateModalPublicacaoTemplateService" [component]="this.componentModal" [width]="80"
+  [inputs]="this.inputs"></app-template-modal>
+  
+  <app-template-modal id="venda" *ngIf="this.getTemplateModalVenda() == true"
+  [templateModalService]="this.templateModalVendaService" [component]="this.componentModal" [width]="80"
+  [inputs]="this.inputs"></app-template-modal>

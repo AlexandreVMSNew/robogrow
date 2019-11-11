@@ -153,11 +153,11 @@ export class SidebarService {
       ]
     },
     {
-      title: 'Publicações',
+      title: 'TimeLine',
       icon: 'far fa-newspaper',
       active: false,
       type: 'simple',
-      link: 'publicacoes'
+      link: 'timeline'
     },
     {
       title: 'Configurações',

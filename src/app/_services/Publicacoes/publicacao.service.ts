@@ -14,16 +14,11 @@ export class PublicacaoService {
 
   baseURL = InfoAPI.URL + '/publicacoes';
 
-  atualizaPublicacoes = new EventEmitter<boolean>();
   atualizaPublicacaoComentarios = new EventEmitter<number>();
 
   publicacaoTemplate = false;
 
   constructor(private http: HttpClient) { }
-
-  atualizarPublicacoes() {
-    this.atualizaPublicacoes.emit(true);
-  }
 
   atualizarPublicacaoComentarios(publicacaoId: number) {
     this.atualizaPublicacaoComentarios.emit(publicacaoId);
@@ -49,8 +44,8 @@ export class PublicacaoService {
     return this.http.delete<Publicacao>(`${this.baseURL}/excluir/${publicacaoId}`);
   }
 
-  cadastrarPublicacaoComentario(comentario: PublicacaoComentario) {
-    return this.http.post(`${this.baseURL}/comentario/cadastrar`, comentario);
+  cadastrarPublicacaoComentario(comentario: PublicacaoComentario): Observable<PublicacaoComentario> {
+    return this.http.post<PublicacaoComentario>(`${this.baseURL}/comentario/cadastrar`, comentario);
   }
 
   getPublicacaoArquivos(publicacaoId: number) {

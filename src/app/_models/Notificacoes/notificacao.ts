@@ -2,13 +2,18 @@ import { Usuario } from '../Cadastros/Usuarios/Usuario';
 
 export class Notificacao {
     id: number;
-    usuarioId: number;
-    usuario: Usuario;
-    formularioId: number;
-    formularioIdentificacao: string;
-    titulo: string;
+    notificanteId: number;
+    notificante: Usuario;
+    notificadoId: number;
+    tipo: string;
+    acao: string;
     mensagem: string;
-    url: string;
+    toolTip: string;
+    componentIdentificacao: string;
+    icone: string;
+    toolTipIcone: string;
+    corIcone: string;
+    compartilharTodos: boolean;
     dataHora: Date;
     visto: number;
 }

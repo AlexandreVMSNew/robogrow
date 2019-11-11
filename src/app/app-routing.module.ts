@@ -37,9 +37,9 @@ import { RelatorioLancamentoComponent } from './financeiro/lancamento/relatorioL
 import { PagamentoComponent } from './financeiro/pagamento/pagamento.component';
 import { EmpresaComponent } from './cadastros/empresa/empresa.component';
 import { AutorizacaoComponent } from './autorizacao/autorizacao.component';
-import { PublicacaoComponent } from './timeline/publicacao/publicacao.component';
+import { TimelineComponent } from './timeline/timeline/timeline.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'usuarios', component: UsuarioComponent, canActivate: [AuthGuard]},
   { path: 'usuarios/login', component: LoginComponent},
   { path: 'usuarios/cadastrar', component: CadastrarUsuarioComponent, canActivate: [AuthGuard]},
@@ -48,12 +48,9 @@ const routes: Routes = [
   { path: 'clientes', component: ClienteComponent, canActivate: [AuthGuard]},
   { path: 'clientes/cadastrar', component: CadastrarClienteComponent, canActivate: [AuthGuard]},
   { path: 'clientes/editar/:id', component: EditarClienteComponent, canActivate: [AuthGuard]},
-  { path: 'atendimentos', component: AtendimentoComponent, canActivate: [AuthGuard]},
-  { path: 'atendimentos/cadastrar', component: AtendimentoComponent, canActivate: [AuthGuard]},
-  { path: 'atendimentos/editar/:id', component: AtendimentoComponent, canActivate: [AuthGuard]},
   { path: 'atendimentos/retornos', component: RetornoComponent, canActivate: [AuthGuard]},
   { path: 'atendimentos/retornos/cadastrar', component: CadastrarRetornoComponent, canActivate: [AuthGuard]},
-  { path: 'atendimentos/retornos/editar/:id', component: EditarRetornoComponent, canActivate: [AuthGuard]},
+  { path: 'atendimentos/retorno/:id', component: RetornoComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'permissoes', component: PermissaoComponent, canActivate: [AuthGuard]},
   { path: 'movimentos/vendas', component: VendaComponent, canActivate: [AuthGuard]},
@@ -78,8 +75,8 @@ const routes: Routes = [
   { path: 'cheque-pre', component: ChequePreComponent, canActivate: [AuthGuard]},
   { path: 'empresas', component: EmpresaComponent, canActivate: [AuthGuard]},
   { path: 'autorizacoes', component: AutorizacaoComponent, canActivate: [AuthGuard]},
-  { path: 'publicacoes', component: PublicacaoComponent, canActivate: [AuthGuard]},
-  { path: 'publicacoes/:id', component: PublicacaoComponent, canActivate: [AuthGuard]},
+  { path: 'autorizacao/:id', component: AutorizacaoComponent, canActivate: [AuthGuard]},
+  { path: 'timeline', component: TimelineComponent, canActivate: [AuthGuard]},
 
   { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full'}

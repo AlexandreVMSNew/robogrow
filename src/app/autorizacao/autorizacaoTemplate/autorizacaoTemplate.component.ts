@@ -24,7 +24,6 @@ import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/temp
 export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
 
   @Input() idAutorizacao: number;
-  @ViewChild('templateAutorizacao') templateAutorizacao: any;
 
   formularioComponent = 'AUTORIZAÇÕES';
   editar = false;
@@ -36,6 +35,8 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
   autorizadoSelecionado: string;
 
   usuarios: Usuario[];
+  usuarioLogadoId: number;
+  usuarioLogadoUserName: string;
 
   templateEnabled = false;
 
@@ -52,6 +53,8 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
               }
 
   ngOnInit() {
+    this.usuarioLogadoUserName = this.permissaoService.getUsuario();
+    this.usuarioLogadoId = this.permissaoService.getUsuarioId();
     this.getUsuarios();
     this.validarAutorizacao();
     if (this.idAutorizacao !== 0) {
@@ -118,7 +121,55 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  salvarAutorizacao(template: any) {
+  enviarNotificacoesRespostaAutorizacao() {
+    const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    const idSolicitante = this.cadastroAutorizacao.get('solicitanteId').value;
+    const notificacao = Object.assign({
+      id: 0,
+      notificanteId: this.usuarioLogadoId,
+      notificadoId: idSolicitante,
+      dataHora: dataAtual,
+      tipo: 'AUTORIZAÇÃO - RESPOSTA',
+      acao: `${this.usuarioLogadoUserName} respondeu seu pedido de autorização.`,
+      toolTip: 'Ir para a autorização.',
+      componentIdentificacao: `autorizacao/${this.autorizacao.id}`,
+      icone: 'fa fa-gavel',
+      toolTipIcone: 'Autorização',
+      corIcone: '#FF8C00',
+      compartilharTodos: false,
+      visto: 0,
+    });
+    this.notificacaoService.cadastrarNotificacao(notificacao).subscribe(() => {
+      this.socketService.sendSocket('RespAutorizacaoVendaGerarPedido', notificacao);
+    });
+  }
+
+  enviarEmailNotificandoRespostaAutorizacao() {
+    const idSolicitante = this.cadastroAutorizacao.get('solicitanteId').value;
+    const emailSolicitante: any = [this.usuarios.filter(c => c.id === idSolicitante)[0].email];
+
+    const msg = `Sua solicitação para ${this.autorizacao.acao}
+        ${(this.autorizacao.objeto) ? this.autorizacao.objeto : ''} em ${this.autorizacao.formulario}
+        (${this.autorizacao.formularioIdentificacao})
+        foi ${(this.autorizacao.autorizado === 1) ? 'AUTORIZADO' : 'NEGADO'}.`;
+
+    const email: Email = {
+      emailRemetente: 'virtualwebsistema@gmail.com',
+      nomeRemetente: 'Virtual Web',
+      senhaRemetente: '1379258vms//',
+      emailDestinatario: emailSolicitante,
+      assunto: `Resposta Autorização ${this.autorizacao.acao} ${(this.autorizacao.objeto) ? this.autorizacao.objeto : ''}`,
+      mensagem: `${msg}\n
+      <a href="https://virtualweb.herokuapp.com/movimentos/vendas/editar/${this.autorizacao.formularioId}">
+      CLIQUE AQUI PARA ABRIR A VENDA!</a>`,
+    };
+    this.emailService.enviarEmail(email).subscribe((_RESPOSTA) => {
+    }, error => {
+      console.log(error.error);
+    });
+  }
+
+  salvarAutorizacao() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     const autorizadoValor = (this.autorizadoSelecionado === 'SIM') ? 1 : 0;
     this.autorizacao = Object.assign(this.cadastroAutorizacao.value, {
@@ -127,51 +178,12 @@ export class AutorizacaoTemplateComponent implements OnInit, AfterViewChecked {
       autorizado: autorizadoValor,
     });
 
-    this.autorizacaoService.editarAutorizacao(this.autorizacao).subscribe(
-      () => {
-        const idSolicitante = this.cadastroAutorizacao.get('solicitanteId').value;
-        const emailSolicitante: any = [this.usuarios.filter(c => c.id === idSolicitante)[0].email];
-        const nomeAutorizador = this.permissaoService.getUsuario();
-        const msg = `Sua solicitação para ${this.autorizacao.acao}
-         ${(this.autorizacao.objeto) ? this.autorizacao.objeto : ''} em ${this.autorizacao.formulario}
-        (${this.autorizacao.formularioIdentificacao})
-        foi ${(autorizadoValor === 1) ? 'AUTORIZADO' : 'NEGADO'}.`;
-        const notificacao = Object.assign({
-          id: 0,
-          usuarioId: idSolicitante,
-          dataHora: dataAtual,
-          titulo: 'Resposta Autorização',
-          mensagem: msg,
-          visto: 0
-        });
-
-        const email: Email = {
-          emailRemetente: 'virtualwebsistema@gmail.com',
-          nomeRemetente: 'Virtual Web',
-          senhaRemetente: '1379258vms//',
-          emailDestinatario: emailSolicitante,
-          assunto: `Resposta Autorização ${this.autorizacao.acao} ${(this.autorizacao.objeto) ? this.autorizacao.objeto : ''}`,
-          mensagem: `Sua solicitação para ${this.autorizacao.acao}
-                    ${(this.autorizacao.objeto) ? this.autorizacao.objeto : ''} em ${this.autorizacao.formulario}
-                    (${this.autorizacao.formularioIdentificacao})
-         foi ${(autorizadoValor === 1) ? 'AUTORIZADO' : 'NEGADO'}.\n
-         <a href="https://virtualweb.herokuapp.com/movimentos/vendas/editar/${this.autorizacao.formularioId}">
-         CLIQUE AQUI PARA ABRIR A VENDA!</a>`,
-        };
-        this.emailService.enviarEmail(email).subscribe((_RESPOSTA) => {
-        }, error => {
-          console.log(error.error);
-        });
-        this.notificacaoService.novaNotificacao(notificacao).subscribe(
-          () => {
-          this.socketService.sendSocket('RespAutorizacaoVendaGerarPedido', notificacao);
-        });
-        this.autorizacaoService.atualizarAutorizacoes();
-        this.toastr.success(`Editado com Sucesso!`);
-      }, error => {
-        console.log(error.error);
-      }
-    );
+    this.autorizacaoService.editarAutorizacao(this.autorizacao).subscribe(() => {
+      this.autorizacaoService.atualizarAutorizacoes();
+      this.toastr.success(`Editado com Sucesso!`);
+    }, error => {
+      console.log(error.error);
+    });
   }
 
   getUsuarios() {

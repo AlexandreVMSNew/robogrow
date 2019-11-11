@@ -25,7 +25,7 @@ let io = socketIO(server);
 io.on('connection', (socket) => {
     console.log('user connect');
 
-    socket.on('CadastrarRetorno', (dados) => { io.emit('CadastrarRetorno', dados); });
+    socket.on('NovoRetorno', (dados) => { io.emit('NovoRetorno', dados); });
 
     socket.on('NovaObservacao', (dados) => { io.emit('NovaObservacao', dados); });
 
@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
 
     socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
     
-    socket.on('CadastrarComentarioPublicacao', (dados) => { io.emit('CadastrarComentarioPublicacao', dados); });
+    socket.on('NovoComentarioPublicacao', (dados) => { io.emit('NovoComentarioPublicacao', dados); });
     
     socket.on('NovaPublicacao', (dados) => { io.emit('NovaPublicacao', dados); });
 });

@@ -30,7 +30,7 @@
                       <div *ngIf="notificacao.visto == 0">
                         <li (click)="setarVistoNotificacao(notificacao)" style="cursor:pointer;">
                           <a>
-                            <h4 style="margin-left:5px;">{{notificacao.titulo}}<small style="margin-right:5px;"
+                            <h4 style="margin-left:5px;"><small style="margin-right:5px;"
                                 class="float-right">
                                 <i class="fa fa-clock-o "></i>
                                 [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
@@ -43,7 +43,7 @@
                         <li class="bg-gray"
                           style="border-width: thin;border-style: solid;border-color: rgb(0, 0, 0);cursor:default;">
                           <a>
-                            <h4 style="margin-left:5px;">{{notificacao.titulo}}
+                            <h4 style="margin-left:5px;">
                               <small style="margin-right:5px;" class="float-right"><i class="fa fa-clock-o "></i>
                                 [{{notificacao.dataHora | date:'dd/MM/yyyy HH:mm:ss'}}]</small>
                             </h4>

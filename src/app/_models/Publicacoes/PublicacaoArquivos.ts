@@ -1,6 +1,6 @@
 export class PublicacaoArquivos {
     id: number;
-    publicacoesId: number;
+    publicacaoId: number;
     arquivoNome: string;
     arquivoTamanho: string;
 }

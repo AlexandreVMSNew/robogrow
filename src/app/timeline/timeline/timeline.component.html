@@ -1,0 +1,66 @@
+<h2>Timeline</h2>
+<hr width="100%">
+<div class="row">
+  <div style="margin-right: 15px;margin-bottom: 20px;" class="float-right">
+    <a [routerLink]="[]" (click)="abrirTemplateModalPublicacaoTemplate(null)" class="btn btn-success">
+      <i class="fa fa-plus-circle"></i>&nbsp; Nova Publicação
+    </a>
+  </div>
+</div>
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <div class="row">
+      <div class="form-group col-md-3" style="position:inherit;">
+        <label>Período de Datas:</label>
+        <app-date-input *ngIf="this.dataPeriodo" [datas]="this.dataPeriodo" (ngModel)="setDataFiltro($event)">
+        </app-date-input>
+
+      </div>
+    </div>
+    <div class="row">
+      <div style="margin-right: 15px;" class="float-right">
+        <a [routerLink]="" (click)="pesquisarTimeline()" class="btn btn-primary">
+          <i class="fa fa-search"></i>&nbsp; Pesquisar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+
+  <div class="row" *ngIf="this.timeline && this.timeline.length">
+    <div class="col-md-12">
+      <ul *ngFor="let item of timeline" class="timeline">
+
+        <li class="time-label">
+          <span class="bg-red">
+            {{item.data | date:'dd/MM/yyyy'}}
+          </span>
+        </li>
+        <li *ngFor="let notificacao of item.notificacoes">
+          <i class='{{notificacao.icone}}' [ngStyle]="{'background-color': notificacao.corIcone, 'color': 'white'}" [tooltip]="notificacao.toolTipIcone"></i>
+
+          <div class="timeline-item" (click)="this.abrirComponentModal(notificacao.componentIdentificacao)" [tooltip]="notificacao.toolTip">
+            <span class="time"><i class="fa fa-clock-o"></i> {{notificacao.dataHora | date: 'HH:mm'}}</span>
+
+            <h3 class="timeline-header">{{notificacao.acao}}
+            </h3>
+
+            <div *ngIf="notificacao.mensagem != null" class="timeline-body">
+              {{notificacao.mensagem}}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<app-template-modal id="publicacaoTemplate" *ngIf="this.getTemplateModalPublicacaoTemplate() == true"
+  [templateModalService]="this.templateModalPublicacaoTemplateService" [component]="this.componentModal" [width]="60"
+  [inputs]="this.inputs"></app-template-modal>
+
+<app-template-modal id="publicacaoInteracao" *ngIf="this.getTemplateModalPublicacaoInteracao() == true"
+  [templateModalService]="this.templateModalPublicacaoInteracaoService" [component]="this.componentModal" [width]="60"
+  [inputs]="this.inputs"></app-template-modal>

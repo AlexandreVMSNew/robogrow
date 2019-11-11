@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
+// tslint:disable-next-line:max-line-length
 import { ModalModule, TooltipModule, BsDropdownModule, BsDatepickerModule, TabsModule, PopoverModule, BsDatepickerConfig  } from 'ngx-bootstrap';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -21,6 +22,7 @@ import {MatDialogModule, MatCheckboxModule, MatRadioModule, MatDividerModule} fr
 import {NgxFilesizeModule} from 'ngx-filesize';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -104,15 +106,16 @@ import { AutorizacaoTemplateComponent } from './autorizacao/autorizacaoTemplate/
 
 import { TemplateModalComponent } from './Uteis/templateModal/templateModal.component';
 
-import { PublicacaoComponent } from './timeline/publicacao/publicacao.component';
-// tslint:disable-next-line:max-line-length
 import { PublicacaoTemplateComponent } from './timeline/publicacao/publicacaoTemplate/publicacaoTemplate.component';
+import { PublicacaoInteracaoComponent } from './timeline/publicacao/publicacaoInteracao/publicacaoInteracao.component';
 
-import { DateInputComponent } from './_services/Uteis/DateInput/DateInput.component';
+import { DateInputComponent } from './Uteis/DateInput/DateInput.component';
 
 import { GraficoBarChartComponent } from './Uteis/graficoBarChart/graficoBarChart.component';
 import { GraficoPieChartComponent } from './Uteis/graficoPieChart/graficoPieChart.component';
 import { GraficoLineChartComponent } from './Uteis/graficoLineChart/graficoLineChart.component';
+
+import { TimelineComponent } from './timeline/timeline/timeline.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
@@ -129,6 +132,8 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
+import { RouterModule } from '@angular/router';
+
 export function getDatepickerConfig(): BsDatepickerConfig {
    return Object.assign(new BsDatepickerConfig(), {
       containerClass: 'theme-dark-blue',
@@ -153,6 +158,9 @@ defineLocale('pt-br', ptBrLocale);
       TemplatePagamentoComponent,
       LogsStatusVendaComponent,
       AutorizacaoTemplateComponent,
+      PublicacaoTemplateComponent,
+      PublicacaoInteracaoComponent,
+      TimelineComponent,
    ],
    declarations: [
       AppComponent,
@@ -219,11 +227,12 @@ defineLocale('pt-br', ptBrLocale);
       EditarPermissaoComponent,
       TemplatePermissaoObjetoComponent,
       LogsStatusVendaComponent,
+      PublicacaoInteracaoComponent,
+      TimelineComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,
       IePipe,
-      PublicacaoComponent
    ],
    imports: [
       BrowserAnimationsModule,
@@ -255,7 +264,11 @@ defineLocale('pt-br', ptBrLocale);
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
+      RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
       ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+   ],
+   exports: [
+      RouterModule
    ],
    providers: [
       {
