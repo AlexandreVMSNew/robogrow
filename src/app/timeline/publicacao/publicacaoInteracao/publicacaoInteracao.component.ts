@@ -16,7 +16,8 @@ import { EditarVendaComponent } from 'src/app/movimentos/venda/editarVenda/edita
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 import { PublicacaoTemplateComponent } from '../publicacaoTemplate/publicacaoTemplate.component';
 import { UsuarioNivel } from 'src/app/_models/Cadastros/Usuarios/UsuarioNivel';
-import { FileSaverService } from 'ngx-filesaver';
+import { saveAs } from 'file-saver';
+
 @Component({
   selector: 'app-publicacao-interacao',
   templateUrl: './publicacaoInteracao.component.html',
@@ -48,7 +49,6 @@ export class PublicacaoInteracaoComponent implements OnInit {
               private notificacaoService: NotificacaoService,
               private socketService: SocketService,
               private usuarioService: UsuarioService,
-              private fileSaverService: FileSaverService,
               private permissaoService: PermissaoService) {
    }
 
@@ -203,7 +203,7 @@ export class PublicacaoInteracaoComponent implements OnInit {
 
   downloadArquivo(arquivo: PublicacaoArquivos) {
     this.publicacaoService.downloadArquivoPublicacao(arquivo.publicacaoId, arquivo).subscribe(data => {
-      this.fileSaverService.save(data, arquivo.arquivoNome);
+      saveAs(data, arquivo.arquivoNome);
     }, error => {
       console.log(error);
     });

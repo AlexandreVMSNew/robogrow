@@ -23,7 +23,6 @@ import {NgxFilesizeModule} from 'ngx-filesize';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
-import { FileSaverModule } from 'ngx-filesaver';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -245,7 +244,6 @@ defineLocale('pt-br', ptBrLocale);
       NgOptionHighlightModule,
       NoopAnimationsModule,
       NgxSpinnerModule,
-      FileSaverModule,
       SocketIoModule.forRoot(config),
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
