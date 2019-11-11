@@ -37,7 +37,6 @@ export class TimelineComponent implements OnInit {
               private router: ActivatedRoute,
               private permissaoService: PermissaoService,
               private notificacaoService: NotificacaoService) {
-                this.router.params.subscribe(params => this.ngOnInit());
                 this.notificacaoService.atualizaNotificacoes.subscribe(x => {
                   this.carregarNotificacoes();
                 });

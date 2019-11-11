@@ -134,7 +134,6 @@ export class RelatorioVendaComponent implements OnInit, AfterViewChecked {
 
   abrirTemplateVendaModal( vendaId: number) {
     this.componentModal = EditarVendaComponent;
-    console.log(vendaId);
     this.inputs = Object.assign({idVenda: vendaId});
     this.templateModalVendaService.setTemplateModalStatus(true);
   }

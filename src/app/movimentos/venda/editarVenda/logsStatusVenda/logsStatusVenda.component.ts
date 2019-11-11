@@ -14,9 +14,6 @@ export class LogsStatusVendaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (this.logs) {
-      this.logs = this.logs.reverse();
-    }
   }
 
 }

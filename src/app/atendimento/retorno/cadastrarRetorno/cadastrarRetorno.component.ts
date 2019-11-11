@@ -107,7 +107,6 @@ export class CadastrarRetornoComponent implements OnInit {
 
             this.retornoService.cadastrarLog(retornoLog).subscribe(
               () => {
-                this.toastr.success(`Retorno Finalizado!`);
                 this.socketService.sendSocket('StatusRetornoAlterado', null);
               }, error => {
                 this.toastr.error(`Erro ao tentar criar log: ${error.error}`);

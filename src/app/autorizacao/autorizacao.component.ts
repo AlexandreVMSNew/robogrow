@@ -42,15 +42,12 @@ export class AutorizacaoComponent implements OnInit, AfterViewInit {
 
   constructor(
     private autorizacaoService: AutorizacaoService,
-    private localeService: BsLocaleService,
     private toastr: ToastrService,
     public permissaoService: PermissaoService
     ) {
       this.autorizacaoService.atualizaAutorizacoes.subscribe(x => {
         this.getAutorizacoes();
       });
-      const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss');
-      console.log(dataAtual); // pt-BR
     }
 
   ngOnInit() {
