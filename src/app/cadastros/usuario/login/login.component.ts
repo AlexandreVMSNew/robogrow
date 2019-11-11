@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/_services/Cadastros/Login/auth.service';
@@ -10,7 +10,7 @@ import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewChecked {
 
   titulo = 'Login';
   model: any = {};
@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
               private toastr: ToastrService,
               private authService: AuthService,
               private spinnerService: SpinnerService,
-              public router: Router) {
+              public router: Router,
+              private changeDetectionRef: ChangeDetectorRef) {
               }
 
   ngOnInit() {
@@ -28,6 +29,10 @@ export class LoginComponent implements OnInit {
     if (token != null && !this.jwtHelper.isTokenExpired(token)) {
       this.router.navigate(['/dashboard']);
     }
+  }
+
+  ngAfterViewChecked() {
+    this.changeDetectionRef.detectChanges();
   }
 
   login() {

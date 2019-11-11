@@ -168,7 +168,7 @@ export class AppComponent implements OnInit {
     this.validation();
     this.usuarioLogadoId = this.permissaoService.getUsuarioId();
     if (this.usuarioLogadoId && this.usuarioLogadoId !== null && this.verificarLogIn()) {
-      this.getSocket('NotificacaoUsuarioRetorno');
+      this.getSocket('NovoRetornoEspecifico');
       this.getSocket('AutorizacaoVendaGerarPedido');
       this.getSocket('RespAutorizacaoVendaGerarPedido');
       this.getSocket('NovaObservacao');

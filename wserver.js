@@ -26,16 +26,16 @@ io.on('connection', (socket) => {
     console.log('user connect');
 
     socket.on('NovoRetorno', (dados) => { io.emit('NovoRetorno', dados); });
+    
+    socket.on('NovoRetornoEspecifico', (dados) => { io.emit('NovoRetornoEspecifico', dados); });
 
     socket.on('NovaObservacao', (dados) => { io.emit('NovaObservacao', dados); });
 
-    socket.on('NotificacaoUsuarioRetorno', (dados) => { io.emit('NotificacaoUsuarioRetorno', dados); });
+    socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
     
     socket.on('AutorizacaoVendaGerarPedido', (dados) => { io.emit('AutorizacaoVendaGerarPedido', dados); });
  
     socket.on('RespAutorizacaoVendaGerarPedido', (dados) => { io.emit('RespAutorizacaoVendaGerarPedido', dados); });
-
-    socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
     
     socket.on('NovoComentarioPublicacao', (dados) => { io.emit('NovoComentarioPublicacao', dados); });
     

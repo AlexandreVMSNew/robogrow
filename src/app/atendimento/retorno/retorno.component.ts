@@ -100,18 +100,15 @@ export class RetornoComponent implements OnInit, AfterViewChecked {
     );
     this.pesquisarRetorno(this.dataPeriodo);
 
-    this.getSocket('CadastrarRetorno');
+    this.getSocket('NovoRetorno');
     this.getSocket('StatusRetornoAlterado');
   }
 
   getSocket(evento: string) {
     this.socketService.getSocket(evento).subscribe((info: any) => {
       if (info === null) {
-
-        if (evento === 'CadastrarRetorno') {
-          const  notification = new Notification(`Olá, ${this.permissaoService.getUsuario()} !`, {
-            body: 'Cadastrar retorno!'
-          });
+        if (evento === 'NovoRetorno') {
+          const  notification = new Notification(``, {body: 'Novo retorno na lista de espera!'});
         }
         this.pesquisarRetorno(this.dataPeriodo);
       }

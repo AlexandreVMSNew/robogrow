@@ -133,18 +133,14 @@ export class CadastrarRetornoComponent implements OnInit {
             });
 
             this.notificacaoService.cadastrarNotificacao(notificacao).subscribe(() => {
-              this.socketService.sendSocket('NotificacaoUsuarioRetorno', notificacao);
-              this.spinnerService.alterarSpinnerStatus(false);
-              this.toastr.success('Cadastrado com sucesso!');
-              this.router.navigate([`/atendimentos/retornos`]);
+              this.socketService.sendSocket('NovoRetornoEspecifico', notificacao);
             });
           } else {
-            this.spinnerService.alterarSpinnerStatus(false);
             this.socketService.sendSocket('NovoRetorno', null);
-            this.toastr.success('Cadastrado com sucesso!');
-            this.router.navigate([`/atendimentos/retornos`]);
           }
-
+          this.spinnerService.alterarSpinnerStatus(false);
+          this.toastr.success('Cadastrado com sucesso!');
+          this.router.navigate([`/atendimentos/retornos`]);
         }, error => {
           this.spinnerService.alterarSpinnerStatus(false);
           console.log(error.error);
