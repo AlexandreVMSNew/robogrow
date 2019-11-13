@@ -149,11 +149,6 @@
               tooltip="Gerar Pedido de Venda" class="btn btn-lg btn-success">
               &nbsp;Gerar Pedido
             </button>
-            <a *ngIf="this.gerarPedido == false || this.autorizadoGerarPedido == false"
-              style="position:relative;margin-bottom: 15px;margin-left:15px;"
-              tooltip="Altere o Status da Venda para Gerar o Pedido!" class="btn btn-lg btn-success" disabled>
-              &nbsp;Gerar Pedido
-            </a>
           </div>
         </tab>
 
@@ -172,7 +167,8 @@
         <tab *ngIf="this.visualizarAbaFinanceiro == true" heading="Financeiro" style="margin-top: 10px;">
           <app-financeiro-venda *ngIf="this.venda" [venda]="this.venda"
             [cadastrarValorRealizado]="this.cadastrarValorRealizado"
-            [cadastrarValorPrevisto]="this.cadastrarValorPrevisto">
+            [cadastrarValorPrevisto]="this.cadastrarValorPrevisto"
+            [vendaFinalizada]="(this.venda.vendaStatusId == this.vendaStatusFinalConfigId) ? true : false">
           </app-financeiro-venda>
         </tab>
 

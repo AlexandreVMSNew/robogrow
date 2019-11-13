@@ -20,6 +20,7 @@ export class PagamentosVendaComponent implements OnInit {
 
   @Input() produtoItem: ProdutoItem;
   @Input() venda: Venda;
+  @Input() vendaFinalizada: boolean;
 
   pagamentos: Pagamentos[];
 

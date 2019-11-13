@@ -260,8 +260,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     (this.editarCampoStatus === true) ?
     this.cadastroForm.controls.vendaStatusId.enable() : this.cadastroForm.controls.vendaStatusId.disable();
 
-
-    if (this.autorizadoGerarPedido === false) {
+    if (this.gerarPedido === true && this.autorizadoGerarPedido === false) {
       this.cadastroForm.controls.vendaStatusId.disable();
     }
 

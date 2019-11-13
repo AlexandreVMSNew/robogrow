@@ -18,6 +18,7 @@ export class FinanceiroVendaComponent implements OnInit {
   @Input() venda: Venda;
   @Input() cadastrarValorRealizado = false;
   @Input() cadastrarValorPrevisto = false;
+  @Input() vendaFinalizada: boolean;
 
   produtoItem: ProdutoItem;
 
@@ -117,7 +118,11 @@ export class FinanceiroVendaComponent implements OnInit {
     this.tituloModal =  `Pagamentos - ${produtoItemInput.descricao}`;
     this.componentModal = this.pagamentosVendaComponent;
     this.venda = Object.assign(this.venda, {id: this.idVenda });
-    this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
+    this.inputs = Object.assign({
+      produtoItem: produtoItemInput,
+      venda: this.venda,
+      vendaFinalizada: this.vendaFinalizada
+    });
     this.templateModalPagamentosService.setTemplateModalStatus(true);
   }
 
@@ -125,7 +130,11 @@ export class FinanceiroVendaComponent implements OnInit {
     this.tituloModal =  `Recebimentos - ${produtoItemInput.descricao}`;
     this.componentModal = this.recebimentosVendaComponent;
     this.venda = Object.assign(this.venda, {id: this.idVenda });
-    this.inputs = Object.assign({produtoItem: produtoItemInput, venda: this.venda});
+    this.inputs = Object.assign({
+      produtoItem: produtoItemInput,
+      venda: this.venda,
+      vendaFinalizada: this.vendaFinalizada
+    });
     this.templateModalRecebimentosService.setTemplateModalStatus(true);
   }
 

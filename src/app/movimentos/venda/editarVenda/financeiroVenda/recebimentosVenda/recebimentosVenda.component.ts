@@ -19,6 +19,7 @@ export class RecebimentosVendaComponent implements OnInit {
 
   @Input() produtoItem: ProdutoItem;
   @Input() venda: Venda;
+  @Input() vendaFinalizada: boolean;
 
   recebimentos: Recebimentos[];
 
