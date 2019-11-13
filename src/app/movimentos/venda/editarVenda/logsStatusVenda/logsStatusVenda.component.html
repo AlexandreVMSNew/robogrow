@@ -14,24 +14,10 @@
       <td style="white-space: nowrap;">{{ log.dataHora  | date:'dd/MM/yyyy HH:mm:ss'}}</td>
       <td style="text-align: center;">
 
-        <span *ngIf="log.status == 'EM NEGOCIAÇÃO'" class="badge badge-secondary">
-          {{ log.status }}
-        </span>
-        <span *ngIf="log.status == 'A IMPLANTAR'" class="badge badge-warning">
-          {{ log.status }}
-        </span>
-        <span *ngIf="log.status == 'EM IMPLANTAÇÃO'" class="badge badge-info">
-          {{ log.status }}
-        </span>
-        <span *ngIf="log.status == 'IMPLANTADO'" class="badge badge-primary">
-            {{ log.status }}
-        </span>
-        <span *ngIf="log.status == 'FINALIZADO'" class="badge badge-success">
-          {{ log.status }}
-        </span>
-        <span *ngIf="log.status == 'DISTRATADO'" class="badge badge-danger">
-          {{ log.status }}
-        </span></td>
+          <span class="badge" [ngStyle]="{'background-color':  log.vendaStatus.badgeCor, 'color': 'white'}">
+              {{  log.vendaStatus.descricao }}
+            </span>
+          </td>
         
       <td style="white-space: nowrap;">{{ log.diasCorrente}}</td>
     </tr>

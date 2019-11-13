@@ -9,6 +9,7 @@ import { Pessoa } from '../../Cadastros/Pessoas/Pessoa';
 import { PlanoPagamento } from '../../Cadastros/PlanoPagamento/PlanoPagamento';
 import { VendaPublicacao } from './VendaPublicacao';
 import { VendaLogsStatus } from './VendaLogsStatus';
+import { VendaStatus } from './VendaStatus';
 
 export class Venda {
     id: number;
@@ -21,13 +22,14 @@ export class Venda {
     clientes: Cliente;
     planoPagamentoId: number;
     planoPagamento: PlanoPagamento;
-    status: string;
     observacoes: string;
     dataEmissao: Date;
     dataNegociacao: Date;
     dataFinalizado: Date;
     dataHoraUltAlt: Date;
     diasCorrente: number;
+    vendaStatusId: number;
+    vendaStatus: VendaStatus;
     vendaLogsStatus: VendaLogsStatus[];
     vendaProdutos: VendaProduto[];
     vendaCheckList: VendaCheckList[];

@@ -4,4 +4,6 @@ export class VendaConfig {
     planoContaRecebParcelaAVistaId: number;
     planoContaPagParcelaAVistaId: number;
     planoPagamentoSaidasId: number;
+    vendaStatusInicialId: number;
+    vendaStatusFinalId: number;
 }

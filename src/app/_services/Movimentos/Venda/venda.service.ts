@@ -11,6 +11,7 @@ import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 import { VendaCheckList } from 'src/app/_models/Movimentos/Venda/VendaCheckList';
 import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicacao';
 import { RelatorioVendas } from 'src/app/_models/Movimentos/RelatorioVendas/RelatorioVendas';
+import { VendaStatus } from 'src/app/_models/Movimentos/Venda/VendaStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,8 @@ atualizaResultadoVenda = new EventEmitter<Venda>();
 atualizaFinanceiroVenda = new EventEmitter<Venda>();
 atualizaPublicacoesVenda = new EventEmitter<boolean>();
 
+atualizaVendaStatus = new EventEmitter<boolean>();
+
 pagamentosVenda = false;
 previsaoVenda = false;
 recebimentosVenda = false;
@@ -35,151 +38,167 @@ pedidoVenda: any;
 constructor(private http: HttpClient) { }
 
 
-setPedidoVendaStatus(val: boolean) {
-  this.pedidoVenda = val;
-}
+  setPedidoVendaStatus(val: boolean) {
+    this.pedidoVenda = val;
+  }
 
-getPedidoVendaStatus() {
-  return this.pedidoVenda;
-}
+  getPedidoVendaStatus() {
+    return this.pedidoVenda;
+  }
 
-setPrevisaoVendaStatus(val: boolean) {
-  this.previsaoVenda = val;
-}
+  setPrevisaoVendaStatus(val: boolean) {
+    this.previsaoVenda = val;
+  }
 
-getPrevisaoVendaStatus() {
-  return this.previsaoVenda;
-}
+  getPrevisaoVendaStatus() {
+    return this.previsaoVenda;
+  }
 
-getConfigVendaStatus() {
-  return this.configVenda;
-}
+  getConfigVendaStatus() {
+    return this.configVenda;
+  }
 
-setConfigVendaStatus(val: boolean) {
-  this.configVenda = val;
-}
+  setConfigVendaStatus(val: boolean) {
+    this.configVenda = val;
+  }
 
-getPagamentosVendaStatus() {
-  return this.pagamentosVenda;
-}
+  getPagamentosVendaStatus() {
+    return this.pagamentosVenda;
+  }
 
-setPagamentosVendaStatus(val: boolean) {
-  this.pagamentosVenda = val;
-}
+  setPagamentosVendaStatus(val: boolean) {
+    this.pagamentosVenda = val;
+  }
 
-getRecebimentosVendaStatus() {
-  return this.recebimentosVenda;
-}
+  getRecebimentosVendaStatus() {
+    return this.recebimentosVenda;
+  }
 
-setRecebimentosVendaStatus(val: boolean) {
-  this.recebimentosVenda = val;
-}
+  setRecebimentosVendaStatus(val: boolean) {
+    this.recebimentosVenda = val;
+  }
 
-getVenda(): Observable<Venda[]> {
-  return this.http.get<Venda[]>(this.baseURL);
-}
+  getVenda(): Observable<Venda[]> {
+    return this.http.get<Venda[]>(this.baseURL);
+  }
 
-getVendaRelatorio(datas: DataPeriodo): Observable<RelatorioVendas> {
-  return this.http.post<RelatorioVendas>(`${this.baseURL}/relatorios`, datas);
-}
+  getVendaRelatorio(datas: DataPeriodo): Observable<RelatorioVendas> {
+    return this.http.post<RelatorioVendas>(`${this.baseURL}/relatorios`, datas);
+  }
 
-getVendaByClienteId(clienteId: number): Observable<Venda[]> {
-  return this.http.get<Venda[]>(`${this.baseURL}/getByClienteId/${clienteId}`);
-}
+  getVendaByClienteId(clienteId: number): Observable<Venda[]> {
+    return this.http.get<Venda[]>(`${this.baseURL}/getByClienteId/${clienteId}`);
+  }
 
-atualizarVenda() {
-  this.atualizaVenda.emit(true);
-}
-atualizarRecebimentos() {
-  this.atualizaRecebimentos.emit(true);
-}
-atualizarPagamentos() {
-  this.atualizaPagamentos.emit(true);
-}
-atualizarResultadoVenda(venda: Venda) {
-  this.atualizaResultadoVenda.emit(venda);
-}
-atualizarFinanceiroVenda(venda: Venda) {
-  this.atualizaFinanceiroVenda.emit(venda);
-}
-atualizarPublicacoesVenda() {
-  this.atualizaPublicacoesVenda.emit(true);
-}
+  atualizarVenda() {
+    this.atualizaVenda.emit(true);
+  }
+  atualizarRecebimentos() {
+    this.atualizaRecebimentos.emit(true);
+  }
+  atualizarPagamentos() {
+    this.atualizaPagamentos.emit(true);
+  }
+  atualizarResultadoVenda(venda: Venda) {
+    this.atualizaResultadoVenda.emit(venda);
+  }
+  atualizarFinanceiroVenda(venda: Venda) {
+    this.atualizaFinanceiroVenda.emit(venda);
+  }
+  atualizarPublicacoesVenda() {
+    this.atualizaPublicacoesVenda.emit(true);
+  }
 
-getVendaById(id: number): Observable<Venda> {
-  return this.http.get<Venda>(`${this.baseURL}/${id}`);
-}
+  atualizarVendaStatus() {
+    this.atualizaVendaStatus.emit(true);
+  }
 
-getVendaConfig(): Observable<VendaConfig> {
-  return this.http.get<VendaConfig>(`${this.baseURL}/config`);
-}
+  getVendaById(id: number): Observable<Venda> {
+    return this.http.get<Venda>(`${this.baseURL}/${id}`);
+  }
 
-cadastrarVendaConfig(vendaConfig: VendaConfig) {
-  return this.http.post(`${this.baseURL}/config/cadastrar`, vendaConfig);
-}
+  getVendaConfig(): Observable<VendaConfig> {
+    return this.http.get<VendaConfig>(`${this.baseURL}/config`);
+  }
 
-novaVendaPublicacao(vendaPublicacao: VendaPublicacao) {
-  return this.http.post(`${this.baseURL}/publicacoes/cadastrar`, vendaPublicacao);
-}
+  cadastrarVendaConfig(vendaConfig: VendaConfig) {
+    return this.http.post(`${this.baseURL}/config/cadastrar`, vendaConfig);
+  }
 
-getVendaPublicacoes(vendaId: number, usuarioId: number): Observable<VendaPublicacao[]> {
-  return this.http.get<VendaPublicacao[]>(`${this.baseURL}/${vendaId}/publicacoes/usuario/${usuarioId}`);
-}
+  novaVendaPublicacao(vendaPublicacao: VendaPublicacao) {
+    return this.http.post(`${this.baseURL}/publicacoes/cadastrar`, vendaPublicacao);
+  }
 
-editarVendaConfig(vendaConfig: VendaConfig) {
-  return this.http.put(`${this.baseURL}/config/editar/${vendaConfig.id}`, vendaConfig);
-}
+  getVendaPublicacoes(vendaId: number, usuarioId: number): Observable<VendaPublicacao[]> {
+    return this.http.get<VendaPublicacao[]>(`${this.baseURL}/${vendaId}/publicacoes/usuario/${usuarioId}`);
+  }
 
-getIdUltimaVenda(): Observable<Venda> {
-  return this.http.get<Venda>(`${this.baseURL}/idUltimaVenda`);
-}
+  editarVendaConfig(vendaConfig: VendaConfig) {
+    return this.http.put(`${this.baseURL}/config/editar/${vendaConfig.id}`, vendaConfig);
+  }
 
-cadastrarProdutoVenda(produtos: VendaProduto[]) {
-  return this.http.post(`${this.baseURL}/produtos/cadastrar`, produtos);
-}
+  getIdUltimaVenda(): Observable<Venda> {
+    return this.http.get<Venda>(`${this.baseURL}/idUltimaVenda`);
+  }
 
-getVendaValorPrevistoByProdIdVendId(idProdutoItem: number, idVenda: number): Observable<VendaValorPrevisto> {
-  return this.http.get<VendaValorPrevisto>(`${this.baseURL}/valorprevisto/${idProdutoItem}/${idVenda}`);
-}
+  cadastrarProdutoVenda(produtos: VendaProduto[]) {
+    return this.http.post(`${this.baseURL}/produtos/cadastrar`, produtos);
+  }
 
-getVendaValoresRealizadosByProdIdVendId(idProdutoItem: number, idVenda: number): Observable<VendaValorRealizado> {
-  return this.http.get<VendaValorRealizado>(`${this.baseURL}/valorrealizado/${idProdutoItem}/${idVenda}`);
-}
+  getVendaValorPrevistoByProdIdVendId(idProdutoItem: number, idVenda: number): Observable<VendaValorPrevisto> {
+    return this.http.get<VendaValorPrevisto>(`${this.baseURL}/valorprevisto/${idProdutoItem}/${idVenda}`);
+  }
 
-getVerificaPagamentoByProdIdVendId(idProdutoItem: number, idVenda: number): Observable<boolean> {
-  return this.http.get<boolean>(`${this.baseURL}/valorrealizado/pago/${idProdutoItem}/${idVenda}`);
-}
+  getVendaValoresRealizadosByProdIdVendId(idProdutoItem: number, idVenda: number): Observable<VendaValorRealizado> {
+    return this.http.get<VendaValorRealizado>(`${this.baseURL}/valorrealizado/${idProdutoItem}/${idVenda}`);
+  }
 
-cadastrarVendaValorPrevisto(vendaValorPrevisto: VendaValorPrevisto) {
-  return this.http.post(`${this.baseURL}/valorprevisto/cadastrar`, vendaValorPrevisto);
-}
+  getVerificaPagamentoByProdIdVendId(idProdutoItem: number, idVenda: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseURL}/valorrealizado/pago/${idProdutoItem}/${idVenda}`);
+  }
 
-editarVendaValorPrevisto(vendaValorPrevisto: VendaValorPrevisto) {
-  return this.http.put(`${this.baseURL}/valorprevisto/editar/${vendaValorPrevisto.id}`, vendaValorPrevisto);
-}
+  cadastrarVendaValorPrevisto(vendaValorPrevisto: VendaValorPrevisto) {
+    return this.http.post(`${this.baseURL}/valorprevisto/cadastrar`, vendaValorPrevisto);
+  }
 
-cadastrarVendaValorRealizado(vendaValorRealizado: VendaValorRealizado) {
-  return this.http.post(`${this.baseURL}/valorrealizado/cadastrar`, vendaValorRealizado);
-}
+  editarVendaValorPrevisto(vendaValorPrevisto: VendaValorPrevisto) {
+    return this.http.put(`${this.baseURL}/valorprevisto/editar/${vendaValorPrevisto.id}`, vendaValorPrevisto);
+  }
 
-getIdUltimoValorRealizado(): Observable<VendaValorRealizado> {
-  return this.http.get<VendaValorRealizado>(`${this.baseURL}/valorrealizado/idUltimo`);
-}
+  cadastrarVendaValorRealizado(vendaValorRealizado: VendaValorRealizado) {
+    return this.http.post(`${this.baseURL}/valorrealizado/cadastrar`, vendaValorRealizado);
+  }
 
-cadastrarVenda(venda: Venda) {
-  return this.http.post(`${this.baseURL}/cadastrar`, venda);
-}
+  getIdUltimoValorRealizado(): Observable<VendaValorRealizado> {
+    return this.http.get<VendaValorRealizado>(`${this.baseURL}/valorrealizado/idUltimo`);
+  }
 
-editarVenda(venda: Venda) {
-  return this.http.put(`${this.baseURL}/editar/${venda.id}`, venda);
-}
+  cadastrarVenda(venda: Venda) {
+    return this.http.post(`${this.baseURL}/cadastrar`, venda);
+  }
 
-getVendaCheckList(vendaId: number): Observable<VendaCheckList[]> {
-  return this.http.get<VendaCheckList[]>(`${this.baseURL}/${vendaId}/checklist`);
-}
+  editarVenda(venda: Venda) {
+    return this.http.put(`${this.baseURL}/editar/${venda.id}`, venda);
+  }
 
-editarVendaCheckList(checkList: VendaCheckList[]) {
-  return this.http.post(`${this.baseURL}/checklist/editar`, checkList);
-}
+  getVendaCheckList(vendaId: number): Observable<VendaCheckList[]> {
+    return this.http.get<VendaCheckList[]>(`${this.baseURL}/${vendaId}/checklist`);
+  }
+
+  editarVendaCheckList(checkList: VendaCheckList[]) {
+    return this.http.post(`${this.baseURL}/checklist/editar`, checkList);
+  }
+
+  getVendaStatus(): Observable<VendaStatus[]> {
+    return this.http.get<VendaStatus[]>(`${this.baseURL}/status/`);
+  }
+
+  cadastrarVendaStatus(vendaStatus: VendaStatus) {
+    return this.http.post(`${this.baseURL}/status/cadastrar`, vendaStatus);
+  }
+
+  editarVendaStatus(vendaStatus: VendaStatus) {
+    return this.http.put(`${this.baseURL}/status/editar/${vendaStatus.id}`, vendaStatus);
+  }
 
 }

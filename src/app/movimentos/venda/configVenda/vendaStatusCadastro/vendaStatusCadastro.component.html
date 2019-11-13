@@ -1,0 +1,59 @@
+<form [formGroup]="vendaStatusCadastroForm">
+  <div class="form-group col-md-12">
+    <label>Descrição</label>
+    <input class="form-control" type="text" formControlName="descricao" 
+    [ngClass]="{'is-invalid': vendaStatusCadastroForm.get('descricao').errors &&vendaStatusCadastroForm.get('descricao').touched}"
+    style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
+    <div *ngIf="vendaStatusCadastroForm.get('descricao').hasError('required') && vendaStatusCadastroForm.get('descricao').touched" class="invalid-feedback d-block">
+      Campo obrigatório.
+    </div>
+  </div>
+
+  <div class="form-group col-md-12">
+    <label>Posição</label>
+    <input class="form-control" type="text" formControlName="posicao" 
+    [ngClass]="{'is-invalid': vendaStatusCadastroForm.get('posicao').errors &&vendaStatusCadastroForm.get('posicao').touched}"
+    style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
+    <div *ngIf="vendaStatusCadastroForm.get('posicao').hasError('required') && vendaStatusCadastroForm.get('posicao').touched" class="invalid-feedback d-block">
+      Campo obrigatório.
+    </div>
+  </div>
+
+  <div class="form-group col-md-12">
+    <label>Cor</label>
+    <input class="form-control" type="text" formControlName="badgeCor" 
+    [ngClass]="{'is-invalid': vendaStatusCadastroForm.get('badgeCor').errors &&vendaStatusCadastroForm.get('badgeCor').touched}"
+    style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />
+    <div *ngIf="vendaStatusCadastroForm.get('badgeCor').hasError('required') && vendaStatusCadastroForm.get('badgeCor').touched" class="invalid-feedback d-block">
+      Campo obrigatório.
+    </div>
+  </div>
+
+  <div class="form-group col-md-12" >
+    <label>Níveis que podem alterar</label>
+    <ng-select appendTo="body" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
+      [dropdownPosition]="'bottom'" [clearable]="false" [items]="niveis" bindLabel="name" bindValue="id"
+      formControlName="vendaStatusPermissao" [(ngModel)]="vendaStatusPermissao">
+    </ng-select>
+  </div>
+
+</form>
+<div style="margin-left: 15px;">
+  <button *ngIf="!this.vendaStatusCadastroForm.valid && this.modoSalvar == 'CADASTRAR'" class="btn btn-primary"
+    (click)="cadastrarVendaStatus()" disabled>
+    Cadastrar
+  </button>
+  <button *ngIf="this.vendaStatusCadastroForm.valid && this.modoSalvar == 'CADASTRAR'" class="btn btn-primary"
+    (click)="cadastrarVendaStatus()">
+    Cadastrar
+  </button>
+
+  <button *ngIf="(!this.vendaStatusCadastroForm.valid) && this.modoSalvar == 'EDITAR'"
+    class="btn btn-primary" (click)="editarVendaStatus()" disabled>
+    Salvar Alterações
+  </button>
+  <button *ngIf="this.vendaStatusCadastroForm.valid && this.modoSalvar == 'EDITAR'"
+    class="btn btn-primary" (click)="editarVendaStatus()">
+    Salvar Alterações
+  </button>
+</div>

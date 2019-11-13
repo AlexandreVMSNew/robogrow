@@ -8,16 +8,16 @@
           Pedido de Venda
         </h4>
 
-        <button type="button" class="close float-right" (click)="fecharTemplate(templatePedidoVenda)" aria-label="Close">
+        <button type="button" class="close float-right" (click)="fecharTemplate(templatePedidoVenda)"
+          aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div id="pedido" class="modal-body">
 
-        <div class="row" >
+        <div class="row">
           <div style="margin-left: 25px;text-align: left;margin-top: 5px;" class="float-left">
-            <img src="{{this.baseURLLogo}}"
-            style="width: 200px;height: 110px;" alt="SEM LOGO">
+            <img src="{{this.baseURLLogo}}" style="width: 200px;height: 110px;" alt="SEM LOGO">
           </div>
           <div style="margin-right: 25px;font-size:17px;text-align: right;" class="float-right">
             <label style="font-weight: normal;margin-bottom: 0px;">{{venda.empresas.nomeFantasia}}</label><br />
@@ -39,7 +39,7 @@
         </div>
 
         <hr style="margin-top: 5px;margin-bottom: 5px;" width="100%">
-        <div class="row" >
+        <div class="row">
           <div style="margin-left: 25px;font-size:15px;" class="float-left">
             <label style="font-weight: bold;font-size:20px;">Venda:</label>&nbsp;
             <label style="font-weight: normal;margin-bottom: 0px;font-size:20px;">{{venda.numeroAno}}</label>
@@ -53,7 +53,7 @@
         </div>
 
         <hr style="margin-top: 5px;margin-bottom: 5px;" width="100%">
-        <div class="row" >
+        <div class="row">
           <div style="margin-left: 25px;font-size:15px;" class="float-left">
             <label style="font-weight: bold;font-size:20px;">Informações do Cliente</label><br />
 
@@ -85,13 +85,13 @@
         </div>
 
         <hr style="margin-top: 5px;margin-bottom: 50px;" width="100%">
-        
-        <div class="row" >
+
+        <div class="row">
           <div class="col-md-12">
 
-            <table style="border-collapse:inherit;"style="width:95%;margin-left:20px;" class="table table-bordered">
+            <table style="border-collapse:inherit;" style="width:95%;margin-left:20px;" class="table table-bordered">
               <thead>
-                <tr >
+                <tr>
                   <th>Id</th>
                   <th>Descrição</th>
                   <th>Plano de Pagamento</th>
@@ -108,13 +108,14 @@
               </tbody>
             </table>
           </div>
-        </div> 
+        </div>
 
         <hr style="margin-top: 5px;margin-bottom: 30px;" width="100%">
-         <app-check-list-venda  [venda]="this.venda" [pedido]="true"></app-check-list-venda>
-         <label style="margin-left: 25px;margin-top: 0px;font-weight: bold;font-size:13px;">
-          *** Os campos preenchidos &nbsp;<mat-checkbox color="primary" [disabled]="true"[checked]="true"></mat-checkbox>&nbsp; indicam a opção.</label><br />
-       
+        <app-check-list-venda [venda]="this.venda" [pedido]="true"></app-check-list-venda>
+        <label style="margin-left: 25px;margin-top: 0px;font-weight: bold;font-size:13px;">
+          *** Os campos preenchidos &nbsp;<mat-checkbox color="primary" [disabled]="true" [checked]="true">
+          </mat-checkbox>&nbsp; indicam a opção.</label><br />
+
         <hr style="margin-top: 5px;margin-bottom: 5px;" width="100%">
         <div class="row ">
           <div class="form-group col-md-12">
@@ -124,7 +125,10 @@
         </div>
 
         <div class="row ">
-          <hr style="margin-top: 20px;margin-bottom: 5px;border: 1px solid black;" width="60%"><br/>
+          <hr style="margin-top: 20px;margin-bottom: 5px;border: 1px solid black;" width="60%"><br />
+
+        </div>
+        <div class="row d-block">
           <div style="text-align:center;">
             <label style="font-weight: bold;font-size:18px;">É VEDADA A AUTENTICAÇÃO DESTE DOCUMENTO</label>
           </div>

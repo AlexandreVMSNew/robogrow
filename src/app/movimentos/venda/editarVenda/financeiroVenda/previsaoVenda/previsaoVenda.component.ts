@@ -6,6 +6,7 @@ import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { VendaValorPrevisto } from 'src/app/_models/Movimentos/Venda/VendaValorPrevisto';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
+import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 
 @Component({
   selector: 'app-previsao-venda',
@@ -18,8 +19,6 @@ export class PrevisaoVendaComponent implements OnInit {
 
   cadastroValorPrevistoForm: FormGroup;
 
-  templateEnabled = false;
-
   valorPrevistoPipe: any;
   valorPrevisto: VendaValorPrevisto;
 
@@ -29,7 +28,8 @@ export class PrevisaoVendaComponent implements OnInit {
   modoSalvar = '';
   constructor(private vendaService: VendaService,
               private fb: FormBuilder,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private permissaoService: PermissaoService) { }
 
   ngOnInit() {
     if (this.venda && this.produtoItem) {
@@ -46,7 +46,10 @@ export class PrevisaoVendaComponent implements OnInit {
       (_VALORPREVISTO: VendaValorPrevisto) => {
         this.validarValorPrevistoForm();
         if (_VALORPREVISTO) {
-          (this.venda.status === 'EM NEGOCIAÇÃO') ? this.valorPrevistoDisabled = true : this.valorPrevistoDisabled = false;
+          const usuarioNivelIdLogado = this.permissaoService.getUsuarioNiveis();
+          const permissaoAux = this.venda.vendaStatus.vendaStatusPermissao
+                              .filter(c => usuarioNivelIdLogado.indexOf(c.nivelId.toString()) !== -1).length;
+          this.valorPrevistoDisabled = (permissaoAux === 1) ? this.valorPrevistoDisabled = true : this.valorPrevistoDisabled = false;
           this.modoSalvar = 'EDITAR';
           this.valorPrevisto = Object.assign({}, _VALORPREVISTO);
           this.cadastroValorPrevistoForm.patchValue(this.valorPrevisto);
@@ -88,9 +91,10 @@ export class PrevisaoVendaComponent implements OnInit {
 
   editarValorPrevisto() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    this.valorPrevisto = Object.assign(this.cadastroValorPrevistoForm.value,
-       {dataHoraUltAlt: dataAtual});
-       console.log(this.valorPrevisto);
+    this.valorPrevisto = Object.assign(this.cadastroValorPrevistoForm.value, {
+      dataHoraUltAlt: dataAtual
+    });
+
     this.vendaService.editarVendaValorPrevisto(this.valorPrevisto).subscribe(
       () => {
         this.carregarPrevisao();

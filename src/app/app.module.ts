@@ -60,6 +60,7 @@ import { FinanceiroVendaComponent } from './movimentos/venda/editarVenda/finance
 import { PrevisaoVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/previsaoVenda/previsaoVenda.component';
 import { PedidoVendaComponent } from './movimentos/venda/editarVenda/pedidoVenda/pedidoVenda.component';
 import { LogsStatusVendaComponent } from './movimentos/venda/editarVenda/logsStatusVenda/logsStatusVenda.component';
+import { VendaStatusCadastroComponent } from './movimentos/venda/configVenda/vendaStatusCadastro/vendaStatusCadastro.component';
 
 import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { CadastrarProdutoComponent } from './cadastros/produto/cadastrarProduto/cadastrarProduto.component';
@@ -160,7 +161,9 @@ defineLocale('pt-br', ptBrLocale);
       AutorizacaoTemplateComponent,
       PublicacaoTemplateComponent,
       PublicacaoInteracaoComponent,
+      ConfigVendaComponent,
       TimelineComponent,
+      VendaStatusCadastroComponent,
    ],
    declarations: [
       AppComponent,
@@ -229,6 +232,7 @@ defineLocale('pt-br', ptBrLocale);
       LogsStatusVendaComponent,
       PublicacaoInteracaoComponent,
       TimelineComponent,
+      VendaStatusCadastroComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,

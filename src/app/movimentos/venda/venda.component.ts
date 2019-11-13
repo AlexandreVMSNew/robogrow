@@ -8,6 +8,8 @@ import { EditarClienteComponent } from 'src/app/cadastros/cliente/editarCliente/
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
 import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
+import { ConfigVendaComponent } from './configVenda/configVenda.component';
+import { VendaStatus } from 'src/app/_models/Movimentos/Venda/VendaStatus';
 @Component({
   selector: 'app-venda',
   templateUrl: './venda.component.html',
@@ -35,8 +37,8 @@ export class VendaComponent implements OnInit, AfterViewInit {
   vendas: Venda[];
   vendasFiltro: Venda[];
 
-  status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'FINALIZADO', 'DISTRATADO', 'TODOS'];
-  statusFiltroSelecionado = 'TODOS';
+  vendaStatus: VendaStatus[] = [];
+  vendaStatusIdFiltroSelecionado = 0;
 
   filtrarPor = ['NOME FANTASIA', 'RAZÃO SOCIAL', 'N° VENDA'];
   filtroSelecionado = 'NOME FANTASIA';
@@ -48,6 +50,10 @@ export class VendaComponent implements OnInit, AfterViewInit {
 
   templateModalClienteService = new TemplateModalService();
   editarClienteComponent = EditarClienteComponent;
+
+  templateModalVendaConfigService = new TemplateModalService();
+  vendaConfigComponent = ConfigVendaComponent;
+
   inputs: any;
   componentModal: any;
 
@@ -58,6 +64,7 @@ export class VendaComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getVendas();
+    this.getVendaStatus();
   }
 
   ngAfterViewInit() {
@@ -87,22 +94,16 @@ export class VendaComponent implements OnInit, AfterViewInit {
 
   set filtroTexto(value: string) {
     this.filtroTextoAux = value;
-    this.vendasFiltro = this.filtrarVendas(this.filtroTextoAux);
   }
 
   setFiltroSelecionado(valor: any) {
     this.filtroSelecionado = valor;
   }
 
-  setStatusFiltroSelecionado(valor: any) {
-    this.statusFiltroSelecionado = valor;
-    this.vendasFiltro = this.filtrarVendas(this.filtroTexto);
-  }
-
   filtrarVendas(filtrarPor: string): Venda[] {
     let filtroRetorno: Venda[] = [];
-    if (this.statusFiltroSelecionado !== 'TODOS') {
-      filtroRetorno = this.vendas.filter(_CLIENTE => _CLIENTE.status === this.statusFiltroSelecionado);
+    if (this.vendaStatusIdFiltroSelecionado !== 0) {
+      filtroRetorno = this.vendas.filter(_VENDA => _VENDA.vendaStatusId === this.vendaStatusIdFiltroSelecionado);
     } else {
       filtroRetorno = this.vendas;
     }
@@ -123,6 +124,10 @@ export class VendaComponent implements OnInit, AfterViewInit {
     return filtroRetorno;
   }
 
+  pesquisarVendas() {
+    this.getVendas();
+  }
+
   getVendas() {
     this.spinnerService.alterarSpinnerStatus(true);
     this.vendaService.getVenda().subscribe(
@@ -137,6 +142,17 @@ export class VendaComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getVendaStatus() {
+    this.vendaService.getVendaStatus().subscribe(
+      (_STATUS: VendaStatus[]) => {
+      this.vendaStatus = _STATUS;
+      this.vendaStatus.push(Object.assign({id: 0, descricao: 'TODOS'}));
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar Vendas Status: ${error.error}`);
+    });
+  }
+
   abrirTemplateModalCliente(component, clienteId: number) {
     this.componentModal = component;
     this.inputs = Object.assign({idCliente: clienteId});
@@ -147,12 +163,14 @@ export class VendaComponent implements OnInit, AfterViewInit {
     return this.templateModalClienteService.getTemplateModalStatus();
   }
 
-  getVendaConfig() {
-    return this.vendaService.getConfigVendaStatus();
+  getTemplateModalVendaConfig() {
+    return this.templateModalVendaConfigService.getTemplateModalStatus();
   }
 
-  abrirVendaConfig() {
-    this.vendaService.setConfigVendaStatus(true);
+  abrirTemplateModalVendaConfig() {
+    this.componentModal = this.vendaConfigComponent;
+    this.inputs = null;
+    this.templateModalVendaConfigService.setTemplateModalStatus(true);
   }
 
 }

@@ -1,4 +1,5 @@
 import { Usuario } from '../../Cadastros/Usuarios/Usuario';
+import { VendaStatus } from './VendaStatus';
 
 export class VendaLogsStatus {
     id: number;
@@ -7,5 +8,6 @@ export class VendaLogsStatus {
     usuario: Usuario;
     dataHora: Date;
     diasCorrente: number;
-    status: string;
+    vendaStatusId: number;
+    vendaStatus: VendaStatus;
 }

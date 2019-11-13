@@ -9,6 +9,9 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
+import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
+import { VendaStatus } from 'src/app/_models/Movimentos/Venda/VendaStatus';
+import { VendaStatusCadastroComponent } from './vendaStatusCadastro/vendaStatusCadastro.component';
 
 @Component({
   selector: 'app-config-venda',
@@ -17,6 +20,8 @@ import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 })
 
 export class ConfigVendaComponent implements OnInit, AfterViewInit {
+
+  @Input() templateModalVendaConfigService: TemplateModalService;
 
   formularioComponent = 'VENDAS';
   editarConfig = false;
@@ -31,21 +36,34 @@ export class ConfigVendaComponent implements OnInit, AfterViewInit {
   planoContas: PlanoContas[];
   planoContaRecebIdSelecionado: number;
   planoContaPagIdSelecionado: number;
+  vendaStatusInicialIdSelecionado: number;
+  vendaStatusFinalIdSelecionado: number;
 
-  templateEnabled = false;
+  vendaStatus: VendaStatus[] = [];
 
   idVendaConfig = 0;
+
+  templateModalVendaStatusService = new TemplateModalService();
+  vendaStatusCadastroComponent = VendaStatusCadastroComponent;
+
+  inputs: any;
+  componentModal: any;
 
   constructor(private planoPagamentoService: PlanoPagamentoService,
               private planoContaService: PlanoContaService,
               private permissaoService: PermissaoService,
               private vendaService: VendaService,
               private toastr: ToastrService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder) {
+                this.vendaService.atualizaVendaStatus.subscribe((x) => {
+                  this.getVendaStatus();
+                });
+               }
 
   ngOnInit() {
     this.getPlanoContas();
     this.getPlanoPagamento();
+    this.getVendaStatus();
     this.validarRecebimentos();
     this.carregarConfigVenda();
   }
@@ -73,6 +91,8 @@ export class ConfigVendaComponent implements OnInit, AfterViewInit {
           this.planoPagamentoIdSelecionado = this.vendaConfig.planoPagamentoSaidasId;
           this.planoContaRecebIdSelecionado = this.vendaConfig.planoContaRecebParcelaAVistaId;
           this.planoContaPagIdSelecionado = this.vendaConfig.planoContaPagParcelaAVistaId;
+          this.vendaStatusInicialIdSelecionado = this.vendaConfig.vendaStatusInicialId;
+          this.vendaStatusFinalIdSelecionado = this.vendaConfig.vendaStatusFinalId;
         }, error => {
           this.toastr.error(`Erro ao tentar carregar Venda: ${error.error}`);
           console.log(error);
@@ -84,7 +104,9 @@ export class ConfigVendaComponent implements OnInit, AfterViewInit {
         id:  [''],
         planoContaRecebParcelaAVistaId: ['', Validators.required],
         planoContaPagParcelaAVistaId: ['', Validators.required],
-        planoPagamentoSaidasId: ['', Validators.required]
+        planoPagamentoSaidasId: ['', Validators.required],
+        vendaStatusInicialId: ['', Validators.required],
+        vendaStatusFinalId: ['', Validators.required]
     });
   }
 
@@ -111,6 +133,17 @@ export class ConfigVendaComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getVendaStatus() {
+    this.vendaService.getVendaStatus().subscribe(
+      (_STATUS: VendaStatus[]) => {
+      this.vendaStatus = [];
+      this.vendaStatus = _STATUS;
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar Vendas Status: ${error.error}`);
+    });
+  }
+
   getPlanoContas() {
     this.planoContaService.getPlanosConta().subscribe(
       (_PLANOS: PlanoContas[]) => {
@@ -131,16 +164,19 @@ export class ConfigVendaComponent implements OnInit, AfterViewInit {
     });
   }
 
-  abrirTemplate(template: any) {
-    if (this.templateEnabled === false) {
-      this.templateEnabled = true;
-      template.show();
-    }
+  getTemplateModalVendaStatus() {
+    return this.templateModalVendaStatusService.getTemplateModalStatus();
   }
 
-  fecharTemplate(template: any) {
-    template.hide();
-    this.vendaService.setConfigVendaStatus(false);
-    this.templateEnabled = false;
+  abrirTemplateModalVendaStatus(vendaStatusInput: VendaStatus) {
+    this.componentModal = this.vendaStatusCadastroComponent;
+    this.inputs = Object.assign({
+      vendaStatus: vendaStatusInput
+    });
+    this.templateModalVendaStatusService.setTemplateModalStatus(true);
+  }
+
+  fecharTemplate() {
+    this.templateModalVendaConfigService.setTemplateModalStatus(false);
   }
 }

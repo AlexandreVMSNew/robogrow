@@ -19,8 +19,6 @@ import { PublicacaoService } from './_services/Publicacoes/publicacao.service';
 import { VendaService } from './_services/Movimentos/Venda/venda.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerService } from './_services/Uteis/Spinner/spinner.service';
-import { PermissaoAcoes } from './_models/Permissoes/permissaoAcoes';
-import { PermissaoObjetos } from './_models/Permissoes/permissaoObjetos';
 
 @Component({
   selector: 'app-root',

@@ -21,6 +21,7 @@ import { CadastrarClienteComponent } from 'src/app/cadastros/cliente/cadastrarCl
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
 @Component({
   selector: 'app-cadastrar-venda',
   templateUrl: './cadastrarVenda.component.html'
@@ -54,12 +55,14 @@ export class CadastrarVendaComponent implements OnInit, AfterViewInit {
   produtoVenda: VendaProduto[];
   venda: Venda;
 
+  vendaConfig: VendaConfig;
+  vendaStatusInicialConfigId: number;
+
   templateModalCadastrarClienteService = new TemplateModalService();
   cadastrarClienteComponent = CadastrarClienteComponent;
 
   componentModal: any;
 
-  
   constructor(private fb: FormBuilder,
               private permissaoService: PermissaoService,
               private toastr: ToastrService,
@@ -74,6 +77,7 @@ export class CadastrarVendaComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getClientes();
+    this.getVendaConfig();
     this.getProdutos();
     this.getEmpresas();
     this.getVendedores();
@@ -114,12 +118,12 @@ export class CadastrarVendaComponent implements OnInit, AfterViewInit {
         id: 0,
         usuarioId: this.permissaoService.getUsuarioId(),
         dataHora: dataAtual,
-        status: 'EM NEGOCIAÇÃO'
+        vendaStatusId: this.vendaStatusInicialConfigId
       }];
 
       this.venda = Object.assign(this.cadastroForm.value, {
         id: 0,
-        status: 'EM NEGOCIAÇÃO',
+        vendaStatusId: this.vendaStatusInicialConfigId,
         dataEmissao: dataAtual,
         dataHoraUltAlt: dataAtual,
         vendaLogsStatus: logsStatus,
@@ -153,6 +157,17 @@ export class CadastrarVendaComponent implements OnInit, AfterViewInit {
 
   getTemplateModal() {
     return this.templateModalCadastrarClienteService.getTemplateModalStatus();
+  }
+
+  getVendaConfig() {
+    this.vendaService.getVendaConfig().subscribe(
+      (_CONFIG: VendaConfig) => {
+      this.vendaConfig = _CONFIG;
+      this.vendaStatusInicialConfigId = this.vendaConfig.vendaStatusInicialId;
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar VendaConfig: ${error.error}`);
+    });
   }
 
   getProdutos() {

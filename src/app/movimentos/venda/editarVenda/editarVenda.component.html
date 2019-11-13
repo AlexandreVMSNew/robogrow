@@ -107,9 +107,9 @@
 
                       <div class="form-group col-md-2">
                         <label>Status</label>
-                        <ng-select [clearable]="false" *ngIf="disabledStatus() == true"
-                          (change)="setarDataFinalizado(cadastroForm.get('status').value)" [items]="status"
-                          [(ngModel)]="statusSelecionado" formControlName="status">
+                        <ng-select [clearable]="false" (change)="setarDataFinalizado()"
+                         bindLabel="descricao" required bindValue="id"  [items]="vendaStatus"
+                          [(ngModel)]="vendaStatusIdSelecionado" formControlName="vendaStatusId">
                         </ng-select>
                       </div>
 
@@ -144,12 +144,12 @@
             </button>
 
             <button
-              *ngIf="this.gerarPedido == true && this.autorizadoGerarPedido == true && this.venda.status != 'EM NEGOCIAÇÃO'"
+              *ngIf="this.gerarPedido == true && this.autorizadoGerarPedido == true"
               style="position:relative;margin-bottom: 15px;margin-left:15px;" (click)="gerarPDF()"
               tooltip="Gerar Pedido de Venda" class="btn btn-lg btn-success">
               &nbsp;Gerar Pedido
             </button>
-            <a *ngIf="this.gerarPedido == true && this.autorizadoGerarPedido == true && this.venda.status == 'EM NEGOCIAÇÃO'"
+            <a *ngIf="this.gerarPedido == false || this.autorizadoGerarPedido == false"
               style="position:relative;margin-bottom: 15px;margin-left:15px;"
               tooltip="Altere o Status da Venda para Gerar o Pedido!" class="btn btn-lg btn-success" disabled>
               &nbsp;Gerar Pedido

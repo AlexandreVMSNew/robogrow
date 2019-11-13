@@ -8,9 +8,7 @@ import { Venda } from 'src/app/_models/Movimentos/Venda/Venda';
 import { Pessoa } from 'src/app/_models/Cadastros/Pessoas/Pessoa';
 import { PessoaService } from 'src/app/_services/Cadastros/Pessoas/pessoa.service';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
-import { Permissao } from 'src/app/_models/Permissoes/permissao';
 import { PlanoContas } from 'src/app/_models/Cadastros/PlanoContas/planoContas';
 import { Cliente } from 'src/app/_models/Cadastros/Clientes/Cliente';
 import { CentroDespesa } from 'src/app/_models/Cadastros/CentroDespesa/CentroDespesa';
@@ -25,7 +23,6 @@ import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
 import { UsuarioService } from 'src/app/_services/Cadastros/Usuarios/usuario.service';
 import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 import { NotificacaoService } from 'src/app/_services/Notificacoes/notificacao.service';
-import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
 import { Autorizacao } from 'src/app/_models/Autorizacoes/Autorizacao';
 import { EmailService } from 'src/app/_services/Email/email.service';
 import { Email } from 'src/app/_models/Email/Email';
@@ -38,9 +35,11 @@ import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/temp
 import { VendaPublicacao } from 'src/app/_models/Movimentos/Venda/VendaPublicacao';
 import { Publicacao } from 'src/app/_models/Publicacoes/Publicacao';
 import { SpinnerService } from 'src/app/_services/Uteis/Spinner/spinner.service';
-import { HttpClient } from '@angular/common/http';
 import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 import { PermissaoAcoes } from 'src/app/_models/Permissoes/permissaoAcoes';
+import { VendaStatus } from 'src/app/_models/Movimentos/Venda/VendaStatus';
+import { VendaStatusPermissao } from 'src/app/_models/Movimentos/Venda/VendaStatusPermissao';
+import { VendaConfig } from 'src/app/_models/Movimentos/Venda/VendaConfig';
 
 @Component({
   selector: 'app-editar-venda',
@@ -61,7 +60,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   cadastrarValorPrevisto = false;
   cadastrarValorRealizado = false;
   editarCampoDataNegociacao = false;
-  editarCampoStatus = false;
   editarCampoEmpresa = false;
   editarCampoVendedor = false;
   editarCampoCliente = false;
@@ -73,6 +71,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   visualizarAbaFinanceiro = false;
   gerarPedido = false;
   autorizadoGerarPedido = false;
+
+  editarCampoStatus = false;
 
   cadastroForm: FormGroup;
 
@@ -100,9 +100,15 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   venda: Venda;
 
-  status = [''];
-  statusInicialSelecionado: string;
-  statusSelecionado: string;
+  vendaConfig: VendaConfig;
+
+  vendaStatus: VendaStatus[] = [];
+  vendaStatusIdInicialSelecionado: number;
+  vendaStatusIdSelecionado: number;
+  vendaStatusPermissao: VendaStatusPermissao[];
+
+  vendaStatusInicialConfigId: number;
+  vendaStatusFinalConfigId: number;
 
   planosPagamento: PlanoPagamento[];
   planoPagamentoIdSelecionado: any;
@@ -153,6 +159,8 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
   ngOnInit() {
     this.usuarioLogadoId = this.permissaoService.getUsuarioId();
     if (this.idVenda === null) { this.idVenda = +this.router.snapshot.paramMap.get('id'); }
+    this.getVendaConfig();
+    this.getVendaStatus();
     this.getClientes();
     this.getProdutos();
     this.getEmpresas();
@@ -181,9 +189,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
       const permissaoValorRealizado = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'VALOR REALIZADO');
       this.cadastrarValorRealizado = (permissaoValorRealizado !== null ) ? permissaoValorRealizado.cadastrar : false;
-
-      const permissaoCampoStatus = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO STATUS');
-      this.editarCampoStatus = (permissaoCampoStatus !== null ) ? permissaoCampoStatus.editar : false;
 
       const permissaoCampoDataNegociacao = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'CAMPO DATA NEGOCIAÇÃO');
       this.editarCampoDataNegociacao = (permissaoCampoDataNegociacao !== null ) ? permissaoCampoDataNegociacao.editar : false;
@@ -228,10 +233,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   configurarAlteracoes() {
 
-    (this.editarCampoStatus === true) ?
-    this.cadastroForm.controls.status.enable() : this.cadastroForm.controls.status.disable();
-
-    (this.editarCampoDataNegociacao === true && this.statusSelecionado === 'EM NEGOCIAÇÃO') ?
+    (this.editarCampoDataNegociacao === true) ?
     this.cadastroForm.controls.dataNegociacao.enable() : this.cadastroForm.controls.dataNegociacao.disable();
 
     (this.editarCampoEmpresa === true) ?
@@ -255,20 +257,23 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     (this.editarCampoDataFinalizado === true) ?
     this.cadastroForm.controls.dataFinalizado.enable() : this.cadastroForm.controls.dataFinalizado.disable();
 
-    if (this.editar === true && this.statusSelecionado === 'EM NEGOCIAÇÃO') {
+    (this.editarCampoStatus === true) ?
+    this.cadastroForm.controls.vendaStatusId.enable() : this.cadastroForm.controls.vendaStatusId.disable();
+
+
+    if (this.autorizadoGerarPedido === false) {
+      this.cadastroForm.controls.vendaStatusId.disable();
+    }
+
+    if (this.editar === true) {
       this.cadastroForm.controls.empresasId.enable(); this.cadastroForm.controls.vendedorId.enable();
       this.cadastroForm.controls.clientesId.enable(); this.cadastroForm.controls.produtoId.enable();
-      this.cadastroForm.controls.planoPagamentoId.enable();
+      this.cadastroForm.controls.planoPagamentoId.enable(); this.cadastroForm.controls.vendaStatusId.enable();
     } else {
       this.cadastroForm.controls.empresasId.disable(); this.cadastroForm.controls.vendedorId.disable();
       this.cadastroForm.controls.clientesId.disable(); this.cadastroForm.controls.produtoId.disable();
       this.cadastroForm.controls.planoPagamentoId.disable();
     }
-
-    if (this.statusSelecionado === 'EM NEGOCIAÇÃO' && this.autorizadoGerarPedido === false) {
-      this.cadastroForm.controls.status.disable();
-    }
-
     this.spinnerService.alterarSpinnerStatus(false);
   }
 
@@ -286,19 +291,18 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.vendaService.atualizarFinanceiroVenda(this.venda);
       this.vendaService.atualizarResultadoVenda(this.venda);
 
-      if (this.venda.status === 'EM NEGOCIAÇÃO') {
-        this.status = ['EM NEGOCIAÇÃO', 'A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
-      } else {
-        this.status = ['A IMPLANTAR', 'EM IMPLANTAÇÃO', 'IMPLANTADO', 'FINALIZADO', 'DISTRATADO'];
-      }
-
       this.produtoIdSelecionado = this.venda.vendaProdutos[0].produtosId;
       this.empresaIdSelecionado = this.venda.empresasId;
       this.vendedorIdSelecionado = this.venda.vendedorId;
       this.clienteIdSelecionado = this.venda.clientesId;
-      this.statusSelecionado = this.venda.status;
-      this.statusInicialSelecionado = this.venda.status;
       this.planoPagamentoIdSelecionado = this.venda.planoPagamentoId;
+      this.vendaStatusIdSelecionado = this.venda.vendaStatusId;
+      this.vendaStatusIdInicialSelecionado = this.venda.vendaStatusId;
+
+      const usuarioNivelIdLogado = this.permissaoService.getUsuarioNiveis();
+      const permissaoAux = this.venda.vendaStatus.vendaStatusPermissao
+                          .filter(c => usuarioNivelIdLogado.indexOf(c.nivelId.toString()) !== -1).length;
+      this.editarCampoStatus = (permissaoAux === 1) ? true : false;
 
       this.cadastroForm.patchValue(this.venda);
       this.spinnerService.alterarSpinnerStatus(false);
@@ -336,12 +340,12 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         empresasId: ['', Validators.required],
         produtoId: ['', Validators.required],
         planoPagamentoId: ['', Validators.required],
-        status: ['', Validators.required],
         observacoes: [''],
         dataEmissao: [''],
         dataNegociacao: ['', Validators.required],
         dataFinalizado: [''],
-        dataHoraUltAlt: ['']
+        dataHoraUltAlt: [''],
+        vendaStatusId: ['', Validators.required]
     });
   }
 
@@ -464,16 +468,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     this.vendaService.setPedidoVendaStatus(true);
   }
 
-  disabledStatus() {
-    if (this.venda) {
-      if (this.venda.status === 'FINALIZADO' && this.editarCampoStatus !== true) {
-        this.cadastroForm.get('status').disable();
-        return true;
-      }
-    }
-    return true;
-  }
-
   disabledDataNegociacao() {
     if (this.venda) {
       if (this.venda.dataNegociacao.toString() !== '') {
@@ -483,18 +477,9 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     return false;
   }
 
-  showedDataFinalizado() {
-    if (this.venda) {
-      if (this.venda.status === 'FINALIZADO') {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  setarDataFinalizado(status: string) {
+  setarDataFinalizado() {
     const dataAtual = moment(new Date(), 'DD/MM/YYYY').format('YYYY-MM-DD');
-    if (status === 'FINALIZADO') {
+    if (this.vendaStatusFinalConfigId === this.vendaStatusIdSelecionado) {
       this.cadastroForm.controls.dataFinalizado.setValue(this.dataService.getDataPTBR(dataAtual));
     } else {
       this.cadastroForm.controls.dataFinalizado.setValue('');
@@ -512,12 +497,6 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   alterarStatusBoxInformacoes() {
     (this.statusBoxInformacoes === '') ? this.statusBoxInformacoes = ' collapsed-box' : this.statusBoxInformacoes = '';
-  }
-
-  verificarStatus() {
-    if (this.cadastroForm.get('status')) {
-      return this.cadastroForm.get('status').value;
-    }
   }
 
   verificarValorPrevistoLancados() {
@@ -547,13 +526,13 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
     const dataNeg = this.cadastroForm.get('dataNegociacao').value.toLocaleString();
     const dataFin = this.cadastroForm.get('dataFinalizado').value.toLocaleString();
     const logsStatus = this.venda.vendaLogsStatus;
-    if (this.statusSelecionado !== this.statusInicialSelecionado) {
+    if (this.vendaStatusIdSelecionado !== this.vendaStatusIdInicialSelecionado) {
       logsStatus.push(Object.assign({
         id: 0,
         vendaId: this.venda.id,
         usuarioId: this.permissaoService.getUsuarioId(),
         dataHora: dataAtual,
-        status: this.statusSelecionado
+        vendaStatudId: this.vendaStatusIdSelecionado
       }));
     }
 
@@ -567,7 +546,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       produtoId: this.produtoIdSelecionado,
       vendedorId: this.vendedorIdSelecionado,
       planoPagamentoId: this.planoPagamentoIdSelecionado,
-      status: this.statusSelecionado,
+      vendaStatusId: this.vendaStatusIdSelecionado,
       vendaLogsStatus: logsStatus,
     });
 
@@ -585,6 +564,18 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
 
   getPedidoVenda() {
     return this.vendaService.getPedidoVendaStatus();
+  }
+
+  getVendaConfig() {
+    this.vendaService.getVendaConfig().subscribe(
+      (_CONFIG: VendaConfig) => {
+      this.vendaConfig = _CONFIG;
+      this.vendaStatusInicialConfigId = this.vendaConfig.vendaStatusInicialId;
+      this.vendaStatusFinalConfigId = this.vendaConfig.vendaStatusFinalId;
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar VendaConfig: ${error.error}`);
+    });
   }
 
   getProdutos() {
@@ -667,6 +658,16 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
       this.spinnerService.alterarSpinnerStatus(false);
       console.log(error.error);
       this.toastr.error(`Erro ao tentar carregar vendedores: ${error.error}`);
+    });
+  }
+
+  getVendaStatus() {
+    this.vendaService.getVendaStatus().subscribe(
+      (_STATUS: VendaStatus[]) => {
+      this.vendaStatus = _STATUS;
+    }, error => {
+      console.log(error.error);
+      this.toastr.error(`Erro ao tentar carregar Vendas Status: ${error.error}`);
     });
   }
 
