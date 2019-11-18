@@ -119,6 +119,9 @@ import { GraficoLineChartComponent } from './Uteis/graficoLineChart/graficoLineC
 
 import { TimelineComponent } from './timeline/timeline/timeline.component';
 
+import { TarefasComponent } from './tarefas/tarefas.component';
+import { TarefaCadastroComponent } from './tarefas/tarefaCadastro/tarefaCadastro.component';
+
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
 import { CepPipe } from './pipes/cep.pipe';
@@ -164,6 +167,7 @@ defineLocale('pt-br', ptBrLocale);
       ConfigVendaComponent,
       TimelineComponent,
       VendaStatusCadastroComponent,
+      TarefaCadastroComponent
    ],
    declarations: [
       AppComponent,
@@ -237,6 +241,8 @@ defineLocale('pt-br', ptBrLocale);
       CelularPipe,
       CepPipe,
       IePipe,
+      TarefasComponent,
+      TarefaCadastroComponent
    ],
    imports: [
       BrowserAnimationsModule,
@@ -268,7 +274,6 @@ defineLocale('pt-br', ptBrLocale);
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
-      RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
       ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
    ],
    exports: [

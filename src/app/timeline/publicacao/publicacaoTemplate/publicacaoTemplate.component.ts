@@ -32,7 +32,7 @@ export class PublicacaoTemplateComponent implements OnInit {
   @Input() vendaId: number;
   @Input() publicacao: Publicacao = null;
 
-  cadastroPublicacao: FormGroup;
+  cadastroPublicacaoForm: FormGroup;
 
   niveis: Nivel[] = [];
   niveisMarcados = [];
@@ -40,8 +40,6 @@ export class PublicacaoTemplateComponent implements OnInit {
   usuarios: Usuario[];
   usuarioLogado: Usuario;
   usuariosMarcados = [];
-
-  templateEnabled = false;
 
   publicacaoArquivos: PublicacaoArquivos[] = [];
   cadastrarArquivosUpload: File[] = [];
@@ -90,7 +88,7 @@ export class PublicacaoTemplateComponent implements OnInit {
     this.modoSalvar = 'CADASTRAR';
     if (this.publicacao !== null) {
       this.modoSalvar = 'EDITAR';
-      this.cadastroPublicacao.patchValue(this.publicacao);
+      this.cadastroPublicacaoForm.patchValue(this.publicacao);
 
       this.publicacaoArquivos = this.publicacao.publicacaoArquivos;
 
@@ -103,7 +101,7 @@ export class PublicacaoTemplateComponent implements OnInit {
   }
 
   validarPublicacao() {
-    this.cadastroPublicacao = this.fb.group({
+    this.cadastroPublicacaoForm = this.fb.group({
       id:  [''],
       texto: ['', Validators.required],
       compartilharTodos: ['', Validators.required],
@@ -248,7 +246,7 @@ export class PublicacaoTemplateComponent implements OnInit {
       });
     }
 
-    this.publicacao = Object.assign(this.cadastroPublicacao.value, {
+    this.publicacao = Object.assign(this.cadastroPublicacaoForm.value, {
       id: (this.publicacao) ? this.publicacao.id : 0,
       usuarioId: this.permissaoService.getUsuarioId(),
       dataHora: (this.publicacao) ? this.publicacao.dataHora : dataAtual,

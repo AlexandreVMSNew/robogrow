@@ -128,6 +128,8 @@ export class EditarClienteComponent implements OnInit, AfterViewInit, AfterViewC
 
       this.cadastroForm.patchValue(this.cliente);
 
+      this.statusSelecionado = this.cliente.status;
+
       this.grupoIdSelecionado = this.cliente.grupoId;
       this.categoriaSelecionado = this.cliente.categoria;
 

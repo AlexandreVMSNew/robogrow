@@ -175,14 +175,11 @@ export class SidebarService {
       icon: 'fas fa-user-edit',
       active: false,
       type: 'simple',
-      link: 'usuarios/editar/' + this.idUsuario
+      link: 'usuarios/editar/' + this.permissaoService.getUsuarioId()
     }
   ];
 
   constructor(private permissaoService: PermissaoService) {
-    if (this.permissaoService.getUsuarioId() !== null) {
-      this.idUsuario = this.permissaoService.getUsuarioId();
-    }
   }
 
   toggle() {

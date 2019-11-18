@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.css']
 })
+
 export class TimelineComponent implements OnInit {
 
   @Input() vendaId: number;

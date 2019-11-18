@@ -20,7 +20,7 @@
       <div class="form-group col-md-2">
         <label>Status:</label>
         <ng-select [clearable]="false" [items]="vendaStatus" name="vendaStatusFiltro"
-          [(ngModel)]="vendaStatusIdFiltroSelecionado">
+        bindLabel="descricao" bindValue="id" [(ngModel)]="vendaStatusIdFiltroSelecionado">
         </ng-select>
       </div>
 

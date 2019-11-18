@@ -16,20 +16,10 @@ export class PublicacaoService {
 
   atualizaPublicacaoComentarios = new EventEmitter<number>();
 
-  publicacaoTemplate = false;
-
   constructor(private http: HttpClient) { }
 
   atualizarPublicacaoComentarios(publicacaoId: number) {
     this.atualizaPublicacaoComentarios.emit(publicacaoId);
-  }
-
-  getPublicacaoTemplateStatus() {
-    return this.publicacaoTemplate;
-  }
-
-  setPublicacaoTemplateStatus(val: boolean) {
-    this.publicacaoTemplate = val;
   }
 
   novaPublicacao(publicacao: Publicacao): Observable<Publicacao>  {

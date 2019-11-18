@@ -531,7 +531,7 @@ export class EditarVendaComponent implements OnInit, AfterViewChecked, AfterView
         vendaId: this.venda.id,
         usuarioId: this.permissaoService.getUsuarioId(),
         dataHora: dataAtual,
-        vendaStatudId: this.vendaStatusIdSelecionado
+        vendaStatusId: this.vendaStatusIdSelecionado
       }));
     }
 

@@ -1,10 +1,10 @@
-<form [formGroup]="cadastroPublicacaoForm">
+<form [formGroup]="cadastroTarefaForm">
   <div class="form-group">
-    <label>Texto</label>
+    <label>Descrição</label>
     <textarea class="form-control"
-      [ngClass]="{'is-invalid':cadastroPublicacaoForm.get('texto').errors &&cadastroPublicacaoForm.get('texto').touched}"
-      formControlName="texto" placeholder="" rows="4"></textarea>
-    <div *ngIf="cadastroPublicacaoForm.get('texto').hasError('required') &&cadastroPublicacaoForm.get('texto').touched"
+      [ngClass]="{'is-invalid':cadastroTarefaForm.get('descricao').errors &&cadastroTarefaForm.get('descricao').touched}"
+      formControlName="descricao" placeholder="" rows="4"></textarea>
+    <div *ngIf="cadastroTarefaForm.get('descricao').hasError('required') &&cadastroTarefaForm.get('descricao').touched"
       class="invalid-feedback d-block">
       Campo é obrigatório.
     </div>
@@ -17,7 +17,7 @@
       [(ngModel)]="this.marcacaoTipoSelecionado">
     </ng-select>
     <div
-      *ngIf="cadastroPublicacaoForm.get('compartilharTodos').hasError('required') &&cadastroPublicacaoForm.get('compartilharTodos').touched"
+      *ngIf="cadastroTarefaForm.get('compartilharTodos').hasError('required') &&cadastroTarefaForm.get('compartilharTodos').touched"
       class="invalid-feedback d-block d-block ng-invalid ng-touched">
       Campo é obrigatório.
     </div>
@@ -25,14 +25,9 @@
 
   <div class="form-group" *ngIf="this.marcacaoTipoSelecionado == 'USUARIO'">
     <label>Usuários específicos</label>
-    <ng-select appendTo="body" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
+    <ng-select appendTo="body"  [hideSelected]="true"
       [dropdownPosition]="'bottom'" [clearable]="false" [items]="usuarios" bindLabel="nomeCompleto" bindValue="id"
-      formControlName="usuariosMarcados" [(ngModel)]="usuariosMarcados">
-      <ng-template ng-header-tmp>
-        <button (click)="marcarTodosUsuarios()" class="btn btn-sm btn-primary">Marcar Todos</button>
-        <button (click)="desmarcarTodosUsuarios()" class="btn btn-sm btn-primary" style="margin-left: 10px;">Desmarcar
-          Todos</button>
-      </ng-template>
+      formControlName="usuariosMarcados" [(ngModel)]="usuarioSolicitadoIdSelecionado">
       <ng-template ng-option-tmp let-item="item" let-index="index">
         <img height="40" width="40" style="border: 1px solid #C0C0C0"
           [src]="getUrlUsuarioFotoPerfil(item.id, item.nomeArquivoFotoPerfil)" alt="img" />
@@ -43,14 +38,9 @@
 
   <div class="form-group" *ngIf="this.marcacaoTipoSelecionado == 'NIVEL'">
     <label>Níveis específicos</label>
-    <ng-select appendTo="body" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
+    <ng-select appendTo="body" [hideSelected]="true"
       [dropdownPosition]="'bottom'" [clearable]="false" [items]="niveis" bindLabel="name" bindValue="id"
-      formControlName="niveisMarcados" [(ngModel)]="niveisMarcados">
-      <ng-template ng-header-tmp>
-        <button (click)="marcarTodosNiveis()" class="btn btn-sm btn-primary">Marcar Todos</button>
-        <button (click)="desmarcarTodosNiveis()" class="btn btn-sm btn-primary" style="margin-left: 10px;">Desmarcar
-          Todos</button>
-      </ng-template>
+      formControlName="nivelId" [(ngModel)]="nivelIdSelecionado">
       <ng-template ng-option-tmp let-item="item" let-index="index">
         <b style="margin-left: 5px;">{{item.name}}</b>
       </ng-template>
@@ -81,7 +71,7 @@
   </div>
 </form>
 
-<button [disabled]="!cadastroPublicacaoForm.valid" class="btn btn-primary"
+<button [disabled]="!cadastroTarefaForm.valid" class="btn btn-primary"
   (click)="cadastrarPublicacao()">
   Salvar
 </button>
