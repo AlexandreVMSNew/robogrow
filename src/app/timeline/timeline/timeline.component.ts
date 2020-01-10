@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/templateModal.service';
-import { PublicacaoTemplateComponent } from '../publicacao/publicacaoTemplate/publicacaoTemplate.component';
-import { PublicacaoInteracaoComponent } from '../publicacao/publicacaoInteracao/publicacaoInteracao.component';
 import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 import { DataService } from 'src/app/_services/Cadastros/Uteis/data.service';
 import * as moment from 'moment';
@@ -18,18 +16,10 @@ import { ActivatedRoute } from '@angular/router';
 
 export class TimelineComponent implements OnInit {
 
-  @Input() vendaId: number;
-
   timeline: Timeline[] = [];
   usuarioLogadoId: number;
 
   dataPeriodo: DataPeriodo;
-
-  templateModalPublicacaoTemplateService = new TemplateModalService();
-  publicacaoTemplateComponent = PublicacaoTemplateComponent;
-
-  templateModalPublicacaoInteracaoService = new TemplateModalService();
-  publicacaoInteracaoComponent = PublicacaoInteracaoComponent;
 
   inputs: any;
   componentModal: any;
@@ -44,7 +34,6 @@ export class TimelineComponent implements OnInit {
               }
 
   ngOnInit() {
-    const publicacaoId = +this.router.snapshot.paramMap.get('id');
     this.usuarioLogadoId = this.permissaoService.getUsuarioId();
     this.dataPeriodo = Object.assign(
       {
@@ -55,10 +44,6 @@ export class TimelineComponent implements OnInit {
       }
     );
     this.carregarNotificacoes();
-
-    if (publicacaoId) {
-      this.abrirTemplateModalPublicacaoInteracao(publicacaoId);
-    }
   }
 
   carregarNotificacoes() {
@@ -85,38 +70,15 @@ export class TimelineComponent implements OnInit {
     );
   }
 
-  getTemplateModalPublicacaoTemplate() {
-    return this.templateModalPublicacaoTemplateService.getTemplateModalStatus();
-  }
-
-  abrirTemplateModalPublicacaoTemplate() {
-    this.componentModal = PublicacaoTemplateComponent;
-    this.inputs = Object.assign({
-      vendaId: (this.vendaId) ? this.vendaId : null
-    });
-    this.templateModalPublicacaoTemplateService.setTemplateModalStatus(true);
-  }
-
-  getTemplateModalPublicacaoInteracao() {
-    return this.templateModalPublicacaoInteracaoService.getTemplateModalStatus();
-  }
 
   abrirComponentModal(componentIdentificacao: string) {
     const informacoes = componentIdentificacao.split('/');
 
     if (informacoes.length > 0) {
       if (informacoes[0] === 'publicacao') {
-        this.abrirTemplateModalPublicacaoInteracao(Number(informacoes[1]));
+
       }
     }
-  }
-
-  abrirTemplateModalPublicacaoInteracao(publicacaoIdInput: number) {
-    this.componentModal = PublicacaoInteracaoComponent;
-    this.inputs = Object.assign({
-      publicacaoId: publicacaoIdInput,
-    });
-    this.templateModalPublicacaoInteracaoService.setTemplateModalStatus(true);
   }
 
 }

@@ -6,6 +6,7 @@ import * as moment from 'moment';
 export class DataService {
 
   novaData: any;
+  novaHora: any;
 constructor() {
  }
 
@@ -20,6 +21,26 @@ constructor() {
       const mes = this.novaData[1];
       const ano = this.novaData[0];
       return dia + '/' + mes + '/' + ano;
+    } else {
+      return '';
+    }
+  }
+
+  getDataHoraPTBR(data: any) {
+    if (data && data !== null && data.toString().length > 0) {
+      if (data.includes('T')) {
+        this.novaData = data.split('T')[0].split('-');
+        this.novaHora = data.split('T')[1].split(':');
+      } else {
+        this.novaData = data.split('-');
+      }
+      const dia = this.novaData[2];
+      const mes = this.novaData[1];
+      const ano = this.novaData[0];
+
+      const hora = this.novaHora[0];
+      const minuto = this.novaHora[1];
+      return dia + '/' + mes + '/' + ano + ' ' + hora + ':' + minuto;
     } else {
       return '';
     }

@@ -5,8 +5,6 @@ import { ProdutoService } from 'src/app/_services/Cadastros/Produtos/produto.ser
 import { ActivatedRoute } from '@angular/router';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
 import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
-import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
-import { ProdutoGrupoChecks } from 'src/app/_models/Cadastros/Produtos/produtoGrupoChecks';
 import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 
 @Component({
@@ -26,12 +24,6 @@ export class EditarProdutoComponent implements OnInit, AfterViewInit {
 
   produto: Produto;
   idProduto: number;
-
-  produtoItens: ProdutoItem[] = [];
-  produtoItem: ProdutoItem;
-
-  produtoGrupoChecks: ProdutoGrupoChecks[] = [];
-  grupoChecks: ProdutoGrupoChecks;
 
   modoSalvar = '';
 
@@ -76,10 +68,6 @@ export class EditarProdutoComponent implements OnInit, AfterViewInit {
       this.produto = Object.assign({}, produto);
       this.cadastroForm.patchValue(this.produto);
 
-      this.produtoItens = [];
-      this.produtoItens = produto.itens;
-      this.produtoGrupoChecks = produto.grupoChecks;
-      this.produtoService.atualizarProdutosGruposCheck(this.produtoGrupoChecks);
     }, error => {
       this.toastr.error(`Erro ao tentar carregar Produto: ${error.error}`);
       console.log(error);
@@ -92,27 +80,6 @@ export class EditarProdutoComponent implements OnInit, AfterViewInit {
         descricao: ['', Validators.required],
         valorMinimo: ['', [Validators.required, Validators.min(1)]],
     });
-  }
-
-
-  abrirCheckListProduto(modoSalvar: string, grupoChecks: ProdutoGrupoChecks) {
-    this.modoSalvar = modoSalvar;
-    this.grupoChecks = grupoChecks;
-    this.produtoService.setCheckListProdutoStatus(true);
-  }
-
-  getCheckListProduto() {
-    return this.produtoService.getCheckListProdutoStatus();
-  }
-
-  abrirProdutoItens(modoSalvar: string, produtoItem: ProdutoItem) {
-    this.modoSalvar = modoSalvar;
-    this.produtoItem = produtoItem;
-    this.produtoService.setProdutoItensStatus(true);
-  }
-
-  getProdutoItens() {
-    return this.produtoService.getProdutoItensStatus();
   }
 
   salvarAlteracoes() {

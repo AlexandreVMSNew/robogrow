@@ -5,7 +5,6 @@ import { BsLocaleService, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/_models/Cadastros/Usuarios/Usuario';
-import { UsuarioOcorrencia } from 'src/app/_models/Cadastros/Usuarios/UsuarioOcorrencia';
 import { Nivel } from 'src/app/_models/Cadastros/Usuarios/Nivel';
 import { UsuarioNivel } from 'src/app/_models/Cadastros/Usuarios/UsuarioNivel';
 import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service';
@@ -25,7 +24,6 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
   listar = false;
   visualizar = false;
   excluir = false;
-  visualizarOcorrencia = false;
   editarCampoNivel = false;
   visualizarCampoNivel = false;
 
@@ -33,16 +31,15 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
   idUsuario: number;
   idUsuarioLogado: number;
 
-  cadastroOcorrenciaForm: FormGroup;
   usuario: Usuario = new Usuario();
-  usuarioOcorrencias: UsuarioOcorrencia[] = [];
+
   dataAtual = '';
   modoSalvarOcorrencia = '';
 
   niveis: Nivel[];
   niveisIdSelecionado: any;
   niveisUsuario: UsuarioNivel[] = [];
-  
+
   dateFormat = '';
 
   arquivoFotoPerfil: File;
@@ -65,7 +62,7 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
     this.idUsuario = +this.router.snapshot.paramMap.get('id');
     this.getNiveis();
     this.validarForm();
-    this.validarOcorrenciaForm();
+    this.carregarUsuario();
   }
 
   ngAfterViewChecked() {
@@ -97,23 +94,15 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
   }
 
   carregarUsuario() {
-    this.usuarioOcorrencias.length = 0;
     this.usuarioService.getUsuarioById(this.idUsuario)
     .subscribe((usuario: Usuario) => {
       this.usuario = Object.assign({}, usuario);
-      const data = this.usuario.dataNascimento;
-      this.usuario = Object.assign(this.usuario, { dataNascimento: this.dataService.getDataPTBR(data) });
       this.cadastroForm.patchValue(this.usuario);
-
-      this.usuario.usuarioOcorrencias.forEach(ocorrencia => {
-        ocorrencia = Object.assign(ocorrencia, { data: this.dataService.getDataPTBR(ocorrencia.data) });
-        this.usuarioOcorrencias.push(ocorrencia);
-      });
 
       const nomeArquivo = (this.usuario.nomeArquivoFotoPerfil === null) ? '' : this.usuario.nomeArquivoFotoPerfil;
       this.baseURLFotoPerfil = this.permissaoService.getUrlUsuarioLogadoFotoPerfil(this.usuario.id, nomeArquivo);
 
-      this.niveisIdSelecionado = this.usuario.usuarioNivel[0].roleId;
+      this.niveisIdSelecionado = this.usuario.niveis[0].roleId;
       this.niveisUsuario.push(Object.assign({ userId: this.idUsuario, roleId: this.niveisIdSelecionado}));
       this.cadastroForm.controls.usuarioNivel.setValue(this.niveisIdSelecionado);
 
@@ -127,19 +116,8 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
       nomeCompleto: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       userName: ['', Validators.required],
-      dataNascimento: ['', Validators.required],
       nomeArquivoFotoPerfil: [''],
-      usuarioOcorrencias: this.fb.array([]),
       usuarioNivel: ['', Validators.required]
-    });
-  }
-
-  validarOcorrenciaForm() {
-    this.cadastroOcorrenciaForm = this.fb.group({
-      id: [],
-      data: ['', Validators.required],
-      descricao: ['', Validators.required],
-      observacao: ['', Validators.required]
     });
   }
 
@@ -159,34 +137,6 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
     });
   }
 
-  openModal(template: any) {
-    this.cadastroOcorrenciaForm.reset();
-    template.show(template);
-  }
-
-  novaOcorrencia(template: any)  {
-    this.modoSalvarOcorrencia = 'post';
-    this.openModal(template);
-  }
-
-  criaOcorrencia(ocorrencia: any): FormGroup {
-    return this.fb.group({
-      id: [ocorrencia.id],
-      data: [ocorrencia.data, Validators.required],
-      descricao: [ocorrencia.descricao, [Validators.required]],
-      observacao: [ocorrencia.observacao, Validators.required],
-    });
-  }
-
-  adicionarOcorrencia(template: any) {
-    this.usuarioOcorrencias.push(Object.assign(this.cadastroOcorrenciaForm.value, {id: 0}));
-    template.hide();
-  }
-
-  removerOcorrencia(ocorrencia: any) {
-    this.usuarioOcorrencias.splice(this.usuarioOcorrencias.indexOf(ocorrencia), 1);
-  }
-
   alterarNomeArquivoFotoPerfil(event) {
     if (event.target.files && event.target.files.length) {
       this.arquivoFotoPerfil = event.target.files[0];
@@ -203,27 +153,17 @@ export class EditarUsuarioComponent implements OnInit, AfterViewInit, AfterViewC
       this.carregarUsuario();
     }, error => {
       this.toastr.error(`Erro ao tentar Editar: ${error.error}`);
-      console.log(error);
+      console.log(error.error);
     });
   }
 
   salvarAlteracao() {
-    const data = this.cadastroForm.get('dataNascimento').value.toLocaleString();
-
     this.usuario = Object.assign(this.cadastroForm.value, {
       id: this.usuario.id,
-      dataNascimento: this.dataService.getDataSQL(data),
       nomeArquivoFotoPerfil: this.nomeArquivoFotoPerfil,
-      usuarioNivel:  this.niveisUsuario
+      niveis:  this.niveisUsuario
     });
-
-    this.usuario.usuarioOcorrencias = [];
-    this.usuarioOcorrencias.forEach(ocorrencia => {
-      const dataOcorrencia = ocorrencia.data.toLocaleString();
-      ocorrencia = Object.assign(ocorrencia, { usuarioId: this.usuario.id, data: this.dataService.getDataSQL(dataOcorrencia)});
-      this.usuario.usuarioOcorrencias.push(ocorrencia);
-    });
-
+    console.log(this.usuario);
     if (this.arquivoFotoPerfil) {
       this.usuarioService.enviarFotoPerfil(this.usuario.id, this.arquivoFotoPerfil, this.usuario.nomeArquivoFotoPerfil)
       .subscribe((result: any) => {

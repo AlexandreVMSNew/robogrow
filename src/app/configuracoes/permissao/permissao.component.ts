@@ -12,10 +12,10 @@ import { PermissaoObjetos } from 'src/app/_models/Permissoes/permissaoObjetos';
 export class PermissaoComponent implements OnInit, AfterViewInit {
 
   formularioComponent = 'PERMISSÕES';
-  cadastrar = false;
-  editar = false;
-  listar = false;
-  visualizar = false;
+  cadastrar = true;
+  editar = true;
+  listar = true;
+  visualizar = true;
   excluir = false;
 
   permissaoFormularios: Permissao[];

@@ -19,13 +19,6 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div style="margin-left: 15px;margin-bottom: 20px;" class="float-left">
-    <a [routerLink]="[]" (click)="abrirTemplateModalPublicacaoTemplate()" class="btn btn-success">
-      <i class="fa fa-plus-circle"></i>&nbsp; Nova Publicação
-    </a>
-  </div>
-</div>
 <section class="content">
 
   <div class="row" *ngIf="this.timeline && this.timeline.length">
@@ -55,11 +48,3 @@
     </div>
   </div>
 </section>
-
-<app-template-modal id="publicacaoTemplate" *ngIf="this.getTemplateModalPublicacaoTemplate() == true"
-  [templateModalService]="this.templateModalPublicacaoTemplateService" [component]="this.componentModal" [width]="60"
-  [inputs]="this.inputs"></app-template-modal>
-
-<app-template-modal id="publicacaoInteracao" *ngIf="this.getTemplateModalPublicacaoInteracao() == true"
-  [templateModalService]="this.templateModalPublicacaoInteracaoService" [component]="this.componentModal" [width]="60"
-  [inputs]="this.inputs"></app-template-modal>

@@ -3,10 +3,6 @@ import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 import { Produto } from 'src/app/_models/Cadastros/Produtos/produto';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ProdutoItem } from 'src/app/_models/Cadastros/Produtos/produtoItem';
-import { ProdutoGrupoChecks } from 'src/app/_models/Cadastros/Produtos/produtoGrupoChecks';
-import { ProdutoCheckList } from 'src/app/_models/Cadastros/Produtos/produtoCheckList';
-import { ProdutoCheckListOpcoes } from 'src/app/_models/Cadastros/Produtos/ProdutoCheckListOpcoes';
 
 @Injectable({
   providedIn: 'root'
@@ -16,100 +12,38 @@ export class ProdutoService {
   baseURL = InfoAPI.URL + '/produtos';
 
   atualizaProdutos = new EventEmitter<boolean>();
-  atualizaProdutosGruposCheck = new EventEmitter<ProdutoGrupoChecks[]>();
 
   retornoPermissao = false;
-  checkListProduto = false;
-  produtoItens = false;
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-atualizarProdutos() {
-  this.atualizaProdutos.emit(true);
-}
-
-atualizarProdutosGruposCheck(produtoGrupo: ProdutoGrupoChecks[]) {
-  this.atualizaProdutosGruposCheck.emit(produtoGrupo);
-}
-
-setProdutoItensStatus(val: boolean) {
-  this.produtoItens = val;
-}
-
-getProdutoItensStatus() {
-  return this.produtoItens;
-}
+  atualizarProdutos() {
+    this.atualizaProdutos.emit(true);
+  }
 
 
-setCheckListProdutoStatus(val: boolean) {
-  this.checkListProduto = val;
-}
+  getProdutos(): Observable<Produto[]> {
+    return this.http.get<Produto[]>(this.baseURL);
+  }
 
-getCheckListProdutoStatus() {
-  return this.checkListProduto;
-}
+  getProdutoById(id: number): Observable<Produto> {
+    return this.http.get<Produto>(`${this.baseURL}/${id}`);
+  }
 
-getProduto(): Observable<Produto[]> {
-  return this.http.get<Produto[]>(this.baseURL);
-}
+  getIdUltimoProduto(): Observable<Produto> {
+    return this.http.get<Produto>(`${this.baseURL}/idUltimoProduto`);
+  }
 
-getProdutoByDescricao(descricao: string): Observable<Produto[]> {
-  return this.http.get<Produto[]>(`${this.baseURL}/getByDescricao/${descricao}`);
-}
+  cadastrarProduto(produto: Produto) {
+    return this.http.post(`${this.baseURL}/cadastrar`, produto);
+  }
 
-getProdutoById(id: number): Observable<Produto> {
-  return this.http.get<Produto>(`${this.baseURL}/${id}`);
-}
+  editarProduto(produto: Produto) {
+    return this.http.put(`${this.baseURL}/editar/${produto.id}`, produto);
+  }
 
-getVendaProdutoById(id: number): Observable<Produto> {
-  return this.http.get<Produto>(`${this.baseURL}/vendas/${id}`);
-}
-
-getIdUltimoProduto(): Observable<Produto> {
-  return this.http.get<Produto>(`${this.baseURL}/idUltimoProduto`);
-}
-
-cadastrarProduto(produto: Produto) {
-  return this.http.post(`${this.baseURL}/cadastrar`, produto);
-}
-
-cadastrarItem(Item: ProdutoItem[]) {
-  return this.http.post(`${this.baseURL}/item/cadastrar`, Item);
-}
-
-editarItem(Item: ProdutoItem[], id: number) {
-  return this.http.put(`${this.baseURL}/item/editar/${id}`, Item);
-}
-
-editarProduto(produto: Produto) {
-  return this.http.put(`${this.baseURL}/editar/${produto.id}`, produto);
-}
-
-excluirProduto(id: number) {
-  return this.http.delete(`${this.baseURL}/excluir/${id}`);
-}
-
-cadastrarProdutoGrupoCheck(produtoGrupoCheck: ProdutoGrupoChecks) {
-  return this.http.post(`${this.baseURL}/grupoChecks/cadastrar`, produtoGrupoCheck);
-}
-
-editarProdutoGrupoCheck(produtoGrupoCheck: ProdutoGrupoChecks) {
-  return this.http.put(`${this.baseURL}/grupoChecks/editar/${produtoGrupoCheck.id}`, produtoGrupoCheck);
-}
-
-excluirProdutoGrupoCheck(id: number) {
-  return this.http.delete(`${this.baseURL}/grupoChecks/excluir/${id}`);
-}
-
-cadastrarProdutoCheckList(produtoCheckList: ProdutoCheckList) {
-  return this.http.post(`${this.baseURL}/grupoChecks/check/cadastrar`, produtoCheckList);
-}
-
-cadastrarProdutoCheckListOpcoes(produtoCheckListOpcoes: ProdutoCheckListOpcoes) {
-  return this.http.post(`${this.baseURL}/grupoChecks/opcao/cadastrar`, produtoCheckListOpcoes);
-}
-getProdutoGrupoCheckByProdutoId(produtoId: number): Observable<ProdutoGrupoChecks[]> {
-  return this.http.get<ProdutoGrupoChecks[]>(`${this.baseURL}/grupoChecks/produto/${produtoId}`);
-}
+  excluirProduto(id: number) {
+    return this.http.delete(`${this.baseURL}/excluir/${id}`);
+  }
 
 }

@@ -36,80 +36,19 @@ import { EditarUsuarioComponent } from './cadastros/usuario/editarUsuario/editar
 import { CadastrarUsuarioComponent } from './cadastros/usuario/cadastrarUsuario/cadastrarUsuario.component';
 import { EditarSenhaUsuarioComponent } from './cadastros/usuario/editarSenhaUsuario/editarSenhaUsuario.component';
 
-import { ClienteComponent } from './cadastros/cliente/cliente.component';
-import { CadastrarClienteComponent } from './cadastros/cliente/cadastrarCliente/cadastrarCliente.component';
-import { EditarClienteComponent } from './cadastros/cliente/editarCliente/editarCliente.component';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { AtendimentoComponent } from './atendimento/atendimento.component';
-import { RetornoComponent } from './atendimento/retorno/retorno.component';
-import { CadastrarRetornoComponent } from './atendimento/retorno/cadastrarRetorno/cadastrarRetorno.component';
-import { EditarRetornoComponent } from './atendimento/retorno/editarRetorno/editarRetorno.component';
-
-import { VendaComponent } from './movimentos/venda/venda.component';
-import { CadastrarVendaComponent } from './movimentos/venda/cadastrarVenda/cadastrarVenda.component';
-import { EditarVendaComponent } from './movimentos/venda/editarVenda/editarVenda.component';
-import { ResultadoVendaComponent } from './movimentos/venda/editarVenda/resultadoVenda/resultadoVenda.component';
-import { PagamentosVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/pagamentosVenda/pagamentosVenda.component';
-import { RecebimentosVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/recebimentosVenda/recebimentosVenda.component';
-import { ConfigVendaComponent } from './movimentos/venda/configVenda/configVenda.component';
-import { RelatorioVendaComponent } from './movimentos/venda/relatorioVenda/relatorioVenda.component';
-import { CheckListVendaComponent } from './movimentos/venda/editarVenda/checkListVenda/checkListVenda.component';
-import { FinanceiroVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/financeiroVenda.component';
-import { PrevisaoVendaComponent } from './movimentos/venda/editarVenda/financeiroVenda/previsaoVenda/previsaoVenda.component';
-import { PedidoVendaComponent } from './movimentos/venda/editarVenda/pedidoVenda/pedidoVenda.component';
-import { LogsStatusVendaComponent } from './movimentos/venda/editarVenda/logsStatusVenda/logsStatusVenda.component';
-import { VendaStatusCadastroComponent } from './movimentos/venda/configVenda/vendaStatusCadastro/vendaStatusCadastro.component';
 
 import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { CadastrarProdutoComponent } from './cadastros/produto/cadastrarProduto/cadastrarProduto.component';
 import { EditarProdutoComponent } from './cadastros/produto/editarProduto/editarProduto.component';
-import { CheckListProdutoComponent } from './cadastros/produto/editarProduto/checkListProduto/checkListProduto.component';
-import { TemplateProdutoItensComponent } from './cadastros/produto/editarProduto/templateProdutoItens/templateProdutoItens.component';
-
-import { PlanoContaComponent } from './cadastros/planoConta/planoConta.component';
-
-import { CentroDespesaComponent } from './cadastros/centroDespesa/centroDespesa.component';
-import { CentroReceitaComponent } from './cadastros/centroReceita/centroReceita.component';
-
-import { FormaPagamentoComponent } from './cadastros/formaPagamento/formaPagamento.component';
-import { PlanoPagamentoComponent } from './cadastros/planoPagamento/planoPagamento.component';
-
-import { PessoaComponent } from './cadastros/pessoa/pessoa.component';
-import { CadastrarPessoaComponent } from './cadastros/pessoa/cadastrarPessoa/cadastrarPessoa.component';
-import { EditarPessoaComponent } from './cadastros/pessoa/editarPessoa/editarPessoa.component';
-
-import { RecebimentoComponent } from './financeiro/recebimento/recebimento.component';
-import { DetalharRecebimentoComponent } from './financeiro/recebimento/detalharRecebimento/detalharRecebimento.component';
-import { TemplateRecebimentoComponent } from './financeiro/recebimento/templateRecebimento/templateRecebimento.component';
-
-import { PagamentoComponent } from './financeiro/pagamento/pagamento.component';
-import { TemplatePagamentoComponent } from './financeiro/pagamento/templatePagamento/templatePagamento.component';
-import { DetalharPagamentoComponent } from './financeiro/pagamento/detalharPagamento/detalharPagamento.component';
-
-import { LancamentoComponent } from './financeiro/lancamento/lancamento.component';
-import { LancamentoTemplateComponent } from './financeiro/lancamento/lancamentoTemplate/lancamentoTemplate.component';
-import { RelatorioLancamentoComponent } from './financeiro/lancamento/relatorioLancamento/relatorioLancamento.component';
-
-import { ChequePreComponent } from './cadastros/chequePre/chequePre.component';
-import { ChequePreTemplateComponent } from './cadastros/chequePre/chequePreTemplate/chequePreTemplate.component';
 
 import { PermissaoComponent } from './configuracoes/permissao/permissao.component';
 import { EditarPermissaoComponent } from './configuracoes/permissao/editarPermissao/editarPermissao.component';
 // tslint:disable-next-line:max-line-length
 import { TemplatePermissaoObjetoComponent } from './configuracoes/permissao/editarPermissao/templatePermissaoObjeto/templatePermissaoObjeto.component';
 
-import { EmpresaComponent } from './cadastros/empresa/empresa.component';
-import { EmpresaTemplateComponent } from './cadastros/empresa/empresaTemplate/empresaTemplate.component';
-
-import { AutorizacaoComponent } from './autorizacao/autorizacao.component';
-import { AutorizacaoTemplateComponent } from './autorizacao/autorizacaoTemplate/autorizacaoTemplate.component';
-
 import { TemplateModalComponent } from './Uteis/templateModal/templateModal.component';
-
-import { PublicacaoTemplateComponent } from './timeline/publicacao/publicacaoTemplate/publicacaoTemplate.component';
-import { PublicacaoInteracaoComponent } from './timeline/publicacao/publicacaoInteracao/publicacaoInteracao.component';
 
 import { DateInputComponent } from './Uteis/DateInput/DateInput.component';
 
@@ -118,6 +57,13 @@ import { GraficoPieChartComponent } from './Uteis/graficoPieChart/graficoPieChar
 import { GraficoLineChartComponent } from './Uteis/graficoLineChart/graficoLineChart.component';
 
 import { TimelineComponent } from './timeline/timeline/timeline.component';
+
+import { TempUmidComponent } from './Monitoramentos/tempUmid/tempUmid.component';
+
+import { PainelControleComponent } from './painel-controle/painel-controle.component';
+
+import { CoolerComponent } from './painel-controle/cooler/cooler.component';
+import { CoolerCadastroComponent } from './painel-controle/cooler/coolerCadastro/coolerCadastro.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
@@ -132,7 +78,6 @@ import { registerLocaleData } from '@angular/common';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { ClienteService } from './_services/Cadastros/Clientes/cliente.service';
 import { SocketService } from './_services/WebSocket/Socket.service';
 
 export function getDatepickerConfig(): BsDatepickerConfig {
@@ -148,22 +93,10 @@ defineLocale('pt-br', ptBrLocale);
 @NgModule({
    entryComponents: [
       TemplateModalComponent,
-      PrevisaoVendaComponent,
-      RecebimentosVendaComponent,
-      PagamentosVendaComponent,
       EditarPermissaoComponent,
       TemplatePermissaoObjetoComponent,
-      DetalharRecebimentoComponent,
-      TemplateRecebimentoComponent,
-      DetalharPagamentoComponent,
-      TemplatePagamentoComponent,
-      LogsStatusVendaComponent,
-      AutorizacaoTemplateComponent,
-      PublicacaoTemplateComponent,
-      PublicacaoInteracaoComponent,
-      ConfigVendaComponent,
       TimelineComponent,
-      VendaStatusCadastroComponent
+      CoolerCadastroComponent
    ],
    declarations: [
       AppComponent,
@@ -173,70 +106,26 @@ defineLocale('pt-br', ptBrLocale);
       EditarUsuarioComponent,
       EditarSenhaUsuarioComponent,
       DashboardComponent,
-      ClienteComponent,
-      CadastrarClienteComponent,
-      EditarClienteComponent,
-      AtendimentoComponent,
-      RetornoComponent,
-      CadastrarRetornoComponent,
-      EditarRetornoComponent,
       PermissaoComponent,
-      VendaComponent,
-      CadastrarVendaComponent,
-      EditarVendaComponent,
-      ResultadoVendaComponent,
-      ConfigVendaComponent,
-      RelatorioVendaComponent,
-      PagamentosVendaComponent,
-      RecebimentosVendaComponent,
-      CheckListVendaComponent,
-      FinanceiroVendaComponent,
-      PrevisaoVendaComponent,
-      PedidoVendaComponent,
       ProdutoComponent,
       CadastrarProdutoComponent,
       EditarProdutoComponent,
-      CheckListProdutoComponent,
-      TemplateProdutoItensComponent,
-      PessoaComponent,
-      CadastrarPessoaComponent,
-      EditarPessoaComponent,
-      PlanoContaComponent,
-      CentroDespesaComponent,
-      CentroReceitaComponent,
-      FormaPagamentoComponent,
-      PlanoPagamentoComponent,
-      RecebimentoComponent,
-      DetalharRecebimentoComponent,
-      TemplateRecebimentoComponent,
-      PagamentoComponent,
-      TemplatePagamentoComponent,
-      DetalharPagamentoComponent,
-      LancamentoComponent,
-      LancamentoTemplateComponent,
-      RelatorioLancamentoComponent,
-      ChequePreComponent,
-      ChequePreTemplateComponent,
-      EmpresaComponent,
-      EmpresaTemplateComponent,
-      AutorizacaoComponent,
-      AutorizacaoTemplateComponent,
       TemplateModalComponent,
-      PublicacaoTemplateComponent,
       DateInputComponent,
       GraficoBarChartComponent,
       GraficoPieChartComponent,
       GraficoLineChartComponent,
       EditarPermissaoComponent,
       TemplatePermissaoObjetoComponent,
-      LogsStatusVendaComponent,
-      PublicacaoInteracaoComponent,
       TimelineComponent,
-      VendaStatusCadastroComponent,
+      TempUmidComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,
-      IePipe
+      IePipe,
+      PainelControleComponent,
+      CoolerComponent,
+      CoolerCadastroComponent
    ],
    imports: [
       BrowserAnimationsModule,
@@ -268,7 +157,7 @@ defineLocale('pt-br', ptBrLocale);
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
-      ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+      ReactiveFormsModule.withConfig(({warnOnNgModelWithFormControl: 'never'})),
    ],
    exports: [
       RouterModule
@@ -290,7 +179,6 @@ defineLocale('pt-br', ptBrLocale);
          provide: PERFECT_SCROLLBAR_CONFIG,
          useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
       },
-      ClienteService,
       {
          provide: HTTP_INTERCEPTORS,
          useClass: AuthInterceptor,

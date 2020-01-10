@@ -45,13 +45,8 @@
           </div>
 
           <div class="row">
-            <div class="form-group col-md-3">
-              <label>Data de Nascimento</label>
-              <input type="text" class="form-control" formControlName="dataNascimento"
-                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker />
-            </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
               <label>Nível</label>
               <ng-select [items]="niveis" bindLabel="name" bindValue="id" required [multiple]="true"
                 (change)="adicionarUsuarioNivel(niveisIdSelecionado)" [(ngModel)]="niveisIdSelecionado"
@@ -64,27 +59,25 @@
                 Campo Obrigatório.
               </div>
             </div>
-          </div>
 
-          <div formGroupName="passwords">
-            <div class="row">
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-3" formGroupName="passwords">
                 <label>Senha:</label>
-                <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.password').errors &&
+                <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.password').errors &&
                                                              cadastroForm.get('passwords.password').touched}" />
                 <div *ngIf="cadastroForm.get('passwords.password').hasError('minlength') &&
                                   cadastroForm.get('passwords.password').touched" class="invalid-feedback d-block">
                   Deve conter no mínimo 4 caracters
                 </div>
                 <div *ngIf="cadastroForm.get('passwords.password').hasError('required') &&
-                                            cadastroForm.get('passwords.password').touched" class="invalid-feedback d-block">
+                                            cadastroForm.get('passwords.password').touched"
+                  class="invalid-feedback d-block">
                   Senha é obrigatório.
                 </div>
               </div>
 
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-3" formGroupName="passwords">
                 <label>Confirmar Senha:</label>
-                <input class="form-control" type="password" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.confirmPassword').errors 
+                <input type="password" class="form-control"  formControlName="confirmPassword" [ngClass]="{ 'is-invalid': cadastroForm.get('passwords.confirmPassword').errors 
                                                && cadastroForm.get('passwords.confirmPassword').touched 
                                                ||cadastroForm.get('passwords.confirmPassword').hasError('mismatch') 
                                                && cadastroForm.get('passwords.confirmPassword').touched }" />
@@ -99,14 +92,14 @@
                   Senhas diferentes!
                 </div>
               </div>
-            </div>
+
           </div>
         </tab>
 
       </tabset>
     </form>
   </div>
-  
+
   <button *ngIf="this.cadastrar == true" style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid"
     (click)="cadastrarUsuario()" tooltip="Cadastrar Usuário" class="btn btn-lg btn-primary">
     &nbsp;Cadastrar

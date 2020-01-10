@@ -51,21 +51,29 @@ export class GraficoLineChartComponent implements OnInit {
     },
   };
   public lineChartColors: Color[] = [
-     { // dark grey
-      backgroundColor: 'rgba(0,0,255,0.3)',
+     { // umidade
+      // backgroundColor: 'rgba(0,0,255,0.3)',
       borderColor: 'blue',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(5,149,254,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
+      pointHoverBorderColor: 'rgba(5,149,254,1)'
     },
-    { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: 'red',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
+    { // temperatura
+      // backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'yellow',
+      pointBackgroundColor: 'rgba(215,243,16,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      pointHoverBorderColor: 'rgba(215,243,16,0.8)'
+    },
+    { // sensacao termica
+      // backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'green',
+      pointBackgroundColor: 'rgba(65,194,111,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(65,194,111,0.8)'
     }
   ];
   public lineChartLegend = true;

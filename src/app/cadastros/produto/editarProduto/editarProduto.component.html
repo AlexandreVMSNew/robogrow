@@ -39,95 +39,6 @@
           </div>
         </form>
       </tab>
-
-      <tab heading="Check List" style="margin-top: 20px;">
-          <div style="margin-right: 15px;margin-bottom: 10px;" class="float-right">
-              <a tooltip="Cadastrar Grupo" (click)="abrirCheckListProduto('cadastrar', null)" class="btn btn-success">
-                <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Grupo
-              </a>
-            </div>
-    
-            <table  style="border-collapse:inherit;" class="table table-striped table-bordered mt-3">
-              <thead class="thead-light">
-                <tr>
-                  <th>Id</th>
-                  <th>Descrição</th>
-                  <th style="text-align: center;">Ações</th>
-                </tr>
-              </thead>
-              <tbody *ngIf="produtoGrupoChecks && produtoGrupoChecks.length">
-                <tr *ngFor="let grupoChecks of produtoGrupoChecks">
-                  <td>{{ grupoChecks.id }}</td>
-                  <td style="white-space: nowrap;">{{ grupoChecks.descricao }}</td>
-                  <td style="white-space: nowrap;text-align: center;">
-                    <div class="btn-group">
-                      <a (click)="abrirCheckListProduto('editar', grupoChecks)" tooltip="Editar/Detalhes" class="btn btn-sm btn-primary">
-                        <i class="fa fa-edit"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-    
-              <tfoot *ngIf="!produtoGrupoChecks">
-                <tr colspan="7" class="text-center"></tr>
-                <h4>
-                  Nenhum Grupo encontrado!
-                </h4>
-              </tfoot>
-            </table>
-      </tab>
-  
-      <tab heading="Produto Itens" style="margin-top: 20px;">
-        <div style="margin-right: 15px;margin-bottom: 10px;" class="float-right">
-          <a (click)="abrirProdutoItens('cadastrar', null)" tooltip="Cadastrar Item" class="btn btn-success">
-            <i class="fa fa-plus-circle"></i>&nbsp; Cadastrar Item
-          </a>
-        </div>
-
-        <table  style="border-collapse:inherit;" class="table table-striped table-bordered mt-3">
-          <thead class="thead-light">
-            <tr>
-              <th>Id</th>
-              <th>Descrição</th>
-              <th>Tipo</th>
-              <th style="text-align: center;">Ações</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="produtoItens && produtoItens.length">
-            <tr *ngFor="let Item of produtoItens">
-              <td>{{ Item.id }}</td>
-              <td style="white-space: nowrap;">{{ Item.descricao }}</td>
-              <td style="white-space: nowrap;text-align: center;">
-                <span style="margin-top:0px;" *ngIf="Item.tipoItem == 'RECEITA'" class="badge badge-info">
-                  {{ Item.tipoItem }}
-                </span>
-                <span style="margin-top:0px;" *ngIf="Item.tipoItem != 'RECEITA'" class="badge badge-danger">
-                  {{ Item.tipoItem }}
-                </span>
-                <span style="margin-left: 5px;margin-top:0px;" *ngIf="Item.tipoItem != 'RECEITA'"
-                  class="badge badge-warning">
-                  {{ Item.subTipoItem }}
-                </span>
-              </td>
-              <td style="white-space: nowrap;text-align: center;">
-                <div class="btn-group">
-                  <a (click)="abrirProdutoItens('editar', Item)" tooltip="Editar/Detalhes" class="btn btn-sm btn-primary">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-
-          <tfoot *ngIf="!produtoItens">
-            <tr colspan="7" class="text-center"></tr>
-            <h4>
-              Nenhum Item encontrado!
-            </h4>
-          </tfoot>
-        </table>
-      </tab>
     </tabset>
   </div>
   <button style="position:relative;margin-bottom: 15px;" [disabled]="!cadastroForm.valid" (click)="salvarAlteracoes()"
@@ -138,8 +49,3 @@
 <div *ngIf="this.editar == false && this.visualizar == false">
   Você não tem permissão.
 </div>
-
-<app-template-produto-itens [produto]="this.produto" [produtoItem]="this.produtoItem" [modoSalvar]="this.modoSalvar"
-*ngIf="getProdutoItens() == true"></app-template-produto-itens>
-
-<app-check-list-produto [produto]="this.produto" [produtoGrupoChecks]="this.grupoChecks" [modoSalvar]="this.modoSalvar" *ngIf="getCheckListProduto() == true"></app-check-list-produto>

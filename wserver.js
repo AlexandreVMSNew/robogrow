@@ -14,30 +14,17 @@ var forceSsl = function (req, res, next) {
 app.use(forceSsl);
 
 const server = app
-  .use(express.static(__dirname + '/dist/VirtualWeb-App'))
+  .use(express.static(__dirname + '/dist/RoboGrow-App'))
   .get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/dist/VirtualWeb-App/index.html'));
+    res.sendFile(path.join(__dirname + '/dist/RoboGrow-App/index.html'));
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 let io = socketIO(server);
  
 io.on('connection', (socket) => {
-    console.log('user connect');
+    console.log('Usuário Conectado!');
 
-    socket.on('NovoRetorno', (dados) => { io.emit('NovoRetorno', dados); });
+    socket.on('teste', (dados) => { io.emit('teste', dados); });
     
-    socket.on('NovoRetornoEspecifico', (dados) => { io.emit('NovoRetornoEspecifico', dados); });
-
-    socket.on('NovaObservacao', (dados) => { io.emit('NovaObservacao', dados); });
-
-    socket.on('StatusRetornoAlterado', (dados) => { io.emit('StatusRetornoAlterado', dados); });
-    
-    socket.on('AutorizacaoVendaGerarPedido', (dados) => { io.emit('AutorizacaoVendaGerarPedido', dados); });
- 
-    socket.on('RespAutorizacaoVendaGerarPedido', (dados) => { io.emit('RespAutorizacaoVendaGerarPedido', dados); });
-    
-    socket.on('NovoComentarioPublicacao', (dados) => { io.emit('NovoComentarioPublicacao', dados); });
-    
-    socket.on('NovaPublicacao', (dados) => { io.emit('NovaPublicacao', dados); });
 });

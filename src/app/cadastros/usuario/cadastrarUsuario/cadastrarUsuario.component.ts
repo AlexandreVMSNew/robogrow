@@ -45,11 +45,11 @@ export class CadastrarUsuarioComponent implements OnInit, AfterViewInit {
     this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
     .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
       const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
-      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : false;
-      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : false;
-      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
-      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : false;
-      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : false;
+      this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : true;
+      this.editar = (permissaoFormulario !== null ) ? permissaoFormulario.editar : true;
+      this.listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : true;
+      this.visualizar = (permissaoFormulario !== null ) ? permissaoFormulario.visualizar : true;
+      this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : true;
     }, error => {
       console.log(error.error);
     });
@@ -60,7 +60,6 @@ export class CadastrarUsuarioComponent implements OnInit, AfterViewInit {
       nomeCompleto: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       userName: ['', Validators.required],
-      dataNascimento: ['', Validators.required],
       passwords: this.fb.group({
       password: ['', [Validators.required, Validators.minLength(4)]],
       confirmPassword: ['', Validators.required]
@@ -112,9 +111,9 @@ export class CadastrarUsuarioComponent implements OnInit, AfterViewInit {
               const IdUltimoUsuario = _USUARIO.id;
               this.usuario = Object.assign(this.cadastroForm.value, {id: IdUltimoUsuario});
 
-              this.usuario.usuarioNivel = [];
+              this.usuario.niveis = [];
               this.niveisUsuario.forEach(niveis => {
-                this.usuario.usuarioNivel.push(Object.assign({ userId: IdUltimoUsuario , roleId: niveis.roleId}));
+                this.usuario.niveis.push(Object.assign({ userId: IdUltimoUsuario , roleId: niveis.roleId}));
               });
 
               this.usuarioService.editarUsuario(this.usuario).subscribe(

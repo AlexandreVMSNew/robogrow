@@ -1,0 +1,62 @@
+<form [formGroup]="cadastroCoolerForm">
+  <div class="row">
+    <div class="form-group col-md-5">
+      <label>Descrição</label>
+      <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
+        type="text" formControlName="descricao" [ngClass]="{ 'is-invalid': cadastroCoolerForm.get('descricao').errors && 
+                              cadastroCoolerForm.get('descricao').touched}" />
+
+      <div
+        *ngIf="cadastroCoolerForm.get('descricao').hasError('required') &&cadastroCoolerForm.get('descricao').touched"
+        class="invalid-feedback d-block">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group  col-md-3">
+      <label>Sentido Ar</label>
+      <ng-select appendTo="body" [dropdownPosition]="'bottom'" [clearable]="false" formControlName="sentido" required
+        [items]="itensSentido" [(ngModel)]="this.sentidoSelecionado">
+      </ng-select>
+      <div *ngIf="cadastroCoolerForm.get('sentido').hasError('required') &&cadastroCoolerForm.get('sentido').touched"
+        class="invalid-feedback d-block d-block ng-invalid ng-touched">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group col-md-3">
+      <label>Velocidade</label>
+      <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
+        type="number" formControlName="velocidade" [ngClass]="{ 'is-invalid': cadastroCoolerForm.get('velocidade').errors && 
+                              cadastroCoolerForm.get('velocidade').touched}" />
+
+      <div
+        *ngIf="cadastroCoolerForm.get('velocidade').hasError('required') &&cadastroCoolerForm.get('velocidade').touched"
+        class="invalid-feedback d-block">
+        Campo é obrigatório.
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-3">
+      <label>Status</label>
+      <ng-select appendTo="body" [dropdownPosition]="'bottom'" [clearable]="false" bindLabel="label"
+        formControlName="status" required [items]="itensStatus" bindValue="value" [(ngModel)]="this.statusSelecionado">
+      </ng-select>
+      <div *ngIf="cadastroCoolerForm.get('status').hasError('required') &&cadastroCoolerForm.get('status').touched"
+        class="invalid-feedback d-block d-block ng-invalid ng-touched">
+        Campo é obrigatório.
+      </div>
+    </div>
+  </div>
+</form>
+
+<button [disabled]="!cadastroCoolerForm.valid" class="btn btn-primary float-right" *ngIf="this.modoSalvar == 'CADASTRAR'"
+  (click)="cadastrarCooler()">
+  Cadastrar
+</button>
+
+<button [disabled]="!cadastroCoolerForm.valid" class="btn btn-primary float-right" *ngIf="this.modoSalvar == 'EDITAR'"
+  (click)="editarCooler()">
+  Salvar
+</button>

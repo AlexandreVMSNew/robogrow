@@ -62,7 +62,7 @@ export class ProdutoComponent implements OnInit, AfterViewInit {
 
 
   getProdutos() {
-      this.produtoService.getProduto().subscribe(
+      this.produtoService.getProdutos().subscribe(
         // tslint:disable-next-line:variable-name
         (_produtos: Produto[]) => {
         this.produtos = _produtos;

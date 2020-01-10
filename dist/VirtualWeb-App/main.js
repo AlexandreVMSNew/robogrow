@@ -2694,7 +2694,7 @@ var AppComponent = /** @class */ (function () {
         this.sidebarService = sidebarService;
         this.publicacaoService = publicacaoService;
         this.vendaService = vendaService;
-        this.title = 'VirtualWeb';
+        this.title = 'RoboGrow';
         this.statusLogIn = false;
         this.paginaNotificacaoAtual = 1;
         this.logou = false;
@@ -4670,12 +4670,12 @@ var AutorizacaoTemplateComponent = /** @class */ (function () {
                 visto: 0
             });
             var email = {
-                emailRemetente: 'virtualwebsistema@gmail.com',
+                emailRemetente: 'robogrowsistema@gmail.com',
                 nomeRemetente: 'Virtual Web',
                 senhaRemetente: '1379258vms//',
                 emailDestinatario: emailSolicitante,
                 assunto: "Resposta Autoriza\u00E7\u00E3o " + _this.autorizacao.acao + " " + ((_this.autorizacao.objeto) ? _this.autorizacao.objeto : ''),
-                mensagem: "Sua solicita\u00E7\u00E3o para " + _this.autorizacao.acao + "\n                    " + ((_this.autorizacao.objeto) ? _this.autorizacao.objeto : '') + " em " + _this.autorizacao.formulario + "\n                    (" + _this.autorizacao.formularioIdentificacao + ")\n         foi " + ((autorizadoValor === 1) ? 'AUTORIZADO' : 'NEGADO') + ".\n\n         <a href=\"https://virtualweb.herokuapp.com/movimentos/vendas/editar/" + _this.autorizacao.formularioId + "\">\n         CLIQUE AQUI PARA ABRIR A VENDA!</a>",
+                mensagem: "Sua solicita\u00E7\u00E3o para " + _this.autorizacao.acao + "\n                    " + ((_this.autorizacao.objeto) ? _this.autorizacao.objeto : '') + " em " + _this.autorizacao.formulario + "\n                    (" + _this.autorizacao.formularioIdentificacao + ")\n         foi " + ((autorizadoValor === 1) ? 'AUTORIZADO' : 'NEGADO') + ".\n\n         <a href=\"https://robogrow.herokuapp.com/movimentos/vendas/editar/" + _this.autorizacao.formularioId + "\">\n         CLIQUE AQUI PARA ABRIR A VENDA!</a>",
             };
             _this.emailService.enviarEmail(email).subscribe(function (_RESPOSTA) {
             }, function (error) {
@@ -11625,14 +11625,14 @@ var EditarVendaComponent = /** @class */ (function () {
     };
     EditarVendaComponent.prototype.enviarEmail = function (usuariosEmailNotificacao) {
         var email = {
-            emailRemetente: 'virtualwebsistema@gmail.com',
+            emailRemetente: 'robogrowsistema@gmail.com',
             nomeRemetente: 'Virtual Web',
             senhaRemetente: '1379258vms//',
             emailDestinatario: usuariosEmailNotificacao,
             assunto: 'Autorização PEDIDO DE VENDA',
             mensagem: 'Você tem uma autorização de Pedido de Venda pendente. <br/>' +
                 'Para analisar a Venda: ' +
-                '<a href="https://virtualweb.herokuapp.com/movimentos/vendas/editar/' + this.idVenda + '">CLIQUE AQUI!</a>',
+                '<a href="https://robogrow.herokuapp.com/movimentos/vendas/editar/' + this.idVenda + '">CLIQUE AQUI!</a>',
         };
         this.emailService.enviarEmail(email).subscribe(function (_RESPOSTA) {
         }, function (error) {
@@ -13972,7 +13972,7 @@ var PublicacaoComponent = /** @class */ (function () {
         var ass = usuarioComentario.nomeCompleto + " adicionou um Cadastrar coment\u00E1rio em uma publica\u00E7\u00E3o que voc\u00EA foi marcado(a).";
         var msg = "Para ir at\u00E9 o coment\u00E1rio publicado pelo usu\u00E1rio " + usuarioComentario.nomeCompleto + " <br/>\n                <a href=\"" + location.protocol + "//" + location.hostname + "/publicacoes\">CLIQUE AQUI.</a>";
         var email = {
-            emailRemetente: 'virtualwebsistema@gmail.com',
+            emailRemetente: 'robogrowsistema@gmail.com',
             nomeRemetente: 'Virtual Web',
             senhaRemetente: '1379258vms//',
             emailDestinatario: usuariosEmailNotificacao,
@@ -14209,7 +14209,7 @@ var PublicacaoTemplateComponent = /** @class */ (function () {
         var ass = usuarioComentario.nomeCompleto + " marcou voc\u00EA em uma nova publica\u00E7\u00E3o!";
         var msg = "Para ir at\u00E9 a publica\u00E7\u00E3o feita pelo usu\u00E1rio " + usuarioComentario.nomeCompleto + " <br/>\n                <a href=\"" + location.protocol + "//" + location.hostname + "/publicacoes/" + publicacao.id + "\">CLIQUE AQUI.</a>";
         var email = {
-            emailRemetente: 'virtualwebsistema@gmail.com',
+            emailRemetente: 'robogrowsistema@gmail.com',
             nomeRemetente: 'Virtual Web',
             senhaRemetente: '1379258vms//',
             emailDestinatario: usuariosEmailNotificacao,
@@ -14426,7 +14426,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\SERVMS\Desktop\VirtualWeb\VirtualWeb-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\SERVMS\Desktop\RoboGrow\RoboGrow-App\src\main.ts */"./src/main.ts");
 
 
 /***/ }),

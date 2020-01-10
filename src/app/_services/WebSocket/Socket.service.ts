@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Socket } from 'ngx-socket-io';
-import * as io from 'socket.io-client';
-import { Notificacao } from 'src/app/_models/Notificacoes/notificacao';
-
+import * as signalR from '@aspnet/signalr';
+import { InfoAPI } from 'src/app/_models/Info/infoAPI';
+import { HubConnection } from '@aspnet/signalr';
 export interface Dados {
     info: any;
 }
@@ -11,23 +9,32 @@ export interface Dados {
 @Injectable()
 export class SocketService {
 
-    private url = location.protocol + '//' + location.hostname + '';
-    private socket;
+    public hubConnection: HubConnection;
 
     constructor() {
-        this.socket = io(this.url);
     }
 
-    public sendSocket(evento: string, dados: Notificacao) {
-        this.socket.emit(evento, dados);
+    public iniciarConexao = () => {
+        this.hubConnection = new signalR.HubConnectionBuilder()
+                                .configureLogging(signalR.LogLevel.Debug)
+                                .withUrl('https://www.vmsweb.com.br:4201/websockets', {
+                                    skipNegotiation: true,
+                                    transport: signalR.HttpTransportType.WebSockets
+                                })
+                                .build();
+        this.hubConnection
+          .start()
+          .then(() => console.log('Connection started'))
+          .catch(err => console.log('Error while starting connection: ' + err));
     }
 
-    public getSocket(evento: string) {
-    // tslint:disable-next-line: deprecation
-        return Observable.create((observer) => {
-            this.socket.on(evento, (dados) => {
-                observer.next(dados);
-            });
+    public getSocket = (evento: string) => {
+        this.hubConnection.on(evento, (data) => {
+            console.log(data);
         });
+    }
+
+    public sendSocket(dados) {
+        this.hubConnection.invoke('EnviarMensagem', dados);
     }
 }
