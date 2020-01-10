@@ -17,7 +17,7 @@ import { PainelControleComponent } from './painel-controle/painel-controle.compo
 export const routes: Routes = [
   { path: 'usuarios', component: UsuarioComponent, canActivate: [AuthGuard]},
   { path: 'usuarios/login', component: LoginComponent},
-  { path: 'usuarios/cadastrar', component: CadastrarUsuarioComponent, canActivate: [AuthGuard]},
+  { path: 'usuarios/cadastrar', component: CadastrarUsuarioComponent},
   { path: 'usuarios/editar/:id', component: EditarUsuarioComponent, canActivate: [AuthGuard]},
   { path: 'usuarios/editar/senha/:id', component: EditarSenhaUsuarioComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
