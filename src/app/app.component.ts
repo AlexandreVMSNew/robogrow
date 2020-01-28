@@ -48,10 +48,6 @@ export class AppComponent implements OnInit, AfterViewChecked {
       component: 'Permissões',
       listar: true
     },
-    {
-      component: 'Produtos',
-      listar: false
-    },
   ];
 
   constructor(private spinner: NgxSpinnerService,
@@ -85,7 +81,6 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
     this.usuarioLogadoId = this.permissaoService.getUsuarioId();
     if (this.usuarioLogadoId && this.usuarioLogadoId !== null && this.verificarLogIn()) {
-      this.getSocket('NovoRetornoEspecifico');
       this.getNotificacoes();
     } else {
       this.logout();
@@ -134,6 +129,10 @@ export class AppComponent implements OnInit, AfterViewChecked {
       this.spinnerService.alterarSpinnerStatus(true);
       this.permissaoService.getPermissaoFormulariosByNivelId().subscribe((permissoes: Permissao[]) => {
 
+        const permissaoObjetos = permissoes.filter(f => f.formulario === 'PERMISSÕES')[0].permissaoObjetos;
+        const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
+        this.filtrarPermissao('Permissões').listar = (permissaoFormulario !== null ) ? permissaoFormulario.listar : false;
+
         this.spinnerService.alterarSpinnerStatus(false);
       }, error => {
         this.spinnerService.alterarSpinnerStatus(false);
@@ -160,7 +159,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
       if (this.logou === false) {
         this.logou = true;
         this.sidebar = 'sidebar-open';
-        // this.carregarPermissoes();
+        this.carregarPermissoes();
       }
       return true;
     } else {

@@ -2,7 +2,7 @@
 <div class="box box-primary" >
   <div class="box-header with-border">
     <div style="margin-bottom: 10px;" class="float-right">
-      <a  [routerLink]="['cadastrar']" class="btn btn-success">
+      <a  (click)="abrirCoolerCadastro(null)" class="btn btn-success">
         <i class="fa fa-plus-circle"></i>&nbsp; Novo Cooler
       </a>
     </div>
@@ -50,4 +50,4 @@
 </div>
 
 <app-template-modal *ngIf="this.getTemplateModalCoolerCadastro() == true" [templateModalService]="templateModalCoolerCadastroService"
-  [component]="this.componentModal" [width]="50" [inputs]="this.inputs"></app-template-modal>
+  [component]="this.componentModal" [width]="80" [inputs]="this.inputs"></app-template-modal>

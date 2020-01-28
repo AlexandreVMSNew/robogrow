@@ -3,5 +3,8 @@ export class Cooler {
     descricao: string;
     sentido: string;
     velocidade: number;
+    pinoEntradaA: number;
+    pinoEntradaB: number;
+    pinoEntradaVelocidade: number;
     status: number;
 }

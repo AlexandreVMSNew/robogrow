@@ -17,7 +17,7 @@ export class SocketService {
     public iniciarConexao = () => {
         this.hubConnection = new signalR.HubConnectionBuilder()
                                 .configureLogging(signalR.LogLevel.Debug)
-                                .withUrl('https://www.vmsweb.com.br:4201/websockets', {
+                                .withUrl('https://www.vmsweb.com.br:1883/websockets', {
                                     skipNegotiation: true,
                                     transport: signalR.HttpTransportType.WebSockets
                                 })

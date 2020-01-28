@@ -38,11 +38,6 @@ import { EditarSenhaUsuarioComponent } from './cadastros/usuario/editarSenhaUsua
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-
-import { ProdutoComponent } from './cadastros/produto/produto.component';
-import { CadastrarProdutoComponent } from './cadastros/produto/cadastrarProduto/cadastrarProduto.component';
-import { EditarProdutoComponent } from './cadastros/produto/editarProduto/editarProduto.component';
-
 import { PermissaoComponent } from './configuracoes/permissao/permissao.component';
 import { EditarPermissaoComponent } from './configuracoes/permissao/editarPermissao/editarPermissao.component';
 // tslint:disable-next-line:max-line-length
@@ -58,12 +53,13 @@ import { GraficoLineChartComponent } from './Uteis/graficoLineChart/graficoLineC
 
 import { TimelineComponent } from './timeline/timeline/timeline.component';
 
-import { TempUmidComponent } from './Monitoramentos/tempUmid/tempUmid.component';
-
 import { PainelControleComponent } from './painel-controle/painel-controle.component';
 
 import { CoolerComponent } from './painel-controle/cooler/cooler.component';
 import { CoolerCadastroComponent } from './painel-controle/cooler/coolerCadastro/coolerCadastro.component';
+
+import { SensorTemperaturaArComponent } from './Sensores/sensor-temperatura-ar/sensor-temperatura-ar.component';
+import { SensoresComponent } from './Sensores/sensores.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
@@ -107,9 +103,6 @@ defineLocale('pt-br', ptBrLocale);
       EditarSenhaUsuarioComponent,
       DashboardComponent,
       PermissaoComponent,
-      ProdutoComponent,
-      CadastrarProdutoComponent,
-      EditarProdutoComponent,
       TemplateModalComponent,
       DateInputComponent,
       GraficoBarChartComponent,
@@ -118,14 +111,15 @@ defineLocale('pt-br', ptBrLocale);
       EditarPermissaoComponent,
       TemplatePermissaoObjetoComponent,
       TimelineComponent,
-      TempUmidComponent,
       CnpjCpfPipe,
       CelularPipe,
       CepPipe,
       IePipe,
       PainelControleComponent,
       CoolerComponent,
-      CoolerCadastroComponent
+      CoolerCadastroComponent,
+      SensoresComponent,
+      SensorTemperaturaArComponent
    ],
    imports: [
       BrowserAnimationsModule,

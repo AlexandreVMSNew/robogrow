@@ -19,11 +19,14 @@ export class AuthService {
   login(model: any) {
     return this.http.post(`${this.baseURL}login`, model).pipe(
         map((response: any) => {
+          console.log(response);
           const usuario = response;
           if (usuario) {
             localStorage.setItem('token', usuario.token);
             localStorage.setItem('nomeArquivoFotoPerfil', usuario.user.nomeArquivoFotoPerfil);
           }
+        }, error => {
+          console.log(error);
         })
       );
   }

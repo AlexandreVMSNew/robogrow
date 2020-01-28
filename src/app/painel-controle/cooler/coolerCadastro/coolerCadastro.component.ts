@@ -56,6 +56,9 @@ export class CoolerCadastroComponent implements OnInit {
       descricao: ['', Validators.required],
       sentido: ['', Validators.required],
       velocidade: ['', Validators.required],
+      pinoEntradaA: ['', Validators.required],
+      pinoEntradaB: ['', Validators.required],
+      pinoEntradaVelocidade: ['', Validators.required],
       status: ['', Validators.required],
     });
   }
@@ -72,7 +75,14 @@ export class CoolerCadastroComponent implements OnInit {
   }
 
   cadastrarCooler() {
+    this.cooler = Object.assign(this.cadastroCoolerForm.value, {id: 0});
+    console.log(this.cooler);
 
+    this.coolerService.cadastrarCooler(this.cooler).subscribe(() => {
+      this.toastr.success('Cadastrado com Sucesso!');
+    }, error => {
+      console.log(error.error);
+    });
   }
 
 }

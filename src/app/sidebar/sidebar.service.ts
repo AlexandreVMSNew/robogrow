@@ -33,11 +33,6 @@ export class SidebarService {
           title: 'Usuários',
           link: 'usuarios',
           icon: 'fa fa-user-o'
-        },
-        {
-          title: 'Produtos',
-          link: 'produtos',
-          icon: 'fa fa-dropbox'
         }
       ]
     },
@@ -47,6 +42,13 @@ export class SidebarService {
       active: false,
       type: 'simple',
       link: 'painel-controle'
+    },
+    {
+      title: 'Sensores',
+      icon: 'fa fa-file-alt',
+      active: false,
+      type: 'simple',
+      link: 'sensores'
     },
     {
       title: 'TimeLine',

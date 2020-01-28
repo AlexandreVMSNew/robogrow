@@ -15,20 +15,23 @@ export class AuthInterceptor implements HttpInterceptor {
         const token = localStorage.getItem('token');
         if (token !== null && !this.jwtHelper.isTokenExpired(token)) {
             const cloneReq = req.clone({
-                headers: req.headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`)
+                setHeaders: {Authorization: `Bearer ${localStorage.getItem('token')}`}
             });
+
             return next.handle(cloneReq).pipe(
                 tap(
                     succ => {},
                     err => {
+                        console.log(err);
                         if (err.status === 401) {
-                            this.router.navigateByUrl('usuarios/login');
+                            //this.router.navigateByUrl('usuarios/login');
                         }
                     }
                 )
             );
           } else {
-            this.router.navigate(['/usuarios/login']);
+            //this.router.navigate(['/usuarios/login']);
+            console.log('teste 1');
             return next.handle(req.clone());
           }
     }

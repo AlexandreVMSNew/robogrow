@@ -39,6 +39,45 @@
   </div>
   <div class="row">
     <div class="form-group col-md-3">
+      <label>Pino Entrada A</label>
+      <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
+        type="number" formControlName="pinoEntradaA" [ngClass]="{ 'is-invalid': cadastroCoolerForm.get('pinoEntradaA').errors && 
+                              cadastroCoolerForm.get('pinoEntradaA').touched}" />
+
+      <div
+        *ngIf="cadastroCoolerForm.get('pinoEntradaA').hasError('required') &&cadastroCoolerForm.get('pinoEntradaA').touched"
+        class="invalid-feedback d-block">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group col-md-3">
+      <label>Pino Entrada B</label>
+      <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
+        type="number" formControlName="pinoEntradaB" [ngClass]="{ 'is-invalid': cadastroCoolerForm.get('pinoEntradaB').errors && 
+                              cadastroCoolerForm.get('pinoEntradaB').touched}" />
+
+      <div
+        *ngIf="cadastroCoolerForm.get('pinoEntradaB').hasError('required') &&cadastroCoolerForm.get('pinoEntradaB').touched"
+        class="invalid-feedback d-block">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group col-md-3">
+      <label>Pino Entrada Velocidade</label>
+      <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
+        type="number" formControlName="pinoEntradaVelocidade" [ngClass]="{ 'is-invalid': cadastroCoolerForm.get('pinoEntradaVelocidade').errors && 
+                              cadastroCoolerForm.get('pinoEntradaVelocidade').touched}" />
+
+      <div
+        *ngIf="cadastroCoolerForm.get('pinoEntradaVelocidade').hasError('required') &&cadastroCoolerForm.get('pinoEntradaVelocidade').touched"
+        class="invalid-feedback d-block">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group col-md-3">
       <label>Status</label>
       <ng-select appendTo="body" [dropdownPosition]="'bottom'" [clearable]="false" bindLabel="label"
         formControlName="status" required [items]="itensStatus" bindValue="value" [(ngModel)]="this.statusSelecionado">

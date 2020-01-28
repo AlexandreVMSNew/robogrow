@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SocketService } from '../_services/WebSocket/Socket.service';
 import { InfoAPI } from '../_models/Info/infoAPI';
 
 @Component({

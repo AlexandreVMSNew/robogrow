@@ -1,4 +1,4 @@
-export class TempUmid {
+export class SensorTemperaturaAr {
     id: number;
     umidade: number;
     temperatura: number;

@@ -50,6 +50,7 @@ export class PermissaoComponent implements OnInit, AfterViewInit {
   carregarFormularios() {
     this.permissaoService.getPermissaoFormularios().subscribe((_PERMISSOES: Permissao[]) => {
       this.permissaoFormularios = _PERMISSOES;
+      console.log(this.permissaoFormularios);
     }, error => {
       console.log(error.error);
     });

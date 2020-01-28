@@ -9,16 +9,20 @@ import { Cooler } from 'src/app/_models/Painel-Controle/Cooler/Cooler';
 })
 export class CoolerService {
 
-  baseURL = InfoAPI.URL + '/painel-controle/coolers';
+  baseURL = InfoAPI.URL + '/drivers/coolers';
 
   constructor(private http: HttpClient) {}
 
-  getCoolers(): Observable<Cooler[]> {
+  buscarCoolers(): Observable<Cooler[]> {
     return this.http.get<Cooler[]>(`${this.baseURL}`);
   }
 
   editarCooler(cooler: Cooler) {
     return this.http.put(`${this.baseURL}/editar/${cooler.id}`, cooler);
+  }
+
+  cadastrarCooler(cooler: Cooler) {
+    return this.http.post(`${this.baseURL}/cadastrar`, cooler);
   }
 
 }

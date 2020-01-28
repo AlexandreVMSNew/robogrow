@@ -16,11 +16,11 @@ import { PermissaoService } from 'src/app/_services/Permissoes/permissao.service
 export class CadastrarUsuarioComponent implements OnInit, AfterViewInit {
 
   formularioComponent = 'USUÁRIOS';
-  cadastrar = false;
-  editar = false;
-  listar = false;
-  visualizar = false;
-  excluir = false;
+  cadastrar = true;
+  editar = true;
+  listar = true;
+  visualizar = true;
+  excluir = true;
 
   titulo = 'Cadastrar';
   cadastroForm: FormGroup;
@@ -42,7 +42,7 @@ export class CadastrarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
+  /*  this.permissaoService.getPermissaoObjetosByFormularioAndNivelId(Object.assign({ formulario: this.formularioComponent }))
     .subscribe((permissaoObjetos: PermissaoObjetos[]) => {
       const permissaoFormulario = this.permissaoService.verificarPermissaoPorObjetos(permissaoObjetos, 'FORMULÁRIO');
       this.cadastrar = (permissaoFormulario !== null ) ? permissaoFormulario.cadastrar : true;
@@ -52,7 +52,7 @@ export class CadastrarUsuarioComponent implements OnInit, AfterViewInit {
       this.excluir = (permissaoFormulario !== null ) ? permissaoFormulario.excluir : true;
     }, error => {
       console.log(error.error);
-    });
+    });*/
   }
 
   validation() {

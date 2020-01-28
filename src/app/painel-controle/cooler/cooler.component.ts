@@ -5,7 +5,6 @@ import { TemplateModalService } from 'src/app/_services/Uteis/TemplateModal/temp
 import { CoolerCadastroComponent } from './coolerCadastro/coolerCadastro.component';
 import { SocketService } from 'src/app/_services/WebSocket/Socket.service';
 import { HttpClient } from '@angular/common/http';
-import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 
 @Component({
   selector: 'app-cooler',
@@ -23,16 +22,12 @@ export class CoolerComponent implements OnInit {
   tituloModal = '';
   componentModal: any;
 
-  constructor(private coolerService: CoolerService,
-              private socketService: SocketService,
-              private http: HttpClient) {
+  constructor(private coolerService: CoolerService) {
 
    }
 
   ngOnInit() {
-    this.getCoolers();
-    this.socketService.iniciarConexao();
-    this.socketService.getSocket('coolers');
+    this.buscarCoolers();
   }
 
 
@@ -46,9 +41,9 @@ export class CoolerComponent implements OnInit {
     return this.templateModalCoolerCadastroService.getTemplateModalStatus();
   }
 
-  getCoolers() {
-    this.coolerService.getCoolers().subscribe((_COOLERS: Cooler[]) => {
-      this.coolers = _COOLERS;
+  buscarCoolers() {
+    this.coolerService.buscarCoolers().subscribe((informacoes: Cooler[]) => {
+      this.coolers = informacoes;
     }, error => {
       console.log(error.error);
     });
