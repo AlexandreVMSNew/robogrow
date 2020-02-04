@@ -61,6 +61,8 @@ import { CoolerCadastroComponent } from './painel-controle/cooler/coolerCadastro
 import { SensorTemperaturaArComponent } from './Sensores/sensor-temperatura-ar/sensor-temperatura-ar.component';
 import { SensoresComponent } from './Sensores/sensores.component';
 
+import { LuzExaustorComponent } from './painel-controle/luz-exaustor/luz-exaustor.component';
+
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
 import { CepPipe } from './pipes/cep.pipe';
@@ -119,7 +121,8 @@ defineLocale('pt-br', ptBrLocale);
       CoolerComponent,
       CoolerCadastroComponent,
       SensoresComponent,
-      SensorTemperaturaArComponent
+      SensorTemperaturaArComponent,
+      LuzExaustorComponent
    ],
    imports: [
       BrowserAnimationsModule,
