@@ -3,6 +3,7 @@ import { InfoAPI } from 'src/app/_models/Info/infoAPI';
 import { Observable } from 'rxjs';
 import { SensorTemperaturaAr } from 'src/app/_models/Sensores/SensorTemperaturaAr/SensorTemperaturaAr';
 import { HttpClient } from '@angular/common/http';
+import { DataPeriodo } from 'src/app/_models/Cadastros/Uteis/DataPeriodo';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class SensorTemperaturaArService {
 
   constructor(private http: HttpClient) {}
 
-  buscarTemperaturaUmidadeAr(): Observable<SensorTemperaturaAr[]> {
-    return this.http.get<SensorTemperaturaAr[]>(`${this.baseURL}`);
+  buscarTemperaturaUmidadeAr(dataPeriodo: DataPeriodo): Observable<SensorTemperaturaAr[]> {
+    return this.http.post<SensorTemperaturaAr[]>(`${this.baseURL}`, dataPeriodo);
   }
 
 }

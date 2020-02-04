@@ -3,4 +3,5 @@ export class DataPeriodo {
     dataInicialPTBR: Date;
     dataFinal: Date;
     dataFinalPTBR: Date;
+    quantidadeRegistros: number;
 }
