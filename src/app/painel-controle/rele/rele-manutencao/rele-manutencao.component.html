@@ -44,7 +44,7 @@
       <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
         type="text" formControlName="horaMinutoLiga"  maxlength="5"
         [ngClass]="{ 'is-invalid': cadastroReleForm.get('horaMinutoLiga').errors && cadastroReleForm.get('horaMinutoLiga').touched}" 
-        [ngModel]="cadastroReleForm.get('horaMinutoLiga').value | HoraMinutoPipe" (ngModelChange)="cadastroReleForm.get('horaMinutoLiga').value=$event"/>
+        [ngModel]="cadastroReleForm.get('horaMinutoLiga').value | HoraMinutoPipe" (ngModelChange)="cadastroReleForm.get('horaMinutoLiga').value"/>
 
       <div
         *ngIf="cadastroReleForm.get('horaMinutoLiga').hasError('required') &&cadastroReleForm.get('horaMinutoLiga').touched"
@@ -58,12 +58,12 @@
       <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
         type="text" formControlName="horaMinutoDesliga" maxlength="5"
         [ngClass]="{ 'is-invalid': cadastroReleForm.get('horaMinutoDesliga').errors && cadastroReleForm.get('horaMinutoDesliga').touched}" 
-        [ngModel]="cadastroReleForm.get('horaMinutoDesliga').value | HoraMinutoPipe" (ngModelChange)="cadastroReleForm.get('horaMinutoDesliga').value=$event"/>
+        [ngModel]="cadastroReleForm.get('horaMinutoDesliga').value | HoraMinutoPipe" (ngModelChange)="cadastroReleForm.get('horaMinutoDesliga').value"/>
 
       <div
         *ngIf="cadastroReleForm.get('horaMinutoDesliga').hasError('required') &&cadastroReleForm.get('horaMinutoDesliga').touched"
         class="invalid-feedback d-block">
-        Campo é obrigatório.
+        Campo é obrigatório. 
       </div>
     </div>
 
