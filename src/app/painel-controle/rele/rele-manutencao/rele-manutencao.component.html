@@ -1,0 +1,91 @@
+<form [formGroup]="cadastroReleForm">
+  <div class="row">
+    <div class="form-group col-md-5">
+      <label>Descrição</label>
+      <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
+        type="text" formControlName="descricao" [ngClass]="{ 'is-invalid': cadastroReleForm.get('descricao').errors && 
+                              cadastroReleForm.get('descricao').touched}" />
+
+      <div
+        *ngIf="cadastroReleForm.get('descricao').hasError('required') &&cadastroReleForm.get('descricao').touched"
+        class="invalid-feedback d-block">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group col-md-3">
+      <label>Pino Saída</label>
+      <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
+        type="number" formControlName="pinoSaida" [ngClass]="{ 'is-invalid': cadastroReleForm.get('pinoSaida').errors && cadastroReleForm.get('pinoSaida').touched}" />
+      <div
+        *ngIf="cadastroReleForm.get('pinoSaida').hasError('required') &&cadastroReleForm.get('pinoSaida').touched"
+        class="invalid-feedback d-block">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    
+    <div class="form-group col-md-3">
+      <label>Automático</label>
+      <ng-select appendTo="body" [dropdownPosition]="'bottom'" [clearable]="false" bindLabel="label"
+        formControlName="automatico" required [items]="itensAutomatico" bindValue="value" [(ngModel)]="this.automaticoSelecionado">
+      </ng-select>
+      <div *ngIf="cadastroReleForm.get('automatico').hasError('required') &&cadastroReleForm.get('automatico').touched"
+        class="invalid-feedback d-block d-block ng-invalid ng-touched">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group col-md-2">
+      <label>Hora/Minuto LIGAR</label>
+      <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
+        type="text" formControlName="horaMinutoLiga"  maxlength="5"
+        [ngClass]="{ 'is-invalid': cadastroReleForm.get('horaMinutoLiga').errors && cadastroReleForm.get('horaMinutoLiga').touched}" 
+        [ngModel]="cadastroReleForm.get('horaMinutoLiga').value | HoraMinutoPipe" (ngModelChange)="cadastroReleForm.get('horaMinutoLiga').value=$event"/>
+
+      <div
+        *ngIf="cadastroReleForm.get('horaMinutoLiga').hasError('required') &&cadastroReleForm.get('horaMinutoLiga').touched"
+        class="invalid-feedback d-block">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group col-md-2">
+      <label>Hora/Minuto DESLIGAR</label>
+      <input style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" class="form-control"
+        type="text" formControlName="horaMinutoDesliga" maxlength="5"
+        [ngClass]="{ 'is-invalid': cadastroReleForm.get('horaMinutoDesliga').errors && cadastroReleForm.get('horaMinutoDesliga').touched}" 
+        [ngModel]="cadastroReleForm.get('horaMinutoDesliga').value | HoraMinutoPipe" (ngModelChange)="cadastroReleForm.get('horaMinutoDesliga').value=$event"/>
+
+      <div
+        *ngIf="cadastroReleForm.get('horaMinutoDesliga').hasError('required') &&cadastroReleForm.get('horaMinutoDesliga').touched"
+        class="invalid-feedback d-block">
+        Campo é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group col-md-3">
+      <label>Status</label>
+      <ng-select appendTo="body" [dropdownPosition]="'bottom'" [clearable]="false" bindLabel="label"
+        formControlName="status" required [items]="itensStatus" bindValue="value" [(ngModel)]="this.statusSelecionado">
+      </ng-select>
+      <div *ngIf="cadastroReleForm.get('status').hasError('required') &&cadastroReleForm.get('status').touched"
+        class="invalid-feedback d-block d-block ng-invalid ng-touched">
+        Campo é obrigatório.
+      </div>
+    </div>
+  </div>
+</form>
+
+<button [disabled]="!cadastroReleForm.valid" class="btn btn-primary float-right" *ngIf="this.modoSalvar == 'CADASTRAR'"
+  (click)="cadastrarRele()">
+  Cadastrar
+</button>
+
+<button [disabled]="!cadastroReleForm.valid" class="btn btn-primary float-right" *ngIf="this.modoSalvar == 'EDITAR'"
+  (click)="editarRele()">
+  Salvar
+</button>

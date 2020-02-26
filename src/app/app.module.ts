@@ -61,12 +61,14 @@ import { CoolerCadastroComponent } from './painel-controle/cooler/coolerCadastro
 import { SensorTemperaturaArComponent } from './Sensores/sensor-temperatura-ar/sensor-temperatura-ar.component';
 import { SensoresComponent } from './Sensores/sensores.component';
 
-import { LuzExaustorComponent } from './painel-controle/luz-exaustor/luz-exaustor.component';
+import { ReleComponent } from './painel-controle/rele/rele.component';
+import { ReleManutencaoComponent } from './painel-controle/rele/rele-manutencao/rele-manutencao.component';
 
 import { CnpjCpfPipe } from './pipes/cnpjCpf.pipe';
 import { CelularPipe } from './pipes/celular.pipe';
 import { CepPipe } from './pipes/cep.pipe';
 import { IePipe } from './pipes/ie.pipe';
+import { HoraMinutoPipe } from './pipes/hora-minuto.pipe';
 
 import { LOCALE_ID } from '@angular/core';
 import { defineLocale } from 'ngx-bootstrap/chronos';
@@ -94,7 +96,8 @@ defineLocale('pt-br', ptBrLocale);
       EditarPermissaoComponent,
       TemplatePermissaoObjetoComponent,
       TimelineComponent,
-      CoolerCadastroComponent
+      CoolerCadastroComponent,
+      ReleManutencaoComponent
    ],
    declarations: [
       AppComponent,
@@ -117,14 +120,20 @@ defineLocale('pt-br', ptBrLocale);
       CelularPipe,
       CepPipe,
       IePipe,
+      HoraMinutoPipe,
       PainelControleComponent,
       CoolerComponent,
       CoolerCadastroComponent,
       SensoresComponent,
       SensorTemperaturaArComponent,
-      LuzExaustorComponent
+      ReleComponent,
+      ReleManutencaoComponent
    ],
    imports: [
+      RouterModule.forRoot(
+         routes,
+         { enableTracing: true } // <-- debugging purposes only
+       ),
       BrowserAnimationsModule,
       BrowserModule,
       MatDialogModule,
