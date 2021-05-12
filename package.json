@@ -35,7 +35,7 @@
     "bootstrap-slider": "^10.6.2",
     "brmasker4": "^1.0.3",
     "bufferutil": "4.0.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-annotation": "^0.5.7",
     "chartjs-plugin-datalabels": "^0.6.0",
     "child_process": "^1.0.2",
