@@ -97,7 +97,7 @@
     "typescript": "3.1.6",
     "utf-8-validate": "5.0.2",
     "vanilla-masker": "^1.2.0",
-    "ws": "7.0.0",
+    "ws": "7.4.6",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
