@@ -58,7 +58,7 @@
     "jquery-sparkline": "^2.4.0",
     "jquery-ui": "^1.12.1",
     "jsonwebtoken": "^8.5.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.5.1",
     "jvectormap": "^2.0.4",
     "less": "^3.10.3",
     "moment": "^2.24.0",
