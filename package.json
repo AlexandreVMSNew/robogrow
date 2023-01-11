@@ -57,7 +57,7 @@
     "jquery-knob": "^1.2.11",
     "jquery-sparkline": "^2.4.0",
     "jquery-ui": "^1.12.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jspdf": "^1.5.3",
     "jvectormap": "^2.0.4",
     "less": "^3.10.3",
